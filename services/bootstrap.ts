@@ -1,7 +1,6 @@
 import { container } from 'inversify-props';
-import { UserService } from '~/services/UserService/UserService';
-import IUserService from '~/services/UserService/IUserService';
+import { UserService } from '~/services/UserService';
 
 export default function bootstrap(): void {
-    container.addTransient<IUserService>(UserService);
+    container.addTransient<UserService>(UserService);
 }
