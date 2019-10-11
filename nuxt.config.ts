@@ -28,4 +28,7 @@ export default {
         '~/plugins/directives',
         '~/plugins/vuelidate',
     ],
+    router: {
+        middleware: ['root-redirect']
+    }
 }

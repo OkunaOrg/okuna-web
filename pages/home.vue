@@ -1,6 +1,6 @@
 <template>
     <section>
-        Community
+        Home
     </section>
 </template>
 
@@ -11,7 +11,7 @@
 
 <router>
     {
-    path: '/c/:name?'
+    path: '/home'
     }
 </router>
 
@@ -19,11 +19,11 @@
     import { Component, Vue } from "nuxt-property-decorator"
     import { Inject } from "~/node_modules/inversify-props";
     import { Observer } from "~/node_modules/mobx-vue";
-    import { UserService } from "~/services/UserService";
+    import { UserService } from '~/services/UserService';
 
     @Observer
     @Component({})
-    export default class OkCommunityPage extends Vue {
+    export default class OkHomePage extends Vue {
         @Inject()
         public userService!: UserService;
     }
