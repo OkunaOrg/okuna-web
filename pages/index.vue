@@ -9,19 +9,26 @@
     </section>
 </template>
 
+
+<style scoped>
+
+</style>
+
+<router>
+    {
+    path: '/'
+    }
+</router>
+
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
     import { Inject } from "~/node_modules/inversify-props";
-    import { Observer } from "~/node_modules/mobx-vue";
-    import { UserService } from "~/services/UserService";
     import { intercept, IValueWillChange } from "~/node_modules/mobx";
-    import IUser from "~/types/User";
+    import IUser from "types/User";
+    import { UserService } from "~/services/UserService";
 
-    @Observer
-    @Component({
-        name: 'OkPage'
-    })
-    export default class extends Vue {
+    @Component({})
+    export default class OkPage extends Vue {
         @Inject()
         public userService!: UserService;
 
@@ -36,5 +43,5 @@
     }
 </script>
 
-<style scoped>
-</style>
+
+

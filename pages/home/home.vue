@@ -1,8 +1,19 @@
 <template>
-    <div>
-        Register
-    </div>
+    <section>
+        Home
+    </section>
 </template>
+
+
+<style scoped>
+
+</style>
+
+<router>
+    {
+    path: '/home'
+    }
+</router>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
@@ -11,15 +22,12 @@
     import { UserService } from "~/services/UserService";
 
     @Observer
-    @Component({
-        name: "OkAuthRegisterPage"
-    })
-    export default class extends Vue {
+    @Component({})
+    export default class OkHomePage extends Vue {
         @Inject()
         public userService!: UserService;
-
-        mounted() {
-
-        }
     }
 </script>
+
+
+

@@ -16,7 +16,7 @@ export default {
     css: [
         '~/assets/styles/index.scss'
     ],
-    buildModules: ['@nuxt/typescript-build'],
+    buildModules: ['@nuxt/typescript-build', '@nuxtjs/router-extras'],
     modules: [
         '@nuxtjs/axios',
     ],
@@ -27,5 +27,5 @@ export default {
         {src: '~/plugins/line-clamp', ssr: false},
         '~/plugins/directives',
         '~/plugins/vuelidate',
-    ]
+    ],
 }

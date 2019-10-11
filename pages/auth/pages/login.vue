@@ -1,8 +1,18 @@
 <template>
     <div>
-        Timeline
+        Login
     </div>
 </template>
+
+<style scoped>
+
+</style>
+
+<router>
+    {
+    path: '/auth/login'
+    }
+</router>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
@@ -12,7 +22,7 @@
 
     @Observer
     @Component({
-        name: "OkTimelinePage"
+        name: "OkAuthLoginPage"
     })
     export default class extends Vue {
         @Inject()

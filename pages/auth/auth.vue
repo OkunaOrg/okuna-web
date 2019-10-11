@@ -5,6 +5,16 @@
     </div>
 </template>
 
+<style scoped>
+
+</style>
+
+<router>
+    {
+    path: '/auth'
+    }
+</router>
+
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
     import { Inject } from "~/node_modules/inversify-props";
