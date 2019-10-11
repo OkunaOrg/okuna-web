@@ -1,5 +1,5 @@
 export default {
-    mode: 'universal',
+    mode: 'spa',
     env: {},
     head: {
         title: 'okuna-web',
@@ -16,16 +16,16 @@ export default {
     css: [
         '~/assets/styles/index.scss'
     ],
-    build: {},
     buildModules: ['@nuxt/typescript-build'],
     modules: [
         '@nuxtjs/axios',
     ],
     axios: {},
     plugins: [
+        '~/plugins/bootstrap-container',
         '~/plugins/buefy',
         {src: '~/plugins/line-clamp', ssr: false},
         '~/plugins/directives',
         '~/plugins/vuelidate',
-    ],
+    ]
 }

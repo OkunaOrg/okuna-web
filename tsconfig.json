@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
     "lib": [
       "esnext",
       "esnext.asynciterable",
@@ -20,8 +21,9 @@
       "~/*": ["./*"]
     },
     "types": [
+      "reflect-metadata",
       "@nuxt/types",
-      "typings/*"
+      "types-lib/*"
     ]
   }
 }
