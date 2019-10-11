@@ -1,10 +1,6 @@
 <template>
     <section>
-        <h1 class="header">Nuxt TypeScript Starter</h1>
-        <p>
-            {{userService.loggedInUser}}
-        </p>
-        <button @click="userService.setLoggedInUser({'id': 123})">Set logged in user</button>
+        <h1 class="header">Slug page</h1>
         <nuxt-child></nuxt-child>
     </section>
 </template>
@@ -19,20 +15,24 @@
 
     @Observer
     @Component({
-        name: 'OkPage'
+        name: "OkSlugPage"
     })
     export default class extends Vue {
         @Inject()
         public userService!: UserService;
 
-        mounted() {
-            console.log("Hello");
-            intercept(this.userService, "loggedInUser", (handler: IValueWillChange<IUser>): IValueWillChange<IUser> => {
-                console.log("INTERCEPTED");
-                console.log(handler.newValue);
-                return handler;
-            });
+        validate({params}) {
+            // Must be a number
+            const slug : string = params['slug'];
+            console.log(slug);
+            if(slug === 'c'){
+                console.log('Is a community page');
+            } else if (slug === 'explore'){
+                console.log('Is explore page');
+            }
+            return true;
         }
+
     }
 </script>
 
