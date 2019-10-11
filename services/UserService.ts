@@ -7,12 +7,8 @@ export class UserService{
     @observable
     loggedInUser!: IUser;
 
-    something(): void {
-        console.log('Potato');
-    }
-
     @action.bound
-    setUser(user: IUser): void {
+    setLoggedInUser(user: IUser): void {
         this.loggedInUser = user;
     }
 }

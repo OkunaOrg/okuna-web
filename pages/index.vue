@@ -4,7 +4,7 @@
         <p>
             {{userService.loggedInUser}}
         </p>
-        <button @click="userService.setUser({'id': 123})">Set logged in user</button>
+        <button @click="userService.setLoggedInUser({'id': 123})">Set logged in user</button>
     </section>
 </template>
 
@@ -13,6 +13,8 @@
     import { Inject } from "~/node_modules/inversify-props";
     import { Observer } from "~/node_modules/mobx-vue";
     import { UserService } from "~/services/UserService";
+    import { intercept, IValueWillChange } from "~/node_modules/mobx";
+    import IUser from "~/types/User";
 
     @Observer
     @Component({})
@@ -22,7 +24,11 @@
 
         mounted() {
             console.log("Hello");
-            this.userService.something();
+            intercept(this.userService, "loggedInUser", (handler: IValueWillChange<IUser>): IValueWillChange<IUser> => {
+                console.log("INTERCEPTED");
+                console.log(handler.newValue);
+                return handler;
+            });
         }
     }
 </script>
