@@ -1,0 +1,28 @@
+/* fredoka-one-regular - latin */
+@font-face {
+  font-family: 'Fredoka One';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/fredoka-one-v7-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Fredoka One'), local('FredokaOne-Regular'),
+  url('/fonts/fredoka-one-v7-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/fonts/fredoka-one-v7-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/fonts/fredoka-one-v7-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/fonts/fredoka-one-v7-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/fonts/fredoka-one-v7-latin-regular.svg#FredokaOne') format('svg'); /* Legacy iOS */
+}
+
+
+/* didact-gothic-regular - latin */
+@font-face {
+  font-family: 'Didact Gothic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/didact-gothic-v13-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Didact Gothic Regular'), local('DidactGothic-Regular'),
+  url('/fonts/didact-gothic-v13-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/fonts/didact-gothic-v13-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+  url('/fonts/didact-gothic-v13-latin-regular.woff') format('woff'), /* Modern Browsers */
+  url('/fonts/didact-gothic-v13-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+  url('/fonts/didact-gothic-v13-latin-regular.svg#DidactGothic') format('svg'); /* Legacy iOS */
+}

@@ -1,0 +1,11 @@
+a {
+  color: inherit;
+  &:hover, &:focus{
+    text-decoration: underline !important;
+  }
+}
+
+body {
+  margin: 0;
+  text-align: center;
+}
