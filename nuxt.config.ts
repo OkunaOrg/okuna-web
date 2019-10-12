@@ -29,6 +29,6 @@ export default {
         '~/plugins/vuelidate',
     ],
     router: {
-        middleware: ['root-redirect']
+        middleware: ['root-redirect', 'post-redirect']
     }
 }
