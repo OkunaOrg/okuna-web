@@ -11,7 +11,7 @@
 
 <router>
     {
-    path: '/c/:name?'
+    path: '/c/:name'
     }
 </router>
 

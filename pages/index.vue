@@ -11,7 +11,7 @@
 
 <router>
     {
-    path: '/home'
+    path: '/'
     }
 </router>
 
