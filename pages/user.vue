@@ -17,15 +17,31 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import { Inject } from "~/node_modules/inversify-props";
-    import { Observer } from "~/node_modules/mobx-vue";
-    import { UserService } from '~/services/UserService';
+    import { UserService } from "~/services/UserService";
+    import { container } from "tsyringe";
+    import { intercept, IValueWillChange } from "~/node_modules/mobx";
+    import IUser from '~/types/User';
+    import { Observer } from '~/node_modules/mobx-vue';
 
     @Observer
     @Component({})
     export default class OkUserPage extends Vue {
-        @Inject()
-        public userService!: UserService;
+        userService: UserService = container.resolve(UserService);
+
+        mounted() {
+            intercept(this.userService, "loggedInUser", (handler: IValueWillChange<IUser>): IValueWillChange<IUser> => {
+                console.log("INTERCEPTED");
+                console.log(handler.newValue);
+                return handler;
+            });
+            this._getUser();
+        }
+
+        async _getUser() {
+            const user = await this.userService.getUser();
+            console.log(user);
+            this.userService.setLoggedInUser(user);
+        }
     }
 </script>
 

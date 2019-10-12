@@ -11,3 +11,4 @@ npm-debug.log
 dist
 /.idea/vcs.xml
 /.idea/workspace.xml
+.DS_Store

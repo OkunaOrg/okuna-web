@@ -29,6 +29,7 @@ export default {
         '~/plugins/vuelidate',
     ],
     router: {
-        middleware: ['post-redirect']
+        middleware: ['post-redirect'],
+        mode: 'hash'
     }
 }

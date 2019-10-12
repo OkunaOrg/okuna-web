@@ -1,4 +1,1 @@
-import 'reflect-metadata';
-import bootstrap from '~/services/bootstrap';
-
-bootstrap();
+import '@abraham/reflection';

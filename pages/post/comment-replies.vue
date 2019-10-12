@@ -20,16 +20,10 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import { Inject } from "~/node_modules/inversify-props";
-    import { Observer } from "~/node_modules/mobx-vue";
-    import { UserService } from "~/services/UserService";
     import { Route } from "vue-router";
 
-    @Observer
     @Component({})
     export default class OkPostCommentRepliesPage extends Vue {
-        @Inject()
-        public userService!: UserService;
         $route!: Route;
 
         public hasCommentReplyId= false;
