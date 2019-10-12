@@ -1,6 +1,6 @@
 <template>
   <div>
-    Default layout
+    Auth layout
     <nuxt/>
   </div>
 </template>

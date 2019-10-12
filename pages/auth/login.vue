@@ -10,7 +10,7 @@
 
 <router>
     {
-    path: '/auth/login'
+    path: '/a/login'
     }
 </router>
 

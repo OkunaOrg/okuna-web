@@ -10,7 +10,7 @@
 
 <router>
     {
-    path: '/auth/register'
+    path: '/a/register'
     }
 </router>
 

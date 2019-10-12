@@ -1,6 +1,6 @@
 <template>
     <section>
-        Community
+        Explore
     </section>
 </template>
 
@@ -11,15 +11,21 @@
 
 <router>
     {
-    path: '/c/:communityName'
+    path: '/e'
     }
 </router>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
+    import { Route } from "vue-router";
 
     @Component({})
-    export default class OkCommunityPage extends Vue {
+    export default class OkExplorePage extends Vue {
+        $route!: Route;
+
+
+        mounted() {
+        }
     }
 </script>
 

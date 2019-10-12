@@ -1,6 +1,6 @@
 <template>
     <section>
-        Community
+        Communities
     </section>
 </template>
 
@@ -11,7 +11,7 @@
 
 <router>
     {
-    path: '/c/:communityName'
+    path: '/c'
     }
 </router>
 

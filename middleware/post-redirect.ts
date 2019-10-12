@@ -5,6 +5,10 @@ const rootRedirectMiddleware: Middleware = (context) => {
         const postUuid = context.route.params['postUuid'];
         context.redirect(`/p/${postUuid}/c`);
     }
+
+    if(context.route.name === 'auth'){
+        context.redirect(`/a/login`);
+    }
 };
 
 export default rootRedirectMiddleware;

@@ -11,7 +11,7 @@
 
 <router>
     {
-    path: '/auth'
+    path: '/a'
     }
 </router>
 
@@ -26,6 +26,10 @@
     export default class extends Vue {
         mounted() {
 
+        }
+
+        layout(){
+            return 'auth';
         }
     }
 </script>
