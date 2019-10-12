@@ -30,6 +30,5 @@ export default {
     ],
     router: {
         middleware: ['post-redirect'],
-        mode: 'hash'
     }
 }
