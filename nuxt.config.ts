@@ -1,6 +1,8 @@
+const envVars = require('./env.json');
+
 export default {
     mode: 'spa',
-    env: {},
+    env: envVars,
     head: {
         title: 'okuna-web',
         meta: [
