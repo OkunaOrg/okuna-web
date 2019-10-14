@@ -2,48 +2,53 @@ import { IModelData } from '~/models/abstract/Model';
 import { IModelFactory } from '~/interfaces/IModelFactory';
 import { IUserData, User } from '~/models/auth/User';
 import { UpdatableModel } from '~/models/abstract/UpdatableModel';
+import { Badge, IBadgeData } from '~/models/common/Badge';
 
-class CircleFactory implements IModelFactory<Circle, ICircleData> {
-    make(data: ICircleData): Circle {
-        return new Circle(data);
+class UserProfileFactory implements IModelFactory<UserProfile, IUserProfileData> {
+    make(data: IUserProfileData): UserProfile {
+        return new UserProfile(data);
     }
 }
 
 
-export class Circle extends UpdatableModel<Circle, ICircleData> {
-    static factory = new CircleFactory();
+export class UserProfile extends UpdatableModel<UserProfile, IUserProfileData> {
+    static factory = new UserProfileFactory();
 
     updatableDataToAttributesMap = {
+        id: 'id',
         name: 'name',
-        color: 'color',
-        usersCount: 'usersCount',
-        creator: {
-            targetAttribute: 'creator',
-            updater(instance: Circle, newDataValue: IUserData) {
-                return User.factory.make(newDataValue);
-            }
-        },
-        users: {
-            targetAttribute: 'users',
-            updater(instance: Circle, newDataValue: IUserData[]) {
-                return newDataValue.map((user) => User.factory.make(user));
+        avatar: 'avatar',
+        cover: 'cover',
+        bio: 'bio',
+        url: 'url',
+        location: 'location',
+        followers_count_visible: 'followersCountVisible',
+        community_posts_visible: 'communityPostsVisible',
+        badges: {
+            targetAttribute: 'badges',
+            updater(instance: UserProfile, newDataValue: IBadgeData[]) {
+                return newDataValue.map((badge) => Badge.factory.make(badge));
             }
         }
     };
 
-    creator!: User;
     name!: string;
-    color!: string;
-    usersCount!: number;
-    users!: User[];
+    avatar!: string;
+    cover!: string;
+    bio!: string;
+    url!: string;
+    location!: string;
+    followersCountVisible!: boolean;
+    communityPostsVisible!: boolean;
+    badges!: Badge[];
 
 
-    constructor(data: ICircleData) {
+    constructor(data: IUserProfileData) {
         super(data);
     }
 }
 
-export interface ICircleData extends IModelData {
+export interface IUserProfileData extends IModelData {
     creator: IUserData,
     name: string,
     color: string,

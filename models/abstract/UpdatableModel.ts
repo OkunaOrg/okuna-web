@@ -6,20 +6,21 @@ export interface IUpdatableModelData extends IModelData {
 
 export abstract class UpdatableModel<T extends UpdatableModel<T, Y>, Y extends IUpdatableModelData> extends Model<T, Y> {
     @observable
-    updateSubject!: UpdatableModel<T,Y>;
+    updateSubject!: UpdatableModel<T, Y>;
 
     updatableDataKeys: string[];
     ownAttributesKeys: string[];
+    updatableDataToAttributesMap: UpdatableModelDataToAttributesMap<any> = {
+        id: 'id'
+    };
 
     protected constructor(data: Y) {
         super(data);
-        const updatableDataToAttributesMap = this.getUpdatableDataToAttributesMap();
-        this.updatableDataKeys = Object.keys(updatableDataToAttributesMap);
+        this.updatableDataKeys = Object.keys(this.updatableDataToAttributesMap);
         this.ownAttributesKeys = Object.getOwnPropertyNames(this);
         this.updateWithData(data);
     }
 
-    abstract getUpdatableDataToAttributesMap(): UpdatableModelDataToAttributesMap<T>;
 
     updateWithData(data: Y, config: {notifyUpdate: boolean} = {notifyUpdate: true}) {
         this.updatableDataKeys.forEach((updatableDataKey) => {
@@ -33,8 +34,8 @@ export abstract class UpdatableModel<T extends UpdatableModel<T, Y>, Y extends I
                 if (typeof targetAttribute == 'string') {
                     targetAttributeKey = targetAttribute;
                 } else {
-                    targetAttributeKey = targetAttribute.attribute;
-                    targetAttributeValue = targetAttribute.updater(this, updatableDataKey, targetAttributeValue);
+                    targetAttributeKey = targetAttribute.targetAttribute;
+                    targetAttributeValue = targetAttribute.updater(this, targetAttributeValue);
                 }
 
                 if (!this.ownAttributesKeys.includes(targetAttributeKey)) {
@@ -59,8 +60,8 @@ export abstract class UpdatableModel<T extends UpdatableModel<T, Y>, Y extends I
 }
 
 interface UpdatableModelKeyUpdater<T> {
-    attribute: string;
-    updater: (instance: T, dataKey: string, newDataValue: any) => any
+    targetAttribute: string;
+    updater: (instance: T, data: any) => any
 }
 
 interface UpdatableModelDataToAttributesMap<T> {
