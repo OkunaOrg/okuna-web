@@ -1,6 +1,15 @@
 import { IModelData, Model } from '~/models/abstract/Model';
+import { IModelFactory } from '~/interfaces/IModelFactory';
+
+class BadgeFactory implements IModelFactory<Badge, IBadgeData> {
+    make(data: IBadgeData): Badge {
+        return new Badge(data);
+    }
+}
 
 export class Badge extends Model<Badge, IBadgeData> {
+    static factory = new BadgeFactory();
+
     keywordDescription: string;
     keyword: BadgeKeyword | undefined;
 
