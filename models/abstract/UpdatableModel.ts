@@ -6,18 +6,20 @@ export interface IUpdatableModelData extends IModelData {
 
 export abstract class UpdatableModel<T extends UpdatableModel<T, Y>, Y extends IUpdatableModelData> extends Model<T, Y> {
     @observable
-    updateSubject!: UpdatableModel<T, Y>;
+    updateSubject!: UpdatableModel<T,Y>;
 
-    updatableDataToAttributesMap: UpdatableModelDataToAttributesMap<UpdatableModel<T, Y>> = {};
     updatableDataKeys: string[];
     ownAttributesKeys: string[];
 
-    constructor(data: Y) {
+    protected constructor(data: Y) {
         super(data);
-        this.updatableDataKeys = Object.keys(this.updatableDataToAttributesMap);
+        const updatableDataToAttributesMap = this.getUpdatableDataToAttributesMap();
+        this.updatableDataKeys = Object.keys(updatableDataToAttributesMap);
         this.ownAttributesKeys = Object.getOwnPropertyNames(this);
         this.updateWithData(data);
     }
+
+    abstract getUpdatableDataToAttributesMap(): UpdatableModelDataToAttributesMap<T>;
 
     updateWithData(data: Y, config: {notifyUpdate: boolean} = {notifyUpdate: true}) {
         this.updatableDataKeys.forEach((updatableDataKey) => {

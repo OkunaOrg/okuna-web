@@ -13,27 +13,34 @@ class CircleFactory implements IModelFactory<Circle, ICircleData> {
 export class Circle extends UpdatableModel<Circle, ICircleData> {
     static factory = new CircleFactory();
 
-    creator: User;
-    name: string;
-    color: string;
-    usersCount: number;
-    users: User[];
-
-    updatableDataToAttributesMap = new Map(
-   );
+    creator!: User;
+    name!: string;
+    color!: string;
+    usersCount!: number;
+    users!: User[];
 
     constructor(data: ICircleData) {
         super(data);
-        this.creator = User.factory.make(data.creator);
-        this.users = data.users.map((user) => User.factory.make(user));
-        this.usersCount = data.users_count;
-        this.color = data.color;
-        this.name = data.name;
     }
 
-    updateWithData(data: ICircleData): void {
-        if(data.creator) this.creator = User.factory.make(data.creator);
-        if(data.users) this.users = data.users.map((user) => User.factory.make(user));
+    getUpdatableDataToAttributesMap() {
+        return {
+            name: 'name',
+            color: 'color',
+            usersCount: 'usersCount',
+            creator: {
+                attribute: 'creator',
+                updater(instance: Circle, dataKey: string, newDataValue: IUserData) {
+                    return User.factory.make(newDataValue);
+                }
+            },
+            users: {
+                attribute: 'users',
+                updater(instance: Circle, dataKey: string, newDataValue: IUserData[]) {
+                    return newDataValue.map((user) => User.factory.make(user));
+                }
+            }
+        };
     }
 }
 
