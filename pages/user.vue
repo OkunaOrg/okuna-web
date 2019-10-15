@@ -17,7 +17,7 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import { UserService } from "~/services/UserService";
+    import { User } from "~/services/User";
     import { container } from "tsyringe";
     import { intercept, IValueWillChange } from "~/node_modules/mobx";
     import IUser from '~/types/User';
@@ -26,7 +26,7 @@
     @Observer
     @Component({})
     export default class OkUserPage extends Vue {
-        userService: UserService = container.resolve(UserService);
+        userService: User = container.resolve(User);
 
         mounted() {
             intercept(this.userService, "loggedInUser", (handler: IValueWillChange<IUser>): IValueWillChange<IUser> => {

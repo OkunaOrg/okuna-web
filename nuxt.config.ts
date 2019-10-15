@@ -24,7 +24,7 @@ export default {
     ],
     axios: {},
     plugins: [
-        '~/plugins/bootstrap-container',
+        '~/plugins/bootstrap-services',
         '~/plugins/buefy',
         {src: '~/plugins/line-clamp', ssr: false},
         '~/plugins/directives',

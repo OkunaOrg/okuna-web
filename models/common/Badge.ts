@@ -1,23 +1,24 @@
-import { IModelData, Model } from '~/models/abstract/Model';
+import { IModelData, DataModel, DataModelDataToAttributesMap } from '~/models/abstract/DataModel';
 import { IModelFactory } from '~/interfaces/IModelFactory';
 
-class BadgeFactory implements IModelFactory<Badge, IBadgeData> {
-    make(data: IBadgeData): Badge {
+class BadgeFactory implements IModelFactory<Badge> {
+    make(data: IModelData): Badge {
         return new Badge(data);
     }
 }
 
-export class Badge extends Model<Badge, IBadgeData> {
+export class Badge extends DataModel<Badge> {
     static factory = new BadgeFactory();
 
-    keywordDescription: string;
+    keywordDescription!: string;
     keyword: BadgeKeyword | undefined;
 
-    constructor(data: IBadgeData) {
-        super(data);
-        this.keywordDescription = data.keyword_description;
-        this.keyword = BadgeKeyword.parse(data.keyword);
-    }
+    dataMap: DataModelDataToAttributesMap<any> = {
+        'keyword_description': 'keywordDescription',
+        'keyword': (badge: Badge, data: string) => {
+            return BadgeKeyword.parse(data);
+        }
+    };
 }
 
 class BadgeKeyword {
@@ -66,9 +67,4 @@ class BadgeKeyword {
     toString(): string {
         return this.code;
     }
-}
-
-export interface IBadgeData extends IModelData {
-    keyword_description: string;
-    keyword: string;
 }

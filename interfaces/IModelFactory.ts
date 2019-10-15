@@ -1,5 +1,5 @@
-import { IModelData, Model } from '~/models/abstract/Model';
+import { IModelData, DataModel } from '~/models/abstract/DataModel';
 
-export interface IModelFactory<T extends Model<T, Y>, Y extends IModelData> {
-    make(data: Y): T;
+export interface IModelFactory<T extends DataModel<T>> {
+    make(data: IModelData): T;
 }

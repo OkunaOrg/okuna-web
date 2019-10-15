@@ -25,6 +25,7 @@
 
 
         mounted() {
+            this.$axios
         }
     }
 </script>

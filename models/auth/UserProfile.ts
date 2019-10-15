@@ -1,20 +1,19 @@
-import { IModelData } from '~/models/abstract/Model';
+import { IModelData } from '~/models/abstract/DataModel';
 import { IModelFactory } from '~/interfaces/IModelFactory';
-import { IUserData, User } from '~/models/auth/User';
-import { UpdatableModel } from '~/models/abstract/UpdatableModel';
-import { Badge, IBadgeData } from '~/models/common/Badge';
+import { ObservedDataModel } from '~/models/abstract/ObservedDataModel';
+import { Badge } from '~/models/common/Badge';
 
-class UserProfileFactory implements IModelFactory<UserProfile, IUserProfileData> {
-    make(data: IUserProfileData): UserProfile {
+class UserProfileFactory implements IModelFactory<UserProfile> {
+    make(data: IModelData): UserProfile {
         return new UserProfile(data);
     }
 }
 
 
-export class UserProfile extends UpdatableModel<UserProfile, IUserProfileData> {
+export class UserProfile extends ObservedDataModel<UserProfile> {
     static factory = new UserProfileFactory();
 
-    updatableDataToAttributesMap = {
+    dataMap = {
         id: 'id',
         name: 'name',
         avatar: 'avatar',
@@ -26,7 +25,7 @@ export class UserProfile extends UpdatableModel<UserProfile, IUserProfileData> {
         community_posts_visible: 'communityPostsVisible',
         badges: {
             targetAttribute: 'badges',
-            updater(instance: UserProfile, newDataValue: IBadgeData[]) {
+            updater(instance: UserProfile, newDataValue: IModelData[]) {
                 return newDataValue.map((badge) => Badge.factory.make(badge));
             }
         }
@@ -41,17 +40,4 @@ export class UserProfile extends UpdatableModel<UserProfile, IUserProfileData> {
     followersCountVisible!: boolean;
     communityPostsVisible!: boolean;
     badges!: Badge[];
-
-
-    constructor(data: IUserProfileData) {
-        super(data);
-    }
-}
-
-export interface IUserProfileData extends IModelData {
-    creator: IUserData,
-    name: string,
-    color: string,
-    users_count: number,
-    users: IUserData[],
 }

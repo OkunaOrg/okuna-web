@@ -1,33 +1,27 @@
-import { IModelData } from '~/models/abstract/Model';
 import { IModelFactory } from '~/interfaces/IModelFactory';
-import { IUserData, User } from '~/models/auth/User';
-import { UpdatableModel } from '~/models/abstract/UpdatableModel';
+import { ObservedDataModel } from '~/models/abstract/ObservedDataModel';
+import { User } from '~/models/auth/User';
+import { IModelData } from '~/models/abstract/DataModel';
 
-class CircleFactory implements IModelFactory<Circle, ICircleData> {
-    make(data: ICircleData): Circle {
+class CircleFactory implements IModelFactory<Circle> {
+    make(data: IModelData): Circle {
         return new Circle(data);
     }
 }
 
 
-export class Circle extends UpdatableModel<Circle, ICircleData> {
+export class Circle extends ObservedDataModel<Circle> {
     static factory = new CircleFactory();
 
-    updatableDataToAttributesMap = {
+    dataMap = {
         name: 'name',
         color: 'color',
         usersCount: 'usersCount',
-        creator: {
-            targetAttribute: 'creator',
-            updater(instance: Circle, newDataValue: IUserData) {
-                return User.factory.make(newDataValue);
-            }
+        creator: (instance: Circle, data: IModelData) => {
+            instance.creator = User.factory.make(data);
         },
-        users: {
-            targetAttribute: 'users',
-            updater(instance: Circle, newDataValue: IUserData[]) {
-                return newDataValue.map((user) => User.factory.make(user));
-            }
+        users: (instance: Circle, data: IModelData[]) => {
+            instance.users = data.map((dataItem) => User.factory.make(dataItem));
         }
     };
 
@@ -36,17 +30,4 @@ export class Circle extends UpdatableModel<Circle, ICircleData> {
     color!: string;
     usersCount!: number;
     users!: User[];
-
-
-    constructor(data: ICircleData) {
-        super(data);
-    }
-}
-
-export interface ICircleData extends IModelData {
-    creator: IUserData,
-    name: string,
-    color: string,
-    users_count: number,
-    users: IUserData[],
 }
