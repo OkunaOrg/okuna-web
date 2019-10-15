@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import IUser from '~/types/User';
 import { autoInjectable, singleton } from '~/node_modules/tsyringe';
-import { ApiClientService } from '~/services/ApiClient';
+import { HttpService } from '~/services/Http';
 import { BehaviorSubject, Subject } from '~/node_modules/rxjs';
 import { User } from '~/models/auth/User';
 
@@ -13,7 +13,7 @@ export class UserService {
 
     private loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 
-    constructor(private apiService?: ApiClientService, storageService?: StorageService) {
+    constructor(private apiService?: HttpService, storageService?: StorageService) {
         this.tokenStorage = storageService!.getLocalForageStorage('userTokenStorage');
     }
 

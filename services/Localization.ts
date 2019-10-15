@@ -3,13 +3,17 @@ import VueI18n from '~/node_modules/vue-i18n';
 
 @singleton()
 export class LocalizationService {
-    private vueTranslator!: typeof VueI18n.prototype.t;
+    private vuei18n!: VueI18n;
 
-    setVueTranslator(vueTranslator: typeof VueI18n.prototype.t) {
-        this.vueTranslator = vueTranslator;
+    setVueTranslator(vueTranslator: VueI18n) {
+        this.vuei18n = vueTranslator;
     }
 
-    localize(key: string): string {
-        return this.vueTranslator(key) as string;
+    localize(key: string) {
+        return this.vuei18n.t(key) as string;
+    }
+
+    getActiveLocale(){
+        return this.vuei18n.locale;
     }
 }
