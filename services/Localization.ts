@@ -1,6 +1,4 @@
 import { singleton } from '~/node_modules/tsyringe';
-import { EnvironmentService } from '~/services/Environment';
-import { AxiosInstance } from '~/node_modules/axios';
 import VueI18n from '~/node_modules/vue-i18n';
 
 @singleton()

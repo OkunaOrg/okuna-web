@@ -1,6 +1,6 @@
 import '@abraham/reflection';
 import { container } from '~/node_modules/tsyringe';
-import { ApiService } from '~/services/Api';
+import { ApiClientService } from '~/services/ApiClient';
 import { LocalizationService } from '~/services/Localization';
 
 
@@ -8,7 +8,7 @@ export default function (ctx: any, inject: any) {
     if (!ctx.$axios) {
         console.error('Please make sure $axios module is added');
     } else {
-        const apiService = container.resolve(ApiService);
+        const apiService = container.resolve(ApiClientService);
         apiService.setAxiosClient(ctx.$axios);
     }
 
@@ -17,5 +17,12 @@ export default function (ctx: any, inject: any) {
     } else {
         const localizationService = container.resolve(LocalizationService);
         localizationService.setVueTranslator(ctx.$t);
+    }
+
+    if (!ctx.$localForage) {
+        console.error('Please make sure localForage module is added');
+    } else {
+        const storageService = container.resolve(StorageService);
+        storageService.setLocalForage(ctx.$localForage);
     }
 }
