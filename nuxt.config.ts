@@ -26,11 +26,11 @@ export default {
     ],
     axios: {},
     plugins: [
-        '~/plugins/bootstrap-services',
         '~/plugins/buefy',
         {src: '~/plugins/line-clamp', ssr: false},
         '~/plugins/directives',
         '~/plugins/vuelidate',
+        '~/plugins/bootstrap-services',
     ],
     router: {
         middleware: ['post-redirect'],
