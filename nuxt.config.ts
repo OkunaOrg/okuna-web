@@ -21,6 +21,7 @@ export default {
     buildModules: ['@nuxt/typescript-build', '@nuxtjs/router-extras'],
     modules: [
         '@nuxtjs/axios',
+        '@nuxtjs/localforage',
         'nuxt-i18n',
     ],
     axios: {},

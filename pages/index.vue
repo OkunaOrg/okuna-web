@@ -20,7 +20,6 @@
     @Component({})
     export default class OkHomePage extends Vue {
         mounted(){
-            this.$t();
         }
     }
 </script>

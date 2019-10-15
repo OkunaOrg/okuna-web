@@ -2,23 +2,30 @@ import { action, observable } from 'mobx';
 import IUser from '~/types/User';
 import { autoInjectable, singleton } from '~/node_modules/tsyringe';
 import { ApiService } from '~/services/Api';
+import { BehaviorSubject, Subject } from '~/node_modules/rxjs';
 
 @singleton()
 @autoInjectable()
 export class UserService {
-    @observable
-    loggedInUser!: IUser;
+    private loggedInUser = new BehaviorSubject<IUser>();
 
     constructor(private apiService?: ApiService) {
     }
 
-    @action.bound
     setLoggedInUser(user: IUser): void {
-        this.loggedInUser = user;
+        this.loggedInUser.next(user);
     }
 
-    getUser() {
-        console.log('Im the user service and this is the api service');
+    login(){
+
+    }
+
+    logout(){
+        this.loggedInUser.next();
+    }
+
+    _bootstrapLoggedInUser(){
+
     }
 
 }
