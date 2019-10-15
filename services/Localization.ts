@@ -1,16 +1,17 @@
 import { singleton } from '~/node_modules/tsyringe';
 import { EnvironmentService } from '~/services/Environment';
 import { AxiosInstance } from '~/node_modules/axios';
+import VueI18n from '~/node_modules/vue-i18n';
 
 @singleton()
 export class LocalizationService {
-    private axios!: AxiosInstance;
+    private vueTranslator!: typeof VueI18n.prototype.t;
 
-    constructor(private environmentService?: EnvironmentService) {
-
+    setVueTranslator(vueTranslator: typeof VueI18n.prototype.t) {
+        this.vueTranslator = vueTranslator;
     }
 
-    setAxiosClient(axios: AxiosInstance){
-        this.axios = axios;
+    localize(key: string): string {
+        return this.vueTranslator(key) as string;
     }
 }
