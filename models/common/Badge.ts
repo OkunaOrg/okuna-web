@@ -1,8 +1,8 @@
-import { IModelData, DataModel, DataModelDataToAttributesMap } from '~/models/abstract/DataModel';
+import { DataModel, ModelData } from '~/models/abstract/DataModel';
 import { IModelFactory } from '~/interfaces/IModelFactory';
 
 class BadgeFactory implements IModelFactory<Badge> {
-    make(data: IModelData): Badge {
+    make(data: BadgeData): Badge {
         return new Badge(data);
     }
 }
@@ -13,7 +13,7 @@ export class Badge extends DataModel<Badge> {
     keywordDescription!: string;
     keyword: BadgeKeyword | undefined;
 
-    dataMap: DataModelDataToAttributesMap<any> = {
+    dataMap = {
         'keyword_description': 'keywordDescription',
         'keyword': (badge: Badge, data: string) => {
             return BadgeKeyword.parse(data);
@@ -67,4 +67,9 @@ class BadgeKeyword {
     toString(): string {
         return this.code;
     }
+}
+
+export interface BadgeData extends ModelData {
+    keyword_description: string,
+    keyword: string
 }

@@ -1,12 +1,15 @@
-export interface IModelData {
+export interface ModelData {
+    id: number,
+
     [key: string]: any;
 }
 
-export interface IDataModel {
+
+export interface IndexedItem {
     [key: string]: any;
 }
 
-export abstract class DataModel<T extends DataModel<T>> implements IDataModel {
+export abstract class DataModel<T extends DataModel<T>> implements IndexedItem {
     [key: string]: any;
 
     public id!: number;
@@ -14,12 +17,12 @@ export abstract class DataModel<T extends DataModel<T>> implements IDataModel {
     ownAttributesKeys: string[];
     abstract dataMap: DataModelDataToAttributesMap<any>;
 
-    constructor(data: IModelData) {
+    constructor(data: ModelData) {
         this.ownAttributesKeys = Object.getOwnPropertyNames(this);
         this.updateWithData(data);
     }
 
-    updateWithData(data: IModelData) {
+    updateWithData(data: ModelData) {
         this.ownAttributesKeys.forEach((ownAttributeKey) => {
             let targetAttributeValue = data[ownAttributeKey];
 

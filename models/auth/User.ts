@@ -1,15 +1,14 @@
-import { ObservedDataModel } from '~/models/abstract/ObservedDataModel';
 import { IModelFactory } from '~/interfaces/IModelFactory';
 import { LruCache } from '~/lib/caches/LruCache';
-import { Circle } from '~/models/auth/Circle';
-import { IModelData } from '~/models/abstract/DataModel';
-import { UserProfile } from '~/models/auth/UserProfile';
+import CircleData, { Circle } from '~/models/connections/Circle';
+import { DataModel, ModelData } from '~/models/abstract/DataModel';
+import UserProfileData, { UserProfile } from '~/models/auth/UserProfile';
 
 class UserFactory implements IModelFactory<User> {
     private sessionUsersCache: LruCache<number, User> = new LruCache(10);
     private navigationUsersCache: LruCache<number, User> = new LruCache(100);
 
-    make(data: IModelData, config: {storeInSessionCache: boolean} = {storeInSessionCache: true}): User {
+    make(data: UserData, config: {storeInSessionCache: boolean} = {storeInSessionCache: true}): User {
         const userId = data.id;
 
         let user = this.navigationUsersCache.get(userId) || this.sessionUsersCache.get(userId);
@@ -29,7 +28,7 @@ class UserFactory implements IModelFactory<User> {
 }
 
 
-export class User extends ObservedDataModel<User> {
+export class User extends DataModel<User> {
 
     static factory = new UserFactory();
 
@@ -78,11 +77,34 @@ export class User extends ObservedDataModel<User> {
         is_fully_connected: 'isFullyConnected',
         is_member_of_communities: 'isMemberOfCommunities',
         is_pending_connection_confirmation: 'isPendingConnectionConfirmation',
-        connected_circles: (instance: User, circlesData: IModelData[]) => {
+        connected_circles: (instance: User, circlesData: CircleData[]) => {
             instance.connectedCircles = circlesData.map((circleData) => Circle.factory.make(circleData));
         },
-        profile: (instance: User, data: IModelData[]) => {
+        profile: (instance: User, data: UserProfileData) => {
             instance.profile = UserProfile.factory.make(data);
         }
     };
+}
+
+export default interface UserData extends ModelData {
+    uuid?: string,
+    are_guidelines_accepted?: boolean,
+    connections_circle_id?: number,
+    followers_count?: number,
+    posts_count?: number,
+    invite_count?: number,
+    unread_notifications_count?: number,
+    pending_communities_moderated_objects_count?: number,
+    is_pending_connection_confirmation?: boolean,
+    active_moderation_penalties_count?: number,
+    email?: string,
+    username?: string,
+    following_count?: number,
+    is_following?: boolean,
+    is_connected?: boolean,
+    is_global_moderator?: boolean,
+    is_blocked?: boolean,
+    is_reported?: boolean,
+    is_fully_connected?: boolean,
+    is_member_of_communities?: boolean,
 }
