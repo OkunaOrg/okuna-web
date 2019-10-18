@@ -4,6 +4,7 @@ import autoInjectable from '~/node_modules/tsyringe/dist/typings/decorators/auto
 import { UserService } from '~/services/User';
 import { LocalizationService } from '~/services/Localization';
 import { EnvironmentService } from '~/services/Environment';
+import { StringTemplateService } from '~/services/StringTemplate';
 
 @singleton()
 @autoInjectable()
@@ -11,13 +12,18 @@ export class HttpService {
 
     static makeDefaultRequestConfig(): HttpServiceRequestConfig {
         return {
-            isApiRequest: false
+            isApiRequest: false,
+            appendAuthToken: false,
+            appendLanguageHeader: true
         }
     }
 
     private axios!: AxiosInstance;
 
-    constructor(private userService?: UserService, private localizationService?: LocalizationService, private environmentService?: EnvironmentService) {
+    constructor(private userService?: UserService,
+                private localizationService?: LocalizationService,
+                private environmentService?: EnvironmentService,
+                private stringTemplateService?: StringTemplateService) {
     }
 
     setAxiosClient(axios: AxiosInstance) {
@@ -55,8 +61,10 @@ export class HttpService {
     }
 
     private makeUrlWithRequestConfig(originalUrl: string, config?: HttpServiceRequestConfig): string {
-        if (config && config.isApiRequest) return `${this.environmentService!.apiUrl}${originalUrl}`;
-        return originalUrl;
+        if (!config) return originalUrl;
+        let finalUrl = config.isApiRequest ? `${this.environmentService!.apiUrl}${originalUrl}` : originalUrl;
+        if (config.urlParams) finalUrl = this.stringTemplateService!.parse(finalUrl, config.urlParams);
+        return finalUrl;
     }
 
     private async makeAxiosConfigWithRequestConfig(config?: HttpServiceRequestConfig): Promise<AxiosRequestConfig> {
@@ -67,12 +75,13 @@ export class HttpService {
             headers: {}
         };
 
-        if (finalConfig.isApiRequest) {
+        if (finalConfig.appendLanguageHeader) {
             axiosConfig.headers['Accept-Language'] = this.localizationService!.getActiveLocale();
         }
 
-        if (finalConfig.appendLanguageHeader) {
+        if (finalConfig.appendAuthToken) {
             const storedAuthToken = await this.userService!.getStoredAuthToken();
+            if (!storedAuthToken) throw new Error('Not auth token to append to request');
             axiosConfig.headers['Authorization'] = `Token ${storedAuthToken}`;
         }
 
@@ -83,6 +92,13 @@ export class HttpService {
 
 
 interface HttpServiceRequestConfig {
+    // Whether the api url will be prepended
     isApiRequest: boolean;
+    // Whether the language header will be added
     appendLanguageHeader?: boolean;
+    // Whether the auth token will be added
+    appendAuthToken?: boolean;
+    urlParams?: {
+        [key: string]: string | boolean | number;
+    }
 }

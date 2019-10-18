@@ -20,7 +20,7 @@
     import { User } from "~/services/User";
     import { container } from "tsyringe";
     import { intercept, IValueWillChange } from "~/node_modules/mobx";
-    import IUser from '~/types/User';
+    import IUser from '~/types/UserData';
     import { Observer } from '~/node_modules/mobx-vue';
 
     @Observer

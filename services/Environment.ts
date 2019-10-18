@@ -1,4 +1,4 @@
-import IUser from '~/types/User';
+import IUser from '~/types/UserData';
 import { singleton } from '~/node_modules/tsyringe';
 
 @singleton()

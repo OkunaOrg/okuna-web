@@ -16,6 +16,7 @@
     "buefy": "^0.8.5",
     "bulma": "^0.7.5",
     "bulma-helpers": "^0.3.8",
+    "es6-dynamic-template": "^2.0.0",
     "localforage": "^1.7.3",
     "lru_map": "^0.3.3",
     "mobx": "^5.14.0",
