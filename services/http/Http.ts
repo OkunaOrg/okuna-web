@@ -1,13 +1,11 @@
-import { autoInjectable, singleton } from '~/node_modules/tsyringe';
+import { inject, singleton } from '~/node_modules/tsyringe';
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '~/node_modules/axios';
 import { HttpServiceRequestConfig, IHttpService } from '~/services/http/IHttp';
-import { IUserService } from '~/services/user/IUser';
 import { ILocalizationService } from '~/services/localization/ILocalization';
 import { IEnvironmentService } from '~/services/environment/IEnvironment';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
 
 @singleton()
-@autoInjectable()
 export class HttpService implements IHttpService {
 
     static makeDefaultRequestConfig(): HttpServiceRequestConfig {
@@ -20,14 +18,23 @@ export class HttpService implements IHttpService {
 
     private axios!: AxiosInstance;
 
-    constructor(private userService?: IUserService,
-                private localizationService?: ILocalizationService,
-                private environmentService?: IEnvironmentService,
-                private stringTemplateService?: IStringTemplateService) {
+    private authToken?: string;
+
+    constructor(@inject('LocalizationService') private localizationService?: ILocalizationService,
+                @inject('EnvironmentService') private environmentService?: IEnvironmentService,
+                @inject('StringTemplateService') private stringTemplateService?: IStringTemplateService) {
     }
 
     setAxiosClient(axios: AxiosInstance) {
         this.axios = axios;
+    }
+
+    setAuthToken(token: string) {
+        this.authToken = token;
+    }
+
+    clearAuthToken() {
+        this.authToken = undefined;
     }
 
     async get<T = any, R = AxiosResponse<T>>(url: string, config?: HttpServiceRequestConfig): Promise<R> {
@@ -80,9 +87,8 @@ export class HttpService implements IHttpService {
         }
 
         if (finalConfig.appendAuthToken) {
-            const storedAuthToken = await this.userService!.getStoredAuthToken();
-            if (!storedAuthToken) throw new Error('Not auth token to append to request');
-            axiosConfig.headers['Authorization'] = `Token ${storedAuthToken}`;
+            if (!this.authToken) throw new Error('Not auth token to append to request');
+            axiosConfig.headers['Authorization'] = `Token ${this.authToken}`;
         }
 
         return axiosConfig;

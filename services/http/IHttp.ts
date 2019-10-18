@@ -10,6 +10,10 @@ export interface IHttpService {
     put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: HttpServiceRequestConfig): Promise<R>;
 
     patch<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: HttpServiceRequestConfig): Promise<R>;
+
+    setAuthToken(token: string): void;
+
+    clearAuthToken(): void;
 }
 
 

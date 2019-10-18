@@ -1,4 +1,4 @@
-import { autoInjectable, singleton } from '~/node_modules/tsyringe';
+import { inject, singleton } from '~/node_modules/tsyringe';
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { OkunaStorage } from '~/services/storage/lib/OkunaStorage';
 import { IStorageService } from '~/services/storage/IStorage';
@@ -7,16 +7,18 @@ import { IUserService } from '~/services/user/IUser';
 import { LoginData } from '~/services/Apis/auth/types';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
+import { IHttpService } from '~/services/http/IHttp';
 
 @singleton()
-@autoInjectable()
 export class UserService implements IUserService {
     static AUTH_TOKEN_STORAGE_KEY = 'auth';
     private tokenStorage: OkunaStorage<string>;
 
     private loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 
-    constructor(private authApiService?: IAuthApiService, storageService?: IStorageService) {
+    constructor(@inject('AuthApiService') private authApiService?: IAuthApiService,
+                @inject('HttpService') private httpService?: IHttpService,
+                @inject('StorageService')  storageService?: IStorageService) {
         this.tokenStorage = storageService!.getLocalForageStorage('userTokenStorage');
     }
 
@@ -26,6 +28,7 @@ export class UserService implements IUserService {
     }
 
     async logout() {
+        this.httpService!.clearAuthToken();
         await this.tokenStorage.remove(UserService.AUTH_TOKEN_STORAGE_KEY);
     }
 
@@ -43,6 +46,8 @@ export class UserService implements IUserService {
     }
 
     async loginWithStoredAuthToken() {
+        const authToken = await this.getStoredAuthToken();
+        this.httpService!.setAuthToken(authToken);
         await this.refreshLoggedInUser();
     }
 

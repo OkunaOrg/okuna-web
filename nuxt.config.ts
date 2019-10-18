@@ -30,7 +30,7 @@ export default {
         {src: '~/plugins/line-clamp', ssr: false},
         '~/plugins/directives',
         '~/plugins/vuelidate',
-        '~/plugins/bootstrap-services',
+        '~/plugins/di-container',
     ],
     router: {
         middleware: ['post-redirect'],
@@ -48,13 +48,13 @@ export default {
                 code: 'en',
                 iso: 'en-US',
                 file: 'en.js',
-                name: "English"
+                name: 'English'
             },
             {
                 code: 'es',
                 iso: 'es-ES',
                 file: 'es.js',
-                name: "Spanish"
+                name: 'Spanish'
             },
         ],
 

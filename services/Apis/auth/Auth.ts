@@ -1,17 +1,16 @@
-import { autoInjectable, singleton } from '~/node_modules/tsyringe';
-import { IHttpService } from 'services/http/IHttp';
+import { inject, singleton } from '~/node_modules/tsyringe';
 import { IAuthApiService } from '~/services/Apis/auth/IAuth';
 import { UserData } from '~/types/models/auth/UserData';
 import { LoginData, LoginResponse, RegisterData, RegisterResponse } from '~/services/Apis/auth/types';
+import { IHttpService } from '~/services/http/IHttp';
 
 @singleton()
-@autoInjectable()
 export class AuthApiService implements IAuthApiService {
     static LOGIN_PATH = 'api/auth/login/';
     static REGISTER_PATH = 'api/auth/register/';
     static AUTHENTICATED_USER_PATH = 'api/auth/user/';
 
-    constructor(private httpService: IHttpService) {
+    constructor(@inject('HttpService') private httpService: IHttpService) {
 
     }
 
