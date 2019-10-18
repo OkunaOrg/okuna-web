@@ -1,10 +1,7 @@
 import { ModelData } from '~/types/models/ModelData';
+import { DataModelDataToAttributesMap, IDataModel } from '~/models/abstract/IDataModel';
 
-export interface IndexedItem {
-    [key: string]: any;
-}
-
-export abstract class DataModel<T extends DataModel<T>> implements IndexedItem {
+export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T> {
     [key: string]: any;
 
     public id!: number;
@@ -38,11 +35,4 @@ export abstract class DataModel<T extends DataModel<T>> implements IndexedItem {
             }
         });
     };
-}
-
-
-type DataModelAttributeUpdater<T> = (instance: T, data: any) => any;
-
-export interface DataModelDataToAttributesMap<T> {
-    [key: string]: string | DataModelAttributeUpdater<T>;
 }

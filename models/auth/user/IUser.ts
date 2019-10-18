@@ -1,9 +1,9 @@
-import { DataModel } from 'models/abstract/DataModel';
 import { ICircle } from '~/models/connections/circle/ICircle';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
+import { IDataModel } from '~/models/abstract/IDataModel';
 
 
-export interface IUser extends DataModel<IUser> {
+export interface IUser extends IDataModel<IUser> {
     uuid: string;
     areGuidelinesAccepted: boolean;
     connectionsCircleId: number;

@@ -1,8 +1,8 @@
-import { DataModel } from 'models/abstract/DataModel';
 import { IBadge } from '~/models/common/badge/IBadge';
+import { IDataModel } from '~/models/abstract/IDataModel';
 
 
-export interface IUserProfile extends DataModel<IUserProfile> {
+export interface IUserProfile extends IDataModel<IUserProfile> {
     name: string;
     avatar: string;
     cover: string;
