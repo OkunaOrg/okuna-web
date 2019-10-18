@@ -17,30 +17,23 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import { User } from "~/services/User";
     import { container } from "tsyringe";
-    import { intercept, IValueWillChange } from "~/node_modules/mobx";
-    import IUser from '~/types/UserData';
-    import { Observer } from '~/node_modules/mobx-vue';
+    import { Observer } from "~/node_modules/mobx-vue";
+    import { UserService } from "~/services/user/User";
 
     @Observer
     @Component({})
     export default class OkUserPage extends Vue {
-        userService: User = container.resolve(User);
+        userService: UserService = container.resolve(UserService);
 
         mounted() {
-            intercept(this.userService, "loggedInUser", (handler: IValueWillChange<IUser>): IValueWillChange<IUser> => {
-                console.log("INTERCEPTED");
-                console.log(handler.newValue);
-                return handler;
-            });
-            this._getUser();
+            //this._getUser();
         }
 
         async _getUser() {
-            const user = await this.userService.getUser();
-            console.log(user);
-            this.userService.setLoggedInUser(user);
+            //const user = await this.userService.getUser();
+            //console.log(user);
+            //this.userService.setLoggedInUser(user);
         }
     }
 </script>

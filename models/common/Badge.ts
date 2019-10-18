@@ -1,5 +1,6 @@
-import { DataModel, ModelData } from '~/models/abstract/DataModel';
+import { DataModel } from '~/models/abstract/DataModel';
 import { IModelFactory } from '~/interfaces/IModelFactory';
+import { BadgeData } from '~/types/models/common/BadgeData';
 
 class BadgeFactory implements IModelFactory<Badge> {
     make(data: BadgeData): Badge {
@@ -69,7 +70,3 @@ class BadgeKeyword {
     }
 }
 
-export interface BadgeData extends ModelData {
-    keyword_description: string,
-    keyword: string
-}

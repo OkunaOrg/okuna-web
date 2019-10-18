@@ -1,6 +1,8 @@
 import { IModelFactory } from '~/interfaces/IModelFactory';
-import { Badge, BadgeData } from '~/models/common/Badge';
-import { DataModel, ModelData } from '~/models/abstract/DataModel';
+import { Badge } from '~/models/common/Badge';
+import { DataModel } from '~/models/abstract/DataModel';
+import { UserProfileData } from '~/types/models/auth/UserProfileData';
+import { BadgeData } from '~/types/models/common/BadgeData';
 
 class UserProfileFactory implements IModelFactory<UserProfile> {
     make(data: UserProfileData): UserProfile {
@@ -38,14 +40,3 @@ export class UserProfile extends DataModel<UserProfile> {
     badges!: Badge[];
 }
 
-export default interface UserProfileData extends ModelData {
-    name: string,
-    avatar: string,
-    cover: string,
-    bio: string,
-    url: string,
-    location: string,
-    badges: string,
-    followers_count_visible: boolean,
-    community_posts_visible: boolean,
-}

@@ -1,7 +1,8 @@
 import { IModelFactory } from 'interfaces/IModelFactory';
-import { ObservedDataModel } from 'models/abstract/ObservedDataModel';
-import UserData, { User } from 'models/auth/User';
-import { ModelData } from 'models/abstract/DataModel';
+import { User } from 'models/auth/User';
+import { CircleData } from '~/types/models/connections/CircleData';
+import { UserData } from '~/types/models/auth/UserData';
+import { DataModel } from '~/models/abstract/DataModel';
 
 class CircleFactory implements IModelFactory<Circle> {
     make(data: CircleData): Circle {
@@ -10,7 +11,7 @@ class CircleFactory implements IModelFactory<Circle> {
 }
 
 
-export class Circle extends ObservedDataModel<Circle> {
+export class Circle extends DataModel<Circle> {
     static factory = new CircleFactory();
 
     dataMap = {
@@ -32,10 +33,3 @@ export class Circle extends ObservedDataModel<Circle> {
     users!: User[];
 }
 
-export default interface CircleData extends ModelData {
-    name: string,
-    color: string,
-    users_count: number,
-    creator: UserData,
-    users: UserData[],
-}

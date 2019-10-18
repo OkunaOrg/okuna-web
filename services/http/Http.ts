@@ -1,14 +1,14 @@
-import { singleton } from '~/node_modules/tsyringe';
+import { autoInjectable, singleton } from '~/node_modules/tsyringe';
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '~/node_modules/axios';
-import autoInjectable from '~/node_modules/tsyringe/dist/typings/decorators/auto-injectable';
-import { UserService } from '~/services/User';
-import { LocalizationService } from '~/services/Localization';
-import { EnvironmentService } from '~/services/Environment';
-import { StringTemplateService } from '~/services/StringTemplate';
+import { HttpServiceRequestConfig, IHttpService } from '~/services/http/IHttp';
+import { IUserService } from '~/services/user/IUser';
+import { ILocalizationService } from '~/services/localization/ILocalization';
+import { IEnvironmentService } from '~/services/environment/IEnvironment';
+import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
 
 @singleton()
 @autoInjectable()
-export class HttpService {
+export class HttpService implements IHttpService {
 
     static makeDefaultRequestConfig(): HttpServiceRequestConfig {
         return {
@@ -20,10 +20,10 @@ export class HttpService {
 
     private axios!: AxiosInstance;
 
-    constructor(private userService?: UserService,
-                private localizationService?: LocalizationService,
-                private environmentService?: EnvironmentService,
-                private stringTemplateService?: StringTemplateService) {
+    constructor(private userService?: IUserService,
+                private localizationService?: ILocalizationService,
+                private environmentService?: IEnvironmentService,
+                private stringTemplateService?: IStringTemplateService) {
     }
 
     setAxiosClient(axios: AxiosInstance) {
@@ -88,17 +88,4 @@ export class HttpService {
         return axiosConfig;
     }
 
-}
-
-
-interface HttpServiceRequestConfig {
-    // Whether the api url will be prepended
-    isApiRequest: boolean;
-    // Whether the language header will be added
-    appendLanguageHeader?: boolean;
-    // Whether the auth token will be added
-    appendAuthToken?: boolean;
-    urlParams?: {
-        [key: string]: string | boolean | number;
-    }
 }

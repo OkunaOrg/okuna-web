@@ -1,17 +1,20 @@
 import { autoInjectable, singleton } from '~/node_modules/tsyringe';
 import { BehaviorSubject } from '~/node_modules/rxjs';
-import { AuthApiService, LoginData } from '~/services/Apis/Auth';
-import { User } from '~/models/auth/User';
+import { User } from 'models/auth/User';
+import { IUserService } from '~/services/user/IUser';
+import { OkunaStorage } from '~/services/storage/lib/OkunaStorage';
+import { IStorageService } from '~/services/storage/IStorage';
+import { IAuthApiService, LoginData } from '~/services/Apis/auth/IAuth';
 
 @singleton()
 @autoInjectable()
-export class UserService {
+export class UserService implements IUserService {
     static AUTH_TOKEN_STORAGE_KEY = 'auth';
     private tokenStorage: OkunaStorage<string>;
 
     private loggedInUser = new BehaviorSubject<User | undefined>(undefined);
 
-    constructor(private authApiService?: AuthApiService, storageService?: StorageService) {
+    constructor(private authApiService?: IAuthApiService, storageService?: IStorageService) {
         this.tokenStorage = storageService!.getLocalForageStorage('userTokenStorage');
     }
 

@@ -1,11 +1,12 @@
 import { autoInjectable, singleton } from '~/node_modules/tsyringe';
 import { AxiosError } from '~/node_modules/axios';
-import { ToastService } from '~/services/Toast';
+import { HandledError, IUtilsService } from '~/services/utils-service/IUtilsService';
+import { IToastService } from '~/services/toast/IToast';
 
 @singleton()
 @autoInjectable()
-export class UtilsService {
-    constructor(private toastService?: ToastService) {
+export class UtilsService implements IUtilsService {
+    constructor(private toastService?: IToastService) {
 
     }
 
@@ -68,10 +69,4 @@ export class UtilsService {
             error
         }
     }
-}
-
-interface HandledError {
-    humanFriendlyMessage: string;
-    isUnhandled: boolean;
-    error: any;
 }

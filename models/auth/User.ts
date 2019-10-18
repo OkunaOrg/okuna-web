@@ -1,8 +1,10 @@
 import { IModelFactory } from '~/interfaces/IModelFactory';
 import { LruCache } from '~/lib/caches/LruCache';
 import CircleData, { Circle } from '~/models/connections/Circle';
-import { DataModel, ModelData } from '~/models/abstract/DataModel';
-import UserProfileData, { UserProfile } from '~/models/auth/UserProfile';
+import { DataModel } from '~/models/abstract/DataModel';
+import { UserProfile } from '~/models/auth/UserProfile';
+import { UserData } from '~/types/models/auth/UserData';
+import { UserProfileData } from '~/types/models/auth/UserProfileData';
 
 class UserFactory implements IModelFactory<User> {
     private sessionUsersCache: LruCache<number, User> = new LruCache(10);
@@ -84,27 +86,4 @@ export class User extends DataModel<User> {
             instance.profile = UserProfile.factory.make(data);
         }
     };
-}
-
-export default interface UserData extends ModelData {
-    uuid?: string,
-    are_guidelines_accepted?: boolean,
-    connections_circle_id?: number,
-    followers_count?: number,
-    posts_count?: number,
-    invite_count?: number,
-    unread_notifications_count?: number,
-    pending_communities_moderated_objects_count?: number,
-    is_pending_connection_confirmation?: boolean,
-    active_moderation_penalties_count?: number,
-    email?: string,
-    username?: string,
-    following_count?: number,
-    is_following?: boolean,
-    is_connected?: boolean,
-    is_global_moderator?: boolean,
-    is_blocked?: boolean,
-    is_reported?: boolean,
-    is_fully_connected?: boolean,
-    is_member_of_communities?: boolean,
 }

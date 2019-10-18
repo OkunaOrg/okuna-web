@@ -1,9 +1,10 @@
 import { autoInjectable, singleton } from '~/node_modules/tsyringe';
 import { ToastProgrammatic as Toast } from 'buefy';
+import { IToastService } from '~/services/toast/IToast';
 
 @singleton()
 @autoInjectable()
-export class ToastService {
+export class ToastService implements IToastService {
     show(config: ToastConfig) {
         let bulmaToastColorModifier;
 

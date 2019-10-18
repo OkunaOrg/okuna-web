@@ -1,9 +1,4 @@
-export interface ModelData {
-    id: number,
-
-    [key: string]: any;
-}
-
+import { ModelData } from '~/types/models/ModelData';
 
 export interface IndexedItem {
     [key: string]: any;
