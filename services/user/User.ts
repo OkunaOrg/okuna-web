@@ -1,10 +1,12 @@
 import { autoInjectable, singleton } from '~/node_modules/tsyringe';
 import { BehaviorSubject } from '~/node_modules/rxjs';
-import { User } from 'models/auth/User';
-import { IUserService } from '~/services/user/IUser';
 import { OkunaStorage } from '~/services/storage/lib/OkunaStorage';
 import { IStorageService } from '~/services/storage/IStorage';
-import { IAuthApiService, LoginData } from '~/services/Apis/auth/IAuth';
+import { IAuthApiService } from '~/services/Apis/auth/IAuth';
+import { IUserService } from '~/services/user/IUser';
+import { LoginData } from '~/services/Apis/auth/types';
+import { IUser } from '~/models/auth/user/IUser';
+import userFactory from '~/models/auth/user/factory';
 
 @singleton()
 @autoInjectable()
@@ -12,7 +14,7 @@ export class UserService implements IUserService {
     static AUTH_TOKEN_STORAGE_KEY = 'auth';
     private tokenStorage: OkunaStorage<string>;
 
-    private loggedInUser = new BehaviorSubject<User | undefined>(undefined);
+    private loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 
     constructor(private authApiService?: IAuthApiService, storageService?: IStorageService) {
         this.tokenStorage = storageService!.getLocalForageStorage('userTokenStorage');
@@ -46,13 +48,13 @@ export class UserService implements IUserService {
 
     async refreshLoggedInUser() {
         const response = await this.authApiService!.getAuthenticatedUser();
-        this.setLoggedInUser(User.factory.make(response.data, {
+        this.setLoggedInUser(userFactory.make(response.data, {
             // This cache stays for as long as the user session is active
             storeInSessionCache: true
         }));
     }
 
-    private setLoggedInUser(user: User): void {
+    private setLoggedInUser(user: IUser): void {
         this.loggedInUser.next(user);
     }
 

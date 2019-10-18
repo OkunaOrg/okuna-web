@@ -2,6 +2,7 @@ import '@abraham/reflection';
 import { container } from '~/node_modules/tsyringe';
 import { HttpService } from '~/services/http/Http';
 import { LocalizationService } from '~/services/localization/Localization';
+import { StorageService } from '~/services/storage/Storage';
 
 
 export default function (ctx: any, inject: any) {

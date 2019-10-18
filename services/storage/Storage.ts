@@ -4,7 +4,7 @@ import { LocalForageStore } from '~/services/storage/lib/stores/LocalForage';
 import { OkunaStorage } from '~/services/storage/lib/OkunaStorage';
 
 @singleton()
-class StorageService implements IStorageService {
+export class StorageService implements IStorageService {
     // @ts-ignore
     private localForage: LocalForage;
 

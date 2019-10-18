@@ -1,7 +1,8 @@
 import { autoInjectable, singleton } from '~/node_modules/tsyringe';
 import { IHttpService } from 'services/http/IHttp';
-import { IAuthApiService, LoginData, LoginResponse, RegisterData, RegisterResponse } from '~/services/Apis/auth/IAuth';
+import { IAuthApiService } from '~/services/Apis/auth/IAuth';
 import { UserData } from '~/types/models/auth/UserData';
+import { LoginData, LoginResponse, RegisterData, RegisterResponse } from '~/services/Apis/auth/types';
 
 @singleton()
 @autoInjectable()

@@ -1,39 +1,13 @@
-import { IModelFactory } from '~/interfaces/IModelFactory';
-import { LruCache } from '~/lib/caches/LruCache';
-import CircleData, { Circle } from '~/models/connections/Circle';
-import { DataModel } from '~/models/abstract/DataModel';
-import { UserProfile } from '~/models/auth/UserProfile';
-import { UserData } from '~/types/models/auth/UserData';
+import { IUser } from '~/models/auth/user/IUser';
+import circleFactory from '~/models/connections/circle/factory';
+import userProfileFactory from '~/models/auth/user-profile/factory';
+import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
+import { ICircle } from '~/models/connections/circle/ICircle';
+import { CircleData } from '~/types/models/connections/CircleData';
 import { UserProfileData } from '~/types/models/auth/UserProfileData';
+import { DataModel } from '~/models/abstract/DataModel';
 
-class UserFactory implements IModelFactory<User> {
-    private sessionUsersCache: LruCache<number, User> = new LruCache(10);
-    private navigationUsersCache: LruCache<number, User> = new LruCache(100);
-
-    make(data: UserData, config: {storeInSessionCache: boolean} = {storeInSessionCache: true}): User {
-        const userId = data.id;
-
-        let user = this.navigationUsersCache.get(userId) || this.sessionUsersCache.get(userId);
-
-        if (user) {
-            user.update(data);
-            return user;
-        }
-
-        user = new User(data);
-        config.storeInSessionCache
-            ? this.sessionUsersCache.set(userId, user)
-            : this.navigationUsersCache.set(userId, user);
-
-        return user;
-    }
-}
-
-
-export class User extends DataModel<User> {
-
-    static factory = new UserFactory();
-
+export class User extends DataModel<User> implements IUser {
     uuid!: string;
     areGuidelinesAccepted!: boolean;
     connectionsCircleId!: number;
@@ -54,9 +28,8 @@ export class User extends DataModel<User> {
     isFullyConnected!: boolean;
     isMemberOfCommunities!: boolean;
     isPendingConnectionConfirmation!: boolean;
-
-    connectedCircles!: Circle[];
-    profile!: UserProfile;
+    connectedCircles!: ICircle[];
+    profile!: IUserProfile;
 
     dataMap = {
         uuid: 'uuid',
@@ -80,10 +53,10 @@ export class User extends DataModel<User> {
         is_member_of_communities: 'isMemberOfCommunities',
         is_pending_connection_confirmation: 'isPendingConnectionConfirmation',
         connected_circles: (instance: User, circlesData: CircleData[]) => {
-            instance.connectedCircles = circlesData.map((circleData) => Circle.factory.make(circleData));
+            instance.connectedCircles = circlesData.map((circleData) => circleFactory.make(circleData));
         },
         profile: (instance: User, data: UserProfileData) => {
-            instance.profile = UserProfile.factory.make(data);
+            instance.profile = userProfileFactory.make(data);
         }
     };
 }

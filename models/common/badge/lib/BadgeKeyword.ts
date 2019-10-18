@@ -1,28 +1,4 @@
-import { DataModel } from '~/models/abstract/DataModel';
-import { IModelFactory } from '~/interfaces/IModelFactory';
-import { BadgeData } from '~/types/models/common/BadgeData';
-
-class BadgeFactory implements IModelFactory<Badge> {
-    make(data: BadgeData): Badge {
-        return new Badge(data);
-    }
-}
-
-export class Badge extends DataModel<Badge> {
-    static factory = new BadgeFactory();
-
-    keywordDescription!: string;
-    keyword: BadgeKeyword | undefined;
-
-    dataMap = {
-        'keyword_description': 'keywordDescription',
-        'keyword': (badge: Badge, data: string) => {
-            return BadgeKeyword.parse(data);
-        }
-    };
-}
-
-class BadgeKeyword {
+export class BadgeKeyword {
     static angel = new BadgeKeyword('ANGEL');
     static verified = new BadgeKeyword('VERIFIED');
     static founder = new BadgeKeyword('FOUNDER');
@@ -69,4 +45,3 @@ class BadgeKeyword {
         return this.code;
     }
 }
-

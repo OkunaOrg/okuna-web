@@ -1,6 +1,5 @@
-import { BehaviorSubject } from '~/node_modules/rxjs';
-import { AuthApiService, LoginData } from 'services/Apis/auth/Auth';
-import { User } from 'models/auth/User';
+import { LoginData } from '~/services/Apis/auth/types';
+
 
 export interface IUserService {
     loginWithCredentials(data: LoginData): Promise<void>;
