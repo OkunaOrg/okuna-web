@@ -24,15 +24,14 @@
 
     @Component({})
     export default class OkHomePage extends Vue {
-        private userService!: IUserService;
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         beforeRouteEnter(to: Route, from: Route, next: any) {
             next();
         }
 
         mounted() {
-            const userService = okunaContainer.get<IUserService>(TYPES.UserService);
-            console.log("YO", userService);
+            console.log("YO", this.userService);
         }
     }
 </script>
