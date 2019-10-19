@@ -1,6 +1,8 @@
 import { ToastProgrammatic as Toast } from 'buefy';
 import { IToastService } from '~/services/toast/IToast';
+import { injectable } from '~/node_modules/inversify';
 
+@injectable()
 export class ToastService implements IToastService {
     show(config: ToastConfig) {
         let bulmaToastColorModifier;

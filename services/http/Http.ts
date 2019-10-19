@@ -1,9 +1,10 @@
-import { inject, injectable } from '~/node_modules/tsyringe';
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '~/node_modules/axios';
 import { HttpServiceRequestConfig, IHttpService } from '~/services/http/IHttp';
 import { ILocalizationService } from '~/services/localization/ILocalization';
 import { IEnvironmentService } from '~/services/environment/IEnvironment';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
+import { inject, injectable } from '~/node_modules/inversify';
+import { TYPES } from '~/services/inversify-types';
 
 @injectable()
 export class HttpService implements IHttpService {
@@ -20,9 +21,9 @@ export class HttpService implements IHttpService {
 
     private authToken?: string;
 
-    constructor(@inject('LocalizationService') private localizationService?: ILocalizationService,
-                @inject('EnvironmentService') private environmentService?: IEnvironmentService,
-                @inject('StringTemplateService') private stringTemplateService?: IStringTemplateService) {
+    constructor(@inject(TYPES.LocalizationService) private localizationService?: ILocalizationService,
+                @inject(TYPES.EnvironmentService) private environmentService?: IEnvironmentService,
+                @inject(TYPES.StringTemplateService) private stringTemplateService?: IStringTemplateService) {
     }
 
     setAxiosClient(axios: AxiosInstance) {

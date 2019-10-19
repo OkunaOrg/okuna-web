@@ -1,6 +1,8 @@
 import { AxiosError } from '~/node_modules/axios';
 import { HandledError, IUtilsService } from '~/services/utils-service/IUtilsService';
+import { injectable } from '~/node_modules/inversify';
 
+@injectable()
 export class UtilsService implements IUtilsService {
     constructor() {
 

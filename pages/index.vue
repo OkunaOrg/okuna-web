@@ -18,18 +18,21 @@
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator";
     import { Route } from "vue-router";
-    import { container } from "~/node_modules/tsyringe";
-    import { IUserService } from '~/services/user/IUser';
+    import { TYPES } from "~/services/inversify-types";
+    import { IUserService } from "~/services/user/IUser";
+    import { okunaContainer } from "~/services/inversify";
 
     @Component({})
     export default class OkHomePage extends Vue {
+        private userService!: IUserService;
 
         beforeRouteEnter(to: Route, from: Route, next: any) {
             next();
         }
 
         mounted() {
-            const userService = container.resolve('UserService');
+            const userService = okunaContainer.get<IUserService>(TYPES.UserService);
+            console.log("YO", userService);
         }
     }
 </script>

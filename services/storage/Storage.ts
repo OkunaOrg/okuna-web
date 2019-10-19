@@ -1,7 +1,7 @@
 import { IStorageService } from '~/services/storage/IStorage';
-import { injectable } from '~/node_modules/tsyringe';
 import { IOkunaStorage } from '~/services/storage/lib/okuna-storage/IOkunaStorage';
 import okunaStorageFactory from '~/services/storage/lib/okuna-storage/factory';
+import { injectable } from '~/node_modules/inversify';
 
 @injectable()
 export class StorageService implements IStorageService {

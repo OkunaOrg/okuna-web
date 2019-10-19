@@ -1,6 +1,8 @@
 import VueI18n from '~/node_modules/vue-i18n';
 import { ILocalizationService } from '~/services/localization/ILocalization';
+import { injectable } from '~/node_modules/inversify';
 
+@injectable()
 export class LocalizationService implements ILocalizationService {
     private vuei18n!: VueI18n;
 

@@ -16,15 +16,16 @@
 </router>
 
 <script lang="ts">
-    import { Component, Vue } from "nuxt-property-decorator"
-    import { container } from "tsyringe";
+    import { Component, Inject, Vue } from "nuxt-property-decorator"
     import { Observer } from "~/node_modules/mobx-vue";
-    import { UserService } from "~/services/user/User";
+    import { IUserService } from "~/services/user/IUser";
+    import { TYPES } from "~/services/inversify-types";
 
     @Observer
     @Component({})
     export default class OkUserPage extends Vue {
-        userService: UserService = container.resolve(UserService);
+        @Inject(TYPES.UserService)
+        private userService!: IUserService;
 
         mounted() {
             //this._getUser();

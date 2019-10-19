@@ -1,8 +1,9 @@
-import { inject, injectable } from '~/node_modules/tsyringe';
 import { IAuthApiService } from '~/services/Apis/auth/IAuth';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { LoginData, LoginResponse, RegisterData, RegisterResponse } from '~/services/Apis/auth/types';
 import { IHttpService } from '~/services/http/IHttp';
+import { inject, injectable } from '~/node_modules/inversify';
+import { TYPES } from '~/services/inversify-types';
 
 @injectable()
 export class AuthApiService implements IAuthApiService {
@@ -10,7 +11,7 @@ export class AuthApiService implements IAuthApiService {
     static REGISTER_PATH = 'api/auth/register/';
     static AUTHENTICATED_USER_PATH = 'api/auth/user/';
 
-    constructor(@inject('HttpService') private httpService: IHttpService) {
+    constructor(@inject(TYPES.HttpService) private httpService: IHttpService) {
 
     }
 

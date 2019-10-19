@@ -30,7 +30,7 @@ export default {
         {src: '~/plugins/line-clamp', ssr: false},
         '~/plugins/directives',
         '~/plugins/vuelidate',
-        '~/plugins/di-container',
+        '~/plugins/di-vue',
     ],
     router: {
         middleware: ['post-redirect'],
@@ -81,4 +81,9 @@ export default {
         // We followed steps of https://nuxt-community.github.io/nuxt-i18n/seo.html#improving-performance
         seo: false,
     },
+    render: {
+        bundleRenderer: {
+            runInNewContext: false
+        }
+    }
 }

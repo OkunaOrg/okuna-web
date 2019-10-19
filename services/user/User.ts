@@ -1,4 +1,3 @@
-import { inject, injectable } from '~/node_modules/tsyringe';
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IAuthApiService } from '~/services/Apis/auth/IAuth';
 import { IUserService } from '~/services/user/IUser';
@@ -8,6 +7,8 @@ import userFactory from '~/models/auth/user/factory';
 import { IHttpService } from '~/services/http/IHttp';
 import { IOkunaStorage } from '~/services/storage/lib/okuna-storage/IOkunaStorage';
 import { IStorageService } from '~/services/storage/IStorage';
+import { inject, injectable } from '~/node_modules/inversify';
+import { TYPES } from '~/services/inversify-types';
 
 @injectable()
 export class UserService implements IUserService {
@@ -16,9 +17,9 @@ export class UserService implements IUserService {
 
     private loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 
-    constructor(@inject('AuthApiService') private authApiService?: IAuthApiService,
-                @inject('HttpService') private httpService?: IHttpService,
-                @inject('StorageService')  storageService?: IStorageService) {
+    constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
+                @inject(TYPES.HttpService) private httpService?: IHttpService,
+                @inject(TYPES.StorageService)  storageService?: IStorageService) {
         this.tokenStorage = storageService!.getLocalForageStorage('userTokenStorage');
     }
 
