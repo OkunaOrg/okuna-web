@@ -1,4 +1,4 @@
-import { AxiosResponse } from '~/node_modules/axios';
+import { AxiosInstance, AxiosResponse } from '~/node_modules/axios';
 
 export interface IHttpService {
     get<T = any, R = AxiosResponse<T>>(url: string, config?: HttpServiceRequestConfig): Promise<R>;
@@ -14,6 +14,8 @@ export interface IHttpService {
     setAuthToken(token: string): void;
 
     clearAuthToken(): void;
+
+    setAxiosClient(axios: AxiosInstance): void;
 }
 
 

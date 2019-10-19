@@ -2,7 +2,7 @@ import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
 import { IBadge } from '~/models/common/badge/IBadge';
 import badgeFactory from '~/models/common/badge/factory';
 import { DataModel } from '~/models/abstract/DataModel';
-import { BadgeData } from '~/types/models/common/BadgeData';
+import { BadgeData } from '~/types/models-data/common/BadgeData';
 
 
 export class UserProfile extends DataModel<UserProfile> implements IUserProfile {

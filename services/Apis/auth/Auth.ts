@@ -1,10 +1,10 @@
-import { inject, singleton } from '~/node_modules/tsyringe';
+import { inject, injectable } from '~/node_modules/tsyringe';
 import { IAuthApiService } from '~/services/Apis/auth/IAuth';
-import { UserData } from '~/types/models/auth/UserData';
+import { UserData } from '~/types/models-data/auth/UserData';
 import { LoginData, LoginResponse, RegisterData, RegisterResponse } from '~/services/Apis/auth/types';
 import { IHttpService } from '~/services/http/IHttp';
 
-@singleton()
+@injectable()
 export class AuthApiService implements IAuthApiService {
     static LOGIN_PATH = 'api/auth/login/';
     static REGISTER_PATH = 'api/auth/register/';

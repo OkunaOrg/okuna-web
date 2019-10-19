@@ -1,5 +1,5 @@
 import { IModelFactory } from 'interfaces/IModelFactory';
-import { UserProfileData } from 'types/models/auth/UserProfileData';
+import { UserProfileData } from 'types/models-data/auth/UserProfileData';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
 import { UserProfile } from '~/models/auth/user-profile/UserProfile';
 

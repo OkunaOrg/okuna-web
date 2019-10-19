@@ -1,4 +1,4 @@
-import { ModelData } from 'types/models/ModelData';
+import { ModelData } from 'types/models-data/ModelData';
 
 export interface UserData extends ModelData {
     uuid?: string,

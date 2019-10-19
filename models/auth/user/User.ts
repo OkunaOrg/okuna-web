@@ -3,8 +3,8 @@ import circleFactory from '~/models/connections/circle/factory';
 import userProfileFactory from '~/models/auth/user-profile/factory';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
 import { ICircle } from '~/models/connections/circle/ICircle';
-import { CircleData } from '~/types/models/connections/CircleData';
-import { UserProfileData } from '~/types/models/auth/UserProfileData';
+import { CircleData } from '~/types/models-data/connections/CircleData';
+import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { DataModel } from '~/models/abstract/DataModel';
 
 export class User extends DataModel<User> implements IUser {

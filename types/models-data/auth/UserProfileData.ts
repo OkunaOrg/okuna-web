@@ -1,4 +1,4 @@
-import { ModelData } from 'types/models/ModelData';
+import { ModelData } from 'types/models-data/ModelData';
 
 export interface UserProfileData extends ModelData {
     name: string,

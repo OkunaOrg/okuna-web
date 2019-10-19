@@ -1,5 +1,5 @@
 import { IModelFactory } from 'interfaces/IModelFactory';
-import { CircleData } from 'types/models/connections/CircleData';
+import { CircleData } from 'types/models-data/connections/CircleData';
 import { Circle } from '~/models/connections/circle/Circle';
 import { ICircle } from '~/models/connections/circle/ICircle';
 

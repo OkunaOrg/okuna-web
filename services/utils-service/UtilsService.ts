@@ -1,11 +1,8 @@
-import { inject, singleton } from '~/node_modules/tsyringe';
 import { AxiosError } from '~/node_modules/axios';
 import { HandledError, IUtilsService } from '~/services/utils-service/IUtilsService';
-import { IToastService } from '~/services/toast/IToast';
 
-@singleton()
 export class UtilsService implements IUtilsService {
-    constructor(@inject('ToastService') private toastService?: IToastService) {
+    constructor() {
 
     }
 

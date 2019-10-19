@@ -2,7 +2,7 @@ import { ICircle } from '~/models/connections/circle/ICircle';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
 import { DataModel } from '~/models/abstract/DataModel';
-import { UserData } from '~/types/models/auth/UserData';
+import { UserData } from '~/types/models-data/auth/UserData';
 
 export class Circle extends DataModel<Circle> implements ICircle {
 

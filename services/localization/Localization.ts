@@ -1,8 +1,6 @@
-import { singleton } from '~/node_modules/tsyringe';
 import VueI18n from '~/node_modules/vue-i18n';
 import { ILocalizationService } from '~/services/localization/ILocalization';
 
-@singleton()
 export class LocalizationService implements ILocalizationService {
     private vuei18n!: VueI18n;
 

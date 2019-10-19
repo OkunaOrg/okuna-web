@@ -1,18 +1,18 @@
-import { inject, singleton } from '~/node_modules/tsyringe';
+import { inject, injectable } from '~/node_modules/tsyringe';
 import { BehaviorSubject } from '~/node_modules/rxjs';
-import { OkunaStorage } from '~/services/storage/lib/OkunaStorage';
-import { IStorageService } from '~/services/storage/IStorage';
 import { IAuthApiService } from '~/services/Apis/auth/IAuth';
 import { IUserService } from '~/services/user/IUser';
 import { LoginData } from '~/services/Apis/auth/types';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
 import { IHttpService } from '~/services/http/IHttp';
+import { IOkunaStorage } from '~/services/storage/lib/okuna-storage/IOkunaStorage';
+import { IStorageService } from '~/services/storage/IStorage';
 
-@singleton()
+@injectable()
 export class UserService implements IUserService {
     static AUTH_TOKEN_STORAGE_KEY = 'auth';
-    private tokenStorage: OkunaStorage<string>;
+    private tokenStorage: IOkunaStorage<string>;
 
     private loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 

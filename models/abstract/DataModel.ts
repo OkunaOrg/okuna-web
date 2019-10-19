@@ -1,4 +1,4 @@
-import { ModelData } from '~/types/models/ModelData';
+import { ModelData } from '~/types/models-data/ModelData';
 import { DataModelDataToAttributesMap, IDataModel } from '~/models/abstract/IDataModel';
 
 export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T> {

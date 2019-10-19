@@ -1,11 +1,11 @@
-import { inject, singleton } from '~/node_modules/tsyringe';
+import { inject, injectable } from '~/node_modules/tsyringe';
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '~/node_modules/axios';
 import { HttpServiceRequestConfig, IHttpService } from '~/services/http/IHttp';
 import { ILocalizationService } from '~/services/localization/ILocalization';
 import { IEnvironmentService } from '~/services/environment/IEnvironment';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
 
-@singleton()
+@injectable()
 export class HttpService implements IHttpService {
 
     static makeDefaultRequestConfig(): HttpServiceRequestConfig {
