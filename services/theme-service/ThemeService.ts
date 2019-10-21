@@ -57,8 +57,6 @@ export class ThemeService implements IThemeService {
         this.logger = loggingService!.getLogger({
             name: ' ThemeService'
         });
-        console.log('Hey ya got logger', this.logger);
-        this.bootstrapWithStoredActiveThemeId();
     }
 
     getCuratedThemes(): ITheme[] {
@@ -76,7 +74,16 @@ export class ThemeService implements IThemeService {
         await this.storeActiveThemeId();
     }
 
-    private async bootstrapWithStoredActiveThemeId() {
+    async clearActiveTheme(): Promise<void> {
+        await this.setDefaultTheme();
+    }
+
+    bootstrapTheme(): Promise<ITheme> {
+        this.logger.info('Bootstrapping theme');
+        return this.bootstrapWithStoredActiveThemeId();
+    }
+
+    private async bootstrapWithStoredActiveThemeId(): Promise<ITheme> {
         const storedActiveThemeId = await this.getStoredActiveThemeId();
         if (!storedActiveThemeId) return this.setDefaultTheme();
 
@@ -86,13 +93,15 @@ export class ThemeService implements IThemeService {
             return this.setDefaultTheme();
         }
 
-        return this.setActiveTheme(theme);
+        await this.setActiveTheme(theme);
+
+        return theme;
     }
 
-
-    private setDefaultTheme(): Promise<void> {
+    private async setDefaultTheme(): Promise<ITheme> {
         const defaultTheme = ThemeService.themes[0];
-        return this.setActiveTheme(defaultTheme);
+        await this.setActiveTheme(defaultTheme);
+        return defaultTheme;
     }
 
     private getStoredActiveThemeId(): Promise<number | undefined> {
@@ -107,9 +116,5 @@ export class ThemeService implements IThemeService {
         return ThemeService.themes.find((theme) => {
             return theme.id === id;
         });
-    }
-
-    clearActiveTheme(): Promise<void> {
-        return this.setDefaultTheme();
     }
 }

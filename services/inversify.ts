@@ -23,6 +23,8 @@ import { ILoggingService } from '~/services/logging/ILogging';
 import { LoggingService } from '~/services/logging/Logging';
 import { IThemeService } from '~/services/theme-service/IThemeService';
 import { ThemeService } from '~/services/theme-service/ThemeService';
+import { IBootstrapService } from '~/services/bootstrap/IBootstrap';
+import { BootstrapService } from '~/services/bootstrap/Bootstrap';
 
 const okunaContainer = new Container();
 
@@ -38,5 +40,6 @@ okunaContainer.bind<IStorageService>(TYPES.StorageService).to(StorageService).in
 okunaContainer.bind<IEnvironmentService>(TYPES.EnvironmentService).to(EnvironmentService).inSingletonScope();
 okunaContainer.bind<ILoggingService>(TYPES.LoggingService).to(LoggingService).inSingletonScope();
 okunaContainer.bind<IThemeService>(TYPES.ThemeService).to(ThemeService).inSingletonScope();
+okunaContainer.bind<IBootstrapService>(TYPES.BootstrapService).to(BootstrapService).inSingletonScope();
 
 export { okunaContainer };

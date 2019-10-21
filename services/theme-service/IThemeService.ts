@@ -9,6 +9,8 @@ export interface IThemeService {
 
     setActiveTheme(theme: ITheme): Promise<void>;
 
-    clearActiveTheme() : Promise<void>;
+    clearActiveTheme(): Promise<void>;
+
+    bootstrapTheme(): Promise<ITheme>;
 }
 

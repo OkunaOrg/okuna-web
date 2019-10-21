@@ -3,6 +3,7 @@ import { IStorageService } from '~/services/storage/IStorage';
 import { TYPES } from '~/services/inversify-types';
 import { IHttpService } from '~/services/http/IHttp';
 import { ILocalizationService } from '~/services/localization/ILocalization';
+import { IBootstrapService } from '~/services/bootstrap/IBootstrap';
 
 export default function (ctx: any, inject: any) {
     if (!ctx.$localForage) {
@@ -25,4 +26,7 @@ export default function (ctx: any, inject: any) {
         const localizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
         localizationService.setVueTranslator(ctx.app.i18n);
     }
+
+    const bootstrapService = okunaContainer.get<IBootstrapService>(TYPES.BootstrapService);
+    bootstrapService.bootstrap();
 }
