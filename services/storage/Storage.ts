@@ -1,5 +1,5 @@
 import { IStorageService } from '~/services/storage/IStorage';
-import { IOkunaStorage } from '~/services/storage/lib/okuna-storage/IOkunaStorage';
+import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import okunaStorageFactory from '~/services/storage/lib/okuna-storage/factory';
 import { injectable } from '~/node_modules/inversify';
 
@@ -21,7 +21,7 @@ export class StorageService implements IStorageService {
         this.localForage = localForage;
     }
 
-    getLocalForageStorage<T>(namespace: string): IOkunaStorage<T> {
+    getLocalForageStorage<T>(namespace: string): IOkStorage<T> {
         console.log('Retrieving local forage', this.localForage, ' with identifier ', this.identifier);
         if (!this.localForage) throw new Error('this.localForage is undefined');
 

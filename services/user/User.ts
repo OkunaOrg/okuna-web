@@ -5,7 +5,7 @@ import { LoginData } from '~/services/Apis/auth/types';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
 import { IHttpService } from '~/services/http/IHttp';
-import { IOkunaStorage } from '~/services/storage/lib/okuna-storage/IOkunaStorage';
+import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import { IStorageService } from '~/services/storage/IStorage';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
@@ -13,7 +13,7 @@ import { TYPES } from '~/services/inversify-types';
 @injectable()
 export class UserService implements IUserService {
     static AUTH_TOKEN_STORAGE_KEY = 'auth';
-    private tokenStorage: IOkunaStorage<string>;
+    private tokenStorage: IOkStorage<string>;
 
     private loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 

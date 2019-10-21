@@ -1,7 +1,7 @@
 import { IStore } from 'services/storage/lib/stores/IStore';
-import { IOkunaStorage } from 'services/storage/lib/okuna-storage/IOkunaStorage';
+import { IOkStorage } from 'services/storage/lib/okuna-storage/IOkStorage';
 
-export class OkunaStorage<T> implements IOkunaStorage<T> {
+export class OkStorage<T> implements IOkStorage<T> {
 
     private storedKeys: string[];
 

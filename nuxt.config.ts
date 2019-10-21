@@ -20,6 +20,7 @@ export default {
     ],
     buildModules: ['@nuxt/typescript-build', '@nuxtjs/router-extras'],
     modules: [
+        '@nuxtjs/sentry',
         '@nuxtjs/axios',
         'localforage-nuxt',
         'nuxt-i18n',

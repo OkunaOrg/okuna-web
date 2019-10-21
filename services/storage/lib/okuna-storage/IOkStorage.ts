@@ -1,5 +1,5 @@
 
-export interface IOkunaStorage<T> {
+export interface IOkStorage<T> {
     clear(): Promise<void>;
 
     get(key: string): Promise<T>;

@@ -35,4 +35,8 @@ export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T>
             }
         });
     };
+
+    toJson(){
+
+    }
 }
