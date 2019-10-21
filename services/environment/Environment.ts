@@ -9,7 +9,7 @@ export class EnvironmentService implements IEnvironmentService {
     }
 
     get logging(): boolean {
-        return (process.env.LOGGING as unknown) as boolean;
+        return process.env.LOGGING === 'true'
     }
 
 

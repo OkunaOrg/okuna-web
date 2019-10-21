@@ -1,4 +1,4 @@
-const envVars = require('./env.json');
+const envVars = require('./.env');
 
 export default {
     mode: 'spa',
@@ -18,7 +18,11 @@ export default {
     css: [
         '~/assets/styles/index.scss'
     ],
-    buildModules: ['@nuxt/typescript-build', '@nuxtjs/router-extras'],
+    buildModules: [
+        ['@nuxtjs/dotenv', {systemvars: true}],
+        '@nuxt/typescript-build',
+        '@nuxtjs/router-extras'
+    ],
     modules: [
         '@nuxtjs/sentry',
         '@nuxtjs/axios',
