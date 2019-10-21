@@ -9,18 +9,26 @@ import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import { IStorageService } from '~/services/storage/IStorage';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
+import { ILoggingService } from '~/services/logging/ILogging';
+import { IOkLogger } from '~/services/logging/types';
 
 @injectable()
 export class UserService implements IUserService {
     static AUTH_TOKEN_STORAGE_KEY = 'auth';
     private tokenStorage: IOkStorage<string>;
+    private logger: IOkLogger;
 
     private loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.HttpService) private httpService?: IHttpService,
-                @inject(TYPES.StorageService)  storageService?: IStorageService) {
+                @inject(TYPES.StorageService)  storageService?: IStorageService,
+                @inject(TYPES.LoggingService)  loggingService?: ILoggingService
+    ) {
         this.tokenStorage = storageService!.getLocalForageStorage('userTokenStorage');
+        this.logger = loggingService!.getLogger({
+            name: 'UserService'
+        });
     }
 
     async loginWithCredentials(data: LoginData): Promise<void> {

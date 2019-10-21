@@ -1,6 +1,6 @@
-import { OkLogger, OkLoggerConfig } from '~/services/logging/types';
+import { IOkLogger, OkLoggerConfig } from '~/services/logging/types';
 
 export interface ILoggingService {
-    getLogger(config: OkLoggerConfig): OkLogger;
+    getLogger(config: OkLoggerConfig): IOkLogger;
 }
 

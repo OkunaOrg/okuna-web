@@ -19,6 +19,10 @@ import { IStorageService } from '~/services/storage/IStorage';
 import { StorageService } from '~/services/storage/Storage';
 import { IEnvironmentService } from '~/services/environment/IEnvironment';
 import { EnvironmentService } from '~/services/environment/Environment';
+import { ILoggingService } from '~/services/logging/ILogging';
+import { LoggingService } from '~/services/logging/Logging';
+import { IThemeService } from '~/services/theme-service/IThemeService';
+import { ThemeService } from '~/services/theme-service/ThemeService';
 
 const okunaContainer = new Container();
 
@@ -32,5 +36,7 @@ okunaContainer.bind<IUserService>(TYPES.UserService).to(UserService).inSingleton
 okunaContainer.bind<IUtilsService>(TYPES.UtilsService).to(UtilsService).inSingletonScope();
 okunaContainer.bind<IStorageService>(TYPES.StorageService).to(StorageService).inSingletonScope();
 okunaContainer.bind<IEnvironmentService>(TYPES.EnvironmentService).to(EnvironmentService).inSingletonScope();
+okunaContainer.bind<ILoggingService>(TYPES.LoggingService).to(LoggingService).inSingletonScope();
+okunaContainer.bind<IThemeService>(TYPES.ThemeService).to(ThemeService).inSingletonScope();
 
 export { okunaContainer };

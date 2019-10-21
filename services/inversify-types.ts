@@ -8,6 +8,8 @@ const TYPES = {
     StringTemplateService: Symbol.for('StringTemplateService'),
     StorageService: Symbol.for('StorageService'),
     UtilsService: Symbol.for('UtilsService'),
+    LoggingService: Symbol.for('LoggingService'),
+    ThemeService: Symbol.for('ThemeService'),
 };
 
 export { TYPES };

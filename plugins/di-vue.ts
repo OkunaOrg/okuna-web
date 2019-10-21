@@ -9,8 +9,6 @@ export default function (ctx: any, inject: any) {
         console.error('Please make sure localForage module is added');
     } else {
         const storageService = okunaContainer.get<IStorageService>(TYPES.StorageService);
-        console.log('Got storage service with id ', storageService.getIdentifier());
-        console.log('Setting local storage');
         storageService.setLocalForage(ctx.$localForage);
     }
 

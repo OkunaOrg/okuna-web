@@ -5,6 +5,4 @@ export interface IStorageService {
     setLocalForage(localForage: LocalForage): void;
 
     getLocalForageStorage<T>(namespace: string): IOkStorage<T>;
-
-    getIdentifier(): number;
 }

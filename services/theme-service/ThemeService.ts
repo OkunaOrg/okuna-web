@@ -9,6 +9,10 @@ import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import jss from 'jss';
 import preset from 'jss-preset-default';
 import color from 'color';
+import { IOkLogger } from '~/services/logging/types';
+import { ILoggingService } from '~/services/logging/ILogging';
+
+jss.setup(preset());
 
 @injectable()
 export class ThemeService implements IThemeService {
@@ -45,11 +49,16 @@ export class ThemeService implements IThemeService {
     @observable activeTheme: ITheme | undefined;
 
     private activeThemeStorage: IOkStorage<number>;
+    private logger: IOkLogger;
 
-    constructor(@inject(TYPES.StorageService)  storageService?: IStorageService) {
+    constructor(@inject(TYPES.StorageService)  storageService?: IStorageService,
+                @inject(TYPES.LoggingService)  loggingService?: ILoggingService,) {
         this.activeThemeStorage = storageService!.getLocalForageStorage('activeThemeStorage');
-        jss.setup(preset());
-        this.bootstrapWithStoredActiveTheme();
+        this.logger = loggingService!.getLogger({
+            name: ' ThemeService'
+        });
+        console.log('Hey ya got logger', this.logger);
+        this.bootstrapWithStoredActiveThemeId();
     }
 
     getCuratedThemes(): ITheme[] {
@@ -69,18 +78,21 @@ export class ThemeService implements IThemeService {
 
     private async bootstrapWithStoredActiveThemeId() {
         const storedActiveThemeId = await this.getStoredActiveThemeId();
-        if (!storedActiveThemeId) return this.bootstrapWithDefaultTheme();
+        if (!storedActiveThemeId) return this.setDefaultTheme();
 
         const theme = this.getThemeWithId(storedActiveThemeId);
 
-        if(!theme)
+        if (!theme) {
+            return this.setDefaultTheme();
+        }
+
         return this.setActiveTheme(theme);
     }
 
 
-    private bootstrapWithDefaultTheme(){
+    private setDefaultTheme(): Promise<void> {
         const defaultTheme = ThemeService.themes[0];
-
+        return this.setActiveTheme(defaultTheme);
     }
 
     private getStoredActiveThemeId(): Promise<number | undefined> {
@@ -95,5 +107,9 @@ export class ThemeService implements IThemeService {
         return ThemeService.themes.find((theme) => {
             return theme.id === id;
         });
+    }
+
+    clearActiveTheme(): Promise<void> {
+        return this.setDefaultTheme();
     }
 }

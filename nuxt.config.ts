@@ -1,8 +1,8 @@
-const envVars = require('./.env');
+const result = require('dotenv').config();
 
 export default {
     mode: 'spa',
-    env: envVars,
+    env: result.parsed,
     head: {
         title: 'okuna-web',
         meta: [
@@ -19,7 +19,7 @@ export default {
         '~/assets/styles/index.scss'
     ],
     buildModules: [
-        ['@nuxtjs/dotenv', {systemvars: true}],
+        //['@nuxtjs/dotenv', {systemvars: true}],
         '@nuxt/typescript-build',
         '@nuxtjs/router-extras'
     ],
@@ -29,6 +29,9 @@ export default {
         'localforage-nuxt',
         'nuxt-i18n',
     ],
+    sentry: {
+        dsn: process.env.SENTRY_DSN,
+    },
     axios: {},
     plugins: [
         '~/plugins/buefy',
