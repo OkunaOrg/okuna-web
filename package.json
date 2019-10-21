@@ -22,6 +22,7 @@
     "es6-dynamic-template": "^2.0.0",
     "inversify": "^5.0.1",
     "jss": "^10.0.0",
+    "jss-plugin-global": "^10.0.0",
     "jss-preset-default": "^10.0.0",
     "localforage": "^1.7.3",
     "localforage-nuxt": "^1.0.5",

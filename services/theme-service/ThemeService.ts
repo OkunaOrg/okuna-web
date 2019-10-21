@@ -12,7 +12,11 @@ import color from 'color';
 import { IOkLogger } from '~/services/logging/types';
 import { ILoggingService } from '~/services/logging/ILogging';
 
-jss.setup(preset());
+const createGenerateId = () => {
+    return (rule: any, sheet: any) => `${rule.key}`;
+};
+
+jss.setup(Object.assign(preset(), {createGenerateId}));
 
 @injectable()
 export class ThemeService implements IThemeService {
@@ -51,6 +55,8 @@ export class ThemeService implements IThemeService {
     private activeThemeStorage: IOkStorage<number>;
     private logger: IOkLogger;
 
+    private themeStylesheet?: any;
+
     constructor(@inject(TYPES.StorageService)  storageService?: IStorageService,
                 @inject(TYPES.LoggingService)  loggingService?: ILoggingService,) {
         this.activeThemeStorage = storageService!.getLocalForageStorage('activeThemeStorage');
@@ -71,6 +77,7 @@ export class ThemeService implements IThemeService {
     @action.bound
     async setActiveTheme(theme: ITheme): Promise<void> {
         this.activeTheme = theme;
+        this.applyActiveThemeStyles();
         await this.storeActiveThemeId();
     }
 
@@ -115,6 +122,37 @@ export class ThemeService implements IThemeService {
     private getThemeWithId(id: number): ITheme | undefined {
         return ThemeService.themes.find((theme) => {
             return theme.id === id;
+        });
+    }
+
+    private applyActiveThemeStyles(): void {
+        const stylesToApply = {
+            '@global': {
+                body: {},
+            },
+            'ok-has-background-primary': {
+                'background-color': (data: any) => {
+                    console.log('Got this', data);
+                    return [data.primaryColor, '!important'];
+                }
+            },
+        };
+
+        if (!this.themeStylesheet) {
+            this.logger.info('Creating and attaching stylesheet with styles', stylesToApply);
+            this.themeStylesheet = jss.createStyleSheet(stylesToApply, {link: true});
+            this.themeStylesheet.attach();
+        }
+
+        this.logger.info('Updating stylesheet with styles', stylesToApply);
+        this.themeStylesheet.update({
+            primaryColor: 'pink'
+        });
+
+        console.log((primaryColor: string) => {
+            this.themeStylesheet.update({
+                primaryColor: primaryColor
+            });
         });
     }
 }

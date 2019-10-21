@@ -1,11 +1,17 @@
 a {
   color: inherit;
-  &:hover, &:focus{
+
+  &:hover, &:focus {
     text-decoration: underline !important;
   }
 }
 
+html {
+  height: 100%;
+  display: flex;
+}
+
 body {
   margin: 0;
-  text-align: center;
+  flex: 1;
 }
