@@ -33,36 +33,104 @@ export class User extends DataModel<User> implements IUser {
     connectedCircles!: ICircle[];
     profile!: IUserProfile;
 
-    dataMap = {
-        uuid: 'uuid',
-        are_guidelines_accepted: 'areGuidelinesAccepted',
-        connections_circle_id: 'connectionsCircleId',
-        followers_count: 'followersCount',
-        posts_count: 'postsCount',
-        invite_count: 'inviteCount',
-        unread_notifications_count: 'unreadNotificationsCount',
-        pending_communities_moderated_objects_count: 'pendingCommunitiesModeratedObjectsCount',
-        active_moderation_penalties_count: 'activeModerationPenaltiesCount',
-        email: 'email',
-        username: 'username',
-        following_count: 'followingCount',
-        is_following: 'isFollowing',
-        is_connected: 'isConnected',
-        is_global_moderator: 'isGlobalModerator',
-        is_blocked: 'isBlocked',
-        is_reported: 'isReported',
-        is_fully_connected: 'isFullyConnected',
-        is_member_of_communities: 'isMemberOfCommunities',
-        is_pending_connection_confirmation: 'isPendingConnectionConfirmation',
-        connected_circles: (instance: User, circlesData: CircleData[]) => {
-            instance.connectedCircles = circlesData.map((circleData) => circleFactory.make(circleData));
+    dataMaps: DataModelAttributeMap<IUser>[] = [
+        {
+            dataKey: 'uuid',
+            attributeKey: 'uuid'
         },
-        profile: (instance: User, data: UserProfileData) => {
-            instance.profile = userProfileFactory.make(data);
-        }
-    };
-
-    dataMaps: DataModelAttributeMap<IUser>[] = [];
+        {
+            dataKey: 'are_guidelines_accepted',
+            attributeKey: 'areGuidelinesAccepted'
+        },
+        {
+            dataKey: 'connections_circle_id',
+            attributeKey: 'connectionsCircleId'
+        },
+        {
+            dataKey: 'followers_count',
+            attributeKey: 'followersCount'
+        },
+        {
+            dataKey: 'posts_count',
+            attributeKey: 'postsCount'
+        },
+        {
+            dataKey: 'invite_count',
+            attributeKey: 'inviteCount'
+        },
+        {
+            dataKey: 'unread_notifications_count',
+            attributeKey: 'unreadNotificationsCount'
+        },
+        {
+            dataKey: 'pending_communities_moderated_objects_count',
+            attributeKey: 'pendingCommunitiesModeratedObjectsCount'
+        },
+        {
+            dataKey: 'active_moderation_penalties_count',
+            attributeKey: 'activeModerationPenaltiesCount'
+        },
+        {
+            dataKey: 'email',
+            attributeKey: 'email'
+        },
+        {
+            dataKey: 'username',
+            attributeKey: 'username'
+        },
+        {
+            dataKey: 'following_count',
+            attributeKey: 'followingCount'
+        },
+        {
+            dataKey: 'is_following',
+            attributeKey: 'isFollowing'
+        },
+        {
+            dataKey: 'is_connected',
+            attributeKey: 'isConnected'
+        },
+        {
+            dataKey: 'is_global_moderator',
+            attributeKey: 'isGlobalModerator'
+        },
+        {
+            dataKey: 'is_blocked',
+            attributeKey: 'isBlocked'
+        },
+        {
+            dataKey: 'is_reported',
+            attributeKey: 'isReported'
+        },
+        {
+            dataKey: 'is_fully_connected',
+            attributeKey: 'isFullyConnected'
+        },
+        {
+            dataKey: 'is_member_of_communities',
+            attributeKey: 'isMemberOfCommunities'
+        },
+        {
+            dataKey: 'is_pending_connection_confirmation',
+            attributeKey: 'isPendingConnectionConfirmation'
+        },
+        {
+            dataKey: 'profile',
+            attributeKey: 'profile',
+            deserializer: (instance, rawData: UserProfileData) => {
+                if (!rawData) return;
+                return userProfileFactory.make(rawData);
+            }
+        },
+        {
+            dataKey: 'connected_circles',
+            attributeKey: 'connectedCircles',
+            deserializer: (instance, rawData: CircleData[]) => {
+                if (!rawData) return;
+                return rawData.map((rawDataItem) => circleFactory.make(rawDataItem));
+            }
+        },
+    ];
 
     constructor(data: ModelData) {
         super(data);

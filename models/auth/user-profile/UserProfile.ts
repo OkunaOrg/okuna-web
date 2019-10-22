@@ -19,22 +19,51 @@ export class UserProfile extends DataModel<UserProfile> implements IUserProfile 
     communityPostsVisible!: boolean;
     badges!: IBadge[];
 
-    dataMap = {
-        id: 'id',
-        name: 'name',
-        avatar: 'avatar',
-        cover: 'cover',
-        bio: 'bio',
-        url: 'url',
-        location: 'location',
-        followers_count_visible: 'followersCountVisible',
-        community_posts_visible: 'communityPostsVisible',
-        badges: (instance: UserProfile, newDataValue: BadgeData[]) => {
-            return newDataValue.map((badge) => badgeFactory.make(badge));
-        }
-    };
-
-    dataMaps: DataModelAttributeMap<IUserProfile>[] = [];
+    dataMaps: DataModelAttributeMap<IUserProfile>[] = [
+        {
+            dataKey: 'id',
+            attributeKey: 'id'
+        },
+        {
+            dataKey: 'name',
+            attributeKey: 'name'
+        },
+        {
+            dataKey: 'avatar',
+            attributeKey: 'avatar'
+        },
+        {
+            dataKey: 'cover',
+            attributeKey: 'cover'
+        },
+        {
+            dataKey: 'bio',
+            attributeKey: 'bio'
+        },
+        {
+            dataKey: 'url',
+            attributeKey: 'url'
+        },
+        {
+            dataKey: 'location',
+            attributeKey: 'location'
+        },
+        {
+            dataKey: 'followers_count_visible',
+            attributeKey: 'followersCountVisible'
+        },
+        {
+            dataKey: 'community_posts_visible',
+            attributeKey: 'communityPostsVisible'
+        },
+        {
+            dataKey: 'badges',
+            attributeKey: 'badges',
+            deserializer: (instance, rawData: BadgeData[]) => {
+                return rawData.map((rawDataItem) => badgeFactory.make(rawDataItem));
+            }
+        },
+    ];
 
     constructor(data: ModelData) {
         super(data);

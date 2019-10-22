@@ -7,26 +7,41 @@ import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
 
 export class Circle extends DataModel<Circle> implements ICircle {
-
     creator!: IUser;
     name!: string;
     color!: string;
     usersCount!: number;
     users!: IUser[];
 
-    dataMap = {
-        name: 'name',
-        color: 'color',
-        users_count: 'usersCount',
-        creator: (instance: Circle, data: UserData) => {
-            instance.creator = userFactory.make(data);
+    dataMaps: DataModelAttributeMap<ICircle>[] = [
+        {
+            dataKey: 'name',
+            attributeKey: 'name'
         },
-        users: (instance: Circle, data: UserData[]) => {
-            instance.users = data.map((dataItem) => userFactory.make(dataItem));
-        }
-    };
-
-    dataMaps: DataModelAttributeMap<ICircle>[] = [];
+        {
+            dataKey: 'color',
+            attributeKey: 'color'
+        },
+        {
+            dataKey: 'users_count',
+            attributeKey: 'usersCount'
+        },
+        {
+            dataKey: 'creator',
+            attributeKey: 'creator',
+            deserializer: (instance, rawData: UserData) => {
+                if (!rawData) return;
+                return userFactory.make(rawData);
+            },
+        },
+        {
+            dataKey: 'users',
+            attributeKey: 'users',
+            deserializer: (instance, rawData: UserData[]) => {
+                return rawData.map((rawDataItem) => userFactory.make(rawDataItem));
+            }
+        },
+    ];
 
     constructor(data: ModelData) {
         super(data);
