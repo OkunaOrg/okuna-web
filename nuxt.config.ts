@@ -12,7 +12,7 @@ export default {
         ],
         link: [
             {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
-        ]
+        ],
     },
     loading: {color: '#000000'},
     css: [

@@ -23,14 +23,6 @@ export class ThemeService implements IThemeService {
     static ACTIVE_THEME_STORAGE_KEY = 'activeThemeId';
 
     static themeStylesheet = {
-        '@global': {
-            'body': {
-                'background-color': (data: ITheme) => {
-                    console.log('Background color', data.primaryAccentColor);
-                    return [data.primaryHighlightColor, '!important'];
-                }
-            }
-        },
         'ok-has-background-primary': {
             'background-color': (data: ITheme) => {
                 return [data.primaryColor, '!important'];
@@ -86,7 +78,7 @@ export class ThemeService implements IThemeService {
             secondary_text_color: '#676767',
             primary_color: '#ffffff',
             primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: '#f7f7f7',
+            primary_highlight_color: '#dadada',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
@@ -163,7 +155,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[1];
+        const defaultTheme = ThemeService.themes[2];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }

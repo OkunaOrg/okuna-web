@@ -7,7 +7,6 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import { Route } from "vue-router";
     import OkHeader from "../components/global/header/header.vue";
 
     @Component({
@@ -15,8 +14,12 @@
         components: {OkHeader}
     })
     export default class extends Vue {
-
-        mounted() {
+        head() {
+            return {
+                bodyAttrs: {
+                    class: "ok-has-background-primary-highlight"
+                }
+            }
         }
     }
 </script>
