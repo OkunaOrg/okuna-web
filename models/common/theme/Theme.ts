@@ -1,5 +1,7 @@
 import { DataModel } from '~/models/abstract/DataModel';
 import { ITheme } from '~/models/common/theme/ITheme';
+import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
+import { ModelData } from '~/types/models-data/ModelData';
 
 
 export class Theme extends DataModel<Theme> implements ITheme {
@@ -8,21 +10,58 @@ export class Theme extends DataModel<Theme> implements ITheme {
     secondaryTextColor!: string;
     primaryColor!: string;
     primaryAccentColor!: string;
+    primaryHighlightColor!: string;
     successColor!: string;
     successColorAccent!: string;
     dangerColor!: string;
     dangerColorAccent!: string;
 
-    dataMap = {
-        name: 'name',
-        primary_text_color: 'primaryTextColor',
-        secondary_text_color: 'secondaryTextColor',
-        primary_color: 'primaryColor',
-        primary_accent_color: 'primaryAccentColor',
-        success_color: 'successColor',
-        success_color_accent: 'successColorAccent',
-        danger_color: 'dangerColor',
-        danger_color_accent: 'dangerColorAccent',
-    };
+    dataMaps: DataModelAttributeMap<ITheme>[] = [
+        {
+            dataKey: 'name',
+            attributeKey: 'name'
+        },
+        {
+            dataKey: 'primary_text_color',
+            attributeKey: 'primaryTextColor',
+        },
+        {
+            dataKey: 'secondary_text_color',
+            attributeKey: 'secondaryTextColor',
+        },
+        {
+            dataKey: 'primary_color',
+            attributeKey: 'primaryColor',
+        },
+        {
+            dataKey: 'primary_accent_color',
+            attributeKey: 'primaryAccentColor',
+        },
+        {
+            dataKey: 'primary_highlight_color',
+            attributeKey: 'primaryHighlightColor',
+        },
+        {
+            dataKey: 'success_color',
+            attributeKey: 'successColor',
+        },
+        {
+            dataKey: 'success_color_accent',
+            attributeKey: 'successColorAccent',
+        },
+        {
+            dataKey: 'danger_color',
+            attributeKey: 'dangerColor',
+        },
+        {
+            dataKey: 'danger_color_accent',
+            attributeKey: 'dangerColorAccent',
+        },
+    ];
+
+    constructor(data: ModelData) {
+        super(data);
+        this.updateWithData(data);
+    }
 }
 

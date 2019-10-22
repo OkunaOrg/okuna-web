@@ -8,7 +8,6 @@ import { IStorageService } from '~/services/storage/IStorage';
 import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import jss from 'jss';
 import preset from 'jss-preset-default';
-import color from 'color';
 import { IOkLogger } from '~/services/logging/types';
 import { ILoggingService } from '~/services/logging/ILogging';
 
@@ -23,6 +22,62 @@ export class ThemeService implements IThemeService {
 
     static ACTIVE_THEME_STORAGE_KEY = 'activeThemeId';
 
+    static themeStylesheet = {
+        '@global': {
+            'body': {
+                'background-color': (data: ITheme) => {
+                    console.log('Background color', data.primaryAccentColor);
+                    return [data.primaryHighlightColor, '!important'];
+                }
+            }
+        },
+        'ok-has-background-primary': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryColor, '!important'];
+            }
+        },
+        'ok-has-background-primary-highlight': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryHighlightColor, '!important'];
+            }
+        },
+        'ok-has-background-success': {
+            'background-color': (data: ITheme) => {
+                return [data.successColor, '!important'];
+            }
+        },
+        'ok-has-background-danger': {
+            'background-color': (data: ITheme) => {
+                return [data.dangerColor, '!important'];
+            }
+        },
+        'ok-has-text-primary': {
+            'color': (data: ITheme) => {
+                return [data.primaryTextColor, '!important'];
+            }
+        },
+        'ok-has-text-secondary': {
+            'color': (data: ITheme) => {
+                return [data.secondaryTextColor, '!important'];
+            }
+        },
+        'ok-has-text-primary-accent': {
+            'background': (data: ITheme) => {
+                return [`-webkit-linear-gradient(${data.primaryAccentColor})`, '!important'];
+            }
+        },
+        'ok-has-text-danger': {
+            'color': (data: ITheme) => {
+                return [data.dangerColor, '!important'];
+            }
+        },
+        'ok-has-text-danger-accent': {
+            'color': (data: ITheme) => {
+                return [data.dangerColorAccent, '!important'];
+            }
+        },
+    };
+
     static themes = [
         themeFactory.make({
             id: 1,
@@ -31,6 +86,7 @@ export class ThemeService implements IThemeService {
             secondary_text_color: '#676767',
             primary_color: '#ffffff',
             primary_accent_color: '#e9a039,#f0c569',
+            primary_highlight_color: '#f7f7f7',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
@@ -43,6 +99,7 @@ export class ThemeService implements IThemeService {
             secondary_text_color: '#b3b3b3',
             primary_color: '#000000',
             primary_accent_color: '#e9a039,#f0c569',
+            primary_highlight_color: '#171717',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
@@ -106,7 +163,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[0];
+        const defaultTheme = ThemeService.themes[1];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }
@@ -126,33 +183,13 @@ export class ThemeService implements IThemeService {
     }
 
     private applyActiveThemeStyles(): void {
-        const stylesToApply = {
-            '@global': {
-                body: {},
-            },
-            'ok-has-background-primary': {
-                'background-color': (data: any) => {
-                    console.log('Got this', data);
-                    return [data.primaryColor, '!important'];
-                }
-            },
-        };
-
         if (!this.themeStylesheet) {
-            this.logger.info('Creating and attaching stylesheet with styles', stylesToApply);
-            this.themeStylesheet = jss.createStyleSheet(stylesToApply, {link: true});
+            this.logger.info('Creating and attaching stylesheet');
+            this.themeStylesheet = jss.createStyleSheet(ThemeService.themeStylesheet, {link: true});
             this.themeStylesheet.attach();
         }
 
-        this.logger.info('Updating stylesheet with styles', stylesToApply);
-        this.themeStylesheet.update({
-            primaryColor: 'pink'
-        });
-
-        console.log((primaryColor: string) => {
-            this.themeStylesheet.update({
-                primaryColor: primaryColor
-            });
-        });
+        this.logger.info('Updating stylesheet');
+        this.themeStylesheet.update(this.activeTheme);
     }
 }

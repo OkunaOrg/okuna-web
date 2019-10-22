@@ -6,11 +6,15 @@ export interface IDataModel<T extends IDataModel<T>> {
     id: number;
 
     updateWithData(data: ModelData): void;
+
+    dataMaps: DataModelAttributeMap<T>[];
 }
 
 
-type DataModelAttributeUpdater<T> = (instance: T, data: any) => any;
-
-export interface DataModelDataToAttributesMap<T> {
-    [key: string]: string | DataModelAttributeUpdater<T>;
+export interface DataModelAttributeMap<T> {
+    dataKey: string;
+    attributeKey: string;
+    deserializer?: DataValueToAttributeDeserializer<T>
 }
+
+type DataValueToAttributeDeserializer<T> = (instance: T, rawData: any) => any;

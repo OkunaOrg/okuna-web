@@ -3,6 +3,8 @@ import { IBadge } from '~/models/common/badge/IBadge';
 import badgeFactory from '~/models/common/badge/factory';
 import { DataModel } from '~/models/abstract/DataModel';
 import { BadgeData } from '~/types/models-data/common/BadgeData';
+import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
+import { ModelData } from '~/types/models-data/ModelData';
 
 
 export class UserProfile extends DataModel<UserProfile> implements IUserProfile {
@@ -31,5 +33,12 @@ export class UserProfile extends DataModel<UserProfile> implements IUserProfile 
             return newDataValue.map((badge) => badgeFactory.make(badge));
         }
     };
+
+    dataMaps: DataModelAttributeMap<IUserProfile>[] = [];
+
+    constructor(data: ModelData) {
+        super(data);
+        this.updateWithData(data);
+    }
 }
 

@@ -2,6 +2,7 @@ $primary-color: #ffffff;
 $primary-text-color: #505050;
 $secondary-text-color: #676767;
 $primary-accent-color: #ffdd00, #f93476;
+$primary-highlight-color: #f7f7f7;
 $success-color: #7ED321;
 $success-color-accent: #ffffff;
 $danger-color: #FF3860;
@@ -9,6 +10,10 @@ $danger-color-accent: #ffffff;
 
 .ok-has-background-primary {
   background-color: $primary-color !important;
+}
+
+.ok-has-background-primary-highlight {
+  background-color: $primary-highlight-color;
 }
 
 .ok-has-background-success {
@@ -19,25 +24,25 @@ $danger-color-accent: #ffffff;
   background-color: $danger-color !important;
 }
 
-.ok-has-text-primary{
+.ok-has-text-primary {
   color: $primary-text-color !important;
 }
 
-.ok-has-text-secondary{
+.ok-has-text-secondary {
   color: $secondary-text-color !important;
 }
 
-.ok-has-text-primary-accent{
+.ok-has-text-primary-accent {
   background: -webkit-linear-gradient($primary-accent-color);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.ok-has-text-danger{
+.ok-has-text-danger {
   color: $danger-color !important;
 }
 
-.ok-has-text-danger-accent{
+.ok-has-text-danger-accent {
   color: $danger-color-accent !important;
 }
 

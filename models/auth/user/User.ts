@@ -6,6 +6,8 @@ import { ICircle } from '~/models/connections/circle/ICircle';
 import { CircleData } from '~/types/models-data/connections/CircleData';
 import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { DataModel } from '~/models/abstract/DataModel';
+import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
+import { ModelData } from '~/types/models-data/ModelData';
 
 export class User extends DataModel<User> implements IUser {
     uuid!: string;
@@ -59,4 +61,12 @@ export class User extends DataModel<User> implements IUser {
             instance.profile = userProfileFactory.make(data);
         }
     };
+
+    dataMaps: DataModelAttributeMap<IUser>[] = [];
+
+    constructor(data: ModelData) {
+        super(data);
+        this.updateWithData(data);
+    }
+
 }

@@ -18,10 +18,16 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "paths": {
-      "~/*": ["./*"]
+      "~/*": [
+        "./*"
+      ],
+      "@/*": [
+        "./*"
+      ]
     },
     "types": [
       "reflect-metadata",
+      "@types/node",
       "@nuxt/types",
       "types-lib/*"
     ]

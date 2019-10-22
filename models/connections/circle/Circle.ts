@@ -3,6 +3,8 @@ import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
 import { DataModel } from '~/models/abstract/DataModel';
 import { UserData } from '~/types/models-data/auth/UserData';
+import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
+import { ModelData } from '~/types/models-data/ModelData';
 
 export class Circle extends DataModel<Circle> implements ICircle {
 
@@ -23,5 +25,12 @@ export class Circle extends DataModel<Circle> implements ICircle {
             instance.users = data.map((dataItem) => userFactory.make(dataItem));
         }
     };
+
+    dataMaps: DataModelAttributeMap<ICircle>[] = [];
+
+    constructor(data: ModelData) {
+        super(data);
+        this.updateWithData(data);
+    }
 }
 

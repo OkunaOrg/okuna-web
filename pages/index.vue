@@ -1,6 +1,8 @@
 <template>
     <section>
-        Home
+        <p class="ok-has-text-primary">
+            Hello
+        </p>
     </section>
 </template>
 
