@@ -15,4 +15,6 @@ export interface IUserService {
     loginWithStoredAuthToken(): Promise<void>;
 
     refreshLoggedInUser(): Promise<void>;
+
+    isLoggedIn(): boolean;
 }

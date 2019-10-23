@@ -75,4 +75,8 @@ export class UserService implements IUserService {
     private storeAuthToken(token: string) {
         return this.tokenStorage.set(UserService.AUTH_TOKEN_STORAGE_KEY, token);
     }
+
+    isLoggedIn(): boolean {
+        return !!this.loggedInUser;
+    }
 }
