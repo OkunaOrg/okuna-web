@@ -10,6 +10,7 @@ const TYPES = {
     UtilsService: Symbol.for('UtilsService'),
     LoggingService: Symbol.for('LoggingService'),
     ThemeService: Symbol.for('ThemeService'),
+    NavigationService: Symbol.for('NavigationService'),
     BootstrapService: Symbol.for('BootstrapService'),
 };
 

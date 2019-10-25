@@ -4,6 +4,7 @@ import { TYPES } from '~/services/inversify-types';
 import { IHttpService } from '~/services/http/IHttp';
 import { ILocalizationService } from '~/services/localization/ILocalization';
 import { IBootstrapService } from '~/services/bootstrap/IBootstrap';
+import { INavigationService } from '~/services/navigation-service/INavigationService';
 
 export default function (ctx: any, inject: any) {
     if (!ctx.$localForage) {
@@ -25,6 +26,13 @@ export default function (ctx: any, inject: any) {
     } else {
         const localizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
         localizationService.setVueTranslator(ctx.app.i18n);
+    }
+
+    if (!ctx.app.router) {
+        console.error('Please make sure vue-router module is added');
+    } else {
+        const navigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
+        navigationService.setVueRouter(ctx.app.router);
     }
 
     const bootstrapService = okunaContainer.get<IBootstrapService>(TYPES.BootstrapService);

@@ -70,7 +70,7 @@ export default {
         // strategy is prefix_except_default
         defaultLocale: 'en',
 
-        strategy: 'prefix_except_default',
+        strategy: 'no_prefix',
         // Enable browser language detection to automatically redirect user
         // to their preferred language as they visit your app for the first time
         detectBrowserLanguage: {
@@ -93,5 +93,8 @@ export default {
         bundleRenderer: {
             runInNewContext: false
         }
+    },
+    build: {
+        devtools: true
     }
 }

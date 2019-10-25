@@ -1,18 +1,40 @@
-import { injectable } from '~/node_modules/inversify';
-import { INavigationService } from '~/services/navigation-service/INavigationService';
+import { inject, injectable } from '~/node_modules/inversify';
+import { INavigationService, NavigationConfig } from '~/services/navigation-service/INavigationService';
+import VueRouter from 'vue-router';
+import { TYPES } from '~/services/inversify-types';
+import { ILoggingService } from '~/services/logging/ILogging';
+import { IOkLogger } from '~/services/logging/types';
+import { ILocalizationService } from '~/services/localization/ILocalization';
 
 @injectable()
 export class NavigationService implements INavigationService {
-    constructor() {
 
+    private vueRouter!: VueRouter;
+    private logger: IOkLogger;
+
+    constructor(@inject(TYPES.LocalizationService) private localizationService?: ILocalizationService,
+                @inject(TYPES.LoggingService)  loggingService?: ILoggingService
+    ) {
+        this.logger = loggingService!.getLogger({
+            name: 'NavigationService'
+        });
     }
 
-    navigateToLogin(): Promise<void> {
-        return Promise.resolve();
+
+    setVueRouter(vueRouter: VueRouter) {
+        this.vueRouter = vueRouter;
     }
 
-    navigateToRegister(): Promise<void> {
-        return Promise.resolve();
+    async navigateToLogin(config: NavigationConfig = {}): Promise<void> {
+        this.navigateToLocationWithConfig('/a/login', config);
+    }
+
+    async navigateToRegister(config: NavigationConfig = {}): Promise<void> {
+        this.navigateToLocationWithConfig('/a/register', config);
+    }
+
+    private navigateToLocationWithConfig(location: string, config: NavigationConfig) {
+        config.nuxtContext ? config.nuxtContext.redirect(location) : this.vueRouter.push(location);
     }
 
 }

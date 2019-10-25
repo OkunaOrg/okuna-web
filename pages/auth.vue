@@ -11,7 +11,7 @@
 
 <router>
     {
-    path: '/a'
+    path: '/a',
     }
 </router>
 
@@ -25,7 +25,6 @@
     })
     export default class extends Vue {
         mounted() {
-
         }
 
         layout(){

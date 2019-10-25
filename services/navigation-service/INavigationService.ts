@@ -1,5 +1,15 @@
-export interface INavigationService {
-    navigateToLogin(): Promise<void>;
+import VueRouter from 'vue-router';
+import { Context } from '@nuxt/types'
 
-    navigateToRegister(): Promise<void>;
+
+export interface INavigationService {
+    navigateToLogin(config?: NavigationConfig): Promise<void>;
+
+    navigateToRegister(config?: NavigationConfig): Promise<void>;
+
+    setVueRouter(vueRouter: VueRouter): void;
+}
+
+export interface NavigationConfig {
+    nuxtContext?: Context;
 }

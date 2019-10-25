@@ -25,6 +25,8 @@ import { IThemeService } from '~/services/theme-service/IThemeService';
 import { ThemeService } from '~/services/theme-service/ThemeService';
 import { IBootstrapService } from '~/services/bootstrap/IBootstrap';
 import { BootstrapService } from '~/services/bootstrap/Bootstrap';
+import { INavigationService } from '~/services/navigation-service/INavigationService';
+import { NavigationService } from '~/services/navigation-service/NavigationService';
 
 const okunaContainer = new Container();
 
@@ -32,6 +34,7 @@ const okunaContainer = new Container();
 okunaContainer.bind<IAuthApiService>(TYPES.AuthApiService).to(AuthApiService).inSingletonScope();
 okunaContainer.bind<IHttpService>(TYPES.HttpService).to(HttpService).inSingletonScope();
 okunaContainer.bind<ILocalizationService>(TYPES.LocalizationService).to(LocalizationService).inSingletonScope();
+okunaContainer.bind<INavigationService>(TYPES.NavigationService).to(NavigationService).inSingletonScope();
 okunaContainer.bind<IStringTemplateService>(TYPES.StringTemplateService).to(StringTemplateService).inSingletonScope();
 okunaContainer.bind<IToastService>(TYPES.ToastService).to(ToastService).inSingletonScope();
 okunaContainer.bind<IUserService>(TYPES.UserService).to(UserService).inSingletonScope();

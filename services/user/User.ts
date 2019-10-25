@@ -18,7 +18,7 @@ export class UserService implements IUserService {
     private tokenStorage: IOkStorage<string>;
     private logger: IOkLogger;
 
-    private loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
+    loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.HttpService) private httpService?: IHttpService,
@@ -76,7 +76,8 @@ export class UserService implements IUserService {
         return this.tokenStorage.set(UserService.AUTH_TOKEN_STORAGE_KEY, token);
     }
 
+
     isLoggedIn(): boolean {
-        return !!this.loggedInUser;
+        return !!this.loggedInUser.value;
     }
 }

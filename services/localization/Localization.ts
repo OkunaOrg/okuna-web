@@ -18,3 +18,4 @@ export class LocalizationService implements ILocalizationService {
         return this.vuei18n.locale;
     }
 }
+
