@@ -8,7 +8,7 @@ export interface IHttpService {
     post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: HttpServiceRequestConfig): Promise<R>;
 
     put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: HttpServiceRequestConfig): Promise<R>;
-
+    
     patch<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: HttpServiceRequestConfig): Promise<R>;
 
     setAuthToken(token: string): void;
@@ -28,5 +28,6 @@ export interface HttpServiceRequestConfig {
     appendAuthToken?: boolean;
     urlParams?: {
         [key: string]: string | boolean | number;
-    }
+    };
+
 }

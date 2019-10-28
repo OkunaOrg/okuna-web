@@ -12,7 +12,7 @@
     import { Component, Vue } from "nuxt-property-decorator"
 
     @Component({
-        name: "OkAuthLoginPage"
+        name: "OkAuthLoginPage",
     })
     export default class AuthLoginPage extends Vue {
 

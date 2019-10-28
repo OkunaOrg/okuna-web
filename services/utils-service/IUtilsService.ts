@@ -1,5 +1,7 @@
 export interface IUtilsService {
     handleError(error: any): HandledError;
+
+    handleErrorWithToast(error: any): HandledError;
 }
 
 export interface HandledError {

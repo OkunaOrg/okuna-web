@@ -6,11 +6,11 @@ export interface IToastService {
 interface ToastConfig {
     message: string;
     duration?: number;
-    queue: boolean;
+    queue?: boolean;
     type: ToastType;
 }
 
-enum ToastType {
+export enum ToastType {
     success,
     error,
     info

@@ -1,11 +1,14 @@
 import { AxiosError } from '~/node_modules/axios';
 import { HandledError, IUtilsService } from '~/services/utils-service/IUtilsService';
-import { injectable } from '~/node_modules/inversify';
+import { inject, injectable } from '~/node_modules/inversify';
+import { TYPES } from '~/services/inversify-types';
+import { IToastService, ToastType } from '~/services/toast/IToast';
+import { ILocalizationService } from '~/services/localization/ILocalization';
 
 @injectable()
 export class UtilsService implements IUtilsService {
-    constructor() {
-
+    constructor(@inject(TYPES.ToastService) private toastService?: IToastService,
+                @inject(TYPES.LocalizationService) private localizationService?: ILocalizationService) {
     }
 
     handleError(error: any): HandledError {
@@ -40,13 +43,13 @@ export class UtilsService implements IUtilsService {
                 const status = error.response.status;
 
                 if (status === 403) {
-                    message = '🙅‍♀️ You are not allowed to do this.'
+                    message = this.localizationService!.localize('errors.generic.forbidden');
                 } else if (status === 420) {
-                    message = '😥 Too many requests. Please wait a couple minutes until trying again';
+                    message = this.localizationService!.localize('errors.generic.tooManyRequests');
                 } else if (status === 400) {
-                    message = '🤔 The request was invalid.'
+                    message = this.localizationService!.localize('errors.generic.badRequest');
                 } else if (status === 404) {
-                    message = '👀 Not found'
+                    message = this.localizationService!.localize('errors.generic.notFound');
                 }
             }
         }
@@ -66,5 +69,16 @@ export class UtilsService implements IUtilsService {
             isUnhandled,
             error
         }
+    }
+
+    handleErrorWithToast(error: any): HandledError {
+        const handledError = this.handleError(error);
+
+        this.toastService!.show({
+            message: handledError.humanFriendlyMessage,
+            type: ToastType.error,
+        });
+
+        return handledError;
     }
 }

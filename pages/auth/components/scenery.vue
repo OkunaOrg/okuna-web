@@ -1,7 +1,7 @@
 <template>
-    <section class="main">
+    <section class="scenery">
         <div class="absolute cloud_left">
-            <ul class="inline-list">
+            <ul class="scenery-inline-list">
                 <li class="cloud"></li>
                 <li class="cloud"></li>
                 <li class="cloud"></li>
@@ -9,7 +9,7 @@
         </div>
 
         <div class="absolute cloud_right">
-            <ul class="inline-list">
+            <ul class="scenery-inline-list">
                 <li class="cloud"></li>
                 <li class="cloud"></li>
                 <li class="cloud"></li>
@@ -22,7 +22,7 @@
         <div class="absolute landscape left_m">
             <span class="grass gl">
                 <span class="land_tree leftt-gras">
-                <ul class="inline-list">
+                <ul class="scenery-inline-list">
                   <li class="t_grass"></li>
                   <li class="t_grass"></li>
                   <li class="t_grass"></li>
@@ -38,7 +38,7 @@
 
             <span class="grass">
                 <span class="land_tree">
-                    <ul class="inline-list">
+                    <ul class="scenery-inline-list">
                       <li class="t_grass"></li>
                       <li class="t_grass"></li>
                       <li class="t_grass"></li>
@@ -48,7 +48,7 @@
 
             <div class="mountain">
                 <div class="r-mountain"></div>
-                <ul class="snow inline-list">
+                <ul class="snow scenery-inline-list">
                     <li></li>
                     <li></li>
                     <li></li>
@@ -58,8 +58,8 @@
         </div>
 
         <div class="absolute boat">
-            <ul class="no-bullet">
-                <ul class="no-bullet fume">
+            <ul class="scenery-no-bullet">
+                <ul class="scenery-no-bullet fume">
                     <li class="fume4"></li>
                     <li class="fume3"></li>
                     <li class="fume2"></li>
@@ -67,7 +67,7 @@
                 </ul>
                 <li class="smokestack"></li>
                 <li class="white-body">
-                    <ul class="windows inline-list">
+                    <ul class="windows scenery-inline-list">
                         <li class="circle"></li>
                         <li class="circle"></li>
                         <li class="circle"></li>
@@ -80,9 +80,9 @@
         <div class="absolute dark-back"></div>
 
         <div class="absolute plane">
-            <ul class="no-bullet">
+            <ul class="scenery-no-bullet">
                 <li class="plane-body">
-                    <ul class="windows inline-list">
+                    <ul class="windows scenery-inline-list">
                         <li class="circle"></li>
                         <li class="circle"></li>
                         <li class="circle"></li>
@@ -108,44 +108,13 @@
 </template>
 
 <style lang="scss">
-    $sky-color: #690ddc;
-    body {
-        position: absolute;
-        margin: auto;
-        display: block;
-        margin-top: 0%;
-        width: 100%;
-        height: 55%;
-        /*background: linear-gradient(*/
-        /*156deg,*/
-        /*rgba(84, 58, 180, 1) 0%,*/
-        /*rgba(166, 65, 114, 1) 21%,*/
-        /*rgba(227, 111, 15, 1) 65%,*/
-        /*rgba(253, 177, 29, 1) 94%*/
-        /*);*/
-        background: linear-gradient(
-                        156deg,
-                        rgba(84, 58, 180, 1) 0%,
-                        rgba(255, 255, 255, 1) 50%,
-                        rgba(255, 255, 255, 1) 55%,
-                        rgba(253, 177, 29, 1) 100%
-        );
-    }
+    $sky-color: white;
 
-    section {
-        width: 100%;
-        overflow: hidden;
-    }
-
-    ul {
-        margin-bottom: 1.25rem;
-    }
-
-    ul.no-bullet {
+    ul.scenery-no-bullet {
         list-style: none;
     }
 
-    .inline-list {
+    .scenery-inline-list {
         margin: 0 auto 1.0625rem auto;
         margin-left: -1.375rem;
         margin-right: 0;
@@ -154,18 +123,18 @@
         overflow: hidden;
     }
 
-    .inline-list > li {
+    .scenery-inline-list > li {
         list-style: none;
         float: left;
         margin-left: 1.375rem;
         display: block;
     }
 
-    .inline-list > li > * {
+    .scenery-inline-list > li > * {
         display: block;
     }
 
-    .main {
+    .scenery {
         background-color: #0c3545;
         height: 100%;
     }
@@ -423,7 +392,7 @@
 
     .boat {
         bottom: 10px;
-        z-index: 1;
+        z-index: 20;
         -webkit-animation: boatanimate 30s linear infinite;
         -moz-animation: boatanimate 30s linear infinite;
         -o-animation: boatanimate 30s linear infinite;
@@ -632,7 +601,7 @@
         z-index: 1;
     }
 
-    .main h1 {
+    .scenery h1 {
         margin-top: 143px;
         margin-left: 110px;
         color: #FFF;
@@ -670,7 +639,7 @@
     }
 
     .fume li {
-        background-color: white;
+        background-color: #eaeaea;
         border-radius: 50%;
     }
 

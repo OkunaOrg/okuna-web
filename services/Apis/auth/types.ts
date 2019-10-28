@@ -1,6 +1,6 @@
 export interface LoginData {
-    username: string,
-    password: string
+    email: string;
+    password: string;
 }
 
 export interface LoginResponse {
@@ -8,15 +8,15 @@ export interface LoginResponse {
 }
 
 export interface RegisterData {
-    email: string,
-    password: string,
-    name: string,
-    token: string,
-    isOfLegalAge: boolean,
-    areGuidelinesAccepted: boolean,
+    email: string;
+    password: string;
+    name: string;
+    token: string;
+    isOfLegalAge: boolean;
+    areGuidelinesAccepted: boolean;
 }
 
 export interface RegisterResponse {
-    token: string,
-    username: string
+    token: string;
+    username: string;
 }

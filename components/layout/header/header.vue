@@ -23,7 +23,7 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import OkLogo from "../okuna-logo/okuna-logo.vue";
+    import OkLogo from "../../okuna-logo/okuna-logo.vue";
 
     @Component({
         name: "OkHeader",
