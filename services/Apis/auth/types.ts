@@ -16,6 +16,15 @@ export interface RegistrationData {
     areGuidelinesAccepted: boolean;
 }
 
+export interface RequestResetPasswordData {
+    email: string;
+}
+
+export interface ResetPasswordData {
+    resetToken: string;
+    newPassword: string;
+}
+
 export interface RegisterResponse {
     token: string;
     username: string;
