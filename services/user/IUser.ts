@@ -1,4 +1,4 @@
-import { LoginData } from '~/services/Apis/auth/types';
+import { LoginData, RegistrationData } from '~/services/Apis/auth/types';
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 
@@ -6,7 +6,9 @@ import { IUser } from '~/models/auth/user/IUser';
 export interface IUserService {
     loggedInUser: BehaviorSubject<IUser | undefined>;
 
-    loginWithCredentials(data: LoginData): Promise<void>;
+    login(data: LoginData): Promise<void>;
+
+    register(data: RegistrationData): Promise<void>;
 
     logout(): Promise<void>;
 

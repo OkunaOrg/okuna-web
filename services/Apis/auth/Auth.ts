@@ -1,6 +1,6 @@
 import { IAuthApiService } from '~/services/Apis/auth/IAuth';
 import { UserData } from '~/types/models-data/auth/UserData';
-import { LoginData, LoginResponse, RegisterData, RegisterResponse } from '~/services/Apis/auth/types';
+import { LoginData, LoginResponse, RegistrationData, RegisterResponse } from '~/services/Apis/auth/types';
 import { IHttpService } from '~/services/http/IHttp';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
@@ -24,7 +24,7 @@ export class AuthApiService implements IAuthApiService {
         })
     }
 
-    register(data: RegisterData) {
+    register(data: RegistrationData) {
         return this.httpService.post<RegisterResponse>(AuthApiService.REGISTER_PATH, {
             email: data.email,
             password: data.password,

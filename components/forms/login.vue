@@ -66,7 +66,6 @@
         loginOperation?: CancelableOperation;
 
         formWasSubmitted = false;
-        inviteToken = "";
         submitInProgress = false;
 
         @Validate({emailValidators})
@@ -98,7 +97,7 @@
             if (this.loginOperation) return;
 
             try {
-                this.loginOperation = CancelableOperation.fromPromise(this.userService.loginWithCredentials({
+                this.loginOperation = CancelableOperation.fromPromise(this.userService.login({
                     email: this.email,
                     password: this.password
                 }));

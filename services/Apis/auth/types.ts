@@ -7,11 +7,11 @@ export interface LoginResponse {
     token: string
 }
 
-export interface RegisterData {
+export interface RegistrationData {
     email: string;
     password: string;
     name: string;
-    token: string;
+    inviteToken: string;
     isOfLegalAge: boolean;
     areGuidelinesAccepted: boolean;
 }

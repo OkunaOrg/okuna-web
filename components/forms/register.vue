@@ -1,66 +1,68 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <div class="content has-text-left">
-      <h4>
-        Create new account
-      </h4>
-    </div>
-    <div class="field">
-      <label for="email" class="label has-text-left">E-mail</label>
-      <div class="control">
-        <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium" required
-               id="email" v-model="email">
-      </div>
-      <p class="help is-danger has-text-left" v-if="!$v.email.required && $v.email.$dirty">Email is required</p>
-      <p class="help is-danger has-text-left" v-if="!$v.email.email && $v.email.$dirty">Email is invalid</p>
-    </div>
-    <div class="field">
-      <label for="password" class="label has-text-left">Pick a password</label>
-      <div class="control">
-        <input type="password" placeholder="*******" class="input is-rounded is-medium" required id="password"
-               v-model="password">
-      </div>
-      <p class="help is-danger has-text-left" v-if="!$v.password.required && $v.password.$dirty">Password is
-        required</p>
-      <p class="help is-danger has-text-left" v-if="!$v.password.minLength && $v.password.$dirty">Password has to be
-        longer
-        than 10 characters</p>
-      <p class="help is-danger has-text-left" v-if="!$v.password.maxLength && $v.password.$dirty">Password has to be
-        smaller
-        than 128 characters</p>
-    </div>
-    <div class="field has-padding-top-20">
-      <div class="control">
-        <vue-recaptcha sitekey="6Lc9grsUAAAAAMHG1ws1095Ka7iGLdjYKgOZbLCd" ref="recaptcha"
-                       v-on:verify="onCaptchaVerified($event)"></vue-recaptcha>
-      </div>
-      <p class="help is-danger has-text-left">
+    <form @submit.prevent="onSubmit">
+        <div class="content has-text-left">
+            <h4>
+                Create new account
+            </h4>
+        </div>
+        <div class="field">
+            <label for="email" class="label has-text-left">E-mail</label>
+            <div class="control">
+                <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium" required
+                       id="email" v-model="email">
+            </div>
+            <p class="help is-danger has-text-left" v-if="!$v.email.required && $v.email.$dirty">Email is required</p>
+            <p class="help is-danger has-text-left" v-if="!$v.email.email && $v.email.$dirty">Email is invalid</p>
+        </div>
+        <div class="field">
+            <label for="password" class="label has-text-left">Pick a password</label>
+            <div class="control">
+                <input type="password" placeholder="*******" class="input is-rounded is-medium" required id="password"
+                       v-model="password">
+            </div>
+            <p class="help is-danger has-text-left" v-if="!$v.password.required && $v.password.$dirty">Password is
+                required</p>
+            <p class="help is-danger has-text-left" v-if="!$v.password.minLength && $v.password.$dirty">Password has to
+                be
+                longer
+                than 10 characters</p>
+            <p class="help is-danger has-text-left" v-if="!$v.password.maxLength && $v.password.$dirty">Password has to
+                be
+                smaller
+                than 128 characters</p>
+        </div>
+        <div class="field has-padding-top-20">
+            <div class="control">
+                <vue-recaptcha sitekey="6Lc9grsUAAAAAMHG1ws1095Ka7iGLdjYKgOZbLCd" ref="recaptcha"
+                               v-on:verify="onCaptchaVerified($event)"></vue-recaptcha>
+            </div>
+            <p class="help is-danger has-text-left">
                     <span v-show="formWasSubmitted && !captchaVerified">
                         Please tick the captcha.
                     </span>
-      </p>
-    </div>
-    <div class="field has-padding-top-20">
-      <div class="control">
-        <b-checkbox v-model="acceptsConditions">
+            </p>
+        </div>
+        <div class="field has-padding-top-20">
+            <div class="control">
+                <b-checkbox v-model="acceptsConditions">
           <span class="has-padding-lef">By creating an account I acknowledge to have read the <a href=""
                                                                                                  class="has-text-underline">privacy policy</a>, <a
-            href="" class="has-text-underline">terms of use</a> and agree to both.</span>
-        </b-checkbox>
-        <p class="help is-danger">
+                  href="" class="has-text-underline">terms of use</a> and agree to both.</span>
+                </b-checkbox>
+                <p class="help is-danger">
                     <span v-show="formWasSubmitted && !acceptsConditions">
                         You can't continue without agreeing to these items.
                     </span>
-        </p>
-      </div>
-    </div>
-    <div class="field has-padding-top-20">
-      <button class="button is-success is-rounded is-fullwidth is-medium" type="submit"
-              :class="{'is-disabled' : submitInProgress}" :disabled="submitInProgress">
-        Create account
-      </button>
-    </div>
-  </form>
+                </p>
+            </div>
+        </div>
+        <div class="field has-padding-top-20">
+            <button class="button is-success is-rounded is-fullwidth is-medium" type="submit"
+                    :class="{'is-disabled' : submitInProgress}" :disabled="submitInProgress">
+                Create account
+            </button>
+        </div>
+    </form>
 </template>
 
 <style lang="scss">
@@ -68,122 +70,93 @@
 </style>
 
 <script lang="ts">
-  import PalLogo from "../logo";
-  import VueRecaptcha from 'vue-recaptcha';
-  import {userService} from "../../services/user-service";
-  import {utilsService} from "../../services/utils-service";
-  import {accontEmailValidations} from "../../validators/account_email";
-  import {accountPasswordValidations} from "../../validators/account_password";
-  import {CancelToken} from 'axios';
+    import { Validate } from "vuelidate-property-decorators";
+    import { Component, Vue } from "nuxt-property-decorator"
+    import { passwordValidators } from "~/validators/password";
+    import { emailValidators } from "~/validators/email";
+    import { TYPES } from "~/services/inversify-types";
+    import { IUserService } from "~/services/user/IUser";
+    import { okunaContainer } from "~/services/inversify";
+    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { userNameValidators } from "~/validators/user-name";
+    import { RegistrationData } from "~/services/Apis/auth/types";
 
+    @Component({
+        name: "OkRegisterForm"
+    })
+    export default class extends Vue {
 
-  const GOOGLE_RECAPTCHA_SCRIPT = 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit';
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-  export default {
-    name: 'PalRegisterForm',
-    components: {PalLogo, VueRecaptcha},
-    data() {
-      return {
-        formWasSubmitted: false,
-        captchaResponse: '',
-        captchaVerified: false,
-        email: '',
-        password: '',
-        registerUserCancelTokenSource: null,
-        submitInProgress: false,
-        acceptsConditions: false
-      }
-    },
-    mounted() {
-      this._enableGoogleRecaptcha();
-    },
-    destroyed() {
-      if (this.registerUserCancelTokenSource) this.registerUserCancelTokenSource.cancel();
-    },
-    validations: {
-      email: accontEmailValidations,
-      password: accountPasswordValidations
-    },
-    methods: {
-      async onSubmit() {
-        if (this.submitInProgress) return;
-        this.submitInProgress = true;
+        registrationOperation?: CancelableOperation;
 
-        const formIsValid = await this._validateAll();
+        formWasSubmitted = false;
+        submitInProgress = false;
+        areGuidelinesAccepted = false;
+        isOfLegalAge = false;
 
-        this.formWasSubmitted = true;
-        if (formIsValid) {
-          await this._onSubmitWithValidForm();
+        @Validate({emailValidators})
+        email = "";
+
+        @Validate({passwordValidators})
+        password = "";
+
+        @Validate({userNameValidators})
+        name = "";
+
+        inviteToken = "";
+
+        destroyed() {
+            this.registrationOperation?.cancel();
         }
 
-        this.submitInProgress = false;
-      },
-      async _onSubmitWithValidForm() {
-        this.registerUserCancelTokenSource = CancelToken.source();
+        async onSubmit() {
+            if (this.submitInProgress) return;
+            this.submitInProgress = true;
 
-        try {
-          const user = await userService.registerUser({
-            email: this.email,
-            password: this.password,
-            acceptsConditions: this.acceptsConditions,
-            axiosCancelToken: this.registerUserCancelTokenSource.token,
-            axios: this.$axios,
-            captchaResponse: this.captchaResponse
-          });
-          this._onUserCreated(user);
-        } catch (error) {
-          this._onError(error);
+            const formIsValid = await this._validateAll();
+
+            this.formWasSubmitted = true;
+            if (formIsValid) {
+                await this._onSubmitWithValidForm();
+            }
+
+            this.submitInProgress = false;
         }
-      },
-      _validateAll() {
-        this.$v.$touch();
-        return !this.$v.$invalid && this.captchaVerified && this.acceptsConditions;
-      },
-      _onUserCreated(user) {
-        this.$emit('onUserCreated', user);
-      },
-      onCaptchaVerified(response) {
-        this.captchaVerified = true;
-        this.captchaResponse = response;
-      },
-      _enableGoogleRecaptcha() {
-        this._injectGoogleRecaptcha();
-      },
-      _injectGoogleRecaptcha() {
-        const that = this;
-        (function (d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) {
-            return;
-          }
-          js = d.createElement(s);
-          js.id = id;
-          js.onload = function () {
-            that.acceptedRecaptcha = true;
-            // remote script has loaded
-          };
-          js.src = GOOGLE_RECAPTCHA_SCRIPT;
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'google-recaptcha'));
-      },
-      _onError(error) {
-        console.error(error);
-        if (this.toastHandle) this.toastHandle.close();
 
-        const handleErrorResult = utilsService.handleError(error);
+        async _onSubmitWithValidForm() {
+            if (this.registrationOperation) return;
 
-        this.toastHandle = this.$buefy.toast.open({
-          message: handleErrorResult.message,
-          type: 'is-danger',
-          queue: true,
-          duration: 5000
-        });
-
-        if (handleErrorResult.isUnhandled) {
-          throw handleErrorResult.error;
+            try {
+                this.registrationOperation = CancelableOperation.fromPromise(this.userService.register({
+                    name: this.name,
+                    email: this.email,
+                    password: this.password,
+                    inviteToken: this.inviteToken,
+                    areGuidelinesAccepted: this.areGuidelinesAccepted,
+                    isOfLegalAge: this.isOfLegalAge
+                }));
+                const registrationData = await this.registrationOperation.value;
+                this._onUserRegistered(registrationData);
+            } catch (error) {
+                const handledError = this.utilsService.handleErrorWithToast(error);
+                if (handledError.isUnhandled) throw handledError.error;
+            } finally {
+                this.registrationOperation = null;
+            }
         }
-      },
 
-    },
-  }
+
+        _validateAll() {
+            this.$v.$touch();
+            return !this.$v.$invalid;
+        }
+
+
+        _onUserRegistered(data: RegistrationData) {
+            this.$emit("onUserRegistered", data);
+        }
+    }
 </script>
