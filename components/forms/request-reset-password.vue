@@ -1,20 +1,18 @@
 <template>
     <form @submit.prevent="onSubmit">
         <div class="field">
-            <label for="newPassword" class="label has-text-left">New password</label>
+            <label for="email" class="label has-text-left">Your e-mail</label>
             <div class="control">
-                <input type="password" class="input is-rounded is-medium" required
-                       id="newPassword" v-model="newPassword">
+                <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium" required
+                       id="email" v-model="email">
             </div>
-            <p class="help is-danger has-text-left" v-if="!$v.newPassword.required && $v.newPassword.$dirty">Password is
-                required</p>
-            <p class="help is-danger has-text-left" v-if="!$v.newPassword.password && $v.newPassword.$dirty">Password is
-                invalid</p>
+            <p class="help is-danger has-text-left" v-if="!$v.email.required && $v.email.$dirty">Email is required</p>
+            <p class="help is-danger has-text-left" v-if="!$v.email.email && $v.email.$dirty">Email is invalid</p>
         </div>
         <div class="field has-padding-top-20">
             <button class="button is-success is-rounded is-fullwidth is-medium" type="submit"
                     :class="{'is-disabled' : submitInProgress}" :disabled="submitInProgress">
-                Change password
+                Send reset link
             </button>
         </div>
     </form>
@@ -25,8 +23,8 @@
 </style>
 <script lang="ts">
     import { Validate } from "vuelidate-property-decorators";
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import { passwordValidators } from "~/validators/password";
+    import { Component, Vue } from "nuxt-property-decorator"
+    import { emailValidators } from "~/validators/email";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUser";
     import { okunaContainer } from "~/services/inversify";
@@ -34,7 +32,7 @@
     import { CancelableOperation } from "~/lib/CancelableOperation";
 
     @Component({
-        name: "OkResetPasswordForm"
+        name: "OkRequestResetPasswordForm"
     })
     export default class extends Vue {
 
@@ -46,13 +44,9 @@
         formWasSubmitted = false;
         submitInProgress = false;
 
-        @Validate({passwordValidators})
-        newPassword = "";
+        @Validate({emailValidators})
+        email = "";
 
-        @Prop({
-            required: true
-        })
-        public resetToken = "";
 
         destroyed() {
             this.requestResetPasswordOperation?.cancel();
@@ -76,12 +70,11 @@
             if (this.requestResetPasswordOperation) return;
 
             try {
-                this.requestResetPasswordOperation = CancelableOperation.fromPromise(this.userService.resetPassword({
-                    resetToken: this.resetToken,
-                    newPassword: this.newPassword,
+                this.requestResetPasswordOperation = CancelableOperation.fromPromise(this.userService.requestResetPassword({
+                    email: this.email,
                 }));
                 await this.requestResetPasswordOperation.value;
-                this._onPasswordReset();
+                this._onRequested();
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
@@ -97,8 +90,8 @@
         }
 
 
-        _onPasswordReset() {
-            this.$emit("onPasswordReset");
+        _onRequested() {
+            this.$emit('onRequested');
         }
     }
 </script>
