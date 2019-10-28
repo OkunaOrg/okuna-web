@@ -1,8 +1,9 @@
 <template>
     <section>
         <p class="ok-has-text-primary">
-            Hello
+            Home page
         </p>
+        <nuxt-child></nuxt-child>
     </section>
 </template>
 
@@ -25,11 +26,8 @@
     import isAuthenticatedMiddleware from "~/middleware/is-authenticated";
 
     @Component({
-        middleware: [
-            isAuthenticatedMiddleware
-        ]
     })
-    export default class OkHomePage extends Vue {
+    export default class extends Vue {
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         mounted() {

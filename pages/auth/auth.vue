@@ -9,12 +9,6 @@
 
 </style>
 
-<router>
-    {
-    path: '/a',
-    }
-</router>
-
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
     import { Observer } from "~/node_modules/mobx-vue";
@@ -23,7 +17,7 @@
     @Component({
         name: "OkAuthPage"
     })
-    export default class extends Vue {
+    export default class AuthPage extends Vue {
         mounted() {
         }
 

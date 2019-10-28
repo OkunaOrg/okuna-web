@@ -1,6 +1,7 @@
 <template>
     <section>
         User
+        <nuxt-child></nuxt-child>
     </section>
 </template>
 
@@ -9,23 +10,13 @@
 
 </style>
 
-<router>
-    {
-    path: '/:username'
-    }
-</router>
-
 <script lang="ts">
     import { Component, Inject, Vue } from "nuxt-property-decorator"
     import { Observer } from "~/node_modules/mobx-vue";
-    import { IUserService } from "~/services/user/IUser";
-    import { TYPES } from "~/services/inversify-types";
 
     @Observer
     @Component({})
-    export default class OkUserPage extends Vue {
-        @Inject(TYPES.UserService)
-        private userService!: IUserService;
+    export default class extends Vue {
 
         mounted() {
             //this._getUser();

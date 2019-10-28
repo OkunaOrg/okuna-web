@@ -19,9 +19,8 @@ export default {
         '~/assets/styles/index.scss'
     ],
     buildModules: [
-        //['@nuxtjs/dotenv', {systemvars: true}],
         '@nuxt/typescript-build',
-        '@nuxtjs/router-extras'
+        '@nuxtjs/router',
     ],
     modules: [
         '@nuxtjs/sentry',
@@ -96,5 +95,10 @@ export default {
     },
     build: {
         devtools: true
+    },
+    generate: {
+        routes: [
+            '/'
+        ]
     }
 }

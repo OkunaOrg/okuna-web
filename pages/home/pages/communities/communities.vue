@@ -1,6 +1,7 @@
 <template>
     <section>
-        Community
+        Communities
+        <nuxt-child></nuxt-child>
     </section>
 </template>
 
@@ -11,7 +12,7 @@
 
 <router>
     {
-    path: '/c/:communityName'
+    path: '/c'
     }
 </router>
 

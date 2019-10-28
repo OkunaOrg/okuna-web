@@ -8,19 +8,13 @@
 
 </style>
 
-<router>
-    {
-    path: '/a/login'
-    }
-</router>
-
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
 
     @Component({
         name: "OkAuthLoginPage"
     })
-    export default class extends Vue {
+    export default class AuthLoginPage extends Vue {
 
         mounted() {
 
