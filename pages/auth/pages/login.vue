@@ -5,7 +5,7 @@
                 <div class="columns is-centered">
                     <div class="column is-5-tablet is-4-desktop is-3-widescreen">
                         <div class="card has-overflow-hidden ok-has-background-primary">
-                            <div class="card-header">
+                            <div class="card-header ok-has-border-bottom-primary-highlight">
                                 <div class="card-header-title is-flex align-items-center justify-center has-padding-20">
                                     <ok-logo></ok-logo>
                                 </div>
@@ -13,7 +13,7 @@
                             <div class="card-content">
                                 <ok-login-form @onUserLoggedIn="onUserLoggedIn(user)"></ok-login-form>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer ok-has-border-top-primary-highlight">
                                 <div class="card-footer-item ok-has-text-secondary">
                   <span>
                     Don't have an account?

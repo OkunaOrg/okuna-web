@@ -69,6 +69,16 @@ export class ThemeService implements IThemeService {
                 return [data.dangerColorAccent, '!important'];
             }
         },
+        'ok-has-border-top-primary-highlight':{
+            'borderTop': (data: ITheme) => {
+                return [`solid 1px ${data.primaryHighlightColor}`, '!important'];
+            }
+        },
+        'ok-has-border-bottom-primary-highlight':{
+            'borderBottom': (data: ITheme) => {
+                return [`solid 1px ${data.primaryHighlightColor}`, '!important'];
+            }
+        },
         //Global
         'input': {
             'background-color': (data: ITheme) => {
@@ -103,7 +113,7 @@ export class ThemeService implements IThemeService {
             secondary_text_color: '#9b9b9b',
             primary_color: '#ffffff',
             primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: 'rgba(0, 0, 0, 0.03)',
+            primary_highlight_color: 'rgba(0, 0, 0, 0.025)',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
