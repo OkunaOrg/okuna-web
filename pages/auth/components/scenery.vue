@@ -16,7 +16,7 @@
             </ul>
         </div>
 
-        <span class="absolute sun"></span>
+        <!--<span class="absolute sun"></span>-->
 
 
         <div class="absolute landscape left_m">

@@ -1,7 +1,13 @@
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IAuthApiService } from '~/services/Apis/auth/IAuth';
 import { IUserService } from '~/services/user/IUser';
-import { LoginData, RegistrationData, RequestResetPasswordData, ResetPasswordData } from '~/services/Apis/auth/types';
+import {
+    LoginData,
+    RegistrationData,
+    RegistrationResponse,
+    RequestResetPasswordData,
+    ResetPasswordData
+} from '~/services/Apis/auth/types';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
 import { IHttpService } from '~/services/http/IHttp';
@@ -31,9 +37,9 @@ export class UserService implements IUserService {
         });
     }
 
-    async register(data: RegistrationData): Promise<void> {
+    async register(data: RegistrationData): Promise<RegistrationResponse> {
         const response = await this.authApiService!.register(data);
-        await this.loginWithAuthToken(response.data.token);
+        return response.data;
     }
 
     async requestResetPassword(data: RequestResetPasswordData): Promise<void> {

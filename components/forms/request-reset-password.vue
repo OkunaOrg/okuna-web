@@ -39,7 +39,7 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-        requestResetPasswordOperation?: CancelableOperation;
+        requestResetPasswordOperation: CancelableOperation | undefined;
 
         formWasSubmitted = false;
         submitInProgress = false;
@@ -79,7 +79,7 @@
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
             } finally {
-                this.requestResetPasswordOperation = null;
+                this.requestResetPasswordOperation = undefined;
             }
         }
 

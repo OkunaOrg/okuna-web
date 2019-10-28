@@ -1,16 +1,16 @@
 <template>
     <form @submit.prevent="onSubmit">
         <div class="field">
-            <label for="email" class="label has-text-left">E-mail</label>
+            <label for="email" class="label has-text-left ok-has-text-primary">E-mail</label>
             <div class="control">
-                <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium" required
+                <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium ok-input" required
                        id="email" v-model="email">
             </div>
             <p class="help is-danger has-text-left" v-if="!$v.email.required && $v.email.$dirty">Email is required</p>
             <p class="help is-danger has-text-left" v-if="!$v.email.email && $v.email.$dirty">Email is invalid</p>
         </div>
         <div class="field">
-            <label for="password" class="label has-text-left">Password</label>
+            <label for="password" class="label has-text-left ok-has-text-primary">Password</label>
             <div class="control">
                 <input type="password" placeholder="*******" class="input is-rounded is-medium" required id="password"
                        v-model="password">
@@ -27,7 +27,7 @@
                 than 128 characters</p>
         </div>
         <div class="field">
-            <nuxt-link :to="localePath('reset-password')">
+            <nuxt-link :to="localePath('reset-password')" class="ok-has-text-secondary">
                 Forgot password?
             </nuxt-link>
         </div>
@@ -63,7 +63,7 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-        loginOperation?: CancelableOperation;
+        loginOperation?: CancelableOperation<void>;
 
         formWasSubmitted = false;
         submitInProgress = false;
@@ -76,7 +76,7 @@
 
 
         destroyed() {
-            this.loginOperation?.cancel();
+            //this.loginOperation?.cancel();
         }
 
         async onSubmit() {
@@ -107,7 +107,7 @@
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
             } finally {
-                this.loginOperation = null;
+                this.loginOperation = undefined;
             }
         }
 

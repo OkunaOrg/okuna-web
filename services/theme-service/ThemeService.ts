@@ -10,6 +10,7 @@ import jss from 'jss';
 import preset from 'jss-preset-default';
 import { IOkLogger } from '~/services/logging/types';
 import { ILoggingService } from '~/services/logging/ILogging';
+import { res } from '~/node_modules/@types/pino-std-serializers';
 
 const createGenerateId = () => {
     return (rule: any, sheet: any) => `${rule.key}`;
@@ -68,6 +69,30 @@ export class ThemeService implements IThemeService {
                 return [data.dangerColorAccent, '!important'];
             }
         },
+        //Global
+        'input': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryHighlightColor, '!important'];
+            },
+            'color': (data: ITheme) => {
+                return [data.primaryTextColor, '!important'];
+            },
+            '&::placeholder': {
+                'color': (data: ITheme) => {
+                    return [data.secondaryTextColor, '!important'];
+                },
+            }
+        },
+        'card-header': {
+            'boxShadow': (data: ITheme) => {
+                return [`0 1px 2px ${data.secondaryTextColor}`, '!important'];
+            }
+        },
+        'card-footer': {
+            'borderTop': (data: ITheme) => {
+                return [`1px solid ${data.primaryHighlightColor}`, '!important'];
+            }
+        }
     };
 
     static themes = [
@@ -75,10 +100,10 @@ export class ThemeService implements IThemeService {
             id: 1,
             name: 'White Gold',
             primary_text_color: '#505050',
-            secondary_text_color: '#676767',
+            secondary_text_color: '#9b9b9b',
             primary_color: '#ffffff',
             primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: '#dadada',
+            primary_highlight_color: '#f8f8f8',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
@@ -140,7 +165,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async bootstrapWithStoredActiveThemeId(): Promise<ITheme> {
-        const storedActiveThemeId = await this.getStoredActiveThemeId();
+        const storedActiveThemeId = null;
         if (!storedActiveThemeId) return this.setDefaultTheme();
 
         const theme = this.getThemeWithId(storedActiveThemeId);
@@ -155,7 +180,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[2];
+        const defaultTheme = ThemeService.themes[1];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }

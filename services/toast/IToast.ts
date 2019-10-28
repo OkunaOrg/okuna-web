@@ -1,17 +1,13 @@
+import { ToastType } from '~/services/toast/lib/ToastType';
 
 export interface IToastService {
-    show(config: ToastConfig) : void;
+    show(config: ToastConfig): void;
 }
 
-interface ToastConfig {
+
+export interface ToastConfig {
     message: string;
     duration?: number;
     queue?: boolean;
     type: ToastType;
-}
-
-export enum ToastType {
-    success,
-    error,
-    info
 }

@@ -80,7 +80,7 @@
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { userNameValidators } from "~/validators/user-name";
-    import { RegistrationData } from "~/services/Apis/auth/types";
+    import { RegistrationResponse } from "~/services/Apis/auth/types";
 
     @Component({
         name: "OkRegisterForm"
@@ -90,7 +90,7 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-        registrationOperation?: CancelableOperation;
+        registrationOperation?: CancelableOperation<RegistrationResponse> | undefined;
 
         formWasSubmitted = false;
         submitInProgress = false;
@@ -130,7 +130,7 @@
             if (this.registrationOperation) return;
 
             try {
-                this.registrationOperation = CancelableOperation.fromPromise(this.userService.register({
+                this.registrationOperation = CancelableOperation.fromPromise<RegistrationResponse>(this.userService.register({
                     name: this.name,
                     email: this.email,
                     password: this.password,
@@ -144,7 +144,7 @@
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
             } finally {
-                this.registrationOperation = null;
+                this.registrationOperation = undefined;
             }
         }
 
@@ -155,7 +155,7 @@
         }
 
 
-        _onUserRegistered(data: RegistrationData) {
+        _onUserRegistered(data: RegistrationResponse) {
             this.$emit("onUserRegistered", data);
         }
     }

@@ -25,7 +25,7 @@ export interface ResetPasswordData {
     newPassword: string;
 }
 
-export interface RegisterResponse {
+export interface RegistrationResponse {
     token: string;
     username: string;
 }

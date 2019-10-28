@@ -1,6 +1,6 @@
 <template>
-    <div class="pal-site has-navbar-fixed-top">
-        <nuxt class="pal-site-content"></nuxt>
+    <div class="okuna-web has-navbar-fixed-top">
+        <nuxt class="okuna-web-content"></nuxt>
     </div>
 </template>
 

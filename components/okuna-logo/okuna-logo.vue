@@ -3,6 +3,8 @@
         <div class="header-logo">
             <img :src="logoImage" alt="Okuna logo">
         </div>
+        <span class="has-padding-5"></span>
+        <span class="has-text-logo is-size-5 ok-has-text-primary" style="padding-top: 5px">{{$t('name')}}</span>
     </nuxt-link>
 </template>
 

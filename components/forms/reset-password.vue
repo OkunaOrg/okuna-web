@@ -86,7 +86,7 @@
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
             } finally {
-                this.requestResetPasswordOperation = null;
+                this.requestResetPasswordOperation = undefined;
             }
         }
 

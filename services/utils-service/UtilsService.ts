@@ -2,8 +2,9 @@ import { AxiosError } from '~/node_modules/axios';
 import { HandledError, IUtilsService } from '~/services/utils-service/IUtilsService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
-import { IToastService, ToastType } from '~/services/toast/IToast';
+import { IToastService } from '~/services/toast/IToast';
 import { ILocalizationService } from '~/services/localization/ILocalization';
+import { ToastType } from '~/services/toast/lib/ToastType';
 
 @injectable()
 export class UtilsService implements IUtilsService {
@@ -60,7 +61,7 @@ export class UtilsService implements IUtilsService {
         }
 
         if (!message) {
-            message = '😭 Unhandled error:';
+            message = this.localizationService!.localize('errors.generic.unhandled');
         }
 
         return {

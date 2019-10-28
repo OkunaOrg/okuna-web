@@ -1,5 +1,5 @@
-import { IStore } from 'services/storage/lib/stores/IStore';
-import { IOkStorage } from 'services/storage/lib/okuna-storage/IOkStorage';
+import { IStore } from '~/services/storage/lib/stores/IStore';
+import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 
 export class OkStorage<T> implements IOkStorage<T> {
 
