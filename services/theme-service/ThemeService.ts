@@ -103,7 +103,7 @@ export class ThemeService implements IThemeService {
             secondary_text_color: '#9b9b9b',
             primary_color: '#ffffff',
             primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: '#f8f8f8',
+            primary_highlight_color: 'rgba(0, 0, 0, 0.03)',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
@@ -116,7 +116,7 @@ export class ThemeService implements IThemeService {
             secondary_text_color: '#b3b3b3',
             primary_color: '#000000',
             primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: '#171717',
+            primary_highlight_color: 'rgba(255, 255, 255, 0.03)',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
@@ -180,7 +180,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[1];
+        const defaultTheme = ThemeService.themes[0];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }

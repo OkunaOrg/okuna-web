@@ -1,5 +1,5 @@
 <template>
-    <section class="hero is-fullheight ok-has-background-primary-highlight">
+    <section class="hero is-fullheight">
         <div class="hero-body">
             <div class="container">
                 <div class="columns is-centered">
