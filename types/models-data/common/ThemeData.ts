@@ -4,6 +4,7 @@ export interface ThemeData extends ModelData {
     name: string,
     primary_text_color: string,
     secondary_text_color: string,
+    tertiary_text_color: string,
     primary_color: string,
     primary_accent_color: string,
     success_color: string,

@@ -5,6 +5,7 @@ export interface ITheme extends IDataModel<ITheme> {
     name: string,
     primaryTextColor: string,
     secondaryTextColor: string,
+    tertiaryTextColor: string,
     primaryColor: string,
     primaryAccentColor: string,
     primaryHighlightColor: string,

@@ -80,7 +80,7 @@ export class ThemeService implements IThemeService {
             }
         },
         //Global
-        'input': {
+        'ok-input': {
             'background-color': (data: ITheme) => {
                 return [data.primaryHighlightColor, '!important'];
             },
@@ -110,10 +110,11 @@ export class ThemeService implements IThemeService {
             id: 1,
             name: 'White Gold',
             primary_text_color: '#505050',
-            secondary_text_color: '#9b9b9b',
+            secondary_text_color: '#727272',
+            tertiary_text_color: '#9b9b9b',
             primary_color: '#ffffff',
             primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: 'rgba(0, 0, 0, 0.025)',
+            primary_highlight_color: 'rgba(0, 0, 0, 0.023)',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
@@ -123,10 +124,11 @@ export class ThemeService implements IThemeService {
             id: 2,
             name: 'Dark Gold',
             primary_text_color: '#ffffff',
+            tertiary_text_color: '#9b9b9b',
             secondary_text_color: '#b3b3b3',
             primary_color: '#000000',
             primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: 'rgba(255, 255, 255, 0.03)',
+            primary_highlight_color: 'rgba(255, 255, 255, 0.05)',
             success_color: '#7ED321',
             success_color_accent: '#ffffff',
             danger_color: '#FF3860',
@@ -190,7 +192,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[0];
+        const defaultTheme = ThemeService.themes[1];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }

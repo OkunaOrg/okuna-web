@@ -38,3 +38,9 @@ $box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1), 0 17px 50px rgba(0, 0, 0, 0.1);
   box-shadow: none !important;
   border: none !important;
 }
+
+.navbar-item{
+  &:hover, &:focus{
+    background-color: transparent !important;
+  }
+}

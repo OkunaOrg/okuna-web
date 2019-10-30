@@ -8,6 +8,7 @@ export class Theme extends DataModel<Theme> implements ITheme {
     name!: string;
     primaryTextColor!: string;
     secondaryTextColor!: string;
+    tertiaryTextColor!: string;
     primaryColor!: string;
     primaryAccentColor!: string;
     primaryHighlightColor!: string;
@@ -28,6 +29,10 @@ export class Theme extends DataModel<Theme> implements ITheme {
         {
             dataKey: 'secondary_text_color',
             attributeKey: 'secondaryTextColor',
+        },
+        {
+            dataKey: 'tertiary_text_color',
+            attributeKey: 'tertiaryTextColor',
         },
         {
             dataKey: 'primary_color',

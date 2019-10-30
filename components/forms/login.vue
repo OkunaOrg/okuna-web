@@ -12,7 +12,7 @@
         <div class="field">
             <label for="password" class="label has-text-left ok-has-text-primary">Password</label>
             <div class="control">
-                <input type="password" placeholder="*******" class="input is-rounded is-medium" required id="password"
+                <input type="password" placeholder="*******" class="input is-rounded is-medium ok-input" required id="password"
                        v-model="password">
             </div>
             <p class="help is-danger has-text-left" v-if="!$v.password.required && $v.password.$dirty">Password is
@@ -32,7 +32,7 @@
             </nuxt-link>
         </div>
         <div class="field has-padding-top-20">
-            <button class="button is-success is-rounded is-fullwidth is-medium" type="submit"
+            <button class="button is-success is-rounded is-fullwidth is-medium has-background-rainbow has-text-weight-bold" type="submit"
                     :class="{'is-disabled' : submitInProgress}" :disabled="submitInProgress">
                 Login
             </button>

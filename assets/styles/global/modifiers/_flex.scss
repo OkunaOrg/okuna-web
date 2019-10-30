@@ -1,7 +1,24 @@
-.is-flex-1{
+.is-flex-1 {
   flex: 1;
 }
 
-.flex-row-reverse{
+.flex-row-reverse {
   flex-direction: row-reverse !important;
+}
+
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+.flex-direction-column-reverse {
+  flex-direction: column-reverse;
+}
+
+@media screen and (max-width: 1023px) {
+  // Touch
+
+  .flex-direction-column-reverse-touch {
+    flex-direction: column-reverse;
+  }
 }
