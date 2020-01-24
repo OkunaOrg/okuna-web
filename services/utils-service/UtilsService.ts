@@ -44,13 +44,13 @@ export class UtilsService implements IUtilsService {
                 const status = error.response.status;
 
                 if (status === 403) {
-                    message = this.localizationService!.localize('errors.generic.forbidden');
+                    message = this.localizationService!.localize('global.errors.generic.forbidden');
                 } else if (status === 420) {
-                    message = this.localizationService!.localize('errors.generic.tooManyRequests');
+                    message = this.localizationService!.localize('global.errors.generic.tooManyRequests');
                 } else if (status === 400) {
-                    message = this.localizationService!.localize('errors.generic.badRequest');
+                    message = this.localizationService!.localize('global.errors.generic.badRequest');
                 } else if (status === 404) {
-                    message = this.localizationService!.localize('errors.generic.notFound');
+                    message = this.localizationService!.localize('global.errors.generic.notFound');
                 }
             }
         }
@@ -61,7 +61,7 @@ export class UtilsService implements IUtilsService {
         }
 
         if (!message) {
-            message = this.localizationService!.localize('errors.generic.unhandled');
+            message = this.localizationService!.localize('global.errors.generic.unhandled');
         }
 
         return {

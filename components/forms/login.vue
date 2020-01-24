@@ -3,38 +3,44 @@
         <div class="field">
             <label for="email" class="label has-text-left ok-has-text-primary-invert-80">E-mail</label>
             <div class="control">
-                <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium ok-input" required
+                <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium ok-input"
+                       required
                        id="email" v-model="email">
             </div>
-            <p class="help is-danger has-text-left" v-if="!$v.email.required && $v.email.$dirty">Email is required</p>
-            <p class="help is-danger has-text-left" v-if="!$v.email.email && $v.email.$dirty">Email is invalid</p>
+            <p class="help is-danger has-text-left" v-if="!$v.email.required && $v.email.$dirty">
+                {{$t('global.errors.email.required')}}
+            </p>
+            <p class="help is-danger has-text-left" v-if="!$v.email.email && $v.email.$dirty">
+                {{$t('global.errors.email.invalid')}}
+            </p>
         </div>
         <div class="field">
             <label for="password" class="label has-text-left ok-has-text-primary-invert-80">Password</label>
             <div class="control">
-                <input type="password" placeholder="*******" class="input is-rounded is-medium ok-input" required id="password"
+                <input type="password" placeholder="*******" class="input is-rounded is-medium ok-input" required
+                       id="password"
                        v-model="password">
             </div>
-            <p class="help is-danger has-text-left" v-if="!$v.password.required && $v.password.$dirty">Password is
-                required</p>
-            <p class="help is-danger has-text-left" v-if="!$v.password.minLength && $v.password.$dirty">Password has to
-                be
-                longer
-                than 10 characters</p>
-            <p class="help is-danger has-text-left" v-if="!$v.password.maxLength && $v.password.$dirty">Password has to
-                be
-                smaller
-                than 128 characters</p>
+            <p class="help is-danger has-text-left" v-if="!$v.password.required && $v.password.$dirty">
+                {{$t('global.errors.password.required')}}
+            </p>
+            <p class="help is-danger has-text-left" v-if="!$v.password.minLength && $v.password.$dirty">
+                {{$t('global.errors.password.min_length')}}
+            </p>
+            <p class="help is-danger has-text-left" v-if="!$v.password.maxLength && $v.password.$dirty">
+                {{$t('global.errors.password.max_length')}}
+            </p>
         </div>
         <div class="field">
-            <nuxt-link :to="localePath('reset-password')" class="ok-has-text-secondary">
-                Forgot password?
+            <nuxt-link :to="localePath('reset-password')" class="ok-has-text-primary-invert-60">
+                {{$t('global.snippets.forgot_password')}}
             </nuxt-link>
         </div>
         <div class="field has-padding-top-20">
-            <button class="button is-success is-rounded is-fullwidth is-medium has-background-rainbow has-text-weight-bold" type="submit"
+            <button class="button is-success is-rounded is-fullwidth is-medium has-background-rainbow has-text-weight-bold"
+                    type="submit"
                     :class="{'is-disabled' : submitInProgress}" :disabled="submitInProgress">
-                Login
+                {{$t('global.snippets.login')}}
             </button>
         </div>
     </form>

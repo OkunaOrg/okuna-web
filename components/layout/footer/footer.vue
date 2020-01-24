@@ -4,16 +4,16 @@
             <div class="container">
                 <div class="columns has-text-rounded is-centered has-text-centered">
                     <a href="" class="column footer-link footer-link--about-us ok-has-text-primary-invert-60">
-                        About us
+                        {{$t('global.snippets.about_us')}}
                     </a>
                     <a href="" class="column footer-link footer-link--status ok-has-text-primary-invert-60">
-                        Status
+                        {{$t('global.snippets.operational_status')}}
                     </a>
                     <a href="" class="column footer-link footer-link--privacy-policy ok-has-text-primary-invert-60">
-                        Privacy policy
+                        {{$t('global.snippets.privacy_policy')}}
                     </a>
                     <a href="" class="column footer-link footer-link--terms-of-use ok-has-text-primary-invert-60">
-                        Terms of use
+                        {{$t('global.snippets.terms_of_use')}}
                     </a>
                     <a href="" class="column footer-link footer-link--github ok-has-text-primary-invert-60">
                         Github

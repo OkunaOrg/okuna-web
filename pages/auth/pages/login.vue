@@ -11,12 +11,13 @@
                     <ok-login-form @onUserLoggedIn="onUserLoggedIn(user)"></ok-login-form>
                 </div>
                 <div class="card-footer ok-has-border-top-primary-highlight">
-                    <div class="card-footer-item ok-has-text-secondary">
-                  <span>Don't have an account?
+                    <div class="card-footer-item ok-has-text-primary-invert-60">
+                  <span>
+                      {{$t('global.snippets.dont_have_an_account')}}
                   </span>
                         <nuxt-link :to="localePath({path: '/', hash: 'pricing'})"
                                    class="has-text-underline has-padding-left-5">
-                            Get one!
+                            {{$t('global.snippets.sign_up')}}
                         </nuxt-link>
                     </div>
                 </div>
