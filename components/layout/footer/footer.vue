@@ -3,19 +3,19 @@
         <nav role="navigation" aria-label="footer navigation" class="ok-has-border-top-primary-highlight has-padding-10">
             <div class="container">
                 <div class="columns has-text-rounded is-centered has-text-centered">
-                    <a href="" class="column footer-link footer-link--about-us ok-has-text-tertiary">
+                    <a href="" class="column footer-link footer-link--about-us ok-has-text-primary-invert-60">
                         About us
                     </a>
-                    <a href="" class="column footer-link footer-link--status ok-has-text-tertiary">
+                    <a href="" class="column footer-link footer-link--status ok-has-text-primary-invert-60">
                         Status
                     </a>
-                    <a href="" class="column footer-link footer-link--privacy-policy ok-has-text-tertiary">
+                    <a href="" class="column footer-link footer-link--privacy-policy ok-has-text-primary-invert-60">
                         Privacy policy
                     </a>
-                    <a href="" class="column footer-link footer-link--terms-of-use ok-has-text-tertiary">
+                    <a href="" class="column footer-link footer-link--terms-of-use ok-has-text-primary-invert-60">
                         Terms of use
                     </a>
-                    <a href="" class="column footer-link footer-link--github ok-has-text-tertiary">
+                    <a href="" class="column footer-link footer-link--github ok-has-text-primary-invert-60">
                         Github
                     </a>
                 </div>

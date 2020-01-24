@@ -4,36 +4,36 @@
             <div class="column ok-has-background-primary is-flex flex-direction-column">
                 <div class="columns is-flex-1 is-vcentered is-centered is-marginless">
                     <div class="column content is-medium is-7-desktop">
-                        <h1 class="has-padding-bottom-10 has-text-rounded ok-has-text-primary">
+                        <h1 class="has-padding-bottom-10 has-text-rounded ok-has-text-primary-invert">
                             Social networking, done good.
                         </h1>
                         <div class="has-padding-bottom-10">
                             <span v-twemoji class="icon">🏡</span>
-                            <span class="has-padding-left-5 ok-has-text-secondary">
+                            <span class="has-padding-left-5 ok-has-text-primary-invert-80">
                                 Meet new friends and discover interests by joining or hosting communities.
                             </span>
                         </div>
                         <div class="has-padding-bottom-10">
                             <span v-twemoji class="icon">🙈️</span>
-                            <span class="has-padding-left-5 ok-has-text-secondary">
+                            <span class="has-padding-left-5 ok-has-text-primary-invert-80">
                                 We don't track nor monitor what you do.
                             </span>
                         </div>
                         <div class="has-padding-bottom-10">
                             <span v-twemoji class="icon">😍</span>
-                            <span class="has-padding-left-5 ok-has-text-secondary">
+                            <span class="has-padding-left-5 ok-has-text-primary-invert-80">
                                 We have zero ads and sustain the network through an optional coffee subscription.
                             </span>
                         </div>
                         <div class="has-padding-bottom-10">
                             <span v-twemoji class="icon">🛀</span>
-                            <span class="has-padding-left-5 ok-has-text-secondary">
+                            <span class="has-padding-left-5 ok-has-text-primary-invert-80">
                                 With private comments, toggleable follower counts and batch notifications, make your surfing experience, stress-free.
                             </span>
                         </div>
                         <div class="has-padding-bottom-10">
                             <span v-twemoji class="icon">🌎</span>
-                            <span class="has-padding-left-5 ok-has-text-secondary">
+                            <span class="has-padding-left-5 ok-has-text-primary-invert-80">
                                 We are committed to donating a percentage of our profits towards preserving improving our only home.
                             </span>
                         </div>

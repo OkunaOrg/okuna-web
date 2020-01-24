@@ -189,14 +189,14 @@ export class ThemeService implements IThemeService {
         //Global
         'ok-input': {
             'background-color': (data: ITheme) => {
-                return [data.primaryHighlightColor, '!important'];
+                return [data.primaryHighlightColor.hex(), '!important'];
             },
             'color': (data: ITheme) => {
-                return [data.primaryTextColor, '!important'];
+                return [data.primaryInvertColor.hex(), '!important'];
             },
             '&::placeholder': {
                 'color': (data: ITheme) => {
-                    return [data.secondaryTextColor, '!important'];
+                    return [data.primaryInvertColor60.hex(), '!important'];
                 },
             }
         },

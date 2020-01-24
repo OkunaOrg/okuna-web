@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="onSubmit">
         <div class="field">
-            <label for="email" class="label has-text-left ok-has-text-primary">E-mail</label>
+            <label for="email" class="label has-text-left ok-has-text-primary-invert-80">E-mail</label>
             <div class="control">
                 <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium ok-input" required
                        id="email" v-model="email">
@@ -10,7 +10,7 @@
             <p class="help is-danger has-text-left" v-if="!$v.email.email && $v.email.$dirty">Email is invalid</p>
         </div>
         <div class="field">
-            <label for="password" class="label has-text-left ok-has-text-primary">Password</label>
+            <label for="password" class="label has-text-left ok-has-text-primary-invert-80">Password</label>
             <div class="control">
                 <input type="password" placeholder="*******" class="input is-rounded is-medium ok-input" required id="password"
                        v-model="password">
