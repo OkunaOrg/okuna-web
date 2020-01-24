@@ -1,7 +1,7 @@
 <template>
     <div class="columns is-centered is-vcentered has-height-100-percent is-paddingless ok-has-background-primary-highlight has-background-emojis is-marginless">
         <div class="column is-narrow">
-            <div class="card has-overflow-hidden ok-has-background-primary">
+            <div class="card is-relative has-overflow-hidden ok-has-background-primary">
                 <div class="card-header ok-has-border-bottom-primary-highlight">
                     <div class="card-header-title is-flex align-items-center justify-center has-padding-20">
                         <ok-logo></ok-logo>

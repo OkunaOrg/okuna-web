@@ -88,6 +88,12 @@ export default {
         // We followed steps of https://nuxt-community.github.io/nuxt-i18n/seo.html#improving-performance
         seo: false,
     },
+    proxy: {
+        '/api' : {
+            target: 'https://api.openbook.social',
+            changeOrigin: true,
+        }
+    },
     render: {
         bundleRenderer: {
             runInNewContext: false

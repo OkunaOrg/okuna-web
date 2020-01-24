@@ -55,7 +55,7 @@ export class ThemeService implements IThemeService {
         },
         'ok-has-background-primary-highlight': {
             'background-color': (data: ITheme) => {
-                return [data.primaryHighlightColor.hex(), '!important'];
+                return [data.primaryHighlightColor.hsl().string(), '!important'];
             }
         },
         'ok-has-background-accent': {
@@ -178,18 +178,35 @@ export class ThemeService implements IThemeService {
         },
         'ok-has-border-top-primary-highlight': {
             'borderTop': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor.hex()}`, '!important'];
+                return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
             }
         },
         'ok-has-border-bottom-primary-highlight': {
             'borderBottom': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor.hex()}`, '!important'];
+                return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
+            }
+        },
+        'ok-has-before-background-primary': {
+            '&:before': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                top: 0,
+                width: '100%',
+                height: '100%',
+                display: 'block',
+                'z-index': 0,
+                'background-color': (data: ITheme) => {
+                    return [data.primaryColor.hex(), '!important'];
+                }
             }
         },
         //Global
         'ok-input': {
             'background-color': (data: ITheme) => {
-                return [data.primaryHighlightColor.hex(), '!important'];
+                return [data.primaryHighlightColor.hsl().string(), '!important'];
             },
             'color': (data: ITheme) => {
                 return [data.primaryInvertColor.hex(), '!important'];
@@ -208,7 +225,7 @@ export class ThemeService implements IThemeService {
         },
         'card-footer': {
             'borderTop': (data: ITheme) => {
-                return [`1px solid ${data.primaryHighlightColor.hex()}`, '!important'];
+                return [`1px solid ${data.primaryHighlightColor.hsl().string()}`, '!important'];
             }
         }
     };
