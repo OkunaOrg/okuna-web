@@ -1,60 +1,112 @@
-$primary-color: #ffffff;
-$primary-text-color: #505050;
-$secondary-text-color: #676767;
-$tertiary-text-color: #676767;
-$primary-accent-color: #ffdd00, #f93476;
-$primary-highlight-color: #f7f7f7;
-$success-color: #7ED321;
-$success-color-accent: #ffffff;
-$danger-color: #FF3860;
-$danger-color-accent: #ffffff;
+// Merely for autocompletion purposes.
+// These classes are created on runtime on the ThemeService.
+
+
+// BACKGROUNDS START //
 
 .ok-has-background-primary {
-  background-color: $primary-color !important;
 }
 
-.ok-has-background-primary-highlight {
-  background-color: $primary-highlight-color;
+.ok-has-background-primary-80 {
+}
+
+.ok-has-background-primary-60 {
+}
+
+.ok-has-background-accent {
+}
+
+.ok-has-background-primary-invert {
+}
+
+.ok-has-background-primary-invert-80 {
+}
+
+.ok-has-background-primary-invert-60 {
+}
+
+.ok-has-background-highlight {
 }
 
 .ok-has-background-success {
-  background-color: $success-color !important;
 }
 
-.ok-has-background-danger {
-  background-color: $danger-color !important;
+.ok-has-background-error {
 }
+
+.ok-has-background-info {
+}
+
+// BACKGROUNDS END //
+
+// TEXT COLOR START //
 
 .ok-has-text-primary {
-  color: $primary-text-color !important;
 }
 
-.ok-has-text-secondary {
-  color: $secondary-text-color !important;
+.ok-has-text-primary-80 {
 }
 
-.ok-has-text-tertiary {
-  color: $tertiary-text-color !important;
+.ok-has-text-primary-60 {
 }
 
-.ok-has-text-primary-accent {
-  background: -webkit-linear-gradient($primary-accent-color);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.ok-has-text-primary-invert {
 }
 
-.ok-has-text-danger {
-  color: $danger-color !important;
+.ok-has-text-primary-invert-80 {
 }
 
-.ok-has-text-danger-accent {
-  color: $danger-color-accent !important;
+.ok-has-text-primary-invert-60 {
 }
 
+.ok-has-text-accent {
+}
+
+.ok-has-text-success {
+}
+
+.ok-has-text-success-invert {
+}
+
+.ok-has-text-error {
+}
+
+.ok-has-text-error-invert {
+}
+
+.ok-has-text-info {
+}
+
+.ok-has-text-info-invert {
+}
+
+// TEXT COLOR ENDS //
+
+// TEXT DECORATION STARTS //
+
+.ok-has-text-underline-accent {
+}
+
+// TEXT DECORATION ENDS //
+
+// BORDER STARTS //
+
+.ok-has-border-top-primary-highlight {
+}
+
+.ok-has-border-top-primary-invert-80 {
+}
+
+// BORDER ENDS //
+
+
+// COMPONENT STARTS //
 .ok-input {
-
 }
 
-.ok-has-border-top-primary-highlight{
+// COMPONENT ENDS //
 
+
+::selection {
+  //background: $primary-accent-color; /* WebKit/Blink Browsers */
 }

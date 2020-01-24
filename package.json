@@ -9,7 +9,7 @@
     "@nuxtjs/router": "^1.5.0",
     "@nuxtjs/router-extras": "^1.0.0",
     "@nuxtjs/sentry": "^3.0.1",
-    "@types/color": "^3.0.0",
+    "@types/color": "^3.0.1",
     "@types/jss": "^9.5.8",
     "@types/twemoji": "^12.1.0",
     "@types/vuelidate": "^0.7.7",

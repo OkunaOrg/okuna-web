@@ -2,13 +2,14 @@ import { ModelData } from '~/types/models-data/ModelData';
 
 export interface ThemeData extends ModelData {
     name: string,
-    primary_text_color: string,
-    secondary_text_color: string,
-    tertiary_text_color: string,
     primary_color: string,
-    primary_accent_color: string,
+    primary_invert_color: string,
+    accent_color: string,
+    accent_gradient: string,
     success_color: string,
-    success_color_accent: string,
-    danger_color: string,
-    danger_color_accent: string,
+    success_color_invert: string,
+    error_color: string,
+    error_color_invert: string,
+    warning_color: string,
+    warning_color_invert: string,
 }

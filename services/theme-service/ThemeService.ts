@@ -10,7 +10,6 @@ import jss from 'jss';
 import preset from 'jss-preset-default';
 import { IOkLogger } from '~/services/logging/types';
 import { ILoggingService } from '~/services/logging/ILogging';
-import { res } from '~/node_modules/@types/pino-std-serializers';
 
 const createGenerateId = () => {
     return (rule: any, sheet: any) => `${rule.key}`;
@@ -26,57 +25,165 @@ export class ThemeService implements IThemeService {
     static themeStylesheet = {
         'ok-has-background-primary': {
             'background-color': (data: ITheme) => {
-                return [data.primaryColor, '!important'];
+                return [data.primaryColor.hex(), '!important'];
+            }
+        },
+        'ok-has-background-primary-80': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryColor80.hex(), '!important'];
+            }
+        },
+        'ok-has-background-primary-60': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryColor60.hex(), '!important'];
+            }
+        },
+        'ok-has-background-primary-invert': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryInvertColor.hex(), '!important'];
+            }
+        },
+        'ok-has-background-primary-invert-80': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryInvertColor80.hex(), '!important'];
+            }
+        },
+        'ok-has-background-primary-invert-60': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryInvertColor60.hex(), '!important'];
             }
         },
         'ok-has-background-primary-highlight': {
             'background-color': (data: ITheme) => {
-                return [data.primaryHighlightColor, '!important'];
+                return [data.primaryHighlightColor.hex(), '!important'];
             }
+        },
+        'ok-has-background-accent': {
+            'background-color': (data: ITheme) => {
+                return [data.accentColor.hex(), '!important'];
+            }
+        },
+        'ok-has-background-accent-gradient': {
+            'background-image': (data: ITheme) => {
+                return [`linear-gradient(315deg, ${data.accentGradient[0].hex()} 0%, ${data.accentGradient[1].hex()} 74%)`, '!important'];
+            },
+            'background-color': (data: ITheme) => {
+                return [data.accentGradient[0].hex(), '!important'];
+            },
         },
         'ok-has-background-success': {
             'background-color': (data: ITheme) => {
-                return [data.successColor, '!important'];
+                return [data.successColor.hex(), '!important'];
             }
         },
-        'ok-has-background-danger': {
+        'ok-has-background-success-invert': {
             'background-color': (data: ITheme) => {
-                return [data.dangerColor, '!important'];
+                return [data.successColorInvert.hex(), '!important'];
+            }
+        },
+        'ok-has-background-error': {
+            'background-color': (data: ITheme) => {
+                return [data.errorColor.hex(), '!important'];
+            }
+        },
+        'ok-has-background-error-invert': {
+            'background-color': (data: ITheme) => {
+                return [data.errorColorInvert.hex(), '!important'];
+            }
+        },
+        'ok-has-background-warning': {
+            'background-color': (data: ITheme) => {
+                return [data.warningColor.hex(), '!important'];
+            }
+        },
+        'ok-has-background-warning-invert': {
+            'background-color': (data: ITheme) => {
+                return [data.warningColorInvert.hex(), '!important'];
+            }
+        },
+        'ok-has-background-info': {
+            'background-color': (data: ITheme) => {
+                return [data.infoColor.hex(), '!important'];
+            }
+        },
+        'ok-has-background-info-invert': {
+            'background-color': (data: ITheme) => {
+                return [data.infoColorInvert.hex(), '!important'];
             }
         },
         'ok-has-text-primary': {
             'color': (data: ITheme) => {
-                return [data.primaryTextColor, '!important'];
+                return [data.primaryColor.hex(), '!important'];
             }
         },
-        'ok-has-text-secondary': {
+        'ok-has-text-primary-80': {
             'color': (data: ITheme) => {
-                return [data.secondaryTextColor, '!important'];
+                return [data.primaryColor80.hex(), '!important'];
             }
         },
-        'ok-has-text-primary-accent': {
-            'background': (data: ITheme) => {
-                return [`-webkit-linear-gradient(${data.primaryAccentColor})`, '!important'];
-            }
-        },
-        'ok-has-text-danger': {
+        'ok-has-text-primary-60': {
             'color': (data: ITheme) => {
-                return [data.dangerColor, '!important'];
+                return [data.primaryColor60.hex(), '!important'];
             }
         },
-        'ok-has-text-danger-accent': {
+        'ok-has-text-primary-invert': {
             'color': (data: ITheme) => {
-                return [data.dangerColorAccent, '!important'];
+                return [data.primaryInvertColor.hex(), '!important'];
             }
         },
-        'ok-has-border-top-primary-highlight':{
+        'ok-has-text-primary-invert-80': {
+            'color': (data: ITheme) => {
+                return [data.primaryInvertColor80.hex(), '!important'];
+            }
+        },
+        'ok-has-text-primary-invert-60': {
+            'color': (data: ITheme) => {
+                return [data.primaryInvertColor60.hex(), '!important'];
+            }
+        },
+        'ok-has-text-accent': {
+            'color': (data: ITheme) => {
+                return [data.accentColor.hex(), '!important'];
+            }
+        },
+        'ok-has-text-error': {
+            'color': (data: ITheme) => {
+                return [data.errorColor.hex(), '!important'];
+            }
+        },
+        'ok-has-text-error-invert': {
+            'color': (data: ITheme) => {
+                return [data.errorColorInvert.hex(), '!important'];
+            }
+        },
+        'ok-has-text-warning': {
+            'color': (data: ITheme) => {
+                return [data.warningColor.hex(), '!important'];
+            }
+        },
+        'ok-has-text-warning-invert': {
+            'color': (data: ITheme) => {
+                return [data.warningColorInvert.hex(), '!important'];
+            }
+        },
+        'ok-has-text-info': {
+            'color': (data: ITheme) => {
+                return [data.infoColor.hex(), '!important'];
+            }
+        },
+        'ok-has-text-info-invert': {
+            'color': (data: ITheme) => {
+                return [data.infoColorInvert.hex(), '!important'];
+            }
+        },
+        'ok-has-border-top-primary-highlight': {
             'borderTop': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor}`, '!important'];
+                return [`solid 1px ${data.primaryHighlightColor.hex()}`, '!important'];
             }
         },
-        'ok-has-border-bottom-primary-highlight':{
+        'ok-has-border-bottom-primary-highlight': {
             'borderBottom': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor}`, '!important'];
+                return [`solid 1px ${data.primaryHighlightColor.hex()}`, '!important'];
             }
         },
         //Global
@@ -93,14 +200,15 @@ export class ThemeService implements IThemeService {
                 },
             }
         },
+        // Bulma overrides
         'card-header': {
             'boxShadow': (data: ITheme) => {
-                return [`0 1px 2px ${data.secondaryTextColor}`, '!important'];
+                return [`0 1px 2px ${data.primaryInvertColor.hex()}`, '!important'];
             }
         },
         'card-footer': {
             'borderTop': (data: ITheme) => {
-                return [`1px solid ${data.primaryHighlightColor}`, '!important'];
+                return [`1px solid ${data.primaryHighlightColor.hex()}`, '!important'];
             }
         }
     };
@@ -109,30 +217,34 @@ export class ThemeService implements IThemeService {
         themeFactory.make({
             id: 1,
             name: 'White Gold',
-            primary_text_color: '#505050',
-            secondary_text_color: '#727272',
-            tertiary_text_color: '#9b9b9b',
             primary_color: '#ffffff',
-            primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: 'rgba(0, 0, 0, 0.023)',
+            primary_invert_color: '#000000',
+            accent_color: '#e9a039',
+            accent_gradient: '#e9a039,#f0c569',
             success_color: '#7ED321',
-            success_color_accent: '#ffffff',
-            danger_color: '#FF3860',
-            danger_color_accent: '#ffffff',
+            success_color_invert: '#ffffff',
+            error_color: '#FF3860',
+            error_color_invert: '#ffffff',
+            warning_color: '#ffaf34',
+            warning_color_invert: '#ffffff',
+            info_color: '#227cff',
+            info_color_invert: '#ffffff',
         }),
         themeFactory.make({
             id: 2,
             name: 'Dark Gold',
-            primary_text_color: '#ffffff',
-            tertiary_text_color: '#9b9b9b',
-            secondary_text_color: '#b3b3b3',
-            primary_color: '#000000',
-            primary_accent_color: '#e9a039,#f0c569',
-            primary_highlight_color: 'rgba(255, 255, 255, 0.05)',
+            primary_color: '#060606',
+            primary_invert_color: '#ffffff',
+            accent_color: '#e9a039',
+            accent_gradient: '#e9a039,#f0c569',
             success_color: '#7ED321',
-            success_color_accent: '#ffffff',
-            danger_color: '#FF3860',
-            danger_color_accent: '#ffffff',
+            success_color_invert: '#ffffff',
+            error_color: '#FF3860',
+            error_color_invert: '#ffffff',
+            warning_color: '#ffaf34',
+            warning_color_invert: '#ffffff',
+            info_color: '#227cff',
+            info_color_invert: '#ffffff',
         }),
     ];
 
