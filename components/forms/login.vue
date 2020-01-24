@@ -74,10 +74,10 @@
         formWasSubmitted = false;
         submitInProgress = false;
 
-        @Validate({emailValidators})
+        @Validate(emailValidators)
         email = "";
 
-        @Validate({passwordValidators})
+        @Validate(passwordValidators)
         password = "";
 
 
@@ -86,6 +86,7 @@
         }
 
         async onSubmit() {
+            debugger;
             if (this.submitInProgress) return;
             this.submitInProgress = true;
 
@@ -120,6 +121,7 @@
 
         _validateAll() {
             this.$v.$touch();
+            console.log(this.$v.$invalid);
             return !this.$v.$invalid;
         }
 
