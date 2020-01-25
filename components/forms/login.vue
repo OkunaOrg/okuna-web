@@ -1,17 +1,16 @@
 <template>
     <form @submit.prevent="onSubmit">
         <div class="field">
-            <label for="email" class="label has-text-left ok-has-text-primary-invert-80">E-mail</label>
+            <label for="username" class="label has-text-left ok-has-text-primary-invert-80">
+                {{$t('global.keywords.username')}}
+            </label>
             <div class="control">
-                <input type="email" placeholder="e.g. bruce@batman.com" class="input is-rounded is-medium ok-input"
+                <input type="text" placeholder="e.g. johntravolta" class="input is-rounded is-medium ok-input"
                        required
-                       id="email" v-model="email">
+                       id="username" v-model="username">
             </div>
-            <p class="help is-danger has-text-left" v-if="!$v.email.required && $v.email.$dirty">
-                {{$t('global.errors.email.required')}}
-            </p>
-            <p class="help is-danger has-text-left" v-if="!$v.email.email && $v.email.$dirty">
-                {{$t('global.errors.email.invalid')}}
+            <p class="help is-danger has-text-left" v-if="!$v.username.required && $v.username.$dirty">
+                {{$t('global.errors.username.required')}}
             </p>
         </div>
         <div class="field">
@@ -54,12 +53,13 @@
     import { Validate } from "vuelidate-property-decorators";
     import { Component, Vue } from "nuxt-property-decorator"
     import { passwordValidators } from "~/validators/password";
-    import { emailValidators } from "~/validators/email";
+    import { usernameValidators } from "~/validators/username";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUser";
     import { okunaContainer } from "~/services/inversify";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
         name: "OkLoginForm"
@@ -69,24 +69,23 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-        loginOperation?: CancelableOperation<void>;
+        loginOperation?: CancelableOperation<IUser>;
 
         formWasSubmitted = false;
         submitInProgress = false;
 
-        @Validate(emailValidators)
-        email = "";
+        @Validate(usernameValidators)
+        username = "";
 
         @Validate(passwordValidators)
         password = "";
 
 
         destroyed() {
-            //this.loginOperation?.cancel();
+            if (this.loginOperation) this.loginOperation.cancel();
         }
 
         async onSubmit() {
-            debugger;
             if (this.submitInProgress) return;
             this.submitInProgress = true;
 
@@ -97,6 +96,7 @@
                 await this._onSubmitWithValidForm();
             }
 
+            console.log("Done");
             this.submitInProgress = false;
         }
 
@@ -104,12 +104,12 @@
             if (this.loginOperation) return;
 
             try {
-                this.loginOperation = CancelableOperation.fromPromise(this.userService.login({
-                    email: this.email,
+                this.loginOperation = CancelableOperation.fromPromise<IUser>(this.userService.login({
+                    username: this.username,
                     password: this.password
                 }));
-                await this.loginOperation.value;
-                this._onUserLoggedIn();
+                const loggedInUser = await this.loginOperation.value;
+                this._onUserLoggedIn(loggedInUser);
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
@@ -120,14 +120,13 @@
 
 
         _validateAll() {
-            this.$v.$touch();
-            console.log(this.$v.$invalid);
+            this.$touch();
             return !this.$v.$invalid;
         }
 
 
-        _onUserLoggedIn() {
-            this.$emit("onUserLoggedIn");
+        _onUserLoggedIn(loggedInUser: IUser) {
+            this.$emit("onUserLoggedIn", loggedInUser);
         }
     }
 </script>

@@ -12,7 +12,7 @@ import { IUser } from '~/models/auth/user/IUser';
 export interface IUserService {
     loggedInUser: BehaviorSubject<IUser | undefined>;
 
-    login(data: LoginData): Promise<void>;
+    login(data: LoginData): Promise<IUser>;
 
     register(data: RegistrationData): Promise<RegistrationResponse>;
 
@@ -26,11 +26,11 @@ export interface IUserService {
 
     getStoredAuthToken(): Promise<string>;
 
-    loginWithAuthToken(token: string): Promise<void>;
+    loginWithAuthToken(token: string): Promise<IUser>;
 
-    loginWithStoredAuthToken(): Promise<void>;
+    loginWithStoredAuthToken(): Promise<IUser>;
 
-    refreshLoggedInUser(): Promise<void>;
+    refreshLoggedInUser(): Promise<IUser>;
 
     isLoggedIn(): boolean;
 }

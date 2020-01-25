@@ -42,7 +42,7 @@ export class AuthApiService implements IAuthApiService {
 
     login(data: LoginData) {
         return this.httpService.post<LoginResponse>(AuthApiService.LOGIN_PATH, {
-            email: data.email,
+            username: data.username,
             password: data.password
         }, {
             isApiRequest: true,

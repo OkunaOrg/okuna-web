@@ -31,7 +31,9 @@ export default {
     sentry: {
         dsn: process.env.SENTRY_DSN,
     },
-    axios: {},
+    axios: {
+        proxy: true
+    },
     plugins: [
         '~/plugins/buefy',
         {src: '~/plugins/line-clamp', ssr: false},
@@ -89,10 +91,7 @@ export default {
         seo: false,
     },
     proxy: {
-        '/api' : {
-            target: 'https://api.openbook.social',
-            changeOrigin: true,
-        }
+        '/local/': {target: 'https://api.openbook.social', pathRewrite: {'^/local/': ''}},
     },
     render: {
         bundleRenderer: {

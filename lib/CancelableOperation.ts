@@ -1,6 +1,6 @@
-export class CancelableOperation<T = void> {
-    static fromPromise<T = void>(promise: Promise<T>): CancelableOperation<T> {
-        return new CancelableOperation<T>({
+export class CancelableOperation<T> {
+    static fromPromise<Y>(promise: Promise<Y>): CancelableOperation<Y> {
+        return new CancelableOperation<Y>({
             promise
         });
     }
@@ -15,6 +15,10 @@ export class CancelableOperation<T = void> {
                 if (this._isCancelled) return;
                 this._isCompleted = true;
                 resolve();
+            }, (error)=>{
+                if (this._isCancelled) return;
+                this._isCompleted = false;
+                reject(error);
             });
         });
     }

@@ -70,7 +70,7 @@ export class HttpService implements IHttpService {
 
     private makeUrlWithRequestConfig(originalUrl: string, config?: HttpServiceRequestConfig): string {
         if (!config) return originalUrl;
-        let finalUrl = config.isApiRequest ? `${this.environmentService!.apiUrl}${originalUrl}` : originalUrl;
+        let finalUrl = config.isApiRequest ? `${this.environmentService!.apiUrl}/${originalUrl}` : originalUrl;
         if (config.urlParams) finalUrl = this.stringTemplateService!.parse(finalUrl, config.urlParams);
         return finalUrl;
     }

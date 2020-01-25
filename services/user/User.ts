@@ -50,9 +50,9 @@ export class UserService implements IUserService {
         await this.authApiService!.resetPassword(data);
     }
 
-    async login(data: LoginData): Promise<void> {
+    async login(data: LoginData): Promise<IUser> {
         const response = await this.authApiService!.login(data);
-        await this.loginWithAuthToken(response.data.token);
+        return this.loginWithAuthToken(response.data.token);
     }
 
     async logout() {
@@ -68,23 +68,25 @@ export class UserService implements IUserService {
         return this.tokenStorage.get(UserService.AUTH_TOKEN_STORAGE_KEY);
     }
 
-    async loginWithAuthToken(token: string) {
+    async loginWithAuthToken(token: string): Promise<IUser> {
         await this.storeAuthToken(token);
-        await this.loginWithStoredAuthToken();
+        return this.loginWithStoredAuthToken();
     }
 
-    async loginWithStoredAuthToken() {
+    async loginWithStoredAuthToken() : Promise<IUser> {
         const authToken = await this.getStoredAuthToken();
         this.httpService!.setAuthToken(authToken);
-        await this.refreshLoggedInUser();
+        return this.refreshLoggedInUser();
     }
 
-    async refreshLoggedInUser() {
+    async refreshLoggedInUser() : Promise<IUser> {
         const response = await this.authApiService!.getAuthenticatedUser();
-        this.setLoggedInUser(userFactory.make(response.data, {
+        const user = userFactory.make(response.data, {
             // This cache stays for as long as the user session is active
             storeInSessionCache: true
-        }));
+        });
+        this.setLoggedInUser(user);
+        return user;
     }
 
     private setLoggedInUser(user: IUser): void {

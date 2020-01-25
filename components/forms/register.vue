@@ -79,7 +79,7 @@
     import { okunaContainer } from "~/services/inversify";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
-    import { userNameValidators } from "~/validators/user-name";
+    import { username } from "~/validators/username";
     import { RegistrationResponse } from "~/services/Apis/auth/types";
 
     @Component({
@@ -103,7 +103,7 @@
         @Validate({passwordValidators})
         password = "";
 
-        @Validate({userNameValidators})
+        @Validate({userNameValidators: username})
         name = "";
 
         inviteToken = "";

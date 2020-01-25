@@ -31,6 +31,10 @@ export default {
                 "min_length": "Password has to be longer than 10 characters",
                 "max_length": "Password has to be smaller than 128 characters"
             },
+            "username": {
+                "required": "Username is required",
+                "username": "Username has to be smaller than 64 characters"
+            },
             "email": {
                 "required": "Email is required",
                 "invalid": "Email is invalid",
@@ -39,6 +43,7 @@ export default {
         "keywords": {
             "email": "E-mail",
             "password": "Password",
+            "username": "Username",
         },
         "snippets": {
             "forgot_password": "Forgot password?",

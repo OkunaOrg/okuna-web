@@ -39,7 +39,7 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-        requestResetPasswordOperation: CancelableOperation | undefined;
+        requestResetPasswordOperation: CancelableOperation<void> | undefined;
 
         formWasSubmitted = false;
         submitInProgress = false;
