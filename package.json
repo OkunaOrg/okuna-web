@@ -20,6 +20,7 @@
     "color": "^3.1.2",
     "dotenv": "^8.2.0",
     "es6-dynamic-template": "^2.0.0",
+    "fs": "0.0.1-security",
     "inversify": "^5.0.1",
     "jss": "^10.0.3",
     "jss-plugin-global": "^10.0.3",
@@ -46,6 +47,7 @@
     "vue-rx": "^6.2.0",
     "vuelidate": "^0.7.5",
     "vuelidate-property-decorators": "^1.0.28",
+    "vuex": "^3.1.2",
     "vuex-class": "0.3.2"
   },
   "scripts": {

@@ -1,5 +1,5 @@
-export class CancelableOperation<T> {
-    static fromPromise<Y>(promise: Promise<Y>): CancelableOperation<Y> {
+export class CancelableOperation<T = void> {
+    static fromPromise<Y=void>(promise: Promise<Y>): CancelableOperation<Y> {
         return new CancelableOperation<Y>({
             promise
         });

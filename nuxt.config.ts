@@ -99,7 +99,12 @@ export default {
         }
     },
     build: {
-        devtools: true
+        devtools: true,
+        extend(config, {isDev, isClient}) {
+            config.node = {
+                fs: 'empty'
+            }
+        }
     },
     generate: {
         routes: [

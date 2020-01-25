@@ -41,7 +41,7 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-        requestResetPasswordOperation?: CancelableOperation;
+        requestResetPasswordOperation: CancelableOperation;
 
         formWasSubmitted = false;
         submitInProgress = false;
@@ -55,7 +55,7 @@
         public resetToken = "";
 
         destroyed() {
-            this.requestResetPasswordOperation?.cancel();
+            this.requestResetPasswordOperation.cancel();
         }
 
         async onSubmit() {

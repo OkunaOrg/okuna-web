@@ -86,6 +86,7 @@
         }
 
         async onSubmit() {
+            debugger;
             if (this.submitInProgress) return;
             this.submitInProgress = true;
 
@@ -96,7 +97,6 @@
                 await this._onSubmitWithValidForm();
             }
 
-            console.log("Done");
             this.submitInProgress = false;
         }
 
@@ -120,7 +120,7 @@
 
 
         _validateAll() {
-            this.$touch();
+            this.$v.$touch();
             return !this.$v.$invalid;
         }
 

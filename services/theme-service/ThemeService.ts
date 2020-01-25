@@ -343,6 +343,7 @@ export class ThemeService implements IThemeService {
     private applyActiveThemeStyles(): void {
         if (!this.themeStylesheet) {
             this.logger.info('Creating and attaching stylesheet');
+            // @ts-ignore
             this.themeStylesheet = jss.createStyleSheet(ThemeService.themeStylesheet, {link: true});
             this.themeStylesheet.attach();
         }
