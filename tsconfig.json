@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "strict": true,
+    "strict": false,
     "allowSyntheticDefaultImports": true,
     "noEmit": true,
     "baseUrl": ".",
