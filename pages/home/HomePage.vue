@@ -17,6 +17,8 @@
     import { okunaContainer } from "~/services/inversify";
     import ensureHasStoredAuthToken from "~/middleware/ensure-has-stored-auth-token";
     import OkHeader from "~/components/layout/header/header.vue";
+    import { IOkLogger } from "~/services/logging/types";
+    import { ILoggingService } from "~/services/logging/ILogging";
 
     @Component({
         components: {
@@ -28,9 +30,24 @@
     })
     export default class extends Vue {
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
+        private logger: IOkLogger;
 
         mounted() {
-            console.log("Hello");
+            this.logger = this.loggingService!.getLogger({
+                name: "OkHomePage"
+            });
+            this.bootstrapLoggedInUser();
+        }
+
+        async bootstrapLoggedInUser() {
+            try{
+                const user = await this.userService.bootstrapLoggedInUser();
+                this.logger.info('Bootstrapped user', user);
+            } catch (e) {
+                this.utilsService.handleErrorWithToast(e);
+            }
         }
     }
 </script>

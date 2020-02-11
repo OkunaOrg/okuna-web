@@ -32,5 +32,7 @@ export interface IUserService {
 
     refreshLoggedInUser(): Promise<IUser>;
 
+    bootstrapLoggedInUser(): Promise<IUser>;
+
     isLoggedIn(): boolean;
 }

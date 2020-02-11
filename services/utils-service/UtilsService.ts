@@ -64,6 +64,8 @@ export class UtilsService implements IUtilsService {
             message = this.localizationService!.localize('global.errors.generic.unhandled');
         }
 
+        console.error(error);
+
         return {
             humanFriendlyMessage: message,
             // If unhandled, needs to report to sentry

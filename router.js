@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import HomePage from '~/pages/home/home.vue';
+import HomePage from '~/pages/home/HomePage.vue';
 import AuthPage from '~/pages/auth/auth.vue';
 import AuthLoginPage from '~/pages/auth/pages/login.vue';
 import AuthRegisterPage from '~/pages/auth/pages/register.vue';

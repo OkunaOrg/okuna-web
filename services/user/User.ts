@@ -74,13 +74,13 @@ export class UserService implements IUserService {
         return this.loginWithStoredAuthToken();
     }
 
-    async loginWithStoredAuthToken() : Promise<IUser> {
+    async loginWithStoredAuthToken(): Promise<IUser> {
         const authToken = await this.getStoredAuthToken();
         this.httpService!.setAuthToken(authToken);
         return this.refreshLoggedInUser();
     }
 
-    async refreshLoggedInUser() : Promise<IUser> {
+    async refreshLoggedInUser(): Promise<IUser> {
         const response = await this.authApiService!.getAuthenticatedUser();
         const user = userFactory.make(response.data, {
             // This cache stays for as long as the user session is active
@@ -88,6 +88,12 @@ export class UserService implements IUserService {
         });
         this.setLoggedInUser(user);
         return user;
+    }
+
+    async bootstrapLoggedInUser(): Promise<IUser> {
+        const storedAuthToken = await this.getStoredAuthToken();
+        this.httpService.setAuthToken(storedAuthToken);
+        return this.refreshLoggedInUser();
     }
 
     private setLoggedInUser(user: IUser): void {
@@ -102,4 +108,5 @@ export class UserService implements IUserService {
     isLoggedIn(): boolean {
         return !!this.loggedInUser.value;
     }
+
 }

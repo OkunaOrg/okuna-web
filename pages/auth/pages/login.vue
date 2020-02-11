@@ -39,6 +39,7 @@
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IOkLogger } from "~/services/logging/types";
+    import { INavigationService } from "~/services/navigation-service/INavigationService";
 
     @Component({
         name: "OkAuthLoginPage",
@@ -47,6 +48,7 @@
     export default class AuthLoginPage extends Vue {
 
         private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
+        private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
         private logger: IOkLogger;
 
         mounted() {
@@ -56,7 +58,8 @@
         }
 
         onUserLoggedIn(loggedInUser: IUser) {
-            this.logger.info(loggedInUser);
+            this.logger.info("Logged in with user", loggedInUser);
+            this.navigationService.navigateToHome();
         }
     }
 </script>
