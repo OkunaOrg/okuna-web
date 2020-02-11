@@ -1,7 +1,7 @@
 <template>
-    <section>
+    <section class="is-flex">
         <ok-header></ok-header>
-        <nuxt-child></nuxt-child>
+        <nuxt-child class="ok-has-background-primary-80 has-width-100-percent"></nuxt-child>
     </section>
 </template>
 
@@ -16,9 +16,10 @@
     import { IUserService } from "~/services/user/IUser";
     import { okunaContainer } from "~/services/inversify";
     import ensureHasStoredAuthToken from "~/middleware/ensure-has-stored-auth-token";
-    import OkHeader from "~/components/layout/header/header.vue";
+    import OkHeader from "~/pages/home/components/header/Header.vue";
     import { IOkLogger } from "~/services/logging/types";
     import { ILoggingService } from "~/services/logging/ILogging";
+    import { IUtilsService } from '~/services/utils-service/IUtilsService';
 
     @Component({
         components: {

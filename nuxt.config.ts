@@ -40,6 +40,7 @@ export default {
         '~/plugins/directives',
         '~/plugins/vuelidate',
         '~/plugins/di-vue',
+        '~/plugins/material-design-icons',
     ],
     router: {
         middleware: ['post-redirect'],

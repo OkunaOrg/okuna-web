@@ -122,8 +122,8 @@ export class Theme extends DataModel<Theme> implements ITheme {
             // Dark
             primaryHighlightColor = Color('rgb(255, 255, 255)');
             primaryHighlightColor = primaryHighlightColor.fade(0.98);
-            primaryColor80 = this.primaryColor.lighten(0.2);
-            primaryColor60 = this.primaryColor.lighten(0.4);
+            primaryColor80 = this.primaryColor.lighten(4);
+            primaryColor60 = this.primaryColor.lighten(8);
             primaryInvertColor80 = this.primaryInvertColor.darken(0.2);
             primaryInvertColor60 = this.primaryInvertColor.darken(0.4);
         } else {

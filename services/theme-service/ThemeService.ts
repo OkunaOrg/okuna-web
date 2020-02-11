@@ -217,6 +217,20 @@ export class ThemeService implements IThemeService {
                 },
             }
         },
+        'ok-svg-icon-primary': {
+            '& svg': {
+                'fill': (data: ITheme) => {
+                    return [data.primaryColor.hex(), '!important'];
+                },
+            }
+        },
+        'ok-svg-icon-primary-invert': {
+            '& svg': {
+                'fill': (data: ITheme) => {
+                    return [data.primaryInvertColor.hex(), '!important'];
+                },
+            }
+        },
         // Bulma overrides
         'card-header': {
             'boxShadow': (data: ITheme) => {

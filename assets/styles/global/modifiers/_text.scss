@@ -19,3 +19,9 @@
 .has-text-rounded{
   font-family: VisbyRoundCF, sans-serif;
 }
+
+.has-no-hover-text-decoration{
+  &:hover{
+    text-decoration: none !important;
+  }
+}

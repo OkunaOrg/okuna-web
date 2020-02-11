@@ -10,7 +10,7 @@
                     <div class="navbar-end has-text-dark">
                         <div class="navbar-item is-hidden-touch has-cursor-pointer">
                             <div>
-                                <strong role="button" aria-label="Logout" class="has-text-danger">asda</strong>
+                                <menu-icon class="ok-svg-icon-primary-invert"></menu-icon>
                             </div>
                         </div>
                     </div>
@@ -20,14 +20,22 @@
     </header>
 </template>
 
+<style lang="scss" scoped>
+
+</style>
+
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import OkLogo from "../../okuna-logo/okuna-logo.vue";
+    import OkLogo from "../../../../components/okuna-logo/okuna-logo.vue";
+    import OkIcon from "~/components/icon/Icon.vue";
 
     @Component({
         name: "OkHeader",
-        components: {OkLogo}
+        components: {OkIcon, OkLogo},
+        enums: {
+            OkIcon,
+        },
     })
     export default class extends Vue {
 
