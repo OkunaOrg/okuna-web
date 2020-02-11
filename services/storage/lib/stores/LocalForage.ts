@@ -14,8 +14,8 @@ export class LocalForageStore<T> implements IStore<T> {
         return this.localForage.getItem(key);
     }
 
-    has(key: string): Promise<boolean> {
-        return this.localForage.hasItem(key);
+    async has(key: string): Promise<boolean> {
+        return typeof this.localForage.getItem(key) !== 'undefined';
     }
 
     remove(key: string): Promise<T> {

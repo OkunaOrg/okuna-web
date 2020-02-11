@@ -4,15 +4,20 @@ import { IUserService } from '~/services/user/IUser';
 import { INavigationService } from '~/services/navigation-service/INavigationService';
 import { Middleware } from '@nuxt/types'
 
-const isAuthenticatedMiddleware: Middleware = (context) => {
+/**
+ * A middleware that ensures that the user has a no stored auth token, otherwise
+ * sends it to the home page
+ * @param context
+ */
+const ensureHasNoStoredAuthToken: Middleware = (context) => {
     const userService = okunaContainer.get<IUserService>(TYPES.UserService);
 
-    if (!userService.isLoggedIn()) {
+    if (userService.hasStoredAuthToken()) {
         const navigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
-        navigationService.navigateToLogin({
+        navigationService.navigateToHome({
             nuxtContext: context
         });
     }
 };
 
-export default isAuthenticatedMiddleware;
+export default ensureHasNoStoredAuthToken;

@@ -59,13 +59,17 @@
     import { Component, Vue } from "nuxt-property-decorator"
     import { Observer } from "~/node_modules/mobx-vue";
     import OkFooter from "~/components/layout/footer/footer.vue";
+    import ensureHasNoStoredAuthToken from '~/middleware/ensure-has-no-stored-auth-token';
 
     @Observer
     @Component({
         name: "OkAuthPage",
         components: {
             OkFooter
-        }
+        },
+        middleware: [
+            ensureHasNoStoredAuthToken
+        ]
     })
     export default class extends Vue {
         mounted() {

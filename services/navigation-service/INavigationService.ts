@@ -7,6 +7,8 @@ export interface INavigationService {
 
     navigateToRegister(config?: NavigationConfig): Promise<void>;
 
+    navigateToHome(config?: NavigationConfig): Promise<void>;
+
     setVueRouter(vueRouter: VueRouter): void;
 }
 

@@ -55,8 +55,8 @@
             });
         }
 
-        onUserLoggedIn(loggedInUser) {
-            //this.logger.info('TRYING');
+        onUserLoggedIn(loggedInUser: IUser) {
+            this.logger.info(loggedInUser);
         }
     }
 </script>

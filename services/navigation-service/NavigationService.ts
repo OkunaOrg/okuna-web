@@ -33,8 +33,14 @@ export class NavigationService implements INavigationService {
         this.navigateToLocationWithConfig('/a/register', config);
     }
 
+    async navigateToHome(config?: NavigationConfig): Promise<void> {
+        this.navigateToLocationWithConfig('/', config);
+    }
+
     private navigateToLocationWithConfig(location: string, config: NavigationConfig) {
         config.nuxtContext ? config.nuxtContext.redirect(location) : this.vueRouter.push(location);
     }
+
+
 
 }

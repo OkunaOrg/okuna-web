@@ -15,7 +15,7 @@
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUser";
     import { okunaContainer } from "~/services/inversify";
-    import isAuthenticatedMiddleware from "~/middleware/is-authenticated";
+    import ensureHasStoredAuthToken from "~/middleware/ensure-has-stored-auth-token";
     import OkHeader from "~/components/layout/header/header.vue";
 
     @Component({
@@ -23,7 +23,7 @@
             OkHeader,
         },
         middleware: [
-            isAuthenticatedMiddleware
+            ensureHasStoredAuthToken
         ]
     })
     export default class extends Vue {
