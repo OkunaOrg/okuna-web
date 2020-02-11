@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="card-content">
-                    <ok-login-form @onUserLoggedIn="onUserLoggedIn(user)"></ok-login-form>
+                    <ok-login-form @onUserLoggedIn="onUserLoggedIn"></ok-login-form>
                 </div>
                 <div class="card-footer ok-has-border-top-primary-highlight">
                     <div class="card-footer-item ok-has-text-primary-invert-60">
@@ -34,6 +34,11 @@
     import { Component, Vue } from "nuxt-property-decorator"
     import OkLogo from "~/components/okuna-logo/okuna-logo.vue";
     import OkLoginForm from "~/components/forms/login.vue";
+    import { IUser } from "~/models/auth/user/IUser";
+    import { ILoggingService } from "~/services/logging/ILogging";
+    import { okunaContainer } from "~/services/inversify";
+    import { TYPES } from "~/services/inversify-types";
+    import { IOkLogger } from "~/services/logging/types";
 
     @Component({
         name: "OkAuthLoginPage",
@@ -41,12 +46,17 @@
     })
     export default class AuthLoginPage extends Vue {
 
-        mounted() {
+        private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
+        private logger: IOkLogger;
 
+        mounted() {
+            this.logger = this.loggingService!.getLogger({
+                name: "OkAuthLoginPage"
+            });
         }
 
-        onUserLoggedIn() {
-
+        onUserLoggedIn(loggedInUser) {
+            //this.logger.info('TRYING');
         }
     }
 </script>

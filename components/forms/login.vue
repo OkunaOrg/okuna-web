@@ -86,7 +86,6 @@
         }
 
         async onSubmit() {
-            debugger;
             if (this.submitInProgress) return;
             this.submitInProgress = true;
 

@@ -9,7 +9,6 @@ export class StorageService implements IStorageService {
     private localForage: LocalForage;
 
     constructor() {
-        console.log('Initializing storage service!');
     }
 
     // @ts-ignore

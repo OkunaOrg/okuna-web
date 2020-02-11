@@ -14,7 +14,7 @@ export class CancelableOperation<T = void> {
             config.promise.then((...args: any[]) => {
                 if (this._isCancelled) return;
                 this._isCompleted = true;
-                resolve();
+                resolve(...args);
             }, (error)=>{
                 if (this._isCancelled) return;
                 this._isCompleted = false;

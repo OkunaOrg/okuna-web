@@ -52,7 +52,8 @@ export class UserService implements IUserService {
 
     async login(data: LoginData): Promise<IUser> {
         const response = await this.authApiService!.login(data);
-        return this.loginWithAuthToken(response.data.token);
+        const user = await this.loginWithAuthToken(response.data.token);
+        return user;
     }
 
     async logout() {
