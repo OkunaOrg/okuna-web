@@ -23,6 +23,7 @@ import FormatPaint from 'vue-material-design-icons/FormatPaint.vue';
 import ExitToApp from 'vue-material-design-icons/ExitToApp.vue';
 import Fire from 'vue-material-design-icons/Fire.vue';
 import Earth from 'vue-material-design-icons/Earth.vue';
+import Binoculars from 'vue-material-design-icons/Binoculars.vue';
 
 import Vue from 'vue';
 
@@ -76,4 +77,6 @@ Vue.component('ok-logout-icon', ExitToApp);
 
 Vue.component('ok-trending-icon', Fire);
 
-Vue.component('ok-explore-icon', Earth);
+Vue.component('ok-explore-icon', Binoculars);
+
+Vue.component('ok-now-icon', Earth);
