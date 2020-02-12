@@ -41,6 +41,7 @@ export default {
         '~/plugins/vuelidate',
         '~/plugins/di-vue',
         '~/plugins/material-design-icons',
+        '~/plugins/vue-scroller',
     ],
     router: {
         middleware: ['post-redirect'],

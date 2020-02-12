@@ -5,7 +5,7 @@ import HomePage from '~/pages/home/HomePage.vue';
 import AuthPage from '~/pages/auth/auth.vue';
 import AuthLoginPage from '~/pages/auth/pages/login.vue';
 import AuthRegisterPage from '~/pages/auth/pages/register.vue';
-import HomeTimelinePage from '~/pages/home/pages/timeline/timeline.vue';
+import OkHomeTimelinePage from '~/pages/home/pages/timeline/OkHomeTimelinePage.vue';
 import HomeUserPage from '~/pages/home/pages/user/user.vue';
 import HomeUserProfilePage from '~/pages/home/pages/user/pages/profile.vue';
 import HomeUserEditProfilePage from '~/pages/home/pages/user/pages/edit.vue';
@@ -28,7 +28,7 @@ export function createRouter() {
                 children: [
                     {
                         path: '',
-                        component: HomeTimelinePage
+                        component: OkHomeTimelinePage
                     },
                     {
                         path: 'n',

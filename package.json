@@ -46,6 +46,7 @@
     "vue-media-queries": "0.0.5",
     "vue-router-multiguard": "^1.0.3",
     "vue-rx": "^6.2.0",
+    "vue-scroller": "^2.2.4",
     "vuelidate": "^0.7.5",
     "vuelidate-property-decorators": "^1.0.28",
     "vuex": "^3.1.2",
