@@ -14,16 +14,16 @@
                         <nuxt-link to="/" class="navbar-item has-cursor-pointer">
                             <ok-home-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-home-icon>
                         </nuxt-link>
-                        <nuxt-link to="/" class="navbar-item has-cursor-pointer">
+                        <nuxt-link to="/n" class="navbar-item has-cursor-pointer">
                             <ok-now-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-now-icon>
                         </nuxt-link>
-                        <div class="navbar-item has-cursor-pointer">
+                        <nuxt-link to="/c" class="navbar-item has-cursor-pointer">
                             <ok-communities-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-communities-icon>
-                        </div>
-                        <div class="navbar-item has-cursor-pointer">
+                        </nuxt-link>
+                        <nuxt-link to="/n" class="navbar-item has-cursor-pointer">
                             <ok-notifications-icon
                                     class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
-                        </div>
+                        </nuxt-link>
                         <div class="navbar-item has-cursor-pointer">
                             <ok-menu-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-menu-icon>
                         </div>

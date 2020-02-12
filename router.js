@@ -14,7 +14,7 @@ import HomeCommunitiesExplorePage from '~/pages/home/pages/communities/pages/exp
 import HomeCommunityPage from '~/pages/home/pages/communities/pages/community/community.vue';
 import HomeCommunityProfilePage from '~/pages/home/pages/communities/pages/community/pages/profile.vue';
 import HomeCommunityEditPage from '~/pages/home/pages/communities/pages/community/pages/edit.vue';
-import HomeExplorePage from '~/pages/home/pages/explore/explore.vue';
+import OkHomeNowPage from '~/pages/home/pages/now/HomeNowPage.vue';
 
 Vue.use(Router);
 
@@ -31,8 +31,8 @@ export function createRouter() {
                         component: HomeTimelinePage
                     },
                     {
-                        path: 'e',
-                        component: HomeExplorePage
+                        path: 'n',
+                        component: OkHomeNowPage
                     },
                     {
                         path: 'c',
