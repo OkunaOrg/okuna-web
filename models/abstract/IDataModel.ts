@@ -15,6 +15,9 @@ export interface DataModelAttributeMap<T> {
     dataKey: string;
     attributeKey: string;
     deserializer?: DataValueToAttributeDeserializer<T>
+    serializer?: AttributeToDataValueSerializer<T>
 }
 
 type DataValueToAttributeDeserializer<T> = (instance: T, rawData: any) => any;
+
+type AttributeToDataValueSerializer<T> = (instance: T, attribute: any) => string;
