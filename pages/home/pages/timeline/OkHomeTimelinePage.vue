@@ -1,12 +1,16 @@
 <template>
-    <section>
-        <scroller
-                :on-refresh="refresh"
-                :on-infinite="infinite">
-            <div v-for="(post, index) in posts" :class="{'grey-bg': index % 2 == 0}">
-                {{ post }}
-            </div>
-        </scroller>
+    <section id="home-timeline-posts">
+        <div v-for="(post, $index) in posts" :key="$index">
+            <!-- Hacker News item loop -->
+            <span v-if="$index !== 20">
+                {{ post.title }}
+            </span>
+            <span v-else style="background-color: red" id="highlighted-post">
+                I'm the chosen one!
+            </span>
+        </div>
+
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </section>
 </template>
 
@@ -24,41 +28,50 @@
         $route!: Route;
 
         posts = [];
-        top: number;
-        bottom: number;
+        page: number;
 
+        api = "//hn.algolia.com/api/v1/search_by_date?tags=story";
 
         mounted() {
-            for (var i = 1; i <= 20; i++) {
-                this.posts.push(i + ' - keep walking, be 2 with you.');
-            }
-            this.top = 1;
-            this.bottom = 20;
+
+            setTimeout(this.scrollToItem, 5000);
         }
 
-        refresh(done) {
-            var self = this;
-            setTimeout(function () {
-                var start = self.top - 1;
-                for (var i = start; i > start - 10; i--) {
-                    self.posts.splice(0, 0, i + " - keep walking, be 2 with you.");
+        infiniteHandler($state) {
+            this.$axios.get(this.api).then(({data}) => {
+                if (data.hits.length) {
+                    this.posts.push(...data.hits);
+                    $state.loaded();
+                } else {
+                    $state.complete();
                 }
-                self.top = self.top - 10;
-                done();
-            }, 1500)
+            });
         }
 
+        scrollToItem() {
+            console.log('Scroll to Item called');
 
-        infinite(done) {
-            var self = this;
-            setTimeout(function () {
-                var start = self.bottom + 1;
-                for (var i = start; i < start + 10; i++) {
-                    self.posts.push(i + " - keep walking, be 2 with you.");
-                }
-                self.bottom = self.bottom + 10;
-                done();
-            }, 1500)
+            var options = {
+                // container: "#home-timeline-posts",
+                offset: -100,
+                easing: "ease-in",
+                //force: true,
+                onStart: function (element) {
+                    // scrolling started
+                    console.log('STARTED SCROLLING');
+                },
+                onDone: function (element) {
+                    // scrolling is done
+                    console.log('DONE SCROLLING');
+                },
+            };
+
+            var element = document.querySelector('#highlighted-post');
+            console.log(element);
+
+
+
+            this.$scrollTo(element, 500, options);
         }
 
 
