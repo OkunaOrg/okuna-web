@@ -7,6 +7,8 @@ export interface IDataModel<T extends IDataModel<T>> {
 
     updateWithData(data: ModelData): void;
 
+    serialize(): string;
+
     dataMaps: DataModelAttributeMap<T>[];
 }
 

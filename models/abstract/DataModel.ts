@@ -26,4 +26,27 @@ export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T>
             }
         });
     };
+
+    serialize(): string {
+        let result = {};
+
+        this.dataMaps.forEach((dataMap: DataModelAttributeMap<any>) => {
+            let attributeKey = dataMap.attributeKey;
+            let attributeValue = this[attributeKey];
+
+            if (attributeValue) {
+                if (dataMap.serializer) {
+                    result[dataMap.dataKey] = dataMap.serializer(this, attributeValue);
+                } else {
+                    const attrType = typeof attributeValue;
+                    const attrIsObject = attrType === 'function' || attrType === 'object' && !!attrType;
+                    // The JSON.stringify will take care of making primitives into strings.
+                    if (!attrIsObject) result[dataMap.dataKey] = attributeValue;
+                }
+            }
+        });
+
+
+        return JSON.stringify(result);
+    }
 }
