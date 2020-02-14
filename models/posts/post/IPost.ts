@@ -5,6 +5,9 @@ import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReac
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { ILanguage } from '~/models/common/language/ILanguage';
 import { PostStatus } from '~/models/posts/post/lib/PostStatus';
+import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
+import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IHashtag } from '~/models/common/hashtag/IHashtag';
 
 
 export interface IPost extends IDataModel<IPost> {
@@ -25,9 +28,9 @@ export interface IPost extends IDataModel<IPost> {
     text?: string;
     language?: ILanguage;
     status?: PostStatus;
-    media?: any;
-    comments?: any;
-    hashtags?: any;
+    media?: IPostMedia[];
+    comments?: IPostComment[];
+    hashtags?: IHashtag[];
     community?: any;
     isMuted?: any;
     isEncircled?: any;
