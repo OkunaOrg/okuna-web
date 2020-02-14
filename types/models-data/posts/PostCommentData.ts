@@ -3,7 +3,7 @@ import { PostData } from '~/types/models-data/posts/PostData';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { LanguageData } from '~/types/models-data/common/LanguageData';
 import { HashtagData } from '~/types/models-data/common/HashtagData';
-import { ReactionsEmojiCount } from '~/types/models-data/posts/ReactionsEmojiCount';
+import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';
 import { PostCommentReactionData } from '~/types/models-data/posts/PostCommentReactionData';
 
 export interface PostCommentData extends ModelData {
@@ -20,6 +20,6 @@ export interface PostCommentData extends ModelData {
     replies?: PostCommentData[];
     hashtags?: HashtagData[];
     replies_count?: number;
-    reactions_emoji_counts?: ReactionsEmojiCount[];
+    reactions_emoji_counts?: ReactionsEmojiCountData[];
     reaction?: PostCommentReactionData;
 }

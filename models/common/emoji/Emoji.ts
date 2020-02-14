@@ -4,10 +4,10 @@ import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
 import Color from 'color';
 import {
-    colorAttributeSerializer,
-    dateAttributeSerializer,
+    colorSerializer,
+    dateSerializer,
     dateDeserializer,
-    hexColorDeserializer
+    colorDeserializer
 } from '~/models/common/serializers';
 
 export class Emoji extends DataModel<Emoji> implements IEmoji {
@@ -22,8 +22,8 @@ export class Emoji extends DataModel<Emoji> implements IEmoji {
         {
             dataKey: 'color',
             attributeKey: 'color',
-            deserializer: hexColorDeserializer,
-            serializer: colorAttributeSerializer,
+            deserializer: colorDeserializer,
+            serializer: colorSerializer,
         },
         {
             dataKey: 'image',
@@ -41,7 +41,7 @@ export class Emoji extends DataModel<Emoji> implements IEmoji {
             dataKey: 'created',
             attributeKey: 'created',
             deserializer: dateDeserializer,
-            serializer: dateAttributeSerializer
+            serializer: dateSerializer
         }
     ];
 

@@ -1,7 +1,7 @@
 import { ModelData } from 'types/models-data/ModelData';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { CircleData } from '~/types/models-data/connections/CircleData';
-import { ReactionsEmojiCount } from '~/types/models-data/posts/ReactionsEmojiCount';
+import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';
 import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
 import { LanguageData } from '~/types/models-data/common/LanguageData';
 import { PostMediaData } from '~/types/models-data/posts/PostMediaData';
@@ -15,7 +15,7 @@ export interface PostData extends ModelData {
     creator_id?: number;
     creator?: UserData;
     circles?: CircleData;
-    reactions_emoji_counts?: ReactionsEmojiCount[];
+    reactions_emoji_counts?: ReactionsEmojiCountData[];
     reaction?: PostReactionData;
     reactions_count?: number;
     comments_count?: number;

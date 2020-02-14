@@ -1,9 +1,9 @@
 import { IDataModel } from '~/models/abstract/IDataModel';
-import { Emoji } from '~/models/common/emoji/Emoji';
+import { IEmoji } from '~/models/common/emoji/IEmoji';
 
 
 export interface IReactionsEmojiCount extends IDataModel<IReactionsEmojiCount> {
-    emoji: Emoji;
+    emoji: IEmoji;
     count: number;
 }
 
