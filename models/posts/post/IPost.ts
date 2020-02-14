@@ -8,6 +8,7 @@ import { PostStatus } from '~/models/posts/post/lib/PostStatus';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
+import { ICommunity } from '~/models/communities/community/ICommunity';
 
 
 export interface IPost extends IDataModel<IPost> {
@@ -31,10 +32,10 @@ export interface IPost extends IDataModel<IPost> {
     media?: IPostMedia[];
     comments?: IPostComment[];
     hashtags?: IHashtag[];
-    community?: any;
-    isMuted?: any;
-    isEncircled?: any;
-    isEdited?: any;
-    isClosed?: any;
-    isReported?: any;
+    community?: ICommunity;
+    isMuted?: boolean;
+    isEncircled?: boolean;
+    isEdited?: boolean;
+    isClosed?: boolean;
+    isReported?: boolean;
 }

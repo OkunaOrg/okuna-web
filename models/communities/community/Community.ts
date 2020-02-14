@@ -1,0 +1,152 @@
+import { DataModel } from '~/models/abstract/DataModel';
+import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
+import { ModelData } from '~/types/models-data/ModelData';
+import { IUser } from '~/models/auth/user/IUser';
+import { ICommunityMembership } from '~/models/communities/community/community-membership/ICommunityMembership';
+import { ICategory } from '~/models/common/category/ICategory';
+import { CommunityType } from '~/models/communities/community/lib/CommunityType';
+import {
+    categoriesDeserializer, categoriesSerializer, communityMembershipsDeserializer, communityMembershipsSerializer,
+    communityTypeDeserializer,
+    communityTypeSerializer,
+    userDeserializer, usersDeserializer,
+    userSerializer, usersSerializer
+} from '~/models/common/serializers';
+import { ICommunity } from '~/models/communities/community/ICommunity';
+
+export class Community extends DataModel<Community> implements ICommunity {
+    creator?: IUser;
+    name?: string;
+    type?: CommunityType;
+    rules?: string;
+    avatar?: string;
+    title?: string;
+    userAdjective?: string;
+    usersAdjective?: string;
+    description?: string;
+    color?: string;
+    cover?: string;
+    isInvited?: boolean;
+    areNewPostNotificationsEnabled?: boolean;
+    isCreator?: boolean;
+    isReported?: boolean;
+    moderators?: IUser[];
+    memberships?: ICommunityMembership[];
+    administrators?: IUser[];
+    isFavorite?: boolean;
+    invitesEnabled?: boolean;
+    membersCount?: number;
+    postsCount?: number;
+    pendingModeratedObjectsCount?: number;
+    categories?: ICategory[];
+
+    dataMaps: DataModelAttributeMap<ICommunity>[] = [
+        {
+            dataKey: 'creator',
+            attributeKey: 'creator',
+            deserializer: userDeserializer,
+            serializer: userSerializer,
+        },
+        {
+            dataKey: 'name',
+            attributeKey: 'name'
+        },
+        {
+            dataKey: 'type',
+            attributeKey: 'type',
+            deserializer: communityTypeDeserializer,
+            serializer: communityTypeSerializer,
+        },
+        {
+            dataKey: 'rules',
+            attributeKey: 'rules'
+        },
+        {
+            dataKey: 'avatar',
+            attributeKey: 'avatar'
+        },
+        {
+            dataKey: 'user_adjective',
+            attributeKey: 'userAdjective'
+        },
+        {
+            dataKey: 'users_adjective',
+            attributeKey: 'usersAdjective'
+        },
+        {
+            dataKey: 'description',
+            attributeKey: 'description'
+        },
+        {
+            dataKey: 'cover',
+            attributeKey: 'cover'
+        },
+        {
+            dataKey: 'is_invited',
+            attributeKey: 'isInvited'
+        },
+        {
+            dataKey: 'members_count',
+            attributeKey: 'membersCount'
+        },
+        {
+            dataKey: 'posts_count',
+            attributeKey: 'postsCount'
+        },
+        {
+            dataKey: 'is_creator',
+            attributeKey: 'isCreator'
+        },
+        {
+            dataKey: 'is_favorite',
+            attributeKey: 'isFavorite'
+        },
+        {
+            dataKey: 'is_reported',
+            attributeKey: 'isReported'
+        },
+        {
+            dataKey: 'invites_enabled',
+            attributeKey: 'invitesEnabled'
+        },
+        {
+            dataKey: 'are_new_post_notifications_enabled',
+            attributeKey: 'areNewPostNotificationsEnabled'
+        },
+        {
+            dataKey: 'pending_moderated_objects_count',
+            attributeKey: 'pendingModeratedObjectsCount'
+        },
+        {
+            dataKey: 'moderators',
+            attributeKey: 'moderators',
+            deserializer: usersDeserializer,
+            serializer: usersSerializer,
+        },
+        {
+            dataKey: 'administrators',
+            attributeKey: 'administrators',
+            deserializer: usersDeserializer,
+            serializer: usersSerializer,
+        },
+        {
+            dataKey: 'memberships',
+            attributeKey: 'memberships',
+            deserializer: communityMembershipsDeserializer,
+            serializer: communityMembershipsSerializer,
+        },
+        {
+            dataKey: 'categories',
+            attributeKey: 'categories',
+            deserializer: categoriesDeserializer,
+            serializer: categoriesSerializer,
+        },
+
+    ];
+
+    constructor(data: ModelData) {
+        super(data);
+        this.updateWithData(data);
+    }
+
+}

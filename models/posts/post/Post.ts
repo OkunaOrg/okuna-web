@@ -1,134 +1,179 @@
-import { IPost } from '~/models/auth/post/IPost';
-import circleFactory from '~/models/connections/circle/factory';
-import postProfileFactory from '~/models/auth/post-profile/factory';
-import { IPostProfile } from '~/models/auth/post-profile/IPostProfile';
 import { ICircle } from '~/models/connections/circle/ICircle';
-import { CircleData } from '~/types/models-data/connections/CircleData';
-import { PostProfileData } from '~/types/models-data/auth/PostProfileData';
 import { DataModel } from '~/models/abstract/DataModel';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
+import { IPost } from '~/models/posts/post/IPost';
+import { IUser } from '~/models/auth/user/IUser';
+import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
+import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
+import { ILanguage } from '~/models/common/language/ILanguage';
+import { PostStatus } from '~/models/posts/post/lib/PostStatus';
+import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
+import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IHashtag } from '~/models/common/hashtag/IHashtag';
+import { ICommunity } from '~/models/communities/community/ICommunity';
+import {
+    circlesDeserializer,
+    circlesSerializer, communityDeserializer, communitySerializer,
+    dateDeserializer,
+    dateSerializer, hashtagsDeserializer, hashtagsSerializer,
+    languageDeserializer,
+    languageSerializer, postCommentsDeserializer, postCommentsSerializer, postMediasDeserializer, postMediasSerializer,
+    postReactionDeserializer,
+    postReactionSerializer,
+    postStatusDeserializer, postStatusSerializer,
+    reactionsEmojiCountsDeserializer,
+    reactionsEmojiCountsSerializer
+} from '~/models/common/serializers';
 
 export class Post extends DataModel<Post> implements IPost {
-    uuid!: string;
-    areGuidelinesAccepted!: boolean;
-    connectionsCircleId!: number;
-    followersCount!: number;
-    postsCount!: number;
-    inviteCount!: number;
-    unreadNotificationsCount!: number;
-    pendingCommunitiesModeratedObjectsCount!: number;
-    activeModerationPenaltiesCount!: number;
-    email!: string;
-    postname!: string;
-    followingCount!: number;
-    isFollowing!: boolean;
-    isConnected!: boolean;
-    isGlobalModerator!: boolean;
-    isBlocked!: boolean;
-    isReported!: boolean;
-    isFullyConnected!: boolean;
-    isMemberOfCommunities!: boolean;
-    isPendingConnectionConfirmation!: boolean;
-    connectedCircles!: ICircle[];
-    profile!: IPostProfile;
+    created?: Date;
+    uuid?: string;
+    creatorId?: number;
+    creator?: IUser;
+    circles?: ICircle[];
+    reactionsEmojiCounts?: IReactionsEmojiCount[];
+    reaction?: IPostReaction;
+    reactionsCount?: number;
+    commentsCount?: number;
+    mediaHeight?: number;
+    mediaWidth?: number;
+    mediaThumbnail?: string;
+    areCommentsEnabled?: boolean;
+    publicReactions?: boolean;
+    text?: string;
+    language?: ILanguage;
+    status?: PostStatus;
+    media?: IPostMedia[];
+    comments?: IPostComment[];
+    hashtags?: IHashtag[];
+    community?: ICommunity;
+    isMuted?: boolean;
+    isEncircled?: boolean;
+    isEdited?: boolean;
+    isClosed?: boolean;
+    isReported?: boolean;
 
     dataMaps: DataModelAttributeMap<IPost>[] = [
         {
+            dataKey: 'created',
+            attributeKey: 'created',
+            deserializer: dateDeserializer,
+            serializer: dateSerializer,
+        },
+        {
             dataKey: 'uuid',
-            attributeKey: 'uuid'
+            attributeKey: 'uuid',
         },
         {
-            dataKey: 'are_guidelines_accepted',
-            attributeKey: 'areGuidelinesAccepted'
+            dataKey: 'creator_id',
+            attributeKey: 'creatorId',
         },
         {
-            dataKey: 'connections_circle_id',
-            attributeKey: 'connectionsCircleId'
+            dataKey: 'circles',
+            attributeKey: 'circles',
+            deserializer: circlesDeserializer,
+            serializer: circlesSerializer,
         },
         {
-            dataKey: 'followers_count',
-            attributeKey: 'followersCount'
+            dataKey: 'reactions_emoji_counts',
+            attributeKey: 'reactionsEmojiCounts',
+            deserializer: reactionsEmojiCountsDeserializer,
+            serializer: reactionsEmojiCountsSerializer,
         },
         {
-            dataKey: 'posts_count',
-            attributeKey: 'postsCount'
+            dataKey: 'reaction',
+            attributeKey: 'reaction',
+            deserializer: postReactionDeserializer,
+            serializer: postReactionSerializer,
         },
         {
-            dataKey: 'invite_count',
-            attributeKey: 'inviteCount'
+            dataKey: 'reactions_count',
+            attributeKey: 'reactionsCount',
         },
         {
-            dataKey: 'unread_notifications_count',
-            attributeKey: 'unreadNotificationsCount'
+            dataKey: 'comments_count',
+            attributeKey: 'commentsCount',
         },
         {
-            dataKey: 'pending_communities_moderated_objects_count',
-            attributeKey: 'pendingCommunitiesModeratedObjectsCount'
+            dataKey: 'media_height',
+            attributeKey: 'mediaHeight',
         },
         {
-            dataKey: 'active_moderation_penalties_count',
-            attributeKey: 'activeModerationPenaltiesCount'
+            dataKey: 'media_width',
+            attributeKey: 'mediaWidth',
         },
         {
-            dataKey: 'email',
-            attributeKey: 'email'
+            dataKey: 'media_thumbnail',
+            attributeKey: 'mediaThumbnail',
         },
         {
-            dataKey: 'postname',
-            attributeKey: 'postname'
+            dataKey: 'are_comments_enabled',
+            attributeKey: 'areCommentsEnabled',
         },
         {
-            dataKey: 'following_count',
-            attributeKey: 'followingCount'
+            dataKey: 'public_reactions',
+            attributeKey: 'publicReactions',
         },
         {
-            dataKey: 'is_following',
-            attributeKey: 'isFollowing'
+            dataKey: 'text',
+            attributeKey: 'text',
         },
         {
-            dataKey: 'is_connected',
-            attributeKey: 'isConnected'
+            dataKey: 'language',
+            attributeKey: 'language',
+            deserializer: languageDeserializer,
+            serializer: languageSerializer
         },
         {
-            dataKey: 'is_global_moderator',
-            attributeKey: 'isGlobalModerator'
+            dataKey: 'status',
+            attributeKey: 'status',
+            deserializer: postStatusDeserializer,
+            serializer: postStatusSerializer
         },
         {
-            dataKey: 'is_blocked',
-            attributeKey: 'isBlocked'
+            dataKey: 'media',
+            attributeKey: 'media',
+            deserializer: postMediasDeserializer,
+            serializer: postMediasSerializer
+        },
+        {
+            dataKey: 'comments',
+            attributeKey: 'comments',
+            deserializer: postCommentsDeserializer,
+            serializer: postCommentsSerializer
+        },
+        {
+            dataKey: 'hashtags',
+            attributeKey: 'hashtags',
+            deserializer: hashtagsDeserializer,
+            serializer: hashtagsSerializer
+        },
+        {
+            dataKey: 'community',
+            attributeKey: 'community',
+            deserializer: communityDeserializer,
+            serializer: communitySerializer
+        },
+        {
+            dataKey: 'is_muted',
+            attributeKey: 'isMuted',
+        },
+        {
+            dataKey: 'is_encircled',
+            attributeKey: 'isEncircled',
+        },
+        {
+            dataKey: 'is_edited',
+            attributeKey: 'isEdited',
+        },
+        {
+            dataKey: 'is_closed',
+            attributeKey: 'isClosed',
         },
         {
             dataKey: 'is_reported',
-            attributeKey: 'isReported'
-        },
-        {
-            dataKey: 'is_fully_connected',
-            attributeKey: 'isFullyConnected'
-        },
-        {
-            dataKey: 'is_member_of_communities',
-            attributeKey: 'isMemberOfCommunities'
-        },
-        {
-            dataKey: 'is_pending_connection_confirmation',
-            attributeKey: 'isPendingConnectionConfirmation'
-        },
-        {
-            dataKey: 'profile',
-            attributeKey: 'profile',
-            deserializer: (instance, rawData: PostProfileData) => {
-                if (!rawData) return;
-                return postProfileFactory.make(rawData);
-            }
-        },
-        {
-            dataKey: 'connected_circles',
-            attributeKey: 'connectedCircles',
-            deserializer: (instance, rawData: CircleData[]) => {
-                if (!rawData) return;
-                return rawData.map((rawDataItem) => circleFactory.make(rawDataItem));
-            }
+            attributeKey: 'isReported',
         },
     ];
 

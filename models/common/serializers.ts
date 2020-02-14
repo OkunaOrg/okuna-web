@@ -32,6 +32,27 @@ import postCommentReactionFactory from '~/models/posts/post-comment-reaction/fac
 import { PostVideoFormatData } from '~/types/models-data/posts/PostVideoFormatData';
 import postVideoFormatFactory from '~/models/posts/post-video-format/factory';
 import { IPostVideoFormat } from '~/models/posts/post-video-format/IPostVideoFormat';
+import { CommunityType } from '~/models/communities/community/lib/CommunityType';
+import { CategoryData } from '~/types/models-data/common/CategoryData';
+import { ICategory } from '~/models/common/category/ICategory';
+import categoryFactory from '~/models/common/category/factory';
+import communityMembershipFactory from '~/models/communities/community/community-membership/factory';
+import { CommunityMembershipData } from '~/types/models-data/communities/CommunityMembershipData';
+import { ICommunityMembership } from '~/models/communities/community/community-membership/ICommunityMembership';
+import { IUser } from '~/models/auth/user/IUser';
+import { CircleData } from '~/types/models-data/connections/CircleData';
+import circleFactory from '~/models/connections/circle/factory';
+import { ICircle } from '~/models/connections/circle/ICircle';
+import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
+import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
+import postReactionFactory from '~/models/posts/post-reaction/factory';
+import { PostStatus } from '~/models/posts/post/lib/PostStatus';
+import { PostMediaData } from '~/types/models-data/posts/PostMediaData';
+import postMediaFactory from '~/models/posts/post-media/factory';
+import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
+import communityFactory from '~/models/communities/community/factory';
+import { CommunityData } from '~/types/models-data/communities/CommunityData';
+import { ICommunity } from '~/models/communities/community/ICommunity';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;
@@ -74,6 +95,15 @@ export const userDeserializer = (instance, rawData: UserData) => {
     return userFactory.make(rawData);
 };
 
+export const usersDeserializer = (instance, rawData: UserData[]) => {
+    return rawData.map((rawDataItem) => userDeserializer(instance, rawDataItem));
+};
+
+export const usersSerializer = (instance, attribute: IUser[]) => {
+    return JSON.stringify(attribute.map((attributeItem) => userSerializer(instance, attributeItem)));
+};
+
+
 export const userSerializer = (instance, attribute: User) => {
     return attribute.serialize();
 };
@@ -83,6 +113,14 @@ export const languageDeserializer = (instance, rawData: LanguageData) => {
 };
 
 export const languageSerializer = (instance, attribute: Language) => {
+    return attribute.serialize();
+};
+
+export const postReactionDeserializer = (instance, rawData: PostReactionData) => {
+    return postReactionFactory.make(rawData);
+};
+
+export const postReactionSerializer = (instance, attribute: IPostReaction) => {
     return attribute.serialize();
 };
 
@@ -160,6 +198,13 @@ export const postVideoFormatsSerializer = (instance, attribute: IPostVideoFormat
     return JSON.stringify(attribute.map((attributeItem) => postVideoFormatSerializer(instance, attributeItem)));
 };
 
+export const postStatusDeserializer = (instance, rawData: string) => {
+    return PostStatus.parse(rawData);
+};
+
+export const postStatusSerializer = (instance, attribute: PostStatus) => {
+    return attribute.toString();
+};
 
 
 export const postMediaTypeDeserializer = (instance, rawData: string) => {
@@ -168,6 +213,94 @@ export const postMediaTypeDeserializer = (instance, rawData: string) => {
 
 export const postMediaTypeSerializer = (instance, attribute: PostMediaType) => {
     return attribute.toString();
+};
+
+export const communityTypeDeserializer = (instance, rawData: string) => {
+    return CommunityType.parse(rawData);
+};
+
+export const communityTypeSerializer = (instance, attribute: CommunityType) => {
+    return attribute.toString();
+};
+
+export const categoryDeserializer = (instance, rawData: CategoryData) => {
+    return categoryFactory.make(rawData);
+};
+
+export const categorySerializer = (instance, attribute: ICategory) => {
+    return attribute.serialize();
+};
+
+export const categoriesDeserializer = (instance, rawData: CategoryData[]) => {
+    return rawData.map((rawDataItem) => categoryDeserializer(instance, rawDataItem));
+};
+
+export const categoriesSerializer = (instance, attribute: ICategory[]) => {
+    return JSON.stringify(attribute.map((attributeItem) => categorySerializer(instance, attributeItem)));
+};
+
+export const communityMembershipDeserializer = (instance, rawData: CommunityMembershipData) => {
+    return communityMembershipFactory.make(rawData);
+};
+
+export const communityMembershipSerializer = (instance, attribute: ICommunityMembership) => {
+    return attribute.serialize();
+};
+
+export const communityMembershipsDeserializer = (instance, rawData: CommunityMembershipData[]) => {
+    return rawData.map((rawDataItem) => communityMembershipDeserializer(instance, rawDataItem));
+};
+
+export const communityMembershipsSerializer = (instance, attribute: ICommunityMembership[]) => {
+    return JSON.stringify(attribute.map((attributeItem) => communityMembershipSerializer(instance, attributeItem)));
+};
+
+export const circleDeserializer = (instance, rawData: CircleData) => {
+    return circleFactory.make(rawData);
+};
+
+export const circleSerializer = (instance, attribute: ICircle) => {
+    return attribute.serialize();
+};
+
+export const circlesDeserializer = (instance, rawData: CircleData[]) => {
+    return rawData.map((rawDataItem) => circleDeserializer(instance, rawDataItem));
+};
+
+export const circlesSerializer = (instance, attribute: ICircle[]) => {
+    return JSON.stringify(attribute.map((attributeItem) => circleSerializer(instance, attributeItem)));
+};
+
+export const postMediaDeserializer = (instance, rawData: PostMediaData) => {
+    return postMediaFactory.make(rawData);
+};
+
+export const postMediaSerializer = (instance, attribute: IPostMedia) => {
+    return attribute.serialize();
+};
+
+export const postMediasDeserializer = (instance, rawData: PostMediaData[]) => {
+    return rawData.map((rawDataItem) => postMediaDeserializer(instance, rawDataItem));
+};
+
+export const postMediasSerializer = (instance, attribute: IPostMedia[]) => {
+    return JSON.stringify(attribute.map((attributeItem) => postMediaSerializer(instance, attributeItem)));
+};
+
+export const communityDeserializer = (instance, rawData: CommunityData) => {
+    return communityFactory.make(rawData);
+};
+
+export const communitySerializer = (instance, attribute: ICommunity) => {
+    return attribute.serialize();
+};
+
+export const communitiesDeserializer = (instance, rawData: CommunityData[]) => {
+    return rawData.map((rawDataItem) => communityDeserializer(instance, rawDataItem));
+};
+
+export const communitiesSerializer = (instance, attribute: ICommunity[]) => {
+    return JSON.stringify(attribute.map((attributeItem) => communitySerializer(instance, attributeItem)));
 };
 
 export const postMediaContentObjectDeserializer = (instance: PostMedia, rawData: PostVideoData | PostImageData) => {
