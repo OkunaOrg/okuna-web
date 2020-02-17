@@ -1,15 +1,16 @@
 import { IAuthApiService } from '~/services/Apis/auth/IAuth';
 import { UserData } from '~/types/models-data/auth/UserData';
 import {
-    LoginData,
+    LoginParams,
     LoginResponse,
-    RegistrationData,
+    RegistrationParams,
     RegistrationResponse,
-    RequestResetPasswordData, ResetPasswordData
+    RequestResetPasswordParams, ResetPasswordParams
 } from '~/services/Apis/auth/types';
 import { IHttpService } from '~/services/http/IHttp';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
+import { AxiosResponse } from '~/node_modules/axios';
 
 @injectable()
 export class AuthApiService implements IAuthApiService {
@@ -23,7 +24,7 @@ export class AuthApiService implements IAuthApiService {
 
     }
 
-    requestResetPassword(data: RequestResetPasswordData) {
+    requestResetPassword(data: RequestResetPasswordParams) : Promise<AxiosResponse<void>>{
         return this.httpService.post<void>(AuthApiService.REQUEST_RESET_PASSWORD_PATH, {
             email: data.email
         }, {
@@ -31,7 +32,7 @@ export class AuthApiService implements IAuthApiService {
         })
     }
 
-    resetPassword(data: ResetPasswordData) {
+    resetPassword(data: ResetPasswordParams) : Promise<AxiosResponse<void>> {
         return this.httpService.post<void>(AuthApiService.RESET_PASSWORD_PATH, {
             token: data.resetToken,
             new_password: data.newPassword
@@ -40,7 +41,7 @@ export class AuthApiService implements IAuthApiService {
         })
     }
 
-    login(data: LoginData) {
+    login(data: LoginParams) : Promise<AxiosResponse<LoginResponse>>{
         return this.httpService.post<LoginResponse>(AuthApiService.LOGIN_PATH, {
             username: data.username,
             password: data.password
@@ -49,7 +50,7 @@ export class AuthApiService implements IAuthApiService {
         })
     }
 
-    register(data: RegistrationData) {
+    register(data: RegistrationParams) : Promise<AxiosResponse<RegistrationResponse>>{
         return this.httpService.post<RegistrationResponse>(AuthApiService.REGISTER_PATH, {
             email: data.email,
             password: data.password,
@@ -62,10 +63,10 @@ export class AuthApiService implements IAuthApiService {
         })
     }
 
-    getAuthenticatedUser() {
+    getAuthenticatedUser() :  Promise<AxiosResponse<UserData>>{
         return this.httpService.get<UserData>(AuthApiService.AUTHENTICATED_USER_PATH, {
             isApiRequest: true,
-            appendAuthToken: true
+            appendAuthorizationToken: true
         });
     }
 }

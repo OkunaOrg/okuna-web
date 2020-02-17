@@ -1,22 +1,22 @@
 import { AxiosResponse } from '~/node_modules/axios';
 import { UserData } from '~/types/models-data/auth/UserData';
 import {
-    LoginData,
+    LoginParams,
     LoginResponse,
-    RegistrationData,
+    RegistrationParams,
     RegistrationResponse,
-    RequestResetPasswordData, ResetPasswordData
+    RequestResetPasswordParams, ResetPasswordParams
 } from '~/services/Apis/auth/types';
 
 export interface IAuthApiService {
 
-    login(data: LoginData): Promise<AxiosResponse<LoginResponse>>;
+    login(data: LoginParams): Promise<AxiosResponse<LoginResponse>>;
 
-    register(data: RegistrationData): Promise<AxiosResponse<RegistrationResponse>>;
+    register(data: RegistrationParams): Promise<AxiosResponse<RegistrationResponse>>;
 
-    resetPassword(data: ResetPasswordData): Promise<AxiosResponse<void>>;
+    resetPassword(data: ResetPasswordParams): Promise<AxiosResponse<void>>;
 
-    requestResetPassword(data: RequestResetPasswordData): Promise<AxiosResponse<void>>;
+    requestResetPassword(data: RequestResetPasswordParams): Promise<AxiosResponse<void>>;
 
     getAuthenticatedUser(): Promise<AxiosResponse<UserData>>;
 }
