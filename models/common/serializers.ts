@@ -53,6 +53,9 @@ import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import communityFactory from '~/models/communities/community/factory';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { ICommunity } from '~/models/communities/community/ICommunity';
+import { ModerationCategoryData } from '~/types/models-data/moderation/ModerationCategoryData';
+import moderationCategoryFactory from '~/models/moderation/moderation_category/factory';
+import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;
@@ -301,6 +304,23 @@ export const communitiesDeserializer = (instance, rawData: CommunityData[]) => {
 
 export const communitiesSerializer = (instance, attribute: ICommunity[]) => {
     return JSON.stringify(attribute.map((attributeItem) => communitySerializer(instance, attributeItem)));
+};
+
+export const moderationCategorySeverityDeserializer = (instance, rawData: number) => {
+    if (!rawData) return;
+    return ModerationCategorySeverity[rawData];
+};
+
+export const moderationCategorySeveritySerializer = (instance, attribute: ModerationCategorySeverity) => {
+    return attribute.toString();
+};
+
+export const moderationCategoryDeserializer = (instance, rawData: ModerationCategoryData) => {
+    return moderationCategoryFactory.make(rawData);
+};
+
+export const moderationCategorySerializer = (instance, attribute: IModerationCategory) => {
+    return attribute.serialize();
 };
 
 export const postMediaContentObjectDeserializer = (instance: PostMedia, rawData: PostVideoData | PostImageData) => {
