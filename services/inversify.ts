@@ -27,11 +27,14 @@ import { IBootstrapService } from '~/services/bootstrap/IBootstrap';
 import { BootstrapService } from '~/services/bootstrap/Bootstrap';
 import { INavigationService } from '~/services/navigation-service/INavigationService';
 import { NavigationService } from '~/services/navigation-service/NavigationService';
+import { CommunitiesApiService } from '~/services/Apis/communities/CommunitiesApiService';
+import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
 
 const okunaContainer = new Container();
 
 
 okunaContainer.bind<IAuthApiService>(TYPES.AuthApiService).to(AuthApiService).inSingletonScope();
+okunaContainer.bind<ICommunitiesApiService>(TYPES.CommunitiesApiService).to(CommunitiesApiService).inSingletonScope();
 okunaContainer.bind<IHttpService>(TYPES.HttpService).to(HttpService).inSingletonScope();
 okunaContainer.bind<ILocalizationService>(TYPES.LocalizationService).to(LocalizationService).inSingletonScope();
 okunaContainer.bind<INavigationService>(TYPES.NavigationService).to(NavigationService).inSingletonScope();
