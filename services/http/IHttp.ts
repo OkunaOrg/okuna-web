@@ -8,7 +8,7 @@ export interface IHttpService {
     post<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: HttpServiceRequestConfig): Promise<R>;
 
     put<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: HttpServiceRequestConfig): Promise<R>;
-    
+
     patch<T = any, R = AxiosResponse<T>>(url: string, data?: any, config?: HttpServiceRequestConfig): Promise<R>;
 
     setAuthToken(token: string): void;
@@ -25,9 +25,19 @@ export interface HttpServiceRequestConfig {
     // Whether the language header will be added
     appendLanguageHeader?: boolean;
     // Whether the auth token will be added
-    appendAuthToken?: boolean;
-    urlParams?: {
+    appendAuthorizationToken?: boolean;
+    // Parameters to replace in the given url
+    // e.g. /api/{userId} would need urlTemplateParams: {userId : 3}
+    urlTemplateParams?: {
         [key: string]: string | boolean | number;
     };
-
+    // Parameters to append to the given url
+    // e.g. /api/search + {query: 123} = /api/search/?query=123
+    queryParams?: {
+        [key: string]: string | boolean | number | [string, boolean, number];
+    };
+    // Which API Version to request
+    // translates into adding a header with
+    // {'Accept': 'application/json; version=X'}
+    apiVersion?: number;
 }

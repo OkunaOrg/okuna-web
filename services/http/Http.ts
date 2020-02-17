@@ -12,7 +12,7 @@ export class HttpService implements IHttpService {
     static makeDefaultRequestConfig(): HttpServiceRequestConfig {
         return {
             isApiRequest: false,
-            appendAuthToken: false,
+            appendAuthorizationToken: false,
             appendLanguageHeader: true
         }
     }
@@ -71,7 +71,35 @@ export class HttpService implements IHttpService {
     private makeUrlWithRequestConfig(originalUrl: string, config?: HttpServiceRequestConfig): string {
         if (!config) return originalUrl;
         let finalUrl = config.isApiRequest ? `${this.environmentService!.apiUrl}/${originalUrl}` : originalUrl;
-        if (config.urlParams) finalUrl = this.stringTemplateService!.parse(finalUrl, config.urlParams);
+        if (config.urlTemplateParams) finalUrl = this.stringTemplateService!.parse(finalUrl, config.urlTemplateParams);
+        if (config.queryParams) {
+            let queryString = '?';
+            const queryParamsKeys = Object.keys(config.queryParams);
+            queryParamsKeys.forEach((queryParamKey: string, index: number) => {
+                let resultString = `?${queryParamKey}=`;
+
+                const queryParamValue = config.queryParams[queryParamKey];
+                if (Array.isArray(queryParamValue)) {
+                    // Array
+                    queryParamValue.forEach((queryParamValueItem, index) => {
+                        resultString += queryParamValueItem;
+
+                        const isLastQueryParamValueItem = index === queryParamValue.length - 1;
+                        if (!isLastQueryParamValueItem) resultString += ',';
+                    });
+                } else {
+                    // string, number, boolean
+                    resultString += config.queryParams[queryParamKey];
+                }
+
+                let keyValue = `${queryParamKey}=${config.queryParams[queryParamKey]}`;
+
+                const isLastItem = index !== queryParamKey.length - 1;
+                if (!isLastItem) keyValue += '&';
+
+                queryString += keyValue;
+            })
+        }
         return finalUrl;
     }
 
@@ -87,9 +115,13 @@ export class HttpService implements IHttpService {
             axiosConfig.headers['Accept-Language'] = this.localizationService!.getActiveLocale();
         }
 
-        if (finalConfig.appendAuthToken) {
+        if (finalConfig.appendAuthorizationToken) {
             if (!this.authToken) throw new Error('Not auth token to append to request');
             axiosConfig.headers['Authorization'] = `Token ${this.authToken}`;
+        }
+
+        if (typeof finalConfig.apiVersion !== 'undefined') {
+            axiosConfig.headers['Accept'] = `application/json; version=${finalConfig.apiVersion}`;
         }
 
         return axiosConfig;
