@@ -73,3 +73,8 @@ export class CommunityMembersExclusion {
         return this.code;
     }
 }
+
+export interface ReportCommunityParams {
+    moderationCategoryId: number;
+    description: string;
+}

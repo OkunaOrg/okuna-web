@@ -10,7 +10,7 @@ import {
 import {
     GetCommunityAdministratorsParams,
     GetCommunityMembersParams,
-    GetCommunityModeratorsParams,
+    GetCommunityModeratorsParams, ReportCommunityParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
@@ -40,4 +40,7 @@ export interface ICommunitiesApiService {
     joinCommunityWithId(communityName: string): Promise<AxiosResponse<CommunityData>>;
 
     leaveCommunityWithId(communityName: string): Promise<AxiosResponse<CommunityData>>;
+
+    reportCommunityWithName(
+        communityName: string, params: ReportCommunityParams): Promise<AxiosResponse<void>>;
 }

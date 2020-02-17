@@ -7,7 +7,7 @@ import { IStringTemplateService } from '~/services/string-template/IStringTempla
 import {
     GetCommunityAdministratorsParams,
     GetCommunityMembersParams,
-    GetCommunityModeratorsParams,
+    GetCommunityModeratorsParams, ReportCommunityParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
@@ -229,6 +229,27 @@ export class CommunitiesApiService implements ICommunitiesApiService {
         const path = this.makeLeaveCommunityPath(communityName);
         return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
     }
+
+
+    reportCommunityWithName(
+        communityName: string, params: ReportCommunityParams): Promise<AxiosResponse<void>> {
+        const path = this.makeReportCommunityPath(communityName);
+
+        let body = {
+            'category_id': params.moderationCategoryId
+        };
+
+        if (params.description) {
+            body['description'] = params.description;
+        }
+
+        return this.httpService.post(path,
+            body, {
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
 
     private makeGetCommunityModeratedObjectsPath(communityName) {
         return this.stringTemplateService.parse(
