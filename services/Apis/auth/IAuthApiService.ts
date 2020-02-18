@@ -6,7 +6,7 @@ import {
     RegistrationParams,
     RegistrationResponse,
     RequestResetPasswordParams, ResetPasswordParams
-} from '~/services/Apis/auth/types';
+} from '~/services/Apis/auth/AuthApiServiceTypes';
 
 export interface IAuthApiService {
 

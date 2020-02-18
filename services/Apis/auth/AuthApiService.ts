@@ -1,4 +1,4 @@
-import { IAuthApiService } from '~/services/Apis/auth/IAuth';
+import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
 import { UserData } from '~/types/models-data/auth/UserData';
 import {
     LoginParams,
@@ -6,7 +6,7 @@ import {
     RegistrationParams,
     RegistrationResponse,
     RequestResetPasswordParams, ResetPasswordParams
-} from '~/services/Apis/auth/types';
+} from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttp';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';

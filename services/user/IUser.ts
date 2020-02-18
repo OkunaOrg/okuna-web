@@ -4,7 +4,7 @@ import {
     RegistrationResponse,
     RequestResetPasswordParams,
     ResetPasswordParams
-} from '~/services/Apis/auth/types';
+} from '~/services/Apis/auth/AuthApiServiceTypes';
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 

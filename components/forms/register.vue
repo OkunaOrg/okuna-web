@@ -80,7 +80,7 @@
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import {usernameValidators}  from "~/validators/username";
-    import { RegistrationResponse } from "~/services/Apis/auth/types";
+    import { RegistrationResponse } from "~/services/Apis/auth/AuthApiServiceTypes";
 
     @Component({
         name: "OkRegisterForm"

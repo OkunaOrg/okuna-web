@@ -1,5 +1,5 @@
 import { BehaviorSubject } from '~/node_modules/rxjs';
-import { IAuthApiService } from '~/services/Apis/auth/IAuth';
+import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
 import { IUserService } from '~/services/user/IUser';
 import {
     LoginParams,
@@ -7,7 +7,7 @@ import {
     RegistrationResponse,
     RequestResetPasswordParams,
     ResetPasswordParams
-} from '~/services/Apis/auth/types';
+} from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
 import { IHttpService } from '~/services/http/IHttp';
