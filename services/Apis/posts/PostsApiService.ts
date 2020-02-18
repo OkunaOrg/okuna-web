@@ -20,6 +20,7 @@ import { PostCommentData } from '~/types/models-data/posts/PostCommentData';
 import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
 import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';
 import { PostCommentReactionData } from '~/types/models-data/posts/PostCommentReactionData';
+import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
 
 @injectable()
 export class PostsApiService implements IPostsApiService {
@@ -311,6 +312,15 @@ export class PostsApiService implements IPostsApiService {
         const path = this.makeDeletePostCommentReactionPath(postCommentReactionId, postUuid, postCommentId);
 
         return this.httpService.delete(path, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+
+    getReactionEmojiGroups(postUuid: string): Promise<AxiosResponse<EmojiGroupData[]>> {
+
+        return this.httpService.get(PostsApiService.GET_REACTION_EMOJI_GROUPS, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
     }
 
 

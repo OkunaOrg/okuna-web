@@ -56,6 +56,7 @@ import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ModerationCategoryData } from '~/types/models-data/moderation/ModerationCategoryData';
 import moderationCategoryFactory from '~/models/moderation/moderation_category/factory';
 import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
+import { IEmoji } from '~/models/common/emoji/IEmoji';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;
@@ -82,9 +83,18 @@ export const emojiDeserializer = (instance, rawData: EmojiData) => {
     return emojiFactory.make(rawData);
 };
 
-export const emojiSerializer = (instance, attribute: Emoji) => {
+export const emojiSerializer = (instance, attribute: IEmoji) => {
     return attribute.serialize();
 };
+
+export const emojisDeserializer = (instance, rawData: EmojiData[]) => {
+    return rawData.map((rawDataItem) => emojiDeserializer(instance, rawDataItem));
+};
+
+export const emojisSerializer = (instance, attribute: IEmoji[]) => {
+    return JSON.stringify(attribute.map((attributeItem) => emojiSerializer(instance, attributeItem)));
+};
+
 
 export const postDeserializer = (instance, rawData: PostData) => {
     return postFactory.make(rawData);
