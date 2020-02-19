@@ -92,3 +92,7 @@ export interface GetReactionsForPostCommentParams {
     emojiId?: number;
 }
 
+
+export interface ReportPostCommentParams{
+    description?: string;
+}

@@ -11,7 +11,7 @@ import {
     GetRepliesForPostCommentParams,
     GetTimelinePostsParams,
     GetTopPostsParams,
-    GetTrendingPostsParams
+    GetTrendingPostsParams, ReportPostCommentParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
@@ -321,6 +321,22 @@ export class PostsApiService implements IPostsApiService {
             appendAuthorizationToken: true,
             isApiRequest: true
         });
+    }
+
+    reportCommentWithIdAndPostWithUuid(postUuid: string, moderationCategoryId: number, params: ReportPostCommentParams): Promise<AxiosResponse<PostCommentReactionData>> {
+
+        const body = {
+            'category_id': moderationCategoryId
+        };
+
+        if (params.description) {
+            body['description'] = params.description;
+        }
+
+
+        const path = this.makeReportPostPath(postUuid);
+
+        return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
