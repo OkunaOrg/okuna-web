@@ -1,35 +1,42 @@
 export interface SearchCommunitiesParams {
+    communityName: string;
     authenticatedRequest: boolean;
     query: string;
     excludedFromProfilePosts: boolean;
 }
 
 export interface GetCommunityAdministratorsParams {
+    communityName: string;
     count: number;
     maxId: number;
 }
 
 export interface SearchCommunityAdministratorsParams {
+    communityName: string;
     query: string;
 }
 
 
 export interface GetCommunityModeratorsParams {
+    communityName: string;
     count: number;
     maxId: number;
 }
 
 export interface SearchCommunityModeratorsParams {
+    communityName: string;
     query: string;
 }
 
 export interface GetCommunityMembersParams {
+    communityName: string;
     count: number;
     maxId: number;
     exclude: CommunityMembersExclusion[];
 }
 
 export interface SearchCommunityMembersParams {
+    communityName: string;
     query: string;
     exclude: CommunityMembersExclusion[];
 }
@@ -75,6 +82,24 @@ export class CommunityMembersExclusion {
 }
 
 export interface ReportCommunityParams {
+    communityName: string;
     moderationCategoryId: number;
     description: string;
+}
+
+export interface GetCommunityParams {
+    communityName: string;
+}
+
+export interface GetCommunityPostsCountParams {
+    communityName: string;
+}
+
+
+export interface JoinCommunityParams {
+    communityName: string;
+}
+
+export interface LeaveCommunityParams {
+    communityName: string;
 }
