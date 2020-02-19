@@ -1,6 +1,6 @@
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
-import { IUserService } from '~/services/user/IUser';
+import { IUserService } from '~/services/user/IUserService';
 import {
     LoginApiParams,
     RegistrationApiParams,

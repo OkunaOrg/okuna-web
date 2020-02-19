@@ -13,7 +13,7 @@
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator";
     import { TYPES } from "~/services/inversify-types";
-    import { IUserService } from "~/services/user/IUser";
+    import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import ensureHasStoredAuthToken from "~/middleware/ensure-has-stored-auth-token";
     import OkHeader from "~/pages/home/components/header/Header.vue";

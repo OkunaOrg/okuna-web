@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 import { TYPES } from '~/services/inversify-types';
-import { IUserService } from '~/services/user/IUser';
-import { UserService } from '~/services/user/User';
+import { IUserService } from '~/services/user/IUserService';
+import { UserService } from '~/services/user/UserService';
 import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
 import { AuthApiService } from '~/services/Apis/auth/AuthApiService';
 import { IHttpService } from '~/services/http/IHttp';

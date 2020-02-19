@@ -28,7 +28,7 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { passwordValidators } from "~/validators/password";
     import { TYPES } from "~/services/inversify-types";
-    import { IUserService } from "~/services/user/IUser";
+    import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";

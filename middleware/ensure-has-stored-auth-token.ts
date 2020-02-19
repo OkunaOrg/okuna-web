@@ -1,6 +1,6 @@
 import { okunaContainer } from '~/services/inversify';
 import { TYPES } from '~/services/inversify-types';
-import { IUserService } from '~/services/user/IUser';
+import { IUserService } from '~/services/user/IUserService';
 import { INavigationService } from '~/services/navigation-service/INavigationService';
 import { Middleware } from '@nuxt/types'
 
