@@ -137,13 +137,13 @@ export interface GetPostCommentReactionsApiParams {
     count?: number;
     maxId?: number;
     emojiId?: number;
-    postCommendId: number;
+    postCommentId: number;
     postUuid: string;
 }
 
 
 export interface GetPostCommentReactionsEmojiApiCountApiParams {
-    postCommendId: number;
+    postCommentId: number;
     postUuid: string;
 }
 

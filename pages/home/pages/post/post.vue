@@ -28,7 +28,7 @@
         $route!: Route;
 
         mounted(){
-            this.isCommentsPage = !this.$route.params['postCommendId'];
+            this.isCommentsPage = !this.$route.params['postComment'];
             console.log(this.$route);
         }
     }

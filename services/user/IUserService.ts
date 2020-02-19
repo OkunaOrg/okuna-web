@@ -115,7 +115,7 @@ export interface IUserService {
 
     getTimelinePosts(params: GetTimelinePostsParams): Promise<IPost[]>;
 
-    getMediaForPostWithUuid(params: GetPostMediaParams): Promise<IPostMedia[]>;
+    getPostMedia(params: GetPostMediaParams): Promise<IPostMedia[]>;
 
     getPost(params: GetPostParams): Promise<IPost>;
 
@@ -151,9 +151,9 @@ export interface IUserService {
 
     getReactionEmojiGroups(): Promise<IEmojiGroup[]>;
 
-    reportPost(params: ReportPostParams): Promise<IPostCommentReaction>;
+    reportPost(params: ReportPostParams): Promise<void>;
 
-    reportPostComment(params: ReportPostCommentParams): Promise<IPostCommentReaction>;
+    reportPostComment(params: ReportPostCommentParams): Promise<void>;
 
     // POSTS END
 }

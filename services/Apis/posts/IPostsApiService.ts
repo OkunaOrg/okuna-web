@@ -34,7 +34,7 @@ export interface IPostsApiService {
 
     getTimelinePosts(params: GetTimelinePostsApiParams): Promise<AxiosResponse<PostData[]>>;
 
-    getMediaForPostWithUuid(params: GetPostMediaApiParams): Promise<AxiosResponse<PostMediaData[]>>;
+    getPostMedia(params: GetPostMediaApiParams): Promise<AxiosResponse<PostMediaData[]>>;
 
     getPost(params: GetPostApiParams): Promise<AxiosResponse<PostData>>;
 
@@ -70,7 +70,7 @@ export interface IPostsApiService {
 
     getReactionEmojiGroups(): Promise<AxiosResponse<EmojiGroupData[]>>;
 
-    reportPost(params: ReportPostApiParams): Promise<AxiosResponse<PostCommentReactionData>>;
+    reportPost(params: ReportPostApiParams): Promise<AxiosResponse<void>>;
 
-    reportPostComment(params: ReportPostCommentApiParams): Promise<AxiosResponse<PostCommentReactionData>>;
+    reportPostComment(params: ReportPostCommentApiParams): Promise<AxiosResponse<void>>;
 }

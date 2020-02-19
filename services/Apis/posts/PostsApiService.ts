@@ -159,7 +159,7 @@ export class PostsApiService implements IPostsApiService {
             {appendAuthorizationToken: true, queryParams, isApiRequest: true});
     }
 
-    getMediaForPostWithUuid(params: GetPostMediaApiParams): Promise<AxiosResponse<PostMediaData[]>> {
+    getPostMedia(params: GetPostMediaApiParams): Promise<AxiosResponse<PostMediaData[]>> {
         const path = this.makeGetPostMediaPath(params.postUuid);
 
         return this.httpService.get(path, {appendAuthorizationToken: true, isApiRequest: true});
@@ -297,14 +297,14 @@ export class PostsApiService implements IPostsApiService {
 
         if (params.count) queryParams['count'] = params.count;
 
-        const path = this.makeGetPostCommentReactionsPath(params.postCommendId, params.postUuid);
+        const path = this.makeGetPostCommentReactionsPath(params.postCommentId, params.postUuid);
 
         return this.httpService.get(path,
             {appendAuthorizationToken: true, queryParams, isApiRequest: true});
     }
 
     getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiApiCountApiParams): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
-        const path = this.makeGetPostCommentReactionsEmojiCountPath(params.postUuid, params.postCommendId);
+        const path = this.makeGetPostCommentReactionsEmojiCountPath(params.postUuid, params.postCommentId);
 
         return this.httpService.get(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
@@ -334,7 +334,7 @@ export class PostsApiService implements IPostsApiService {
         });
     }
 
-    reportPost(params: ReportPostApiParams): Promise<AxiosResponse<PostCommentReactionData>> {
+    reportPost(params: ReportPostApiParams): Promise<AxiosResponse<void>> {
 
         const body = {
             'category_id': params.moderationCategoryId
@@ -351,7 +351,7 @@ export class PostsApiService implements IPostsApiService {
     }
 
 
-    reportPostComment(params: ReportPostCommentApiParams): Promise<AxiosResponse<PostCommentReactionData>> {
+    reportPostComment(params: ReportPostCommentApiParams): Promise<AxiosResponse<void>> {
 
         const body = {
             'category_id': params.moderationCategoryId

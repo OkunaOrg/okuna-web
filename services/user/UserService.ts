@@ -18,14 +18,30 @@ import { TYPES } from '~/services/inversify-types';
 import { ILoggingService } from '~/services/logging/ILogging';
 import { IOkLogger } from '~/services/logging/types';
 import {
+    CommentPostParams,
+    DeletePostCommentParams,
+    DeletePostCommentReactionParams,
+    DeletePostParams,
+    DeletePostReactionParams,
+    EditPostCommentParams,
     GetCommunityAdministratorsParams,
     GetCommunityMembersParams,
     GetCommunityModeratorsParams,
     GetCommunityParams,
     GetCommunityPostsCountParams,
+    GetPostCommentReactionsEmojiApiCountParams,
+    GetPostCommentReactionsParams,
+    GetPostCommentRepliesParams,
+    GetPostCommentsParams,
+    GetPostMediaParams,
+    GetPostParams,
+    GetPostReactionsEmojiApiCountParams,
+    GetPostReactionsParams,
+    GetTimelinePostsParams,
+    GetTopPostsParams, GetTrendingPostsParams,
     JoinCommunityParams,
-    LeaveCommunityParams,
-    ReportCommunityParams,
+    LeaveCommunityParams, ReactToPostCommentParams, ReactToPostParams, ReplyToPostCommentParams,
+    ReportCommunityParams, ReportPostCommentParams, ReportPostParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
@@ -38,6 +54,29 @@ import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import communityFactory from '~/models/communities/community/factory';
 import { UserData } from '~/types/models-data/auth/UserData';
+import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
+import { IPost } from '~/models/posts/post/IPost';
+import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
+import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
+import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
+import { IEmojiGroup } from '~/models/common/emoji-group/IEmojiGroup';
+import postCommentFactory from '~/models/posts/post-comment/factory';
+import { PostCommentData } from '~/types/models-data/posts/PostCommentData';
+import { PostMediaData } from '~/types/models-data/posts/PostMediaData';
+import postMediaFactory from '~/models/posts/post-media/factory';
+import { PostData } from '~/types/models-data/posts/PostData';
+import postFactory from '~/models/posts/post/factory';
+import { PostCommentReactionData } from '~/types/models-data/posts/PostCommentReactionData';
+import postCommentReactionFactory from '~/models/posts/post-comment-reaction/factory';
+import postReactionFactory from '~/models/posts/post-reaction/factory';
+import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
+import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';
+import reactionsEmojiCountFactory from '~/models/posts/reactions-emoji-count/factory';
+import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
+import emojiGroupFactory from '~/models/common/emoji-group/factory';
+import { IList } from '~/models/lists/list/IList';
+import { ICircle } from '~/models/circles/circle/ICircle';
 
 @injectable()
 export class UserService implements IUserService {
@@ -239,6 +278,205 @@ export class UserService implements IUserService {
         });
 
         return userFactory.makeMultiple(response.data);
+    }
+
+    async commentPost(params: CommentPostParams): Promise<IPostComment> {
+        const response: AxiosResponse<PostCommentData> = await this.postsApiService.commentPost({
+            postUuid: params.post.uuid,
+            text: params.text
+        });
+
+        return postCommentFactory.make(response.data);
+    }
+
+    async deletePost(params: DeletePostParams): Promise<void> {
+        await this.postsApiService.deletePost({
+            postUuid: params.post.uuid,
+        });
+    }
+
+    async deletePostComment(params: DeletePostCommentParams): Promise<void> {
+        await this.postsApiService.deletePostComment({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id
+        });
+    }
+
+    async deletePostCommentReaction(params: DeletePostCommentReactionParams): Promise<void> {
+        await this.postsApiService.deletePostCommentReaction({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id,
+            postCommentReactionId: params.postCommentReactionId
+        });
+    }
+
+    async deletePostReaction(params: DeletePostReactionParams): Promise<void> {
+        await this.postsApiService.deletePostReaction({
+            postUuid: params.post.uuid,
+            postReactionId: params.postReaction.id
+        });
+    }
+
+    async editPostComment(params: EditPostCommentParams): Promise<IPostComment> {
+        const response: AxiosResponse<PostCommentData> = await this.postsApiService.editPostComment({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id,
+            text: params.text
+        });
+
+        return postCommentFactory.make(response.data);
+    }
+
+    async getPostMedia(params: GetPostMediaParams): Promise<IPostMedia[]> {
+        const response: AxiosResponse<PostMediaData[]> = await this.postsApiService.getPostMedia({
+            postUuid: params.post.uuid,
+        });
+
+        return postMediaFactory.makeMultiple(response.data);
+    }
+
+    async getPost(params: GetPostParams): Promise<IPost> {
+        const response: AxiosResponse<PostData> = await this.postsApiService.getPost({
+            postUuid: params.post.uuid,
+        });
+
+        return postFactory.make(response.data);
+    }
+
+    async getPostCommentReactions(params: GetPostCommentReactionsParams): Promise<IPostCommentReaction[]> {
+        const response: AxiosResponse<PostCommentReactionData[]> = await this.postsApiService.getPostCommentReactions({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id
+        });
+
+        return postCommentReactionFactory.makeMultiple(response.data);
+    }
+
+    async getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiApiCountParams): Promise<IReactionsEmojiCount[]> {
+        const response: AxiosResponse<ReactionsEmojiCountData[]> = await this.postsApiService.getPostCommentReactionsEmojiCount({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id
+        });
+
+        return reactionsEmojiCountFactory.makeMultiple(response.data);
+    }
+
+    async getPostCommentReplies(params: GetPostCommentRepliesParams): Promise<IPostComment[]> {
+        const response: AxiosResponse<PostCommentData[]> = await this.postsApiService.getPostCommentReplies({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id
+        });
+
+        return postCommentReactionFactory.makeMultiple(response.data);
+    }
+
+    async getPostComments(params: GetPostCommentsParams): Promise<IPostComment[]> {
+        const response: AxiosResponse<PostCommentData[]> = await this.postsApiService.getPostComments({
+            postUuid: params.post.uuid,
+        });
+
+        return postCommentReactionFactory.makeMultiple(response.data);
+    }
+
+    async getPostReactions(params: GetPostReactionsParams): Promise<IPostReaction[]> {
+        const response: AxiosResponse<PostReactionData[]> = await this.postsApiService.getPostReactions({
+            postUuid: params.post.uuid,
+        });
+
+        return postReactionFactory.makeMultiple(response.data);
+    }
+
+    async getPostReactionsEmojiCount(params: GetPostReactionsEmojiApiCountParams): Promise<IReactionsEmojiCount[]> {
+        const response: AxiosResponse<ReactionsEmojiCountData[]> = await this.postsApiService.getPostReactionsEmojiCount({
+            postUuid: params.post.uuid,
+        });
+
+        return reactionsEmojiCountFactory.makeMultiple(response.data);
+    }
+
+    async getReactionEmojiGroups(): Promise<IEmojiGroup[]> {
+        const response: AxiosResponse<EmojiGroupData[]> = await this.postsApiService.getReactionEmojiGroups();
+
+        return emojiGroupFactory.makeMultiple(response.data);
+    }
+
+    async getTimelinePosts(params: GetTimelinePostsParams): Promise<IPost[]> {
+        const response: AxiosResponse<PostData[]> = await this.postsApiService.getTimelinePosts({
+            minId: params.minId,
+            maxId: params.maxId,
+            count: params.count,
+            listIds: params.lists ? params.lists.map((listItem) => listItem.id) : null,
+            circleIds: params.circles ? params.circles.map((circleItem) => circleItem.id) : null,
+            username: null,
+        });
+
+        return postFactory.makeMultiple(response.data);
+    }
+
+    async getTopPosts(params: GetTopPostsParams): Promise<IPost[]> {
+        const response: AxiosResponse<PostData[]> = await this.postsApiService.getTopPosts({
+            minId: params.minId,
+            maxId: params.maxId,
+            count: params.count,
+        });
+
+        return postFactory.makeMultiple(response.data);
+    }
+
+    async getTrendingPosts(params: GetTrendingPostsParams): Promise<IPost[]> {
+        const response: AxiosResponse<PostData[]> = await this.postsApiService.getTopPosts({
+            minId: params.minId,
+            maxId: params.maxId,
+            count: params.count,
+        });
+
+        return postFactory.makeMultiple(response.data);
+    }
+
+    async reactToPost(params: ReactToPostParams): Promise<IPostReaction> {
+        const response: AxiosResponse<PostReactionData> = await this.postsApiService.reactToPost({
+            postUuid: params.post.uuid,
+            emojiId: params.emoji.id
+        });
+
+        return postReactionFactory.make(response.data);
+    }
+
+    async reactToPostComment(params: ReactToPostCommentParams): Promise<IPostCommentReaction> {
+        const response: AxiosResponse<PostReactionData> = await this.postsApiService.reactToPostComment({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id,
+            emojiId: params.emoji.id
+        });
+
+        return postCommentReactionFactory.make(response.data);
+    }
+
+    async replyToPostComment(params: ReplyToPostCommentParams): Promise<IPostComment> {
+        const response: AxiosResponse<PostCommentData> = await this.postsApiService.replyToPostComment({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id,
+            text: params.text
+        });
+
+        return postCommentFactory.make(response.data);
+    }
+
+    async reportPost(params: ReportPostParams): Promise<void> {
+        await this.postsApiService.reportPost({
+            postUuid: params.post.uuid,
+            moderationCategoryId: params.moderationCategory.id,
+            description: params.description,
+        });
+    }
+
+    async reportPostComment(params: ReportPostCommentParams): Promise<void> {
+        await this.postsApiService.reportPostComment({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id,
+            moderationCategoryId: params.moderationCategory.id,
+            description: params.description,
+        });
     }
 
 }
