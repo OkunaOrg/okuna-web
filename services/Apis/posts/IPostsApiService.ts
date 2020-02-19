@@ -1,21 +1,21 @@
 import {
-    CommentPostParams,
-    DeletePostCommentParams, DeletePostCommentReactionParams,
-    DeletePostParams,
-    DeletePostReactionParams,
-    EditPostCommentParams, GetPostCommentReactionsEmojiCount,
-    GetPostCommentReactionsParams,
-    GetPostCommentRepliesParams,
-    GetPostComments,
-    GetPostMediaParams,
-    GetPostParams,
-    GetPostReactionsEmojiCount,
-    GetPostReactionsParams,
-    GetTimelinePostsParams,
-    GetTopPostsParams,
-    GetTrendingPostsParams, ReactToPostCommentParams,
-    ReactToPostParams,
-    ReplyToPostCommentParams, ReportPostCommentParams, ReportPostParams
+    CommentPostApiParams,
+    DeletePostCommentApiParams, DeletePostCommentReactionApiParams,
+    DeletePostApiParams,
+    DeletePostReactionApiParams,
+    EditPostCommentApiParams, GetPostCommentReactionsEmojiApiCount,
+    GetPostCommentReactionsApiParams,
+    GetPostCommentRepliesApiParams,
+    GetPostCommentsApiParams,
+    GetPostMediaApiParams,
+    GetPostApiParams,
+    GetPostReactionsEmojiApiCount,
+    GetPostReactionsApiParams,
+    GetTimelinePostsApiParams,
+    GetTopPostsApiParams,
+    GetTrendingPostsApiParams, ReactToPostCommentApiParams,
+    ReactToPostApiParams,
+    ReplyToPostCommentApiParams, ReportPostCommentApiParams, ReportPostApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -28,49 +28,49 @@ import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
 
 
 export interface IPostsApiService {
-    getTopPosts(params: GetTopPostsParams): Promise<AxiosResponse<PostData[]>>;
+    getTopPosts(params: GetTopPostsApiParams): Promise<AxiosResponse<PostData[]>>;
 
-    getTrendingPosts(params: GetTrendingPostsParams): Promise<AxiosResponse<PostData[]>>;
+    getTrendingPosts(params: GetTrendingPostsApiParams): Promise<AxiosResponse<PostData[]>>;
 
-    getTimelinePosts(params: GetTimelinePostsParams): Promise<AxiosResponse<PostData[]>>;
+    getTimelinePosts(params: GetTimelinePostsApiParams): Promise<AxiosResponse<PostData[]>>;
 
-    getMediaForPostWithUuid(params: GetPostMediaParams): Promise<AxiosResponse<PostMediaData[]>>;
+    getMediaForPostWithUuid(params: GetPostMediaApiParams): Promise<AxiosResponse<PostMediaData[]>>;
 
-    getPost(params: GetPostParams): Promise<AxiosResponse<PostData>>;
+    getPost(params: GetPostApiParams): Promise<AxiosResponse<PostData>>;
 
-    deletePost(params: DeletePostParams): Promise<AxiosResponse<void>>;
+    deletePost(params: DeletePostApiParams): Promise<AxiosResponse<void>>;
 
-    getPostComments(params: GetPostComments): Promise<AxiosResponse<PostCommentData[]>>;
+    getPostComments(params: GetPostCommentsApiParams): Promise<AxiosResponse<PostCommentData[]>>;
 
-    getPostCommentReplies(params: GetPostCommentRepliesParams): Promise<AxiosResponse<PostCommentData[]>>;
+    getPostCommentReplies(params: GetPostCommentRepliesApiParams): Promise<AxiosResponse<PostCommentData[]>>;
 
-    commentPost(params: CommentPostParams): Promise<AxiosResponse<PostCommentData>>;
+    commentPost(params: CommentPostApiParams): Promise<AxiosResponse<PostCommentData>>;
 
-    editPostComment(params: EditPostCommentParams): Promise<AxiosResponse<PostCommentData>>;
+    editPostComment(params: EditPostCommentApiParams): Promise<AxiosResponse<PostCommentData>>;
 
-    replyToPostComment(params: ReplyToPostCommentParams): Promise<AxiosResponse<PostCommentData>>;
+    replyToPostComment(params: ReplyToPostCommentApiParams): Promise<AxiosResponse<PostCommentData>>;
 
-    deletePostComment(params: DeletePostCommentParams): Promise<AxiosResponse<void>>;
+    deletePostComment(params: DeletePostCommentApiParams): Promise<AxiosResponse<void>>;
 
-    getPostReactions(params: GetPostReactionsParams): Promise<AxiosResponse<PostReactionData[]>>;
+    getPostReactions(params: GetPostReactionsApiParams): Promise<AxiosResponse<PostReactionData[]>>;
 
-    getPostReactionsEmojiCount(params: GetPostReactionsEmojiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>>;
+    getPostReactionsEmojiCount(params: GetPostReactionsEmojiApiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>>;
 
-    reactToPost(params: ReactToPostParams): Promise<AxiosResponse<PostReactionData>>;
+    reactToPost(params: ReactToPostApiParams): Promise<AxiosResponse<PostReactionData>>;
 
-    deletePostReaction(params: DeletePostReactionParams): Promise<AxiosResponse<void>>;
+    deletePostReaction(params: DeletePostReactionApiParams): Promise<AxiosResponse<void>>;
 
-    getPostCommentReactions(params: GetPostCommentReactionsParams): Promise<AxiosResponse<PostCommentReactionData[]>>;
+    getPostCommentReactions(params: GetPostCommentReactionsApiParams): Promise<AxiosResponse<PostCommentReactionData[]>>;
 
-    getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>>;
+    getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiApiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>>;
 
-    reactToPostComment(params: ReactToPostCommentParams): Promise<AxiosResponse<PostCommentReactionData>>;
+    reactToPostComment(params: ReactToPostCommentApiParams): Promise<AxiosResponse<PostCommentReactionData>>;
 
-    deletePostCommentReaction(params: DeletePostCommentReactionParams): Promise<AxiosResponse<void>>;
+    deletePostCommentReaction(params: DeletePostCommentReactionApiParams): Promise<AxiosResponse<void>>;
 
     getReactionEmojiGroups(): Promise<AxiosResponse<EmojiGroupData[]>>;
 
-    reportPost(params: ReportPostParams): Promise<AxiosResponse<PostCommentReactionData>>;
+    reportPost(params: ReportPostApiParams): Promise<AxiosResponse<PostCommentReactionData>>;
 
-    reportPostComment(params: ReportPostCommentParams): Promise<AxiosResponse<PostCommentReactionData>>;
+    reportPostComment(params: ReportPostCommentApiParams): Promise<AxiosResponse<PostCommentReactionData>>;
 }

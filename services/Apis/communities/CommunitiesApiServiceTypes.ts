@@ -1,41 +1,41 @@
-export interface SearchCommunitiesParams {
+export interface SearchCommunitiesApiParams {
     communityName: string;
     authenticatedRequest: boolean;
     query: string;
     excludedFromProfilePosts: boolean;
 }
 
-export interface GetCommunityAdministratorsParams {
+export interface GetCommunityAdministratorsApiParams {
     communityName: string;
     count: number;
     maxId: number;
 }
 
-export interface SearchCommunityAdministratorsParams {
+export interface SearchCommunityAdministratorsApiParams {
     communityName: string;
     query: string;
 }
 
 
-export interface GetCommunityModeratorsParams {
+export interface GetCommunityModeratorsApiParams {
     communityName: string;
     count: number;
     maxId: number;
 }
 
-export interface SearchCommunityModeratorsParams {
+export interface SearchCommunityModeratorsApiParams {
     communityName: string;
     query: string;
 }
 
-export interface GetCommunityMembersParams {
+export interface GetCommunityMembersApiParams {
     communityName: string;
     count: number;
     maxId: number;
     exclude: CommunityMembersExclusion[];
 }
 
-export interface SearchCommunityMembersParams {
+export interface SearchCommunityMembersApiParams {
     communityName: string;
     query: string;
     exclude: CommunityMembersExclusion[];
@@ -81,25 +81,25 @@ export class CommunityMembersExclusion {
     }
 }
 
-export interface ReportCommunityParams {
+export interface ReportCommunityApiParams {
     communityName: string;
     moderationCategoryId: number;
     description: string;
 }
 
-export interface GetCommunityParams {
+export interface GetCommunityApiParams {
     communityName: string;
 }
 
-export interface GetCommunityPostsCountParams {
+export interface GetCommunityPostsCountApiParams {
     communityName: string;
 }
 
 
-export interface JoinCommunityParams {
+export interface JoinCommunityApiParams {
     communityName: string;
 }
 
-export interface LeaveCommunityParams {
+export interface LeaveCommunityApiParams {
     communityName: string;
 }

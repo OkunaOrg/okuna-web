@@ -1,9 +1,9 @@
 import {
-    LoginParams,
-    RegistrationParams,
+    LoginApiParams,
+    RegistrationApiParams,
     RegistrationResponse,
-    RequestResetPasswordParams,
-    ResetPasswordParams
+    RequestResetPasswordApiParams,
+    ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
@@ -12,13 +12,13 @@ import { IUser } from '~/models/auth/user/IUser';
 export interface IUserService {
     loggedInUser: BehaviorSubject<IUser | undefined>;
 
-    login(data: LoginParams): Promise<IUser>;
+    login(data: LoginApiParams): Promise<IUser>;
 
-    register(data: RegistrationParams): Promise<RegistrationResponse>;
+    register(data: RegistrationApiParams): Promise<RegistrationResponse>;
 
-    requestResetPassword(data: RequestResetPasswordParams): Promise<void>;
+    requestResetPassword(data: RequestResetPasswordApiParams): Promise<void>;
 
-    resetPassword(data: ResetPasswordParams): Promise<void>;
+    resetPassword(data: ResetPasswordApiParams): Promise<void>;
 
     logout(): Promise<void>;
 

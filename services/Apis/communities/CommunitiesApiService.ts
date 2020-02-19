@@ -5,17 +5,17 @@ import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
 import {
-    GetCommunityAdministratorsParams,
-    GetCommunityMembersParams,
-    GetCommunityModeratorsParams,
-    GetCommunityParams,
-    GetCommunityPostsCountParams,
-    JoinCommunityParams, LeaveCommunityParams,
-    ReportCommunityParams,
-    SearchCommunitiesParams,
-    SearchCommunityAdministratorsParams,
-    SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams
+    GetCommunityAdministratorsApiParams,
+    GetCommunityMembersApiParams,
+    GetCommunityModeratorsApiParams,
+    GetCommunityApiParams,
+    GetCommunityPostsCountApiParams,
+    JoinCommunityApiParams, LeaveCommunityApiParams,
+    ReportCommunityApiParams,
+    SearchCommunitiesApiParams,
+    SearchCommunityAdministratorsApiParams,
+    SearchCommunityMembersApiParams,
+    SearchCommunityModeratorsApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
@@ -109,7 +109,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
 
     }
 
-    searchCommunities(params: SearchCommunitiesParams): Promise<AxiosResponse<CommunityData[]>> {
+    searchCommunities(params: SearchCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>> {
         let queryParams = {'query': params.query};
 
         if (typeof params.excludedFromProfilePosts !== 'undefined')
@@ -123,7 +123,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             });
     }
 
-    getCommunity(params: GetCommunityParams): Promise<AxiosResponse<CommunityData>> {
+    getCommunity(params: GetCommunityApiParams): Promise<AxiosResponse<CommunityData>> {
         let url = this.makeGetCommunityPath(params.communityName);
 
         return this.httpService.get(url,
@@ -135,7 +135,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             });
     }
 
-    getCommunityMembers(params: GetCommunityMembersParams): Promise<AxiosResponse<UserData>> {
+    getCommunityMembers(params: GetCommunityMembersApiParams): Promise<AxiosResponse<UserData>> {
         let queryParams = {};
 
         if (params.count) queryParams['count'] = params.count;
@@ -152,7 +152,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     }
 
 
-    searchCommunityMembers(params: SearchCommunityMembersParams): Promise<AxiosResponse<UserData>> {
+    searchCommunityMembers(params: SearchCommunityMembersApiParams): Promise<AxiosResponse<UserData>> {
         let queryParams = {
             query: params.query
         };
@@ -166,7 +166,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     }
 
 
-    getCommunityAdministrators(params: GetCommunityAdministratorsParams): Promise<AxiosResponse<UserData>> {
+    getCommunityAdministrators(params: GetCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData>> {
         let queryParams = {};
 
         if (params.count) queryParams['count'] = params.count;
@@ -180,7 +180,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    searchCommunityAdministrators(params: SearchCommunityAdministratorsParams): Promise<AxiosResponse<UserData>> {
+    searchCommunityAdministrators(params: SearchCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData>> {
         let queryParams = {
             query: params.query
         };
@@ -192,7 +192,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     }
 
 
-    getCommunityModerators(params: GetCommunityModeratorsParams): Promise<AxiosResponse<UserData>> {
+    getCommunityModerators(params: GetCommunityModeratorsApiParams): Promise<AxiosResponse<UserData>> {
         let queryParams = {};
 
         if (params.count) queryParams['count'] = params.count;
@@ -206,7 +206,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    searchCommunityModerators(params: SearchCommunityModeratorsParams): Promise<AxiosResponse<UserData>> {
+    searchCommunityModerators(params: SearchCommunityModeratorsApiParams): Promise<AxiosResponse<UserData>> {
         let queryParams = {
             query: params.query
         };
@@ -217,25 +217,25 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    getCommunityPostsCount(params: GetCommunityPostsCountParams): Promise<AxiosResponse<CommunityData>> {
+    getCommunityPostsCount(params: GetCommunityPostsCountApiParams): Promise<AxiosResponse<CommunityData>> {
         const url = this.makeGetPostsCountForCommunityWithNamePath(params.communityName);
 
         return this.httpService.get(url,
             {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    joinCommunity(params: JoinCommunityParams): Promise<AxiosResponse<CommunityData>> {
+    joinCommunity(params: JoinCommunityApiParams): Promise<AxiosResponse<CommunityData>> {
         const path = this.makeJoinCommunityPath(params.communityName);
         return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    leaveCommunity(params: LeaveCommunityParams): Promise<AxiosResponse<CommunityData>> {
+    leaveCommunity(params: LeaveCommunityApiParams): Promise<AxiosResponse<CommunityData>> {
         const path = this.makeLeaveCommunityPath(params.communityName);
         return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
-    reportCommunity(params: ReportCommunityParams): Promise<AxiosResponse<void>> {
+    reportCommunity(params: ReportCommunityApiParams): Promise<AxiosResponse<void>> {
         const path = this.makeReportCommunityPath(params.communityName);
 
         let body = {

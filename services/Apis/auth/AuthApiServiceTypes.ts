@@ -1,4 +1,4 @@
-export interface LoginParams {
+export interface LoginApiParams {
     username: string;
     password: string;
 }
@@ -7,7 +7,7 @@ export interface LoginResponse {
     token: string
 }
 
-export interface RegistrationParams {
+export interface RegistrationApiParams {
     email: string;
     password: string;
     name: string;
@@ -16,11 +16,11 @@ export interface RegistrationParams {
     areGuidelinesAccepted: boolean;
 }
 
-export interface RequestResetPasswordParams {
+export interface RequestResetPasswordApiParams {
     email: string;
 }
 
-export interface ResetPasswordParams {
+export interface ResetPasswordApiParams {
     resetToken: string;
     newPassword: string;
 }

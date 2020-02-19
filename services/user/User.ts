@@ -2,11 +2,11 @@ import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
 import { IUserService } from '~/services/user/IUser';
 import {
-    LoginParams,
-    RegistrationParams,
+    LoginApiParams,
+    RegistrationApiParams,
     RegistrationResponse,
-    RequestResetPasswordParams,
-    ResetPasswordParams
+    RequestResetPasswordApiParams,
+    ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
@@ -37,20 +37,20 @@ export class UserService implements IUserService {
         });
     }
 
-    async register(data: RegistrationParams): Promise<RegistrationResponse> {
+    async register(data: RegistrationApiParams): Promise<RegistrationResponse> {
         const response = await this.authApiService!.register(data);
         return response.data;
     }
 
-    async requestResetPassword(data: RequestResetPasswordParams): Promise<void> {
+    async requestResetPassword(data: RequestResetPasswordApiParams): Promise<void> {
         await this.authApiService!.requestResetPassword(data);
     }
 
-    async resetPassword(data: ResetPasswordParams): Promise<void> {
+    async resetPassword(data: ResetPasswordApiParams): Promise<void> {
         await this.authApiService!.resetPassword(data);
     }
 
-    async login(data: LoginParams): Promise<IUser> {
+    async login(data: LoginApiParams): Promise<IUser> {
         const response = await this.authApiService!.login(data);
         const user = await this.loginWithAuthToken(response.data.token);
         return user;

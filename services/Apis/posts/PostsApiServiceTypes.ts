@@ -1,17 +1,17 @@
-export interface GetTopPostsParams {
+export interface GetTopPostsApiParams {
     minId?: number;
     maxId?: number;
     count?: number;
     excludeJoinedCommunities?: boolean;
 }
 
-export interface GetTrendingPostsParams {
+export interface GetTrendingPostsApiParams {
     minId?: number;
     maxId?: number;
     count?: number;
 }
 
-export interface GetTimelinePostsParams {
+export interface GetTimelinePostsApiParams {
     minId?: number;
     maxId?: number;
     count?: number;
@@ -20,7 +20,7 @@ export interface GetTimelinePostsParams {
     username?: string;
 }
 
-export interface GetPostComments {
+export interface GetPostCommentsApiParams {
     postUuid: string;
     countMax?: number;
     countMin?: number;
@@ -29,7 +29,7 @@ export interface GetPostComments {
     sort?: GetCommentsForPostSortType;
 }
 
-export interface GetPostCommentRepliesParams {
+export interface GetPostCommentRepliesApiParams {
     postCommentId: number;
     postUuid: string;
     countMax?: number;
@@ -81,51 +81,51 @@ export class GetCommentsForPostSortType {
 }
 
 
-export interface CommentPostParams {
+export interface CommentPostApiParams {
     postUuid: string;
     text: string;
 }
 
-export interface EditPostCommentParams {
+export interface EditPostCommentApiParams {
     postCommentId: number;
     postUuid: string;
     text: string;
 }
 
-export interface ReplyToPostCommentParams {
+export interface ReplyToPostCommentApiParams {
     postCommentId: number;
     postUuid: string;
     text: string;
 }
 
-export interface DeletePostCommentParams {
+export interface DeletePostCommentApiParams {
     postCommentId: number;
     postUuid: string;
 }
 
-export interface DeletePostParams {
+export interface DeletePostApiParams {
     postUuid: string;
 }
 
-export interface GetPostParams {
+export interface GetPostApiParams {
     postUuid: string;
 }
 
-export interface GetPostMediaParams {
+export interface GetPostMediaApiParams {
     postUuid: string;
 }
 
-export interface ReactToPostParams {
+export interface ReactToPostApiParams {
     postUuid: string;
     emojiId: number;
 }
 
-export interface DeletePostReactionParams {
+export interface DeletePostReactionApiParams {
     postReactionId: number;
     postUuid: string;
 }
 
-export interface GetPostReactionsParams {
+export interface GetPostReactionsApiParams {
     postUuid: string;
     count?: number;
     maxId?: number;
@@ -133,7 +133,7 @@ export interface GetPostReactionsParams {
 }
 
 
-export interface GetPostCommentReactionsParams {
+export interface GetPostCommentReactionsApiParams {
     count?: number;
     maxId?: number;
     emojiId?: number;
@@ -142,35 +142,35 @@ export interface GetPostCommentReactionsParams {
 }
 
 
-export interface GetPostCommentReactionsEmojiCount {
+export interface GetPostCommentReactionsEmojiApiCount {
     postCommendId: number;
     postUuid: string;
 }
 
-export interface GetPostReactionsEmojiCount {
+export interface GetPostReactionsEmojiApiCount {
     postUuid: string;
 }
 
-export interface ReactToPostCommentParams {
+export interface ReactToPostCommentApiParams {
     postCommentId: number;
     postUuid: string;
     emojiId: number;
 }
 
-export interface DeletePostCommentReactionParams {
+export interface DeletePostCommentReactionApiParams {
     postCommentReactionId: number;
     postCommentId: number;
     postUuid: string;
 }
 
-export interface ReportPostCommentParams {
+export interface ReportPostCommentApiParams {
     description?: string;
     postUuid: string;
     postCommentId: number;
     moderationCategoryId: number;
 }
 
-export interface ReportPostParams {
+export interface ReportPostApiParams {
     description?: string;
     postUuid: string;
     moderationCategoryId: number;

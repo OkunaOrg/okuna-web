@@ -1,49 +1,49 @@
 import { AxiosResponse } from '~/node_modules/axios';
 import { UserData } from '~/types/models-data/auth/UserData';
 import {
-    LoginParams,
+    LoginApiParams,
     LoginResponse,
-    RegistrationParams,
+    RegistrationApiParams,
     RegistrationResponse,
-    RequestResetPasswordParams, ResetPasswordParams
+    RequestResetPasswordApiParams, ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import {
-    GetCommunityAdministratorsParams,
-    GetCommunityMembersParams,
-    GetCommunityModeratorsParams,
-    GetCommunityParams,
-    GetCommunityPostsCountParams,
-    JoinCommunityParams, LeaveCommunityParams,
-    ReportCommunityParams,
-    SearchCommunitiesParams,
-    SearchCommunityAdministratorsParams,
-    SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams
+    GetCommunityAdministratorsApiParams,
+    GetCommunityMembersApiParams,
+    GetCommunityModeratorsApiParams,
+    GetCommunityApiParams,
+    GetCommunityPostsCountApiParams,
+    JoinCommunityApiParams, LeaveCommunityApiParams,
+    ReportCommunityApiParams,
+    SearchCommunitiesApiParams,
+    SearchCommunityAdministratorsApiParams,
+    SearchCommunityMembersApiParams,
+    SearchCommunityModeratorsApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 
 export interface ICommunitiesApiService {
-    searchCommunities(params: SearchCommunitiesParams): Promise<AxiosResponse<CommunityData[]>>;
+    searchCommunities(params: SearchCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
 
-    getCommunity(params: GetCommunityParams): Promise<AxiosResponse<CommunityData>>;
+    getCommunity(params: GetCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
 
-    getCommunityMembers(params: GetCommunityMembersParams): Promise<AxiosResponse<UserData>>;
+    getCommunityMembers(params: GetCommunityMembersApiParams): Promise<AxiosResponse<UserData>>;
 
-    searchCommunityMembers(string, params: SearchCommunityMembersParams): Promise<AxiosResponse<UserData>>;
+    searchCommunityMembers(string, params: SearchCommunityMembersApiParams): Promise<AxiosResponse<UserData>>;
 
-    getCommunityAdministrators(string, params: GetCommunityAdministratorsParams): Promise<AxiosResponse<UserData>>;
+    getCommunityAdministrators(string, params: GetCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData>>;
 
-    searchCommunityAdministrators(string, params: SearchCommunityAdministratorsParams): Promise<AxiosResponse<UserData>>;
+    searchCommunityAdministrators(string, params: SearchCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData>>;
 
-    getCommunityModerators(params: GetCommunityModeratorsParams): Promise<AxiosResponse<UserData>>;
+    getCommunityModerators(params: GetCommunityModeratorsApiParams): Promise<AxiosResponse<UserData>>;
 
-    searchCommunityModerators(params: SearchCommunityModeratorsParams): Promise<AxiosResponse<UserData>>;
+    searchCommunityModerators(params: SearchCommunityModeratorsApiParams): Promise<AxiosResponse<UserData>>;
 
-    getCommunityPostsCount(params: GetCommunityPostsCountParams): Promise<AxiosResponse<CommunityData>>;
+    getCommunityPostsCount(params: GetCommunityPostsCountApiParams): Promise<AxiosResponse<CommunityData>>;
 
-    joinCommunity(params: JoinCommunityParams): Promise<AxiosResponse<CommunityData>>;
+    joinCommunity(params: JoinCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
 
-    leaveCommunity(params: LeaveCommunityParams): Promise<AxiosResponse<CommunityData>>;
+    leaveCommunity(params: LeaveCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
 
-    reportCommunity( params: ReportCommunityParams): Promise<AxiosResponse<void>>;
+    reportCommunity( params: ReportCommunityApiParams): Promise<AxiosResponse<void>>;
 }
