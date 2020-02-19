@@ -5,13 +5,24 @@ import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 import { AxiosResponse } from '~/node_modules/axios';
 import {
-    GetCommentsForPostParams,
-    GetReactionsForPostCommentParams,
-    GetReactionsForPostParams,
-    GetRepliesForPostCommentParams,
+    CommentPostParams,
+    DeletePostCommentParams,
+    DeletePostCommentReactionParams,
+    DeletePostReactionParams, EditPostCommentParams,
+    GetPostComments,
+    GetPostCommentReactionsEmojiCount,
+    GetPostCommentReactionsParams,
+    GetPostReactionsEmojiCount,
+    GetPostReactionsParams,
+    GetPostCommentRepliesParams,
     GetTimelinePostsParams,
     GetTopPostsParams,
-    GetTrendingPostsParams, ReportPostCommentParams
+    GetTrendingPostsParams,
+    ReactToPostCommentParams,
+    ReactToPostParams,
+    ReplyToPostCommentParams,
+    ReportPostCommentParams,
+    ReportPostParams, DeletePostParams, GetPostParams, GetPostMediaParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
@@ -148,26 +159,26 @@ export class PostsApiService implements IPostsApiService {
             {appendAuthorizationToken: true, queryParams, isApiRequest: true});
     }
 
-    getMediaForPostWithUuid(postUuid: string): Promise<AxiosResponse<PostMediaData[]>> {
-        const path = this.makeGetPostMediaPath(postUuid);
+    getMediaForPostWithUuid(params: GetPostMediaParams): Promise<AxiosResponse<PostMediaData[]>> {
+        const path = this.makeGetPostMediaPath(params.postUuid);
 
         return this.httpService.get(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    getPostWithUuid(postUuid: string): Promise<AxiosResponse<PostData>> {
-        const path = this.makePostPath(postUuid);
+    getPost(params: GetPostParams): Promise<AxiosResponse<PostData>> {
+        const path = this.makePostPath(params.postUuid);
 
         return this.httpService.get(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    deletePostWithUuid(postUuid: string): Promise<AxiosResponse<void>> {
-        const path = this.makePostPath(postUuid);
+    deletePost(params: DeletePostParams): Promise<AxiosResponse<void>> {
+        const path = this.makePostPath(params.postUuid);
 
         return this.httpService.delete(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
-    getCommentsForPostWithUuid(postUuid: string, params: GetCommentsForPostParams): Promise<AxiosResponse<PostCommentData[]>> {
+    getPostComments(params: GetPostComments): Promise<AxiosResponse<PostCommentData[]>> {
         let queryParams = {};
 
         if (params.countMax) queryParams['count_max'] = params.countMax;
@@ -179,13 +190,13 @@ export class PostsApiService implements IPostsApiService {
 
         if (params.sort) queryParams['sort'] = params.sort.toString();
 
-        const path = this.makeGetPostCommentsPath(postUuid);
+        const path = this.makeGetPostCommentsPath(params.postUuid);
 
         return this.httpService.get(path,
             {appendAuthorizationToken: true, queryParams, isApiRequest: true});
     }
 
-    getRepliesForCommentWithIdForPostWithUuid(postCommentId: number, postUuid: string, params: GetRepliesForPostCommentParams): Promise<AxiosResponse<PostCommentData[]>> {
+    getPostCommentReplies(params: GetPostCommentRepliesParams): Promise<AxiosResponse<PostCommentData[]>> {
         let queryParams = {};
 
         if (params.countMax) queryParams['count_max'] = params.countMax;
@@ -197,47 +208,47 @@ export class PostsApiService implements IPostsApiService {
 
         if (params.sort) queryParams['sort'] = params.sort.toString();
 
-        const path = this.makeGetReplyCommentsPostPath(postUuid, postCommentId);
+        const path = this.makeGetReplyCommentsPostPath(params.postUuid, params.postCommentId);
 
         return this.httpService.get(path,
             {appendAuthorizationToken: true, queryParams, isApiRequest: true});
     }
 
-    commentPostWithUuid(postUuid: string, text: string): Promise<AxiosResponse<PostCommentData>> {
+    commentPost(params: CommentPostParams): Promise<AxiosResponse<PostCommentData>> {
 
-        const body = {'text': text};
+        const body = {'text': params.text};
 
-        const path = this.makeCommentPostPath(postUuid);
+        const path = this.makeCommentPostPath(params.postUuid);
 
         return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    editCommentWithIdForPostWithUuid(postCommentId: number, postUuid: string, text: string): Promise<AxiosResponse<PostCommentData>> {
+    editPostComment(params: EditPostCommentParams): Promise<AxiosResponse<PostCommentData>> {
 
-        const body = {'text': text};
+        const body = {'text': params.text};
 
-        const path = this.makeEditCommentPostPath(postUuid, postCommentId);
+        const path = this.makeEditCommentPostPath(params.postUuid, params.postCommentId);
 
         return this.httpService.patch(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    replyToCommentWithIdForPostWithUuid(postCommentId: number, postUuid: string, text: string): Promise<AxiosResponse<PostCommentData>> {
+    replyToPostComment(params: ReplyToPostCommentParams): Promise<AxiosResponse<PostCommentData>> {
 
-        const body = {'text': text};
+        const body = {'text': params.text};
 
-        const path = this.makeReplyCommentPostPath(postUuid, postCommentId);
+        const path = this.makeReplyCommentPostPath(params.postUuid, params.postCommentId);
 
         return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    deleteCommentWithIdForPostWithUuid(postCommentId: number, postUuid: string): Promise<AxiosResponse<void>> {
-        const path = this.makeDeletePostCommentPath(postCommentId, postUuid);
+    deletePostComment(params: DeletePostCommentParams): Promise<AxiosResponse<void>> {
+        const path = this.makeDeletePostCommentPath(params.postCommentId, params.postUuid);
 
         return this.httpService.delete(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
-    getReactionsForPostWithUuid(postUuid: string, params: GetReactionsForPostParams): Promise<AxiosResponse<PostReactionData[]>> {
+    getPostReactions(params: GetPostReactionsParams): Promise<AxiosResponse<PostReactionData[]>> {
         let queryParams = {};
 
         if (params.emojiId) queryParams['emoji_id'] = params.emojiId;
@@ -247,36 +258,36 @@ export class PostsApiService implements IPostsApiService {
 
         if (params.count) queryParams['count'] = params.count;
 
-        const path = this.makeGetPostReactionsPath(postUuid);
+        const path = this.makeGetPostReactionsPath(params.postUuid);
 
         return this.httpService.get(path,
             {appendAuthorizationToken: true, queryParams, isApiRequest: true});
     }
 
 
-    getReactionsEmojiCountForPostWithUuid(postUuid: string): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
-        const path = this.makeGetPostReactionsEmojiCountPath(postUuid);
+    getPostReactionsEmojiCount(params: GetPostReactionsEmojiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
+        const path = this.makeGetPostReactionsEmojiCountPath(params.postUuid);
 
         return this.httpService.get(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
-    reactToPostWithUuid(postUuid: string, emojiId: number): Promise<AxiosResponse<PostReactionData>> {
+    reactToPost(params: ReactToPostParams): Promise<AxiosResponse<PostReactionData>> {
 
-        const body = {'emoji_id': emojiId};
+        const body = {'emoji_id': params.emojiId};
 
-        const path = this.makeReactToPostPath(postUuid);
+        const path = this.makeReactToPostPath(params.postUuid);
 
         return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    deleteReactionWithIdForPostWithUuid(postReactionId: number, postUuid: string): Promise<AxiosResponse<void>> {
-        const path = this.makeDeletePostReactionPath(postReactionId, postUuid);
+    deletePostReaction(params: DeletePostReactionParams): Promise<AxiosResponse<void>> {
+        const path = this.makeDeletePostReactionPath(params.postReactionId, params.postUuid);
 
         return this.httpService.delete(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    getReactionsForCommentWithIdAndPostWithUuid(postCommendId: number, postUuid: string, params: GetReactionsForPostCommentParams): Promise<AxiosResponse<PostCommentReactionData[]>> {
+    getPostCommentReactions(params: GetPostCommentReactionsParams): Promise<AxiosResponse<PostCommentReactionData[]>> {
         let queryParams = {};
 
         if (params.emojiId) queryParams['emoji_id'] = params.emojiId;
@@ -286,36 +297,36 @@ export class PostsApiService implements IPostsApiService {
 
         if (params.count) queryParams['count'] = params.count;
 
-        const path = this.makeGetPostCommentReactionsPath(postCommendId, postUuid);
+        const path = this.makeGetPostCommentReactionsPath(params.postCommendId, params.postUuid);
 
         return this.httpService.get(path,
             {appendAuthorizationToken: true, queryParams, isApiRequest: true});
     }
 
-    getReactionsEmojiCountForCommentWithIdAndPostWithUuid(postCommendId: number, postUuid: string): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
-        const path = this.makeGetPostCommentReactionsEmojiCountPath(postUuid, postCommendId);
+    getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
+        const path = this.makeGetPostCommentReactionsEmojiCountPath(params.postUuid, params.postCommendId);
 
         return this.httpService.get(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
-    reactToCommentWithIdAndPostWithUuid(postCommentId: number, postUuid: string, emojiId: number): Promise<AxiosResponse<PostCommentReactionData>> {
+    reactToPostComment(params: ReactToPostCommentParams): Promise<AxiosResponse<PostCommentReactionData>> {
 
-        const body = {'emoji_id': emojiId};
+        const body = {'emoji_id': params.emojiId};
 
-        const path = this.makeReactToPostCommentPath(postCommentId, postUuid);
+        const path = this.makeReactToPostCommentPath(params.postCommentId, params.postUuid);
 
         return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    deleteReactionWithIdForCommentWithIdAndPostWithUuid(postCommentReactionId: number, postCommentId: number, postUuid: string): Promise<AxiosResponse<void>> {
-        const path = this.makeDeletePostCommentReactionPath(postCommentReactionId, postUuid, postCommentId);
+    deletePostCommentReaction(params: DeletePostCommentReactionParams): Promise<AxiosResponse<void>> {
+        const path = this.makeDeletePostCommentReactionPath(params.postCommentReactionId, params.postUuid, params.postCommentId);
 
         return this.httpService.delete(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
-    getReactionEmojiGroups(postUuid: string): Promise<AxiosResponse<EmojiGroupData[]>> {
+    getReactionEmojiGroups(): Promise<AxiosResponse<EmojiGroupData[]>> {
 
         return this.httpService.get(PostsApiService.GET_REACTION_EMOJI_GROUPS, {
             appendAuthorizationToken: true,
@@ -323,10 +334,10 @@ export class PostsApiService implements IPostsApiService {
         });
     }
 
-    reportCommentWithIdAndPostWithUuid(postUuid: string, moderationCategoryId: number, params: ReportPostCommentParams): Promise<AxiosResponse<PostCommentReactionData>> {
+    reportPost(params: ReportPostParams): Promise<AxiosResponse<PostCommentReactionData>> {
 
         const body = {
-            'category_id': moderationCategoryId
+            'category_id': params.moderationCategoryId
         };
 
         if (params.description) {
@@ -334,7 +345,24 @@ export class PostsApiService implements IPostsApiService {
         }
 
 
-        const path = this.makeReportPostPath(postUuid);
+        const path = this.makeReportPostPath(params.postUuid);
+
+        return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+
+    reportPostComment(params: ReportPostCommentParams): Promise<AxiosResponse<PostCommentReactionData>> {
+
+        const body = {
+            'category_id': params.moderationCategoryId
+        };
+
+        if (params.description) {
+            body['description'] = params.description;
+        }
+
+
+        const path = this.makeReportPostCommentPath(params.postCommentId, params.postUuid);
 
         return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }

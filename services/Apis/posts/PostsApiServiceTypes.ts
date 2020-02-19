@@ -20,7 +20,8 @@ export interface GetTimelinePostsParams {
     username?: string;
 }
 
-export interface GetCommentsForPostParams {
+export interface GetPostComments {
+    postUuid: string;
     countMax?: number;
     countMin?: number;
     maxId?: number;
@@ -28,7 +29,9 @@ export interface GetCommentsForPostParams {
     sort?: GetCommentsForPostSortType;
 }
 
-export interface GetRepliesForPostCommentParams {
+export interface GetPostCommentRepliesParams {
+    postCommentId: number;
+    postUuid: string;
     countMax?: number;
     countMin?: number;
     maxId?: number;
@@ -78,21 +81,97 @@ export class GetCommentsForPostSortType {
 }
 
 
-export interface GetReactionsForPostParams {
+export interface CommentPostParams {
+    postUuid: string;
+    text: string;
+}
+
+export interface EditPostCommentParams {
+    postCommentId: number;
+    postUuid: string;
+    text: string;
+}
+
+export interface ReplyToPostCommentParams {
+    postCommentId: number;
+    postUuid: string;
+    text: string;
+}
+
+export interface DeletePostCommentParams {
+    postCommentId: number;
+    postUuid: string;
+}
+
+export interface DeletePostParams {
+    postUuid: string;
+}
+
+export interface GetPostParams {
+    postUuid: string;
+}
+
+export interface GetPostMediaParams {
+    postUuid: string;
+}
+
+export interface ReactToPostParams {
+    postUuid: string;
+    emojiId: number;
+}
+
+export interface DeletePostReactionParams {
+    postReactionId: number;
+    postUuid: string;
+}
+
+export interface GetPostReactionsParams {
+    postUuid: string;
     count?: number;
     maxId?: number;
     emojiId?: number;
 }
 
 
-
-export interface GetReactionsForPostCommentParams {
+export interface GetPostCommentReactionsParams {
     count?: number;
     maxId?: number;
     emojiId?: number;
+    postCommendId: number;
+    postUuid: string;
 }
 
 
-export interface ReportPostCommentParams{
+export interface GetPostCommentReactionsEmojiCount {
+    postCommendId: number;
+    postUuid: string;
+}
+
+export interface GetPostReactionsEmojiCount {
+    postUuid: string;
+}
+
+export interface ReactToPostCommentParams {
+    postCommentId: number;
+    postUuid: string;
+    emojiId: number;
+}
+
+export interface DeletePostCommentReactionParams {
+    postCommentReactionId: number;
+    postCommentId: number;
+    postUuid: string;
+}
+
+export interface ReportPostCommentParams {
     description?: string;
+    postUuid: string;
+    postCommentId: number;
+    moderationCategoryId: number;
+}
+
+export interface ReportPostParams {
+    description?: string;
+    postUuid: string;
+    moderationCategoryId: number;
 }
