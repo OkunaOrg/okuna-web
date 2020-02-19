@@ -1,4 +1,4 @@
-import { ICircle } from '~/models/connections/circle/ICircle';
+import { ICircle } from '~/models/circles/circle/ICircle';
 import { IDataModel } from '~/models/abstract/IDataModel';
 import { IUser } from '~/models/auth/user/IUser';
 import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';

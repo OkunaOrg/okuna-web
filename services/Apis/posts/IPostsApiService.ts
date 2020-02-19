@@ -3,13 +3,13 @@ import {
     DeletePostCommentApiParams, DeletePostCommentReactionApiParams,
     DeletePostApiParams,
     DeletePostReactionApiParams,
-    EditPostCommentApiParams, GetPostCommentReactionsEmojiApiCount,
+    EditPostCommentApiParams, GetPostCommentReactionsEmojiApiCountApiParams,
     GetPostCommentReactionsApiParams,
     GetPostCommentRepliesApiParams,
     GetPostCommentsApiParams,
     GetPostMediaApiParams,
     GetPostApiParams,
-    GetPostReactionsEmojiApiCount,
+    GetPostReactionsEmojiApiCountApiParams,
     GetPostReactionsApiParams,
     GetTimelinePostsApiParams,
     GetTopPostsApiParams,
@@ -54,7 +54,7 @@ export interface IPostsApiService {
 
     getPostReactions(params: GetPostReactionsApiParams): Promise<AxiosResponse<PostReactionData[]>>;
 
-    getPostReactionsEmojiCount(params: GetPostReactionsEmojiApiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>>;
+    getPostReactionsEmojiCount(params: GetPostReactionsEmojiApiCountApiParams): Promise<AxiosResponse<ReactionsEmojiCountData[]>>;
 
     reactToPost(params: ReactToPostApiParams): Promise<AxiosResponse<PostReactionData>>;
 
@@ -62,7 +62,7 @@ export interface IPostsApiService {
 
     getPostCommentReactions(params: GetPostCommentReactionsApiParams): Promise<AxiosResponse<PostCommentReactionData[]>>;
 
-    getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiApiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>>;
+    getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiApiCountApiParams): Promise<AxiosResponse<ReactionsEmojiCountData[]>>;
 
     reactToPostComment(params: ReactToPostCommentApiParams): Promise<AxiosResponse<PostCommentReactionData>>;
 

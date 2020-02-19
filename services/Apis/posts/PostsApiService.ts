@@ -10,9 +10,9 @@ import {
     DeletePostCommentReactionApiParams,
     DeletePostReactionApiParams, EditPostCommentApiParams,
     GetPostCommentsApiParams,
-    GetPostCommentReactionsEmojiApiCount,
+    GetPostCommentReactionsEmojiApiCountApiParams,
     GetPostCommentReactionsApiParams,
-    GetPostReactionsEmojiApiCount,
+    GetPostReactionsEmojiApiCountApiParams,
     GetPostReactionsApiParams,
     GetPostCommentRepliesApiParams,
     GetTimelinePostsApiParams,
@@ -265,7 +265,7 @@ export class PostsApiService implements IPostsApiService {
     }
 
 
-    getPostReactionsEmojiCount(params: GetPostReactionsEmojiApiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
+    getPostReactionsEmojiCount(params: GetPostReactionsEmojiApiCountApiParams): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
         const path = this.makeGetPostReactionsEmojiCountPath(params.postUuid);
 
         return this.httpService.get(path, {appendAuthorizationToken: true, isApiRequest: true});
@@ -303,7 +303,7 @@ export class PostsApiService implements IPostsApiService {
             {appendAuthorizationToken: true, queryParams, isApiRequest: true});
     }
 
-    getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiApiCount): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
+    getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiApiCountApiParams): Promise<AxiosResponse<ReactionsEmojiCountData[]>> {
         const path = this.makeGetPostCommentReactionsEmojiCountPath(params.postUuid, params.postCommendId);
 
         return this.httpService.get(path, {appendAuthorizationToken: true, isApiRequest: true});

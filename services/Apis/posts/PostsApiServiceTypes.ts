@@ -142,12 +142,12 @@ export interface GetPostCommentReactionsApiParams {
 }
 
 
-export interface GetPostCommentReactionsEmojiApiCount {
+export interface GetPostCommentReactionsEmojiApiCountApiParams {
     postCommendId: number;
     postUuid: string;
 }
 
-export interface GetPostReactionsEmojiApiCount {
+export interface GetPostReactionsEmojiApiCountApiParams {
     postUuid: string;
 }
 

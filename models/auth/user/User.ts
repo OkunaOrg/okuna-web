@@ -1,9 +1,9 @@
 import { IUser } from '~/models/auth/user/IUser';
-import circleFactory from '~/models/connections/circle/factory';
+import circleFactory from '~/models/circles/circle/factory';
 import userProfileFactory from '~/models/auth/user-profile/factory';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
-import { ICircle } from '~/models/connections/circle/ICircle';
-import { CircleData } from '~/types/models-data/connections/CircleData';
+import { ICircle } from '~/models/circles/circle/ICircle';
+import { CircleData } from '~/types/models-data/circles/CircleData';
 import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { DataModel } from '~/models/abstract/DataModel';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';

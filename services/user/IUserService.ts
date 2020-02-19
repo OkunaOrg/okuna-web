@@ -1,26 +1,51 @@
+import { BehaviorSubject } from '~/node_modules/rxjs';
+import { IUser } from '~/models/auth/user/IUser';
+import { ICommunity } from '~/models/communities/community/ICommunity';
+import {
+    CommentPostParams,
+    DeletePostCommentParams, DeletePostCommentReactionParams,
+    DeletePostParams,
+    DeletePostReactionParams,
+    EditPostCommentParams,
+    GetCommunityAdministratorsParams,
+    GetCommunityMembersParams,
+    GetCommunityModeratorsParams,
+    GetCommunityParams,
+    GetCommunityPostsCountParams,
+    GetPostCommentReactionsEmojiApiCountParams,
+    GetPostCommentReactionsParams,
+    GetPostCommentRepliesParams,
+    GetPostCommentsParams,
+    GetPostMediaParams,
+    GetPostParams,
+    GetPostReactionsEmojiApiCountParams,
+    GetPostReactionsParams,
+    GetTimelinePostsParams,
+    GetTopPostsParams,
+    GetTrendingPostsParams,
+    JoinCommunityParams,
+    LeaveCommunityParams, ReactToPostCommentParams,
+    ReactToPostParams,
+    ReplyToPostCommentParams,
+    ReportCommunityParams, ReportPostCommentParams, ReportPostParams,
+    SearchCommunitiesParams,
+    SearchCommunityAdministratorsParams,
+    SearchCommunityMembersParams,
+    SearchCommunityModeratorsParams
+} from '~/services/user/UserServiceTypes';
+import { IPost } from '~/models/posts/post/IPost';
+import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
+import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
+import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
+import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
+import { IEmojiGroup } from '~/models/common/emoji-group/IEmojiGroup';
 import {
     LoginApiParams,
     RegistrationApiParams,
     RegistrationResponse,
-    RequestResetPasswordApiParams,
-    ResetPasswordApiParams
+    RequestResetPasswordApiParams, ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
-import { BehaviorSubject } from '~/node_modules/rxjs';
-import { IUser } from '~/models/auth/user/IUser';
-import { AxiosResponse } from '~/node_modules/axios';
-import { ICommunity } from '~/models/communities/community/ICommunity';
-import {
-    GetCommunityAdministratorsParams,
-    GetCommunityMembersParams, GetCommunityModeratorsParams,
-    GetCommunityParams,
-    GetCommunityPostsCountParams,
-    JoinCommunityParams,
-    LeaveCommunityParams,
-    ReportCommunityParams,
-    SearchCommunitiesParams, SearchCommunityAdministratorsParams,
-    SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams
-} from '~/services/user/UserServiceTypes';
 
 
 export interface IUserService {
@@ -81,4 +106,54 @@ export interface IUserService {
     reportCommunity(params: ReportCommunityParams): Promise<void>;
 
     // COMMUNITIES END
+
+    // POSTS START
+
+    getTopPosts(params: GetTopPostsParams): Promise<IPost[]>;
+
+    getTrendingPosts(params: GetTrendingPostsParams): Promise<IPost[]>;
+
+    getTimelinePosts(params: GetTimelinePostsParams): Promise<IPost[]>;
+
+    getMediaForPostWithUuid(params: GetPostMediaParams): Promise<IPostMedia[]>;
+
+    getPost(params: GetPostParams): Promise<IPost>;
+
+    deletePost(params: DeletePostParams): Promise<void>;
+
+    getPostComments(params: GetPostCommentsParams): Promise<IPostComment[]>;
+
+    getPostCommentReplies(params: GetPostCommentRepliesParams): Promise<IPostComment[]>;
+
+    commentPost(params: CommentPostParams): Promise<IPostComment>;
+
+    editPostComment(params: EditPostCommentParams): Promise<IPostComment>;
+
+    replyToPostComment(params: ReplyToPostCommentParams): Promise<IPostComment>;
+
+    deletePostComment(params: DeletePostCommentParams): Promise<void>;
+
+    getPostReactions(params: GetPostReactionsParams): Promise<IPostReaction[]>;
+
+    getPostReactionsEmojiCount(params: GetPostReactionsEmojiApiCountParams): Promise<IReactionsEmojiCount[]>;
+
+    reactToPost(params: ReactToPostParams): Promise<IPostReaction>;
+
+    deletePostReaction(params: DeletePostReactionParams): Promise<void>;
+
+    getPostCommentReactions(params: GetPostCommentReactionsParams): Promise<IPostCommentReaction[]>;
+
+    getPostCommentReactionsEmojiCount(params: GetPostCommentReactionsEmojiApiCountParams): Promise<IReactionsEmojiCount[]>;
+
+    reactToPostComment(params: ReactToPostCommentParams): Promise<IPostCommentReaction>;
+
+    deletePostCommentReaction(params: DeletePostCommentReactionParams): Promise<void>;
+
+    getReactionEmojiGroups(): Promise<IEmojiGroup[]>;
+
+    reportPost(params: ReportPostParams): Promise<IPostCommentReaction>;
+
+    reportPostComment(params: ReportPostCommentParams): Promise<IPostCommentReaction>;
+
+    // POSTS END
 }
