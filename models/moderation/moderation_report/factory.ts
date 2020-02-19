@@ -4,7 +4,7 @@ import { ModerationReportData } from '~/types/models-data/moderation/ModerationR
 import { ModerationReport } from '~/models/moderation/moderation_report/ModerationReport';
 
 
-class ModerationReportFactory implements IModelFactory<IModerationReport> {
+class ModerationReportFactory extends IModelFactory<IModerationReport> {
     make(data: ModerationReportData): IModerationReport {
         return new ModerationReport(data);
     }

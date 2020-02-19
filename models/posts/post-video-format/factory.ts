@@ -3,7 +3,7 @@ import { PostVideoFormatData } from '~/types/models-data/posts/PostVideoFormatDa
 import { PostVideoFormat } from '~/models/posts/post-video-format/PostVideoFormat';
 import { IPostVideoFormat } from '~/models/posts/post-video-format/IPostVideoFormat';
 
-class PostVideoFormatFactory implements IModelFactory<IPostVideoFormat> {
+class PostVideoFormatFactory extends IModelFactory<IPostVideoFormat> {
     make(data: PostVideoFormatData): IPostVideoFormat {
         return new PostVideoFormat(data);
     }

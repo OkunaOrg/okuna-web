@@ -4,7 +4,7 @@ import { IPost } from '~/models/posts/post/IPost';
 import { Post } from '~/models/posts/post/Post';
 import { PostData } from '~/types/models-data/posts/PostData';
 
-class PostFactory implements IModelFactory<IPost> {
+class PostFactory extends IModelFactory<IPost> {
     private cache: LruCache<number, Post> = new LruCache(100);
 
     make(data: PostData, config: {storeInSessionCache: boolean} = {storeInSessionCache: true}): IPost {

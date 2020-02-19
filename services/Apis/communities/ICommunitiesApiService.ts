@@ -27,17 +27,17 @@ export interface ICommunitiesApiService {
 
     getCommunity(params: GetCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
 
-    getCommunityMembers(params: GetCommunityMembersApiParams): Promise<AxiosResponse<UserData>>;
+    getCommunityMembers(params: GetCommunityMembersApiParams): Promise<AxiosResponse<UserData[]>>;
 
-    searchCommunityMembers(string, params: SearchCommunityMembersApiParams): Promise<AxiosResponse<UserData>>;
+    searchCommunityMembers(params: SearchCommunityMembersApiParams): Promise<AxiosResponse<UserData[]>>;
 
-    getCommunityAdministrators(string, params: GetCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData>>;
+    getCommunityAdministrators(params: GetCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData[]>>;
 
-    searchCommunityAdministrators(string, params: SearchCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData>>;
+    searchCommunityAdministrators(params: SearchCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData[]>>;
 
-    getCommunityModerators(params: GetCommunityModeratorsApiParams): Promise<AxiosResponse<UserData>>;
+    getCommunityModerators(params: GetCommunityModeratorsApiParams): Promise<AxiosResponse<UserData[]>>;
 
-    searchCommunityModerators(params: SearchCommunityModeratorsApiParams): Promise<AxiosResponse<UserData>>;
+    searchCommunityModerators(params: SearchCommunityModeratorsApiParams): Promise<AxiosResponse<UserData[]>>;
 
     getCommunityPostsCount(params: GetCommunityPostsCountApiParams): Promise<AxiosResponse<CommunityData>>;
 

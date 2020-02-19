@@ -1,6 +1,5 @@
 export interface SearchCommunitiesApiParams {
     communityName: string;
-    authenticatedRequest: boolean;
     query: string;
     excludedFromProfilePosts: boolean;
 }

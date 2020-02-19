@@ -3,7 +3,7 @@ import { CircleData } from 'types/models-data/connections/CircleData';
 import { Circle } from '~/models/connections/circle/Circle';
 import { ICircle } from '~/models/connections/circle/ICircle';
 
-class CircleFactory implements IModelFactory<ICircle> {
+class CircleFactory extends IModelFactory<ICircle> {
     make(data: CircleData): ICircle {
         return new Circle(data);
     }

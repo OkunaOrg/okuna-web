@@ -3,7 +3,7 @@ import { PostCommentReactionData } from '~/types/models-data/postComments/PostCo
 import { IPostCommentReaction } from '~/models/postComments/postComment-reaction/IPostCommentReaction';
 import { PostCommentReaction } from '~/models/postComments/postComment-reaction/PostCommentReaction';
 
-class PostCommentReactionFactory implements IModelFactory<IPostCommentReaction> {
+class PostCommentReactionFactory extends IModelFactory<IPostCommentReaction> {
     make(data: PostCommentReactionData): IPostCommentReaction {
         return new PostCommentReaction(data);
     }

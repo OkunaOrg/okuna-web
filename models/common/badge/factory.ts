@@ -4,7 +4,7 @@ import { BadgeData } from 'types/models-data/common/BadgeData';
 import { Badge } from '~/models/common/badge/Badge';
 import { IBadge } from '~/models/common/badge/IBadge';
 
-class BadgeFactory implements IModelFactory<IBadge> {
+class BadgeFactory extends IModelFactory<IBadge> {
     make(data: BadgeData): IBadge {
         return new Badge(data);
     }

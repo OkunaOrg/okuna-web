@@ -4,7 +4,7 @@ import { ModerationCategoryData } from 'types/models-data/common/ModerationCateg
 import { ModerationCategory } from '~/models/common/moderationCategory/ModerationCategory';
 import { IModerationCategory } from '~/models/common/moderationCategory/IModerationCategory';
 
-class ModerationCategoryFactory implements IModelFactory<IModerationCategory> {
+class ModerationCategoryFactory extends IModelFactory<IModerationCategory> {
     make(data: ModerationCategoryData): IModerationCategory {
         return new ModerationCategory(data);
     }

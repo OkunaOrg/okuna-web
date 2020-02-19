@@ -3,7 +3,7 @@ import { PostImageData } from '~/types/models-data/posts/PostImageData';
 import { IPostImage } from '~/models/posts/post-image/IPostImage';
 import { PostImage } from '~/models/posts/post-image/PostImage';
 
-class PostImageFactory implements IModelFactory<IPostImage> {
+class PostImageFactory extends IModelFactory<IPostImage> {
     make(data: PostImageData): IPostImage {
         return new PostImage(data);
     }

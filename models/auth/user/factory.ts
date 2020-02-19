@@ -4,7 +4,7 @@ import { User } from '~/models/auth/user/User';
 import { IUser } from '~/models/auth/user/IUser';
 import { LruCache } from '~/lib/caches/LruCache';
 
-class UserFactory implements IModelFactory<IUser> {
+class UserFactory extends IModelFactory<IUser> {
     private sessionUsersCache: LruCache<number, User> = new LruCache(10);
     private navigationUsersCache: LruCache<number, User> = new LruCache(100);
 

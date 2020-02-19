@@ -3,7 +3,7 @@ import { ICommunityMembership } from '~/models/communities/community/community-m
 import { CommunityMembership } from '~/models/communities/community/community-membership/CommunityMembership';
 import { CommunityMembershipData } from '~/types/models-data/communities/CommunityMembershipData';
 
-class CommunityMembershipFactory implements IModelFactory<ICommunityMembership> {
+class CommunityMembershipFactory extends IModelFactory<ICommunityMembership> {
     make(data: CommunityMembershipData): ICommunityMembership {
         return new CommunityMembership(data);
     }

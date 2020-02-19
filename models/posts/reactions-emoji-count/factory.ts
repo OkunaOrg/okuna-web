@@ -3,7 +3,7 @@ import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReac
 import { ReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/ReactionsEmojiCount';
 import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';
 
-class ReactionsEmojiCountFactory implements IModelFactory<IReactionsEmojiCount> {
+class ReactionsEmojiCountFactory extends IModelFactory<IReactionsEmojiCount> {
     make(data: ReactionsEmojiCountData): IReactionsEmojiCount {
         return new ReactionsEmojiCount(data);
     }

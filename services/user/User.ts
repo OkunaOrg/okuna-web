@@ -17,6 +17,27 @@ import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 import { ILoggingService } from '~/services/logging/ILogging';
 import { IOkLogger } from '~/services/logging/types';
+import {
+    GetCommunityAdministratorsParams,
+    GetCommunityMembersParams,
+    GetCommunityModeratorsParams,
+    GetCommunityParams,
+    GetCommunityPostsCountParams,
+    JoinCommunityParams,
+    LeaveCommunityParams,
+    ReportCommunityParams,
+    SearchCommunitiesParams,
+    SearchCommunityAdministratorsParams,
+    SearchCommunityMembersParams,
+    SearchCommunityModeratorsParams
+} from '~/services/user/UserServiceTypes';
+import { ICommunity } from '~/models/communities/community/ICommunity';
+import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
+import { IPostsApiService } from '~/services/Apis/posts/IPostsApiService';
+import { AxiosResponse } from '~/node_modules/axios';
+import { CommunityData } from '~/types/models-data/communities/CommunityData';
+import communityFactory from '~/models/communities/community/factory';
+import { UserData } from '~/types/models-data/auth/UserData';
 
 @injectable()
 export class UserService implements IUserService {
@@ -27,6 +48,8 @@ export class UserService implements IUserService {
     loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
 
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
+                @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
+                @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
                 @inject(TYPES.HttpService) private httpService?: IHttpService,
                 @inject(TYPES.StorageService)  storageService?: IStorageService,
                 @inject(TYPES.LoggingService)  loggingService?: ILoggingService
@@ -107,6 +130,115 @@ export class UserService implements IUserService {
 
     isLoggedIn(): boolean {
         return !!this.loggedInUser.value;
+    }
+
+    async getCommunity(params: GetCommunityParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.getCommunity({
+            communityName: params.community.name
+        });
+
+        return communityFactory.make(response.data);
+    }
+
+    async getCommunityAdministrators(params: GetCommunityAdministratorsParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.getCommunityAdministrators({
+            communityName: params.community.name,
+            count: params.count,
+            maxId: params.maxId
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async getCommunityMembers(params: GetCommunityMembersParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.getCommunityMembers({
+            communityName: params.community.name,
+            count: params.count,
+            maxId: params.maxId,
+            exclude: params.exclude
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async getCommunityModerators(params: GetCommunityModeratorsParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.getCommunityModerators({
+            communityName: params.community.name,
+            count: params.count,
+            maxId: params.maxId
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async getCommunityPostsCount(params: GetCommunityPostsCountParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.getCommunityPostsCount({
+            communityName: params.community.name
+        });
+
+        return communityFactory.make(response.data);
+    }
+
+    async joinCommunity(params: JoinCommunityParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.joinCommunity({
+            communityName: params.community.name
+        });
+
+        return communityFactory.make(response.data);
+    }
+
+    async leaveCommunity(params: LeaveCommunityParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.leaveCommunity({
+            communityName: params.community.name
+        });
+
+        return communityFactory.make(response.data);
+    }
+
+    async reportCommunity(params: ReportCommunityParams): Promise<void> {
+        await this.communitiesApiService.reportCommunity({
+            communityName: params.community.name,
+            moderationCategoryId: params.moderationCategory.id,
+            description: params.description
+        });
+    }
+
+    async searchCommunities(params: SearchCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.searchCommunities({
+            query: params.query,
+            excludedFromProfilePosts: params.excludedFromProfilePosts,
+            communityName: params.community.name
+        });
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async searchCommunityAdministrators(params: SearchCommunityAdministratorsParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.searchCommunityAdministrators({
+            communityName: params.community.name,
+            query: params.query
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async searchCommunityMembers(params: SearchCommunityMembersParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.searchCommunityMembers({
+            communityName: params.community.name,
+            query: params.query,
+            exclude: params.exclude
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async searchCommunityModerators(params: SearchCommunityModeratorsParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.searchCommunityModerators({
+            communityName: params.community.name,
+            query: params.query
+        });
+
+        return userFactory.makeMultiple(response.data);
     }
 
 }

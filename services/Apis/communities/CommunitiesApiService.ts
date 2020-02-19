@@ -135,7 +135,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             });
     }
 
-    getCommunityMembers(params: GetCommunityMembersApiParams): Promise<AxiosResponse<UserData>> {
+    getCommunityMembers(params: GetCommunityMembersApiParams): Promise<AxiosResponse<UserData[]>> {
         let queryParams = {};
 
         if (params.count) queryParams['count'] = params.count;
@@ -152,7 +152,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     }
 
 
-    searchCommunityMembers(params: SearchCommunityMembersApiParams): Promise<AxiosResponse<UserData>> {
+    searchCommunityMembers(params: SearchCommunityMembersApiParams): Promise<AxiosResponse<UserData[]>> {
         let queryParams = {
             query: params.query
         };
@@ -166,7 +166,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     }
 
 
-    getCommunityAdministrators(params: GetCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData>> {
+    getCommunityAdministrators(params: GetCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData[]>> {
         let queryParams = {};
 
         if (params.count) queryParams['count'] = params.count;
@@ -180,7 +180,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    searchCommunityAdministrators(params: SearchCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData>> {
+    searchCommunityAdministrators(params: SearchCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData[]>> {
         let queryParams = {
             query: params.query
         };
@@ -192,7 +192,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     }
 
 
-    getCommunityModerators(params: GetCommunityModeratorsApiParams): Promise<AxiosResponse<UserData>> {
+    getCommunityModerators(params: GetCommunityModeratorsApiParams): Promise<AxiosResponse<UserData[]>> {
         let queryParams = {};
 
         if (params.count) queryParams['count'] = params.count;
@@ -206,7 +206,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    searchCommunityModerators(params: SearchCommunityModeratorsApiParams): Promise<AxiosResponse<UserData>> {
+    searchCommunityModerators(params: SearchCommunityModeratorsApiParams): Promise<AxiosResponse<UserData[]>> {
         let queryParams = {
             query: params.query
         };
