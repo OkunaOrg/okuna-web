@@ -2,11 +2,8 @@
     <section id="home-timeline-posts">
         <div v-for="(post, $index) in posts" :key="$index">
             <!-- Hacker News item loop -->
-            <span v-if="$index !== 20">
-                {{ post.title }}
-            </span>
-            <span v-else style="background-color: red" id="highlighted-post">
-                I'm the chosen one!
+            <span>
+                {{ post }}
             </span>
         </div>
 
@@ -25,39 +22,38 @@
     import { IUserService } from "~/services/user/IUserService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
+    import { IPost } from "~/models/posts/post/IPost";
 
     @Component({})
     export default class extends Vue {
         $route!: Route;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
-        posts = [];
+        posts: IPost[] = [];
         page: number;
 
         api = "//hn.algolia.com/api/v1/search_by_date?tags=story";
 
         mounted() {
-            window['userService'] = this.userService;
+            window["userService"] = this.userService;
             //setTimeout(this.scrollToItem, 5000);
         }
 
-        async test() {
-            const result = await this.userService.getCommunity({
-                communityName: "okuna"
-            });
-
-            console.log(result);
-        }
-
         infiniteHandler($state) {
-            /*           this.$axios.get(this.api).then(({data}) => {
-                           if (data.hits.length) {
-                               this.posts.push(...data.hits);
-                               $state.loaded();
-                           } else {
-                               $state.complete();
-                           }
-                       });*/
+            let lastPostId;
+            const lastPost = this.posts[this.posts.length - 1];
+            if (lastPost) lastPostId = lastPost.id;
+
+            this.userService.getTimelinePosts({
+                maxId: lastPostId
+            }).then((timelinePosts) => {
+                if (timelinePosts.length) {
+                    this.posts.push(...timelinePosts);
+                    $state.loaded();
+                } else {
+                    $state.complete();
+                }
+            });
         }
 
         scrollToItem() {

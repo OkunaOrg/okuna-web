@@ -109,11 +109,11 @@ export interface IUserService {
 
     // POSTS START
 
-    getTopPosts(params: GetTopPostsParams): Promise<IPost[]>;
+    getTopPosts(params?: GetTopPostsParams): Promise<IPost[]>;
 
-    getTrendingPosts(params: GetTrendingPostsParams): Promise<IPost[]>;
+    getTrendingPosts(params?: GetTrendingPostsParams): Promise<IPost[]>;
 
-    getTimelinePosts(params: GetTimelinePostsParams): Promise<IPost[]>;
+    getTimelinePosts(params?: GetTimelinePostsParams): Promise<IPost[]>;
 
     getPostMedia(params: GetPostMediaParams): Promise<IPostMedia[]>;
 
