@@ -94,7 +94,7 @@ export class HttpService implements IHttpService {
 
                 let keyValue = `${queryParamKey}=${config.queryParams[queryParamKey]}`;
 
-                const isLastItem = index !== queryParamKey.length - 1;
+                const isLastItem = index === queryParamsKeys.length - 1;
                 if (!isLastItem) keyValue += '&';
 
                 queryString += keyValue;

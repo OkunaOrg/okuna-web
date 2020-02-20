@@ -1,18 +1,31 @@
 <template>
-    <section id="home-timeline-posts">
-        <div v-for="(post, $index) in posts" :key="$index">
-            <!-- Hacker News item loop -->
-            <span>
-                {{ post }}
-            </span>
-        </div>
+    <section id="home-timeline-posts" class="timeline-posts">
+        <div class="timeline-posts-stream">
+            <div v-for="post in posts" :key="post.id">
+                <!-- Hacker News item loop -->
+                <ok-post :post="post"></ok-post>
+            </div>
+            asdas
 
-        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+            <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+        </div>
     </section>
 </template>
 
 
-<style scoped>
+<style scoped lang="scss">
+
+    .timeline-posts{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &-stream{
+            max-width: 635px;
+            min-width: 635px;
+        }
+
+    }
 
 </style>
 
@@ -23,30 +36,34 @@
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { IPost } from "~/models/posts/post/IPost";
+    import OkPost from '~/components/post/Post.vue';
 
-    @Component({})
+    @Component({
+        components: {OkPost},
+    })
     export default class extends Vue {
         $route!: Route;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         posts: IPost[] = [];
-        page: number;
-
-        api = "//hn.algolia.com/api/v1/search_by_date?tags=story";
 
         mounted() {
-            window["userService"] = this.userService;
             //setTimeout(this.scrollToItem, 5000);
         }
 
         infiniteHandler($state) {
+
+
             let lastPostId;
             const lastPost = this.posts[this.posts.length - 1];
             if (lastPost) lastPostId = lastPost.id;
 
+
             this.userService.getTimelinePosts({
-                maxId: lastPostId
+                maxId: lastPostId,
+                username: 'komposten'
             }).then((timelinePosts) => {
+                console.log(timelinePosts);
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);
                     $state.loaded();

@@ -8,6 +8,7 @@ import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { DataModel } from '~/models/abstract/DataModel';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
+import { userProfileDeserializer, userProfileSerializer } from '~/models/common/serializers';
 
 export class User extends DataModel<User> implements IUser {
     uuid!: string;
@@ -117,10 +118,8 @@ export class User extends DataModel<User> implements IUser {
         {
             dataKey: 'profile',
             attributeKey: 'profile',
-            deserializer: (instance, rawData: UserProfileData) => {
-                if (!rawData) return;
-                return userProfileFactory.make(rawData);
-            }
+            deserializer: userProfileDeserializer,
+            serializer: userProfileSerializer
         },
         {
             dataKey: 'connected_circles',

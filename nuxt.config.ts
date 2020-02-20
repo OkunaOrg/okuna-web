@@ -43,6 +43,7 @@ export default {
         '~/plugins/material-design-icons',
         '~/plugins/vue-infinite-loading',
         '~/plugins/vue-scroll-to',
+        '~/plugins/scroll-behavior',
     ],
     router: {
         middleware: ['post-redirect'],

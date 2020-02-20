@@ -1,0 +1,37 @@
+<template>
+    <div class="has-padding-30">
+        <div class="card ok-has-background-primary">
+            <div class="card-content">
+                <ok-post-header :post="post"></ok-post-header>
+            </div>
+            <ok-post-media :post="post"></ok-post-media>
+            <div class="card-content">
+                <div class="content">
+                    <ok-post-text :post="post"></ok-post-text>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style lang="scss" scoped>
+
+</style>
+
+<script lang="ts">
+    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { IPost } from '~/models/posts/post/IPost';
+    import OkPostHeader from '~/components/post/components/post-header/PostHeader.vue';
+    import OkPostText from '~/components/post/components/PostText.vue';
+    import OkPostMedia from '~/components/post/components/PostMedia.vue';
+
+    @Component({
+        name: "OkPost",
+        components: {OkPostMedia, OkPostText, OkPostHeader},
+    })
+    export default class extends Vue {
+
+        @Prop(Object) readonly post: IPost;
+
+    }
+</script>

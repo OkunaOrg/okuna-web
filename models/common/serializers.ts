@@ -57,6 +57,9 @@ import { ModerationCategoryData } from '~/types/models-data/moderation/Moderatio
 import moderationCategoryFactory from '~/models/moderation/moderation_category/factory';
 import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
 import { IEmoji } from '~/models/common/emoji/IEmoji';
+import userProfileFactory from '~/models/auth/user-profile/factory';
+import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
+import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;
@@ -176,6 +179,14 @@ export const hashtagsDeserializer = (instance, rawData: HashtagData[]) => {
 
 export const hashtagsSerializer = (instance, attribute: IHashtag[]) => {
     return JSON.stringify(attribute.map((attributeItem) => hashtagSerializer(instance, attributeItem)));
+};
+
+export const userProfileDeserializer = (instance, rawData: UserProfileData) => {
+    return userProfileFactory.make(rawData);
+};
+
+export const userProfileSerializer = (instance, attribute: IUserProfile) => {
+    return attribute.serialize();
 };
 
 

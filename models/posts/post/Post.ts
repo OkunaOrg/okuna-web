@@ -23,7 +23,7 @@ import {
     postReactionSerializer,
     postStatusDeserializer, postStatusSerializer,
     reactionsEmojiCountsDeserializer,
-    reactionsEmojiCountsSerializer
+    reactionsEmojiCountsSerializer, userDeserializer, userSerializer
 } from '~/models/common/serializers';
 
 export class Post extends DataModel<Post> implements IPost {
@@ -60,6 +60,12 @@ export class Post extends DataModel<Post> implements IPost {
             attributeKey: 'created',
             deserializer: dateDeserializer,
             serializer: dateSerializer,
+        },
+        {
+            dataKey: 'creator',
+            attributeKey: 'creator',
+            deserializer: userDeserializer,
+            serializer: userSerializer,
         },
         {
             dataKey: 'uuid',

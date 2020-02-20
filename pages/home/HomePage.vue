@@ -1,7 +1,7 @@
 <template>
     <section class="is-flex">
         <ok-header></ok-header>
-        <nuxt-child class="ok-has-background-primary-80 has-width-100-percent is-relative"></nuxt-child>
+        <nuxt-child class="ok-has-background-primary-80 has-width-100-percent is-relative" keep-alive></nuxt-child>
     </section>
 </template>
 
