@@ -60,7 +60,7 @@ export interface ReportCommunityParams {
 }
 
 export interface GetCommunityParams {
-    community: ICommunity;
+    communityName: string;
 }
 
 export interface GetCommunityPostsCountParams {

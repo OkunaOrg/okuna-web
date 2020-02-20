@@ -23,7 +23,7 @@ export class CommunityType {
         }
 
         if (!badgeKeyword) {
-            console.error('Unsupported community type');
+            console.error('Unsupported communityName type');
         }
 
         return badgeKeyword;

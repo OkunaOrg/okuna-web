@@ -173,7 +173,7 @@ export class UserService implements IUserService {
 
     async getCommunity(params: GetCommunityParams): Promise<ICommunity> {
         const response: AxiosResponse<CommunityData> = await this.communitiesApiService.getCommunity({
-            communityName: params.community.name
+            communityName: params.communityName
         });
 
         return communityFactory.make(response.data);

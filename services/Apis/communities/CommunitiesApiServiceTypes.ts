@@ -65,7 +65,7 @@ export class CommunityMembersExclusion {
         }
 
         if (!keyword) {
-            console.error('Unsupported community members exclusion type');
+            console.error('Unsupported communityName members exclusion type');
         }
 
         return keyword;
