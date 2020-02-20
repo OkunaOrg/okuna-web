@@ -156,7 +156,7 @@ export class PostsApiService implements IPostsApiService {
         if (params.listIds) queryParams['list_id'] = params.listIds;
 
         return this.httpService.get(PostsApiService.GET_TIMELINE_POSTS_PATH,
-            {appendAuthorizationToken: true, queryParams, isApiRequest: true});
+            {appendAuthorizationToken: true, queryParams: queryParams, isApiRequest: true});
     }
 
     getPostMedia(params: GetPostMediaApiParams): Promise<AxiosResponse<PostMediaData[]>> {

@@ -400,20 +400,20 @@ export class UserService implements IUserService {
         return emojiGroupFactory.makeMultiple(response.data);
     }
 
-    async getTimelinePosts(params: GetTimelinePostsParams): Promise<IPost[]> {
+    async getTimelinePosts(params: GetTimelinePostsParams = {}): Promise<IPost[]> {
         const response: AxiosResponse<PostData[]> = await this.postsApiService.getTimelinePosts({
             minId: params.minId,
             maxId: params.maxId,
             count: params.count,
             listIds: params.lists ? params.lists.map((listItem) => listItem.id) : null,
             circleIds: params.circles ? params.circles.map((circleItem) => circleItem.id) : null,
-            username: null,
+            username: params.username,
         });
 
         return postFactory.makeMultiple(response.data);
     }
 
-    async getTopPosts(params: GetTopPostsParams): Promise<IPost[]> {
+    async getTopPosts(params: GetTopPostsParams = {}): Promise<IPost[]> {
         const response: AxiosResponse<PostData[]> = await this.postsApiService.getTopPosts({
             minId: params.minId,
             maxId: params.maxId,
@@ -423,7 +423,7 @@ export class UserService implements IUserService {
         return postFactory.makeMultiple(response.data);
     }
 
-    async getTrendingPosts(params: GetTrendingPostsParams): Promise<IPost[]> {
+    async getTrendingPosts(params: GetTrendingPostsParams = {}): Promise<IPost[]> {
         const response: AxiosResponse<PostData[]> = await this.postsApiService.getTopPosts({
             minId: params.minId,
             maxId: params.maxId,

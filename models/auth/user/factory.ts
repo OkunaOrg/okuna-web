@@ -14,7 +14,7 @@ class UserFactory extends IModelFactory<IUser> {
         let user = this.navigationUsersCache.get(userId) || this.sessionUsersCache.get(userId);
 
         if (user) {
-            user.update(data);
+            user.updateWithData(data);
             return user;
         }
 

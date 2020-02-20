@@ -37,7 +37,7 @@
         api = "//hn.algolia.com/api/v1/search_by_date?tags=story";
 
         mounted() {
-            console.log(this.userService);
+            window['userService'] = this.userService;
             //setTimeout(this.scrollToItem, 5000);
         }
 

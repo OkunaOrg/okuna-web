@@ -13,7 +13,7 @@ class CommunityFactory extends IModelFactory<ICommunity> {
         let community = this.cache.get(communityId);
 
         if (community) {
-            community.update(data);
+            community.updateWithData(data);
             return community;
         }
 

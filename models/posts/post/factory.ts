@@ -13,7 +13,7 @@ class PostFactory extends IModelFactory<IPost> {
         let post = this.cache.get(postId);
 
         if (post) {
-            post.update(data);
+            post.updateWithData(data);
             return post;
         }
 

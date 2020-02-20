@@ -98,7 +98,8 @@ export class HttpService implements IHttpService {
                 if (!isLastItem) keyValue += '&';
 
                 queryString += keyValue;
-            })
+            });
+            finalUrl += queryString;
         }
         return finalUrl;
     }
