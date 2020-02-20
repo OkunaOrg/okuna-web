@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { PostMediaData } from '~/types/models-data/posts/PostMediaData';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { PostMedia } from '~/models/posts/post-media/PostMedia';

@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { ICommunityMembership } from '~/models/communities/community/community-membership/ICommunityMembership';
 import { CommunityMembership } from '~/models/communities/community/community-membership/CommunityMembership';
 import { CommunityMembershipData } from '~/types/models-data/communities/CommunityMembershipData';

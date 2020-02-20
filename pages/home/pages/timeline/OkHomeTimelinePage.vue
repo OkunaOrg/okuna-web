@@ -38,14 +38,14 @@
         }
 
         infiniteHandler($state) {
-            this.$axios.get(this.api).then(({data}) => {
+ /*           this.$axios.get(this.api).then(({data}) => {
                 if (data.hits.length) {
                     this.posts.push(...data.hits);
                     $state.loaded();
                 } else {
                     $state.complete();
                 }
-            });
+            });*/
         }
 
         scrollToItem() {

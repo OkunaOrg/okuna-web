@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { LruCache } from '~/lib/caches/LruCache';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';

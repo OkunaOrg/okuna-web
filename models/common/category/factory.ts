@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { CategoryData } from 'types/models-data/common/CategoryData';
 import { Category } from '~/models/common/category/Category';
 import { ICategory } from '~/models/common/category/ICategory';

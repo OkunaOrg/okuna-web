@@ -1,8 +1,7 @@
-import { DataModel } from 'models/abstract/DataModel';
-import { IModelFactory } from 'interfaces/IModelFactory';
-import { ModerationCategoryData } from 'types/models-data/common/ModerationCategoryData';
-import { ModerationCategory } from '~/models/common/moderationCategory/ModerationCategory';
-import { IModerationCategory } from '~/models/common/moderationCategory/IModerationCategory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
+import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
+import { ModerationCategory } from '~/models/moderation/moderation_category/ModerationCategory';
+import { ModerationCategoryData } from '~/types/models-data/moderation/ModerationCategoryData';
 
 class ModerationCategoryFactory extends IModelFactory<IModerationCategory> {
     make(data: ModerationCategoryData): IModerationCategory {

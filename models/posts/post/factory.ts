@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { LruCache } from '~/lib/caches/LruCache';
 import { IPost } from '~/models/posts/post/IPost';
 import { Post } from '~/models/posts/post/Post';

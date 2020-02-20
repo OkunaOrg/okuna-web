@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { UserData } from 'types/models-data/auth/UserData';
 import { User } from '~/models/auth/user/User';
 import { IUser } from '~/models/auth/user/IUser';

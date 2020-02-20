@@ -1,7 +1,7 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { EmojiGroupData } from 'types/models-data/common/EmojiGroupData';
-import { EmojiGroup } from '~/models/common/emojiGroup/EmojiGroup';
-import { IEmojiGroup } from '~/models/common/emojiGroup/IEmojiGroup';
+import { IEmojiGroup } from '~/models/common/emoji-group/IEmojiGroup';
+import { EmojiGroup } from '~/models/common/emoji-group/EmojiGroup';
 
 class EmojiGroupFactory extends IModelFactory<IEmojiGroup> {
     make(data: EmojiGroupData): IEmojiGroup {

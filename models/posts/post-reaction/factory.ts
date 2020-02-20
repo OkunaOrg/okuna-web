@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { PostReaction } from '~/models/posts/post-reaction/PostReaction';

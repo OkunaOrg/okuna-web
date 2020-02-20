@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { LanguageData } from 'types/models-data/common/LanguageData';
 import { Language } from '~/models/common/language/Language';
 import { ILanguage } from '~/models/common/language/ILanguage';

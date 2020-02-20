@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { PostVideoFormatData } from '~/types/models-data/posts/PostVideoFormatData';
 import { PostVideoFormat } from '~/models/posts/post-video-format/PostVideoFormat';
 import { IPostVideoFormat } from '~/models/posts/post-video-format/IPostVideoFormat';

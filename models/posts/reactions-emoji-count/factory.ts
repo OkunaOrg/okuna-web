@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
 import { ReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/ReactionsEmojiCount';
 import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';

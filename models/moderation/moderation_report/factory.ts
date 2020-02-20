@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { IModerationReport } from '~/models/moderation/moderation_report/IModerationReport';
 import { ModerationReportData } from '~/types/models-data/moderation/ModerationReportData';
 import { ModerationReport } from '~/models/moderation/moderation_report/ModerationReport';

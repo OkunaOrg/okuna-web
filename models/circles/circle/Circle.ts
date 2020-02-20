@@ -1,10 +1,10 @@
-import { ICircle } from 'models/circles/circle/ICircle';
-import { IUser } from 'models/auth/user/IUser';
-import userFactory from 'models/auth/user/factory';
-import { DataModel } from 'models/abstract/DataModel';
-import { UserData } from 'types/models-data/auth/UserData';
-import { DataModelAttributeMap } from 'models/abstract/IDataModel';
-import { ModelData } from 'types/models-data/ModelData';
+import { ICircle } from '~/models/circles/circle/ICircle';
+import { IUser } from '~/models/auth/user/IUser';
+import userFactory from '~/models/auth/user/factory';
+import { DataModel } from '~/models/abstract/DataModel';
+import { UserData } from '~/types/models-data/auth/UserData';
+import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
+import { ModelData } from '~/types/models-data/ModelData';
 
 export class Circle extends DataModel<Circle> implements ICircle {
     creator!: IUser;

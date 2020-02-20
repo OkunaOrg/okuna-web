@@ -1,4 +1,4 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
+import { IModelFactory } from '~/interfaces/IModelFactory';
 import { ITheme } from '~/models/common/theme/ITheme';
 import { Theme } from '~/models/common/theme/Theme';
 import { ThemeData } from '~/types/models-data/common/ThemeData';

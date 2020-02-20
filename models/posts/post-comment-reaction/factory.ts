@@ -1,7 +1,7 @@
-import { IModelFactory } from 'interfaces/IModelFactory';
-import { PostCommentReactionData } from '~/types/models-data/postComments/PostCommentReactionData';
-import { IPostCommentReaction } from '~/models/postComments/postComment-reaction/IPostCommentReaction';
-import { PostCommentReaction } from '~/models/postComments/postComment-reaction/PostCommentReaction';
+import { IModelFactory } from '~/interfaces/IModelFactory';
+import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
+import { PostCommentReactionData } from '~/types/models-data/posts/PostCommentReactionData';
+import { PostCommentReaction } from '~/models/posts/post-comment-reaction/PostCommentReaction';
 
 class PostCommentReactionFactory extends IModelFactory<IPostCommentReaction> {
     make(data: PostCommentReactionData): IPostCommentReaction {
