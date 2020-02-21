@@ -1,5 +1,14 @@
 <template>
-    <text-highlight :queries="textHighlightQueries" :highlight-class="highlightClass">Hello #Everyone @this is a c/test https://www.google.com</text-highlight>
+    <text-highlight
+            :queries="textHighlightQueries"
+            :highlightComponent="customTextHighlightItem"
+            @onHashtagPressed="onHashtagPressed"
+            @onUsernamePressed="onUsernamePressed"
+            @onCommunityNamePressed="onCommunityNamePressed"
+            @onUrlPressed="onUrlPressed"
+    >Hello #Everyone @this is a c/test
+        https://www.google.com
+    </text-highlight>
 </template>
 
 <style lang="scss" scoped>
@@ -13,6 +22,7 @@
     import UsernameMatcher from "~/lib/matchers/UsernameMatcher";
     import UrlMatcher from "~/lib/matchers/UrlMatcher";
     import CommunitynameMatcher from "~/lib/matchers/CommunityNameMatcher";
+    import OkSmartTextHighlightedItem from "~/components/smart-text/components/SmartTextHighlightedItem.vue";
 
     @Component({
         name: "OkSmartText",
@@ -21,6 +31,7 @@
 
         @Prop(String) readonly text: string;
 
+        customTextHighlightItem = OkSmartTextHighlightedItem;
 
         textHighlightQueries = [
             HashtagMatcher,
@@ -29,8 +40,21 @@
             CommunitynameMatcher
         ];
 
-        highlightClass = 'has-text-weight-bold';
+        onUrlPressed(url: string){
+            console.log('You pressed url', url);
+        }
+
+        onUsernamePressed(username: string){
+            console.log('You pressed username', username);
+        }
 
 
+        onHashtagPressed(hashtag: string){
+            console.log('You pressed hashtag', hashtag);
+        }
+
+        onCommunityNamePressed(communityName: string){
+            console.log('You pressed communityName', communityName);
+        }
     }
 </script>
