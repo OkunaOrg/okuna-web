@@ -21,10 +21,6 @@ Vue.use(Router);
 export function createRouter() {
     return new Router({
         mode: 'history',
-        scrollBehavior(to, from, savedPosition){
-            console.log('HEYA');
-            return false;
-        },
         routes: [
             {
                 path: '/',
