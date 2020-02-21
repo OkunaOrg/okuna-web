@@ -31,7 +31,7 @@
         @Prop(Object) readonly avatarFile: File;
         @Prop(Number) readonly avatarSize: OkAvatarSize;
 
-        readonly OkAvatarSize: OkAvatarSize = OkAvatarSize;
+        readonly OkAvatarSize = OkAvatarSize;
 
         get finalAvatarUrl () {
             if(this.avatarFile) return URL.createObjectURL(this.avatarFile);

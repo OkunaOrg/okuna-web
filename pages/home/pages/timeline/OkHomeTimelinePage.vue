@@ -65,7 +65,6 @@
                 maxId: lastPostId,
                 username: "komposten"
             }).then((timelinePosts) => {
-                console.log(timelinePosts);
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);
                     $state.loaded();

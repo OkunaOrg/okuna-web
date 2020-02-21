@@ -9,7 +9,6 @@ export interface PostVideoData extends ModelData {
     height: number;
     thumbnail: string;
     duration: number;
-    file: string;
     thumbnail_height: number;
     thumbnail_width: number;
     format_set: PostVideoFormatData[];

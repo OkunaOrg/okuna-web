@@ -4,11 +4,9 @@
             <div class="card-content">
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
-            <ok-post-media :post="post"></ok-post-media>
+            <ok-post-media :post="post" v-if="post.mediaThumbnail"></ok-post-media>
             <div class="card-content">
-                <div class="content">
-                    <ok-post-text :post="post"></ok-post-text>
-                </div>
+                <ok-post-text :post="post"></ok-post-text>
             </div>
         </div>
     </div>
@@ -23,8 +21,8 @@
     import { IPost } from '~/models/posts/post/IPost';
     import OkPostHeader from '~/components/post/components/post-header/PostHeader.vue';
     import OkPostText from '~/components/post/components/PostText.vue';
-    import OkPostMedia from '~/components/post/components/PostMedia.vue';
     import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
+    import OkPostMedia from '~/components/post/components/post-media/PostMedia.vue';
 
     @Component({
         name: "OkPost",

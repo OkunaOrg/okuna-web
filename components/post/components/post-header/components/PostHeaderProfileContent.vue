@@ -34,7 +34,7 @@
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;
 
-        OkAvatarSize: OkAvatarSize = OkAvatarSize;
+        OkAvatarSize = OkAvatarSize;
 
         broadcastWantsToOpenPostActions(){
             this.$emit('onWantsToOpenPostActions', this.post);

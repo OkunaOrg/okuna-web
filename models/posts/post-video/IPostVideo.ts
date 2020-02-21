@@ -7,7 +7,6 @@ export interface IPostVideo extends IDataModel<IPostVideo> {
     height: number;
     thumbnail: string;
     duration: number;
-    file: string;
     thumbnailHeight: number;
     thumbnailWidth: number;
     formatSet: IPostVideoFormat[];

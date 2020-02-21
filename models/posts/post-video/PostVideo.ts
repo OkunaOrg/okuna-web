@@ -9,7 +9,6 @@ import { postVideoFormatsDeserializer, postVideoFormatsSerializer } from '~/mode
 export class PostVideo extends DataModel<PostVideo> implements IPostVideo {
 
     duration: number;
-    file: string;
     formatSet: IPostVideoFormat[];
     height: number;
     thumbnail: string;

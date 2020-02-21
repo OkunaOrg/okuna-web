@@ -45,6 +45,8 @@ export default {
         '~/plugins/vue-scroll-to',
         '~/plugins/scroll-behavior',
         '~/plugins/vue-moment',
+        '~/plugins/vue-progressive-image',
+        '~/plugins/vue-video-player',
     ],
     router: {
         middleware: ['post-redirect'],

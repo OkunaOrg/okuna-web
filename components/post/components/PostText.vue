@@ -1,7 +1,9 @@
 <template>
-    <span>
+    <div class="content ok-has-text-primary-invert">
+        <span>
         {{post.text}}
-    </span>
+        </span>
+    </div>
 </template>
 
 <style lang="scss" scoped>
