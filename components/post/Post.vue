@@ -5,7 +5,7 @@
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
             <ok-post-media :post="post" v-if="post.mediaThumbnail"></ok-post-media>
-            <div class="card-content">
+            <div class="card-content" v-if="post.text">
                 <ok-post-text :post="post"></ok-post-text>
             </div>
         </div>

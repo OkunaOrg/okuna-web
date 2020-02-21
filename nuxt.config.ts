@@ -47,6 +47,7 @@ export default {
         '~/plugins/vue-moment',
         '~/plugins/vue-progressive-image',
         '~/plugins/vue-video-player',
+        '~/plugins/vue-highlight',
     ],
     router: {
         middleware: ['post-redirect'],

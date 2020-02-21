@@ -51,6 +51,7 @@
     "vue-rx": "^6.2.0",
     "vue-scroll-behavior": "^0.2.0",
     "vue-scrollto": "^2.17.1",
+    "vue-text-highlight": "^2.0.10",
     "vue-video-player": "^5.0.2",
     "vuelidate": "^0.7.5",
     "vuelidate-property-decorators": "^1.0.28",

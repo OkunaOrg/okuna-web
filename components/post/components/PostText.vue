@@ -1,8 +1,6 @@
 <template>
     <div class="content ok-has-text-primary-invert">
-        <span>
-        {{post.text}}
-        </span>
+        <ok-smart-text :text="post.text"></ok-smart-text>
     </div>
 </template>
 
@@ -13,10 +11,11 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
+    import OkSmartText from "~/components/smart-text/SmartText.vue";
 
     @Component({
         name: "OkPostText",
-
+        components: {OkSmartText},
     })
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;
