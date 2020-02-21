@@ -3,7 +3,7 @@
         <div class="timeline-posts-stream">
             <div v-for="post in posts" :key="post.id">
                 <!-- Hacker News item loop -->
-                <ok-post :post="post"></ok-post>
+                <ok-post :post="post" :post-display-context="postDisplayContext"></ok-post>
             </div>
             asdas
 
@@ -15,12 +15,12 @@
 
 <style scoped lang="scss">
 
-    .timeline-posts{
+    .timeline-posts {
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        &-stream{
+        &-stream {
             max-width: 635px;
             min-width: 635px;
         }
@@ -36,7 +36,8 @@
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPost from '~/components/post/Post.vue';
+    import OkPost from "~/components/post/Post.vue";
+    import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
 
     @Component({
         components: {OkPost},
@@ -46,6 +47,7 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         posts: IPost[] = [];
+        postDisplayContext = PostDisplayContext.timelinePosts;
 
         mounted() {
             //setTimeout(this.scrollToItem, 5000);
@@ -61,7 +63,7 @@
 
             this.userService.getTimelinePosts({
                 maxId: lastPostId,
-                username: 'komposten'
+                username: "komposten"
             }).then((timelinePosts) => {
                 console.log(timelinePosts);
                 if (timelinePosts.length) {

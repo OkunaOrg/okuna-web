@@ -44,6 +44,7 @@ export default {
         '~/plugins/vue-infinite-loading',
         '~/plugins/vue-scroll-to',
         '~/plugins/scroll-behavior',
+        '~/plugins/vue-moment',
     ],
     router: {
         middleware: ['post-redirect'],

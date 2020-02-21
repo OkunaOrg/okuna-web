@@ -2,7 +2,7 @@
     <div class="has-padding-30">
         <div class="card ok-has-background-primary">
             <div class="card-content">
-                <ok-post-header :post="post"></ok-post-header>
+                <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
             <ok-post-media :post="post"></ok-post-media>
             <div class="card-content">
@@ -24,6 +24,7 @@
     import OkPostHeader from '~/components/post/components/post-header/PostHeader.vue';
     import OkPostText from '~/components/post/components/PostText.vue';
     import OkPostMedia from '~/components/post/components/PostMedia.vue';
+    import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
 
     @Component({
         name: "OkPost",
@@ -32,6 +33,8 @@
     export default class extends Vue {
 
         @Prop(Object) readonly post: IPost;
+
+        @Prop(Number) readonly postDisplayContext: PostDisplayContext;
 
     }
 </script>
