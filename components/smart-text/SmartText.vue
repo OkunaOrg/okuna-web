@@ -6,8 +6,8 @@
             @onUsernamePressed="onUsernamePressed"
             @onCommunityNamePressed="onCommunityNamePressed"
             @onUrlPressed="onUrlPressed"
-    >Hello #Everyone @this is a c/test
-        https://www.google.com
+    >
+        {{text}}
     </text-highlight>
 </template>
 
@@ -40,21 +40,21 @@
             CommunitynameMatcher
         ];
 
-        onUrlPressed(url: string){
-            console.log('You pressed url', url);
+        onUrlPressed(url: string) {
+            console.log("You pressed url", url);
         }
 
-        onUsernamePressed(username: string){
-            console.log('You pressed username', username);
+        onUsernamePressed(username: string) {
+            console.log("You pressed username", username);
         }
 
 
-        onHashtagPressed(hashtag: string){
-            console.log('You pressed hashtag', hashtag);
+        onHashtagPressed(hashtag: string) {
+            console.log("You pressed hashtag", hashtag);
         }
 
-        onCommunityNamePressed(communityName: string){
-            console.log('You pressed communityName', communityName);
+        onCommunityNamePressed(communityName: string) {
+            console.log("You pressed communityName", communityName);
         }
     }
 </script>

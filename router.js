@@ -59,6 +59,26 @@ export function createRouter() {
                         ]
                     },
                     {
+                        path: 'h',
+                        component: HomeCommunitiesPage,
+                        children: [
+                            {
+                                path: ':hashtagName',
+                                component: HomeCommunityPage,
+                                children: [
+                                    {
+                                        path: '',
+                                        component: HomeCommunityProfilePage
+                                    },
+                                    {
+                                        path: 'e',
+                                        component: HomeCommunityEditPage
+                                    },
+                                ]
+                            },
+                        ]
+                    },
+                    {
                         path: ':username',
                         component: HomeUserPage,
                         children: [

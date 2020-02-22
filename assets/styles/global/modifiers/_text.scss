@@ -21,7 +21,13 @@
 }
 
 .has-no-hover-text-decoration{
+   &:hover{
+     text-decoration: none !important;
+   }
+ }
+
+.has-no-hover-text-color{
   &:hover{
-    text-decoration: none !important;
+    color: inherit !important;
   }
 }
