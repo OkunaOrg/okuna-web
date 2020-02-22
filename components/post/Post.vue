@@ -12,7 +12,7 @@
             <footer class="card-footer">
                 <div class="card-footer-item is-borderless">
                     <button class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center">
-                        <ok-react-icon class="is-icon-2x"></ok-react-icon>
+                        <ok-react-icon class="is-icon-2x ok-svg-icon-primary-invert"></ok-react-icon>
                         <span class="has-padding-left-10 ok-has-text-primary-invert">
                             React
                         </span>
@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-footer-item">
                     <button class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center">
-                        <ok-comment-icon class="is-icon-2x"></ok-comment-icon>
+                        <ok-comment-icon class="is-icon-2x ok-svg-icon-primary-invert"></ok-comment-icon>
                         <span class="has-padding-left-10 ok-has-text-primary-invert">
                             Comment
                         </span>

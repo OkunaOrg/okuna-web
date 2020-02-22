@@ -21,7 +21,7 @@
         </div>
         <div class="column is-narrow is-flex align-items-center">
             <div class="card-header-icon" aria-label="more options">
-                <ok-more-vertical class="is-icon-2x"></ok-more-vertical>
+                <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
             </div>
         </div>
     </header>
