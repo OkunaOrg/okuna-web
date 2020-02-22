@@ -40,10 +40,10 @@
 
 
             return {
-                muted: false,
+                muted: true,
                 language: "en",
                 loop: true,
-                autoplay: false,
+                autoplay: true,
                 fluid: true,
                 sources: [{
                     type: "video/mp4",

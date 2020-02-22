@@ -5,7 +5,7 @@
                 <!-- Hacker News item loop -->
                 <ok-post :post="post" :post-display-context="postDisplayContext"></ok-post>
             </div>
-            asdas
+            <span></span>
 
             <infinite-loading @infinite="infiniteHandler"></infinite-loading>
         </div>
