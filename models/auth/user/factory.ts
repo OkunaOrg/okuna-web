@@ -6,12 +6,12 @@ import { LruCache } from '~/lib/caches/LruCache';
 
 class UserFactory extends IModelFactory<IUser> {
     private sessionUsersCache: LruCache<number, User> = new LruCache(10);
-    private navigationUsersCache: LruCache<number, User> = new LruCache(100);
+    private navigationUsersCache: LruCache<number, User> = new LruCache(200);
 
     make(data: UserData, config: {storeInSessionCache: boolean} = {storeInSessionCache: true}): IUser {
         const userId = data.id;
 
-        let user = this.navigationUsersCache.get(userId) || this.sessionUsersCache.get(userId);
+        let user = this.sessionUsersCache.get(userId) || this.navigationUsersCache.get(userId);
 
         if (user) {
             user.updateWithData(data);

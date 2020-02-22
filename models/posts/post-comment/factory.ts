@@ -1,7 +1,7 @@
 import { IModelFactory } from '~/interfaces/IModelFactory';
 import { PostCommentData } from '~/types/models-data/posts/PostCommentData';
-import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
-import { PostComment } from '~/models/posts/post-comment/PostReaction';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
+import { PostComment } from '~/models/posts/post-comment/PostComment';
 
 class PostCommentFactory extends IModelFactory<IPostComment> {
     make(data: PostCommentData): IPostComment {

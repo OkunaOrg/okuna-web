@@ -54,7 +54,7 @@ import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import communityFactory from '~/models/communities/community/factory';
 import { UserData } from '~/types/models-data/auth/UserData';
-import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPost } from '~/models/posts/post/IPost';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
@@ -77,6 +77,10 @@ import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
 import emojiGroupFactory from '~/models/common/emoji-group/factory';
 import { IList } from '~/models/lists/list/IList';
 import { ICircle } from '~/models/circles/circle/ICircle';
+import { TrendingPostData } from '~/types/models-data/posts/TrendingPostData';
+import { TopPostData } from '~/types/models-data/posts/TopPostData';
+import trendingPostFactory from '~/models/posts/trending-post/factory';
+import topPostFactory from '~/models/posts/top-post/factory';
 
 @injectable()
 export class UserService implements IUserService {
@@ -414,23 +418,23 @@ export class UserService implements IUserService {
     }
 
     async getTopPosts(params: GetTopPostsParams = {}): Promise<IPost[]> {
-        const response: AxiosResponse<PostData[]> = await this.postsApiService.getTopPosts({
+        const response: AxiosResponse<TopPostData[]> = await this.postsApiService.getTopPosts({
             minId: params.minId,
             maxId: params.maxId,
             count: params.count,
         });
 
-        return postFactory.makeMultiple(response.data);
+        return topPostFactory.makeMultiple(response.data).map((topPost) => topPost.post);
     }
 
     async getTrendingPosts(params: GetTrendingPostsParams = {}): Promise<IPost[]> {
-        const response: AxiosResponse<PostData[]> = await this.postsApiService.getTopPosts({
+        const response: AxiosResponse<TrendingPostData[]> = await this.postsApiService.getTrendingPosts({
             minId: params.minId,
             maxId: params.maxId,
             count: params.count,
         });
 
-        return postFactory.makeMultiple(response.data);
+        return trendingPostFactory.makeMultiple(response.data).map((trendingPost) => trendingPost.post);
     }
 
     async reactToPost(params: ReactToPostParams): Promise<IPostReaction> {

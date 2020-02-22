@@ -18,7 +18,7 @@ import {
 } from '~/models/common/serializers';
 import { IPost } from '~/models/posts/post/IPost';
 import { IUser } from '~/models/auth/user/IUser';
-import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { ILanguage } from '~/models/common/language/ILanguage';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';

@@ -19,7 +19,7 @@ import postVideoFactory from '~/models/posts/post-video/factory';
 import postImageFactory from '~/models/posts/post-image/factory';
 import { PostCommentData } from '~/types/models-data/posts/PostCommentData';
 import postCommentFactory from '~/models/posts/post-comment/factory';
-import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { HashtagData } from '~/types/models-data/common/HashtagData';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import hashtagFactory from '~/models/common/hashtag/factory';

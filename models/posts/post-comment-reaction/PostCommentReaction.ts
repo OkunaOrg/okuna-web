@@ -11,7 +11,7 @@ import {
 import { IEmoji } from '~/models/common/emoji/IEmoji';
 import { IUser } from '~/models/auth/user/IUser';
 import { IPostCommentReaction } from './IPostCommentReaction';
-import { IPostComment } from '../post-comment/IPostReaction';
+import { IPostComment } from '../post-comment/IPostComment';
 
 
 export class PostCommentReaction extends DataModel<PostCommentReaction> implements IPostCommentReaction {

@@ -1,5 +1,5 @@
 <template>
-    <div class="has-padding-30">
+    <article class="has-padding-30">
         <div class="card ok-has-background-primary">
             <div class="card-content">
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
@@ -28,7 +28,7 @@
                 </div>
             </footer>
         </div>
-    </div>
+    </article>
 </template>
 
 <style lang="scss" scoped>
@@ -53,6 +53,10 @@
         @Prop(Object) readonly post: IPost;
 
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
+
+        mounted(){
+            console.log(this.post.creator);
+        }
 
     }
 </script>

@@ -32,6 +32,8 @@ import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
 import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';
 import { PostCommentReactionData } from '~/types/models-data/posts/PostCommentReactionData';
 import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
+import { TrendingPostData } from '~/types/models-data/posts/TrendingPostData';
+import { TopPostData } from '~/types/models-data/posts/TopPostData';
 
 @injectable()
 export class PostsApiService implements IPostsApiService {
@@ -112,7 +114,7 @@ export class PostsApiService implements IPostsApiService {
 
     }
 
-    getTopPosts(params: GetTopPostsApiParams): Promise<AxiosResponse<PostData[]>> {
+    getTopPosts(params: GetTopPostsApiParams): Promise<AxiosResponse<TopPostData[]>> {
         let queryParams = {};
         if (params.count) queryParams['count'] = params.count;
 
@@ -128,7 +130,7 @@ export class PostsApiService implements IPostsApiService {
     }
 
 
-    getTrendingPosts(params: GetTrendingPostsApiParams): Promise<AxiosResponse<PostData[]>> {
+    getTrendingPosts(params: GetTrendingPostsApiParams): Promise<AxiosResponse<TrendingPostData[]>> {
         let queryParams = {};
         if (params.count) queryParams['count'] = params.count;
 

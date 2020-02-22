@@ -25,12 +25,14 @@ import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
 import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';
 import { PostCommentReactionData } from '~/types/models-data/posts/PostCommentReactionData';
 import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
+import { TopPostData } from '~/types/models-data/posts/TopPostData';
+import { TrendingPostData } from '~/types/models-data/posts/TrendingPostData';
 
 
 export interface IPostsApiService {
-    getTopPosts(params: GetTopPostsApiParams): Promise<AxiosResponse<PostData[]>>;
+    getTopPosts(params: GetTopPostsApiParams): Promise<AxiosResponse<TopPostData[]>>;
 
-    getTrendingPosts(params: GetTrendingPostsApiParams): Promise<AxiosResponse<PostData[]>>;
+    getTrendingPosts(params: GetTrendingPostsApiParams): Promise<AxiosResponse<TrendingPostData[]>>;
 
     getTimelinePosts(params: GetTimelinePostsApiParams): Promise<AxiosResponse<PostData[]>>;
 

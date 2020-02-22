@@ -35,7 +35,7 @@ import {
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
-import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';

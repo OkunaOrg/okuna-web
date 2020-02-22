@@ -6,7 +6,7 @@ import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { ILanguage } from '~/models/common/language/ILanguage';
 import { PostStatus } from '~/models/posts/post/lib/PostStatus';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
-import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 

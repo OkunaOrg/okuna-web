@@ -1,23 +1,30 @@
 <template>
-    <div>
-        <ok-post-header-community-content
-                v-if="this.postDisplayContext === this.PostDisplayContext.communityPosts"
-                :post="this.post"
-                @on-wants-to-open-post-actions="this.onWantsToOpenPostActions"
-        >
-        </ok-post-header-community-content>
-        <ok-post-header-timeline-content
-                v-if="this.postDisplayContext === this.PostDisplayContext.timelinePosts"
-                :post="this.post"
-                @on-wants-to-open-post-actions="this.onWantsToOpenPostActions">
-        </ok-post-header-timeline-content>
-        <ok-post-header-profile-content
-                v-else-if="this.postDisplayContext === this.PostDisplayContext.ownProfilePosts || this.postDisplayContext === this.PostDisplayContext.foreignProfilePosts"
-                :post="this.post"
-                @on-wants-to-open-post-actions="this.onWantsToOpenPostActions"
-        >
-        </ok-post-header-profile-content>
-    </div>
+    <header class="columns is-mobile">
+        <div class="column is-flex align-items-center">
+            <ok-post-header-community-content
+                    v-if="this.postDisplayContext === this.PostDisplayContext.communityPosts"
+                    :post="this.post"
+                    @on-wants-to-open-post-actions="this.onWantsToOpenPostActions"
+            >
+            </ok-post-header-community-content>
+            <ok-post-header-timeline-content
+                    v-if="this.postDisplayContext === this.PostDisplayContext.timelinePosts"
+                    :post="this.post"
+                    @on-wants-to-open-post-actions="this.onWantsToOpenPostActions">
+            </ok-post-header-timeline-content>
+            <ok-post-header-profile-content
+                    v-else-if="this.postDisplayContext === this.PostDisplayContext.ownProfilePosts || this.postDisplayContext === this.PostDisplayContext.foreignProfilePosts"
+                    :post="this.post"
+                    @on-wants-to-open-post-actions="this.onWantsToOpenPostActions"
+            >
+            </ok-post-header-profile-content>
+        </div>
+        <div class="column is-narrow is-flex align-items-center">
+            <div class="card-header-icon" aria-label="more options">
+                <ok-more-vertical class="is-icon-2x"></ok-more-vertical>
+            </div>
+        </div>
+    </header>
 </template>
 
 <style lang="scss" scoped>

@@ -4,7 +4,7 @@ import { IModerationCategory } from '~/models/moderation/moderation_category/IMo
 import { IList } from '~/models/lists/list/IList';
 import { ICircle } from '~/models/circles/circle/ICircle';
 import { IPost } from '~/models/posts/post/IPost';
-import { IPostComment } from '~/models/posts/post-comment/IPostReaction';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { GetCommentsForPostSortType } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { IEmoji } from '~/models/common/emoji/IEmoji';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
