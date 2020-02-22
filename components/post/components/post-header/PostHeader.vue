@@ -49,7 +49,6 @@
         OkAvatarSize = OkAvatarSize;
 
         mounted() {
-            console.log(this.postDisplayContext);
         }
 
         onWantsToOpenPostActions(post: IPost) {

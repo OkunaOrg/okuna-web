@@ -8,6 +8,7 @@
             <div class="card-content" v-if="post.text">
                 <ok-post-text :post="post"></ok-post-text>
             </div>
+            <ok-post-reactions :post="post"></ok-post-reactions>
         </div>
     </div>
 </template>
@@ -23,12 +24,13 @@
     import OkPostText from '~/components/post/components/PostText.vue';
     import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
     import OkPostMedia from '~/components/post/components/post-media/PostMedia.vue';
+    import OkPostReactions from '~/components/post/components/post-reactions/PostReactions.vue';
 
     @Component({
         name: "OkPost",
-        components: {OkPostMedia, OkPostText, OkPostHeader},
+        components: {OkPostReactions, OkPostMedia, OkPostText, OkPostHeader},
     })
-    export default class extends Vue {
+    export default class OkPost extends Vue {
 
         @Prop(Object) readonly post: IPost;
 

@@ -29,7 +29,6 @@
 
         mounted(){
             this.isCommentsPage = !this.$route.params['postComment'];
-            console.log(this.$route);
         }
     }
 </script>

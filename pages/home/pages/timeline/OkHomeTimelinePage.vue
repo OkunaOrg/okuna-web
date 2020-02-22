@@ -42,7 +42,7 @@
     @Component({
         components: {OkPost},
     })
-    export default class extends Vue {
+    export default class OkHomeTimelinePage extends Vue {
         $route!: Route;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
@@ -63,7 +63,7 @@
 
             this.userService.getTimelinePosts({
                 maxId: lastPostId,
-                username: "komposten"
+                username: "joel"
             }).then((timelinePosts) => {
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);
@@ -93,7 +93,6 @@
             };
 
             var element = document.querySelector("#highlighted-post");
-            console.log(element);
 
 
             this.$scrollTo(element, 500, options);
