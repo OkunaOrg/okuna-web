@@ -61,9 +61,9 @@
             if (lastPost) lastPostId = lastPost.id;
 
 
-            this.userService.getTrendingPosts({
+            this.userService.getTimelinePosts({
                 maxId: lastPostId,
-                //username: "joel"
+                username: "joel"
             }).then((timelinePosts) => {
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);

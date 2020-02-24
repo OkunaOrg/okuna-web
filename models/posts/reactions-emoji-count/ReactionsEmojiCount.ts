@@ -10,7 +10,6 @@ import { emojiDeserializer, emojiSerializer } from '~/models/common/serializers'
 
 
 export class ReactionsEmojiCount extends DataModel<ReactionsEmojiCount> implements IReactionsEmojiCount {
-
     emoji: Emoji;
     count: number;
 

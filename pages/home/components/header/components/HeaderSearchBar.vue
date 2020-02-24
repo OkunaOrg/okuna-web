@@ -24,6 +24,13 @@
 <style lang="scss" scoped>
 
     .ok-header-search-bar {
+
+        input{
+            width: 427px;
+            position: relative;
+            left: 4rem;
+        }
+
         .material-design-icon {
             bottom: 0.1rem;
         }
@@ -34,7 +41,7 @@
             }
 
             .icon.is-left {
-                left: 2.7rem !important;
+                left: 13.7rem !important;
                 bottom: 1.2rem;
             }
 

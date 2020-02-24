@@ -1,5 +1,8 @@
 <template>
-    <button @click="onPressed" class="button is-rounded is-small ok-has-background-primary-highlight is-borderless">
+    <button @click="onPressed"
+            class="button is-rounded is-small ok-has-background-primary-highlight is-borderless"
+            :class="{'has-text-weight-bold': isCurrentReaction}"
+    >
     <span class="image is-16x16">
                 <img :src="emojiCount.emoji.image" :alt="emojiCount.emoji.keyword">
     </span>
@@ -21,7 +24,10 @@
     })
     export default class OkEmojiReactionButton extends Vue {
         @Prop(Object) readonly emojiCount: IReactionsEmojiCount;
-        @Prop(Boolean) readonly reacted: boolean;
+        @Prop({
+            type: Boolean,
+            default: false
+        }) readonly isCurrentReaction: boolean;
 
 
         mounted() {

@@ -27,3 +27,8 @@
   border-radius: 6px;
   overflow: hidden;
 }
+
+.is-loading{
+  opacity: 0.6 !important;
+  pointer-events: none !important;
+}

@@ -25,6 +25,8 @@ import {
     reactionsEmojiCountsDeserializer,
     reactionsEmojiCountsSerializer, userDeserializer, userSerializer
 } from '~/models/common/serializers';
+import reactionsEmojiCountFactory from '~/models/posts/reactions-emoji-count/factory';
+import { EmojiData } from '~/types/models-data/common/EmojiData';
 
 export class Post extends DataModel<Post> implements IPost {
     created?: Date;
@@ -186,8 +188,65 @@ export class Post extends DataModel<Post> implements IPost {
     constructor(data: ModelData) {
         super(data);
         this.updateWithData(data);
-        console.log(data);
-        console.log(this.creator);
+    }
+
+    setReaction(newReaction: IPostReaction): void {
+        const hasExistingReaction = !!this.reaction;
+
+        if (!hasExistingReaction && newReaction == null) {
+            throw 'Trying to remove no reaction';
+        }
+
+        const newEmojiCounts = this.reactionsEmojiCounts.slice(0);
+
+
+        if (hasExistingReaction) {
+            // Find and unset the current reaction
+            const existingReactionEmojiCount = newEmojiCounts.find((emojiCount) => {
+                return emojiCount.emoji.id == this.reaction.emoji.id;
+            });
+
+            if (existingReactionEmojiCount.count > 1) {
+                // If its not the only reaction for this emoji, decrement it
+                existingReactionEmojiCount.count -= 1;
+            } else {
+                // If its the only reaction for this emoji, remove it altogether
+                const indexOfExistingReactionEmojiCount = newEmojiCounts.indexOf(existingReactionEmojiCount);
+                newEmojiCounts.splice(indexOfExistingReactionEmojiCount, 1);
+            }
+        }
+
+        if (newReaction) {
+            const newReactionEmojiCount = newEmojiCounts.find((emojiCount) => {
+                return emojiCount.emoji.id == newReaction.emoji.id;
+            });
+
+            if (newReactionEmojiCount) {
+                // Up existing count
+                newReactionEmojiCount.count += 1;
+            } else {
+                const serializedEmoji = newReaction.emoji.serialize();
+                const emojiData = JSON.parse(serializedEmoji) as EmojiData;
+                // Add new emoji count
+                const newEmojiCount = reactionsEmojiCountFactory.make({
+                    // Arg. All data models require ID
+                    id: 999,
+                    emoji: emojiData,
+                    count: 1
+                });
+
+
+                newEmojiCounts
+                    .push(newEmojiCount);
+            }
+        }
+
+        this.reaction = newReaction;
+        this.reactionsEmojiCounts = newEmojiCounts;
+    }
+
+    clearReaction() : void{
+        this.setReaction(null);
     }
 
 }

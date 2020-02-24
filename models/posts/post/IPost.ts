@@ -38,4 +38,7 @@ export interface IPost extends IDataModel<IPost> {
     isEdited?: boolean;
     isClosed?: boolean;
     isReported?: boolean;
+
+    clearReaction() : void;
+    setReaction(newReaction: IPostReaction): void;
 }

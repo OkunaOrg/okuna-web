@@ -47,8 +47,8 @@
     })
     export default class AuthLoginPage extends Vue {
 
-        private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
         private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
+        private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
         private logger: IOkLogger;
 
         mounted() {
