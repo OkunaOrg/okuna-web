@@ -30,7 +30,9 @@ export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T>
     };
 
     serialize(): string {
-        let result = {};
+        let result = {
+            id: this.id
+        };
 
         this.dataMaps.forEach((dataMap: DataModelAttributeMap<any>) => {
             let attributeKey = dataMap.attributeKey;
