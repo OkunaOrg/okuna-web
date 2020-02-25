@@ -241,6 +241,26 @@ export class ThemeService implements IThemeService {
             'borderTop': (data: ITheme) => {
                 return [`1px solid ${data.primaryHighlightColor.hsl().string()}`, '!important'];
             }
+        },
+        '@global': {
+            '::-webkit-scrollbar-thumb': {
+                'background': (data: ITheme) => {
+                    return [`${data.primaryColor60.hex()}`, '!important'];
+                },
+                '&:hover': {
+                    'background-image': (data: ITheme) => {
+                        return [`linear-gradient(315deg, ${data.accentGradient[0].hex()} 0%, ${data.accentGradient[1].hex()} 74%)`, '!important'];
+                    },
+                    'background-color': (data: ITheme) => {
+                        return [data.accentGradient[0].hex(), '!important'];
+                    },
+                }
+            },
+            '::-webkit-scrollbar-track': {
+                'background': (data: ITheme) => {
+                    return [`${data.primaryColor.hex()}`, '!important'];
+                },
+            }
         }
     };
 
@@ -335,7 +355,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[1];
+        const defaultTheme = ThemeService.themes[0];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }

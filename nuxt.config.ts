@@ -48,6 +48,7 @@ export default {
         '~/plugins/vue-progressive-image',
         '~/plugins/vue-video-player',
         '~/plugins/vue-highlight',
+        '~/plugins/vue-tooltip',
     ],
     router: {
         middleware: ['post-redirect'],

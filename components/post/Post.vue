@@ -14,30 +14,7 @@
                 </div>
             </div>
             <ok-post-reactions :post="post"></ok-post-reactions>
-            <footer class="card-footer">
-                <div class="card-footer-item is-borderless">
-                    <button
-                            class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center"
-                            :class="{'ok-has-background-accent-gradient': post.reaction}"
-                    >
-                        <span class="image is-16x16" v-if="post.reaction">
-                            <img :src="post.reaction.emoji.image" :alt="post.reaction.emoji.keyword">
-                        </span>
-                        <ok-react-icon class="is-icon-2x ok-svg-icon-primary-invert" v-else></ok-react-icon>
-                        <span class="has-padding-left-10 ok-has-text-primary-invert" :class="{'has-text-weight-bold': post.reaction}">
-                            {{post.reaction ? post.reaction.emoji.keyword : 'React'}}
-                        </span>
-                    </button>
-                </div>
-                <div class="card-footer-item">
-                    <button class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center">
-                        <ok-comment-icon class="is-icon-2x ok-svg-icon-primary-invert"></ok-comment-icon>
-                        <span class="has-padding-left-10 ok-has-text-primary-invert">
-                            Comment
-                        </span>
-                    </button>
-                </div>
-            </footer>
+            <ok-post-actions :post="post"></ok-post-actions>
         </div>
     </article>
 </template>
@@ -55,10 +32,11 @@
     import OkPostMedia from "~/components/post/components/post-media/PostMedia.vue";
     import OkPostReactions from "~/components/post/components/post-reactions/PostReactions.vue";
     import OkPostCommentCounts from "~/components/post/components/post-comments-count/PostCommentCounts.vue";
+    import OkPostActions from '~/components/post/components/post-actions/PostActions.vue';
 
     @Component({
         name: "OkPost",
-        components: {OkPostCommentCounts, OkPostReactions, OkPostMedia, OkPostText, OkPostHeader},
+        components: {OkPostActions, OkPostCommentCounts, OkPostReactions, OkPostMedia, OkPostText, OkPostHeader},
     })
     export default class OkPost extends Vue {
 
@@ -66,9 +44,6 @@
 
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
 
-        mounted() {
-            console.log(this.post.creator);
-        }
 
     }
 </script>
