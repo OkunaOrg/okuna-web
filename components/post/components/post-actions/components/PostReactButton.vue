@@ -1,5 +1,5 @@
 <template>
-    <v-popover class="has-width-100-percent ok-post-react-button-container" offset="20">
+    <v-popover class="has-width-100-percent ok-post-react-button-container" offset="20" placement="bottom-end">
         <!-- This will be the popover target (for the events and position) -->
         <button
                 class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center"

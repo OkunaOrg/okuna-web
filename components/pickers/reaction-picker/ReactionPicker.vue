@@ -1,6 +1,6 @@
 <template>
     <div class="ok-has-background-primary is-semi-rounded">
-        <div class="box ok-reaction-picker ok-has-background-primary-highlight">
+        <div class="box ok-reaction-picker ok-has-background-primary-highlight ok-has-border-color-primary-highlight">
             <div v-for="reactionEmojiGroup in reactionEmojiGroups" :key="reactionEmojiGroup.id">
                 <div>
                     <span class="has-text-weight-bold ok-has-text-primary-invert">{{ reactionEmojiGroup.keyword }}</span>
@@ -22,9 +22,11 @@
 
 <style lang="scss">
     .ok-reaction-picker {
-        width: 370px;
+        width: 358px;
         max-height: 250px;
-        overflow-x: scroll;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border: solid 2px;
     }
 
 </style>

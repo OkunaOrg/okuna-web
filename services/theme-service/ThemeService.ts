@@ -181,6 +181,11 @@ export class ThemeService implements IThemeService {
                 return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
             }
         },
+        'ok-has-border-color-primary-highlight': {
+            'borderColor': (data: ITheme) => {
+                return [`${data.primaryHighlightColor.hsl().string()}`, '!important'];
+            }
+        },
         'ok-has-border-bottom-primary-highlight': {
             'borderBottom': (data: ITheme) => {
                 return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
@@ -355,7 +360,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[0];
+        const defaultTheme = ThemeService.themes[1];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }
