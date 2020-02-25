@@ -23,6 +23,8 @@ export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T>
             if (dataKeyValue) {
                 if (dataMap.deserializer) dataKeyValue = dataMap.deserializer(this, dataKeyValue);
                 this[dataMap.attributeKey] = dataKeyValue;
+            } else if (typeof dataMap.defaultValue !== 'undefined') {
+                this[dataMap.attributeKey] = dataMap.defaultValue;
             }
         });
     };

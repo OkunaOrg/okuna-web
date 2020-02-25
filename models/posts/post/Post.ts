@@ -94,6 +94,7 @@ export class Post extends DataModel<Post> implements IPost {
             attributeKey: 'reaction',
             deserializer: postReactionDeserializer,
             serializer: postReactionSerializer,
+            defaultValue: null
         },
         {
             dataKey: 'reactions_count',
