@@ -46,9 +46,9 @@
     import { IEmoji } from "~/models/common/emoji/IEmoji";
 
     @Component({
-        name: "OkReactionPicker",
+        name: "OkReactionEmojiPicker",
     })
-    export default class OkReactionPicker extends Vue {
+    export default class OkReactionEmojiPicker extends Vue {
 
         @Prop(String) readonly text: string;
         @Prop({

@@ -21,7 +21,7 @@
                         </span>
         </button>
         <!-- This will be the content of the popover -->
-        <ok-reaction-picker slot="popover" @onReactionPicked="onReactionEmojiPicked" :is-loading="requestInProgress"/>
+        <ok-reaction-emoji-picker slot="popover" @onReactionPicked="onReactionEmojiPicked" :is-loading="requestInProgress"/>
     </v-popover>
 </template>
 
@@ -42,13 +42,13 @@
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
-    import OkReactionPicker from "~/components/pickers/reaction-picker/ReactionPicker.vue";
     import { IEmoji } from '~/models/common/emoji/IEmoji';
     import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
+    import OkReactionEmojiPicker from '~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue';
 
     @Component({
         name: "OkPostReactButton",
-        components: {OkReactionPicker, OkEmojiReactionButton},
+        components: {OkReactionEmojiPicker, OkEmojiReactionButton},
     })
     export default class OkPostReactButton extends Vue {
         @Prop(Object) readonly post: IPost;
