@@ -1,5 +1,5 @@
 <template>
-    <nuxt-link :to="{ path: postPath, query: { c: true }}"
+    <nuxt-link :to="{ path: postPath, query: { wantsToComment: true }}"
                class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center has-no-hover-text-decoration">
         <ok-comment-icon class="is-icon-2x ok-svg-icon-primary-invert"></ok-comment-icon>
         <span class="has-padding-left-10 ok-has-text-primary-invert">
@@ -29,7 +29,7 @@
         }
 
         get postPath() {
-            return `p/${this.post.uuid}`;
+            return `p/${this.post.uuid}/c`;
         }
 
     }

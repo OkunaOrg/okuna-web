@@ -30,7 +30,7 @@
         }
 
         get postPath() {
-            return `p/${this.post.uuid}`;
+            return `p/${this.post.uuid}/c`;
         }
 
 
