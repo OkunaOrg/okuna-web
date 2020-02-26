@@ -1,6 +1,8 @@
 <template>
     <section>
-        <h1>Post comments page</h1>
+        <ok-post-theatre
+                :post-uuid="$route.params['postUuid']"
+        ></ok-post-theatre>
     </section>
 </template>
 
@@ -13,16 +15,14 @@
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
     import { Route } from "vue-router";
+    import OkPostTheatre from '~/components/post-theatre/OkPostTheatre.vue';
 
-    @Component({})
+    @Component({
+        components: {OkPostTheatre}
+    })
     export default class OkPostCommentsPage extends Vue {
         $route!: Route;
 
-        public hasCommentId= false;
-
-        mounted() {
-            if(this.$route.params['postCommentId']) this.hasCommentId = true;
-        }
     }
 </script>
 

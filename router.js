@@ -16,7 +16,6 @@ import HomeCommunityPage from '~/pages/home/pages/communities/pages/community/co
 import HomeCommunityProfilePage from '~/pages/home/pages/communities/pages/community/pages/profile.vue';
 import HomeCommunityEditPage from '~/pages/home/pages/communities/pages/community/pages/edit.vue';
 import OkHomeNowPage from '~/pages/home/pages/now/HomeNowPage.vue';
-import OkPostPage from '~/pages/home/pages/post/OkPostPage.vue';
 import OkPostCommentsPage from '~/pages/home/pages/post/pages/post-comments/OkPostCommentsPage.vue';
 import OkPostCommentPage from '~/pages/home/pages/post/pages/post-comment/OkPostCommentPage.vue';
 import OkPostCommentRepliesPage
@@ -92,7 +91,7 @@ export function createRouter() {
                         children: [
                             {
                                 path: ':postUuid',
-                                component: OkPostPage,
+                                component: OkEmptyPage,
                                 children: [
                                     {
                                         path: 'c',
