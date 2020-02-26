@@ -1,9 +1,6 @@
 <template>
     <section>
-        Comments
-        <p>
-            Has comment id {{hasCommentId}}
-        </p>
+        <h1>Post comments page</h1>
     </section>
 </template>
 
@@ -12,11 +9,6 @@
 
 </style>
 
-<router>
-    {
-    path: '/p/:postUuid/c/:postCommentId?'
-    }
-</router>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"

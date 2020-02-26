@@ -1,9 +1,6 @@
 <template>
     <section>
-        Comment Replies
-        <p>
-            Has comment reply {{hasCommentReplyId}}
-        </p>
+        <h1>Post comment replies page</h1>
     </section>
 </template>
 
@@ -12,11 +9,6 @@
 
 </style>
 
-<router>
-    {
-    path: '/p/:postUuid/c/:postCommentId/r/:postCommentReplyId?'
-    }
-</router>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
@@ -26,10 +18,10 @@
     export default class OkPostCommentRepliesPage extends Vue {
         $route!: Route;
 
-        public hasCommentReplyId= false;
+        public hasCommentId= false;
 
         mounted() {
-            if(this.$route.params['postCommentReplyId']) this.hasCommentReplyId = true;
+            if(this.$route.params['postCommentId']) this.hasCommentId = true;
         }
     }
 </script>

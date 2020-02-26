@@ -1,7 +1,7 @@
 <template>
-    <span class="ok-has-text-primary-invert-80 is-size-6">
+    <nuxt-link :to="postPath" class="ok-has-text-primary-invert-80 is-size-6 has-no-hover-text-decoration">
         {{viewAllCommentsText}}
-    </span>
+    </nuxt-link>
 </template>
 
 <style lang="scss" scoped>
@@ -27,6 +27,10 @@
         get viewAllCommentsText(){
             const isSingleComment = this.post.commentsCount === 1;
             return isSingleComment ? 'View 1 comment' : `View all ${this.post.commentsCount} comments`
+        }
+
+        get postPath() {
+            return `p/${this.post.uuid}`;
         }
 
 

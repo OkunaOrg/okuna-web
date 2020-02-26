@@ -1,6 +1,6 @@
 <template>
     <section>
-        Post
+        <h1>Post page</h1>
         <nuxt-child></nuxt-child>
     </section>
 </template>
@@ -10,11 +10,6 @@
 
 </style>
 
-<router>
-    {
-    path: '/p/:postUuid'
-    }
-</router>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
@@ -29,6 +24,8 @@
 
         mounted(){
             this.isCommentsPage = !this.$route.params['postComment'];
+            console.log(this.$route);
+            console.log('WADDUP FROM POST');
         }
     }
 </script>

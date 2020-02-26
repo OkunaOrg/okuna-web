@@ -1,10 +1,11 @@
 <template>
-    <button class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center">
+    <nuxt-link :to="{ path: postPath, query: { c: true }}"
+               class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center has-no-hover-text-decoration">
         <ok-comment-icon class="is-icon-2x ok-svg-icon-primary-invert"></ok-comment-icon>
         <span class="has-padding-left-10 ok-has-text-primary-invert">
                             Comment
                         </span>
-    </button>
+    </nuxt-link>
 </template>
 
 <style lang="scss" scoped>
@@ -27,11 +28,9 @@
         mounted() {
         }
 
-        get viewAllCommentsText() {
-            const isSingleComment = this.post.commentsCount === 1;
-            return isSingleComment ? "View 1 comment" : `View all ${this.post.commentsCount} comments`
+        get postPath() {
+            return `p/${this.post.uuid}`;
         }
-
 
     }
 </script>
