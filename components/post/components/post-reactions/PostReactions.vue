@@ -1,5 +1,5 @@
 <template>
-    <div class="is-flex has-padding-10 wrap is-in-progress" :class="{'is-loading' : requestInProgress}">
+    <div class="is-flex wrap is-in-progress" :class="{'is-loading' : requestInProgress}">
         <div v-for="reactionsEmojiCount in post.reactionsEmojiCounts"
              :key="reactionsEmojiCount.emoji.id" class="has-padding-5">
             <ok-emoji-reaction-button

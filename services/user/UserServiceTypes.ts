@@ -148,7 +148,7 @@ export interface DeletePostParams {
 }
 
 export interface GetPostParams {
-    post: IPost;
+    postUuid: string;
 }
 
 export interface GetPostMediaParams {

@@ -50,7 +50,10 @@
     })
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;
-        @Prop(Number) readonly postDisplayContext: PostDisplayContext;
+        @Prop({
+            type: Number,
+            default: PostDisplayContext.timelinePosts
+        }) readonly postDisplayContext: PostDisplayContext;
 
         PostDisplayContext = PostDisplayContext;
         OkAvatarSize = OkAvatarSize;

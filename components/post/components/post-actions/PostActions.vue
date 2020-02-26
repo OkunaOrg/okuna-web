@@ -1,9 +1,9 @@
 <template>
     <footer class="card-footer">
-        <div class="card-footer-item is-borderless">
+        <div class="card-footer-item is-borderless is-paddingless has-padding-right-10">
             <ok-post-react-button :post="post"></ok-post-react-button>
         </div>
-        <div class="card-footer-item">
+        <div class="card-footer-item is-paddingless has-padding-left-10">
             <ok-post-comment-button :post="post"></ok-post-comment-button>
         </div>
     </footer>

@@ -4,8 +4,8 @@
             <div class="card-content">
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
-            <ok-post-media :post="post" v-if="post.mediaThumbnail"></ok-post-media>
-            <div class="card-content" v-if="post.text">
+            <ok-post-media :post="post" v-if="post.mediaThumbnail" class="has-padding-bottom-20"></ok-post-media>
+            <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20" v-if="post.text">
                 <ok-post-text :post="post"></ok-post-text>
                 <div class="columns">
                     <div class="column" v-if="post.commentsCount">
@@ -13,8 +13,8 @@
                     </div>
                 </div>
             </div>
-            <ok-post-reactions :post="post"></ok-post-reactions>
-            <ok-post-actions :post="post"></ok-post-actions>
+            <ok-post-reactions :post="post" class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-reactions>
+            <ok-post-actions :post="post" class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-actions>
         </div>
     </article>
 </template>

@@ -341,7 +341,7 @@ export class UserService implements IUserService {
 
     async getPost(params: GetPostParams): Promise<IPost> {
         const response: AxiosResponse<PostData> = await this.postsApiService.getPost({
-            postUuid: params.post.uuid,
+            postUuid: params.postUuid,
         });
 
         return postFactory.make(response.data);

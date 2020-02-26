@@ -1,19 +1,40 @@
 <template>
-    <h1>
-        Theatre!
-    </h1>
+    <article
+            class="box ok-has-background-primary has-height-100-percent ok-post-theatre is-paddingless"
+            :class="{'is-loading': requestInProgress}"
+    >
+        <div class="columns" v-if="post">
+            <div class="column" v-if="post.mediaThumbnail">
+                <ok-post-media :post="post"></ok-post-media>
+            </div>
+            <div class="column">
+                <ok-post-theatre-sidebar :post="post"></ok-post-theatre-sidebar>
+            </div>
+        </div>
+
+    </article>
 </template>
 
 <style lang="scss" scoped>
-
 
 </style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IPost } from "~/models/posts/post/IPost";
+    import { TYPES } from "~/services/inversify-types";
+    import { IUserService } from "~/services/user/IUserService";
+    import { okunaContainer } from "~/services/inversify";
+    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUser } from "~/models/auth/user/IUser";
+    import OkPostMedia from '~/components/post/components/post-media/PostMedia.vue';
+    import OkPostHeader from '~/components/post/components/post-header/PostHeader.vue';
+    import OkPostTheatreSidebar from '~/components/post-theatre/post-theatre-sidebar/OkPostTheatreSidebar.vue';
 
     @Component({
         name: "OkPostTheatre",
+        components: {OkPostTheatreSidebar, OkPostHeader, OkPostMedia},
     })
     export default class OkPostTheatre extends Vue {
         @Prop(String) readonly postUuid: string;
@@ -26,10 +47,45 @@
 
         @Prop(Number) readonly postCommentReplyId: number;
 
+        requestInProgress = false;
+        post: IPost = null;
+
+        private refreshPostOperation?: CancelableOperation<IPost>;
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
 
-        mounted(){
-            console.log(this);
+        mounted() {
+            this.userService.loggedInUser.subscribe(this.onLoggedInUser);
+        }
+
+        onLoggedInUser(loggedInUser: IUser) {
+            if(loggedInUser) this.refreshPost();
+        }
+
+        destroyed() {
+            if (this.refreshPostOperation) this.refreshPostOperation.cancel();
+        }
+
+
+        private async refreshPost() {
+            if (this.requestInProgress) return;
+
+            this.requestInProgress = true;
+
+            try {
+                this.refreshPostOperation = CancelableOperation.fromPromise(this.userService.getPost({
+                    postUuid: this.postUuid
+                }));
+
+                const post = await this.refreshPostOperation.value;
+                this.post = post;
+            } catch (error) {
+                this.utilsService.handleErrorWithToast(error);
+            } finally {
+                this.refreshPostOperation = null;
+                this.requestInProgress = false;
+            }
         }
 
 

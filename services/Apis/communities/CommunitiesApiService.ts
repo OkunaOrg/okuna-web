@@ -70,13 +70,13 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     static SEARCH_MODERATED_COMMUNITIES_PATH =
         'api/communities/moderated/search/';
     static GET_COMMUNITY_POSTS_PATH =
-        'api/communities/{communityName}/posts/';
+        'api/communities/{communityName}/postComments/';
     static COUNT_COMMUNITY_POSTS_PATH =
-        'api/communities/{communityName}/posts/count/';
+        'api/communities/{communityName}/postComments/count/';
     static CREATE_COMMUNITY_POST_PATH =
-        'api/communities/{communityName}/posts/';
+        'api/communities/{communityName}/postComments/';
     static CLOSED_COMMUNITY_POSTS_PATH =
-        'api/communities/{communityName}/posts/closed/';
+        'api/communities/{communityName}/postComments/closed/';
     static GET_COMMUNITY_MEMBERS_PATH =
         'api/communities/{communityName}/members/';
     static SEARCH_COMMUNITY_MEMBERS_PATH =
@@ -100,7 +100,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     static REMOVE_COMMUNITY_MODERATORS_PATH =
         'api/communities/{communityName}/moderators/{username}/';
     static CREATE_COMMUNITY_POSTS_PATH =
-        'api/communities/{communityName}/posts/';
+        'api/communities/{communityName}/postComments/';
     static GET_COMMUNITY_MODERATED_OBJECTS_PATH =
         'api/communities/{communityName}/moderated-objects/';
 
