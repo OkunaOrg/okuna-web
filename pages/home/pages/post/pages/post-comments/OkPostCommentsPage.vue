@@ -1,7 +1,7 @@
 <template>
-    <section class="is-flex justify-center">
+    <section>
         <div
-                class="ok-post-theatre-fullpage-container has-height-100-percent has-padding-left-10 has-padding-right-10 has-padding-top-40 has-padding-bottom-40">
+                class="container has-padding-left-10 has-padding-right-10 has-padding-top-40 has-padding-bottom-40 has-height-100-percent">
             <ok-post-theatre
                     :post-uuid="$route.params['postUuid']"
             ></ok-post-theatre>
@@ -11,9 +11,6 @@
 
 
 <style>
-    .ok-post-theatre-fullpage-container {
-        max-width: 1344px;
-    }
 
 </style>
 

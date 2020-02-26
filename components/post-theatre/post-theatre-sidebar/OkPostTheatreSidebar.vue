@@ -1,17 +1,26 @@
 <template>
-    <div class="ok-post-theatre-sidebar has-padding-top-10 has-padding-right-20">
-        <ok-post-header :post="post"></ok-post-header>
-        <ok-post-text :post="post"></ok-post-text>
-        <ok-post-reactions :post="post"></ok-post-reactions>
-        <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
-        <ok-post-comments :post="post"></ok-post-comments>
+    <div class="has-padding-top-10 has-height-100-percent">
+        <div class="columns flex-direction-column has-height-100-percent">
+            <div class="column is-narrow">
+                <ok-post-header :post="post"></ok-post-header>
+                <ok-post-text :post="post"></ok-post-text>
+                <ok-post-reactions :post="post"></ok-post-reactions>
+                <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
+            </div>
+            <div class="column ok-post-comments-container">
+                <ok-post-comments :post="post"></ok-post-comments>
+            </div>
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 
-    .ok-post-theatre-sidebar{
-        min-width: 400px;
+    .ok-post-comments-container{
+        overflow: scroll;
+        overflow-y: auto;
+        overflow-x: hidden;
+        max-height: 100%;
     }
 
 </style>

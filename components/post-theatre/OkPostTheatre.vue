@@ -1,13 +1,13 @@
 <template>
     <article
-            class="box ok-has-background-primary has-height-100-percent ok-post-theatre is-paddingless"
+            class="box ok-has-background-primary is-paddingless has-height-100-percent is-flex"
             :class="{'is-loading': requestInProgress}"
     >
-        <div class="columns" v-if="post">
+        <div class="columns has-width-100-percent" v-if="post">
             <div class="column" v-if="post.mediaThumbnail">
                 <ok-post-media :post="post"></ok-post-media>
             </div>
-            <div class="column">
+            <div class="column is-narrow ok-post-theatre-sidebar-container">
                 <ok-post-theatre-sidebar :post="post"></ok-post-theatre-sidebar>
             </div>
         </div>
@@ -16,6 +16,19 @@
 </template>
 
 <style lang="scss" scoped>
+
+    .ok-post-theatre-media-container{
+
+    }
+
+
+    .ok-post-theatre-sidebar-container{
+        max-width: 450px;
+        min-width: 350px;
+        min-height: 100%;
+        max-height: 100%;
+        overflow: hidden;
+    }
 
 </style>
 
