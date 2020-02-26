@@ -21,8 +21,15 @@ export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T>
         this.dataMaps.forEach((dataMap: DataModelAttributeMap<any>) => {
             let dataKeyValue = data[dataMap.dataKey];
             if (dataKeyValue) {
-                if (dataMap.deserializer) dataKeyValue = dataMap.deserializer(this, dataKeyValue);
-                this[dataMap.attributeKey] = dataKeyValue;
+                const attributeType = typeof this[dataMap.attributeKey];
+                const attributeIsObject = attributeType === 'function' || attributeType === 'object' && !!attributeType;
+                if(attributeIsObject && this[dataMap.attributeKey]['updateWithData']){
+                    // If its another DataModel, dont replace it but merely update it
+                    this[dataMap.attributeKey]['updateWithData'](dataKeyValue);
+                }else{
+                    if (dataMap.deserializer) dataKeyValue = dataMap.deserializer(this, dataKeyValue);
+                    this[dataMap.attributeKey] = dataKeyValue;
+                }
             } else if (typeof dataMap.defaultValue !== 'undefined') {
                 this[dataMap.attributeKey] = dataMap.defaultValue;
             }
