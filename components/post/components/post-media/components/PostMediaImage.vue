@@ -1,12 +1,7 @@
 <template>
-    <div class="card-image">
-        <figure class="image">
-            <progressive-img
-                    :src="postImage.image"
-                    :placeholder="postImage.thumbnail"
-            ></progressive-img>
-        </figure>
-    </div>
+    <figure class="image ok-post-media-image">
+        <img :src="postImage.image" alt="Post Image">
+    </figure>
 </template>
 
 <style lang="scss" scoped>

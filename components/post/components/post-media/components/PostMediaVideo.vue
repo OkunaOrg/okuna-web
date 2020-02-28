@@ -1,6 +1,6 @@
 <template>
-    <div class="card-video has-height-100-percent has-width-100-percent">
-        <figure class="video has-height-100-percent has-width-100-percent">
+    <div class="card-video">
+        <figure class="video">
             <video-player class="video-player-box"
                           ref="videoPlayer"
                           :options="videoPlayerOptions"
@@ -26,6 +26,11 @@
     export default class extends Vue {
         @Prop(Object) readonly postMedia: IPostMedia;
 
+        @Prop({
+            type: Boolean,
+            default: true
+        }) readonly isResponsive: boolean;
+
         mounted() {
         }
 
@@ -44,7 +49,7 @@
                 language: "en",
                 loop: true,
                 autoplay: true,
-                fluid: false,
+                fluid: this.isResponsive,
                 sources: [{
                     type: "video/mp4",
                     src: postVideoMp4Format.file

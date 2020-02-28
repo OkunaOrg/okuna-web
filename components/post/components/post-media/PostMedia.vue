@@ -1,11 +1,11 @@
 <template>
-    <div class="card-image">
-        <figure class="image" v-if="postMedia.length > 0">
+    <div class="ok-post-media">
+        <div v-if="postMedia.length > 0" class="ok-post-media-item-container">
             <ok-post-media-image :post-media="firstMediaItem" v-if="hasImageMedia"></ok-post-media-image>
-            <ok-post-media-video :post-media="firstMediaItem" v-else></ok-post-media-video>
-        </figure>
+            <ok-post-media-video :post-media="firstMediaItem" :is-responsive="videoIsResponsive" v-else></ok-post-media-video>
+        </div>
 
-        <figure class="image" v-else>
+        <figure class="image ok-post-media-placeholder" v-else>
             <img :src="post.mediaThumbnail" alt="Post thumbnail">
         </figure>
     </div>
@@ -32,6 +32,13 @@
     })
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;
+
+
+        @Prop({
+            type: Boolean,
+            default: true
+        }) readonly videoIsResponsive: boolean;
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         postMedia: IPostMedia[] = [];

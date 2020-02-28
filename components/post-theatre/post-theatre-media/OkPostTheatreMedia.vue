@@ -1,15 +1,7 @@
 <template>
     <div class="has-background-black has-height-100-percent is-flex align-items-center justify-center has-width-100-percent ok-post-theatre-media-container">
         <div class="ok-post-theatre-media">
-            <figure class="has-height-100-percent has-width-100-percent" v-if="postMedia.length > 0">
-                <ok-post-media-image :post-media="firstMediaItem" v-if="hasImageMedia"></ok-post-media-image>
-                <ok-post-media-video :post-media="firstMediaItem" v-else></ok-post-media-video>
-            </figure>
-            <div v-else class="has-height-100-percent has-width-100-percent">
-                <figure class="has-height-100-percent has-width-100-percent is-flex justify-center">
-                    <img :src="post.mediaThumbnail" alt="Post thumbnail" class="has-height-100-percent has-width-auto">
-                </figure>
-            </div>
+            <ok-post-media :post="post" :video-is-responsive="false" class="has-width-100-percent has-height-100-percent"></ok-post-media>
         </div>
     </div>
 </template>
@@ -30,16 +22,49 @@
         display: flex;
         justify-content: center;
         align-items: center;
-    }
 
-    .video-js{
-        height: 100%;
-        width: 100%;
-    }
+        .ok-post-media-placeholder, .ok-post-media-image{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
-    .video-player-box{
-        height: 100%;
-        width: 100%;
+            img{
+                height: 100% !important;
+                width: unset !important;
+            }
+        }
+
+        .video-js{
+            height: 100%;
+            width: 100%;
+        }
+
+        .video-player-box{
+            height: 100%;
+            width: 100%;
+        }
+
+        .ok-post-media{
+            height: 100%;
+            width: 100%;
+        }
+
+        .ok-post-media-item-container{
+            height: 100%;
+            width: 100%;
+        }
+
+        .card-video{
+            height: 100%;
+            width: 100%;
+        }
+
+        .video{
+            height: 100%;
+            width: 100%;
+        }
     }
 </style>
 
