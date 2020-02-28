@@ -1,8 +1,11 @@
 <template>
     <div class="card-image">
+        <figure class="image" v-if="postMedia.length > 0">
+            <ok-post-media-image :post-media="firstMediaItem" v-if="hasImageMedia"></ok-post-media-image>
+            <ok-post-media-video :post-media="firstMediaItem" v-else></ok-post-media-video>
+        </figure>
 
-
-        <figure class="image">
+        <figure class="image" v-else>
             <img :src="post.mediaThumbnail" alt="Post thumbnail">
         </figure>
     </div>

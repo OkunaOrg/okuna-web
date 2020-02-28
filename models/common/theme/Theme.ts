@@ -4,6 +4,26 @@ import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import Color from 'color';
 import { ThemeData } from '~/types/models-data/common/ThemeData';
 
+// Monkey patch Color until https://github.com/Qix-/color/pull/167 gets merged
+
+Color.prototype.whiten = function (ratio) {
+    var hwb = this.hwb();
+    var white = (hwb.color[1] > 0) ? hwb.color[1] * ratio : 100 * ratio; // If hwb.color[1] is 0 then use 100 * ratio.
+    hwb.color[1] = (white + hwb.color[1] >= 100) ? 100 : white;
+    hwb.color[2] = (hwb.color[1] + hwb.color[2] > 100) ? 100 - hwb.color[1] : hwb.color[2];
+    return hwb;
+};
+
+Color.prototype.blacken = function (ratio) {
+    var hwb = this.hwb();
+    var black = (hwb.color[2] > 0) ? hwb.color[2] * ratio : 100 * ratio; // If hwb.color[2] is 0 then use 100 * ratio.
+    hwb.color[2] = (black + hwb.color[1] >= 100) ? 100 : black;
+    hwb.color[1] = (hwb.color[1] + hwb.color[2] > 100) ? 100 - hwb.color[2] : hwb.color[1];
+    return hwb;
+};
+
+// Monkey patch done
+
 
 const themeColorDeserializer = (instance: ITheme, rawData: String) => {
     if (!rawData) return;
@@ -132,8 +152,8 @@ export class Theme extends DataModel<Theme> implements ITheme {
             primaryHighlightColor = primaryHighlightColor.fade(0.95);
             primaryColor80 = this.primaryColor.darken(0.1);
             primaryColor60 = this.primaryColor.darken(0.2);
-            primaryInvertColor80 = this.primaryInvertColor.lighten(0.2);
-            primaryInvertColor60 = this.primaryInvertColor.lighten(0.4);
+            primaryInvertColor80 = this.primaryInvertColor.whiten(0.2);
+            primaryInvertColor60 = this.primaryInvertColor.whiten(0.4);
         }
         this.primaryHighlightColor = primaryHighlightColor;
         this.primaryColor80 = primaryColor80;

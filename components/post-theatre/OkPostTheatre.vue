@@ -3,9 +3,9 @@
             class="box ok-has-background-primary is-paddingless has-height-100-percent is-flex"
             :class="{'is-loading': requestInProgress}"
     >
-        <div class="columns has-width-100-percent" v-if="post">
-            <div class="column" v-if="post.mediaThumbnail">
-                <ok-post-media :post="post"></ok-post-media>
+        <div class="columns has-width-100-percent is-gapless" v-if="post">
+            <div class="column has-height-100-percent" v-if="post.mediaThumbnail">
+                <ok-post-theatre-media :post="post"></ok-post-theatre-media>
             </div>
             <div class="column is-narrow ok-post-theatre-sidebar-container">
                 <ok-post-theatre-sidebar :post="post"></ok-post-theatre-sidebar>
@@ -41,13 +41,12 @@
     import { okunaContainer } from "~/services/inversify";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { IUser } from "~/models/auth/user/IUser";
-    import OkPostMedia from '~/components/post/components/post-media/PostMedia.vue';
-    import OkPostHeader from '~/components/post/components/post-header/PostHeader.vue';
     import OkPostTheatreSidebar from '~/components/post-theatre/post-theatre-sidebar/OkPostTheatreSidebar.vue';
+    import OkPostTheatreMedia from '~/components/post-theatre/post-theatre-media/OkPostTheatreMedia.vue';
 
     @Component({
         name: "OkPostTheatre",
-        components: {OkPostTheatreSidebar, OkPostHeader, OkPostMedia},
+        components: {OkPostTheatreMedia, OkPostTheatreSidebar},
     })
     export default class OkPostTheatre extends Vue {
         @Prop(String) readonly postUuid: string;

@@ -1,13 +1,13 @@
 <template>
-    <div class="has-padding-top-10 has-height-100-percent">
-        <div class="columns flex-direction-column has-height-100-percent">
-            <div class="column is-narrow">
-                <ok-post-header :post="post"></ok-post-header>
-                <ok-post-text :post="post"></ok-post-text>
-                <ok-post-reactions :post="post"></ok-post-reactions>
-                <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
-            </div>
+    <div class="has-height-100-percent">
+        <div class="columns flex-direction-column has-height-100-percent is-gapless">
             <div class="column ok-post-comments-container">
+                <div class="has-padding-20">
+                    <ok-post-header :post="post"></ok-post-header>
+                    <ok-post-text :post="post"></ok-post-text>
+                    <ok-post-reactions :post="post"></ok-post-reactions>
+                    <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
+                </div>
                 <ok-post-comments :post="post"></ok-post-comments>
             </div>
         </div>

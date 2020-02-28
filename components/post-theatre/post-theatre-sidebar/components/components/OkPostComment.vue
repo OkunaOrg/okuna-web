@@ -1,9 +1,38 @@
 <template>
-    <article class="has-padding-30">
-        <div class="card ok-has-background-primary">
-            <div class="card-content">
-                Post comment
+    <article>
+        <div>
+            <div class="media">
+                <div class="media-left">
+                    <ok-user-avatar
+                            :user="postComment.commenter"
+                            :avatar-size="this.OkAvatarSize.medium">
+                    </ok-user-avatar>
+                </div>
+                <div class="media-content">
+                    <p class="title is-7 ok-has-text-primary-invert-60">
+                        <span>{{postComment.commenter.profile.name}}</span>
+                        <span class="has-text-weight-medium">@{{postComment.commenter.username}}</span>
+                        <span class="has-text-weight-medium">·</span>
+                        <span class="has-text-weight-medium">
+                        {{ postComment.created | moment("from", "now") }}
+                    </span>
+                    </p>
+                    <p class="subtitle">
+                        <ok-smart-text :text="postComment.text" class="ok-has-text-primary-invert is-size-6"></ok-smart-text>
+                    </p>
+                </div>
             </div>
+            <nav class="level has-padding-top-10">
+                <div class="level-item has-text-centered has-cursor-pointer" role="button">
+                    <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">React</span>
+                </div>
+                <div class="level-item has-text-centered has-cursor-pointer" role="button">
+                    <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">Reply</span>
+                </div>
+                <div class="level-item has-text-centered has-cursor-pointer" role="button" aria-label="Options">
+                    <ok-more-horizontal class="ok-svg-icon-primary-invert is-icon-2x"></ok-more-horizontal>
+                </div>
+            </nav>
         </div>
     </article>
 </template>
@@ -16,11 +45,20 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from '~/models/posts/post-comment/IPostComment';
+    import { OkAvatarSize } from '~/components/avatars/lib/AvatarSize';
+    import OkSmartText from '~/components/smart-text/SmartText.vue';
+    import OkUserAvatar from '~/components/avatars/user-avatar/UserAvatar.vue';
+
+
 
     @Component({
         name: "OkPostComment",
+        components: {OkUserAvatar, OkSmartText},
     })
     export default class OkPostComment extends Vue {
+
+
+        OkAvatarSize = OkAvatarSize;
 
         @Prop(Object) readonly post: IPost;
         @Prop(Object) readonly postComment: IPostComment;

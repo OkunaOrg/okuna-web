@@ -232,7 +232,21 @@ export class ThemeService implements IThemeService {
         'ok-svg-icon-primary-invert': {
             '& svg': {
                 'fill': (data: ITheme) => {
-                    return [data.primaryInvertColor.hex(), '!important'];
+                    return [data.primaryInvertColor.hsl().string(), '!important'];
+                },
+            }
+        },
+        'ok-svg-icon-primary-invert-80': {
+            '& svg': {
+                'fill': (data: ITheme) => {
+                    return [data.primaryInvertColor80.hsl().string(), '!important'];
+                },
+            }
+        },
+        'ok-svg-icon-primary-invert-60': {
+            '& svg': {
+                'fill': (data: ITheme) => {
+                    return [data.primaryInvertColor60.hsl().string(), '!important'];
                 },
             }
         },
@@ -360,7 +374,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[1];
+        const defaultTheme = ThemeService.themes[0];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }

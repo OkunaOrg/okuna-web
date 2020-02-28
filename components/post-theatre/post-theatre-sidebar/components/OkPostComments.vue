@@ -1,8 +1,8 @@
 <template>
-    <section id="home-timeline-posts" class="timeline-posts">
-        <div class="timeline-posts-stream">
+    <section>
+        <div>
             <div v-for="postComment in postComments" :key="postComment.id">
-                <ok-post-comment :post="post" :post-comment="postComment"></ok-post-comment>
+                <ok-post-comment :post="post" :post-comment="postComment" class="has-padding-20"></ok-post-comment>
             </div>
             <span></span>
 
