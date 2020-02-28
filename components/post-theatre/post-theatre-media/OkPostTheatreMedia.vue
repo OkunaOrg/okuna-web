@@ -1,14 +1,12 @@
 <template>
     <div class="has-background-black has-height-100-percent is-flex align-items-center justify-center has-width-100-percent ok-post-theatre-media-container">
         <div class="ok-post-theatre-media">
-            <div style="height: 900px; background-color: blue" class="has-width-100-percent">
-
-            </div>
+            <ok-post-media :post="post"></ok-post-media>
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
     .ok-post-theatre-media-container{
         position: relative;
     }
@@ -24,6 +22,22 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
+        .card-image{
+            height: 100%;
+        }
+
+        .image{
+            height: 100% !important;
+        }
+
+
+        img{
+            width: unset !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            height: inherit !important;
+        }
     }
 </style>
 

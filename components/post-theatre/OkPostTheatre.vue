@@ -1,6 +1,6 @@
 <template>
     <article
-            class="box ok-has-background-primary is-paddingless has-height-100-percent is-flex"
+            class="box ok-has-background-primary is-paddingless has-height-100-percent is-flex has-overflow-hidden"
             :class="{'is-loading': requestInProgress}"
     >
         <div class="columns has-width-100-percent is-gapless" v-if="post">
