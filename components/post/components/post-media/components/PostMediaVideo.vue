@@ -1,6 +1,6 @@
 <template>
-    <div class="card-video">
-        <figure class="video">
+    <div class="card-video has-height-100-percent has-width-100-percent">
+        <figure class="video has-height-100-percent has-width-100-percent">
             <video-player class="video-player-box"
                           ref="videoPlayer"
                           :options="videoPlayerOptions"
@@ -44,7 +44,7 @@
                 language: "en",
                 loop: true,
                 autoplay: true,
-                fluid: true,
+                fluid: false,
                 sources: [{
                     type: "video/mp4",
                     src: postVideoMp4Format.file
