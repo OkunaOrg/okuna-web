@@ -86,7 +86,6 @@
     })
     export default class OkPostTheatreMedia extends Vue {
         @Prop(Object) readonly post: IPost;
-        @Prop(Object) readonly post: IPost;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         postMedia: IPostMedia[] = [];
