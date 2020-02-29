@@ -1,6 +1,6 @@
 <template>
     <section id="home-timeline-posts" class="timeline-posts">
-        <div class="timeline-posts-stream">
+        <div class="timeline-posts-stream" v-if="loggedInUserReady">
             <div v-for="post in posts" :key="post.id">
                 <!-- Hacker News item loop -->
                 <ok-post :post="post" :post-display-context="postDisplayContext"></ok-post>
@@ -38,6 +38,8 @@
     import { IPost } from "~/models/posts/post/IPost";
     import OkPost from "~/components/post/Post.vue";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
+    import { Subscription } from "~/node_modules/rxjs";
+    import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
         components: {OkPost},
@@ -48,9 +50,20 @@
 
         posts: IPost[] = [];
         postDisplayContext = PostDisplayContext.timelinePosts;
+        loggedInUserReady = false;
+
+        private loggedInUserSubscription: Subscription;
 
         mounted() {
-            //setTimeout(this.scrollToItem, 5000);
+            this.loggedInUserSubscription = this.userService.loggedInUser.subscribe(this.onLoggedInUser);
+        }
+
+        destroyed() {
+            this.loggedInUserSubscription.unsubscribe();
+        }
+
+        onLoggedInUser(loggedInUser: IUser) {
+            this.loggedInUserReady = true;
         }
 
         infiniteHandler($state) {
