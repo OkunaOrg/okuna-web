@@ -38,6 +38,7 @@ export class NavigationService implements INavigationService {
     }
 
     private navigateToLocationWithConfig(location: string, config: NavigationConfig) {
+        console.log(location, config);
         config.nuxtContext ? config.nuxtContext.redirect(location) : this.vueRouter.push(location);
     }
 

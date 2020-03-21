@@ -11,13 +11,14 @@ import { Middleware } from '@nuxt/types'
  */
 const ensureHasNoStoredAuthToken: Middleware = (context) => {
     const userService = okunaContainer.get<IUserService>(TYPES.UserService);
+    return userService.hasStoredAuthToken().then(hasStoredAuthToken => {
+        if (!hasStoredAuthToken) return;
 
-    if (userService.hasStoredAuthToken()) {
         const navigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
-        navigationService.navigateToHome({
+        return navigationService.navigateToHome({
             nuxtContext: context
         });
-    }
+    });
 };
 
 export default ensureHasNoStoredAuthToken;
