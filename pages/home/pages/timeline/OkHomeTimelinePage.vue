@@ -63,12 +63,13 @@
         }
 
         onLoggedInUser(loggedInUser: IUser) {
-            this.loggedInUserReady = true;
+            if (loggedInUser) {
+                this.loggedInUserReady = true;
+            }
         }
 
         infiniteHandler($state) {
-
-
+            console.log("Infinite handler");
             let lastPostId;
             const lastPost = this.posts[this.posts.length - 1];
             if (lastPost) lastPostId = lastPost.id;
@@ -78,6 +79,7 @@
                 maxId: lastPostId,
                 username: "joel"
             }).then((timelinePosts) => {
+                console.log("Got timeline posts");
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);
                     $state.loaded();
