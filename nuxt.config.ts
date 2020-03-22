@@ -43,6 +43,8 @@ export default {
         '~/plugins/material-design-icons',
         '~/plugins/vue-infinite-loading',
         '~/plugins/vue-scroll-to',
+        '~/plugins/vue-sticky',
+        '~/plugins/vue-responsive',
         '~/plugins/scroll-behavior',
         '~/plugins/vue-moment',
         '~/plugins/vue-progressive-image',
