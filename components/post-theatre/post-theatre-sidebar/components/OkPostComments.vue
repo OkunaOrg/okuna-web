@@ -25,6 +25,7 @@
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IPost } from "~/models/posts/post/IPost";
     import OkPostComment from "~/components/post-theatre/post-theatre-sidebar/components/components/OkPostComment.vue";
+    import { GetCommentsForPostSortType } from '~/services/Apis/posts/PostsApiServiceTypes';
 
     @Component({
         name: "OkPostComments",
@@ -53,6 +54,7 @@
             this.userService.getPostComments({
                 post: this.post,
                 maxId: lasPostCommentId,
+                sort: GetCommentsForPostSortType.asc
             }).then((postComments) => {
                 if (postComments.length) {
                     this.postComments.push(...postComments);

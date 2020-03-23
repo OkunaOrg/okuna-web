@@ -40,7 +40,7 @@
     import OkSmartText from '~/components/smart-text/SmartText.vue';
     import OkUserAvatar from '~/components/avatars/user-avatar/UserAvatar.vue';
     import OkPostCommentInlineActions
-        from '~/components/post-theatre/post-theatre-sidebar/components/components/components/OkPostCommentInlineActions.vue';
+        from '~/components/post-theatre/post-theatre-sidebar/components/components/components/post-comment-inline-actions/OkPostCommentInlineActions.vue';
     import OkPostCommentReactions
         from '~/components/post-theatre/post-theatre-sidebar/components/components/components/OkPostCommentReactions.vue';
 

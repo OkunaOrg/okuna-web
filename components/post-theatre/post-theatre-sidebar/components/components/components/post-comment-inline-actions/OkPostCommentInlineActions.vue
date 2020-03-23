@@ -1,7 +1,7 @@
 <template>
     <nav class="level has-padding-top-10">
-        <div class="level-item has-text-centered has-cursor-pointer" role="button">
-            <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">React</span>
+        <div class="level-item" role="button">
+            <ok-post-comment-react-button :post="post" :post-comment="postComment"></ok-post-comment-react-button>
         </div>
         <div class="level-item has-text-centered has-cursor-pointer" role="button">
             <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">Reply</span>
@@ -23,12 +23,14 @@
     import { OkAvatarSize } from '~/components/avatars/lib/AvatarSize';
     import OkSmartText from '~/components/smart-text/SmartText.vue';
     import OkUserAvatar from '~/components/avatars/user-avatar/UserAvatar.vue';
+    import OkPostCommentReactButton
+        from '~/components/post-theatre/post-theatre-sidebar/components/components/components/post-comment-inline-actions/components/PostCommentReactButton.vue';
 
 
 
     @Component({
         name: "OkPostCommentInlineActions",
-        components: {OkUserAvatar, OkSmartText},
+        components: {OkPostCommentReactButton, OkUserAvatar, OkSmartText},
     })
     export default class OkPostCommentInlineActions extends Vue {
 

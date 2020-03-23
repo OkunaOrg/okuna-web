@@ -377,7 +377,8 @@ export class UserService implements IUserService {
     async getPostComments(params: GetPostCommentsParams): Promise<IPostComment[]> {
         const response: AxiosResponse<PostCommentData[]> = await this.postsApiService.getPostComments({
             postUuid: params.post.uuid,
-            maxId: params.maxId
+            maxId: params.maxId,
+            sort: params.sort
         });
 
         return postCommentFactory.makeMultiple(response.data);
