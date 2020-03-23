@@ -23,5 +23,7 @@ export interface IPostComment extends IDataModel<IPostComment> {
     repliesCount?: number;
     reactionsEmojiCounts?: IReactionsEmojiCount[];
     reaction?: IPostCommentReaction;
+    clearReaction(): void;
+    setReaction(newReaction: IPostCommentReaction): void;
 }
 

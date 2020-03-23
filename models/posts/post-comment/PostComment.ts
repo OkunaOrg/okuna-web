@@ -4,8 +4,6 @@ import { ModelData } from '~/types/models-data/ModelData';
 import {
     dateDeserializer,
     dateSerializer,
-    emojiDeserializer,
-    emojiSerializer,
     hashtagsDeserializer, hashtagsSerializer,
     postCommentDeserializer, postCommentReactionDeserializer, postCommentReactionSerializer,
     postCommentsDeserializer,
@@ -23,6 +21,7 @@ import { ILanguage } from '~/models/common/language/ILanguage';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
+import { reactionEmojiCountsUpdater } from '~/lib/reactionsEmojiCountsUpdater';
 
 
 export class PostComment extends DataModel<PostComment> implements IPostComment {
@@ -120,6 +119,20 @@ export class PostComment extends DataModel<PostComment> implements IPostComment 
     constructor(data: ModelData) {
         super(data);
         this.updateWithData(data);
+    }
+
+    clearReaction(): void {
+        this.setReaction(null);
+    }
+
+    setReaction(newReaction: IPostCommentReaction): void {
+        const newEmojiCounts = reactionEmojiCountsUpdater({
+            existingReactionsEmojiCounts: this.reactionsEmojiCounts,
+            existingReaction: this.reaction,
+            newReaction: newReaction
+        });
+        this.reaction = newReaction;
+        this.reactionsEmojiCounts = newEmojiCounts;
     }
 }
 

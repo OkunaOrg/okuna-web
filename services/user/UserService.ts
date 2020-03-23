@@ -310,7 +310,7 @@ export class UserService implements IUserService {
         await this.postsApiService.deletePostCommentReaction({
             postUuid: params.post.uuid,
             postCommentId: params.postComment.id,
-            postCommentReactionId: params.postCommentReactionId
+            postCommentReactionId: params.postCommentReaction.id
         });
     }
 
@@ -371,7 +371,7 @@ export class UserService implements IUserService {
             postCommentId: params.postComment.id
         });
 
-        return postCommentReactionFactory.makeMultiple(response.data);
+        return postCommentFactory.makeMultiple(response.data);
     }
 
     async getPostComments(params: GetPostCommentsParams): Promise<IPostComment[]> {

@@ -91,43 +91,7 @@ export function createRouter() {
                         children: [
                             {
                                 path: ':postUuid',
-                                component: OkEmptyPage,
-                                children: [
-                                    {
-                                        path: 'c',
-                                        component: OkEmptyPage,
-                                        children: [
-                                            {
-                                                path: '',
-                                                component: OkPostCommentsPage
-                                            },
-                                            {
-                                                path: ':postCommentId',
-                                                component: OkEmptyPage,
-                                                children: [
-                                                    {
-                                                        path: '',
-                                                        component: OkPostCommentPage
-                                                    },
-                                                    {
-                                                        path: 'r',
-                                                        component: OkEmptyPage,
-                                                        children: [
-                                                            {
-                                                                path: '',
-                                                                component: OkPostCommentRepliesPage,
-                                                            },
-                                                            {
-                                                                path: ':postCommentReplyId',
-                                                                component: OkPostCommentReplyPage,
-                                                            },
-                                                        ]
-                                                    }
-                                                ]
-                                            },
-                                        ]
-                                    },
-                                ]
+                                component: OkPostCommentsPage,
                             }
                         ]
                     },

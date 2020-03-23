@@ -10,4 +10,3 @@ export interface IPostCommentReaction extends IDataModel<IPostCommentReaction> {
     reactor?: IUser;
     postComment?: IPostComment;
 }
-

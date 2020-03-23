@@ -20,19 +20,10 @@
                     <p class="subtitle">
                         <ok-smart-text :text="postComment.text" class="ok-has-text-primary-invert is-size-6"></ok-smart-text>
                     </p>
+                    <ok-post-comment-reactions :post="post" :post-comment="postComment"></ok-post-comment-reactions>
                 </div>
             </div>
-            <nav class="level has-padding-top-10">
-                <div class="level-item has-text-centered has-cursor-pointer" role="button">
-                    <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">React</span>
-                </div>
-                <div class="level-item has-text-centered has-cursor-pointer" role="button">
-                    <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">Reply</span>
-                </div>
-                <div class="level-item has-text-centered has-cursor-pointer" role="button" aria-label="Options">
-                    <ok-more-horizontal class="ok-svg-icon-primary-invert is-icon-2x"></ok-more-horizontal>
-                </div>
-            </nav>
+            <ok-post-comment-inline-actions :post="post" :post-comment="postComment"></ok-post-comment-inline-actions>
         </div>
     </article>
 </template>
@@ -48,12 +39,16 @@
     import { OkAvatarSize } from '~/components/avatars/lib/AvatarSize';
     import OkSmartText from '~/components/smart-text/SmartText.vue';
     import OkUserAvatar from '~/components/avatars/user-avatar/UserAvatar.vue';
+    import OkPostCommentInlineActions
+        from '~/components/post-theatre/post-theatre-sidebar/components/components/components/OkPostCommentInlineActions.vue';
+    import OkPostCommentReactions
+        from '~/components/post-theatre/post-theatre-sidebar/components/components/components/OkPostCommentReactions.vue';
 
 
 
     @Component({
         name: "OkPostComment",
-        components: {OkUserAvatar, OkSmartText},
+        components: {OkPostCommentReactions, OkPostCommentInlineActions, OkUserAvatar, OkSmartText},
     })
     export default class OkPostComment extends Vue {
 

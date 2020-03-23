@@ -8,6 +8,7 @@ import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { GetCommentsForPostSortType } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { IEmoji } from '~/models/common/emoji/IEmoji';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
+import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 
 // COMMUNITIES START
 
@@ -198,7 +199,7 @@ export interface ReactToPostCommentParams {
 }
 
 export interface DeletePostCommentReactionParams {
-    postCommentReactionId: number;
+    postCommentReaction: IPostCommentReaction;
     postComment: IPostComment;
     post: IPost;
 }
