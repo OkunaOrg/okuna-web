@@ -29,7 +29,7 @@
         }
 
         get postPath() {
-            return `p/${this.post.uuid}/c`;
+            return `/p/${this.post.uuid}`;
         }
 
     }

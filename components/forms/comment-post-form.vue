@@ -32,7 +32,8 @@
             <div class="level-left">
                 <div class="level-item">
                     <p class="subtitle is-5">
-                        <ok-character-count :max-characters="postCommentMaxLength" :character-count="text.length"></ok-character-count>
+                        <ok-character-count :max-characters="postCommentMaxLength"
+                                            :character-count="text.length"></ok-character-count>
                     </p>
                 </div>
             </div>
@@ -75,6 +76,8 @@
     import { postCommentMaxLength, postCommentValidators } from "~/validators/post-comment";
     import OkResizableTextArea from "~/components/resizable-textarea.vue";
     import OkCharacterCount from "~/components/character-count.vue";
+    import { IOkLogger } from "~/services/logging/types";
+    import { ILoggingService } from "~/services/logging/ILogging";
 
     @Component({
         name: "OkCommentPostForm",
@@ -87,11 +90,13 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
+        private logger: IOkLogger;
+
 
         commentPostOperation?: CancelableOperation<IPostComment>;
 
         postCommentMaxLength = postCommentMaxLength;
-
 
         inputIsFocused = false;
         isPostCommentReply = false;
@@ -100,6 +105,12 @@
 
         @Validate(postCommentValidators)
         text = "";
+
+        mounted() {
+            this.logger = this.loggingService!.getLogger({
+                name: "PostCommenter"
+            });
+        }
 
         destroyed() {
             if (this.commentPostOperation) this.commentPostOperation.cancel();
@@ -158,6 +169,7 @@
                 );
                 const postComment = await this.commentPostOperation.value;
                 this._onCommentedPost(postComment);
+                this._clearForm();
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
@@ -172,8 +184,13 @@
             return !this.$v.$invalid;
         }
 
+        _clearForm() {
+            this.text = "";
+        }
+
 
         _onCommentedPost(postComment: IPostComment) {
+            this.logger.info("Commented post", postComment);
             this.$emit("onCommentedPost", postComment);
         }
     }

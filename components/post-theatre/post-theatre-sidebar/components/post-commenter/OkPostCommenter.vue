@@ -8,7 +8,8 @@
                 </ok-user-avatar>
             </div>
             <div class="media-content">
-                <ok-comment-post-form :post="post" :post-comment="postComment"></ok-comment-post-form>
+                <ok-comment-post-form :post="post" :post-comment="postComment"
+                                      @onCommentedPost="onCommentedPost"></ok-comment-post-form>
             </div>
         </div>
     </section>
@@ -29,15 +30,15 @@
     import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
     import { IUser } from "~/models/auth/user/IUser";
-    import OkCommentPostForm from '~/components/forms/comment-post-form.vue';
-    import { IPostComment } from '~/models/posts/post-comment/IPostComment';
+    import OkCommentPostForm from "~/components/forms/comment-post-form.vue";
+    import { IPostComment } from "~/models/posts/post-comment/IPostComment";
 
     @Component({
         name: "OkPostCommenter",
         components: {OkCommentPostForm, OkUserAvatar},
         subscriptions: function () {
             return {
-                loggedInUser: this['userService'].loggedInUser
+                loggedInUser: this["userService"].loggedInUser
             }
         }
     })
@@ -52,6 +53,10 @@
         loggedInUser: IUser;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+
+        onCommentedPost(postComment: IPostComment) {
+            this.$emit("onCommentedPost", postComment);
+        }
 
     }
 </script>

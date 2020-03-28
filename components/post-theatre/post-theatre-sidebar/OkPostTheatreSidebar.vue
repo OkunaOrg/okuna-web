@@ -8,10 +8,10 @@
                     <ok-post-reactions :post="post"></ok-post-reactions>
                     <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
                 </div>
-                <ok-post-comments :post="post"></ok-post-comments>
+                <ok-post-comments :post="post" ref="postCommentsComponent"></ok-post-comments>
             </div>
             <div class="ok-post-commenter-container">
-                <ok-post-commenter :post="post"></ok-post-commenter>
+                <ok-post-commenter :post="post" @onCommentedPost="onCommentedPost"></ok-post-commenter>
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
 
 <style lang="scss" scoped>
 
-    .ok-post-comments-container{
+    .ok-post-comments-container {
         overflow: scroll;
         overflow-y: auto;
         overflow-x: hidden;
@@ -31,14 +31,15 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPostHeader from '~/components/post/components/post-header/PostHeader.vue';
-    import OkPostText from '~/components/post/components/PostText.vue';
-    import OkPostActions from '~/components/post/components/post-actions/PostActions.vue';
-    import OkPostReactions from '~/components/post/components/post-reactions/PostReactions.vue';
+    import OkPostHeader from "~/components/post/components/post-header/PostHeader.vue";
+    import OkPostText from "~/components/post/components/PostText.vue";
+    import OkPostActions from "~/components/post/components/post-actions/PostActions.vue";
+    import OkPostReactions from "~/components/post/components/post-reactions/PostReactions.vue";
     import OkPostComments
-        from '~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue';
+        from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue";
     import OkPostCommenter
-        from '~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue';
+        from "~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue";
+    import { IPostComment } from "~/models/posts/post-comment/IPostComment";
 
     @Component({
         name: "OkPostTheatreSidebar",
@@ -46,6 +47,14 @@
     })
     export default class OkPostTheatreSidebar extends Vue {
         @Prop(Object) readonly post: IPost;
+
+        $refs!: {
+            postCommentsComponent: OkPostComments
+        };
+
+        onCommentedPost(postComment: IPostComment) {
+            this.$refs.postCommentsComponent.addPostComment(postComment);
+        }
 
     }
 </script>
