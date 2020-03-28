@@ -1,5 +1,20 @@
 <template>
-    <section class="has-padding-20 ok-has-background-primary-80" v-if="loggedInUser">
+    <section class="has-padding-20 ok-has-background-primary-80 ok-post-commenter" v-if="loggedInUser">
+        <div v-if="postCommentToReplyTo" class="has-padding-bottom-20">
+            <div class="card ok-has-background-primary-highlight">
+                <header class="card-header">
+                    <p class="card-header-title ok-has-text-primary-invert-60 is-size-6 is-paddingless has-padding-left-20">
+                        Replying to
+                    </p>
+                    <div class="card-header-icon has-padding-20" aria-label="remove reply" @click="removePostCommentToReplyTo" role="button">
+                        <ok-close-icon class="ok-svg-icon-primary-invert"></ok-close-icon>
+                    </div>
+                </header>
+                <div class="card-content">
+                    <ok-post-comment :post="post" :post-comment="postCommentToReplyTo" :show-actions="false" :show-reactions="false"></ok-post-comment>
+                </div>
+            </div>
+        </div>
         <div class="media">
             <div class="media-left">
                 <ok-user-avatar
@@ -8,7 +23,7 @@
                 </ok-user-avatar>
             </div>
             <div class="media-content">
-                <ok-comment-post-form :post="post" :post-comment="postComment"
+                <ok-comment-post-form :post="post" :post-comment="postCommentToReplyTo"
                                       @onCommentedPost="onCommentedPost"></ok-comment-post-form>
             </div>
         </div>
@@ -16,8 +31,12 @@
 </template>
 
 
-<style scoped lang="scss">
-
+<style lang="scss">
+    .ok-post-commenter{
+        .card-content {
+            padding-top: 0 !important;
+        }
+    }
 </style>
 
 <script lang="ts">
@@ -32,10 +51,12 @@
     import { IUser } from "~/models/auth/user/IUser";
     import OkCommentPostForm from "~/components/forms/comment-post-form.vue";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
+    import OkPostComment
+        from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue";
 
     @Component({
         name: "OkPostCommenter",
-        components: {OkCommentPostForm, OkUserAvatar},
+        components: {OkPostComment, OkCommentPostForm, OkUserAvatar},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
@@ -44,7 +65,8 @@
     })
     export default class OkPostCommenter extends Vue {
         @Prop(Object) readonly post: IPost;
-        @Prop(Object) readonly postComment: IPostComment;
+
+        postCommentToReplyTo: IPostComment = null;
 
         $route!: Route;
 
@@ -56,6 +78,15 @@
 
         onCommentedPost(postComment: IPostComment) {
             this.$emit("onCommentedPost", postComment);
+            this.postCommentToReplyTo = null;
+        }
+
+        setPostCommentToReplyTo(postComment: IPostComment) {
+            this.postCommentToReplyTo = postComment;
+        }
+
+        removePostCommentToReplyTo(){
+            this.postCommentToReplyTo = null;
         }
 
     }

@@ -8,10 +8,11 @@
                     <ok-post-reactions :post="post"></ok-post-reactions>
                     <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
                 </div>
-                <ok-post-comments :post="post" ref="postCommentsComponent"></ok-post-comments>
+                <ok-post-comments :post="post" ref="postCommentsComponent" @onWantsToReplyToComment="onWantsToReplyToComment"></ok-post-comments>
             </div>
             <div class="ok-post-commenter-container">
-                <ok-post-commenter :post="post" @onCommentedPost="onCommentedPost"></ok-post-commenter>
+                <ok-post-commenter :post="post" @onCommentedPost="onCommentedPost"
+                                   ref="postCommenter"></ok-post-commenter>
             </div>
         </div>
     </div>
@@ -49,11 +50,16 @@
         @Prop(Object) readonly post: IPost;
 
         $refs!: {
-            postCommentsComponent: OkPostComments
+            postCommentsComponent: OkPostComments,
+            postCommenter: OkPostCommenter,
         };
 
         onCommentedPost(postComment: IPostComment) {
             this.$refs.postCommentsComponent.addPostComment(postComment);
+        }
+
+        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
+            this.$refs.postCommenter.setPostCommentToReplyTo(postComment);
         }
 
     }

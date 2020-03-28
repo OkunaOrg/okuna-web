@@ -2,7 +2,8 @@
     <section>
         <div>
             <div v-for="postComment in postComments" :key="postComment.id">
-                <ok-post-comment :post="post" :post-comment="postComment" class="has-padding-20"></ok-post-comment>
+                <ok-post-comment :post="post" :post-comment="postComment" class="has-padding-20"
+                                 @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
             </div>
             <span></span>
 
@@ -51,6 +52,10 @@
                 name: "PostComments"
             });
             //setTimeout(this.scrollToItem, 5000);
+        }
+
+        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
+            this.$emit("onWantsToReplyToComment", postComment, post);
         }
 
         infiniteHandler($state) {
