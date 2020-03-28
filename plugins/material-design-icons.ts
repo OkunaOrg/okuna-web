@@ -26,6 +26,7 @@ import Earth from 'vue-material-design-icons/Earth.vue';
 import Binoculars from 'vue-material-design-icons/Binoculars.vue';
 import DotsVertical from 'vue-material-design-icons/DotsVertical.vue';
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
+import Send from 'vue-material-design-icons/Send.vue';
 
 import Vue from 'vue';
 
@@ -86,3 +87,5 @@ Vue.component('ok-now-icon', Earth);
 Vue.component('ok-more-vertical', DotsVertical);
 
 Vue.component('ok-more-horizontal', DotsHorizontal);
+
+Vue.component('ok-send', Send);

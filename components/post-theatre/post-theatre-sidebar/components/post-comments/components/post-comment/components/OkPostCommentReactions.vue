@@ -17,8 +17,6 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue";
-    import { IReactionsEmojiCount } from "~/models/postComments/reactions-emoji-count/IReactionsEmojiCount";
     import { IEmoji } from "~/models/common/emoji/IEmoji";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
@@ -28,6 +26,8 @@
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from '~/models/posts/post-comment/IPostComment';
     import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
+    import OkEmojiReactionButton from '~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue';
+    import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
 
     @Component({
         name: "OkPostCommentReactions",

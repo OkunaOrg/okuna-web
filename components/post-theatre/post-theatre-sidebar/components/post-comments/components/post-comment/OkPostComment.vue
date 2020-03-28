@@ -39,10 +39,10 @@
     import { OkAvatarSize } from '~/components/avatars/lib/AvatarSize';
     import OkSmartText from '~/components/smart-text/SmartText.vue';
     import OkUserAvatar from '~/components/avatars/user-avatar/UserAvatar.vue';
-    import OkPostCommentInlineActions
-        from '~/components/post-theatre/post-theatre-sidebar/components/components/components/post-comment-inline-actions/OkPostCommentInlineActions.vue';
     import OkPostCommentReactions
-        from '~/components/post-theatre/post-theatre-sidebar/components/components/components/OkPostCommentReactions.vue';
+        from '~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/OkPostCommentReactions.vue';
+    import OkPostCommentInlineActions
+        from '~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/post-comment-inline-actions/OkPostCommentInlineActions.vue';
 
 
 

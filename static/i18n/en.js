@@ -15,7 +15,15 @@ export default {
     "forms": {
         "login": {
             "or_signup_delimited": "or"
-        }
+        },
+        "comment_post": {
+            "placeholder": "Write something...",
+            "placeholder_reply": "Your reply...",
+            "submit": "Post",
+            "submit_reply": "Reply",
+            "title": "Comment post",
+            "title_reply": "Reply to comment",
+        },
     },
     "global": {
         "errors": {
@@ -30,6 +38,10 @@ export default {
                 "required": "Password is required",
                 "min_length": "Password has to be longer than 10 characters",
                 "max_length": "Password has to be smaller than 128 characters"
+            },
+            "post_comment_text": {
+                "required": "Comment is required",
+                "max_length": "Text has to be smaller than 5000 characters"
             },
             "username": {
                 "required": "Username is required",

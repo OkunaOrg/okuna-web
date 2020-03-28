@@ -24,8 +24,9 @@
     import { okunaContainer } from "~/services/inversify";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPostComment from "~/components/post-theatre/post-theatre-sidebar/components/components/OkPostComment.vue";
     import { GetCommentsForPostSortType } from '~/services/Apis/posts/PostsApiServiceTypes';
+    import OkPostComment
+        from '~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue';
 
     @Component({
         name: "OkPostComments",

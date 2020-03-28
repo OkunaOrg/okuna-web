@@ -24,7 +24,7 @@
     import OkSmartText from '~/components/smart-text/SmartText.vue';
     import OkUserAvatar from '~/components/avatars/user-avatar/UserAvatar.vue';
     import OkPostCommentReactButton
-        from '~/components/post-theatre/post-theatre-sidebar/components/components/components/post-comment-inline-actions/components/PostCommentReactButton.vue';
+        from '~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/post-comment-inline-actions/components/PostCommentReactButton.vue';
 
 
 

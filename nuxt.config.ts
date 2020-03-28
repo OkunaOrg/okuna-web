@@ -51,6 +51,7 @@ export default {
         '~/plugins/vue-video-player',
         '~/plugins/vue-highlight',
         '~/plugins/vue-tooltip',
+        '~/plugins/vue-rx',
     ],
     router: {
         middleware: ['post-redirect'],

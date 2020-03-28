@@ -10,6 +10,9 @@
                 </div>
                 <ok-post-comments :post="post"></ok-post-comments>
             </div>
+            <div class="ok-post-commenter-container">
+                <ok-post-commenter :post="post"></ok-post-commenter>
+            </div>
         </div>
     </div>
 </template>
@@ -32,11 +35,14 @@
     import OkPostText from '~/components/post/components/PostText.vue';
     import OkPostActions from '~/components/post/components/post-actions/PostActions.vue';
     import OkPostReactions from '~/components/post/components/post-reactions/PostReactions.vue';
-    import OkPostComments from '~/components/post-theatre/post-theatre-sidebar/components/OkPostComments.vue';
+    import OkPostComments
+        from '~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue';
+    import OkPostCommenter
+        from '~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue';
 
     @Component({
         name: "OkPostTheatreSidebar",
-        components: {OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader},
+        components: {OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader},
     })
     export default class OkPostTheatreSidebar extends Vue {
         @Prop(Object) readonly post: IPost;
