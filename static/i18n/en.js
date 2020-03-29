@@ -25,6 +25,28 @@ export default {
             "title_reply": "Reply to comment",
         },
     },
+    "user_preferences": {
+        "link_previews_setting": {
+            "always": "Always",
+            "never": "Never",
+        },
+        "hashtag_display_setting": {
+            "disco": "Disco",
+            "traditional": "Traditional",
+        },
+        "post_comments_sort_setting": {
+            "newest_first": "Newest first",
+            "oldest_first": "Oldest first"
+        },
+        "videos_auto_play_setting": {
+            "always": "Always",
+            "never": "Never"
+        },
+        "videos_sound_setting": {
+            "enabled": "Enabled",
+            "disabled": "Disabled"
+        }
+    },
     "global": {
         "errors": {
             "generic": {

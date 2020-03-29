@@ -8,6 +8,7 @@ import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IEmoji } from '~/models/common/emoji/IEmoji';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
+import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
 
 // COMMUNITIES START
 
@@ -108,7 +109,7 @@ export interface GetPostCommentsParams {
     countMin?: number;
     maxId?: number;
     minId?: number;
-    sort?: CommentsSortType;
+    sort?: PostCommentsSortSetting;
 }
 
 export interface GetPostCommentRepliesParams {
@@ -118,7 +119,7 @@ export interface GetPostCommentRepliesParams {
     countMin?: number;
     maxId?: number;
     minId?: number;
-    sort?: CommentsSortType;
+    sort?: PostCommentsSortSetting;
 }
 
 export interface CommentPostParams {

@@ -9,6 +9,7 @@ import { TYPES } from '~/services/inversify-types';
 import { IStorageService } from '~/services/storage/IStorage';
 import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
 import { VideosSoundSetting } from '~/services/user-preferences-service/libs/VideosSoundSetting';
+import { ILocalizationService } from '~/services/localization/ILocalization';
 
 @injectable()
 export class UserPreferencesService implements IUserPreferencesService {
@@ -34,7 +35,10 @@ export class UserPreferencesService implements IUserPreferencesService {
 
     private storage: IOkStorage<string>;
 
-    constructor(@inject(TYPES.StorageService)  storageService?: IStorageService,) {
+    constructor(
+        @inject(TYPES.StorageService)  storageService?: IStorageService,
+        @inject(TYPES.LocalizationService) private localizationService?: ILocalizationService,
+    ) {
         this.storage = storageService!.getLocalForageStorage('userPreferencesService');
         // TODO Make a library out of this entire behavior of persisting Subjects
         this.bootstrapHashtagDisplaySetting();
@@ -48,6 +52,21 @@ export class UserPreferencesService implements IUserPreferencesService {
         const serializedValue = hashtagDisplaySetting.toString();
         await this.storage.set(UserPreferencesService.hashtagsDisplaySettingStorageKey, serializedValue);
         this.notifyHashtagDisplaySettingChange(hashtagDisplaySetting);
+    }
+
+    getHashtagDisplaySettingLocalizationMap(): WeakMap<HashtagDisplaySetting, String> {
+        const localizationMap = new WeakMap();
+        localizationMap.set(
+            HashtagDisplaySetting.disco,
+            this.localizationService.localize('user_preferences.hashtag_display_setting.disco')
+        );
+
+        localizationMap.set(
+            HashtagDisplaySetting.traditional,
+            this.localizationService.localize('user_preferences.hashtag_display_setting.traditional')
+        );
+
+        return localizationMap;
     }
 
     private async bootstrapHashtagDisplaySetting() {
@@ -66,6 +85,21 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyPostCommentsSortSettingChange(postCommentsSortSetting);
     }
 
+    getPostCommentsSortSettingLocalizationMap(): WeakMap<PostCommentsSortSetting, String> {
+        const localizationMap = new WeakMap();
+        localizationMap.set(
+            PostCommentsSortSetting.newestFirst,
+            this.localizationService.localize('user_preferences.post_comments_sort_setting.newest_first')
+        );
+
+        localizationMap.set(
+            PostCommentsSortSetting.oldestFirst,
+            this.localizationService.localize('user_preferences.post_comments_sort_setting.oldest_first')
+        );
+
+        return localizationMap;
+    }
+
     private async bootstrapPostCommentsSortSetting() {
         const serializedValue = await this.storage.get(UserPreferencesService.postCommentsSortSettingStorageKey);
         const deserializedValue = PostCommentsSortSetting.parse(serializedValue);
@@ -80,6 +114,21 @@ export class UserPreferencesService implements IUserPreferencesService {
         const serializedValue = videosAutoPlaySetting.toString();
         await this.storage.set(UserPreferencesService.videosAutoPlaySettingStorageKey, serializedValue);
         this.notifyVideosAutoPlaySettingChange(videosAutoPlaySetting);
+    }
+
+    getVideosAutoPlaySettingLocalizationMap(): WeakMap<VideosAutoPlaySetting, String> {
+        const localizationMap = new WeakMap();
+        localizationMap.set(
+            VideosAutoPlaySetting.always,
+            this.localizationService.localize('user_preferences.videos_auto_play_setting.always')
+        );
+
+        localizationMap.set(
+            VideosAutoPlaySetting.never,
+            this.localizationService.localize('user_preferences.videos_auto_play_setting.never')
+        );
+
+        return localizationMap;
     }
 
     private async bootstrapVideosAutoPlaySetting() {
@@ -100,6 +149,21 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyVideosSoundSettingChange(videosSoundSetting);
     }
 
+    getVideosSoundSettingLocalizationMap(): WeakMap<VideosSoundSetting, String> {
+        const localizationMap = new WeakMap();
+        localizationMap.set(
+            VideosSoundSetting.enabled,
+            this.localizationService.localize('user_preferences.videos_sound_setting.enabled')
+        );
+
+        localizationMap.set(
+            VideosSoundSetting.disabled,
+            this.localizationService.localize('user_preferences.videos_sound_setting.disabled')
+        );
+
+        return localizationMap;
+    }
+
     private async bootstrapVideosSoundSetting() {
         const serializedValue = await this.storage.get(UserPreferencesService.videosSoundSettingStorageKey);
         const deserializedValue = VideosSoundSetting.parse(serializedValue);
@@ -118,6 +182,21 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyLinkPreviewsSettingChange(linkPreviewsSetting);
     }
 
+    getLinkPreviewsSettingLocalizationMap(): WeakMap<LinkPreviewsSetting, String> {
+        const localizationMap = new WeakMap();
+        localizationMap.set(
+            LinkPreviewsSetting.always,
+            this.localizationService.localize('user_preferences.link_previews_setting.always')
+        );
+
+        localizationMap.set(
+            LinkPreviewsSetting.never,
+            this.localizationService.localize('user_preferences.link_previews_setting.never')
+        );
+
+        return localizationMap;
+    }
+
     private async bootstrapLinkPreviewsSetting() {
         const serializedValue = await this.storage.get(UserPreferencesService.linkPreviewsSettingStorageKey);
         const deserializedValue = LinkPreviewsSetting.parse(serializedValue);
@@ -133,6 +212,5 @@ export class UserPreferencesService implements IUserPreferencesService {
     clear(): Promise<void> {
         return this.storage.clear();
     }
-
 
 }

@@ -12,11 +12,15 @@ export interface IUserPreferencesService {
 
     setLinkPreviewsSetting(linkPreviewsSetting: LinkPreviewsSetting): Promise<void>;
 
+    getLinkPreviewsSettingLocalizationMap(): WeakMap<LinkPreviewsSetting, String>;
+
     videosAutoPlaySetting: BehaviorSubject<LinkPreviewsSetting | undefined>;
 
     videosAutoPlayIsEnabled: BehaviorSubject<boolean | undefined>;
 
     setVideosAutoPlaySetting(videosAutoPlaySetting: VideosAutoPlaySetting): Promise<void>;
+
+    getVideosAutoPlaySettingLocalizationMap(): WeakMap<VideosAutoPlaySetting, String>;
 
     videosSoundSetting: BehaviorSubject<LinkPreviewsSetting | undefined>;
 
@@ -24,13 +28,19 @@ export interface IUserPreferencesService {
 
     setVideosSoundSetting(videosSoundSetting: VideosSoundSetting): Promise<void>;
 
+    getVideosSoundSettingLocalizationMap(): WeakMap<VideosSoundSetting, String>;
+
     hashtagDisplaySetting: BehaviorSubject<HashtagDisplaySetting | undefined>;
 
     setHashtagDisplaySetting(hashtagDisplaySetting: HashtagDisplaySetting): Promise<void>;
 
+    getHashtagDisplaySettingLocalizationMap(): WeakMap<HashtagDisplaySetting, String>;
+
     postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting | undefined>;
 
     setPostCommentsSortSetting(commentsSortSetting: PostCommentsSortSetting): Promise<void>;
+
+    getPostCommentsSortSettingLocalizationMap(): WeakMap<PostCommentsSortSetting, String>;
 
     clear(): Promise<void>;
 
