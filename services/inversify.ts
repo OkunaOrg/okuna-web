@@ -31,6 +31,8 @@ import { CommunitiesApiService } from '~/services/Apis/communities/CommunitiesAp
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
 import { PostsApiService } from '~/services/Apis/posts/PostsApiService';
 import { IPostsApiService } from '~/services/Apis/posts/IPostsApiService';
+import { IUserPreferencesService } from '~/services/user-preferences-service/IUserPreferencesService';
+import { UserPreferencesService } from '~/services/user-preferences-service/UserPreferencesService';
 
 const okunaContainer = new Container();
 
@@ -49,6 +51,7 @@ okunaContainer.bind<IStorageService>(TYPES.StorageService).to(StorageService).in
 okunaContainer.bind<IEnvironmentService>(TYPES.EnvironmentService).to(EnvironmentService).inSingletonScope();
 okunaContainer.bind<ILoggingService>(TYPES.LoggingService).to(LoggingService).inSingletonScope();
 okunaContainer.bind<IThemeService>(TYPES.ThemeService).to(ThemeService).inSingletonScope();
+okunaContainer.bind<IUserPreferencesService>(TYPES.UserPreferencesService).to(UserPreferencesService).inSingletonScope();
 okunaContainer.bind<IBootstrapService>(TYPES.BootstrapService).to(BootstrapService).inSingletonScope();
 
 export { okunaContainer };

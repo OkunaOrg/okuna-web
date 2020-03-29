@@ -13,6 +13,7 @@ const TYPES = {
     LoggingService: Symbol.for('LoggingService'),
     ThemeService: Symbol.for('ThemeService'),
     NavigationService: Symbol.for('NavigationService'),
+    UserPreferencesService: Symbol.for('UserPreferencesService'),
     BootstrapService: Symbol.for('BootstrapService'),
 };
 

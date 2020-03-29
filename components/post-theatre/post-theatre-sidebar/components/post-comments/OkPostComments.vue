@@ -25,11 +25,11 @@
     import { okunaContainer } from "~/services/inversify";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IPost } from "~/models/posts/post/IPost";
-    import { GetCommentsForPostSortType } from "~/services/Apis/posts/PostsApiServiceTypes";
     import OkPostComment
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue";
     import { ILoggingService } from "~/services/logging/ILogging";
     import { IOkLogger } from "~/services/logging/types";
+    import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
 
     @Component({
         name: "OkPostComments",
@@ -41,6 +41,7 @@
 
         $route!: Route;
         postComments: IPostComment[] = [];
+        sort: PostCommentsSortSetting;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
@@ -67,7 +68,7 @@
             this.userService.getPostComments({
                 post: this.post,
                 maxId: lasPostCommentId,
-                sort: GetCommentsForPostSortType.asc
+                sort: CommentsSortType.newestFirst
             }).then((postComments) => {
                 if (postComments.length) {
                     this.postComments.push(...postComments);

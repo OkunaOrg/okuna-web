@@ -1,3 +1,5 @@
+import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
+
 export interface GetTopPostsApiParams {
     minId?: number;
     maxId?: number;
@@ -26,7 +28,7 @@ export interface GetPostCommentsApiParams {
     countMin?: number;
     maxId?: number;
     minId?: number;
-    sort?: GetCommentsForPostSortType;
+    sort?: PostCommentsSortSetting;
 }
 
 export interface GetPostCommentRepliesApiParams {
@@ -36,50 +38,8 @@ export interface GetPostCommentRepliesApiParams {
     countMin?: number;
     maxId?: number;
     minId?: number;
-    sort?: GetCommentsForPostSortType;
+    sort?: PostCommentsSortSetting;
 }
-
-
-export class GetCommentsForPostSortType {
-    static asc = new GetCommentsForPostSortType('ASC');
-    static desc = new GetCommentsForPostSortType('DESC');
-
-    static _values: GetCommentsForPostSortType[] = [
-        GetCommentsForPostSortType.asc,
-        GetCommentsForPostSortType.desc,
-    ];
-
-    static values() {
-        return GetCommentsForPostSortType._values.slice(0);
-    }
-
-    static parse(val: string): GetCommentsForPostSortType | undefined {
-        let keyword;
-
-        for (let i = 0; i < GetCommentsForPostSortType._values.length; i++) {
-            const value = GetCommentsForPostSortType._values[i];
-            if (val == value.code) {
-                keyword = value;
-                break;
-            }
-        }
-
-        if (!keyword) {
-            console.error('Unsupported comments sort type');
-        }
-
-        return keyword;
-    }
-
-    constructor(public code: string) {
-    };
-
-
-    toString(): string {
-        return this.code;
-    }
-}
-
 
 export interface CommentPostApiParams {
     postUuid: string;

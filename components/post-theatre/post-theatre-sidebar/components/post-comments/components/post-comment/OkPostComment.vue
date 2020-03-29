@@ -21,7 +21,7 @@
                         <ok-smart-text :text="postComment.text"
                                        class="ok-has-text-primary-invert is-size-6"></ok-smart-text>
                     </p>
-                    <ok-post-comment-reactions :post="post" :post-comment="postComment" v-if="showReactions"></ok-post-comment-reactions>
+                    <ok-post-comment-reactions :post="post" :post-comment="postComment" v-if="showReactions" class="has-padding-top-10"></ok-post-comment-reactions>
                 </div>
             </div>
             <ok-post-comment-inline-actions :post="post" :post-comment="postComment"
