@@ -68,7 +68,7 @@
             this.userService.getPostComments({
                 post: this.post,
                 maxId: lasPostCommentId,
-                sort: CommentsSortType.newestFirst
+                sort: PostCommentsSortSetting.newestFirst
             }).then((postComments) => {
                 if (postComments.length) {
                     this.postComments.push(...postComments);

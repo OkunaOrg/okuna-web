@@ -20,18 +20,18 @@ export class UserPreferencesService implements IUserPreferencesService {
     static readonly videosSoundSettingStorageKey = 'videoSoundSetting';
     static readonly hashtagsDisplaySettingStorageKey = 'hashtagsSetting';
 
-    hashtagDisplaySetting: BehaviorSubject<HashtagDisplaySetting | undefined>;
+    hashtagDisplaySetting: BehaviorSubject<HashtagDisplaySetting | undefined> = new BehaviorSubject(undefined);
 
-    linkPreviewsAreEnabled: BehaviorSubject<boolean | undefined>;
-    linkPreviewsSetting: BehaviorSubject<LinkPreviewsSetting | undefined>;
+    linkPreviewsAreEnabled: BehaviorSubject<boolean | undefined> = new BehaviorSubject(undefined);
+    linkPreviewsSetting: BehaviorSubject<LinkPreviewsSetting | undefined> = new BehaviorSubject(undefined);
 
-    videosAutoPlayIsEnabled: BehaviorSubject<boolean | undefined>;
-    videosAutoPlaySetting: BehaviorSubject<LinkPreviewsSetting | undefined>;
+    videosAutoPlayIsEnabled: BehaviorSubject<boolean | undefined> = new BehaviorSubject(undefined);
+    videosAutoPlaySetting: BehaviorSubject<LinkPreviewsSetting | undefined> = new BehaviorSubject(undefined);
 
-    videosSoundIsEnabled: BehaviorSubject<boolean | undefined>;
-    videosSoundSetting: BehaviorSubject<LinkPreviewsSetting | undefined>;
+    videosSoundIsEnabled: BehaviorSubject<boolean | undefined> = new BehaviorSubject(undefined);
+    videosSoundSetting: BehaviorSubject<LinkPreviewsSetting | undefined> = new BehaviorSubject(undefined);
 
-    postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting | undefined>;
+    postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting | undefined> = new BehaviorSubject(undefined);
 
     private storage: IOkStorage<string>;
 

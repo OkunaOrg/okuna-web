@@ -4,6 +4,8 @@ export class VideosSoundSetting {
 
     static _values: VideosSoundSetting[] = [
         VideosSoundSetting.enabled,
+        VideosSoundSetting.disabled,
+
     ];
 
     static values() {
@@ -22,7 +24,7 @@ export class VideosSoundSetting {
         }
 
         if (!parsedValue) {
-            console.error('Unsupported VideosSoundSetting');
+            console.error('Unsupported VideosSoundSetting', val);
         }
 
         return parsedValue;
