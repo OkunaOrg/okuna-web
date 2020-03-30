@@ -15,8 +15,14 @@ export class OkStorage<T> implements IOkStorage<T> {
         }));
     }
 
-    get(key: string): Promise<T> {
-        return this.store.get(this.makeKey(key));
+    async get(key: string, defaultValue?: T): Promise<T> {
+        let value = await this.store.get(this.makeKey(key));
+        if (!value && defaultValue) {
+            await this.store.set(key, defaultValue);
+            value = defaultValue;
+        }
+
+        return value;
     }
 
     has(key: string): Promise<boolean> {

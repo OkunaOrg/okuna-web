@@ -2,7 +2,7 @@
 export interface IOkStorage<T> {
     clear(): Promise<void>;
 
-    get(key: string): Promise<T>;
+    get(key: string, defaultValue?: T): Promise<T>;
 
     has(key: string): Promise<boolean>;
 

@@ -70,7 +70,7 @@ export class UserPreferencesService implements IUserPreferencesService {
     }
 
     private async bootstrapHashtagDisplaySetting() {
-        const serializedValue = await this.storage.get(UserPreferencesService.hashtagsDisplaySettingStorageKey);
+        const serializedValue = await this.storage.get(UserPreferencesService.hashtagsDisplaySettingStorageKey, HashtagDisplaySetting.traditional.code);
         const deserializedValue = HashtagDisplaySetting.parse(serializedValue);
         this.notifyHashtagDisplaySettingChange(deserializedValue);
     }
@@ -101,7 +101,10 @@ export class UserPreferencesService implements IUserPreferencesService {
     }
 
     private async bootstrapPostCommentsSortSetting() {
-        const serializedValue = await this.storage.get(UserPreferencesService.postCommentsSortSettingStorageKey);
+        const serializedValue = await this.storage.get(
+            UserPreferencesService.postCommentsSortSettingStorageKey,
+            PostCommentsSortSetting.newestFirst.code,
+        );
         const deserializedValue = PostCommentsSortSetting.parse(serializedValue);
         this.notifyPostCommentsSortSettingChange(deserializedValue);
     }
@@ -132,7 +135,10 @@ export class UserPreferencesService implements IUserPreferencesService {
     }
 
     private async bootstrapVideosAutoPlaySetting() {
-        const serializedValue = await this.storage.get(UserPreferencesService.videosAutoPlaySettingStorageKey);
+        const serializedValue = await this.storage.get(
+            UserPreferencesService.videosAutoPlaySettingStorageKey,
+            VideosAutoPlaySetting.always.code
+        );
         const deserializedValue = VideosAutoPlaySetting.parse(serializedValue);
         this.notifyVideosAutoPlaySettingChange(deserializedValue);
     }
@@ -165,7 +171,10 @@ export class UserPreferencesService implements IUserPreferencesService {
     }
 
     private async bootstrapVideosSoundSetting() {
-        const serializedValue = await this.storage.get(UserPreferencesService.videosSoundSettingStorageKey);
+        const serializedValue = await this.storage.get(
+            UserPreferencesService.videosSoundSettingStorageKey,
+            VideosSoundSetting.disabled.code
+        );
         const deserializedValue = VideosSoundSetting.parse(serializedValue);
         this.notifyVideosSoundSettingChange(deserializedValue);
     }
@@ -198,7 +207,10 @@ export class UserPreferencesService implements IUserPreferencesService {
     }
 
     private async bootstrapLinkPreviewsSetting() {
-        const serializedValue = await this.storage.get(UserPreferencesService.linkPreviewsSettingStorageKey);
+        const serializedValue = await this.storage.get(
+            UserPreferencesService.linkPreviewsSettingStorageKey,
+            LinkPreviewsSetting.always.code
+        );
         const deserializedValue = LinkPreviewsSetting.parse(serializedValue);
         this.notifyLinkPreviewsSettingChange(deserializedValue);
     }
