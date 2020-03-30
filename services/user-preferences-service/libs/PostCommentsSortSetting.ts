@@ -1,6 +1,6 @@
 export class PostCommentsSortSetting {
-    static newestFirst = new PostCommentsSortSetting('ASC');
-    static oldestFirst = new PostCommentsSortSetting('DESC');
+    static newestFirst = new PostCommentsSortSetting('DESC');
+    static oldestFirst = new PostCommentsSortSetting('ASC');
 
     static _values: PostCommentsSortSetting[] = [
         PostCommentsSortSetting.newestFirst,

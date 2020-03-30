@@ -2,7 +2,7 @@
     <div class="has-height-100-percent">
         <div class="columns flex-direction-column has-height-100-percent is-gapless">
             <div class="column ok-post-comments-container">
-                <div class="has-padding-20">
+                <div class="has-padding-20 ok-has-border-bottom-primary-highlight">
                     <ok-post-header :post="post"></ok-post-header>
                     <ok-post-text :post="post"></ok-post-text>
                     <ok-post-reactions :post="post"></ok-post-reactions>
