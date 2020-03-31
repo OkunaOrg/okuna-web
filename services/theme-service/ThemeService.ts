@@ -261,6 +261,19 @@ export class ThemeService implements IThemeService {
                 return [`1px solid ${data.primaryHighlightColor.hsl().string()}`, '!important'];
             }
         },
+        'dropdown-content': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryColor.hsl().string(), '!important'];
+            },
+        },
+        'dropdown-item': {
+            'background-color': (data: ITheme) => {
+                return [data.primaryHighlightColor.hsl().string(), '!important'];
+            },
+            'color': (data: ITheme) => {
+                return [data.primaryInvertColor.hsl().string(), '!important'];
+            },
+        },
         '@global': {
             '::-webkit-scrollbar-thumb': {
                 'background': (data: ITheme) => {
@@ -277,7 +290,7 @@ export class ThemeService implements IThemeService {
             },
             '::-webkit-scrollbar-track': {
                 'background': (data: ITheme) => {
-                    return [`${data.primaryColor.hex()}`, '!important'];
+                    return [`${data.primaryColor80.hex()}`, '!important'];
                 },
             }
         }

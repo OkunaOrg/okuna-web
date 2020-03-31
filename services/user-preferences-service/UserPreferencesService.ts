@@ -85,8 +85,8 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyPostCommentsSortSettingChange(postCommentsSortSetting);
     }
 
-    getPostCommentsSortSettingLocalizationMap(): WeakMap<PostCommentsSortSetting, String> {
-        const localizationMap = new WeakMap();
+    getPostCommentsSortSettingLocalizationMap(): Map<PostCommentsSortSetting, String> {
+        const localizationMap = new Map();
         localizationMap.set(
             PostCommentsSortSetting.newestFirst,
             this.localizationService.localize('user_preferences.post_comments_sort_setting.newest_first')

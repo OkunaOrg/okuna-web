@@ -1,20 +1,6 @@
 <template>
     <section v-if="postCommentsSortSetting">
-        <div class="has-padding-right-20 has-padding-left-20 has-padding-top-10 has-padding-bottom-10 ok-has-text-primary-invert-60 is-flex align-items-center is-size-7">
-            <span>Showing</span>
-            <div class="has-padding-10">
-                <button
-                        class="button is-rounded ok-has-background-primary-highlight ok-has-text-primary-invert-60 is-borderless is-small"
-                        :class="{'ok-has-background-accent-gradient': post.reaction, 'is-loading': requestInProgress}"
-                        @click="onReactButtonPressed">
-                    <ok-menu-down-icon class="ok-svg-icon-primary-invert-60 is-icon-2x"></ok-menu-down-icon>
-                    <span class="has-padding-left-5">
-                            newest
-                        </span>
-                </button>
-            </div>
-            <span>first.</span>
-        </div>
+        <ok-post-comments-sort-switcher></ok-post-comments-sort-switcher>
         <div>
             <div v-for="postComment in postComments" :key="postComment.id">
                 <ok-post-comment :post="post" :post-comment="postComment" class="has-padding-20"
@@ -47,10 +33,12 @@
     import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
     import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
     import InfiniteLoading from "~/node_modules/vue-infinite-loading";
+    import OkPostCommentsSortSwitcher
+        from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comments-sort-switcher.vue";
 
     @Component({
         name: "OkPostComments",
-        components: {OkPostComment},
+        components: {OkPostCommentsSortSwitcher, OkPostComment},
         subscriptions: function () {
             return {
                 postCommentsSortSetting: this.userPreferencesService.postCommentsSortSetting
@@ -93,11 +81,12 @@
             const lastPostComment = this.postComments[this.postComments.length - 1];
             if (lastPostComment) lasPostCommentId = lastPostComment.id;
 
+            const currentSort = this.$observables["postCommentsSortSetting"].value;
 
             this.userService.getPostComments({
                 post: this.post,
                 maxId: lasPostCommentId,
-                sort: PostCommentsSortSetting.newestFirst
+                sort: currentSort
             }).then((postComments) => {
                 if (postComments.length) {
                     this.postComments.push(...postComments);
@@ -149,6 +138,11 @@
 
         private refreshInfiniteLoading() {
             this.postComments = [];
+            this.$nextTick(() => {
+                if(this.$refs["infiniteLoading"]){
+                    this.$refs["infiniteLoading"].$emit("$InfiniteLoading:reset")
+                }
+            })
         }
 
 

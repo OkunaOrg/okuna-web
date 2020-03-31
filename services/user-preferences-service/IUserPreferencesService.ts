@@ -40,7 +40,7 @@ export interface IUserPreferencesService {
 
     setPostCommentsSortSetting(commentsSortSetting: PostCommentsSortSetting): Promise<void>;
 
-    getPostCommentsSortSettingLocalizationMap(): WeakMap<PostCommentsSortSetting, String>;
+    getPostCommentsSortSettingLocalizationMap(): Map<PostCommentsSortSetting, String>;
 
     clear(): Promise<void>;
 

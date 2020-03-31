@@ -1,7 +1,7 @@
 <template>
     <div class="ok-has-background-primary is-semi-rounded">
         <div
-                class="box ok-reaction-picker ok-has-background-primary-highlight ok-has-border-color-primary-highlight"
+                class="box ok-reaction-picker ok-has-background-primary-highlight"
                 :class="{'is-loading': isLoading || requestInProgress}">
             <div v-for="reactionEmojiGroup in reactionEmojiGroups" :key="reactionEmojiGroup.id">
                 <div>
@@ -30,7 +30,6 @@
         height: 250px;
         overflow-x: hidden;
         overflow-y: auto;
-        border: solid 2px;
     }
 
 </style>

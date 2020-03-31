@@ -12,6 +12,12 @@ export default {
             }
         },
     },
+    "components": {
+        "post_comments_sort_switcher": {
+            "showing": "Showing",
+            "first": "first."
+        }
+    },
     "forms": {
         "login": {
             "or_signup_delimited": "or"
@@ -35,8 +41,8 @@ export default {
             "traditional": "Traditional",
         },
         "post_comments_sort_setting": {
-            "newest_first": "Newest first",
-            "oldest_first": "Oldest first"
+            "newest_first": "newest",
+            "oldest_first": "oldest"
         },
         "videos_auto_play_setting": {
             "always": "Always",
