@@ -77,15 +77,32 @@
         }
 
         infiniteHandler($state) {
-            let lasPostCommentId;
+            let lastPostCommentId;
             const lastPostComment = this.postComments[this.postComments.length - 1];
-            if (lastPostComment) lasPostCommentId = lastPostComment.id;
+            if (lastPostComment) lastPostCommentId = lastPostComment.id;
+            const currentSort: PostCommentsSortSetting = this.$observables["postCommentsSortSetting"].value;
 
-            const currentSort = this.$observables["postCommentsSortSetting"].value;
+            let maxId;
+            let minId;
+
+            if(lastPostCommentId){
+                switch (currentSort) {
+                    case PostCommentsSortSetting.newestFirst:
+                        maxId = lastPostCommentId;
+                        break;
+                    case PostCommentsSortSetting.oldestFirst:
+                        // No clue why +1 but @Shantanu did it like this on the mobile app
+                        minId = lastPostCommentId + 1;
+                        break;
+                    default:
+                        throw new Error("Unsupported PostCommentsSortSetting on infinite handler");
+                }
+            }
 
             this.userService.getPostComments({
                 post: this.post,
-                maxId: lasPostCommentId,
+                maxId: maxId,
+                minId: minId,
                 sort: currentSort
             }).then((postComments) => {
                 if (postComments.length) {
@@ -139,7 +156,7 @@
         private refreshInfiniteLoading() {
             this.postComments = [];
             this.$nextTick(() => {
-                if(this.$refs["infiniteLoading"]){
+                if (this.$refs["infiniteLoading"]) {
                     this.$refs["infiniteLoading"].$emit("$InfiniteLoading:reset")
                 }
             })
