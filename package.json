@@ -46,6 +46,7 @@
     "vue-i18n": "^8.15.5",
     "vue-infinite-loading": "^2.4.5",
     "vue-line-clamp": "^1.3.2",
+    "vue-loadmore": "^2.0.0",
     "vue-material-design-icons": "^4.4.0",
     "vue-media-queries": "0.0.5",
     "vue-moment": "^4.1.0",

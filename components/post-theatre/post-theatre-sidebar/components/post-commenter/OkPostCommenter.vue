@@ -3,10 +3,10 @@
         <div v-if="postCommentToReplyTo" class="has-padding-bottom-20">
             <div class="card ok-has-background-primary-highlight">
                 <header class="card-header">
-                    <p class="card-header-title ok-has-text-primary-invert-60 is-size-6 is-paddingless has-padding-left-20">
+                    <p class="card-header-title ok-has-text-primary-invert-60 is-size-7 is-paddingless has-padding-left-20">
                         Replying to
                     </p>
-                    <div class="card-header-icon has-padding-20" aria-label="remove reply" @click="removePostCommentToReplyTo" role="button">
+                    <div class="card-header-icon has-padding-10" aria-label="remove reply" @click="removePostCommentToReplyTo" role="button">
                         <ok-close-icon class="ok-svg-icon-primary-invert"></ok-close-icon>
                     </div>
                 </header>

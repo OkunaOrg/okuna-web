@@ -4,6 +4,7 @@
         <div>
             <div v-for="postComment in postComments" :key="postComment.id">
                 <ok-post-comment :post="post" :post-comment="postComment" class="has-padding-20"
+                                 :show-replies="true"
                                  @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
             </div>
             <span></span>
@@ -52,6 +53,7 @@
         $route!: Route;
         postComments: IPostComment[] = [];
         sort: PostCommentsSortSetting;
+
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);

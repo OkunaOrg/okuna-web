@@ -21,12 +21,15 @@
                         <ok-smart-text :text="postComment.text"
                                        class="ok-has-text-primary-invert is-size-6"></ok-smart-text>
                     </p>
-                    <ok-post-comment-reactions :post="post" :post-comment="postComment" v-if="showReactions" class="has-padding-top-10"></ok-post-comment-reactions>
+                    <ok-post-comment-reactions :post="post" :post-comment="postComment" v-if="showReactions"
+                                               class="has-padding-top-10"></ok-post-comment-reactions>
                 </div>
             </div>
             <ok-post-comment-inline-actions :post="post" :post-comment="postComment"
                                             @onWantsToReply="onWantsToReply"
                                             v-if="showActions"></ok-post-comment-inline-actions>
+            <ok-post-comment-replies :post="post" :post-comment="postComment"
+                                     v-if="showReplies"></ok-post-comment-replies>
         </div>
     </article>
 </template>
@@ -42,11 +45,19 @@
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/OkPostCommentReactions.vue";
     import OkPostCommentInlineActions
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/post-comment-inline-actions/OkPostCommentInlineActions.vue";
+    import OkPostCommentReplies
+        from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/OkPostCommentReplies.vue";
 
 
     @Component({
         name: "OkPostComment",
-        components: {OkPostCommentReactions, OkPostCommentInlineActions, OkUserAvatar, OkSmartText},
+        components: {
+            OkPostCommentReplies,
+            OkPostCommentReactions,
+            OkPostCommentInlineActions,
+            OkUserAvatar,
+            OkSmartText
+        },
     })
     export default class OkPostComment extends Vue {
 
@@ -55,15 +66,19 @@
 
         @Prop(Object) readonly post: IPost;
         @Prop(Object) readonly postComment: IPostComment;
-        @Prop({
-            type: Boolean,
-            default: true
-        }) readonly showActions: boolean;
 
         @Prop({
             type: Boolean,
             default: true
+        }) readonly showActions: boolean;
+        @Prop({
+            type: Boolean,
+            default: true
         }) readonly showReactions: boolean;
+        @Prop({
+            type: Boolean,
+            default: false
+        }) readonly showReplies: boolean;
 
         onWantsToReply() {
             this.$emit("onWantsToReply", this.postComment, this.post);
