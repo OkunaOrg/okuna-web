@@ -52,7 +52,6 @@ export default {
         '~/plugins/vue-highlight',
         '~/plugins/vue-tooltip',
         '~/plugins/vue-rx',
-        '~/plugins/vue-loadmore',
     ],
     router: {
         middleware: ['post-redirect'],

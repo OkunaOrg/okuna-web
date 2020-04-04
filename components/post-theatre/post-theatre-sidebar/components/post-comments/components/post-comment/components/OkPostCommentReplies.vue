@@ -1,16 +1,16 @@
 <template>
     <section v-if="postCommentsSortSetting">
-        <mt-loadmore :bottom-method="loadBottom" :bottom-status.sync="loadMoreStatus">
+        <ok-load-more :bottom-method="loadBottom" :bottom-status.sync="loadMoreStatus" ref="loadmore">
             <div v-for="postComment in postCommentReplies" :key="postComment.id">
                 <ok-post-comment :post="post" :post-comment="postComment" class="has-padding-20" :show-replies="false"
                                  @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
             </div>
 
-            <div slot="bottom" class="mint-loadmore-bottom">
+            <div slot="bottom" class="ok">
                 <span v-show="loadMoreStatus !== 'loading'" :class="{ 'rotate': loadMoreStatus === 'drop' }">↓</span>
                 <span v-show="loadMoreStatus === 'loading'">Loading...</span>
             </div>
-        </mt-loadmore>
+        </ok-load-more>
     </section>
 </template>
 
@@ -30,10 +30,12 @@
     import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
     import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
     import { BehaviorSubject } from "~/node_modules/rxjs";
+    import OkLoadMore from "~/components/utils/LoadMore.vue";
 
     @Component({
         name: "OkPostCommentReplies",
         components: {
+            OkLoadMore,
             OkPostComment: () => import("~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue"),
         },
         subscriptions: function () {
@@ -58,7 +60,7 @@
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);
 
         $refs!: {
-            loadmore: any
+            loadmore: OkLoadMore
         };
 
         $observables!: {
