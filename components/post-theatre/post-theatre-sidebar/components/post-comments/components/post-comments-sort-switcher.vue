@@ -16,6 +16,7 @@
 
                 <b-dropdown-item aria-role="button"
                                  v-for="(postCommentSortSetting, localizationString)  in postCommentSortSettingLocalizationObject"
+                                 :key="localizationString"
                                  v-if="localizationString !== currentPostCommentSortSettingText"
                                  @click="setPostCommentsSortSetting(postCommentSortSetting)"
                 >
@@ -35,18 +36,24 @@
     import { IPost } from "~/models/posts/post/IPost";
     import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
     import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
 
     @Component({
         name: "OkPostCommentsSortSwitcher",
         subscriptions: function () {
             return {
-                postCommentsSortSetting: this.userPreferencesService.postCommentsSortSetting
+                postCommentsSortSetting: this['userPreferencesService'].postCommentsSortSetting
             }
         }
     })
     export default class OkPostCommentsSortSwitcher extends Vue {
 
         @Prop(Object) readonly post: IPost;
+
+        $observables!: {
+            postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting>
+        };
+
 
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);
 
@@ -55,18 +62,18 @@
         }
 
         get currentPostCommentSortSettingText() {
-            return this.postCommentSortSettingLocalizationMap.get(this.$observables["postCommentsSortSetting"].value);
+            return this.postCommentSortSettingLocalizationMap.get(this.$observables.postCommentsSortSetting.value);
         }
 
         get postCommentSortSettingLocalizationObject() {
-            const object = {};
+            let object = {};
             this.postCommentSortSettingLocalizationMap.forEach((value, key) => {
                 object[value] = key;
             });
             return object;
         }
 
-        private get postCommentSortSettingLocalizationMap(): Map<PostCommentsSortSetting, String> {
+        private get postCommentSortSettingLocalizationMap(): Map<PostCommentsSortSetting, string> {
             return this.userPreferencesService.getPostCommentsSortSettingLocalizationMap();
         }
 

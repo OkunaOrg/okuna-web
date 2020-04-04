@@ -12,7 +12,7 @@ export interface IUserPreferencesService {
 
     setLinkPreviewsSetting(linkPreviewsSetting: LinkPreviewsSetting): Promise<void>;
 
-    getLinkPreviewsSettingLocalizationMap(): WeakMap<LinkPreviewsSetting, String>;
+    getLinkPreviewsSettingLocalizationMap(): WeakMap<LinkPreviewsSetting, string>;
 
     videosAutoPlaySetting: BehaviorSubject<LinkPreviewsSetting | undefined>;
 
@@ -20,7 +20,7 @@ export interface IUserPreferencesService {
 
     setVideosAutoPlaySetting(videosAutoPlaySetting: VideosAutoPlaySetting): Promise<void>;
 
-    getVideosAutoPlaySettingLocalizationMap(): WeakMap<VideosAutoPlaySetting, String>;
+    getVideosAutoPlaySettingLocalizationMap(): WeakMap<VideosAutoPlaySetting, string>;
 
     videosSoundSetting: BehaviorSubject<LinkPreviewsSetting | undefined>;
 
@@ -28,19 +28,19 @@ export interface IUserPreferencesService {
 
     setVideosSoundSetting(videosSoundSetting: VideosSoundSetting): Promise<void>;
 
-    getVideosSoundSettingLocalizationMap(): WeakMap<VideosSoundSetting, String>;
+    getVideosSoundSettingLocalizationMap(): WeakMap<VideosSoundSetting, string>;
 
     hashtagDisplaySetting: BehaviorSubject<HashtagDisplaySetting | undefined>;
 
     setHashtagDisplaySetting(hashtagDisplaySetting: HashtagDisplaySetting): Promise<void>;
 
-    getHashtagDisplaySettingLocalizationMap(): WeakMap<HashtagDisplaySetting, String>;
+    getHashtagDisplaySettingLocalizationMap(): WeakMap<HashtagDisplaySetting, string>;
 
     postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting | undefined>;
 
     setPostCommentsSortSetting(commentsSortSetting: PostCommentsSortSetting): Promise<void>;
 
-    getPostCommentsSortSettingLocalizationMap(): Map<PostCommentsSortSetting, String>;
+    getPostCommentsSortSettingLocalizationMap(): Map<PostCommentsSortSetting, string>;
 
     clear(): Promise<void>;
 

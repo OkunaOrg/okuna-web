@@ -36,13 +36,14 @@
     import InfiniteLoading from "~/node_modules/vue-infinite-loading";
     import OkPostCommentsSortSwitcher
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comments-sort-switcher.vue";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
 
     @Component({
         name: "OkPostComments",
         components: {OkPostCommentsSortSwitcher, OkPostComment},
         subscriptions: function () {
             return {
-                postCommentsSortSetting: this.userPreferencesService.postCommentsSortSetting
+                postCommentsSortSetting: this["userPreferencesService"].postCommentsSortSetting
             }
         }
     })
@@ -51,6 +52,10 @@
         @Prop(Object) readonly post: IPost;
 
         $route!: Route;
+        $observables!: {
+            postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting>
+        };
+
         postComments: IPostComment[] = [];
         sort: PostCommentsSortSetting;
 
@@ -82,12 +87,12 @@
             let lastPostCommentId;
             const lastPostComment = this.postComments[this.postComments.length - 1];
             if (lastPostComment) lastPostCommentId = lastPostComment.id;
-            const currentSort: PostCommentsSortSetting = this.$observables["postCommentsSortSetting"].value;
+            const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
 
             let maxId;
             let minId;
 
-            if(lastPostCommentId){
+            if (lastPostCommentId) {
                 switch (currentSort) {
                     case PostCommentsSortSetting.newestFirst:
                         maxId = lastPostCommentId;

@@ -54,7 +54,7 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyHashtagDisplaySettingChange(hashtagDisplaySetting);
     }
 
-    getHashtagDisplaySettingLocalizationMap(): WeakMap<HashtagDisplaySetting, String> {
+    getHashtagDisplaySettingLocalizationMap(): WeakMap<HashtagDisplaySetting, string> {
         const localizationMap = new WeakMap();
         localizationMap.set(
             HashtagDisplaySetting.disco,
@@ -85,7 +85,7 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyPostCommentsSortSettingChange(postCommentsSortSetting);
     }
 
-    getPostCommentsSortSettingLocalizationMap(): Map<PostCommentsSortSetting, String> {
+    getPostCommentsSortSettingLocalizationMap(): Map<PostCommentsSortSetting, string> {
         const localizationMap = new Map();
         localizationMap.set(
             PostCommentsSortSetting.newestFirst,
@@ -119,7 +119,7 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyVideosAutoPlaySettingChange(videosAutoPlaySetting);
     }
 
-    getVideosAutoPlaySettingLocalizationMap(): WeakMap<VideosAutoPlaySetting, String> {
+    getVideosAutoPlaySettingLocalizationMap(): WeakMap<VideosAutoPlaySetting, string> {
         const localizationMap = new WeakMap();
         localizationMap.set(
             VideosAutoPlaySetting.always,
@@ -155,7 +155,7 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyVideosSoundSettingChange(videosSoundSetting);
     }
 
-    getVideosSoundSettingLocalizationMap(): WeakMap<VideosSoundSetting, String> {
+    getVideosSoundSettingLocalizationMap(): WeakMap<VideosSoundSetting, string> {
         const localizationMap = new WeakMap();
         localizationMap.set(
             VideosSoundSetting.enabled,
@@ -191,7 +191,7 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.notifyLinkPreviewsSettingChange(linkPreviewsSetting);
     }
 
-    getLinkPreviewsSettingLocalizationMap(): WeakMap<LinkPreviewsSetting, String> {
+    getLinkPreviewsSettingLocalizationMap(): WeakMap<LinkPreviewsSetting, string> {
         const localizationMap = new WeakMap();
         localizationMap.set(
             LinkPreviewsSetting.always,

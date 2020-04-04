@@ -28,7 +28,8 @@
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IPost } from "~/models/posts/post/IPost";
     import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
-    import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
+    import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
 
     @Component({
         name: "OkPostCommentReplies",
@@ -37,7 +38,7 @@
         },
         subscriptions: function () {
             return {
-                postCommentsSortSetting: this.userPreferencesService.postCommentsSortSetting
+                postCommentsSortSetting: this["userPreferencesService"].postCommentsSortSetting
             }
         }
     })
@@ -51,13 +52,17 @@
         $route!: Route;
         postCommentReplies: IPostComment[] = [];
         allLoaded: boolean;
-        loadMoreStatus: string = '';
+        loadMoreStatus: string = "";
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);
 
         $refs!: {
             loadmore: any
+        };
+
+        $observables!: {
+            postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting>
         };
 
 
@@ -73,7 +78,7 @@
             let lastPostCommentId;
             const lastPostComment = this.postCommentReplies[this.postCommentReplies.length - 1];
             if (lastPostComment) lastPostCommentId = lastPostComment.id;
-            const currentSort: PostCommentsSortSetting = this.$observables["postCommentsSortSetting"].value;
+            const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
 
             let maxId;
             let minId;
