@@ -1,5 +1,3 @@
-import {LoadMoreStatus} from "./lib/LoadMoreStatus";
-import {LoadMoreStatus} from "./lib/LoadMoreStatus";
 <template>
     <div class="ok-loadmore">
         <div class="ok-loadmore-content">
@@ -54,7 +52,6 @@ import {LoadMoreStatus} from "./lib/LoadMoreStatus";
             type: String
         }) loadMoreBottomText: string;
 
-
         LoadMoreStatus = LoadMoreStatus;
 
         topStatus: LoadMoreStatus = LoadMoreStatus.idle;
@@ -64,12 +61,6 @@ import {LoadMoreStatus} from "./lib/LoadMoreStatus";
         loadMoreBottomOperation?: CancelableOperation<any>;
 
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
-
-        mounted() {
-            this.topStatus = LoadMoreStatus.idle;
-            this.bottomStatus = LoadMoreStatus.idle;
-        }
-
 
         async onWantsToLoadMoreTop() {
             if (this.loadMoreTopOperation) return;

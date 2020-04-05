@@ -10,7 +10,7 @@
                 <ok-load-more
                         :load-more-bottom="loadMoreReplies"
                         :load-more-bottom-text="loadMoreRepliesText"
-                        ref="loadmore">
+                        ref="loadMore">
                     <div v-for="postComment in postCommentReplies" :key="postComment.id">
                         <ok-post-comment :post="post" :post-comment="postComment" :show-replies="false"
                                          @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
@@ -39,6 +39,7 @@
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
     import OkVerticalDivider from "~/components/utils/VerticalDivider.vue";
+    import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
 
     @Component({
         name: "OkPostCommentReplies",
@@ -63,11 +64,12 @@
         $route!: Route;
 
         postCommentReplies: IPostComment[] = [];
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);
 
         $refs!: {
-            loadmore: OkLoadMore
+            loadMore: OkLoadMore
         };
 
         $observables!: {
@@ -77,6 +79,9 @@
 
         mounted() {
             this.postCommentReplies = this.postComment.replies;
+            if (this.postCommentReplies.length === this.postComment.repliesCount) {
+                this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
+            }
         }
 
         onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
