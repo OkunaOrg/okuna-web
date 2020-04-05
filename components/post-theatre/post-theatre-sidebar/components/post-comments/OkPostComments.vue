@@ -3,7 +3,7 @@
         <ok-post-comments-sort-switcher></ok-post-comments-sort-switcher>
         <div>
             <div v-for="postComment in postComments" :key="postComment.id">
-                <ok-post-comment :post="post" :post-comment="postComment" class="has-padding-20"
+                <ok-post-comment :post="post" :post-comment="postComment"
                                  :show-replies="true"
                                  @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
             </div>

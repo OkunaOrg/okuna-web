@@ -1,6 +1,7 @@
 <template>
-    <article class="ok-post-comment">
-        <div>
+    <div class="has-padding-bottom-20">
+        <article
+                class="ok-post-comment has-padding-top-10  has-padding-left-20 has-padding-right-20">
             <div class="media">
                 <div class="media-left">
                     <ok-user-avatar
@@ -25,13 +26,15 @@
                                                class="has-padding-top-10"></ok-post-comment-reactions>
                 </div>
             </div>
-            <ok-post-comment-inline-actions :post="post" :post-comment="postComment"
-                                            @onWantsToReply="onWantsToReply"
-                                            v-if="showActions"></ok-post-comment-inline-actions>
-            <ok-post-comment-replies :post="post" :post-comment="postComment"
-                                     v-if="showReplies"></ok-post-comment-replies>
-        </div>
-    </article>
+        </article>
+        <ok-post-comment-inline-actions :post="post" :post-comment="postComment"
+                                        :expanded-replies="expandedReplies"
+                                        @onWantsToReply="onWantsToReply"
+                                        @onWantsToToggleReplies="onWantsToToggleReplies"
+                                        v-if="showActions"></ok-post-comment-inline-actions>
+        <ok-post-comment-replies :post="post" :post-comment="postComment"
+                                 v-if="showReplies && expandedReplies"></ok-post-comment-replies>
+    </div>
 </template>
 
 <script lang="ts">
@@ -80,8 +83,14 @@
             default: false
         }) readonly showReplies: boolean;
 
+        expandedReplies = false;
+
         onWantsToReply() {
             this.$emit("onWantsToReply", this.postComment, this.post);
+        }
+
+        onWantsToToggleReplies() {
+            this.expandedReplies = !this.expandedReplies;
         }
 
     }

@@ -1,15 +1,33 @@
+$normalSize: 0.75em;
+
 .material-design-icon.is-icon-2x {
-  height: 1.5em !important;
-  width: 1.5em !important;
+  height: $normalSize * 2 !important;
+  width: $normalSize * 2 !important;
 }
 
 .material-design-icon.is-icon-2x > .material-design-icon__svg {
-  height: 1.5em !important;
-  width: 1.5em !important;
+  height: $normalSize * 2 !important;
+  width: $normalSize * 2 !important;
 }
 
 
 .is-icon-2x{
+  position: relative;
+  top: -2px;
+}
+
+.material-design-icon.is-icon-3x {
+  height: $normalSize * 3 !important;
+  width: $normalSize * 3 !important;
+}
+
+.material-design-icon.is-icon-3x > .material-design-icon__svg {
+  height: $normalSize * 3 !important;
+  width: $normalSize * 3 !important;
+}
+
+
+.is-icon-3x{
   position: relative;
   top: -2px;
 }

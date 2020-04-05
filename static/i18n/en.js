@@ -16,6 +16,20 @@ export default {
         "post_comments_sort_switcher": {
             "showing": "Showing",
             "first": "first."
+        },
+        "post_comment": {
+            "collapse_replies": "Collapse replies",
+            "replies_count": "{repliesCount}+ Replies",
+        },
+        "post_comment_replies": {
+            "load_more": "Load more replies"
+        },
+        "load_more":{
+            "status_bar": {
+                "load_more": "Load more",
+                "loading": "Loading",
+                "all_loaded": "Nothing more to load"
+            }
         }
     },
     "forms": {

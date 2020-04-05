@@ -1,5 +1,11 @@
 <template>
     <nav class="level has-padding-top-10">
+        <div class="level-item has-cursor-pointer ok-has-border-right-primary-highlight" role="button" v-if="postComment.repliesCount"
+             @click="onWantsToToggleReplies">
+            <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">
+                {{ repliesText }}
+            </span>
+        </div>
         <div class="level-item" role="button">
             <ok-post-comment-react-button :post="post" :post-comment="postComment"></ok-post-comment-react-button>
         </div>
@@ -7,7 +13,7 @@
             <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">Reply</span>
         </div>
         <div class="level-item has-text-centered has-cursor-pointer" role="button" aria-label="Options">
-            <ok-more-horizontal class="ok-svg-icon-primary-invert is-icon-2x"></ok-more-horizontal>
+            <ok-more-horizontal class="ok-svg-icon-primary-invert-60 is-icon-2x"></ok-more-horizontal>
         </div>
     </nav>
 </template>
@@ -38,10 +44,21 @@
 
         @Prop(Object) readonly post: IPost;
         @Prop(Object) readonly postComment: IPostComment;
+        @Prop(Boolean) readonly expandedReplies: boolean;
 
 
         onWantsToReply() {
             this.$emit("onWantsToReply", this.postComment, this.post);
+        }
+
+        onWantsToToggleReplies() {
+            this.$emit("onWantsToToggleReplies", this.postComment, this.post);
+        }
+
+        get repliesText() {
+            return this.expandedReplies ? this.$t("components.post_comment.collapse_replies") : this.$t("components.post_comment.replies_count", {
+                repliesCount: this.postComment.repliesCount
+            });
         }
     }
 </script>
