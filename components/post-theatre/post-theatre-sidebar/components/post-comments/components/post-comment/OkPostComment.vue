@@ -22,11 +22,11 @@
                         <ok-smart-text :text="postComment.text"
                                        class="ok-has-text-primary-invert is-size-6"></ok-smart-text>
                     </p>
-                    <ok-post-comment-reactions :post="post" :post-comment="postComment" v-if="showReactions"
-                                               class="has-padding-top-10"></ok-post-comment-reactions>
                 </div>
             </div>
         </article>
+        <ok-post-comment-reactions :post="post" :post-comment="postComment" v-if="showReactions"
+                                   class="has-padding-left-20 has-padding-right-20 has-padding-top-20"></ok-post-comment-reactions>
         <ok-post-comment-inline-actions :post="post" :post-comment="postComment"
                                         :expanded-replies="expandedReplies"
                                         @onWantsToReply="onWantsToReply"

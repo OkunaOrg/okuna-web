@@ -38,8 +38,7 @@
     import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
-    import { LoadMoreStatus } from '~/components/utils/load-more/lib/LoadMoreStatus';
-    import OkVerticalDivider from '~/components/utils/VerticalDivider.vue';
+    import OkVerticalDivider from "~/components/utils/VerticalDivider.vue";
 
     @Component({
         name: "OkPostCommentReplies",
@@ -56,7 +55,7 @@
     })
     export default class OkPostCommentReplies extends Vue {
 
-        static readonly loadMoreItemsCount = 1;
+        static readonly loadMoreItemsCount = 5;
 
         @Prop(Object) readonly post: IPost;
         @Prop(Object) readonly postComment: IPostComment;
@@ -64,10 +63,6 @@
         $route!: Route;
 
         postCommentReplies: IPostComment[] = [];
-        allLoaded: boolean;
-
-        bottomLoadMoreStatus: LoadMoreStatus;
-
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);
 
@@ -88,7 +83,7 @@
             this.$emit("onWantsToReplyToReply", postComment, post);
         }
 
-        loadMoreReplies(id) {
+        async loadMoreReplies(): Promise<boolean> {
             let lastPostCommentId;
             const lastPostComment = this.postCommentReplies[this.postCommentReplies.length - 1];
             if (lastPostComment) lastPostCommentId = lastPostComment.id;
@@ -111,7 +106,7 @@
                 }
             }
 
-            this.userService.getPostCommentReplies({
+            const postCommentReplies = await this.userService.getPostCommentReplies({
                 post: this.post,
                 postComment: this.postComment,
                 maxId: maxId,
@@ -119,14 +114,16 @@
                 countMax: OkPostCommentReplies.loadMoreItemsCount,
                 countMin: OkPostCommentReplies.loadMoreItemsCount,
                 sort: currentSort,
-            }).then((postCommentReplies) => {
-                if (postCommentReplies.length) {
-                    this.postCommentReplies.push(...postCommentReplies);
-                    //this.$refs["loadmore"].onBottomLoaded(id);
-                } else {
-                    this.allLoaded = true;// if all data are loaded
-                }
             });
+
+
+            if (postCommentReplies.length) {
+                this.postCommentReplies.push(...postCommentReplies);
+            }
+
+            const canLoadMore = postCommentReplies.length === OkPostCommentReplies.loadMoreItemsCount;
+
+            return canLoadMore;
         }
 
         /**
