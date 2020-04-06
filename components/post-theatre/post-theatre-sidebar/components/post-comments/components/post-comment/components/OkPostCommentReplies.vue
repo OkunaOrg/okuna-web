@@ -13,6 +13,7 @@
                         ref="loadMore">
                     <div v-for="postComment in postCommentReplies" :key="postComment.id">
                         <ok-post-comment :post="post" :post-comment="postComment" :show-replies="false"
+                                         :avatar-size="OkAvatarSize.small"
                                          @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
                     </div>
                 </ok-load-more>
@@ -40,6 +41,7 @@
     import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
     import OkVerticalDivider from "~/components/utils/VerticalDivider.vue";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
+    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
 
     @Component({
         name: "OkPostCommentReplies",
@@ -64,6 +66,7 @@
         $route!: Route;
 
         postCommentReplies: IPostComment[] = [];
+        OkAvatarSize = OkAvatarSize;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);

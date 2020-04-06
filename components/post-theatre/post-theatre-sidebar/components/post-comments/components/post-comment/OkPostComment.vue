@@ -6,7 +6,7 @@
                 <div class="media-left">
                     <ok-user-avatar
                             :user="postComment.commenter"
-                            :avatar-size="this.OkAvatarSize.medium">
+                            :avatar-size="avatarSize">
                     </ok-user-avatar>
                 </div>
                 <div class="media-content">
@@ -69,6 +69,9 @@
 
         @Prop(Object) readonly post: IPost;
         @Prop(Object) readonly postComment: IPostComment;
+        @Prop({
+            default: OkAvatarSize.medium
+        }) readonly avatarSize: OkAvatarSize;
 
         @Prop({
             type: Boolean,

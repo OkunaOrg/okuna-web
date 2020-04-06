@@ -3,6 +3,7 @@
         <div v-for="reactionsEmojiCount in postComment.reactionsEmojiCounts"
              :key="reactionsEmojiCount.emoji.id" class="has-padding-right-10 has-padding-bottom-5">
             <ok-emoji-reaction-button
+                    :size="OkEmojiReactionButtonSize.small"
                     :emoji-count="reactionsEmojiCount"
                     :is-current-reaction="postComment.reaction && postComment.reaction.emoji.id === reactionsEmojiCount.emoji.id"
                     @onPressed="onEmojiReactionButtonPressed"
@@ -24,10 +25,11 @@
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IPost } from "~/models/posts/post/IPost";
-    import { IPostComment } from '~/models/posts/post-comment/IPostComment';
-    import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
-    import OkEmojiReactionButton from '~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue';
-    import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
+    import { IPostComment } from "~/models/posts/post-comment/IPostComment";
+    import { IPostCommentReaction } from "~/models/posts/post-comment-reaction/IPostCommentReaction";
+    import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue";
+    import { IReactionsEmojiCount } from "~/models/posts/reactions-emoji-count/IReactionsEmojiCount";
+    import { OkEmojiReactionButtonSize } from "~/components/buttons/emoji-reaction-button/lib/OkEmojiReactionButtonSize";
 
     @Component({
         name: "OkPostCommentReactions",
@@ -38,6 +40,7 @@
         @Prop(Object) readonly post: IPost;
 
         requestInProgress = false;
+        OkEmojiReactionButtonSize = OkEmojiReactionButtonSize;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
