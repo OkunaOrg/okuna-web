@@ -1,5 +1,6 @@
 <template>
-    <div class="has-padding-bottom-20" :id="'pc-' + postComment.id">
+    <div class="has-padding-bottom-20" :id="'pc-' + postComment.id"
+         :class="{'ok-has-background-primary-highlight': isHighlightedPostComment}">
         <article
                 class="ok-post-comment has-padding-top-10  has-padding-left-20 has-padding-right-20">
             <div class="media">
@@ -33,6 +34,9 @@
                                         @onWantsToToggleReplies="onWantsToToggleReplies"
                                         v-if="showActions"></ok-post-comment-inline-actions>
         <ok-post-comment-replies :post="post" :post-comment="postComment"
+                                 :linked-post-comment-id="linkedPostCommentId"
+                                 :linked-post-comment-reply-id="linkedPostCommentReplyId"
+                                 :highlighted-post-comment-id="highlightedPostCommentId"
                                  v-if="showReplies && expandedReplies"></ok-post-comment-replies>
     </div>
 </template>
@@ -86,7 +90,24 @@
             default: false
         }) readonly showReplies: boolean;
 
+        @Prop({
+            type: Number,
+        }) readonly linkedPostCommentId: number;
+
+        @Prop({
+            type: Number,
+        }) readonly linkedPostCommentReplyId: number;
+
+        @Prop({
+            type: Number,
+        }) readonly highlightedPostCommentId: number;
+
+
         expandedReplies = false;
+
+        created(){
+            this.expandedReplies = this.isLinkedPostComment;
+        }
 
         onWantsToReply() {
             this.$emit("onWantsToReply", this.postComment, this.post);
@@ -94,6 +115,14 @@
 
         onWantsToToggleReplies() {
             this.expandedReplies = !this.expandedReplies;
+        }
+
+        get isHighlightedPostComment() {
+            return this.postComment.id === this.highlightedPostCommentId;
+        }
+
+        get isLinkedPostComment(){
+            return this.postComment.id === this.linkedPostCommentId;
         }
 
     }

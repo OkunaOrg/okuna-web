@@ -14,6 +14,9 @@
                     <div v-for="postComment in postCommentReplies" :key="postComment.id">
                         <ok-post-comment :post="post" :post-comment="postComment" :show-replies="false"
                                          :avatar-size="OkAvatarSize.small"
+                                         :linked-post-comment-id="linkedPostCommentId"
+                                         :linked-post-comment-reply-id="linkedPostCommentReplyId"
+                                         :highlighted-post-comment-id="highlightedPostCommentId"
                                          @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
                     </div>
                 </ok-load-more>
@@ -42,6 +45,8 @@
     import OkVerticalDivider from "~/components/utils/VerticalDivider.vue";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
     import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IUtilsService } from "~/services/utils-service/IUtilsService";
 
     @Component({
         name: "OkPostCommentReplies",
@@ -63,12 +68,26 @@
         @Prop(Object) readonly post: IPost;
         @Prop(Object) readonly postComment: IPostComment;
 
+        @Prop({
+            type: Number,
+        }) readonly linkedPostCommentId: number;
+
+        @Prop({
+            type: Number,
+        }) readonly linkedPostCommentReplyId: number;
+
+        @Prop({
+            type: Number,
+        }) readonly highlightedPostCommentId: number;
+
         $route!: Route;
 
         postCommentReplies: IPostComment[] = [];
         OkAvatarSize = OkAvatarSize;
 
+        private bootstrapPostCommentRepliesForLinkedPostCommentOperation: CancelableOperation<IPostComment[]>;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);
 
         $refs!: {
@@ -79,16 +98,101 @@
             postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting>
         };
 
+        created() {
+            this.bootstrapLoadMoreItems();
+        }
 
-        mounted() {
-            this.postCommentReplies = this.postComment.replies;
-            if (this.postCommentReplies.length === this.postComment.repliesCount) {
-                this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
-            }
+        destroyed() {
+            if (this.bootstrapPostCommentRepliesForLinkedPostCommentOperation) this.bootstrapPostCommentRepliesForLinkedPostCommentOperation.cancel();
         }
 
         onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
             this.$emit("onWantsToReplyToReply", postComment, post);
+        }
+
+        private bootstrapLoadMoreItems() {
+            const isLinkedPostCommentReplies = this.postComment.id === this.linkedPostCommentId;
+            if (isLinkedPostCommentReplies && this.linkedPostCommentReplyId) {
+                const postCommentAlreadyIncludesLinkedPostCommentReply = !!this.postCommentReplies.find((postCommentReply) => postCommentReply.id === this.linkedPostCommentReplyId);
+                if (postCommentAlreadyIncludesLinkedPostCommentReply) {
+                    // Use existing post comment replies
+                    this.postCommentReplies = this.postComment.replies;
+                    if (this.postCommentReplies.length === this.postComment.repliesCount) {
+                        this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
+                    }
+                } else {
+                    // Fetch new post comment replies with the linkedPostComment
+                    this.bootstrapPostCommentRepliesForLinkedPostComment();
+                }
+
+            }
+
+
+        }
+
+        private async bootstrapPostCommentRepliesForLinkedPostComment() {
+            if (this.bootstrapPostCommentRepliesForLinkedPostCommentOperation) return;
+            const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
+
+            try {
+                this.bootstrapPostCommentRepliesForLinkedPostCommentOperation = CancelableOperation.fromPromise(this.userService.getPostCommentReplies({
+                    post: this.post,
+                    postComment: this.postComment,
+                    sort: currentSort,
+                    maxId: this.linkedPostCommentReplyId,
+                    minId: this.linkedPostCommentReplyId,
+                    countMax: OkPostCommentReplies.loadMoreItemsCount,
+                    countMin: OkPostCommentReplies.loadMoreItemsCount
+                }));
+
+                const postCommentReplies = await this.bootstrapPostCommentRepliesForLinkedPostCommentOperation.value;
+
+                if (postCommentReplies.length) {
+                    this.postCommentReplies.push(...postCommentReplies);
+                    let olderPostCommentRepliesCount = 0;
+                    let newerPostCommentRepliesCount = 0;
+
+                    this.postCommentReplies.forEach((postComment) => {
+                        if (postComment.id === this.linkedPostCommentId) return;
+                        postComment.id < this.linkedPostCommentId ? olderPostCommentRepliesCount++ : newerPostCommentRepliesCount++;
+                    });
+
+                    switch (currentSort) {
+                        case PostCommentsSortSetting.oldestFirst:
+                            // Older will be on top, newer on bottom
+                            if (newerPostCommentRepliesCount < OkPostCommentReplies.loadMoreItemsCount) {
+                                this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
+                            }
+
+                            if (olderPostCommentRepliesCount < OkPostCommentReplies.loadMoreItemsCount) {
+                                this.$refs.loadMore.setTopStatus(LoadMoreStatus.allLoaded);
+                            }
+                            break;
+                        case PostCommentsSortSetting.newestFirst:
+                            // Newer will be on top, older on bottom
+                            if (olderPostCommentRepliesCount < OkPostCommentReplies.loadMoreItemsCount) {
+                                this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
+                            }
+
+                            if (newerPostCommentRepliesCount < OkPostCommentReplies.loadMoreItemsCount) {
+                                this.$refs.loadMore.setTopStatus(LoadMoreStatus.allLoaded);
+                            }
+                            break;
+                        default:
+                            throw new Error("Unsupported PostCommentsSortSetting on OkPostCommentReplies");
+                    }
+
+                } else {
+                    throw new Error("Bootstrap load more state returned no comments ");
+                }
+
+            } catch (error) {
+                const handledError = this.utilsService.handleErrorWithToast(error);
+                if (handledError.isUnhandled) throw handledError.error;
+            } finally {
+                this.bootstrapPostCommentRepliesForLinkedPostCommentOperation = undefined;
+            }
+
         }
 
         async loadMoreReplies(): Promise<boolean> {

@@ -21,6 +21,7 @@
                                  :show-replies="true"
                                  :linked-post-comment-id="linkedPostCommentId"
                                  :linked-post-comment-reply-id="linkedPostCommentReplyId"
+                                 :highlighted-post-comment-id="highlightedPostCommentId"
                                  @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
             </div>
         </ok-load-more>
@@ -136,6 +137,11 @@
 
         onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
             this.$emit("onWantsToReplyToComment", postComment, post);
+        }
+
+        get highlightedPostCommentId() {
+            if (!this.linkedPostCommentReplyId && !this.linkedPostCommentId) return;
+            return this.linkedPostCommentReplyId ? this.linkedPostCommentReplyId : this.linkedPostCommentId;
         }
 
         inifiteScrollHandler($state) {
@@ -337,8 +343,7 @@
         }
 
         private awaitForLinkedElementToAppear() {
-
-            const elementIdToWaitFor = `pc-${this.linkedPostCommentId ? this.linkedPostCommentId : this.linkedPostCommentReplyId}`;
+            const elementIdToWaitFor = `pc-${this.highlightedPostCommentId}`;
             this.logger.info(`Waiting for linked element with id ${elementIdToWaitFor} to appear`);
 
             const observer = new MutationObserver((mutations, me) => {
