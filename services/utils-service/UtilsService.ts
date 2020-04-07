@@ -5,11 +5,16 @@ import { TYPES } from '~/services/inversify-types';
 import { IToastService } from '~/services/toast/IToast';
 import { ILocalizationService } from '~/services/localization/ILocalization';
 import { ToastType } from '~/services/toast/lib/ToastType';
+import { v4 as uuidv4 } from 'uuid';
 
 @injectable()
 export class UtilsService implements IUtilsService {
     constructor(@inject(TYPES.ToastService) private toastService?: IToastService,
                 @inject(TYPES.LocalizationService) private localizationService?: ILocalizationService) {
+    }
+
+    generateUuid() {
+        return uuidv4();
     }
 
     handleError(error: any): HandledError {

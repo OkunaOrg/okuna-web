@@ -1,4 +1,6 @@
 export interface IUtilsService {
+    generateUuid(): string;
+
     handleError(error: any): HandledError;
 
     handleErrorWithToast(error: any): HandledError;

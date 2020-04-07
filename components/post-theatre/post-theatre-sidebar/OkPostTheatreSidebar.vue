@@ -1,14 +1,16 @@
 <template>
     <div class="has-height-100-percent">
         <div class="columns flex-direction-column has-height-100-percent is-gapless">
-            <div class="column ok-post-comments-container" id="post-comments-container">
+            <div class="column ok-post-comments-container" :id="postCommentsContainerId">
                 <div class="has-padding-20 ok-has-border-bottom-primary-highlight">
                     <ok-post-header :post="post"></ok-post-header>
                     <ok-post-text :post="post"></ok-post-text>
                     <ok-post-reactions :post="post"></ok-post-reactions>
                     <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
                 </div>
-                <ok-post-comments :post="post" ref="postCommentsComponent" @onWantsToReplyToComment="onWantsToReplyToComment"></ok-post-comments>
+                <ok-post-comments :post="post" ref="postCommentsComponent"
+                                  :container-id="postCommentsContainerId"
+                                  @onWantsToReplyToComment="onWantsToReplyToComment"></ok-post-comments>
             </div>
             <div class="ok-post-commenter-container">
                 <ok-post-commenter :post="post" @onCommentedPost="onCommentedPost"
@@ -41,6 +43,9 @@
     import OkPostCommenter
         from "~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
+    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { okunaContainer } from "~/services/inversify";
+    import { TYPES } from "~/services/inversify-types";
 
     @Component({
         name: "OkPostTheatreSidebar",
@@ -54,6 +59,14 @@
             postCommentsComponent: OkPostComments,
             postCommenter: OkPostCommenter,
         };
+
+        postCommentsContainerId: string;
+
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+
+        created() {
+            this.postCommentsContainerId = `c-${this.utilsService.generateUuid()}`;
+        }
 
         onCommentedPost(postComment: IPostComment) {
             this.$refs.postCommentsComponent.addPostComment(postComment);

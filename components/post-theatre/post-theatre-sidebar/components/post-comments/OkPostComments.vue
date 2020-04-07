@@ -71,6 +71,7 @@
         static readonly loadMoreItemsCount = 5;
 
         @Prop(Object) readonly post: IPost;
+        @Prop(String) readonly containerId: string;
 
         $route!: Route;
 
@@ -357,12 +358,12 @@
             });
         }
 
-        private scrollToElementWithId(id: string){
+        private scrollToElementWithId(id: string) {
             this.logger.info(`Scrolling to element with id ${id}`);
 
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
                 var options = {
-                    container: '#post-comments-container',
+                    container: `#${this.containerId}`,
                     offset: -100,
                     duration: 0
                 };

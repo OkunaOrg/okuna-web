@@ -41,6 +41,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4",
     "twemoji": "^12.1.5",
+    "uuid": "^7.0.3",
     "v-debounce": "^0.1.2",
     "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
