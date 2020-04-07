@@ -1,7 +1,7 @@
 <template>
     <div class="has-height-100-percent">
         <div class="columns flex-direction-column has-height-100-percent is-gapless">
-            <div class="column ok-post-comments-container">
+            <div class="column ok-post-comments-container" id="post-comments-container">
                 <div class="has-padding-20 ok-has-border-bottom-primary-highlight">
                     <ok-post-header :post="post"></ok-post-header>
                     <ok-post-text :post="post"></ok-post-text>
@@ -48,6 +48,7 @@
     })
     export default class OkPostTheatreSidebar extends Vue {
         @Prop(Object) readonly post: IPost;
+
 
         $refs!: {
             postCommentsComponent: OkPostComments,

@@ -1,5 +1,5 @@
 <template>
-    <div class="has-padding-bottom-20">
+    <div class="has-padding-bottom-20" :id="'pc-' + postComment.id">
         <article
                 class="ok-post-comment has-padding-top-10  has-padding-left-20 has-padding-right-20">
             <div class="media">
