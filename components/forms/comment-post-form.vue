@@ -168,7 +168,7 @@
                     })
                 );
                 const postComment = await this.commentPostOperation.value;
-                this._onCommentedPost(postComment);
+                this._onCommentedPost(postComment, this.postComment);
                 this._clearForm();
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
@@ -189,9 +189,9 @@
         }
 
 
-        _onCommentedPost(postComment: IPostComment) {
-            this.logger.info("Commented post", postComment);
-            this.$emit("onCommentedPost", postComment);
+        _onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
+            this.logger.info("Commented post", postComment, parentPostComment);
+            this.$emit("onCommentedPost", postComment, parentPostComment);
         }
     }
 </script>

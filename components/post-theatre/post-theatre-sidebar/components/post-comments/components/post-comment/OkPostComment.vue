@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
@@ -106,8 +106,25 @@
         expandedReplies = false;
 
         created() {
+            this.updateExpandedReplies();
+        }
+
+        @Watch("linkedPostCommentReplyId")
+        onChildChanged(val: string, oldVal: string) {
+            debugger;
+            this.updateExpandedReplies();
+        }
+
+        @Watch("linkedPostCommentId")
+        onChildChanged(val: string, oldVal: string) {
+            this.updateExpandedReplies();
+        }
+
+        private updateExpandedReplies() {
+            if (this.expandedReplies) return;
             this.expandedReplies = this.isLinkedPostComment && this.haslinkedPostCommentReply;
         }
+
 
         onWantsToReply() {
             this.$emit("onWantsToReply", this.postComment, this.post);

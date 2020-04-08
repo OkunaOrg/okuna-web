@@ -14,16 +14,16 @@
         <ok-load-more v-else-if="state === OkPostCommentsState.loadMore"
                       :load-more-bottom="loadMoreBottomPostComments"
                       :load-more-top="loadMoreTopPostComments"
-                      :load-more-bottom-text="$t('components.post_comments_replies.load_more')"
+                      :load-more-bottom-text="$t('components.post_comments.load_more')"
                       :load-more-top-text="$t('components.post_comments.load_more')"
                       ref="loadMore">
             <div v-for="postComment in postComments" :key="postComment.id">
                 <ok-post-comment :post="post"
                                  :post-comment="postComment"
                                  :show-replies="true"
-                                 :linked-post-comment-id="linkedPostCommentId"
-                                 :linked-post-comment-reply-id="linkedPostCommentReplyId"
-                                 :highlighted-post-comment-id="highlightedPostCommentId"
+                                 :linked-post-comment-id.sync="linkedPostCommentId"
+                                 :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
+                                 :highlighted-post-comment-id.sync="highlightedPostCommentId"
                                  @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
             </div>
         </ok-load-more>
@@ -88,9 +88,9 @@
         postComments: IPostComment[] = [];
         sort: PostCommentsSortSetting;
 
-        linkedPostCommentId: number;
-        linkedPostCommentReplyId: number;
-        highlightedPostCommentId: number;
+        linkedPostCommentId: number = 0;
+        linkedPostCommentReplyId: number = 0;
+        highlightedPostCommentId: number = 0;
 
         state: OkPostCommentsState = OkPostCommentsState.Idle;
 
@@ -281,17 +281,18 @@
         /**
          * To be called from another component
          */
-        async addPostComment(postComment: IPostComment) {
+        async addPostComment(postComment: IPostComment, parentPostComment?: IPostComment) {
             this.logger.info("Adding post comment", postComment);
             let newLinkedPostCommentId;
             let newLinkedPostCommentReplyId;
-            if (postComment.parentComment) {
+            if (parentPostComment) {
                 // Its a reply
-                newLinkedPostCommentId = postComment.parentComment.id;
+                newLinkedPostCommentId = parentPostComment.id;
                 newLinkedPostCommentReplyId = postComment.id;
             } else {
                 // Its a post comment
                 newLinkedPostCommentId = postComment.id;
+                newLinkedPostCommentReplyId = undefined;
             }
 
             let newQueryParams = {
@@ -300,6 +301,7 @@
 
             if (newLinkedPostCommentReplyId) newQueryParams["pcr"] = newLinkedPostCommentReplyId;
             await this.$router.push({path: this.$route.path, query: newQueryParams});
+
             this.state = OkPostCommentsState.loadMore;
             this.$nextTick(() => {
                 this.bootstrap();
@@ -312,16 +314,24 @@
             const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
 
             try {
-                this.bootstrapLoadMoreOperation = CancelableOperation.fromPromise(this.userService.getPostComments({
-                    post: this.post,
-                    sort: currentSort,
-                    maxId: this.linkedPostCommentId,
-                    minId: this.linkedPostCommentId,
-                    countMax: OkPostComments.loadMoreItemsCount,
-                    countMin: OkPostComments.loadMoreItemsCount
-                }));
+                const linkedPostCommentAlreadyExists = this.postComments.find((postComment) => postComment.id === this.linkedPostCommentId);
 
-                const postComments = await this.bootstrapLoadMoreOperation.value;
+                let postComments;
+
+                if (linkedPostCommentAlreadyExists) {
+                    postComments = this.postComments;
+                } else {
+                    this.bootstrapLoadMoreOperation = CancelableOperation.fromPromise(this.userService.getPostComments({
+                        post: this.post,
+                        sort: currentSort,
+                        maxId: this.linkedPostCommentId,
+                        minId: this.linkedPostCommentId,
+                        countMax: OkPostComments.loadMoreItemsCount,
+                        countMin: OkPostComments.loadMoreItemsCount
+                    }));
+
+                    postComments = await this.bootstrapLoadMoreOperation.value;
+                }
 
                 if (postComments.length) {
                     this.postComments = postComments;

@@ -68,8 +68,8 @@
             this.postCommentsContainerId = `c-${this.utilsService.generateUuid()}`;
         }
 
-        onCommentedPost(postComment: IPostComment) {
-            this.$refs.postCommentsComponent.addPostComment(postComment);
+        onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
+            this.$refs.postCommentsComponent.addPostComment(postComment, parentPostComment);
         }
 
         onWantsToReplyToComment(postComment: IPostComment, post: IPost) {

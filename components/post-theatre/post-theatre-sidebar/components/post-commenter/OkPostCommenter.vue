@@ -76,8 +76,8 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
-        onCommentedPost(postComment: IPostComment) {
-            this.$emit("onCommentedPost", postComment);
+        onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
+            this.$emit("onCommentedPost", postComment, parentPostComment);
             this.postCommentToReplyTo = null;
         }
 

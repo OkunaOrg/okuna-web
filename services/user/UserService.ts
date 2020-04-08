@@ -75,8 +75,6 @@ import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmoj
 import reactionsEmojiCountFactory from '~/models/posts/reactions-emoji-count/factory';
 import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
 import emojiGroupFactory from '~/models/common/emoji-group/factory';
-import { IList } from '~/models/lists/list/IList';
-import { ICircle } from '~/models/circles/circle/ICircle';
 import { TrendingPostData } from '~/types/models-data/posts/TrendingPostData';
 import { TopPostData } from '~/types/models-data/posts/TopPostData';
 import trendingPostFactory from '~/models/posts/trending-post/factory';
@@ -290,7 +288,15 @@ export class UserService implements IUserService {
             text: params.text
         });
 
-        return postCommentFactory.make(response.data);
+        const postComment = postCommentFactory.make(response.data);
+
+        if (typeof params.post.commentsCount === 'number') {
+            params.post.commentsCount++;
+        } else {
+            params.post.commentsCount = 1;
+        }
+
+        return postComment;
     }
 
     async deletePost(params: DeletePostParams): Promise<void> {
@@ -470,7 +476,22 @@ export class UserService implements IUserService {
             text: params.text
         });
 
-        return postCommentFactory.make(response.data);
+
+        const postCommentReply = postCommentFactory.make(response.data);
+
+        if (typeof params.postComment.repliesCount === 'number') {
+            params.postComment.repliesCount++;
+        } else {
+            params.postComment.repliesCount = 1;
+        }
+
+        if (!params.postComment.replies) {
+            params.postComment.replies = [postCommentReply];
+        } else if (params.postComment.replies.length === 0) {
+            params.postComment.replies.push(postCommentReply);
+        }
+
+        return postCommentReply;
     }
 
     async reportPost(params: ReportPostParams): Promise<void> {
