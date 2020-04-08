@@ -14,6 +14,8 @@
         <ok-load-more v-else-if="state === OkPostCommentsState.loadMore"
                       :load-more-bottom="loadMoreBottomPostComments"
                       :load-more-top="loadMoreTopPostComments"
+                      :load-more-bottom-text="$t('components.post_comments_replies.load_more')"
+                      :load-more-top-text="$t('components.post_comments.load_more')"
                       ref="loadMore">
             <div v-for="postComment in postComments" :key="postComment.id">
                 <ok-post-comment :post="post"
@@ -35,7 +37,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import { Route } from "vue-router";
+    import VueRouter, { Route } from "vue-router";
     import { IUserService } from "~/services/user/IUserService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
@@ -75,6 +77,7 @@
         @Prop(String) readonly containerId: string;
 
         $route!: Route;
+        $router!: VueRouter;
 
         $observables!: {
             postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting>
@@ -87,8 +90,9 @@
 
         linkedPostCommentId: number;
         linkedPostCommentReplyId: number;
+        highlightedPostCommentId: number;
 
-        state: OkPostCommentsState;
+        state: OkPostCommentsState = OkPostCommentsState.Idle;
 
         $refs!: {
             infiniteLoading: InfiniteLoading,
@@ -103,23 +107,6 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private logger: IOkLogger;
 
-        created() {
-            const routePostCommentReplyId = this.$route.query["pcr"];
-            if (typeof routePostCommentReplyId === "string") this.linkedPostCommentReplyId = parseInt(routePostCommentReplyId);
-
-            const routePostCommentId = this.$route.query["pc"];
-            if (typeof routePostCommentId === "string") this.linkedPostCommentId = parseInt(routePostCommentId);
-
-            //this.state = routePostCommentId ? OkPostCommentsState.loadMore : OkPostCommentsState.infiniteScrolling;
-            this.state = OkPostCommentsState.loadMore;
-
-            if (this.state === OkPostCommentsState.loadMore) this.createdLoadMoreState();
-        }
-
-        async createdLoadMoreState() {
-            await this.bootstrapLoadMoreState();
-            this.awaitForLinkedElementToAppear();
-        }
 
         mounted() {
             this.logger = this.loggingService!.getLogger({
@@ -128,6 +115,27 @@
             //setTimeout(this.scrollToItem, 5000);
 
             this.$observables["postCommentsSortSetting"].subscribe(this.onPostCommentsSortSettingChange);
+
+            this.bootstrap();
+        }
+
+        bootstrap() {
+            const routePostCommentReplyId = this.$route.query["pcr"];
+            if (typeof routePostCommentReplyId === "string" || typeof routePostCommentReplyId === "number") this.linkedPostCommentReplyId = parseInt(routePostCommentReplyId);
+
+            const routePostCommentId = this.$route.query["pc"];
+            if (typeof routePostCommentId === "string" || typeof routePostCommentId === "number") this.linkedPostCommentId = parseInt(routePostCommentId);
+
+            this.updateHighlightedPostCommentId();
+
+            this.state = routePostCommentId ? OkPostCommentsState.loadMore : OkPostCommentsState.infiniteScrolling;
+
+            if (this.state === OkPostCommentsState.loadMore) this.createdLoadMoreState();
+        }
+
+        async createdLoadMoreState() {
+            await this.bootstrapLoadMoreState();
+            this.awaitForLinkedElementToAppear();
         }
 
         destroyed() {
@@ -139,9 +147,9 @@
             this.$emit("onWantsToReplyToComment", postComment, post);
         }
 
-        get highlightedPostCommentId() {
+        updateHighlightedPostCommentId() {
             if (!this.linkedPostCommentReplyId && !this.linkedPostCommentId) return;
-            return this.linkedPostCommentReplyId ? this.linkedPostCommentReplyId : this.linkedPostCommentId;
+            this.highlightedPostCommentId = this.linkedPostCommentReplyId ? this.linkedPostCommentReplyId : this.linkedPostCommentId;
         }
 
         inifiteScrollHandler($state) {
@@ -273,9 +281,29 @@
         /**
          * To be called from another component
          */
-        addPostComment(postComment: IPostComment) {
+        async addPostComment(postComment: IPostComment) {
             this.logger.info("Adding post comment", postComment);
-            this.postComments.unshift(postComment);
+            let newLinkedPostCommentId;
+            let newLinkedPostCommentReplyId;
+            if (postComment.parentComment) {
+                // Its a reply
+                newLinkedPostCommentId = postComment.parentComment.id;
+                newLinkedPostCommentReplyId = postComment.id;
+            } else {
+                // Its a post comment
+                newLinkedPostCommentId = postComment.id;
+            }
+
+            let newQueryParams = {
+                pc: newLinkedPostCommentId
+            };
+
+            if (newLinkedPostCommentReplyId) newQueryParams["pcr"] = newLinkedPostCommentReplyId;
+            await this.$router.push({path: this.$route.path, query: newQueryParams});
+            this.state = OkPostCommentsState.loadMore;
+            this.$nextTick(() => {
+                this.bootstrap();
+            });
         }
 
 
@@ -296,7 +324,7 @@
                 const postComments = await this.bootstrapLoadMoreOperation.value;
 
                 if (postComments.length) {
-                    this.postComments.push(...postComments);
+                    this.postComments = postComments;
                     let olderPostCommentsCount = 0;
                     let newerPostCommentCount = 0;
                     this.postComments.forEach((postComment) => {

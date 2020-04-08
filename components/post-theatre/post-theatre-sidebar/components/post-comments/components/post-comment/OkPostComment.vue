@@ -105,8 +105,8 @@
 
         expandedReplies = false;
 
-        created(){
-            this.expandedReplies = this.isLinkedPostComment;
+        created() {
+            this.expandedReplies = this.isLinkedPostComment && this.haslinkedPostCommentReply;
         }
 
         onWantsToReply() {
@@ -121,8 +121,12 @@
             return this.postComment.id === this.highlightedPostCommentId;
         }
 
-        get isLinkedPostComment(){
+        get isLinkedPostComment() {
             return this.postComment.id === this.linkedPostCommentId;
+        }
+
+        get haslinkedPostCommentReply() {
+            return !!this.linkedPostCommentReplyId;
         }
 
     }

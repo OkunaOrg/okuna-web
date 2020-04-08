@@ -21,6 +21,9 @@ export default {
             "collapse_replies": "Collapse replies",
             "replies_count": "{repliesCount}+ Replies",
         },
+        "post_comments": {
+            "load_more": "Load more comments"
+        },
         "post_comment_replies": {
             "load_more": "Load more replies"
         },

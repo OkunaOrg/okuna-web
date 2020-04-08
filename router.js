@@ -17,11 +17,6 @@ import HomeCommunityProfilePage from '~/pages/home/pages/communities/pages/commu
 import HomeCommunityEditPage from '~/pages/home/pages/communities/pages/community/pages/edit.vue';
 import OkHomeNowPage from '~/pages/home/pages/now/HomeNowPage.vue';
 import OkPostCommentsPage from '~/pages/home/pages/post/pages/post-comments/OkPostCommentsPage.vue';
-import OkPostCommentPage from '~/pages/home/pages/post/pages/post-comment/OkPostCommentPage.vue';
-import OkPostCommentRepliesPage
-    from '~/pages/home/pages/post/pages/post-comment/pages/post-comment-replies/OkPostCommentRepliesPage.vue';
-import OkPostCommentReplyPage
-    from '~/pages/home/pages/post/pages/post-comment/pages/post-comment-reply/OkPostCommentReplyPage.vue';
 
 Vue.use(Router);
 
@@ -31,9 +26,11 @@ export function createRouter() {
         routes: [
             {
                 path: '/',
+                name: 'home',
                 component: HomePage,
                 children: [
                     {
+                        name: 'timeline',
                         path: '',
                         component: OkHomeTimelinePage
                     },
@@ -42,6 +39,7 @@ export function createRouter() {
                         component: OkHomeNowPage
                     },
                     {
+                        name: 'communities',
                         path: 'c',
                         component: HomeCommunitiesPage,
                         children: [
@@ -86,14 +84,9 @@ export function createRouter() {
                         ]
                     },
                     {
-                        path: 'p',
-                        component: OkEmptyPage,
-                        children: [
-                            {
-                                path: ':postUuid',
-                                component: OkPostCommentsPage,
-                            }
-                        ]
+                        name: 'post',
+                        path: 'p/:postUuid',
+                        component: OkPostCommentsPage,
                     },
                     {
                         path: ':username',

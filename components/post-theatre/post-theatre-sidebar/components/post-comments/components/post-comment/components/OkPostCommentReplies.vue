@@ -10,8 +10,8 @@
                 <ok-load-more
                         :load-more-bottom="loadMoreBottomReplies"
                         :load-more-bottom-text="$t('components.post_comment_replies.load_more')"
-                        :load-more-top-text="$t('components.post_comment_replies.load_more')"
                         :load-more-top="loadMoreTopReplies"
+                        :load-more-top-text="$t('components.post_comment_replies.load_more')"
                         ref="loadMore">
                     <div v-for="postComment in postCommentReplies" :key="postComment.id">
                         <ok-post-comment :post="post" :post-comment="postComment" :show-replies="false"
