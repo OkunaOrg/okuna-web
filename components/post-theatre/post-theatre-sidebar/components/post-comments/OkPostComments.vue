@@ -262,7 +262,7 @@
 
 
             if (postCommentReplies.length) {
-                this.postComments.push(...postCommentReplies);
+                this.postComments.unshift(...postCommentReplies);
             }
 
             const canLoadMore = postCommentReplies.length === OkPostComments.loadMoreItemsCount;

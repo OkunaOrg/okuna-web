@@ -8,8 +8,9 @@
             </div>
             <div class="column">
                 <ok-load-more
-                        :load-more-bottom="loadMoreReplies"
-                        :load-more-bottom-text="loadMoreRepliesText"
+                        :load-more-bottom="loadMoreBottomReplies"
+                        :load-more-bottom-text="loadMoreBottomRepliesText"
+                        :load-more-top="loadMoreTopReplies"
                         ref="loadMore">
                     <div v-for="postComment in postCommentReplies" :key="postComment.id">
                         <ok-post-comment :post="post" :post-comment="postComment" :show-replies="false"
@@ -98,7 +99,7 @@
             postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting>
         };
 
-        created() {
+        mounted() {
             this.bootstrapLoadMoreItems();
         }
 
@@ -116,18 +117,25 @@
                 const postCommentAlreadyIncludesLinkedPostCommentReply = !!this.postCommentReplies.find((postCommentReply) => postCommentReply.id === this.linkedPostCommentReplyId);
                 if (postCommentAlreadyIncludesLinkedPostCommentReply) {
                     // Use existing post comment replies
-                    this.postCommentReplies = this.postComment.replies;
-                    if (this.postCommentReplies.length === this.postComment.repliesCount) {
-                        this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
-                    }
+                    this.bootstrapPostCommentRepliesWithPostComment();
                 } else {
                     // Fetch new post comment replies with the linkedPostComment
                     this.bootstrapPostCommentRepliesForLinkedPostComment();
                 }
 
+            } else {
+                this.bootstrapPostCommentRepliesWithPostComment();
             }
+        }
 
+        private bootstrapPostCommentRepliesWithPostComment() {
+            this.postCommentReplies = this.postComment.replies;
 
+            this.$refs.loadMore.setTopStatus(LoadMoreStatus.allLoaded);
+
+            if (this.postCommentReplies.length === this.postComment.repliesCount) {
+                this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
+            }
         }
 
         private async bootstrapPostCommentRepliesForLinkedPostComment() {
@@ -142,7 +150,8 @@
                     maxId: this.linkedPostCommentReplyId,
                     minId: this.linkedPostCommentReplyId,
                     countMax: OkPostCommentReplies.loadMoreItemsCount,
-                    countMin: OkPostCommentReplies.loadMoreItemsCount
+                    // I dont get why +1 but shantanu does it and it works (?)
+                    countMin: OkPostCommentReplies.loadMoreItemsCount + 1
                 }));
 
                 const postCommentReplies = await this.bootstrapPostCommentRepliesForLinkedPostCommentOperation.value;
@@ -154,7 +163,7 @@
 
                     this.postCommentReplies.forEach((postComment) => {
                         if (postComment.id === this.linkedPostCommentId) return;
-                        postComment.id < this.linkedPostCommentId ? olderPostCommentRepliesCount++ : newerPostCommentRepliesCount++;
+                        postComment.id < this.linkedPostCommentReplyId ? olderPostCommentRepliesCount++ : newerPostCommentRepliesCount++;
                     });
 
                     switch (currentSort) {
@@ -195,7 +204,50 @@
 
         }
 
-        async loadMoreReplies(): Promise<boolean> {
+        async loadMoreTopReplies(): Promise<boolean> {
+            let firstPostCommentId;
+            const firstPostComment = this.postCommentReplies[0];
+            if (firstPostComment) firstPostCommentId = firstPostComment.id;
+            const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
+
+            let maxId;
+            let minId;
+
+            if (firstPostCommentId) {
+                switch (currentSort) {
+                    case PostCommentsSortSetting.newestFirst:
+                        minId = firstPostCommentId;
+                        break;
+                    case PostCommentsSortSetting.oldestFirst:
+                        // No clue why +1 but @Shantanu did it like this on the mobile app
+                        maxId = firstPostCommentId + 1;
+                        break;
+                    default:
+                        throw new Error("Unsupported PostCommentsSortSetting on OkPostCommentReplies");
+                }
+            }
+
+            const postCommentReplies = await this.userService.getPostCommentReplies({
+                post: this.post,
+                postComment: this.postComment,
+                maxId: maxId,
+                minId: minId,
+                countMax: OkPostCommentReplies.loadMoreItemsCount,
+                countMin: OkPostCommentReplies.loadMoreItemsCount,
+                sort: currentSort,
+            });
+
+
+            if (postCommentReplies.length) {
+                this.postCommentReplies.unshift(...postCommentReplies);
+            }
+
+            const canLoadMore = postCommentReplies.length === OkPostCommentReplies.loadMoreItemsCount;
+
+            return canLoadMore;
+        }
+
+        async loadMoreBottomReplies(): Promise<boolean> {
             let lastPostCommentId;
             const lastPostComment = this.postCommentReplies[this.postCommentReplies.length - 1];
             if (lastPostComment) lastPostCommentId = lastPostComment.id;
@@ -245,7 +297,7 @@
             this.postCommentReplies.unshift(postComment);
         }
 
-        get loadMoreRepliesText() {
+        get loadMoreBottomRepliesText() {
             const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
 
             let text;
