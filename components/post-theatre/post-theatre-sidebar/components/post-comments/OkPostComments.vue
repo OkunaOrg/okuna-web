@@ -228,23 +228,23 @@
 
         // Errors of this method are handled by the loadMore component
         async loadMoreTopPostComments(): Promise<boolean> {
-            let lastPostCommentId;
-            const lastPostComment = this.postComments[this.postComments.length - 1];
-            if (lastPostComment) lastPostCommentId = lastPostComment.id;
+            let firstPostCommentId;
+            const lastPostComment = this.postComments[0];
+            if (lastPostComment) firstPostCommentId = lastPostComment.id;
 
             const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
 
             let maxId;
             let minId;
 
-            if (lastPostCommentId) {
+            if (firstPostCommentId) {
                 switch (currentSort) {
                     case PostCommentsSortSetting.oldestFirst:
-                        maxId = lastPostCommentId;
+                        maxId = firstPostCommentId;
                         break;
                     case PostCommentsSortSetting.newestFirst:
                         // No clue why +1 but @Shantanu did it like this on the mobile app
-                        minId = lastPostCommentId + 1;
+                        minId = firstPostCommentId + 1;
                         break;
                     default:
                         throw new Error("Unsupported PostCommentsSortSetting on OkPostComments");

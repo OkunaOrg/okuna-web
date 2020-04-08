@@ -9,7 +9,8 @@
             <div class="column">
                 <ok-load-more
                         :load-more-bottom="loadMoreBottomReplies"
-                        :load-more-bottom-text="loadMoreBottomRepliesText"
+                        :load-more-bottom-text="$t('components.post_comment_replies.load_more')"
+                        :load-more-top-text="$t('components.post_comment_replies.load_more')"
                         :load-more-top="loadMoreTopReplies"
                         ref="loadMore">
                     <div v-for="postComment in postCommentReplies" :key="postComment.id">
@@ -295,27 +296,6 @@
          */
         addPostComment(postComment: IPostComment) {
             this.postCommentReplies.unshift(postComment);
-        }
-
-        get loadMoreBottomRepliesText() {
-            const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
-
-            let text;
-
-            //const remainingReplies = this.postComment.repliesCount - this.postCommentReplies.length;
-
-            switch (currentSort) {
-                case PostCommentsSortSetting.newestFirst:
-                    text = "Load {{repliesCount}} older replies";
-                    break;
-                case PostCommentsSortSetting.oldestFirst:
-                    text = "Load {{repliesCount}} replies";
-                    break;
-                default:
-                    break;
-            }
-
-            return this.$t("components.post_comment_replies.load_more");
         }
 
     }
