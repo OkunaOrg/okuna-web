@@ -135,7 +135,13 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
                 const newRouteLinkedIds = JSON.stringify(newRoute.query["pc"]) + JSON.stringify(newRoute.query["pcr"]);
 
                 if (oldRouteLinkedIds !== newRouteLinkedIds) {
-                    this.bootstrap();
+                    this.state = OkPostCommentsState.loadMore;
+
+                    // We need the LoadMore element loaded
+                    this.$nextTick(()=>{
+                        this.bootstrap();
+                    });
+
                 }
             }
         }

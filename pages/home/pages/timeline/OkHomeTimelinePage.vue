@@ -77,9 +77,7 @@
 
             this.userService.getTimelinePosts({
                 maxId: lastPostId,
-                username: "joel"
             }).then((timelinePosts) => {
-                console.log("Got timeline posts");
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);
                     $state.loaded();
