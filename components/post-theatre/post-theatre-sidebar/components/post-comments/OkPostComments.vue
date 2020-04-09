@@ -242,7 +242,7 @@
                 this.postComments.push(...postCommentReplies);
             }
 
-            const canLoadMore = postCommentReplies.length === OkPostComments.loadMoreItemsCount;
+            const canLoadMore = postCommentReplies.length && postCommentReplies.length !== OkPostComments.loadMoreItemsCount;
 
             return canLoadMore;
         }
@@ -286,7 +286,7 @@
                 this.postComments.unshift(...postCommentReplies);
             }
 
-            const canLoadMore = postCommentReplies.length === OkPostComments.loadMoreItemsCount;
+            const canLoadMore = postCommentReplies.length && postCommentReplies.length !== OkPostComments.loadMoreItemsCount;
 
             return canLoadMore;
         }
