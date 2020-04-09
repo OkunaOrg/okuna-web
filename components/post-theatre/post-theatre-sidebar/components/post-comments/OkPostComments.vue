@@ -119,14 +119,14 @@
             this.bootstrap();
         }
 
-        @Watch('$route')
+        @Watch("$route")
         onChildChanged(newRoute: Route, oldRoute: Route) {
-            if(newRoute.name === oldRoute.name){
+            if (newRoute.name === oldRoute.name) {
                 // Same page
                 const oldRouteLinkedIds = oldRoute.query["pc"] + oldRoute.query["pcr"];
                 const newRouteLinkedIds = newRoute.query["pc"] + newRoute.query["pcr"];
 
-                if(oldRouteLinkedIds !== newRouteLinkedIds){
+                if (JSON.stringify(oldRouteLinkedIds) !== JSON.stringify(newRouteLinkedIds.toString())) {
                     this.bootstrap();
                 }
             }

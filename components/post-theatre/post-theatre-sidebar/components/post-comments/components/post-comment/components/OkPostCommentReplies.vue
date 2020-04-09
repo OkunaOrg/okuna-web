@@ -16,9 +16,9 @@
                     <div v-for="postComment in postCommentReplies" :key="postComment.id">
                         <ok-post-comment :post="post" :post-comment="postComment" :show-replies="false"
                                          :avatar-size="OkAvatarSize.small"
-                                         :linked-post-comment-id="linkedPostCommentId"
-                                         :linked-post-comment-reply-id="linkedPostCommentReplyId"
-                                         :highlighted-post-comment-id="highlightedPostCommentId"
+                                         :linked-post-comment-id.sync="linkedPostCommentId"
+                                         :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
+                                         :highlighted-post-comment-id.sync="highlightedPostCommentId"
                                          @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
                     </div>
                 </ok-load-more>
@@ -33,7 +33,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import { Route } from "vue-router";
     import { IUserService } from "~/services/user/IUserService";
     import { TYPES } from "~/services/inversify-types";
@@ -112,6 +112,12 @@
         onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
             this.$emit("onWantsToReplyToReply", postComment, post);
         }
+
+        @Watch("linkedPostCommentReplyId")
+        onChildChanged(val: string, oldVal: string) {
+            this.bootstrapLoadMoreItems();
+        }
+
 
         private bootstrapLoadMoreItems() {
             const isLinkedPostCommentReplies = this.postComment.id === this.linkedPostCommentId;
@@ -218,11 +224,11 @@
             if (firstPostCommentId) {
                 switch (currentSort) {
                     case PostCommentsSortSetting.newestFirst:
-                        minId = firstPostCommentId;
+                        minId = firstPostCommentId + 1;
                         break;
                     case PostCommentsSortSetting.oldestFirst:
                         // No clue why +1 but @Shantanu did it like this on the mobile app
-                        maxId = firstPostCommentId + 1;
+                        maxId = firstPostCommentId;
                         break;
                     default:
                         throw new Error("Unsupported PostCommentsSortSetting on OkPostCommentReplies");
