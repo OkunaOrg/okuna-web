@@ -1,28 +1,35 @@
 <template>
-    <article
-            class="box ok-has-background-primary is-paddingless has-height-100-percent is-flex has-overflow-hidden"
-            :class="{'is-loading': requestInProgress}"
-    >
-        <div class="columns has-width-100-percent is-gapless" v-if="post">
-            <div class="column has-height-100-percent" v-if="post.mediaThumbnail">
-                <ok-post-theatre-media :post="post"></ok-post-theatre-media>
-            </div>
-            <div class="column is-narrow ok-post-theatre-sidebar-container">
-                <ok-post-theatre-sidebar :post="post"></ok-post-theatre-sidebar>
+    <article class="columns is-centered has-height-100-percent">
+        <ok-loading-indicator v-if="!post"> </ok-loading-indicator>
+        <div v-else class="column has-height-100-percent" :class="{'is-narrow' : !post.mediaThumbnail}">
+            <div
+                    class="has-height-100-percent">
+                <div
+                        class="box ok-has-background-primary is-paddingless has-height-100-percent is-flex has-overflow-hidden"
+                        :class="{'is-loading': requestInProgress}"
+                >
+                    <div class="columns has-width-100-percent is-gapless" v-if="post">
+                        <div class="column has-height-100-percent" v-if="post.mediaThumbnail">
+                            <ok-post-theatre-media :post="post"></ok-post-theatre-media>
+                        </div>
+                        <div class="column is-narrow ok-post-theatre-sidebar-container">
+                            <ok-post-theatre-sidebar :post="post"></ok-post-theatre-sidebar>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </article>
 </template>
 
 <style lang="scss" scoped>
 
-    .ok-post-theatre-media-container{
+    .ok-post-theatre-media-container {
 
     }
 
 
-    .ok-post-theatre-sidebar-container{
+    .ok-post-theatre-sidebar-container {
         max-width: 450px;
         min-width: 450px;
         min-height: 100%;
@@ -41,12 +48,13 @@
     import { okunaContainer } from "~/services/inversify";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { IUser } from "~/models/auth/user/IUser";
-    import OkPostTheatreSidebar from '~/components/post-theatre/post-theatre-sidebar/OkPostTheatreSidebar.vue';
-    import OkPostTheatreMedia from '~/components/post-theatre/post-theatre-media/OkPostTheatreMedia.vue';
+    import OkPostTheatreSidebar from "~/components/post-theatre/post-theatre-sidebar/OkPostTheatreSidebar.vue";
+    import OkPostTheatreMedia from "~/components/post-theatre/post-theatre-media/OkPostTheatreMedia.vue";
+    import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
 
     @Component({
         name: "OkPostTheatre",
-        components: {OkPostTheatreMedia, OkPostTheatreSidebar},
+        components: {OkLoadingIndicator, OkPostTheatreMedia, OkPostTheatreSidebar},
     })
     export default class OkPostTheatre extends Vue {
         @Prop(String) readonly postUuid: string;
@@ -72,7 +80,7 @@
         }
 
         onLoggedInUser(loggedInUser: IUser) {
-            if(loggedInUser) this.refreshPost();
+            if (loggedInUser) this.refreshPost();
         }
 
         destroyed() {
