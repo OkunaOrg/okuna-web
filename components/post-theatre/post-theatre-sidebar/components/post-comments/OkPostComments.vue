@@ -1,3 +1,5 @@
+import {OkPostCommentsState} from "./libs/OkPostCommentsState";
+import {OkPostCommentsState} from "./libs/OkPostCommentsState";
 <template>
     <section v-if="postCommentsSortSetting">
         <ok-post-comments-sort-switcher></ok-post-comments-sort-switcher>
@@ -436,7 +438,12 @@
         private onPostCommentsSortSettingChange(postCommentSortSetting: PostCommentsSortSetting | undefined) {
             if (postCommentSortSetting) {
                 this.sort = postCommentSortSetting;
-                this.refreshInfiniteLoading();
+                if(this.state == OkPostCommentsState.infiniteScrolling){
+                    this.refreshInfiniteLoading();
+                } else if(this.state === OkPostCommentsState.loadMore){
+                    this.postComments = [];
+                    this.bootstrap();
+                }
             }
         }
 

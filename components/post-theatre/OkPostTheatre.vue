@@ -24,7 +24,7 @@
 
     .ok-post-theatre-sidebar-container{
         max-width: 450px;
-        min-width: 350px;
+        min-width: 450px;
         min-height: 100%;
         max-height: 100%;
         overflow: hidden;
