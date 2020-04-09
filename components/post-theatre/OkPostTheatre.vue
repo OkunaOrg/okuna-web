@@ -1,7 +1,7 @@
 <template>
     <article class="columns is-centered has-height-100-percent">
         <ok-loading-indicator v-if="!post"> </ok-loading-indicator>
-        <div v-else class="column has-height-100-percent" :class="{'is-narrow' : !post.mediaThumbnail}">
+        <div v-else class="column has-height-100-percent ok-post-theatre-container" :class="{'is-narrow' : !post.mediaThumbnail}">
             <div
                     class="has-height-100-percent">
                 <div
@@ -12,7 +12,7 @@
                         <div class="column has-height-100-percent" v-if="post.mediaThumbnail">
                             <ok-post-theatre-media :post="post"></ok-post-theatre-media>
                         </div>
-                        <div class="column is-narrow ok-post-theatre-sidebar-container">
+                        <div class="column is-narrow ok-post-theatre-sidebar-container" :class="sidebarClass">
                             <ok-post-theatre-sidebar :post="post"></ok-post-theatre-sidebar>
                         </div>
                     </div>
@@ -24,17 +24,25 @@
 
 <style lang="scss" scoped>
 
-    .ok-post-theatre-media-container {
-
+    .ok-post-theatre-container {
+        max-width: 1444px;
     }
 
 
     .ok-post-theatre-sidebar-container {
-        max-width: 450px;
-        min-width: 450px;
         min-height: 100%;
         max-height: 100%;
         overflow: hidden;
+
+        &--media{
+            max-width: 425px;
+            min-width: 425px;
+        }
+
+        &--text{
+            max-width: 500px;
+            min-width: 500px;
+        }
     }
 
 </style>
@@ -87,6 +95,10 @@
             if (this.refreshPostOperation) this.refreshPostOperation.cancel();
         }
 
+        get sidebarClass(){
+            return this.post.mediaThumbnail ? 'ok-post-theatre-sidebar-container--media' : 'ok-post-theatre-sidebar-container--text';
+        }
+
 
         private async refreshPost() {
             if (this.requestInProgress) return;
@@ -107,6 +119,8 @@
                 this.requestInProgress = false;
             }
         }
+
+
 
 
     }

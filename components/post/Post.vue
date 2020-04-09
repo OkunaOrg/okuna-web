@@ -4,7 +4,7 @@
             <div class="card-content">
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
-            <ok-post-media :post="post" v-if="post.mediaThumbnail" class="has-padding-bottom-20"></ok-post-media>
+            <ok-post-media :post="post" v-if="post.mediaThumbnail" class="has-padding-bottom-20" :post-display-context="postDisplayContext"></ok-post-media>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
                 <ok-post-text v-if="post.text" :post="post"></ok-post-text>
                 <div class="columns">

@@ -1,7 +1,7 @@
 <template>
     <div class="has-background-black has-height-100-percent is-flex align-items-center justify-center has-width-100-percent ok-post-theatre-media-container">
         <div class="ok-post-theatre-media">
-            <ok-post-media :post="post" :video-is-responsive="false" class="has-width-100-percent has-height-100-percent"></ok-post-media>
+            <ok-post-media :post="post" :video-is-responsive="false" :post-display-context="PostDisplayContext.postTheatre" class="has-width-100-percent has-height-100-percent"></ok-post-media>
         </div>
     </div>
 </template>
@@ -79,6 +79,7 @@
     import { IUserService } from '~/services/user/IUserService';
     import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
     import OkPostMediaImage from '~/components/post/components/post-media/components/PostMediaImage.vue';
+    import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
 
     @Component({
         name: "OkPostTheatreMedia",
@@ -86,7 +87,9 @@
     })
     export default class OkPostTheatreMedia extends Vue {
         @Prop(Object) readonly post: IPost;
+        PostDisplayContext= PostDisplayContext;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+
 
         postMedia: IPostMedia[] = [];
 
