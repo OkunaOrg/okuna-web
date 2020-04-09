@@ -36,7 +36,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import VueRouter, { Route } from "vue-router";
     import { IUserService } from "~/services/user/IUserService";
     import { TYPES } from "~/services/inversify-types";
@@ -117,6 +117,19 @@
             this.$observables["postCommentsSortSetting"].subscribe(this.onPostCommentsSortSettingChange);
 
             this.bootstrap();
+        }
+
+        @Watch('$route')
+        onChildChanged(newRoute: Route, oldRoute: Route) {
+            if(newRoute.name === oldRoute.name){
+                // Same page
+                const oldRouteLinkedIds = oldRoute.query["pc"] + oldRoute.query["pcr"];
+                const newRouteLinkedIds = newRoute.query["pc"] + newRoute.query["pcr"];
+
+                if(oldRouteLinkedIds !== newRouteLinkedIds){
+                    this.bootstrap();
+                }
+            }
         }
 
         bootstrap() {
@@ -301,11 +314,6 @@
 
             if (newLinkedPostCommentReplyId) newQueryParams["pcr"] = newLinkedPostCommentReplyId;
             await this.$router.push({path: this.$route.path, query: newQueryParams});
-
-            this.state = OkPostCommentsState.loadMore;
-            this.$nextTick(() => {
-                this.bootstrap();
-            });
         }
 
 

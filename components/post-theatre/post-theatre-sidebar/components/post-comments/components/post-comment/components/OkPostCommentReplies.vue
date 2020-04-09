@@ -159,7 +159,7 @@
                 const postCommentReplies = await this.bootstrapPostCommentRepliesForLinkedPostCommentOperation.value;
 
                 if (postCommentReplies.length) {
-                    this.postCommentReplies.push(...postCommentReplies);
+                    this.postCommentReplies = postCommentReplies;
                     let olderPostCommentRepliesCount = 0;
                     let newerPostCommentRepliesCount = 0;
 
