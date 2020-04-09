@@ -123,10 +123,10 @@
         onChildChanged(newRoute: Route, oldRoute: Route) {
             if (newRoute.name === oldRoute.name) {
                 // Same page
-                const oldRouteLinkedIds = oldRoute.query["pc"] + oldRoute.query["pcr"];
-                const newRouteLinkedIds = newRoute.query["pc"] + newRoute.query["pcr"];
+                const oldRouteLinkedIds = JSON.stringify(oldRoute.query["pc"]) + JSON.stringify(oldRoute.query["pcr"]);
+                const newRouteLinkedIds = JSON.stringify(newRoute.query["pc"]) + JSON.stringify(newRoute.query["pcr"]);
 
-                if (JSON.stringify(oldRouteLinkedIds) !== JSON.stringify(newRouteLinkedIds.toString())) {
+                if (oldRouteLinkedIds !== newRouteLinkedIds) {
                     this.bootstrap();
                 }
             }
