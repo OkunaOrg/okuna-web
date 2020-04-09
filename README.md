@@ -2,6 +2,10 @@
 
 > The Okuna social network web version
 
+## 🚧 Currently under heavy development.
+
+Please do not open issues or PRs yet. The first release will be labeled 1.0.0.
+
 ## Build Setup
 
 ``` bash
