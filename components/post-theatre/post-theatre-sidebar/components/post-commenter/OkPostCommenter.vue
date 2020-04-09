@@ -3,15 +3,12 @@
         <div v-if="postCommentToReplyTo" class="has-padding-bottom-20">
             <div class="card ok-has-background-primary-highlight">
                 <header class="card-header">
-                    <p class="card-header-title ok-has-text-primary-invert-60 is-size-7 is-paddingless has-padding-left-20">
-                        Replying to
-                    </p>
                     <div class="card-header-icon has-padding-10" aria-label="remove reply" @click="removePostCommentToReplyTo" role="button">
                         <ok-close-icon class="ok-svg-icon-primary-invert"></ok-close-icon>
                     </div>
                 </header>
-                <div class="card-content">
-                    <ok-post-comment :post="post" :post-comment="postCommentToReplyTo" :show-actions="false" :show-reactions="false"></ok-post-comment>
+                <div>
+                    <ok-post-comment :post="post" :post-comment="postCommentToReplyTo" :show-actions="false" :show-reactions="false" class="has-padding-top-20"></ok-post-comment>
                 </div>
             </div>
         </div>
@@ -35,6 +32,11 @@
     .ok-post-commenter{
         .card-content {
             padding-top: 0 !important;
+        }
+
+        .card-header-icon{
+            position: absolute;
+            right: 0;
         }
     }
 </style>

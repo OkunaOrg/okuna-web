@@ -111,7 +111,6 @@
 
         @Watch("linkedPostCommentReplyId")
         onChildChanged(val: string, oldVal: string) {
-            debugger;
             this.updateExpandedReplies();
         }
 

@@ -114,7 +114,6 @@
         }
 
         private bootstrapLoadMoreItems() {
-            debugger;
             const isLinkedPostCommentReplies = this.postComment.id === this.linkedPostCommentId;
             if (isLinkedPostCommentReplies && this.linkedPostCommentReplyId) {
                 const postCommentAlreadyIncludesLinkedPostCommentReply = !!this.postCommentReplies.find((postCommentReply) => postCommentReply.id === this.linkedPostCommentReplyId);
