@@ -103,6 +103,7 @@ export class Post extends DataModel<Post> implements IPost {
         {
             dataKey: 'comments_count',
             attributeKey: 'commentsCount',
+            defaultValue: 0
         },
         {
             dataKey: 'media_height',
