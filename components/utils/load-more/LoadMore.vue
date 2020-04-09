@@ -28,10 +28,11 @@
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
+    import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
 
     @Component({
         name: "OkLoadMore",
-        components: {OkLoadMoreStatusBar},
+        components: {OkLoadingIndicator, OkLoadMoreStatusBar},
     })
     export default class OkLoadMore extends Vue {
 
@@ -51,6 +52,7 @@
         @Prop({
             type: String
         }) loadMoreBottomText: string;
+
 
         LoadMoreStatus = LoadMoreStatus;
 

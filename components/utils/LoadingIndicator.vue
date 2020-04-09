@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ok-loading-indicator">
         <div class="loader-inner ball-pulse">
             <div class="ok-has-background-primary-highlight"></div>
             <div class="ok-has-background-primary-highlight"></div>
@@ -9,7 +9,11 @@
 </template>
 
 <style lang="scss">
-
+    .ok-loading-indicator{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
 </style>
 

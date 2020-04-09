@@ -11,22 +11,26 @@
 
             <infinite-loading @infinite="inifiteScrollHandler" ref="infiniteLoading"></infinite-loading>
         </div>
-        <ok-load-more v-else-if="state === OkPostCommentsState.loadMore"
-                      :load-more-bottom="loadMoreBottomPostComments"
-                      :load-more-top="loadMoreTopPostComments"
-                      :load-more-bottom-text="$t('components.post_comments.load_more')"
-                      :load-more-top-text="$t('components.post_comments.load_more')"
-                      ref="loadMore">
-            <div v-for="postComment in postComments" :key="postComment.id">
-                <ok-post-comment :post="post"
-                                 :post-comment="postComment"
-                                 :show-replies="true"
-                                 :linked-post-comment-id.sync="linkedPostCommentId"
-                                 :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
-                                 :highlighted-post-comment-id.sync="highlightedPostCommentId"
-                                 @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
-            </div>
-        </ok-load-more>
+        <div v-else-if="state === OkPostCommentsState.loadMore">
+            <ok-loading-indicator v-if="loadMoreIsBootstrapping"></ok-loading-indicator>
+            <ok-load-more
+                    :class="{'is-hidden': loadMoreIsBootstrapping}"
+                    :load-more-bottom="loadMoreBottomPostComments"
+                    :load-more-top="loadMoreTopPostComments"
+                    :load-more-bottom-text="$t('components.post_comments.load_more')"
+                    :load-more-top-text="$t('components.post_comments.load_more')"
+                    ref="loadMore">
+                <div v-for="postComment in postComments" :key="postComment.id">
+                    <ok-post-comment :post="post"
+                                     :post-comment="postComment"
+                                     :show-replies="true"
+                                     :linked-post-comment-id.sync="linkedPostCommentId"
+                                     :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
+                                     :highlighted-post-comment-id.sync="highlightedPostCommentId"
+                                     @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
+                </div>
+            </ok-load-more>
+        </div>
     </section>
 </template>
 
@@ -58,11 +62,12 @@
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
+    import OkLoadingIndicator from "~/components/utils/LoadingIndicator.vue";
 
 
     @Component({
         name: "OkPostComments",
-        components: {OkLoadMore, OkPostCommentsSortSwitcher, OkPostComment},
+        components: {OkLoadingIndicator, OkLoadMore, OkPostCommentsSortSwitcher, OkPostComment},
         subscriptions: function () {
             return {
                 postCommentsSortSetting: this["userPreferencesService"].postCommentsSortSetting
@@ -91,6 +96,7 @@
         linkedPostCommentId: number = 0;
         linkedPostCommentReplyId: number = 0;
         highlightedPostCommentId: number = 0;
+        loadMoreIsBootstrapping = true;
 
         state: OkPostCommentsState = OkPostCommentsState.Idle;
 
@@ -319,6 +325,7 @@
 
         private async bootstrapLoadMoreState() {
             if (this.bootstrapLoadMoreOperation) return;
+            this.loadMoreIsBootstrapping = true;
             const currentSort: PostCommentsSortSetting = this.$observables.postCommentsSortSetting.value;
 
             try {
@@ -384,8 +391,8 @@
                 if (handledError.isUnhandled) throw handledError.error;
             } finally {
                 this.bootstrapLoadMoreOperation = undefined;
+                this.loadMoreIsBootstrapping = false;
             }
-
         }
 
         private awaitForLinkedElementToAppear() {

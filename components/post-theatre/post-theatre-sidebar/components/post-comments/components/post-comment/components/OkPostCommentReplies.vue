@@ -7,7 +7,9 @@
                 </div>
             </div>
             <div class="column">
+                <ok-loading-indicator v-if="loadMoreIsBootstrapping"></ok-loading-indicator>
                 <ok-load-more
+                        :class="{'is-hidden': loadMoreIsBootstrapping}"
                         :load-more-bottom="loadMoreBottomReplies"
                         :load-more-bottom-text="$t('components.post_comment_replies.load_more')"
                         :load-more-top="loadMoreTopReplies"
@@ -49,10 +51,12 @@
     import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
 
     @Component({
         name: "OkPostCommentReplies",
         components: {
+            OkLoadingIndicator,
             OkVerticalDivider,
             OkLoadMore,
             OkPostComment: () => import("~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue"),
@@ -86,6 +90,7 @@
 
         postCommentReplies: IPostComment[] = [];
         OkAvatarSize = OkAvatarSize;
+        loadMoreIsBootstrapping = true;
 
         private bootstrapPostCommentRepliesForLinkedPostCommentOperation: CancelableOperation<IPostComment[]>;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
@@ -119,7 +124,9 @@
         }
 
 
-        private bootstrapLoadMoreItems() {
+        private async bootstrapLoadMoreItems() {
+            this.loadMoreIsBootstrapping = true;
+
             const isLinkedPostCommentReplies = this.postComment.id === this.linkedPostCommentId;
             if (isLinkedPostCommentReplies && this.linkedPostCommentReplyId) {
                 const postCommentAlreadyIncludesLinkedPostCommentReply = !!this.postCommentReplies.find((postCommentReply) => postCommentReply.id === this.linkedPostCommentReplyId);
@@ -128,12 +135,14 @@
                     this.bootstrapPostCommentRepliesWithPostComment();
                 } else {
                     // Fetch new post comment replies with the linkedPostComment
-                    this.bootstrapPostCommentRepliesForLinkedPostComment();
+                    await this.bootstrapPostCommentRepliesForLinkedPostComment();
                 }
 
             } else {
                 this.bootstrapPostCommentRepliesWithPostComment();
             }
+
+            this.loadMoreIsBootstrapping = false;
         }
 
         private bootstrapPostCommentRepliesWithPostComment() {
