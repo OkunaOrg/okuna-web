@@ -32,7 +32,7 @@
         }
 
         addStyleAttribute() {
-            this.$el.setAttribute("style", "height:" + (this.$el.scrollHeight) + "px;overflow-y:hidden; resize: none !important;")
+            this.$el.setAttribute("style", "height:" + (this.$el.scrollHeight) + "px;overflow-y:auto; resize: none !important;")
             this.styleAdded = true;
         }
 
