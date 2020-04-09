@@ -259,7 +259,7 @@
                 this.postCommentReplies.unshift(...postCommentReplies);
             }
 
-            const canLoadMore = postCommentReplies.length && postCommentReplies.length !== OkPostCommentReplies.loadMoreItemsCount;
+            const canLoadMore = postCommentReplies.length && postCommentReplies.length === OkPostCommentReplies.loadMoreItemsCount;
 
             return canLoadMore;
         }
@@ -302,7 +302,7 @@
                 this.postCommentReplies.push(...postCommentReplies);
             }
 
-            const canLoadMore = postCommentReplies.length && postCommentReplies.length !== OkPostCommentReplies.loadMoreItemsCount;
+            const canLoadMore = postCommentReplies.length && postCommentReplies.length === OkPostCommentReplies.loadMoreItemsCount;
 
             return canLoadMore;
         }

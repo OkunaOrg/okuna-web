@@ -250,7 +250,7 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
                 this.postComments.push(...postCommentReplies);
             }
 
-            const canLoadMore = postCommentReplies.length && postCommentReplies.length !== OkPostComments.loadMoreItemsCount;
+            const canLoadMore = postCommentReplies.length && postCommentReplies.length === OkPostComments.loadMoreItemsCount;
 
             return canLoadMore;
         }
@@ -294,7 +294,7 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
                 this.postComments.unshift(...postCommentReplies);
             }
 
-            const canLoadMore = postCommentReplies.length && postCommentReplies.length !== OkPostComments.loadMoreItemsCount;
+            const canLoadMore = postCommentReplies.length && postCommentReplies.length === OkPostComments.loadMoreItemsCount;
 
             return canLoadMore;
         }
