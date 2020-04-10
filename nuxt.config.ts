@@ -27,6 +27,7 @@ export default {
         '@nuxtjs/axios',
         'localforage-nuxt',
         'nuxt-i18n',
+        '@nuxtjs/style-resources'
     ],
     sentry: {
         dsn: process.env.SENTRY_DSN,
@@ -104,6 +105,11 @@ export default {
     },
     proxy: {
         '/local/': {target: 'https://api.openbook.social', pathRewrite: {'^/local/': ''}},
+    },
+    styleResources: {
+        scss: [
+            'assets/styles/helpers/index.scss',
+        ]
     },
     render: {
         bundleRenderer: {

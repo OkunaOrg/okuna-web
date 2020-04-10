@@ -73,6 +73,7 @@
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
+    "@nuxtjs/style-resources": "^1.0.0",
     "@types/pino": "^5.17.0",
     "css-loader": "^3.4.2",
     "node-sass": "^4.13.1",
