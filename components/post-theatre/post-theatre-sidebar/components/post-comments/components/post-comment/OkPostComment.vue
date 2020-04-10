@@ -110,12 +110,12 @@
         }
 
         @Watch("linkedPostCommentReplyId")
-        onChildChanged(val: string, oldVal: string) {
+        onLinkedPostCommentReplyIdChanged(val: string, oldVal: string) {
             this.updateExpandedReplies();
         }
 
         @Watch("linkedPostCommentId")
-        onChildChanged(val: string, oldVal: string) {
+        onLinkedPostCommentIdChanged(val: string, oldVal: string) {
             this.updateExpandedReplies();
         }
 

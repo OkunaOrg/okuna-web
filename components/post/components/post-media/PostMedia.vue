@@ -104,10 +104,6 @@
             return typeof imageItem !== "undefined";
         }
 
-        get isInTheatre(){
-            return this.postDisplayContext === PostDisplayContext.postTheatre;
-        }
-
         get firstMediaItem() {
             if (this.postMedia.length === 0) return;
             return this.postMedia[0];
