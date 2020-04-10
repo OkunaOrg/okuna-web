@@ -1,10 +1,13 @@
 <template>
-    <article class="has-padding-30">
+    <article class="ok-post">
         <div class="card ok-has-background-primary">
             <div class="card-content">
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
-            <ok-post-media :post="post" v-if="post.mediaThumbnail" class="has-padding-bottom-20" :post-display-context="postDisplayContext"></ok-post-media>
+            <div class="has-padding-bottom-20">
+                <ok-post-media :post="post" v-if="post.mediaThumbnail"
+                               :post-display-context="postDisplayContext"></ok-post-media>
+            </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
                 <ok-post-text v-if="post.text" :post="post"></ok-post-text>
                 <div class="columns">
@@ -13,18 +16,30 @@
                     </div>
                 </div>
             </div>
-            <ok-post-reactions :post="post" class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-reactions>
-            <ok-post-actions :post="post" class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-actions>
+            <ok-post-reactions :post="post"
+                               class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-reactions>
+            <ok-post-actions :post="post"
+                             class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-actions>
         </div>
     </article>
 </template>
 
 <style lang="scss" scoped>
+    .ok-post {
+        width: 400px;
 
+        @include for-size(tablet-portrait-up) {
+            width: 500px;
+        }
+
+        @include for-size(tablet-landscape-up) {
+            width: 635px;
+        }
+    }
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { Component, Prop, Vue} from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import OkPostHeader from "~/components/post/components/post-header/PostHeader.vue";
     import OkPostText from "~/components/post/components/PostText.vue";
@@ -32,7 +47,7 @@
     import OkPostMedia from "~/components/post/components/post-media/PostMedia.vue";
     import OkPostReactions from "~/components/post/components/post-reactions/PostReactions.vue";
     import OkPostCommentCounts from "~/components/post/components/post-comments-count/PostCommentCounts.vue";
-    import OkPostActions from '~/components/post/components/post-actions/PostActions.vue';
+    import OkPostActions from "~/components/post/components/post-actions/PostActions.vue";
 
     @Component({
         name: "OkPost",
@@ -43,7 +58,5 @@
         @Prop(Object) readonly post: IPost;
 
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
-
-
     }
 </script>

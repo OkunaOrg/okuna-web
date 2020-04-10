@@ -1,7 +1,25 @@
 <template>
     <div class="has-background-black has-height-100-percent is-flex align-items-center justify-center has-width-100-percent ok-post-theatre-media-container">
         <div class="ok-post-theatre-media">
-            <ok-post-media :post="post" :video-is-responsive="false" :post-display-context="PostDisplayContext.postTheatre" class="has-width-100-percent has-height-100-percent"></ok-post-media>
+            <div class="is-background-contain" :style="{ backgroundImage: `url('${post.mediaThumbnail}')`}">
+                <div v-if="postMedia.length > 0" class="ok-post-media-item-container">
+                    <ok-post-media-image
+                            :post-media="firstMediaItem"
+                            v-if="hasImageMedia"
+                            :post-display-context="postDisplayContext"
+                            :media-height="mediaContainerHeight"
+                            :media-width="postElementWidth"
+                    >
+
+                    </ok-post-media-image>
+                    <ok-post-media-video
+                            :post-media="firstMediaItem"
+                            :is-responsive="videoIsResponsive"
+                            :media-height="mediaContainerHeight"
+                            :media-width="postElementWidth"
+                            v-else></ok-post-media-video>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -71,19 +89,18 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPostMedia from "~/components/post/components/post-media/PostMedia.vue";
-    import OkPostMediaVideo from "~/components/post/components/post-media/components/PostMediaVideo.vue";
     import { PostMediaType } from '~/models/posts/post-media/lib/PostMediaType';
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
     import { IUserService } from '~/services/user/IUserService';
     import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
-    import OkPostMediaImage from '~/components/post/components/post-media/components/PostMediaImage.vue';
     import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
+    import OkPostMediaImage from '~/components/post/components/post-media/components/PostMediaImage.vue';
+    import OkPostMediaVideo from '~/components/post/components/post-media/components/PostMediaVideo.vue';
 
     @Component({
         name: "OkPostTheatreMedia",
-        components: {OkPostMediaImage, OkPostMediaVideo, OkPostMedia},
+        components: {OkPostMediaVideo, OkPostMediaImage},
     })
     export default class OkPostTheatreMedia extends Vue {
         @Prop(Object) readonly post: IPost;

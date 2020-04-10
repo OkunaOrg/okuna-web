@@ -1,7 +1,7 @@
 <template>
     <figure class="image is-background-contain"
             :style="{backgroundImage: `url('${postImage.thumbnail}')`}">
-        <img alt="Post Image" :src="postImage.image" :width="mediaWidth" :height="mediaHeight">
+        <ok-fitted-img class="image" :src="postImage.image" :alt="'Post image'"></ok-fitted-img>
     </figure>
 </template>
 
@@ -13,10 +13,10 @@
     import OkFittedImg from '~/components/images/OkFittedImg.vue';
 
     @Component({
-        name: "OkPostMediaImage",
+        name: "OkPostTheatreMediaImage",
         components: {OkFittedImg},
     })
-    export default class extends Vue {
+    export default class OkPostTheatreMediaImage extends Vue {
         @Prop(Object) readonly postMedia: IPostMedia;
 
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;

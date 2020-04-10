@@ -1,19 +1,26 @@
 <template>
-    <div class="ok-post-media">
+    <div class="ok-post-media is-background-contain" :style="{width: postElementWidth + 'px', height: mediaContainerHeight + 'px', backgroundImage: `url('${post.mediaThumbnail}')`}">
         <div v-if="postMedia.length > 0" class="ok-post-media-item-container">
-            <ok-post-media-image :post-media="firstMediaItem" v-if="hasImageMedia" :post-display-context="postDisplayContext"></ok-post-media-image>
-            <ok-post-media-video :post-media="firstMediaItem" :is-responsive="videoIsResponsive" v-else></ok-post-media-video>
-        </div>
-        <div v-else>
-            <ok-fitted-img v-if="isInTheatre" :src="post.mediaThumbnail" :alt="'Post thumbnail'"></ok-fitted-img>
-            <figure class="image" v-else>
-                <img alt="Post thumbnail" :src="post.mediaThumbnail">
-            </figure>
+            <ok-post-media-image
+                    :post-media="firstMediaItem"
+                    v-if="hasImageMedia"
+                    :post-display-context="postDisplayContext"
+                    :media-height="mediaContainerHeight"
+                    :media-width="postElementWidth"
+            >
+
+            </ok-post-media-image>
+            <ok-post-media-video
+                    :post-media="firstMediaItem"
+                    :is-responsive="videoIsResponsive"
+                    :media-height="mediaContainerHeight"
+                    :media-width="postElementWidth"
+                    v-else></ok-post-media-video>
         </div>
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 </style>
 
@@ -40,7 +47,7 @@
 
         @Prop({
             type: Boolean,
-            default: true
+            default: false
         }) readonly videoIsResponsive: boolean;
 
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
@@ -49,8 +56,11 @@
 
         postMedia: IPostMedia[] = [];
 
+        postElementWidth: number = 0;
+
         mounted() {
             this.refreshPostMedia();
+            window.addEventListener("resize", this.onWindowResize)
         }
 
         refreshPostMedia() {
@@ -60,6 +70,33 @@
                 this.post.media = postMedia;
                 this.postMedia = postMedia;
             });
+        }
+
+        created(){
+            this.updatePostElementWidth();
+        }
+
+        updatePostElementWidth(){
+            if(window.innerWidth > 900){
+                this.postElementWidth = 635;
+            } else if(window.innerWidth > 600){
+                this.postElementWidth = 500;
+            } else{
+                this.postElementWidth = 400;
+            }
+        }
+
+        beforeDestroy() {
+            window.removeEventListener("resize", this.onWindowResize)
+        }
+
+        onWindowResize(){
+            this.updatePostElementWidth();
+        }
+
+        get mediaContainerHeight(){
+            const thumbnailAspectRatio = this.post.mediaWidth / this.post.mediaHeight;
+            return this.postElementWidth / thumbnailAspectRatio;
         }
 
         get hasImageMedia(): boolean {

@@ -1,11 +1,10 @@
 <template>
-    <section id="home-timeline-posts" class="timeline-posts">
-        <div class="timeline-posts-stream" v-if="loggedInUserReady">
-            <div v-for="post in posts" :key="post.id">
+    <section id="home-timeline-posts" class="timeline-posts" v-if="loggedInUserReady">
+        <div class="timeline-posts-stream" style="min-width:100px ; min-height: 100px;">
+            <div v-for="post in posts" :key="post.id" class="has-padding-30">
                 <!-- Hacker News item loop -->
                 <ok-post :post="post" :post-display-context="postDisplayContext"></ok-post>
             </div>
-            <span></span>
 
             <infinite-loading @infinite="infiniteHandler"></infinite-loading>
         </div>
@@ -15,15 +14,7 @@
 
 <style scoped lang="scss">
 
-    .timeline-posts {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        &-stream {
-            max-width: 635px;
-            min-width: 635px;
-        }
+    .timeline-posts-stream {
 
     }
 
@@ -77,6 +68,7 @@
 
             this.userService.getTimelinePosts({
                 maxId: lastPostId,
+                username: 'joel'
             }).then((timelinePosts) => {
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);

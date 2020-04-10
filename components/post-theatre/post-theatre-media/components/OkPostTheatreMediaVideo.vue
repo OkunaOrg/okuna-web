@@ -23,16 +23,11 @@
     import { IPostVideo } from "~/models/posts/post-video/IPostVideo";
 
     @Component({
-        name: "OkPostMediaVideo",
+        name: "OkPostTheatreMediaVideo",
 
     })
-    export default class extends Vue {
+    export default class OkPostTheatreMediaVideo extends Vue {
         @Prop(Object) readonly postMedia: IPostMedia;
-
-        @Prop({
-            type: Boolean,
-            default: true
-        }) readonly isResponsive: boolean;
 
         @Prop(Number) readonly mediaWidth: number;
         @Prop(Number) readonly mediaHeight: number;
@@ -62,7 +57,7 @@
                 language: "en",
                 loop: true,
                 autoplay: true,
-                fill: true,
+                fluid: true,
                 sources: [{
                     type: "video/mp4",
                     src: postVideoMp4Format.file

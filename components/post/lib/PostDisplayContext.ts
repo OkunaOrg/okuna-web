@@ -4,5 +4,4 @@ export enum PostDisplayContext {
     communityPosts,
     foreignProfilePosts,
     ownProfilePosts,
-    postTheatre
 }
