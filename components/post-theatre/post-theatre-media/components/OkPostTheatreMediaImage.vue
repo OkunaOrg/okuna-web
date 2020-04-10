@@ -1,7 +1,7 @@
 <template>
     <figure class="image is-background-contain"
             :style="{backgroundImage: `url('${postImage.thumbnail}')`}">
-        <ok-fitted-img class="image" :src="postImage.image" :alt="'Post image'"></ok-fitted-img>
+        <ok-fitted-img class="image is-hidden" :src="postImage.image" :alt="'Post image'"></ok-fitted-img>
     </figure>
 </template>
 

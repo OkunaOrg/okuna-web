@@ -2,8 +2,8 @@
     <div class="has-background-black has-height-100-percent is-flex align-items-center justify-center has-width-100-percent ok-post-theatre-media-container">
         <div class="ok-post-theatre-media">
             <div class="is-background-contain" :style="{ backgroundImage: `url('${post.mediaThumbnail}')`}">
-                <div v-if="postMedia.length > 0" class="ok-post-media-item-container">
-                    <ok-post-media-image
+                <div v-if="postMedia.length > 0" class="ok-post-theatre-media-item-container">
+                    <ok-post-theatre-media-image
                             :post-media="firstMediaItem"
                             v-if="hasImageMedia"
                             :post-display-context="postDisplayContext"
@@ -11,13 +11,13 @@
                             :media-width="postElementWidth"
                     >
 
-                    </ok-post-media-image>
-                    <ok-post-media-video
+                    </ok-post-theatre-media-image>
+                    <ok-post-theatre-media-video
                             :post-media="firstMediaItem"
                             :is-responsive="videoIsResponsive"
                             :media-height="mediaContainerHeight"
                             :media-width="postElementWidth"
-                            v-else></ok-post-media-video>
+                            v-else></ok-post-theatre-media-video>
                 </div>
             </div>
         </div>
@@ -41,19 +41,6 @@
         justify-content: center;
         align-items: center;
 
-        .ok-post-media-placeholder, .ok-post-media-image{
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            img{
-                height: 100% !important;
-                width: unset !important;
-            }
-        }
-
         .video-js{
             height: 100%;
             width: 100%;
@@ -64,12 +51,8 @@
             width: 100%;
         }
 
-        .ok-post-media{
-            height: 100%;
-            width: 100%;
-        }
 
-        .ok-post-media-item-container{
+        .ok-post-theatre-media-item-container{
             height: 100%;
             width: 100%;
         }
@@ -95,12 +78,14 @@
     import { IUserService } from '~/services/user/IUserService';
     import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
     import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
-    import OkPostMediaImage from '~/components/post/components/post-media/components/PostMediaImage.vue';
-    import OkPostMediaVideo from '~/components/post/components/post-media/components/PostMediaVideo.vue';
+    import OkPostTheatreMediaImage
+        from '~/components/post-theatre/post-theatre-media/components/OkPostTheatreMediaImage.vue';
+    import OkPostTheatreMediaVideo
+        from '~/components/post-theatre/post-theatre-media/components/OkPostTheatreMediaVideo.vue';
 
     @Component({
         name: "OkPostTheatreMedia",
-        components: {OkPostMediaVideo, OkPostMediaImage},
+        components: {OkPostTheatreMediaVideo, OkPostTheatreMediaImage},
     })
     export default class OkPostTheatreMedia extends Vue {
         @Prop(Object) readonly post: IPost;
