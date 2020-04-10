@@ -13,11 +13,11 @@
 
 
 <style scoped lang="scss">
-
-    .timeline-posts-stream {
-
+    .timeline-posts{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
-
 </style>
 
 <script lang="ts">
@@ -68,7 +68,6 @@
 
             this.userService.getTimelinePosts({
                 maxId: lastPostId,
-                username: 'joel'
             }).then((timelinePosts) => {
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);

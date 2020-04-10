@@ -5,7 +5,7 @@
                             :avatar-size="this.OkAvatarSize.medium">
             </ok-user-avatar>
         </div>
-        <div class="media-content">
+        <div class="media-content has-overflow-hidden">
             <div v-if="post.community">
                 <p class="title is-6 ok-has-text-primary-invert">c/{{post.community.name}}</p>
                 <p class="subtitle is-7 ok-has-text-primary-invert-80">
