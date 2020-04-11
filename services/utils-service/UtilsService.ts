@@ -1,5 +1,5 @@
 import { AxiosError } from '~/node_modules/axios';
-import { HandledError, IUtilsService } from '~/services/utils-service/IUtilsService';
+import { HandledError, IUtilsService, QueryParams } from '~/services/utils-service/IUtilsService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 import { IToastService } from '~/services/toast/IToast';
@@ -88,5 +88,15 @@ export class UtilsService implements IUtilsService {
         });
 
         return handledError;
+    }
+
+    makeUrlQueryString(queryParams: QueryParams): string {
+        return '?' + Object.keys(queryParams)
+            .map(key => {
+                return (
+                    encodeURIComponent(key) + '=' + encodeURIComponent(queryParams[key].toString())
+                )
+            })
+            .join('&');
     }
 }

@@ -1,6 +1,8 @@
 const TYPES = {
     UserService: Symbol.for('UserService'),
     ToastService: Symbol.for('ToastService'),
+    ModalService: Symbol.for('ModalService'),
+    HistoryService: Symbol.for('HistoryService'),
     HttpService: Symbol.for('HttpService'),
     AuthApiService: Symbol.for('AuthApiService'),
     CommunitiesApiService: Symbol.for('CommunitiesApiService'),

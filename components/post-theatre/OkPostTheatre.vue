@@ -1,5 +1,5 @@
 <template>
-    <article class="columns is-centered has-height-100-percent">
+    <article class="columns is-centered has-height-100-percent is-gapless is-marginless">
         <ok-loading-indicator v-if="!post"> </ok-loading-indicator>
         <div v-else class="column has-height-100-percent ok-post-theatre-container" :class="{'is-narrow' : !post.mediaThumbnail}">
             <div
@@ -66,7 +66,6 @@
     })
     export default class OkPostTheatre extends Vue {
         @Prop(String) readonly postUuid: string;
-        @Prop(String) readonly postCommentId: string;
 
         @Prop({
             type: Boolean,

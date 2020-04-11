@@ -1,5 +1,6 @@
 <template>
     <section class="is-flex">
+        <ok-modals></ok-modals>
         <ok-header></ok-header>
         <nuxt-child class="ok-has-background-primary-80 has-width-100-percent is-relative"></nuxt-child>
     </section>
@@ -20,9 +21,11 @@
     import { IOkLogger } from "~/services/logging/types";
     import { ILoggingService } from "~/services/logging/ILogging";
     import { IUtilsService } from '~/services/utils-service/IUtilsService';
+    import OkModals from '~/pages/home/components/modals/OkModals.vue';
 
     @Component({
         components: {
+            OkModals,
             OkHeader,
         },
         middleware: [

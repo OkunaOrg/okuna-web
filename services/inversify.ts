@@ -33,6 +33,10 @@ import { PostsApiService } from '~/services/Apis/posts/PostsApiService';
 import { IPostsApiService } from '~/services/Apis/posts/IPostsApiService';
 import { IUserPreferencesService } from '~/services/user-preferences-service/IUserPreferencesService';
 import { UserPreferencesService } from '~/services/user-preferences-service/UserPreferencesService';
+import { ModalService } from '~/services/modal-service/ModalService';
+import { IModalService } from '~/services/modal-service/IModalService';
+import { IHistoryService } from '~/services/history-service/IHistoryService';
+import { HistoryService } from '~/services/history-service/HistoryService';
 
 const okunaContainer = new Container();
 
@@ -45,6 +49,8 @@ okunaContainer.bind<ILocalizationService>(TYPES.LocalizationService).to(Localiza
 okunaContainer.bind<INavigationService>(TYPES.NavigationService).to(NavigationService).inSingletonScope();
 okunaContainer.bind<IStringTemplateService>(TYPES.StringTemplateService).to(StringTemplateService).inSingletonScope();
 okunaContainer.bind<IToastService>(TYPES.ToastService).to(ToastService).inSingletonScope();
+okunaContainer.bind<IModalService>(TYPES.ModalService).to(ModalService).inSingletonScope();
+okunaContainer.bind<IHistoryService>(TYPES.HistoryService).to(HistoryService).inSingletonScope();
 okunaContainer.bind<IUserService>(TYPES.UserService).to(UserService).inSingletonScope();
 okunaContainer.bind<IUtilsService>(TYPES.UtilsService).to(UtilsService).inSingletonScope();
 okunaContainer.bind<IStorageService>(TYPES.StorageService).to(StorageService).inSingletonScope();

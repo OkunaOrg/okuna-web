@@ -6,17 +6,11 @@
                     <ok-post-theatre-media-image
                             :post-media="firstMediaItem"
                             v-if="hasImageMedia"
-                            :post-display-context="postDisplayContext"
-                            :media-height="mediaContainerHeight"
-                            :media-width="postElementWidth"
                     >
 
                     </ok-post-theatre-media-image>
                     <ok-post-theatre-media-video
                             :post-media="firstMediaItem"
-                            :is-responsive="videoIsResponsive"
-                            :media-height="mediaContainerHeight"
-                            :media-width="postElementWidth"
                             v-else></ok-post-theatre-media-video>
                 </div>
             </div>
@@ -77,7 +71,6 @@
     import { TYPES } from '~/services/inversify-types';
     import { IUserService } from '~/services/user/IUserService';
     import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
-    import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
     import OkPostTheatreMediaImage
         from '~/components/post-theatre/post-theatre-media/components/OkPostTheatreMediaImage.vue';
     import OkPostTheatreMediaVideo
@@ -89,7 +82,7 @@
     })
     export default class OkPostTheatreMedia extends Vue {
         @Prop(Object) readonly post: IPost;
-        PostDisplayContext= PostDisplayContext;
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
 

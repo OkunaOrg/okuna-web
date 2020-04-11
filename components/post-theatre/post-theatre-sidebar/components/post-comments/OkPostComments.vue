@@ -65,6 +65,7 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
     import OkLoadingIndicator from "~/components/utils/LoadingIndicator.vue";
+    import { IHistoryService } from "~/services/history-service/IHistoryService";
 
 
     @Component({
@@ -113,6 +114,7 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
         private userPreferencesService: IUserPreferencesService = okunaContainer.get<IUserPreferencesService>(TYPES.UserPreferencesService);
         private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private historyService: IHistoryService = okunaContainer.get<IHistoryService>(TYPES.HistoryService);
         private logger: IOkLogger;
 
 
@@ -120,40 +122,25 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
             this.logger = this.loggingService!.getLogger({
                 name: "PostComments"
             });
-            //setTimeout(this.scrollToItem, 5000);
 
             this.$observables["postCommentsSortSetting"].subscribe(this.onPostCommentsSortSettingChange);
 
             this.bootstrap();
         }
 
-        @Watch("$route")
-        onChildChanged(newRoute: Route, oldRoute: Route) {
-            if (newRoute.name === oldRoute.name) {
-                // Same page
-                const oldRouteLinkedIds = JSON.stringify(oldRoute.query["pc"]) + JSON.stringify(oldRoute.query["pcr"]);
-                const newRouteLinkedIds = JSON.stringify(newRoute.query["pc"]) + JSON.stringify(newRoute.query["pcr"]);
-
-                if (oldRouteLinkedIds !== newRouteLinkedIds) {
-                    this.state = OkPostCommentsState.loadMore;
-
-                    // We need the LoadMore element loaded
-                    this.$nextTick(()=>{
-                        this.bootstrap();
-                    });
-
-                }
-            }
-        }
-
         bootstrap() {
-            const routePostCommentReplyId = this.$route.query["pcr"];
-            if (typeof routePostCommentReplyId === "string" || typeof routePostCommentReplyId === "number") this.linkedPostCommentReplyId = parseInt(routePostCommentReplyId);
+            let routePostCommentReplyId;
+            let routePostCommentId;
 
-            const routePostCommentId = this.$route.query["pc"];
-            if (typeof routePostCommentId === "string" || typeof routePostCommentId === "number") this.linkedPostCommentId = parseInt(routePostCommentId);
+            if (this.$route && this.$route.query) {
+                routePostCommentReplyId = this.$route.query["pcr"];
+                if (typeof routePostCommentReplyId === "string" || typeof routePostCommentReplyId === "number") this.linkedPostCommentReplyId = parseInt(routePostCommentReplyId);
 
-            this.updateHighlightedPostCommentId();
+                routePostCommentId = this.$route.query["pc"];
+                if (typeof routePostCommentId === "string" || typeof routePostCommentId === "number") this.linkedPostCommentId = parseInt(routePostCommentId);
+
+                this.updateHighlightedPostCommentId();
+            }
 
             this.state = routePostCommentId ? OkPostCommentsState.loadMore : OkPostCommentsState.infiniteScrolling;
 
@@ -322,12 +309,28 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
                 newLinkedPostCommentReplyId = undefined;
             }
 
+            this.linkedPostCommentId = newLinkedPostCommentId;
+            this.linkedPostCommentReplyId = newLinkedPostCommentReplyId;
+
             let newQueryParams = {
                 pc: newLinkedPostCommentId
             };
 
             if (newLinkedPostCommentReplyId) newQueryParams["pcr"] = newLinkedPostCommentReplyId;
-            await this.$router.push({path: this.$route.path, query: newQueryParams});
+
+            this.historyService.updatePathForPostSilently({
+                post: this.post,
+                linkedPostCommentReplyId: newLinkedPostCommentReplyId,
+                linkedPostCommentId: newLinkedPostCommentId
+            });
+
+            this.state = OkPostCommentsState.loadMore;
+
+            // We need the LoadMore element loaded
+            this.$nextTick(() => {
+                this.updateHighlightedPostCommentId();
+                this.createdLoadMoreState();
+            });
         }
 
 
@@ -444,9 +447,9 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
         private onPostCommentsSortSettingChange(postCommentSortSetting: PostCommentsSortSetting | undefined) {
             if (postCommentSortSetting) {
                 this.sort = postCommentSortSetting;
-                if(this.state == OkPostCommentsState.infiniteScrolling){
+                if (this.state == OkPostCommentsState.infiniteScrolling) {
                     this.refreshInfiniteLoading();
-                } else if(this.state === OkPostCommentsState.loadMore){
+                } else if (this.state === OkPostCommentsState.loadMore) {
                     this.postComments = [];
                     this.bootstrap();
                 }
