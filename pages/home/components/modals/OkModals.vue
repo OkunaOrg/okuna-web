@@ -11,6 +11,7 @@
         .modal-content{
             height: 85%;
             width: 85%;
+            padding: 0 2rem;
         }
     }
 
