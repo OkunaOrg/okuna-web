@@ -30,6 +30,7 @@ import Send from 'vue-material-design-icons/Send.vue';
 import Close from 'vue-material-design-icons/Close.vue';
 import MenuDown from 'vue-material-design-icons/MenuDown.vue';
 import PlusCircleOutline from 'vue-material-design-icons/PlusCircleOutline.vue';
+import FaceProfile from 'vue-material-design-icons/FaceProfile.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -100,3 +101,5 @@ Vue.component('ok-close-icon', Close);
 Vue.component('ok-menu-down-icon', MenuDown);
 
 Vue.component('ok-plus-circle-outline-icon', PlusCircleOutline);
+
+Vue.component('ok-profile-icon', FaceProfile);
