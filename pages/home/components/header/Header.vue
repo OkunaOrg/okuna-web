@@ -25,7 +25,7 @@
                                     class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
                         </nuxt-link>
                         <div class="navbar-item has-cursor-pointer">
-                            <ok-menu-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-menu-icon>
+                            <ok-user-dropdown></ok-user-dropdown>
                         </div>
                     </div>
                 </div>
@@ -43,10 +43,11 @@
     import { Component, Vue } from "nuxt-property-decorator"
     import OkLogo from "../../../../components/okuna-logo/okuna-logo.vue";
     import OkHeaderSearchBar from '~/pages/home/components/header/components/HeaderSearchBar.vue';
+    import OkUserDropdown from '~/pages/home/components/header/components/user-dropdown/OkUserDropdown.vue';
 
     @Component({
         name: "OkHeader",
-        components: {OkHeaderSearchBar, OkLogo},
+        components: {OkUserDropdown, OkHeaderSearchBar, OkLogo},
     })
     export default class extends Vue {
 

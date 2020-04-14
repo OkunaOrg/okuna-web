@@ -49,7 +49,7 @@
     import { okunaContainer } from "~/services/inversify";
     import { IPost } from "~/models/posts/post/IPost";
     import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
-    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
+    import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { IUser } from "~/models/auth/user/IUser";
     import OkCommentPostForm from "~/components/forms/comment-post-form.vue";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";

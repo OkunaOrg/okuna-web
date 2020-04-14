@@ -45,7 +45,7 @@
     import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
-    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
+    import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkSmartText from "~/components/smart-text/SmartText.vue";
     import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
     import OkPostCommentReactions

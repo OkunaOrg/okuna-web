@@ -46,10 +46,13 @@
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
+    import OkPostMedia from '~/components/post/components/post-media/PostMedia.vue';
 
     @Component({
         name: "OkPostTheatreSidebar",
-        components: {OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader},
+        components: {
+            OkPostMedia,
+            OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader},
     })
     export default class OkPostTheatreSidebar extends Vue {
         @Prop(Object) readonly post: IPost;

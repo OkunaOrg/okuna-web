@@ -66,8 +66,9 @@
             if (lastPost) lastPostId = lastPost.id;
 
 
-            this.userService.getTrendingPosts({
+            this.userService.getTimelinePosts({
                 maxId: lastPostId,
+                count: 10,
             }).then((timelinePosts) => {
                 if (timelinePosts.length) {
                     this.posts.push(...timelinePosts);
@@ -77,31 +78,6 @@
                 }
             });
         }
-
-        scrollToItem() {
-            console.log("Scroll to Item called");
-
-            var options = {
-                // container: "#home-timeline-posts",
-                offset: -100,
-                easing: "ease-in",
-                //force: true,
-                onStart: function (element) {
-                    // scrolling started
-                    console.log("STARTED SCROLLING");
-                },
-                onDone: function (element) {
-                    // scrolling is done
-                    console.log("DONE SCROLLING");
-                },
-            };
-
-            var element = document.querySelector("#highlighted-post");
-
-
-            this.$scrollTo(element, 500, options);
-        }
-
 
     }
 </script>

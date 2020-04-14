@@ -1,5 +1,5 @@
 <template>
-    <nav class="level has-padding-top-10">
+    <nav class="level has-padding-top-10 is-mobile">
         <div class="level-item has-cursor-pointer ok-has-border-right-primary-highlight" role="button" v-if="postComment.repliesCount"
              @click="onWantsToToggleReplies">
             <span class="ok-has-text-primary-invert-60 has-text-weight-bold is-size-7">
@@ -26,7 +26,7 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
-    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
+    import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkSmartText from "~/components/smart-text/SmartText.vue";
     import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
     import OkPostCommentReactButton

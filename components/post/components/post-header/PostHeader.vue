@@ -36,7 +36,7 @@
     import { IPost } from "~/models/posts/post/IPost";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
     import OkAvatar from "~/components/avatars/image-avatar/ImageAvatar.vue";
-    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
+    import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkPostHeaderCommunityContent
         from "~/components/post/components/post-header/components/PostHeaderCommunityContent.vue";
     import OkPostHeaderProfileContent

@@ -1,6 +1,7 @@
 <template>
     <div>
-        <ok-image-avatar :avatar-url="user.profile.avatar" :avatar-size="this.avatarSize">
+        <ok-image-avatar :avatar-url="user.profile.avatar" :avatar-size="this.avatarSize"
+                         :avatar-border-radius="avatarBorderRadius">
         </ok-image-avatar>
     </div>
 </template>
@@ -11,9 +12,10 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
-    import { IUser } from '~/models/auth/user/IUser';
-    import OkImageAvatar from '~/components/avatars/image-avatar/ImageAvatar.vue';
+    import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
+    import { IUser } from "~/models/auth/user/IUser";
+    import OkImageAvatar from "~/components/avatars/image-avatar/ImageAvatar.vue";
+    import { OkAvatarBorderRadius } from "~/components/avatars/lib/OkAvatarBorderRadius";
 
     @Component({
         name: "OkUserAvatar",
@@ -22,7 +24,7 @@
     export default class extends Vue {
         @Prop(Object) readonly user: IUser;
         @Prop(Number) readonly avatarSize: OkAvatarSize;
-
+        @Prop(Number) readonly avatarBorderRadius: OkAvatarBorderRadius;
 
 
         mounted() {

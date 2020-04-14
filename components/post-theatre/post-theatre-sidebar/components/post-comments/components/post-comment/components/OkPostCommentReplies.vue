@@ -48,7 +48,7 @@
     import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
     import OkVerticalDivider from "~/components/utils/VerticalDivider.vue";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
-    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
+    import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';

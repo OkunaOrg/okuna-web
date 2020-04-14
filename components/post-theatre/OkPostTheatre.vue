@@ -44,7 +44,6 @@
             min-width: 500px;
         }
     }
-
 </style>
 
 <script lang="ts">
