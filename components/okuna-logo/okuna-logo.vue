@@ -1,15 +1,14 @@
 <template>
     <nuxt-link :to="localePath('index')" class="is-size-4 is-flex align-items-center has-no-hover-text-decoration">
-        <img :src="logoImage" class="header-logo" alt="Okuna logo">
-        <span class="has-padding-5"></span>
-        <span class="has-text-logo is-size-5 ok-has-text-primary-invert" style="padding-top: 5px">{{$t('name')}}</span>
+        <img :src="logoImage" class="ok-logo" alt="Okuna logo">
+        <span class="ok-logo--text has-text-logo is-size-5 ok-has-text-primary-invert is-hidden-mobile has-padding-left-10" :class="textClass" style="padding-top: 5px">{{$t('name')}}</span>
     </nuxt-link>
 </template>
 
 <style lang="scss" scoped>
-    $header-size: 1.4rem;
+    $header-size: 1.7rem;
 
-    .header-logo {
+    .ok-logo {
         height: $header-size;
         width: $header-size;
     }
@@ -23,6 +22,8 @@
         name: "OkLogo",
     })
     export default class extends Vue {
+        @Prop(String) readonly textClass;
+
         get logoImage() {
             return require("./assets/logo.png");
         }

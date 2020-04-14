@@ -1,6 +1,6 @@
 <template>
     <v-popover offset="30"
-               placement="bottom"
+               placement="bottom-start"
                :open.sync="dropdownIsOpen"
                v-if="loggedInUser"
     >
@@ -215,6 +215,10 @@
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+
+        tooltipOptions = {
+            placement: 'bottom-end'
+        }
 
 
     }

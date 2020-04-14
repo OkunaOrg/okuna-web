@@ -1,7 +1,7 @@
 <template>
     <section id="home-timeline-posts" class="timeline-posts" v-if="loggedInUserReady">
         <div class="timeline-posts-stream" style="min-width:100px ; min-height: 100px;">
-            <div v-for="post in posts" :key="post.id" class="has-padding-30">
+            <div v-for="post in posts" :key="post.id" class="has-padding-30-tablet">
                 <!-- Hacker News item loop -->
                 <ok-post :post="post" :post-display-context="postDisplayContext"></ok-post>
             </div>

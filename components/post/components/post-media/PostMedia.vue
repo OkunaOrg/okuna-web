@@ -82,7 +82,7 @@
             } else if(window.innerWidth > 600){
                 this.postElementWidth = 500;
             } else{
-                this.postElementWidth = 400;
+                this.postElementWidth = 375;
             }
         }
 

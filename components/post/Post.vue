@@ -26,7 +26,7 @@
 
 <style lang="scss" scoped>
     .ok-post {
-        width: 400px;
+        width: 375px;
 
         @include for-size(tablet-portrait-up) {
             width: 500px;
