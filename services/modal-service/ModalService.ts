@@ -31,7 +31,9 @@ export class ModalService implements IModalService {
 
 
     async openPostModal(params: PostModalParams): Promise<void> {
-        this.ensureHasNoActiveModal();
+        if (!this.ensureHasNoActiveModal()) {
+            return;
+        }
 
         // Store original path
         const originalPath = this.historyService.getPath();
@@ -48,7 +50,10 @@ export class ModalService implements IModalService {
 
 
     notifyModalClosed(): void {
-        this.ensureHasActiveModal();
+        if (!this.ensureHasActiveModal()) {
+            return;
+        }
+
         this.logModalClosed();
         this.activeModalResolver(this.activeModalReturnData);
         this.resetState();
@@ -82,12 +87,12 @@ export class ModalService implements IModalService {
         this.activeModalResolver = undefined;
     }
 
-    private ensureHasNoActiveModal() {
-        if (this.activeModalPromise) throw 'Modal is already active. Cannot proceed';
+    private ensureHasNoActiveModal(): boolean {
+        return !this.activeModalPromise;
     }
 
-    private ensureHasActiveModal() {
-        if (!this.activeModalPromise) throw 'No modal is currently active. Cannot proceed';
+    private ensureHasActiveModal(): boolean {
+        return !!this.activeModalPromise;
     }
 
     private logModalOpened() {
