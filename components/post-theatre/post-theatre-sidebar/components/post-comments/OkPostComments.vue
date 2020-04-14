@@ -1,5 +1,3 @@
-import {OkPostCommentsState} from "./libs/OkPostCommentsState";
-import {OkPostCommentsState} from "./libs/OkPostCommentsState";
 <template>
     <section v-if="postCommentsSortSetting">
         <ok-post-comments-sort-switcher></ok-post-comments-sort-switcher>
@@ -134,10 +132,10 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
 
             if (this.$route && this.$route.query) {
                 routePostCommentReplyId = this.$route.query["pcr"];
-                if (typeof routePostCommentReplyId === "string" || typeof routePostCommentReplyId === "number") this.linkedPostCommentReplyId = parseInt(routePostCommentReplyId);
+                if (typeof routePostCommentReplyId === "string" || typeof routePostCommentReplyId === "number") this.linkedPostCommentReplyId = parseInt(routePostCommentReplyId.toString());
 
                 routePostCommentId = this.$route.query["pc"];
-                if (typeof routePostCommentId === "string" || typeof routePostCommentId === "number") this.linkedPostCommentId = parseInt(routePostCommentId);
+                if (typeof routePostCommentId === "string" || typeof routePostCommentId === "number") this.linkedPostCommentId = parseInt(routePostCommentId.toString());
 
                 this.updateHighlightedPostCommentId();
             }

@@ -171,9 +171,6 @@
     </v-popover>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
 
 
 <script lang="ts">
@@ -185,7 +182,7 @@
     import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { OkAvatarBorderRadius } from '~/components/avatars/lib/OkAvatarBorderRadius';
-    import { Observable } from '~/node_modules/rxjs';
+    import { BehaviorSubject } from '~/node_modules/rxjs';
 
     @Component({
         name: "OkUserDropdown",
@@ -203,7 +200,7 @@
         dropdownIsOpen = false;
 
         $observables!: {
-            loggedInUser: Record<string, Observable<IUser>>
+            loggedInUser?: BehaviorSubject<IUser>
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);

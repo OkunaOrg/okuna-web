@@ -41,13 +41,13 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import OkLogo from "../../../../components/okuna-logo/okuna-logo.vue";
     import OkHeaderSearchBar from '~/pages/home/components/header/components/HeaderSearchBar.vue';
     import OkUserDropdown from '~/pages/home/components/header/components/user-dropdown/OkUserDropdown.vue';
+    import OkLogo from '~/components/okuna-logo/okuna-logo.vue';
 
     @Component({
         name: "OkHeader",
-        components: {OkUserDropdown, OkHeaderSearchBar, OkLogo},
+        components: {OkLogo, OkUserDropdown, OkHeaderSearchBar},
     })
     export default class extends Vue {
 
