@@ -82,6 +82,7 @@
 
 
         mounted() {
+            console.log('POST THEATRE AND MOUNTED');
             this.userService.loggedInUser.subscribe(this.onLoggedInUser);
         }
 

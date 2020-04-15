@@ -1,11 +1,11 @@
 <template>
     <section>
         <div class="has-padding-left-10 has-padding-right-10 has-padding-top-40 has-padding-bottom-40 has-height-100-percent">
-            <div v-not-visible="'desktop tablet'">
+            <div v-ok-if-screen="'touch'">
                 Mobile page
             </div>
             <ok-post-theatre
-                    v-not-visible="'mobile'"
+                    v-ok-if-screen="'desktop tablet'"
                     :post-uuid="$route.params['postUuid']"
             ></ok-post-theatre>
         </div>
