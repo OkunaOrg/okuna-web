@@ -5,7 +5,7 @@
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
             <div class="has-padding-bottom-20">
-                <ok-post-media :post="post" v-if="post.mediaThumbnail"
+                <ok-post-media :post="post" v-if="post.mediaThumbnail" :post-element-width="postElementWidth"
                                :post-display-context="postDisplayContext"></ok-post-media>
             </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
@@ -26,20 +26,18 @@
 
 <style lang="scss" scoped>
     .ok-post {
-        width: 375px;
-
         @include for-size(tablet-portrait-up) {
             width: 500px;
         }
 
-        @include for-size(tablet-landscape-up) {
+        @include for-size(desktop-up) {
             width: 635px;
         }
     }
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue} from "nuxt-property-decorator"
+    import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import OkPostHeader from "~/components/post/components/post-header/PostHeader.vue";
     import OkPostText from "~/components/post/components/PostText.vue";
@@ -58,5 +56,34 @@
         @Prop(Object) readonly post: IPost;
 
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
+
+        postElementWidth = 0;
+
+        created() {
+            this.updatePostElementWidth();
+        }
+
+        mounted() {
+            window.addEventListener("resize", this.onWindowResize)
+        }
+
+        beforeDestroy() {
+            window.removeEventListener("resize", this.onWindowResize)
+        }
+
+        onWindowResize() {
+            this.updatePostElementWidth();
+        }
+
+
+        updatePostElementWidth() {
+            if (window.innerWidth > 1024) {
+                this.postElementWidth = 635;
+            } else if (window.innerWidth > 769) {
+                this.postElementWidth = 500;
+            } else {
+                this.postElementWidth = this.$parent.$el.clientWidth;
+            }
+        }
     }
 </script>

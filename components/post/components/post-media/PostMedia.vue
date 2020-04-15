@@ -44,6 +44,8 @@
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;
 
+        @Prop(Number) readonly postElementWidth: number;
+
 
         @Prop({
             type: Boolean,
@@ -56,11 +58,8 @@
 
         postMedia: IPostMedia[] = [];
 
-        postElementWidth: number = 0;
-
         mounted() {
             this.refreshPostMedia();
-            window.addEventListener("resize", this.onWindowResize)
         }
 
         refreshPostMedia() {
@@ -70,28 +69,6 @@
                 this.post.media = postMedia;
                 this.postMedia = postMedia;
             });
-        }
-
-        created(){
-            this.updatePostElementWidth();
-        }
-
-        updatePostElementWidth(){
-            if(window.innerWidth > 900){
-                this.postElementWidth = 635;
-            } else if(window.innerWidth > 600){
-                this.postElementWidth = 500;
-            } else{
-                this.postElementWidth = 375;
-            }
-        }
-
-        beforeDestroy() {
-            window.removeEventListener("resize", this.onWindowResize)
-        }
-
-        onWindowResize(){
-            this.updatePostElementWidth();
         }
 
         get mediaContainerHeight(){
