@@ -45,7 +45,6 @@ export default {
         '~/plugins/vue-infinite-loading',
         '~/plugins/vue-scroll-to',
         '~/plugins/vue-sticky',
-        '~/plugins/vue-responsive',
         '~/plugins/scroll-behavior',
         '~/plugins/vue-moment',
         '~/plugins/vue-progressive-image',
@@ -53,6 +52,7 @@ export default {
         '~/plugins/vue-highlight',
         '~/plugins/vue-tooltip',
         '~/plugins/vue-rx',
+        '~/plugins/vue-not-visible',
     ],
     router: {
         middleware: ['post-redirect'],

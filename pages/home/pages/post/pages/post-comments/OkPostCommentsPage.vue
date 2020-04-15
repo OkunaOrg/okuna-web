@@ -1,8 +1,11 @@
 <template>
     <section>
-        <div
-                class="has-padding-left-10 has-padding-right-10 has-padding-top-40 has-padding-bottom-40 has-height-100-percent">
+        <div class="has-padding-left-10 has-padding-right-10 has-padding-top-40 has-padding-bottom-40 has-height-100-percent">
+            <div v-not-visible="'desktop tablet'">
+                Mobile page
+            </div>
             <ok-post-theatre
+                    v-not-visible="'mobile'"
                     :post-uuid="$route.params['postUuid']"
             ></ok-post-theatre>
         </div>
@@ -19,11 +22,12 @@
     import { Component, Vue } from "nuxt-property-decorator"
     import { Route } from "vue-router";
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
+    import OkIfScreen from "~/components/utils/if-screen/OkIfScreen.vue";
 
     @Component({
-        components: {OkPostTheatre}
+        components: {OkIfScreen, OkPostTheatre}
     })
-    export default class OkPostCommentsPage extends Vue {
+    export default class OkPostPage extends Vue {
         $route!: Route;
 
     }
