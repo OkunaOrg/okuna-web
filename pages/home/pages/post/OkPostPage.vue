@@ -1,8 +1,11 @@
 <template>
     <div v-if="environmentResolution">
         <ok-desktop-post-page
+                :post-uuid="postUuid"
                 v-if="environmentResolution === EnvironmentResolution.desktop"></ok-desktop-post-page>
-        <ok-mobile-post-page v-else></ok-mobile-post-page>
+        <ok-mobile-post-page
+                :post-uuid="postUuid"
+                v-else></ok-mobile-post-page>
     </div>
 </template>
 
@@ -43,6 +46,9 @@
 
         private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
 
+        get postUuid(){
+            return this.$route.params['postUuid'];
+        }
 
     }
 </script>

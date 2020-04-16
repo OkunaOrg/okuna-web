@@ -1,7 +1,7 @@
 <template>
     <div class="has-padding-left-10 has-padding-right-10 has-padding-top-40 has-padding-bottom-40 has-height-100-percent">
         <ok-post-theatre
-                :post-uuid="$route.params['postUuid']"
+                :post-uuid="postUuid"
         ></ok-post-theatre>
     </div>
 </template>
@@ -13,8 +13,7 @@
 
 
 <script lang="ts">
-    import { Component, Vue } from "nuxt-property-decorator"
-    import { Route } from "vue-router";
+    import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
 
     @Component({
@@ -22,7 +21,10 @@
         components: {OkPostTheatre}
     })
     export default class OkDesktopPostPage extends Vue {
-        $route!: Route;
+        @Prop({
+            type: String,
+            required: true
+        }) readonly postUuid: string;
 
     }
 </script>

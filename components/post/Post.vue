@@ -54,6 +54,7 @@
     export default class OkPost extends Vue {
 
         @Prop(Object) readonly post: IPost;
+        @Prop(String) readonly postUuid: string;
 
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
 
