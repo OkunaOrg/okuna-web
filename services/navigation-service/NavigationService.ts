@@ -1,5 +1,9 @@
 import { inject, injectable } from '~/node_modules/inversify';
-import { INavigationService, NavigationConfig } from '~/services/navigation-service/INavigationService';
+import {
+    INavigationService,
+    NavigateToPostConfig,
+    NavigationConfig
+} from '~/services/navigation-service/INavigationService';
 import VueRouter from 'vue-router';
 import { TYPES } from '~/services/inversify-types';
 import { ILoggingService } from '~/services/logging/ILogging';
@@ -37,11 +41,14 @@ export class NavigationService implements INavigationService {
         this.navigateToLocationWithConfig('/', config);
     }
 
+    async navigateToPost(config?: NavigateToPostConfig): Promise<void> {
+        this.navigateToLocationWithConfig(`/p/${config.post.uuid}`, config);
+    }
+
     private navigateToLocationWithConfig(location: string, config: NavigationConfig) {
         this.logger.info(`Navigating to ${location} with config:`, config);
         config.nuxtContext ? config.nuxtContext.redirect(location) : this.vueRouter.push(location);
     }
-
 
 
 }

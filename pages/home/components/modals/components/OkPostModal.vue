@@ -1,5 +1,5 @@
 <template>
-    <ok-post-theatre :post-uuid="params.post.uuid"></ok-post-theatre>
+    <ok-post-theatre :post="params.post"></ok-post-theatre>
 </template>
 
 <style lang="scss" scoped>

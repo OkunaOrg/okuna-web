@@ -1,7 +1,7 @@
 <template>
-    <button
+    <button v-if="environmentResolution"
             class="button is-rounded ok-has-background-primary-highlight is-borderless is-fullwidth is-flex align-items-center has-no-hover-text-decoration"
-            @click="onWantsToCommentPosts">
+            @click="onWantsToCommentPost">
         <ok-comment-icon class="is-icon-2x ok-svg-icon-primary-invert"></ok-comment-icon>
         <span class="has-padding-left-10 ok-has-text-primary-invert">
                             Comment
@@ -20,23 +20,47 @@
     import { IModalService } from "~/services/modal-service/IModalService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
+    import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { IEnvironmentService } from "~/services/environment/IEnvironment";
+    import { INavigationService } from "~/services/navigation-service/INavigationService";
 
     @Component({
         name: "OkPostCommentButton",
         components: {OkEmojiReactionButton},
+        subscriptions: function () {
+            return {
+                environmentResolution: this["environmentService"].environmentResolution
+            }
+        }
     })
     export default class OkPostCommentButton extends Vue {
         @Prop(Object) readonly post: IPost;
+
+        $observables!: {
+            environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>
+        };
+
+        EnvironmentResolution = EnvironmentResolution;
+
+        private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+        private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
 
 
         mounted() {
         }
 
-        onWantsToCommentPosts() {
-            this.modalService.openPostModal({
-                post: this.post
-            });
+        onWantsToCommentPost() {
+            if (this.$observables.environmentResolution.value === EnvironmentResolution.desktop) {
+                this.modalService.openPostModal({
+                    post: this.post
+                });
+            } else {
+                this.navigationService.navigateToPost({
+                    post: this.post
+                })
+            }
         }
 
         get postPath() {

@@ -65,6 +65,7 @@
     })
     export default class OkPostTheatre extends Vue {
         @Prop(String) readonly postUuid: string;
+        @Prop(Object) readonly post: IPost;
 
         @Prop({
             type: Boolean,
@@ -82,7 +83,7 @@
 
 
         mounted() {
-            this.userService.loggedInUser.subscribe(this.onLoggedInUser);
+            if(!this.post) this.userService.loggedInUser.subscribe(this.onLoggedInUser);
         }
 
         onLoggedInUser(loggedInUser: IUser) {
