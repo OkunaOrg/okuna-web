@@ -1,6 +1,6 @@
 <template>
     <header class="ok-header">
-        <nav class="navbar is-fixed-top is-transparent ok-has-background-primary"
+        <nav class="navbar is-fixed-top-desktop is-fixed-bottom-touch is-transparent ok-has-background-primary"
              aria-label="main navigation">
             <div class="container">
                 <div class="columns has-width-100-percent is-gapless is-marginless is-mobile has-height-100-percent">
@@ -12,14 +12,14 @@
                     </div>
                     <div class="column is-flex justify-flex-end">
                         <div class="columns is-marginless is-mobile">
-                            <div class="column is-flex align-items-center is-hidden-desktop">
-                                <nuxt-link to="/" class="has-cursor-pointer is-flex">
-                                    <ok-search-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-search-icon>
-                                </nuxt-link>
-                            </div>
                             <div class="column is-flex align-items-center">
                                 <nuxt-link to="/" class="has-cursor-pointer is-flex">
                                     <ok-home-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-home-icon>
+                                </nuxt-link>
+                            </div>
+                            <div class="column is-flex align-items-center is-hidden-desktop">
+                                <nuxt-link to="/" class="has-cursor-pointer is-flex">
+                                    <ok-search-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-search-icon>
                                 </nuxt-link>
                             </div>
                             <div class="column is-flex align-items-center">

@@ -1,5 +1,5 @@
 <template>
-    <div class="okuna-web has-navbar-fixed-top">
+    <div class="okuna-web has-navbar-fixed-top-desktop has-navbar-fixed-bottom-mobile">
         <nuxt class="okuna-web-content"></nuxt>
     </div>
 </template>

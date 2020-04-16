@@ -13,8 +13,17 @@ $navbar-height: 4.25rem !default$box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1), 0 1
 $box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1), 0 17px 50px rgba(0, 0, 0, 0.1);
 
 
-.has-navbar-fixed-top {
-  padding-top: $navbar-height;
+.has-navbar-fixed-top-desktop {
+  @include for-size(desktop-up) {
+    padding-top: $navbar-height;
+  }
+
+}
+
+.has-navbar-fixed-bottom-mobile {
+  @include for-size(mobile-only) {
+    padding-bottom: $navbar-height;
+  }
 }
 
 @import "~bulma/bulma";
