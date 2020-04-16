@@ -1,6 +1,6 @@
 <template>
     <section v-if="postCommentsSortSetting">
-        <div class="columns is-gapless">
+        <div class="columns is-gapless is-mobile">
             <div class="column is-narrow">
                 <div class="has-padding-left-25 has-height-100-percent">
                     <ok-vertical-divider></ok-vertical-divider>
