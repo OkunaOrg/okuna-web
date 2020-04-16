@@ -27,7 +27,7 @@
             </p>
         </div>
         <!-- Main container -->
-        <nav class="level" v-if="inputIsFocused || text">
+        <nav class="level is-mobile" v-if="inputIsFocused || text">
             <!-- Left side -->
             <div class="level-left">
                 <div class="level-item">

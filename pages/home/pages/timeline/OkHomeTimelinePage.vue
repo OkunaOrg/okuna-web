@@ -66,7 +66,7 @@
             if (lastPost) lastPostId = lastPost.id;
 
 
-            this.userService.getTimelinePosts({
+            this.userService.getTrendingPosts({
                 maxId: lastPostId,
                 count: 10,
             }).then((timelinePosts) => {

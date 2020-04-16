@@ -1,12 +1,44 @@
 <template>
-    <section>
-        <ok-post v-if="post" :post="post"></ok-post>
+    <section v-if="post" class="has-height-100-percent ok-mobile-post-container">
+        <div class="ok-mobile-post-container-content" :id="postCommentsContainerId">
+            <ok-post :post="post"></ok-post>
+            <ok-post-comments :post="post" ref="postCommentsComponent"
+                              :container-id="postCommentsContainerId"
+                              @onWantsToReplyToComment="onWantsToReplyToComment"></ok-post-comments>
+        </div>
+        <div class="ok-mobile-post-container-commentator">
+            <ok-post-commenter :post="post" @onCommentedPost="onCommentedPost"
+                               ref="postCommenter"></ok-post-commenter>
+        </div>
     </section>
 </template>
 
 
-<style>
+<style lang="scss">
+    .ok-mobile-post-container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
 
+        flex-grow: 1;
+
+        display: flex;
+        flex-direction: column;
+
+        /* for Firefox */
+        min-height: 0;
+    }
+
+    .ok-mobile-post-container-content{
+        flex-grow: 1;
+        overflow: auto;
+        /* for Firefox */
+        min-height: 0;
+    }
+
+    .ok-mobile-post-container-commentator{
+    }
 </style>
 
 
@@ -21,11 +53,16 @@
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { IUser } from "~/models/auth/user/IUser";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import OkPost from '~/components/post/Post.vue';
+    import OkPost from "~/components/post/Post.vue";
+    import OkPostComments
+        from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue";
+    import OkPostCommenter
+        from '~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue';
+    import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 
     @Component({
         name: "OkMobilePostPage",
-        components: {OkPost},
+        components: {OkPostCommenter, OkPostComments, OkPost},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
@@ -43,6 +80,11 @@
         requestInProgress = false;
         post: IPost = null;
 
+        $refs!: {
+            postCommentsComponent: OkPostComments,
+            postCommenter: OkPostCommenter,
+        };
+
         $observables!: {
             loggedInUser: BehaviorSubject<IUser | undefined>
         };
@@ -51,12 +93,25 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
+        postCommentsContainerId: string;
+
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+
         created() {
             this.$observables.loggedInUser.subscribe(this.onLoggedInUser);
+            this.postCommentsContainerId = `c-${this.utilsService.generateUuid()}`;
         }
 
         onLoggedInUser(loggedInUser: IUser) {
             if (loggedInUser) this.refreshPost();
+        }
+
+        onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
+            this.$refs.postCommentsComponent.addPostComment(postComment, parentPostComment);
+        }
+
+        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
+            this.$refs.postCommenter.setPostCommentToReplyTo(postComment);
         }
 
         private async refreshPost() {
