@@ -28,6 +28,7 @@
     "loaders.css": "^0.1.2",
     "localforage": "^1.7.3",
     "localforage-nuxt": "^1.0.10",
+    "lodash.debounce": "^4.0.8",
     "lru_map": "^0.3.3",
     "mobx": "^5.15.4",
     "mobx-vue": "^2.0.10",

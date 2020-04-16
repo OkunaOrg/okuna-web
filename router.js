@@ -16,7 +16,7 @@ import HomeCommunityPage from '~/pages/home/pages/communities/pages/community/co
 import HomeCommunityProfilePage from '~/pages/home/pages/communities/pages/community/pages/profile.vue';
 import HomeCommunityEditPage from '~/pages/home/pages/communities/pages/community/pages/edit.vue';
 import OkHomeNowPage from '~/pages/home/pages/now/HomeNowPage.vue';
-import OkPostCommentsPage from '~/pages/home/pages/post/pages/post-comments/OkPostCommentsPage.vue';
+import OkPostPage from '~/pages/home/pages/post/OkPostPage.vue';
 
 Vue.use(Router);
 
@@ -86,7 +86,7 @@ export function createRouter() {
                     {
                         name: 'post',
                         path: 'p/:postUuid',
-                        component: OkPostCommentsPage,
+                        component: OkPostPage,
                     },
                     {
                         path: ':username',

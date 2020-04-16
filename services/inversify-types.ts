@@ -14,6 +14,7 @@ const TYPES = {
     UtilsService: Symbol.for('UtilsService'),
     LoggingService: Symbol.for('LoggingService'),
     ThemeService: Symbol.for('ThemeService'),
+    WindowService: Symbol.for('WindowService'),
     NavigationService: Symbol.for('NavigationService'),
     UserPreferencesService: Symbol.for('UserPreferencesService'),
     BootstrapService: Symbol.for('BootstrapService'),

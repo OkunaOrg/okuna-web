@@ -37,6 +37,8 @@ import { ModalService } from '~/services/modal-service/ModalService';
 import { IModalService } from '~/services/modal-service/IModalService';
 import { IHistoryService } from '~/services/history-service/IHistoryService';
 import { HistoryService } from '~/services/history-service/HistoryService';
+import { IWindowService } from '~/services/window-service/IWindowService';
+import { WindowService } from '~/services/window-service/WindowService';
 
 const okunaContainer = new Container();
 
@@ -57,6 +59,7 @@ okunaContainer.bind<IStorageService>(TYPES.StorageService).to(StorageService).in
 okunaContainer.bind<IEnvironmentService>(TYPES.EnvironmentService).to(EnvironmentService).inSingletonScope();
 okunaContainer.bind<ILoggingService>(TYPES.LoggingService).to(LoggingService).inSingletonScope();
 okunaContainer.bind<IThemeService>(TYPES.ThemeService).to(ThemeService).inSingletonScope();
+okunaContainer.bind<IWindowService>(TYPES.WindowService).to(WindowService).inSingletonScope();
 okunaContainer.bind<IUserPreferencesService>(TYPES.UserPreferencesService).to(UserPreferencesService).inSingletonScope();
 okunaContainer.bind<IBootstrapService>(TYPES.BootstrapService).to(BootstrapService).inSingletonScope();
 
