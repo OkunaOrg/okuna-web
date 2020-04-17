@@ -14,7 +14,7 @@
                     :avatar-border-radius="OkAvatarBorderRadius.circle">
 
             </ok-user-avatar>
-            <span class="has-padding-left-10 has-padding-right-10 is-hidden-mobile">
+            <span class="has-padding-left-10 has-padding-right-10">
                             {{loggedInUser.profile.name}}
                         </span>
             <ok-menu-down-icon class="ok-svg-icon-primary-invert-60 is-icon-2x"></ok-menu-down-icon>

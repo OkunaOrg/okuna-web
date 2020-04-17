@@ -60,7 +60,6 @@
         }
 
         infiniteHandler($state) {
-            console.log("Infinite handler");
             let lastPostId;
             const lastPost = this.posts[this.posts.length - 1];
             if (lastPost) lastPostId = lastPost.id;

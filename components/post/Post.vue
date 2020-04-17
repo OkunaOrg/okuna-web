@@ -26,6 +26,10 @@
 
 <style lang="scss" scoped>
     .ok-post {
+        position: relative;
+        max-width: 100vw;
+        overflow: hidden;
+
         @include for-size(tablet-portrait-up) {
             width: 500px;
         }
@@ -85,6 +89,8 @@
             } else {
                 this.postElementWidth = this.$parent.$el.clientWidth;
             }
+
+            console.log('Post width is', this.postElementWidth);
         }
     }
 </script>

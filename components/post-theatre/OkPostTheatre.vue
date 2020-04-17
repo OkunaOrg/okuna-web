@@ -1,19 +1,19 @@
 <template>
     <article class="columns is-centered has-height-100-percent is-gapless is-marginless">
-        <ok-loading-indicator v-if="!post"> </ok-loading-indicator>
-        <div v-else class="column has-height-100-percent ok-post-theatre-container" :class="{'is-narrow' : !post.mediaThumbnail}">
+        <ok-loading-indicator v-if="!latestPost"> </ok-loading-indicator>
+        <div v-else class="column has-height-100-percent ok-post-theatre-container" :class="{'is-narrow' : !latestPost.mediaThumbnail}">
             <div
                     class="has-height-100-percent">
                 <div
                         class="box ok-has-background-primary is-paddingless has-height-100-percent is-flex has-overflow-hidden"
                         :class="{'is-loading': requestInProgress}"
                 >
-                    <div class="columns has-width-100-percent is-gapless" v-if="post">
-                        <div class="column has-height-100-percent" v-if="post.mediaThumbnail">
-                            <ok-post-theatre-media :post="post"></ok-post-theatre-media>
+                    <div class="columns has-width-100-percent is-gapless" v-if="latestPost">
+                        <div class="column has-height-100-percent" v-if="latestPost.mediaThumbnail">
+                            <ok-post-theatre-media :post="latestPost"></ok-post-theatre-media>
                         </div>
                         <div class="column is-narrow ok-post-theatre-sidebar-container" :class="sidebarClass">
-                            <ok-post-theatre-sidebar :post="post"></ok-post-theatre-sidebar>
+                            <ok-post-theatre-sidebar :post="latestPost"></ok-post-theatre-sidebar>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
         @Prop(Number) readonly postCommentReplyId: number;
 
         requestInProgress = false;
-        post: IPost = null;
+        latestPost: IPost = null;
 
         private refreshPostOperation?: CancelableOperation<IPost>;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
@@ -83,7 +83,11 @@
 
 
         mounted() {
-            if(!this.post) this.userService.loggedInUser.subscribe(this.onLoggedInUser);
+            if(!this.post) {
+                this.userService.loggedInUser.subscribe(this.onLoggedInUser);
+            } else{
+                this.latestPost = this.post;
+            }
         }
 
         onLoggedInUser(loggedInUser: IUser) {
@@ -109,8 +113,7 @@
                     postUuid: this.postUuid
                 }));
 
-                const post = await this.refreshPostOperation.value;
-                this.post = post;
+                this.latestPost = await this.refreshPostOperation.value;
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);
             } finally {
