@@ -1,13 +1,25 @@
 <template>
     <div>
-        <b-modal :active.sync="postModalOpened" :on-cancel="onPostModalClosed" :trap-focus="true" :width="1444" :custom-class="'ok-post-modal'">
+        <b-modal :active.sync="postModalOpened" @close="onPostModalClosed" :trap-focus="true" :width="1444" :custom-class="'ok-post-modal'">
             <ok-post-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-post-modal>
+        </b-modal>
+
+        <b-modal :active.sync="postReactionsModalOpened" :trap-focus="true" :width="1444" @close="onPostModalClosed"  :custom-class="'ok-post-reactions-modal'">
+            <ok-post-reactions-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-post-reactions-modal>
         </b-modal>
     </div>
 </template>
 
 <style lang="scss">
     .ok-post-modal{
+        .modal-content{
+            height: 85%;
+            width: 85%;
+            padding: 0 2rem;
+        }
+    }
+
+    .ok-post-reactions-modal{
         .modal-content{
             height: 85%;
             width: 85%;
@@ -28,10 +40,11 @@
     import { okunaContainer } from "~/services/inversify";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { ModalType } from "~/services/modal-service/lib/ModalType";
+    import OkPostReactionsModal from '~/pages/home/components/modals/components/OkPostReactionsModal.vue';
 
     @Component({
         name: "OkModals",
-        components: {OkPostModal},
+        components: {OkPostReactionsModal, OkPostModal},
         subscriptions: function () {
             return {
                 activeModal: this["modalService"].activeModal,
@@ -45,6 +58,7 @@
 
         ModalType = ModalType;
         postModalOpened: boolean = false;
+        postReactionsModalOpened: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -67,6 +81,7 @@
 
         private onActiveModalChanged(activeModalValue: ModalType) {
             this.postModalOpened = activeModalValue === ModalType.post;
+            this.postReactionsModalOpened = activeModalValue === ModalType.postReactions;
         }
     }
 </script>

@@ -1,8 +1,10 @@
 export class ModalType {
     static post = new ModalType('Post');
+    static postReactions = new ModalType('PostReactions');
 
     static _values: ModalType[] = [
         ModalType.post,
+        ModalType.postReactions
     ];
 
     static values() {

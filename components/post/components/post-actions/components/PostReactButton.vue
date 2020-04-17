@@ -21,13 +21,14 @@
                         </span>
         </button>
         <!-- This will be the content of the popover -->
-        <ok-reaction-emoji-picker slot="popover" @onReactionPicked="onReactionEmojiPicked" :is-loading="requestInProgress"/>
+        <ok-post-reactor slot="popover" :post="post" @onReacted="onReacted"
+                         @onReactorRequestInProgress="onReactorRequestInProgress"></ok-post-reactor>
     </v-popover>
 </template>
 
 <style lang="scss">
-    .ok-post-react-button-container{
-        .trigger{
+    .ok-post-react-button-container {
+        .trigger {
             width: 100% !important;
         }
     }
@@ -42,34 +43,44 @@
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
-    import { IEmoji } from '~/models/common/emoji/IEmoji';
-    import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
-    import OkReactionEmojiPicker from '~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue';
+    import { IPostReaction } from "~/models/posts/post-reaction/IPostReaction";
+    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue";
+    import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { IEnvironmentService } from "~/services/environment/IEnvironment";
+    import { IModalService } from "~/services/modal-service/IModalService";
+    import OkPostReactor from "~/components/reactors/post-reactor/OkPostReactor.vue";
 
     @Component({
         name: "OkPostReactButton",
-        components: {OkReactionEmojiPicker, OkEmojiReactionButton},
+        components: {OkPostReactor, OkReactionEmojiPicker, OkEmojiReactionButton},
+        subscriptions: function () {
+            return {
+                environmentResolution: this["environmentService"].environmentResolution
+            }
+        }
     })
     export default class OkPostReactButton extends Vue {
         @Prop(Object) readonly post: IPost;
-        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-        private reactWithEmojiOperation?: CancelableOperation<IPostReaction>;
-        private removeReactionOperation?: CancelableOperation<void>;
 
-        requestInProgress = false;
-
+        $observables!: {
+            environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>
+        };
 
         reactTooltipIsOpen = false;
+        requestInProgress = false;
+
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+
+        private removeReactionOperation?: CancelableOperation<void>;
+
 
         destroyed() {
             if (this.removeReactionOperation) this.removeReactionOperation.cancel();
-            if (this.reactWithEmojiOperation) this.reactWithEmojiOperation.cancel();
-        }
-
-        get postHasReaction(){
-            return !! this.post.reaction;
         }
 
         async onReactButtonPressed() {
@@ -78,21 +89,41 @@
             if (this.post.reaction) {
                 await this.removeCurrentReaction();
             } else {
-                this.openReactionsPicker();
+                this.onWantsToReactToPost();
             }
 
         }
 
-        onReactionEmojiPicked(emoji: IEmoji){
-            this.reactWithEmoji(emoji);
+        private onWantsToReactToPost() {
+            if (this.$observables.environmentResolution.value === EnvironmentResolution.desktop) {
+                this.openReactionsPicker();
+            } else {
+                this.modalService.openPostReactionsModal({
+                    post: this.post,
+                    onRequestInProgress: this.onReactorRequestInProgress,
+                    onReacted: this.onReacted
+                });
+            }
+        }
+
+        onReacted(postReaction: IPostReaction) {
+            this.closeReactionsPicker();
+        }
+
+        onReactorRequestInProgress(requestInProgress: boolean) {
+            this.requestInProgress = requestInProgress;
         }
 
         private openReactionsPicker() {
             this.reactTooltipIsOpen = true;
         }
 
+        private closeReactionsPicker() {
+            this.reactTooltipIsOpen = false;
+        }
+
         private async removeCurrentReaction() {
-            if(this.requestInProgress) return;
+            if (this.requestInProgress) return;
             this.requestInProgress = true;
             try {
                 this.removeReactionOperation = CancelableOperation.fromPromise(this.userService.deletePostReaction({
@@ -104,28 +135,6 @@
                 this.utilsService.handleErrorWithToast(error);
             } finally {
                 this.removeReactionOperation = null;
-                this.requestInProgress = false;
-            }
-        }
-
-
-        private async reactWithEmoji(emoji: IEmoji) {
-            if(this.requestInProgress) return;
-            this.requestInProgress = true;
-
-            try {
-                this.reactWithEmojiOperation = CancelableOperation.fromPromise(this.userService.reactToPost({
-                    post: this.post,
-                    emoji: emoji
-                }));
-
-                const postReaction = await this.reactWithEmojiOperation.value;
-                this.post.setReaction(postReaction);
-                this.reactTooltipIsOpen = false;
-            } catch (error) {
-                this.utilsService.handleErrorWithToast(error);
-            } finally {
-                this.reactWithEmojiOperation = null;
                 this.requestInProgress = false;
             }
         }

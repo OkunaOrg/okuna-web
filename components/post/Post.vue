@@ -91,7 +91,7 @@
             }
 
             if(!this.postElementWidth){
-                this.postElementWidth -= window.innerWidth;
+                this.postElementWidth = window.innerWidth;
             }
 
             console.log('Post width is', this.postElementWidth);

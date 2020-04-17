@@ -1,5 +1,10 @@
 import { inject, injectable } from '~/node_modules/inversify';
-import { IModalService, ModalParams, PostModalParams } from '~/services/modal-service/IModalService';
+import {
+    IModalService,
+    ModalParams,
+    PostModalParams,
+    PostReactionsModalParams
+} from '~/services/modal-service/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { TYPES } from '~/services/inversify-types';
@@ -28,6 +33,12 @@ export class ModalService implements IModalService {
             name: 'ModalService'
         });
     };
+
+
+    async openPostReactionsModal(params: PostReactionsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.postReactions, params);
+    }
 
 
     async openPostModal(params: PostModalParams): Promise<void> {

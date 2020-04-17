@@ -2,7 +2,7 @@
     <div class="ok-has-background-primary is-semi-rounded">
         <div
                 class="box ok-reaction-picker ok-has-background-primary-highlight"
-                :class="{'is-loading': isLoading || requestInProgress}">
+                :class="{'is-loading': isLoading || requestInProgress, 'has-width-100-percent': isFullWidth}">
             <div v-for="reactionEmojiGroup in reactionEmojiGroups" :key="reactionEmojiGroup.id">
                 <div>
                     <span class="has-text-weight-bold ok-has-text-primary-invert">{{ reactionEmojiGroup.keyword }}</span>
@@ -50,6 +50,11 @@
     export default class OkReactionEmojiPicker extends Vue {
 
         @Prop(String) readonly text: string;
+        @Prop({
+            type: Boolean,
+            default: false
+        }) readonly isFullWidth: string;
+
         @Prop({
             type: Boolean,
             default: false

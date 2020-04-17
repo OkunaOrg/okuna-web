@@ -2,10 +2,6 @@
     <ok-post-theatre :post="params.post"></ok-post-theatre>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
-
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
