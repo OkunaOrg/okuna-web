@@ -79,3 +79,10 @@
     top: 0;
   }
 }
+
+
+.has-no-borer-radius-mobile{
+  @include for-size(phone-only) {
+    border-radius: 0 !important;
+  }
+}

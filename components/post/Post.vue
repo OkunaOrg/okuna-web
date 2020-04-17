@@ -1,6 +1,6 @@
 <template>
     <article class="ok-post">
-        <div class="card ok-has-background-primary">
+        <div class="card ok-has-background-primary has-no-borer-radius-mobile">
             <div class="card-content">
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
@@ -88,6 +88,10 @@
                 this.postElementWidth = 500;
             } else {
                 this.postElementWidth = this.$parent.$el.clientWidth;
+            }
+
+            if(!this.postElementWidth){
+                this.postElementWidth -= window.innerWidth;
             }
 
             console.log('Post width is', this.postElementWidth);

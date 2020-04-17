@@ -99,7 +99,7 @@
         }
 
         get sidebarClass(){
-            return this.post.mediaThumbnail ? 'ok-post-theatre-sidebar-container--media' : 'ok-post-theatre-sidebar-container--text';
+            return this.latestPost.mediaThumbnail ? 'ok-post-theatre-sidebar-container--media' : 'ok-post-theatre-sidebar-container--text';
         }
 
 

@@ -1,5 +1,5 @@
 <template>
-    <section v-if="post" class="has-height-100-percent has-width-100-percent ok-mobile-post-container">
+    <section v-if="post" class="has-height-100-percent has-width-100-percent ok-mobile-post-container ok-has-background-primary">
         <div class="ok-mobile-post-container-content" :id="postCommentsContainerId">
             <ok-post :post="post"></ok-post>
             <ok-post-comments :post="post" ref="postCommentsComponent"
