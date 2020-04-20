@@ -5,7 +5,7 @@
         <ok-comment-icon class="is-icon-2x ok-svg-icon-primary-invert"></ok-comment-icon>
         <span class="has-padding-left-10 ok-has-text-primary-invert">
                             Comment
-                        </span>
+        </span>
     </button>
 </template>
 
@@ -59,12 +59,8 @@
             } else {
                 this.navigationService.navigateToPost({
                     post: this.post
-                })
+                });
             }
-        }
-
-        get postPath() {
-            return `/p/${this.post.uuid}`;
         }
 
     }
