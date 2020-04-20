@@ -1,14 +1,16 @@
 <template>
     <section class="has-padding-20 ok-has-background-primary-80 ok-post-commenter" v-if="loggedInUser">
-        <div v-if="postCommentToReplyTo" class="has-padding-bottom-20">
+        <div v-if="postComment" class="has-padding-bottom-20">
             <div class="card ok-has-background-primary-highlight">
                 <header class="card-header">
-                    <div class="card-header-icon has-padding-10" aria-label="remove reply" @click="removePostCommentToReplyTo" role="button">
+                    <div class="card-header-icon has-padding-10" aria-label="remove reply"
+                         @click="reset" role="button">
                         <ok-close-icon class="ok-svg-icon-primary-invert"></ok-close-icon>
                     </div>
                 </header>
                 <div>
-                    <ok-post-comment :post="post" :post-comment="postCommentToReplyTo" :show-actions="false" :show-reactions="false" class="has-padding-top-20"></ok-post-comment>
+                    <ok-post-comment :post="post" :post-comment="postComment" :show-actions="false"
+                                     :show-reactions="false" class="has-padding-top-20"></ok-post-comment>
                 </div>
             </div>
         </div>
@@ -20,7 +22,7 @@
                 </ok-user-avatar>
             </div>
             <div class="media-content">
-                <ok-comment-post-form :post="post" :post-comment="postCommentToReplyTo"
+                <ok-comment-post-form ref="commentPostForm" :post="post" :post-comment="postComment"
                                       @onCommentedPost="onCommentedPost"></ok-comment-post-form>
             </div>
         </div>
@@ -29,12 +31,12 @@
 
 
 <style lang="scss">
-    .ok-post-commenter{
+    .ok-post-commenter {
         .card-content {
             padding-top: 0 !important;
         }
 
-        .card-header-icon{
+        .card-header-icon {
             position: absolute;
             right: 0;
         }
@@ -55,6 +57,11 @@
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import OkPostComment
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue";
+    import {
+        OnCommentedPostParams,
+        ReplyToCommentParams,
+        ReplyToReplyParams
+    } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
     @Component({
         name: "OkPostCommenter",
@@ -68,27 +75,47 @@
     export default class OkPostCommenter extends Vue {
         @Prop(Object) readonly post: IPost;
 
-        postCommentToReplyTo: IPostComment = null;
+        postComment: IPostComment = null;
 
         $route!: Route;
+
+        $refs!: {
+            commentPostForm: OkCommentPostForm
+        };
 
         OkAvatarSize = OkAvatarSize;
 
         loggedInUser: IUser;
 
+        prependedUsernameMention = "";
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
-        onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
-            this.$emit("onCommentedPost", postComment, parentPostComment);
-            this.postCommentToReplyTo = null;
+        onCommentedPost(createdPostComment: IPostComment, parentPostComment: IPostComment) {
+            const params: OnCommentedPostParams = {
+                post: this.post,
+                createdPostComment: createdPostComment,
+                parentPostComment: parentPostComment
+            };
+
+            this.$emit("onCommentedPost", params);
+            this.reset();
         }
 
-        setPostCommentToReplyTo(postComment: IPostComment) {
-            this.postCommentToReplyTo = postComment;
+        setReplyToCommentParams(params: ReplyToCommentParams) {
+            this.postComment = params.postComment;
         }
 
-        removePostCommentToReplyTo(){
-            this.postCommentToReplyTo = null;
+        setReplyToReplyParams(params: ReplyToReplyParams) {
+            this.postComment = params.parentPostComment;
+            this.prependedUsernameMention = `@${params.postCommentReplyingTo.commenter.username} `;
+            this.$refs.commentPostForm.prependToText(this.prependedUsernameMention);
+        }
+
+        reset() {
+            this.postComment = null;
+            this.$refs.commentPostForm.unprependFromText(this.prependedUsernameMention);
+            this.prependedUsernameMention = "";
         }
 
     }

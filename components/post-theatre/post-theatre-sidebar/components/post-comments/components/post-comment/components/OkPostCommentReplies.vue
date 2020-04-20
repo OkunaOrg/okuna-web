@@ -21,7 +21,7 @@
                                          :linked-post-comment-id.sync="linkedPostCommentId"
                                          :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
                                          :highlighted-post-comment-id.sync="highlightedPostCommentId"
-                                         @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
+                                         @onWantsToReply="onWantsToReplyToReply(postCommentReply)"></ok-post-comment>
                     </div>
                 </ok-load-more>
             </div>
@@ -51,7 +51,8 @@
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
-    import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
+    import OkLoadingIndicator from "~/components/utils/LoadingIndicator.vue";
+    import { ReplyToReplyParams } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
     @Component({
         name: "OkPostCommentReplies",
@@ -114,8 +115,13 @@
             if (this.bootstrapPostCommentRepliesForLinkedPostCommentOperation) this.bootstrapPostCommentRepliesForLinkedPostCommentOperation.cancel();
         }
 
-        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
-            this.$emit("onWantsToReplyToReply", postComment, post);
+        onWantsToReplyToReply(postCommentReplyingTo: IPostComment) {
+            const params: ReplyToReplyParams = {
+                postCommentReplyingTo: postCommentReplyingTo,
+                parentPostComment: this.postComment,
+                post: this.post
+            };
+            this.$emit("onWantsToReplyToReply", params);
         }
 
         @Watch("linkedPostCommentReplyId")

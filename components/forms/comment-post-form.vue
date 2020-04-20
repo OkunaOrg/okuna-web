@@ -208,6 +208,16 @@
             this.replyToReplyPrependedMention = "";
         }
 
+        prependToText(value: string) {
+            this.text = value + this.text;
+        }
+
+        unprependFromText(value: string) {
+            if (this.text.startsWith(value)) {
+                this.text = this.text.replace(value, "");
+            }
+        }
+
         _onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
             this.logger.info("Commented post", postComment, parentPostComment);
             this.$emit("onCommentedPost", postComment, parentPostComment);

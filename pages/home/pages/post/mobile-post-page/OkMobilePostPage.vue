@@ -59,6 +59,10 @@
     import OkPostCommenter
         from '~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue';
     import { IPostComment } from '~/models/posts/post-comment/IPostComment';
+    import {
+        OnCommentedPostParams,
+        ReplyToCommentParams, ReplyToReplyParams
+    } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
     @Component({
         name: "OkMobilePostPage",
@@ -105,12 +109,17 @@
             if (loggedInUser) this.refreshPost();
         }
 
-        onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
-            this.$refs.postCommentsComponent.addPostComment(postComment, parentPostComment);
+
+        onCommentedPost(params: OnCommentedPostParams) {
+            this.$refs.postCommentsComponent.addPostComment(params);
         }
 
-        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
-            this.$refs.postCommenter.setPostCommentToReplyTo(postComment);
+        onWantsToReplyToComment(params: ReplyToCommentParams) {
+            this.$refs.postCommenter.setReplyToCommentParams(params);
+        }
+
+        onWantsToReplyToReply(params: ReplyToReplyParams) {
+            this.$refs.postCommenter.setReplyToReplyParams(params);
         }
 
         private async refreshPost() {

@@ -5,7 +5,9 @@
             <div v-for="postComment in postComments" :key="postComment.id">
                 <ok-post-comment :post="post" :post-comment="postComment"
                                  :show-replies="true"
-                                 @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
+                                 @onWantsToReply="onWantsToReplyToComment"
+                                 @onWantsToReplyToReply="onWantsToReplyToReply"
+                ></ok-post-comment>
             </div>
             <span></span>
 
@@ -27,7 +29,9 @@
                                      :linked-post-comment-id.sync="linkedPostCommentId"
                                      :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
                                      :highlighted-post-comment-id.sync="highlightedPostCommentId"
-                                     @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
+                                     @onWantsToReply="onWantsToReplyToComment"
+                                     @onWantsToReplyToReply="onWantsToReplyToReply"
+                    ></ok-post-comment>
                 </div>
             </ok-load-more>
         </div>
@@ -64,6 +68,10 @@
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
     import OkLoadingIndicator from "~/components/utils/LoadingIndicator.vue";
     import { IHistoryService } from "~/services/history-service/IHistoryService";
+    import {
+        OnCommentedPostParams,
+        ReplyToCommentParams, ReplyToReplyParams
+    } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
 
     @Component({
@@ -155,8 +163,12 @@
         }
 
 
-        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
-            this.$emit("onWantsToReplyToComment", postComment, post);
+        onWantsToReplyToComment(params: ReplyToCommentParams) {
+            this.$emit("onWantsToReplyToComment", params);
+        }
+
+        onWantsToReplyToReply(params: ReplyToReplyParams) {
+            this.$emit("onWantsToReplyToReply", params);
         }
 
         updateHighlightedPostCommentId() {
@@ -293,17 +305,19 @@
         /**
          * To be called from another component
          */
-        async addPostComment(postComment: IPostComment, parentPostComment?: IPostComment) {
-            this.logger.info("Adding post comment", postComment);
+        async addPostComment(params: OnCommentedPostParams) {
+            this.logger.info("Adding post comment", params.createdPostComment);
+
             let newLinkedPostCommentId;
             let newLinkedPostCommentReplyId;
-            if (parentPostComment) {
+
+            if (params.parentPostComment) {
                 // Its a reply
-                newLinkedPostCommentId = parentPostComment.id;
-                newLinkedPostCommentReplyId = postComment.id;
+                newLinkedPostCommentId = params.parentPostComment.id;
+                newLinkedPostCommentReplyId = params.createdPostComment.id;
             } else {
                 // Its a post comment
-                newLinkedPostCommentId = postComment.id;
+                newLinkedPostCommentId = params.createdPostComment.id;
                 newLinkedPostCommentReplyId = undefined;
             }
 

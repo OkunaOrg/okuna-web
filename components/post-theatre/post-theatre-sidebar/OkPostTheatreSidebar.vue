@@ -10,7 +10,9 @@
                 </div>
                 <ok-post-comments :post="post" ref="postCommentsComponent"
                                   :container-id="postCommentsContainerId"
-                                  @onWantsToReplyToComment="onWantsToReplyToComment"></ok-post-comments>
+                                  @onWantsToReplyToComment="onWantsToReplyToComment"
+                                  @onWantsToReplyToReply="onWantsToReplyToReply"
+                ></ok-post-comments>
             </div>
             <div class="ok-post-commenter-container">
                 <ok-post-commenter :post="post" @onCommentedPost="onCommentedPost"
@@ -46,13 +48,18 @@
     import { IUtilsService } from "~/services/utils-service/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
-    import OkPostMedia from '~/components/post/components/post-media/PostMedia.vue';
+    import OkPostMedia from "~/components/post/components/post-media/PostMedia.vue";
+    import {
+        OnCommentedPostParams,
+        ReplyToCommentParams, ReplyToReplyParams
+    } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
     @Component({
         name: "OkPostTheatreSidebar",
         components: {
             OkPostMedia,
-            OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader},
+            OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader
+        },
     })
     export default class OkPostTheatreSidebar extends Vue {
         @Prop(Object) readonly post: IPost;
@@ -71,12 +78,16 @@
             this.postCommentsContainerId = `c-${this.utilsService.generateUuid()}`;
         }
 
-        onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
-            this.$refs.postCommentsComponent.addPostComment(postComment, parentPostComment);
+        onCommentedPost(params: OnCommentedPostParams) {
+            this.$refs.postCommentsComponent.addPostComment(params);
         }
 
-        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
-            this.$refs.postCommenter.setPostCommentToReplyTo(postComment);
+        onWantsToReplyToComment(params: ReplyToCommentParams) {
+            this.$refs.postCommenter.setReplyToCommentParams(params);
+        }
+
+        onWantsToReplyToReply(params: ReplyToReplyParams) {
+            this.$refs.postCommenter.setReplyToReplyParams(params);
         }
 
     }
