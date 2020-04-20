@@ -26,7 +26,7 @@
     import { INavigationService } from "~/services/navigation-service/INavigationService";
 
     @Component({
-        name: "OkPostCommentButton",
+        name: "OkCommentPostButton",
         components: {OkEmojiReactionButton},
         subscriptions: function () {
             return {
@@ -34,7 +34,7 @@
             }
         }
     })
-    export default class OkPostCommentButton extends Vue {
+    export default class OkCommentPostButton extends Vue {
         @Prop(Object) readonly post: IPost;
 
         $observables!: {

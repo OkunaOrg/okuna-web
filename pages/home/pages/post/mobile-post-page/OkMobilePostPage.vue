@@ -91,7 +91,6 @@
 
         private refreshPostOperation?: CancelableOperation<IPost>;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         postCommentsContainerId: string;
 

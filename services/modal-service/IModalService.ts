@@ -2,6 +2,8 @@ import { IPost } from '~/models/posts/post/IPost';
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { ModalType } from '~/services/modal-service/lib/ModalType';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
+import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 
 export interface IModalService {
 
@@ -9,6 +11,8 @@ export interface IModalService {
     openPostModal(params: PostModalParams): Promise<void>;
 
     openPostReactionsModal(params: PostReactionsModalParams): Promise<void>;
+
+    openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void>;
 
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
@@ -31,4 +35,12 @@ export interface PostReactionsModalParams {
     post: IPost;
     onRequestInProgress: (requestInProgress: boolean) => void;
     onReacted: (reaction: IPostReaction) => void;
+}
+
+
+export interface PostCommentReactionsModalParams {
+    post: IPost;
+    postComment: IPostComment;
+    onRequestInProgress: (requestInProgress: boolean) => void;
+    onReacted: (reaction: IPostCommentReaction) => void;
 }

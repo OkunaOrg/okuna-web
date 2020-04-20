@@ -27,7 +27,7 @@ export default {
         '@nuxtjs/axios',
         'localforage-nuxt',
         'nuxt-i18n',
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
     ],
     sentry: {
         dsn: process.env.SENTRY_DSN,

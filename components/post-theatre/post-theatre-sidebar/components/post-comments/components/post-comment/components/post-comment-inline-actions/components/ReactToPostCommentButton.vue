@@ -39,23 +39,37 @@
     import { IPostCommentReaction } from "~/models/posts/post-comment-reaction/IPostCommentReaction";
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
+    import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { IEnvironmentService } from "~/services/environment/IEnvironment";
+    import { IModalService } from "~/services/modal-service/IModalService";
 
     @Component({
-        name: "OkPostCommentReactButton",
+        name: "OkReactToPostCommentButton",
         components: {OkReactionEmojiPicker, OkEmojiReactionButton},
+        subscriptions: function () {
+            return {
+                environmentResolution: this["environmentService"].environmentResolution
+            }
+        }
     })
-    export default class OkPostCommentReactButton extends Vue {
+    export default class OkReactToPostCommentButton extends Vue {
         @Prop(Object) readonly post: IPost;
         @Prop(Object) readonly postComment: IPostComment;
 
-        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
-
-        private reactWithEmojiOperation?: CancelableOperation<IPostCommentReaction>;
-        private removeReactionOperation?: CancelableOperation<void>;
+        $observables!: {
+            environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>
+        };
 
         requestInProgress = false;
 
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+
+        private reactWithEmojiOperation?: CancelableOperation<IPostCommentReaction>;
+        private removeReactionOperation?: CancelableOperation<void>;
 
         reactTooltipIsOpen = false;
 
@@ -64,23 +78,44 @@
             if (this.reactWithEmojiOperation) this.reactWithEmojiOperation.cancel();
         }
 
-        get postCommentHasReaction() {
-            return !!this.postComment.reaction;
-        }
-
         async onReactButtonPressed() {
             if (this.requestInProgress) return;
 
             if (this.postComment.reaction) {
                 await this.removeCurrentReaction();
             } else {
-                this.openReactionsPicker();
+                this.onWantsToReactToPostComment();
             }
-
         }
+
+        onWantsToReactToPostComment() {
+            if (this.$observables.environmentResolution.value === EnvironmentResolution.desktop) {
+                this.openReactionsPicker();
+            } else {
+                this.modalService.openPostCommentReactionsModal({
+                    post: this.post,
+                    postComment: this.postComment,
+                    onRequestInProgress: this.onReactorRequestInProgress,
+                    onReacted: this.onReacted
+                });
+            }
+        }
+
 
         onReactionEmojiPicked(emoji: IEmoji) {
             this.reactWithEmoji(emoji);
+        }
+
+        onReactorRequestInProgress(requestInProgress: boolean) {
+            this.requestInProgress = requestInProgress;
+        }
+
+        onReacted(postCommentReaction: IPostCommentReaction) {
+            this.closeReactionsPicker();
+        }
+
+        private closeReactionsPicker() {
+            this.reactTooltipIsOpen = false;
         }
 
         private openReactionsPicker() {

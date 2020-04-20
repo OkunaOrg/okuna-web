@@ -52,7 +52,7 @@
     import OkPostReactor from "~/components/reactors/post-reactor/OkPostReactor.vue";
 
     @Component({
-        name: "OkPostReactButton",
+        name: "OkReactToPostButton",
         components: {OkPostReactor, OkReactionEmojiPicker, OkEmojiReactionButton},
         subscriptions: function () {
             return {
@@ -60,7 +60,7 @@
             }
         }
     })
-    export default class OkPostReactButton extends Vue {
+    export default class OkReactToPostButton extends Vue {
         @Prop(Object) readonly post: IPost;
 
 
