@@ -15,8 +15,8 @@
                         :load-more-top="loadMoreTopReplies"
                         :load-more-top-text="$t('components.post_comment_replies.load_more')"
                         ref="loadMore">
-                    <div v-for="postComment in postCommentReplies" :key="postComment.id">
-                        <ok-post-comment :post="post" :post-comment="postComment" :show-replies="false"
+                    <div v-for="postCommentReply in postCommentReplies" :key="postCommentReply.id">
+                        <ok-post-comment :post="post" :post-comment="postCommentReply" :show-replies="false"
                                          :avatar-size="OkAvatarSize.small"
                                          :linked-post-comment-id.sync="linkedPostCommentId"
                                          :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
