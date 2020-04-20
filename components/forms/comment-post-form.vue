@@ -87,6 +87,7 @@
 
         @Prop(Object) readonly post: IPost;
         @Prop(Object) readonly postComment: IPostComment;
+        @Prop(Object) readonly replyToPostComment: IPostComment;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
@@ -106,6 +107,9 @@
         @Validate(postCommentValidators)
         text = "";
 
+
+        replyToReplyPrependedMention = "";
+
         mounted() {
             this.logger = this.loggingService!.getLogger({
                 name: "PostCommenter"
@@ -117,8 +121,23 @@
         }
 
         @Watch("postComment")
-        onChildChanged(val: IPostComment, oldVal: IPostComment) {
+        onPostCommentChanged(val: IPostComment, oldVal: IPostComment) {
             this.isPostCommentReply = !!val;
+        }
+
+        @Watch("replyToPostComment")
+        onReplyToPostCommentChanged(val: IPostComment, oldVal: IPostComment) {
+            if (val) {
+                this.replyToReplyPrependedMention = `@${this.postComment.commenter.username}`;
+                this.text = `${this.replyToReplyPrependedMention} ${this.text}`
+            } else if (oldVal) {
+                // If we had a parentPostComment and all of the sudden we dont anymore
+                if (this.text.startsWith(this.replyToReplyPrependedMention)) {
+                    // Remove previously added mention on beginning of comment
+                    this.text = this.text.replace(this.replyToReplyPrependedMention, "");
+                }
+                this.replyToReplyPrependedMention = "";
+            }
         }
 
         get placeholderText() {
@@ -169,7 +188,7 @@
                 );
                 const postComment = await this.commentPostOperation.value;
                 this._onCommentedPost(postComment, this.postComment);
-                this._clearForm();
+                this.reset();
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
@@ -184,10 +203,10 @@
             return !this.$v.$invalid;
         }
 
-        _clearForm() {
+        reset() {
             this.text = "";
+            this.replyToReplyPrependedMention = "";
         }
-
 
         _onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
             this.logger.info("Commented post", postComment, parentPostComment);
