@@ -15,10 +15,10 @@
     import { TYPES } from "~/services/inversify-types";
     import { IEnvironmentService } from "~/services/environment/IEnvironment";
     import { okunaContainer } from "~/services/inversify";
-    import { IModalService } from '~/services/modal-service/IModalService';
+    import { IModalService } from '~/services/modal/IModalService';
     import { EnvironmentResolution } from '~/services/environment/lib/EnvironmentResolution';
     import { BehaviorSubject } from '~/node_modules/rxjs';
-    import { INavigationService } from '~/services/navigation-service/INavigationService';
+    import { INavigationService } from '~/services/navigation/INavigationService';
 
     @Component({
         name: "OkPostCommentCounts",

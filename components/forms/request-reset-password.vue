@@ -28,7 +28,7 @@
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
 
     @Component({

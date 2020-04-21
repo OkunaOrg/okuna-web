@@ -4,14 +4,14 @@ import {
     ModalParams, PostCommentReactionsModalParams,
     PostModalParams,
     PostReactionsModalParams
-} from '~/services/modal-service/IModalService';
+} from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { TYPES } from '~/services/inversify-types';
-import { IHistoryService } from '~/services/history-service/IHistoryService';
+import { IHistoryService } from '~/services/history/IHistoryService';
 import { ILoggingService } from '~/services/logging/ILogging';
 import { IOkLogger } from '~/services/logging/types';
-import { ModalType } from '~/services/modal-service/lib/ModalType';
+import { ModalType } from '~/services/modal/lib/ModalType';
 
 @injectable()
 export class ModalService implements IModalService {

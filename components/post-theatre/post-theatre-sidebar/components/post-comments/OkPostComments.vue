@@ -55,8 +55,8 @@
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue";
     import { ILoggingService } from "~/services/logging/ILogging";
     import { IOkLogger } from "~/services/logging/types";
-    import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
-    import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
+    import { PostCommentsSortSetting } from "~/services/user-preferences/libs/PostCommentsSortSetting";
+    import { IUserPreferencesService } from "~/services/user-preferences/IUserPreferencesService";
     import InfiniteLoading from "~/node_modules/vue-infinite-loading";
     import OkPostCommentsSortSwitcher
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comments-sort-switcher.vue";
@@ -64,10 +64,10 @@
     import { OkPostCommentsState } from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/libs/OkPostCommentsState";
     import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
     import { CancelableOperation } from "~/lib/CancelableOperation";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
     import OkLoadingIndicator from "~/components/utils/LoadingIndicator.vue";
-    import { IHistoryService } from "~/services/history-service/IHistoryService";
+    import { IHistoryService } from "~/services/history/IHistoryService";
     import {
         OnCommentedPostParams,
         ReplyToCommentParams, ReplyToReplyParams

@@ -42,15 +42,15 @@
     import { okunaContainer } from "~/services/inversify";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IPost } from "~/models/posts/post/IPost";
-    import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
-    import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
+    import { IUserPreferencesService } from "~/services/user-preferences/IUserPreferencesService";
+    import { PostCommentsSortSetting } from "~/services/user-preferences/libs/PostCommentsSortSetting";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
     import OkVerticalDivider from "~/components/utils/VerticalDivider.vue";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { CancelableOperation } from "~/lib/CancelableOperation";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import OkLoadingIndicator from "~/components/utils/LoadingIndicator.vue";
     import { ReplyToReplyParams } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 

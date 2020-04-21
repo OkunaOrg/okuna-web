@@ -18,7 +18,7 @@
     import { IEnvironmentService } from "../../../../services/environment/IEnvironment";
     import { TYPES } from "../../../../services/inversify-types";
     import { okunaContainer } from "../../../../services/inversify";
-    import { INavigationService } from '../../../../services/navigation-service/INavigationService';
+    import { INavigationService } from '../../../../services/navigation/INavigationService';
 
     @Component({
         name: "OkMenuPage",

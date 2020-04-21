@@ -42,11 +42,11 @@
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
     import OkPostModal from "~/pages/home/components/modals/components/OkPostModal.vue";
-    import { IModalService, ModalParams } from "~/services/modal-service/IModalService";
+    import { IModalService, ModalParams } from "~/services/modal/IModalService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import { ModalType } from "~/services/modal-service/lib/ModalType";
+    import { ModalType } from "~/services/modal/lib/ModalType";
     import OkPostReactionsModal from "~/pages/home/components/modals/components/OkPostReactionsModal.vue";
     import OkPostCommentReactionsModal from "~/pages/home/components/modals/components/OkPostCommentReactionsModal.vue";
 

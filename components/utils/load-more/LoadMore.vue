@@ -26,7 +26,7 @@
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import OkLoadMoreStatusBar from "~/components/utils/load-more/components/LoadMoreStatusBar.vue";
     import { TYPES } from "~/services/inversify-types";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
     import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
 

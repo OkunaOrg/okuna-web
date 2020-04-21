@@ -2,7 +2,7 @@ import { IEnvironmentService } from '~/services/environment/IEnvironment';
 import { inject, injectable } from '~/node_modules/inversify';
 import { Environment } from '~/services/environment/lib/Environment';
 import { TYPES } from '~/services/inversify-types';
-import { IWindowService } from '~/services/window-service/IWindowService';
+import { IWindowService } from '~/services/window/IWindowService';
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { EnvironmentResolution } from '~/services/environment/lib/EnvironmentResolution';
 

@@ -42,13 +42,13 @@
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IPostReaction } from "~/models/posts/post-reaction/IPostReaction";
     import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { IEnvironmentService } from "~/services/environment/IEnvironment";
-    import { IModalService } from "~/services/modal-service/IModalService";
+    import { IModalService } from "~/services/modal/IModalService";
     import OkPostReactor from "~/components/reactors/post-reactor/OkPostReactor.vue";
 
     @Component({

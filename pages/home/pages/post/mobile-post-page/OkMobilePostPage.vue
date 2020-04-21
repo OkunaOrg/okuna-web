@@ -50,7 +50,7 @@
     import { IUserService } from "~/services/user/IUserService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUser } from "~/models/auth/user/IUser";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import OkPost from "~/components/post/Post.vue";

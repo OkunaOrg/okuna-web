@@ -1,14 +1,14 @@
 import { inject, injectable } from '~/node_modules/inversify';
-import { IUserPreferencesService } from '~/services/user-preferences-service/IUserPreferencesService';
+import { IUserPreferencesService } from '~/services/user-preferences/IUserPreferencesService';
 import { BehaviorSubject } from '~/node_modules/rxjs';
-import { HashtagDisplaySetting } from '~/services/user-preferences-service/libs/HashtagDisplaySetting';
-import { LinkPreviewsSetting } from '~/services/user-preferences-service/libs/LinkPreviewsSetting';
-import { VideosAutoPlaySetting } from '~/services/user-preferences-service/libs/VideosAutoPlaySetting';
+import { HashtagDisplaySetting } from '~/services/user-preferences/libs/HashtagDisplaySetting';
+import { LinkPreviewsSetting } from '~/services/user-preferences/libs/LinkPreviewsSetting';
+import { VideosAutoPlaySetting } from '~/services/user-preferences/libs/VideosAutoPlaySetting';
 import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import { TYPES } from '~/services/inversify-types';
 import { IStorageService } from '~/services/storage/IStorage';
-import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
-import { VideosSoundSetting } from '~/services/user-preferences-service/libs/VideosSoundSetting';
+import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
+import { VideosSoundSetting } from '~/services/user-preferences/libs/VideosSoundSetting';
 import { ILocalizationService } from '~/services/localization/ILocalization';
 
 @injectable()

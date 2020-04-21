@@ -39,7 +39,7 @@
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IEmojiGroup } from "~/models/common/emoji-group/IEmojiGroup";
     import { IEmoji } from "~/models/common/emoji/IEmoji";

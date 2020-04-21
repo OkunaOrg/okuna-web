@@ -1,7 +1,7 @@
 import { inject, injectable } from '~/node_modules/inversify';
 import { IHistoryService, UpdatePostForUrlParams } from './IHistoryService';
 import { TYPES } from '~/services/inversify-types';
-import { IUtilsService } from '~/services/utils-service/IUtilsService';
+import { IUtilsService } from '~/services/utils/IUtilsService';
 
 @injectable()
 export class HistoryService implements IHistoryService {

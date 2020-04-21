@@ -79,7 +79,7 @@ import { TrendingPostData } from '~/types/models-data/posts/TrendingPostData';
 import { TopPostData } from '~/types/models-data/posts/TopPostData';
 import trendingPostFactory from '~/models/posts/trending-post/factory';
 import topPostFactory from '~/models/posts/top-post/factory';
-import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
+import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
 
 @injectable()
 export class UserService implements IUserService {

@@ -7,7 +7,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import { PostCommentReactionsModalParams } from "~/services/modal-service/IModalService";
+    import { PostCommentReactionsModalParams } from "~/services/modal/IModalService";
     import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
     import OkPostCommentReactor from '~/components/reactors/post-comment-reactor/OkPostCommentReactor.vue';
 

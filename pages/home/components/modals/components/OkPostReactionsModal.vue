@@ -8,7 +8,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
-    import { PostReactionsModalParams } from '~/services/modal-service/IModalService';
+    import { PostReactionsModalParams } from '~/services/modal/IModalService';
     import OkPostReactor from '~/components/reactors/post-reactor/OkPostReactor.vue';
     import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 

@@ -17,13 +17,13 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue";
-    import { IModalService } from "~/services/modal-service/IModalService";
+    import { IModalService } from "~/services/modal/IModalService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { IEnvironmentService } from "~/services/environment/IEnvironment";
-    import { INavigationService } from "~/services/navigation-service/INavigationService";
+    import { INavigationService } from "~/services/navigation/INavigationService";
 
     @Component({
         name: "OkCommentPostButton",

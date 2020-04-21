@@ -1,9 +1,9 @@
-import { LinkPreviewsSetting } from '~/services/user-preferences-service/libs/LinkPreviewsSetting';
-import { VideosAutoPlaySetting } from '~/services/user-preferences-service/libs/VideosAutoPlaySetting';
+import { LinkPreviewsSetting } from '~/services/user-preferences/libs/LinkPreviewsSetting';
+import { VideosAutoPlaySetting } from '~/services/user-preferences/libs/VideosAutoPlaySetting';
 import { BehaviorSubject } from '~/node_modules/rxjs';
-import { HashtagDisplaySetting } from '~/services/user-preferences-service/libs/HashtagDisplaySetting';
-import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
-import { VideosSoundSetting } from '~/services/user-preferences-service/libs/VideosSoundSetting';
+import { HashtagDisplaySetting } from '~/services/user-preferences/libs/HashtagDisplaySetting';
+import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
+import { VideosSoundSetting } from '~/services/user-preferences/libs/VideosSoundSetting';
 
 export interface IUserPreferencesService {
     linkPreviewsSetting: BehaviorSubject<LinkPreviewsSetting | undefined>;

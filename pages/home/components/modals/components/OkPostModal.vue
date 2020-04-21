@@ -6,7 +6,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
-    import { PostModalParams } from '~/services/modal-service/IModalService';
+    import { PostModalParams } from '~/services/modal/IModalService';
 
     @Component({
         name: "OkPostModal",

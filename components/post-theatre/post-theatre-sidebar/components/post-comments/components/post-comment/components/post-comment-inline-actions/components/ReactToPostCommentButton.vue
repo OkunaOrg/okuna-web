@@ -33,7 +33,7 @@
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IEmoji } from "~/models/common/emoji/IEmoji";
     import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue";
     import { IPostCommentReaction } from "~/models/posts/post-comment-reaction/IPostCommentReaction";
@@ -42,7 +42,7 @@
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { IEnvironmentService } from "~/services/environment/IEnvironment";
-    import { IModalService } from "~/services/modal-service/IModalService";
+    import { IModalService } from "~/services/modal/IModalService";
 
     @Component({
         name: "OkReactToPostCommentButton",

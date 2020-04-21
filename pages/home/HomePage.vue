@@ -20,7 +20,7 @@
     import OkHeader from "~/pages/home/components/header/Header.vue";
     import { IOkLogger } from "~/services/logging/types";
     import { ILoggingService } from "~/services/logging/ILogging";
-    import { IUtilsService } from '~/services/utils-service/IUtilsService';
+    import { IUtilsService } from '~/services/utils/IUtilsService';
     import OkModals from '~/pages/home/components/modals/OkModals.vue';
 
     @Component({

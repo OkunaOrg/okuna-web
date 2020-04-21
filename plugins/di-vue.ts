@@ -4,7 +4,7 @@ import { TYPES } from '~/services/inversify-types';
 import { IHttpService } from '~/services/http/IHttp';
 import { ILocalizationService } from '~/services/localization/ILocalization';
 import { IBootstrapService } from '~/services/bootstrap/IBootstrap';
-import { INavigationService } from '~/services/navigation-service/INavigationService';
+import { INavigationService } from '~/services/navigation/INavigationService';
 
 export default function (ctx: any, inject: any) {
     if (!ctx.$localForage) {

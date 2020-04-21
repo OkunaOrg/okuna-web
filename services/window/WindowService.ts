@@ -1,4 +1,4 @@
-import { IWindowService, EventListenerRemover, OnWidthChangeListener } from '~/services/window-service/IWindowService';
+import { IWindowService, EventListenerRemover, OnWidthChangeListener } from '~/services/window/IWindowService';
 import { injectable } from '~/node_modules/inversify';
 import debounce from 'lodash.debounce';
 

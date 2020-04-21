@@ -45,7 +45,7 @@
     import OkPostCommenter
         from "~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import OkPostMedia from "~/components/post/components/post-media/PostMedia.vue";

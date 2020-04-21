@@ -53,7 +53,7 @@
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUser } from "~/models/auth/user/IUser";
     import OkPostTheatreSidebar from "~/components/post-theatre/post-theatre-sidebar/OkPostTheatreSidebar.vue";
     import OkPostTheatreMedia from "~/components/post-theatre/post-theatre-media/OkPostTheatreMedia.vue";

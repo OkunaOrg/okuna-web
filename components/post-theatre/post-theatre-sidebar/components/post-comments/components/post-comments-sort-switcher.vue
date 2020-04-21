@@ -34,8 +34,8 @@
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { IPost } from "~/models/posts/post/IPost";
-    import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
-    import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
+    import { PostCommentsSortSetting } from "~/services/user-preferences/libs/PostCommentsSortSetting";
+    import { IUserPreferencesService } from "~/services/user-preferences/IUserPreferencesService";
     import { BehaviorSubject } from "~/node_modules/rxjs";
 
     @Component({

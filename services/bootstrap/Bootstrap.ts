@@ -2,8 +2,8 @@ import { injectable } from '~/node_modules/inversify';
 import { IBootstrapService } from '~/services/bootstrap/IBootstrap';
 import { inject } from 'inversify';
 import { TYPES } from '../inversify-types';
-import { IThemeService } from '../theme-service/IThemeService';
-import { IUserPreferencesService } from '~/services/user-preferences-service/IUserPreferencesService';
+import { IThemeService } from '../theme/IThemeService';
+import { IUserPreferencesService } from '~/services/user-preferences/IUserPreferencesService';
 import { IEnvironmentService } from '~/services/environment/IEnvironment';
 
 @injectable()

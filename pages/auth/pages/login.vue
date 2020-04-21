@@ -39,7 +39,7 @@
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IOkLogger } from "~/services/logging/types";
-    import { INavigationService } from "~/services/navigation-service/INavigationService";
+    import { INavigationService } from "~/services/navigation/INavigationService";
 
     @Component({
         name: "OkAuthLoginPage",

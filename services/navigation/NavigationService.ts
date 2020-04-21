@@ -3,7 +3,7 @@ import {
     INavigationService,
     NavigateToPostConfig,
     NavigationConfig
-} from '~/services/navigation-service/INavigationService';
+} from '~/services/navigation/INavigationService';
 import VueRouter from 'vue-router';
 import { TYPES } from '~/services/inversify-types';
 import { ILoggingService } from '~/services/logging/ILogging';

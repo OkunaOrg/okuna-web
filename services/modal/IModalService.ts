@@ -1,6 +1,6 @@
 import { IPost } from '~/models/posts/post/IPost';
 import { BehaviorSubject } from '~/node_modules/rxjs';
-import { ModalType } from '~/services/modal-service/lib/ModalType';
+import { ModalType } from '~/services/modal/lib/ModalType';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';

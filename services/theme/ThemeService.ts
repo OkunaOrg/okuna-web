@@ -1,5 +1,5 @@
 import { inject, injectable } from '~/node_modules/inversify';
-import { IThemeService } from '~/services/theme-service/IThemeService';
+import { IThemeService } from '~/services/theme/IThemeService';
 import { action, observable } from '~/node_modules/mobx';
 import { ITheme } from '~/models/common/theme/ITheme';
 import themeFactory from '~/models/common/theme/factory';
