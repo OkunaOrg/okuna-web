@@ -28,14 +28,14 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue";
+    import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/OkEmojiReactionButton.vue";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IEmoji } from "~/models/common/emoji/IEmoji";
-    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue";
+    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/OkReactionEmojiPicker.vue";
     import { IPostCommentReaction } from "~/models/posts/post-comment-reaction/IPostCommentReaction";
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";

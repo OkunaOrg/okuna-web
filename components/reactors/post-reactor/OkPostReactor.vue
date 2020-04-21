@@ -13,7 +13,7 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IEmoji } from "~/models/common/emoji/IEmoji";
     import { IPostReaction } from "~/models/posts/post-reaction/IPostReaction";
-    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue";
+    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/OkReactionEmojiPicker.vue";
 
     @Component({
         name: "OkPostReactor",

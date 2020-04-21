@@ -66,7 +66,7 @@
     import { Component, Vue } from "nuxt-property-decorator"
     import OkHeaderSearchBar from '~/pages/home/components/header/components/HeaderSearchBar.vue';
     import OkUserDropdown from '~/pages/home/components/header/components/user-dropdown/OkUserDropdown.vue';
-    import OkLogo from '~/components/okuna-logo/okuna-logo.vue';
+    import OkLogo from '~/components/okuna-logo/OkLogo.vue';
 
     @Component({
         name: "OkHeader",

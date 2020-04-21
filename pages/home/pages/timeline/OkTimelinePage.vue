@@ -27,7 +27,7 @@
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPost from "~/components/post/Post.vue";
+    import OkPost from "~/components/post/OkPost.vue";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
     import { Subscription } from "~/node_modules/rxjs";
     import { IUser } from "~/models/auth/user/IUser";

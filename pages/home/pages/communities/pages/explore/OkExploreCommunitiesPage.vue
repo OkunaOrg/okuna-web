@@ -13,7 +13,7 @@
     import { Component, Vue } from "nuxt-property-decorator"
 
     @Component({})
-    export default class extends Vue {
+    export default class OkExploreCommunitiesPage extends Vue {
     }
 </script>
 

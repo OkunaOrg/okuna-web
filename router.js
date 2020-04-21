@@ -1,22 +1,19 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import OkHomePage from "./pages/home/OkHomePage";
+import OkMenuPage from "./pages/home/pages/menu/OkMenuPage";
+import OkNowPage from "./pages/home/pages/now/OkNowPage";
+import OkTimelinePage from "./pages/home/pages/timeline/OkTimelinePage";
+import OkHashtagPage from "./pages/home/pages/hashtag/OkHashtagPage";
+import OkPostPage from "./pages/home/pages/post/OkPostPage";
+import OkUserPage from "./pages/home/pages/user/OkUserPage";
+import OkCommunitiesPage from "./pages/home/pages/communities/OkCommunitiesPage";
+import OkExploreCommunitiesPage from "./pages/home/pages/communities/pages/explore/OkExploreCommunitiesPage";
+import OkCommunityPage from "./pages/home/pages/communities/pages/community/OkCommunityPage";
 
-import HomePage from '~/pages/home/HomePage.vue';
-import AuthPage from '~/pages/auth/auth.vue';
-import AuthLoginPage from '~/pages/auth/pages/login.vue';
-import AuthRegisterPage from '~/pages/auth/pages/register.vue';
-import OkHomeTimelinePage from '~/pages/home/pages/timeline/OkHomeTimelinePage.vue';
-import HomeUserPage from '~/pages/home/pages/user/user.vue';
-import HomeUserProfilePage from '~/pages/home/pages/user/pages/profile.vue';
-import HomeUserEditProfilePage from '~/pages/home/pages/user/pages/edit.vue';
-import HomeCommunitiesPage from '~/pages/home/pages/communities/communities.vue';
-import HomeCommunitiesExplorePage from '~/pages/home/pages/communities/pages/explore/explore.vue';
-import HomeCommunityPage from '~/pages/home/pages/communities/pages/community/community.vue';
-import HomeCommunityProfilePage from '~/pages/home/pages/communities/pages/community/pages/profile.vue';
-import HomeCommunityEditPage from '~/pages/home/pages/communities/pages/community/pages/edit.vue';
-import OkHomeNowPage from '~/pages/home/pages/now/HomeNowPage.vue';
-import OkPostPage from '~/pages/home/pages/post/OkPostPage.vue';
-import OkMenuPage from '~/pages/home/pages/menu-page/OkMenuPage.vue';
+import OkAuthPage from "./pages/auth/OkAuthPage";
+import OkLoginPage from "./pages/auth/pages/OkLoginPage";
+import OkRegisterPage from "./pages/auth/pages/OkRegisterPage";
 
 Vue.use(Router);
 
@@ -27,12 +24,12 @@ export function createRouter() {
             {
                 path: '/',
                 name: 'home',
-                component: HomePage,
+                component: OkHomePage,
                 children: [
                     {
                         name: 'timeline',
                         path: '',
-                        component: OkHomeTimelinePage
+                        component: OkTimelinePage
                     },
                     {
                         path: 'm',
@@ -40,52 +37,26 @@ export function createRouter() {
                     },
                     {
                         path: 'n',
-                        component: OkHomeNowPage
+                        component: OkNowPage
                     },
                     {
                         name: 'communities',
                         path: 'c',
-                        component: HomeCommunitiesPage,
+                        component: OkCommunitiesPage,
                         children: [
                             {
                                 path: '',
-                                component: HomeCommunitiesExplorePage
+                                component: OkExploreCommunitiesPage
                             },
                             {
                                 path: ':communityName',
-                                component: HomeCommunityPage,
-                                children: [
-                                    {
-                                        path: '',
-                                        component: HomeCommunityProfilePage
-                                    },
-                                    {
-                                        path: 'e',
-                                        component: HomeCommunityEditPage
-                                    },
-                                ]
+                                component: OkCommunityPage,
                             },
                         ]
                     },
                     {
-                        path: 'h',
-                        component: HomeCommunitiesPage,
-                        children: [
-                            {
-                                path: ':hashtagName',
-                                component: HomeCommunityPage,
-                                children: [
-                                    {
-                                        path: '',
-                                        component: HomeCommunityProfilePage
-                                    },
-                                    {
-                                        path: 'e',
-                                        component: HomeCommunityEditPage
-                                    },
-                                ]
-                            },
-                        ]
+                        path: 'h/:hashtagName',
+                        component: OkHashtagPage,
                     },
                     {
                         name: 'post',
@@ -94,31 +65,21 @@ export function createRouter() {
                     },
                     {
                         path: ':username',
-                        component: HomeUserPage,
-                        children: [
-                            {
-                                path: '',
-                                component: HomeUserProfilePage
-                            },
-                            {
-                                path: 'e',
-                                component: HomeUserEditProfilePage
-                            },
-                        ]
+                        component: OkUserPage,
                     },
                 ]
             },
             {
                 path: '/a',
-                component: AuthPage,
+                component: OkAuthPage,
                 children: [
                     {
                         path: 'login',
-                        component: AuthLoginPage
+                        component: OkLoginPage
                     },
                     {
                         path: 'register',
-                        component: AuthRegisterPage
+                        component: OkRegisterPage
                     }
                 ]
             },

@@ -50,10 +50,10 @@
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { IPost } from "~/models/posts/post/IPost";
-    import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
+    import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { IUser } from "~/models/auth/user/IUser";
-    import OkCommentPostForm from "~/components/forms/comment-post-form.vue";
+    import OkCommentPostForm from "~/components/forms/OkCommentPostForm.vue";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import OkPostComment
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue";

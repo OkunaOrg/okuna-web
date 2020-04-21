@@ -27,7 +27,7 @@
 
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
-    import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
+    import OkLoadingIndicator from '~/components/utils/OkLoadingIndicator.vue';
 
     @Component({
         name: "OkLoadMoreStatusBar",

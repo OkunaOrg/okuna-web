@@ -74,8 +74,8 @@
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { postCommentMaxLength, postCommentValidators } from "~/validators/post-comment";
-    import OkResizableTextArea from "~/components/resizable-textarea.vue";
-    import OkCharacterCount from "~/components/character-count.vue";
+    import OkResizableTextArea from "~/components/OkResizableTextarea.vue";
+    import OkCharacterCount from "~/components/OkCharacterCount.vue";
     import { IOkLogger } from "~/services/logging/types";
     import { ILoggingService } from "~/services/logging/ILoggingService";
 

@@ -57,7 +57,7 @@
     import { IUser } from "~/models/auth/user/IUser";
     import OkPostTheatreSidebar from "~/components/post-theatre/post-theatre-sidebar/OkPostTheatreSidebar.vue";
     import OkPostTheatreMedia from "~/components/post-theatre/post-theatre-media/OkPostTheatreMedia.vue";
-    import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
+    import OkLoadingIndicator from '~/components/utils/OkLoadingIndicator.vue';
 
     @Component({
         name: "OkPostTheatre",

@@ -27,7 +27,7 @@
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IPostCommentReaction } from "~/models/posts/post-comment-reaction/IPostCommentReaction";
-    import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue";
+    import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/OkEmojiReactionButton.vue";
     import { IReactionsEmojiCount } from "~/models/posts/reactions-emoji-count/IReactionsEmojiCount";
     import { OkEmojiReactionButtonSize } from "~/components/buttons/emoji-reaction-button/lib/OkEmojiReactionButtonSize";
 

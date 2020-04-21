@@ -16,8 +16,8 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkCommentPostButton from '~/components/post/components/post-actions/components/CommentPostButton.vue';
-    import OkReactToPostButton from '~/components/post/components/post-actions/components/ReactToPostButton.vue';
+    import OkCommentPostButton from '~/components/post/components/post-actions/components/OkCommentPostButton.vue';
+    import OkReactToPostButton from '~/components/post/components/post-actions/components/OkReactToPostButton.vue';
 
     @Component({
         name: "OkPostActions",

@@ -22,7 +22,7 @@
     import UsernameMatcher from "~/lib/matchers/UsernameMatcher";
     import UrlMatcher from "~/lib/matchers/UrlMatcher";
     import CommunitynameMatcher from "~/lib/matchers/CommunityNameMatcher";
-    import OkSmartTextHighlightedItem from "~/components/smart-text/components/SmartTextHighlightedItem.vue";
+    import OkSmartTextHighlightedItem from "~/components/smart-text/components/OkSmartTextHighlightedItem.vue";
 
     @Component({
         name: "OkSmartText",

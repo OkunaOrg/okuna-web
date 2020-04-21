@@ -1,7 +1,6 @@
 <template>
     <section>
-        Communities
-        <nuxt-child></nuxt-child>
+        OkHashtagPage
     </section>
 </template>
 
@@ -10,17 +9,11 @@
 
 </style>
 
-<router>
-    {
-    path: '/c'
-    }
-</router>
-
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
 
     @Component({})
-    export default class OkCommunityPage extends Vue {
+    export default class OkHashtagPage extends Vue {
     }
 </script>
 

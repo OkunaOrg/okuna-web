@@ -24,11 +24,11 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
     import { CancelableOperation } from "~/lib/CancelableOperation";
-    import OkLoadMoreStatusBar from "~/components/utils/load-more/components/LoadMoreStatusBar.vue";
+    import OkLoadMoreStatusBar from "~/components/utils/load-more/components/OkLoadMoreStatusBar.vue";
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
-    import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
+    import OkLoadingIndicator from '~/components/utils/OkLoadingIndicator.vue';
 
     @Component({
         name: "OkLoadMore",

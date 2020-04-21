@@ -32,8 +32,8 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import OkLogo from "~/components/okuna-logo/okuna-logo.vue";
-    import OkLoginForm from "~/components/forms/login.vue";
+    import OkLogo from "~/components/okuna-logo/OkLogo.vue";
+    import OkLoginForm from "~/components/forms/OkLoginForm.vue";
     import { IUser } from "~/models/auth/user/IUser";
     import { ILoggingService } from "~/services/logging/ILoggingService";
     import { okunaContainer } from "~/services/inversify";
@@ -42,10 +42,10 @@
     import { INavigationService } from "~/services/navigation/INavigationService";
 
     @Component({
-        name: "OkAuthLoginPage",
+        name: "OkLoginPage",
         components: {OkLoginForm, OkLogo},
     })
-    export default class AuthLoginPage extends Vue {
+    export default class OkLoginPage extends Vue {
 
         private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
         private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);

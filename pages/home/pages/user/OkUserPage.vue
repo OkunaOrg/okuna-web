@@ -1,6 +1,6 @@
 <template>
     <section>
-        Profile
+        User
     </section>
 </template>
 
@@ -14,13 +14,18 @@
     import { Observer } from "~/node_modules/mobx-vue";
 
     @Observer
-    @Component({
-    })
+    @Component({})
     export default class extends Vue {
 
         mounted() {
+            //this._getUser();
         }
 
+        async _getUser() {
+            //const user = await this.userService.getUser();
+            //console.log(user);
+            //this.userService.setLoggedInUser(user);
+        }
     }
 </script>
 

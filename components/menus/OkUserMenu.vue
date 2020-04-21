@@ -166,7 +166,7 @@
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { IUser } from "~/models/auth/user/IUser";
-    import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
+    import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { OkAvatarBorderRadius } from '~/components/avatars/lib/OkAvatarBorderRadius';
     import { BehaviorSubject } from '~/node_modules/rxjs';

@@ -23,8 +23,8 @@
     import { okunaContainer } from "~/services/inversify";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
-    import OkDesktopPostPage from "~/pages/home/pages/post/desktop-post-page/OkDesktopPostPage.vue";
-    import OkMobilePostPage from "~/pages/home/pages/post/mobile-post-page/OkMobilePostPage.vue";
+    import OkDesktopPostPage from "~/pages/home/pages/post/desktop-post/OkDesktopPostPage.vue";
+    import OkMobilePostPage from "~/pages/home/pages/post/mobile-post/OkMobilePostPage.vue";
 
     @Component({
         components: {OkMobilePostPage, OkDesktopPostPage},

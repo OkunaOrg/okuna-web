@@ -37,14 +37,14 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue";
+    import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/OkEmojiReactionButton.vue";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IPostReaction } from "~/models/posts/post-reaction/IPostReaction";
-    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue";
+    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/OkReactionEmojiPicker.vue";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";

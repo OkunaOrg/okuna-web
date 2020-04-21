@@ -43,13 +43,13 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPostHeader from "~/components/post/components/post-header/PostHeader.vue";
-    import OkPostText from "~/components/post/components/PostText.vue";
+    import OkPostHeader from "~/components/post/components/post-header/OkPostHeader.vue";
+    import OkPostText from "~/components/post/components/OkPostText.vue";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
-    import OkPostMedia from "~/components/post/components/post-media/PostMedia.vue";
-    import OkPostReactions from "~/components/post/components/post-reactions/PostReactions.vue";
-    import OkPostCommentCounts from "~/components/post/components/post-comments-count/PostCommentCounts.vue";
-    import OkPostActions from "~/components/post/components/post-actions/PostActions.vue";
+    import OkPostMedia from "~/components/post/components/post-media/OkPostMedia.vue";
+    import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
+    import OkPostCommentCounts from "~/components/post/components/post-comments-count/OkPostCommentCounts.vue";
+    import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
 
     @Component({
         name: "OkPost",

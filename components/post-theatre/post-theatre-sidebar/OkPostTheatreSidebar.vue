@@ -36,10 +36,10 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPostHeader from "~/components/post/components/post-header/PostHeader.vue";
-    import OkPostText from "~/components/post/components/PostText.vue";
-    import OkPostActions from "~/components/post/components/post-actions/PostActions.vue";
-    import OkPostReactions from "~/components/post/components/post-reactions/PostReactions.vue";
+    import OkPostHeader from "~/components/post/components/post-header/OkPostHeader.vue";
+    import OkPostText from "~/components/post/components/OkPostText.vue";
+    import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
+    import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
     import OkPostComments
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue";
     import OkPostCommenter
@@ -48,7 +48,7 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
-    import OkPostMedia from "~/components/post/components/post-media/PostMedia.vue";
+    import OkPostMedia from "~/components/post/components/post-media/OkPostMedia.vue";
     import {
         OnCommentedPostParams,
         ReplyToCommentParams, ReplyToReplyParams

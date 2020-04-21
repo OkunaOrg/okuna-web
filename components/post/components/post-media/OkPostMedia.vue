@@ -27,13 +27,13 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPostMediaImage from "~/components/post/components/post-media/components/PostMediaImage.vue";
+    import OkPostMediaImage from "~/components/post/components/post-media/components/OkPostMediaImage.vue";
     import { PostMediaType } from "~/models/posts/post-media/lib/PostMediaType";
     import { IPostMedia } from "~/models/posts/post-media/IPostMedia";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
-    import OkPostMediaVideo from "~/components/post/components/post-media/components/PostMediaVideo.vue";
+    import OkPostMediaVideo from "~/components/post/components/post-media/components/OkPostMediaVideo.vue";
     import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
     import OkFittedImg from '~/components/images/OkFittedImg.vue';
 

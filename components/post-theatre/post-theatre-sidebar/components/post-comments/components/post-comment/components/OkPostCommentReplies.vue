@@ -45,13 +45,13 @@
     import { IUserPreferencesService } from "~/services/user-preferences/IUserPreferencesService";
     import { PostCommentsSortSetting } from "~/services/user-preferences/libs/PostCommentsSortSetting";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
-    import OkVerticalDivider from "~/components/utils/VerticalDivider.vue";
+    import OkLoadMore from "~/components/utils/load-more/OkLoadMore.vue";
+    import OkVerticalDivider from "~/components/utils/OkVerticalDivider.vue";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUtilsService } from "~/services/utils/IUtilsService";
-    import OkLoadingIndicator from "~/components/utils/LoadingIndicator.vue";
+    import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
     import { ReplyToReplyParams } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
     @Component({

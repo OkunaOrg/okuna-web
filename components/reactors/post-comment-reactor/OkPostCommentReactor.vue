@@ -11,7 +11,7 @@
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IEmoji } from "~/models/common/emoji/IEmoji";
-    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue";
+    import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/OkReactionEmojiPicker.vue";
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IPostCommentReaction } from "~/models/posts/post-comment-reaction/IPostCommentReaction";

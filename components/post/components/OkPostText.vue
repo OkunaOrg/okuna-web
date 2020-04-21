@@ -11,7 +11,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkSmartText from "~/components/smart-text/SmartText.vue";
+    import OkSmartText from "~/components/smart-text/OkSmartText.vue";
 
     @Component({
         name: "OkPostText",

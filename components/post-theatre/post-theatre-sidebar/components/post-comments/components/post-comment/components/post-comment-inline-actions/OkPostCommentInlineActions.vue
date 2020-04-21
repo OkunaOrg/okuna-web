@@ -27,8 +27,8 @@
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
-    import OkSmartText from "~/components/smart-text/SmartText.vue";
-    import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
+    import OkSmartText from "~/components/smart-text/OkSmartText.vue";
+    import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import OkReactToPostCommentButton
         from '~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/post-comment-inline-actions/components/ReactToPostCommentButton.vue';
 

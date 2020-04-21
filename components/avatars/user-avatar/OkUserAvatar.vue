@@ -14,7 +14,7 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { IUser } from "~/models/auth/user/IUser";
-    import OkImageAvatar from "~/components/avatars/image-avatar/ImageAvatar.vue";
+    import OkImageAvatar from "~/components/avatars/image-avatar/OkImageAvatar.vue";
     import { OkAvatarBorderRadius } from "~/components/avatars/lib/OkAvatarBorderRadius";
 
     @Component({

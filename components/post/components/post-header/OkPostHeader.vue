@@ -35,14 +35,14 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
-    import OkAvatar from "~/components/avatars/image-avatar/ImageAvatar.vue";
+    import OkAvatar from "~/components/avatars/image-avatar/OkImageAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkPostHeaderCommunityContent
-        from "~/components/post/components/post-header/components/PostHeaderCommunityContent.vue";
+        from "~/components/post/components/post-header/components/OkPostHeaderCommunityContent.vue";
     import OkPostHeaderProfileContent
-        from "~/components/post/components/post-header/components/PostHeaderProfileContent.vue";
+        from "~/components/post/components/post-header/components/OkPostHeaderProfileContent.vue";
     import OkPostHeaderTimelineContent
-        from "~/components/post/components/post-header/components/PostHeaderTimelineContent.vue";
+        from "~/components/post/components/post-header/components/OkPostHeaderTimelineContent.vue";
 
     @Component({
         name: "OkPostHeader",

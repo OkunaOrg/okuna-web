@@ -53,7 +53,7 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUser } from "~/models/auth/user/IUser";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import OkPost from "~/components/post/Post.vue";
+    import OkPost from "~/components/post/OkPost.vue";
     import OkPostComments
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue";
     import OkPostCommenter

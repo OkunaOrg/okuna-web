@@ -58,7 +58,7 @@
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
     import { Observer } from "~/node_modules/mobx-vue";
-    import OkFooter from "~/components/layout/footer/Footer.vue";
+    import OkFooter from "~/components/layout/footer/OkFooter.vue";
     import ensureHasNoStoredAuthToken from '~/middleware/ensure-has-no-stored-auth-token';
 
     @Observer
