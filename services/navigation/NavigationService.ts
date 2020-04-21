@@ -37,7 +37,7 @@ export class NavigationService implements INavigationService {
         this.navigateToLocationWithConfig('/a/register', config);
     }
 
-    async navigateToHome(config?: NavigationConfig): Promise<void> {
+    async navigateToHome(config: NavigationConfig = {}): Promise<void> {
         this.navigateToLocationWithConfig('/', config);
     }
 
