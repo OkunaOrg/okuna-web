@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import OkEmptyPage from '~/pages/OkEmptyPage.vue';
 import HomePage from '~/pages/home/HomePage.vue';
 import AuthPage from '~/pages/auth/auth.vue';
 import AuthLoginPage from '~/pages/auth/pages/login.vue';
@@ -17,6 +16,7 @@ import HomeCommunityProfilePage from '~/pages/home/pages/communities/pages/commu
 import HomeCommunityEditPage from '~/pages/home/pages/communities/pages/community/pages/edit.vue';
 import OkHomeNowPage from '~/pages/home/pages/now/HomeNowPage.vue';
 import OkPostPage from '~/pages/home/pages/post/OkPostPage.vue';
+import OkMenuPage from '~/pages/home/pages/menu-page/OkMenuPage.vue';
 
 Vue.use(Router);
 
@@ -33,6 +33,10 @@ export function createRouter() {
                         name: 'timeline',
                         path: '',
                         component: OkHomeTimelinePage
+                    },
+                    {
+                        path: 'm',
+                        component: OkMenuPage
                     },
                     {
                         path: 'n',

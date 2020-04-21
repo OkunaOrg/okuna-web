@@ -45,7 +45,7 @@ export class NavigationService implements INavigationService {
         this.navigateToLocationWithConfig(`/p/${config.post.uuid}`, config);
     }
 
-    private navigateToLocationWithConfig(location: string, config: NavigationConfig) {
+    private navigateToLocationWithConfig(location: string, config: NavigationConfig = {}) {
         this.logger.info(`Navigating to ${location} with config:`, config);
         config.nuxtContext ? config.nuxtContext.redirect(location) : this.vueRouter.push(location);
     }
