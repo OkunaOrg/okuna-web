@@ -1,31 +1,55 @@
 <template>
-    <section>
-        User
-    </section>
+    <div v-if="environmentResolution">
+        <ok-desktop-user-page
+                :user-username="userUsername"
+                v-if="environmentResolution === EnvironmentResolution.desktop"></ok-desktop-user-page>
+        <ok-mobile-user-page
+                :user-username="userUsername"
+                v-else></ok-mobile-user-page>
+    </div>
 </template>
 
 
-<style scoped>
+<style>
 
 </style>
 
+
 <script lang="ts">
-    import { Component, Inject, Vue } from "nuxt-property-decorator"
-    import { Observer } from "~/node_modules/mobx-vue";
+    import { Component, Vue } from "nuxt-property-decorator"
+    import { Route } from "vue-router";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
+    import { TYPES } from "~/services/inversify-types";
+    import { okunaContainer } from "~/services/inversify";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
+    import OkDesktopUserPage from "~/pages/home/pages/user/components/desktop-user/OkDesktopPostPage.vue";
+    import OkMobileUserPage from "~/pages/home/pages/user/components/mobile-user/OkMobilePostPage.vue";
 
-    @Observer
-    @Component({})
-    export default class extends Vue {
+    @Component({
+        components: {OkMobileUserPage, OkDesktopUserPage},
+        subscriptions: function () {
+            return {
+                environmentResolution: this["environmentService"].environmentResolution
+            }
+        }
+    })
+    export default class OkUserPage extends Vue {
+        $route!: Route;
 
-        mounted() {
-            //this._getUser();
+        $observables!: {
+            environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>
+        };
+
+        EnvironmentResolution = EnvironmentResolution;
+
+
+        private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
+
+        get userUsername() {
+            return this.$route.params["userUsername"];
         }
 
-        async _getUser() {
-            //const user = await this.userService.getUser();
-            //console.log(user);
-            //this.userService.setLoggedInUser(user);
-        }
     }
 </script>
 
