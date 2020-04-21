@@ -58,6 +58,13 @@ export class ThemeService implements IThemeService {
                 return [data.primaryHighlightColor.hsl().string(), '!important'];
             }
         },
+        'ok-has-background-primary-highlight-hover': {
+            '&:hover': {
+                'background-color': (data: ITheme) => {
+                    return [data.primaryHighlightColor.hsl().string(), '!important'];
+                }
+            }
+        },
         'ok-has-background-accent': {
             'background-color': (data: ITheme) => {
                 return [data.accentColor.hex(), '!important'];
@@ -397,7 +404,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[1];
+        const defaultTheme = ThemeService.themes[0];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }
