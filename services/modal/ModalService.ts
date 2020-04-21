@@ -9,7 +9,7 @@ import {
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { TYPES } from '~/services/inversify-types';
 import { IHistoryService } from '~/services/history/IHistoryService';
-import { ILoggingService } from '~/services/logging/ILogging';
+import { ILoggingService } from '~/services/logging/ILoggingService';
 import { IOkLogger } from '~/services/logging/types';
 import { ModalType } from '~/services/modal/lib/ModalType';
 

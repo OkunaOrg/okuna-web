@@ -27,7 +27,7 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IPostReaction } from "~/models/posts/post-reaction/IPostReaction";
-    import { ILoggingService } from "~/services/logging/ILogging";
+    import { ILoggingService } from "~/services/logging/ILoggingService";
     import { IOkLogger } from "~/services/logging/types";
 
     @Component({

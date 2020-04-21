@@ -77,7 +77,7 @@
     import OkResizableTextArea from "~/components/resizable-textarea.vue";
     import OkCharacterCount from "~/components/character-count.vue";
     import { IOkLogger } from "~/services/logging/types";
-    import { ILoggingService } from "~/services/logging/ILogging";
+    import { ILoggingService } from "~/services/logging/ILoggingService";
 
     @Component({
         name: "OkCommentPostForm",

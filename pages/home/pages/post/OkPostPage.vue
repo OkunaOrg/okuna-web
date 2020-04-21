@@ -18,7 +18,7 @@
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
     import { Route } from "vue-router";
-    import { IEnvironmentService } from "~/services/environment/IEnvironment";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { BehaviorSubject } from "~/node_modules/rxjs";

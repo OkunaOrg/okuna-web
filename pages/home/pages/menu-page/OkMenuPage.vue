@@ -15,7 +15,7 @@
     import OkUserMenu from "../../../../components/menus/OkUserMenu.vue";
     import { BehaviorSubject } from "rxjs";
     import { EnvironmentResolution } from "../../../../services/environment/lib/EnvironmentResolution";
-    import { IEnvironmentService } from "../../../../services/environment/IEnvironment";
+    import { IEnvironmentService } from "../../../../services/environment/IEnvironmentService";
     import { TYPES } from "../../../../services/inversify-types";
     import { okunaContainer } from "../../../../services/inversify";
     import { INavigationService } from '../../../../services/navigation/INavigationService';

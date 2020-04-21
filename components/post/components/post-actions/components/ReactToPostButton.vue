@@ -47,7 +47,7 @@
     import OkReactionEmojiPicker from "~/components/pickers/reaction-emoji-picker/ReactionEmojiPicker.vue";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import { IEnvironmentService } from "~/services/environment/IEnvironment";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import { IModalService } from "~/services/modal/IModalService";
     import OkPostReactor from "~/components/reactors/post-reactor/OkPostReactor.vue";
 

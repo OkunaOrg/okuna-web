@@ -1,8 +1,8 @@
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from '~/node_modules/axios';
-import { HttpServiceRequestConfig, IHttpService } from '~/services/http/IHttp';
-import { ILocalizationService } from '~/services/localization/ILocalization';
-import { IEnvironmentService } from '~/services/environment/IEnvironment';
-import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
+import { HttpServiceRequestConfig, IHttpService } from '~/services/http/IHttpService';
+import { ILocalizationService } from '~/services/localization/ILocalizationService';
+import { IEnvironmentService } from '~/services/environment/IEnvironmentService';
+import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 

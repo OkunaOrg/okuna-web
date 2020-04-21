@@ -1,4 +1,4 @@
-import { IEnvironmentService } from '~/services/environment/IEnvironment';
+import { IEnvironmentService } from '~/services/environment/IEnvironmentService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { Environment } from '~/services/environment/lib/Environment';
 import { TYPES } from '~/services/inversify-types';

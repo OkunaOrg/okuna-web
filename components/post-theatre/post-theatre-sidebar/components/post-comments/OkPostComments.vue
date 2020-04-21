@@ -53,7 +53,7 @@
     import { IPost } from "~/models/posts/post/IPost";
     import OkPostComment
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue";
-    import { ILoggingService } from "~/services/logging/ILogging";
+    import { ILoggingService } from "~/services/logging/ILoggingService";
     import { IOkLogger } from "~/services/logging/types";
     import { PostCommentsSortSetting } from "~/services/user-preferences/libs/PostCommentsSortSetting";
     import { IUserPreferencesService } from "~/services/user-preferences/IUserPreferencesService";

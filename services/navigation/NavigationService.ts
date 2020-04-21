@@ -6,9 +6,9 @@ import {
 } from '~/services/navigation/INavigationService';
 import VueRouter from 'vue-router';
 import { TYPES } from '~/services/inversify-types';
-import { ILoggingService } from '~/services/logging/ILogging';
+import { ILoggingService } from '~/services/logging/ILoggingService';
 import { IOkLogger } from '~/services/logging/types';
-import { ILocalizationService } from '~/services/localization/ILocalization';
+import { ILocalizationService } from '~/services/localization/ILocalizationService';
 
 @injectable()
 export class NavigationService implements INavigationService {

@@ -6,10 +6,10 @@ import { LinkPreviewsSetting } from '~/services/user-preferences/libs/LinkPrevie
 import { VideosAutoPlaySetting } from '~/services/user-preferences/libs/VideosAutoPlaySetting';
 import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import { TYPES } from '~/services/inversify-types';
-import { IStorageService } from '~/services/storage/IStorage';
+import { IStorageService } from '~/services/storage/IStorageService';
 import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
 import { VideosSoundSetting } from '~/services/user-preferences/libs/VideosSoundSetting';
-import { ILocalizationService } from '~/services/localization/ILocalization';
+import { ILocalizationService } from '~/services/localization/ILocalizationService';
 
 @injectable()
 export class UserPreferencesService implements IUserPreferencesService {

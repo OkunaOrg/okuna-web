@@ -4,12 +4,12 @@ import { action, observable } from '~/node_modules/mobx';
 import { ITheme } from '~/models/common/theme/ITheme';
 import themeFactory from '~/models/common/theme/factory';
 import { TYPES } from '~/services/inversify-types';
-import { IStorageService } from '~/services/storage/IStorage';
+import { IStorageService } from '~/services/storage/IStorageService';
 import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import jss from 'jss';
 import preset from 'jss-preset-default';
 import { IOkLogger } from '~/services/logging/types';
-import { ILoggingService } from '~/services/logging/ILogging';
+import { ILoggingService } from '~/services/logging/ILoggingService';
 
 const createGenerateId = () => {
     return (rule: any, sheet: any) => `${rule.key}`;

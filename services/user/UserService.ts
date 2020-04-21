@@ -10,12 +10,12 @@ import {
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
-import { IHttpService } from '~/services/http/IHttp';
+import { IHttpService } from '~/services/http/IHttpService';
 import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
-import { IStorageService } from '~/services/storage/IStorage';
+import { IStorageService } from '~/services/storage/IStorageService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
-import { ILoggingService } from '~/services/logging/ILogging';
+import { ILoggingService } from '~/services/logging/ILoggingService';
 import { IOkLogger } from '~/services/logging/types';
 import {
     CommentPostParams,

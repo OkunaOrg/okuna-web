@@ -1,4 +1,4 @@
-import { IStorageService } from '~/services/storage/IStorage';
+import { IStorageService } from '~/services/storage/IStorageService';
 import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import okunaStorageFactory from '~/services/storage/lib/okuna-storage/factory';
 import { injectable } from '~/node_modules/inversify';

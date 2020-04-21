@@ -1,5 +1,5 @@
 import { ToastProgrammatic as Toast } from 'buefy';
-import { IToastService, ToastConfig } from '~/services/toast/IToast';
+import { IToastService, ToastConfig } from '~/services/toast/IToastService';
 import { injectable } from '~/node_modules/inversify';
 import { ToastType } from '~/services/toast/lib/ToastType';
 

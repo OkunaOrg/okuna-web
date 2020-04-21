@@ -1,4 +1,4 @@
-import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
+import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
 import { injectable } from '~/node_modules/inversify';
 
 

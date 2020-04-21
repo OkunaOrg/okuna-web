@@ -19,7 +19,7 @@
     import ensureHasStoredAuthToken from "~/middleware/ensure-has-stored-auth-token";
     import OkHeader from "~/pages/home/components/header/Header.vue";
     import { IOkLogger } from "~/services/logging/types";
-    import { ILoggingService } from "~/services/logging/ILogging";
+    import { ILoggingService } from "~/services/logging/ILoggingService";
     import { IUtilsService } from '~/services/utils/IUtilsService';
     import OkModals from '~/pages/home/components/modals/OkModals.vue';
 

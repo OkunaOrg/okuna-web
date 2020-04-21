@@ -35,7 +35,7 @@
     import OkLogo from "~/components/okuna-logo/okuna-logo.vue";
     import OkLoginForm from "~/components/forms/login.vue";
     import { IUser } from "~/models/auth/user/IUser";
-    import { ILoggingService } from "~/services/logging/ILogging";
+    import { ILoggingService } from "~/services/logging/ILoggingService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IOkLogger } from "~/services/logging/types";

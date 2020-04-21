@@ -1,8 +1,8 @@
 import { inject, injectable } from '~/node_modules/inversify';
-import { ILoggingService } from '~/services/logging/ILogging';
+import { ILoggingService } from '~/services/logging/ILoggingService';
 import { IOkLogger, OkLoggerConfig } from '~/services/logging/types';
 import { TYPES } from '~/services/inversify-types';
-import { IEnvironmentService } from '~/services/environment/IEnvironment';
+import { IEnvironmentService } from '~/services/environment/IEnvironmentService';
 import { OKSimpleLogger } from './SimpleLogger';
 import { Environment } from '~/services/environment/lib/Environment';
 

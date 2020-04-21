@@ -41,7 +41,7 @@
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import { IEnvironmentService } from "~/services/environment/IEnvironment";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import { IModalService } from "~/services/modal/IModalService";
 
     @Component({

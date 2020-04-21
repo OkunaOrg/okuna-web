@@ -1,9 +1,9 @@
 import { okunaContainer } from '~/services/inversify';
-import { IStorageService } from '~/services/storage/IStorage';
+import { IStorageService } from '~/services/storage/IStorageService';
 import { TYPES } from '~/services/inversify-types';
-import { IHttpService } from '~/services/http/IHttp';
-import { ILocalizationService } from '~/services/localization/ILocalization';
-import { IBootstrapService } from '~/services/bootstrap/IBootstrap';
+import { IHttpService } from '~/services/http/IHttpService';
+import { ILocalizationService } from '~/services/localization/ILocalizationService';
+import { IBootstrapService } from '~/services/bootstrap/IBootstrapService';
 import { INavigationService } from '~/services/navigation/INavigationService';
 
 export default function (ctx: any, inject: any) {

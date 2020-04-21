@@ -1,9 +1,9 @@
 import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
 import { UserData } from '~/types/models-data/auth/UserData';
-import { IHttpService } from '~/services/http/IHttp';
+import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
-import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
+import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
 import {
     GetCommunityAdministratorsApiParams,
     GetCommunityMembersApiParams,

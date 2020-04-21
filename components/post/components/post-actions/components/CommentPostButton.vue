@@ -22,7 +22,7 @@
     import { okunaContainer } from "~/services/inversify";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import { IEnvironmentService } from "~/services/environment/IEnvironment";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import { INavigationService } from "~/services/navigation/INavigationService";
 
     @Component({

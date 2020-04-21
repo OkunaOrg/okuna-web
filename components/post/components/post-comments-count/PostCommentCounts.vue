@@ -13,7 +13,7 @@
     import { IPost } from "~/models/posts/post/IPost";
     import OkEmojiReactionButton from "~/components/buttons/emoji-reaction-button/EmojiReactionButton.vue";
     import { TYPES } from "~/services/inversify-types";
-    import { IEnvironmentService } from "~/services/environment/IEnvironment";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import { okunaContainer } from "~/services/inversify";
     import { IModalService } from '~/services/modal/IModalService';
     import { EnvironmentResolution } from '~/services/environment/lib/EnvironmentResolution';

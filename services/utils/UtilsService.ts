@@ -2,8 +2,8 @@ import { AxiosError } from '~/node_modules/axios';
 import { HandledError, IUtilsService, QueryParams } from '~/services/utils/IUtilsService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
-import { IToastService } from '~/services/toast/IToast';
-import { ILocalizationService } from '~/services/localization/ILocalization';
+import { IToastService } from '~/services/toast/IToastService';
+import { ILocalizationService } from '~/services/localization/ILocalizationService';
 import { ToastType } from '~/services/toast/lib/ToastType';
 import { v4 as uuidv4 } from 'uuid';
 
