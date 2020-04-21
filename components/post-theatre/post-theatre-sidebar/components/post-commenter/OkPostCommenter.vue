@@ -9,7 +9,7 @@
                     </div>
                 </header>
                 <div>
-                    <ok-post-comment :post="post" :post-comment="postComment" :show-actions="false"
+                    <ok-post-comment :post="post" :post-comment="displayedPostComment" :show-actions="false"
                                      :show-reactions="false" class="has-padding-top-20"></ok-post-comment>
                 </div>
             </div>
@@ -76,6 +76,7 @@
         @Prop(Object) readonly post: IPost;
 
         postComment: IPostComment = null;
+        displayedPostComment: IPostComment = null;
 
         $route!: Route;
 
@@ -104,10 +105,12 @@
 
         setReplyToCommentParams(params: ReplyToCommentParams) {
             this.postComment = params.postComment;
+            this.displayedPostComment = params.postComment;
         }
 
         setReplyToReplyParams(params: ReplyToReplyParams) {
             this.postComment = params.parentPostComment;
+            this.displayedPostComment = params.postCommentReplyingTo;
             this.prependedUsernameMention = `@${params.postCommentReplyingTo.commenter.username} `;
             this.$refs.commentPostForm.prependToText(this.prependedUsernameMention);
         }
@@ -116,6 +119,7 @@
             this.postComment = null;
             this.$refs.commentPostForm.unprependFromText(this.prependedUsernameMention);
             this.prependedUsernameMention = "";
+            this.displayedPostComment = null;
         }
 
     }
