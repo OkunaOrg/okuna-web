@@ -2,6 +2,10 @@
   border-radius: 5px;
 }
 
+.has-border-radius-10{
+  border-radius: 10px;
+}
+
 .has-border-radius-500{
   border-radius: 500px;
 }
@@ -35,4 +39,50 @@
 .is-loading{
   opacity: 0.6 !important;
   pointer-events: none !important;
+}
+
+
+.is-absolute-expanded{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.is-absolute-expanded-mobile{
+  @include for-size(phone-only) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.is-fixed-bottom-mobile{
+  @include for-size(phone-only) {
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 30;
+    bottom: 0;
+  }
+}
+
+.is-fixed-top-tablet{
+  @include for-size(tablet-portrait-up) {
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 30;
+    top: 0;
+  }
+}
+
+
+.has-no-borer-radius-mobile{
+  @include for-size(phone-only) {
+    border-radius: 0 !important;
+  }
 }

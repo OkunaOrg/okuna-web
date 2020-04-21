@@ -7,7 +7,7 @@ export default {
         title: 'okuna-web',
         meta: [
             {charset: 'utf-8'},
-            {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+            {name: 'viewport', content: 'width=device-width, initial-scale=1.0'},
             {hid: 'description', name: 'description', content: 'The Okuna social network web version'}
         ],
         link: [
@@ -27,7 +27,7 @@ export default {
         '@nuxtjs/axios',
         'localforage-nuxt',
         'nuxt-i18n',
-        '@nuxtjs/style-resources'
+        '@nuxtjs/style-resources',
     ],
     sentry: {
         dsn: process.env.SENTRY_DSN,
@@ -45,7 +45,6 @@ export default {
         '~/plugins/vue-infinite-loading',
         '~/plugins/vue-scroll-to',
         '~/plugins/vue-sticky',
-        '~/plugins/vue-responsive',
         '~/plugins/scroll-behavior',
         '~/plugins/vue-moment',
         '~/plugins/vue-progressive-image',
@@ -53,6 +52,7 @@ export default {
         '~/plugins/vue-highlight',
         '~/plugins/vue-tooltip',
         '~/plugins/vue-rx',
+        '~/plugins/vue-not-visible',
     ],
     router: {
         middleware: ['post-redirect'],

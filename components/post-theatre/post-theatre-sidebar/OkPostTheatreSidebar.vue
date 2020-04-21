@@ -10,7 +10,9 @@
                 </div>
                 <ok-post-comments :post="post" ref="postCommentsComponent"
                                   :container-id="postCommentsContainerId"
-                                  @onWantsToReplyToComment="onWantsToReplyToComment"></ok-post-comments>
+                                  @onWantsToReplyToComment="onWantsToReplyToComment"
+                                  @onWantsToReplyToReply="onWantsToReplyToReply"
+                ></ok-post-comments>
             </div>
             <div class="ok-post-commenter-container">
                 <ok-post-commenter :post="post" @onCommentedPost="onCommentedPost"
@@ -34,22 +36,30 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPostHeader from "~/components/post/components/post-header/PostHeader.vue";
-    import OkPostText from "~/components/post/components/PostText.vue";
-    import OkPostActions from "~/components/post/components/post-actions/PostActions.vue";
-    import OkPostReactions from "~/components/post/components/post-reactions/PostReactions.vue";
+    import OkPostHeader from "~/components/post/components/post-header/OkPostHeader.vue";
+    import OkPostText from "~/components/post/components/OkPostText.vue";
+    import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
+    import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
     import OkPostComments
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue";
     import OkPostCommenter
         from "~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
+    import OkPostMedia from "~/components/post/components/post-media/OkPostMedia.vue";
+    import {
+        OnCommentedPostParams,
+        ReplyToCommentParams, ReplyToReplyParams
+    } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
     @Component({
         name: "OkPostTheatreSidebar",
-        components: {OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader},
+        components: {
+            OkPostMedia,
+            OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader
+        },
     })
     export default class OkPostTheatreSidebar extends Vue {
         @Prop(Object) readonly post: IPost;
@@ -68,12 +78,16 @@
             this.postCommentsContainerId = `c-${this.utilsService.generateUuid()}`;
         }
 
-        onCommentedPost(postComment: IPostComment, parentPostComment: IPostComment) {
-            this.$refs.postCommentsComponent.addPostComment(postComment, parentPostComment);
+        onCommentedPost(params: OnCommentedPostParams) {
+            this.$refs.postCommentsComponent.addPostComment(params);
         }
 
-        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
-            this.$refs.postCommenter.setPostCommentToReplyTo(postComment);
+        onWantsToReplyToComment(params: ReplyToCommentParams) {
+            this.$refs.postCommenter.setReplyToCommentParams(params);
+        }
+
+        onWantsToReplyToReply(params: ReplyToReplyParams) {
+            this.$refs.postCommenter.setReplyToReplyParams(params);
         }
 
     }

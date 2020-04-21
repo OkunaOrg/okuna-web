@@ -1,16 +1,12 @@
 <template>
-    <ok-post-theatre :post-uuid="params.post.uuid"></ok-post-theatre>
+    <ok-post-theatre :post="params.post"></ok-post-theatre>
 </template>
-
-<style lang="scss" scoped>
-
-</style>
 
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
-    import { PostModalParams } from '~/services/modal-service/IModalService';
+    import { PostModalParams } from '~/services/modal/IModalService';
 
     @Component({
         name: "OkPostModal",

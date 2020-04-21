@@ -1,6 +1,6 @@
 <template>
     <section v-if="postCommentsSortSetting">
-        <div class="columns is-gapless">
+        <div class="columns is-gapless is-mobile">
             <div class="column is-narrow">
                 <div class="has-padding-left-25 has-height-100-percent">
                     <ok-vertical-divider></ok-vertical-divider>
@@ -15,13 +15,13 @@
                         :load-more-top="loadMoreTopReplies"
                         :load-more-top-text="$t('components.post_comment_replies.load_more')"
                         ref="loadMore">
-                    <div v-for="postComment in postCommentReplies" :key="postComment.id">
-                        <ok-post-comment :post="post" :post-comment="postComment" :show-replies="false"
+                    <div v-for="postCommentReply in postCommentReplies" :key="postCommentReply.id">
+                        <ok-post-comment :post="post" :post-comment="postCommentReply" :show-replies="false"
                                          :avatar-size="OkAvatarSize.small"
                                          :linked-post-comment-id.sync="linkedPostCommentId"
                                          :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
                                          :highlighted-post-comment-id.sync="highlightedPostCommentId"
-                                         @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
+                                         @onWantsToReply="onWantsToReplyToReply(postCommentReply)"></ok-post-comment>
                     </div>
                 </ok-load-more>
             </div>
@@ -42,16 +42,17 @@
     import { okunaContainer } from "~/services/inversify";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IPost } from "~/models/posts/post/IPost";
-    import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
-    import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
+    import { IUserPreferencesService } from "~/services/user-preferences/IUserPreferencesService";
+    import { PostCommentsSortSetting } from "~/services/user-preferences/libs/PostCommentsSortSetting";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
-    import OkVerticalDivider from "~/components/utils/VerticalDivider.vue";
+    import OkLoadMore from "~/components/utils/load-more/OkLoadMore.vue";
+    import OkVerticalDivider from "~/components/utils/OkVerticalDivider.vue";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
-    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
+    import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { CancelableOperation } from "~/lib/CancelableOperation";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
-    import OkLoadingIndicator from '~/components/utils/LoadingIndicator.vue';
+    import { IUtilsService } from "~/services/utils/IUtilsService";
+    import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
+    import { ReplyToReplyParams } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
     @Component({
         name: "OkPostCommentReplies",
@@ -114,8 +115,13 @@
             if (this.bootstrapPostCommentRepliesForLinkedPostCommentOperation) this.bootstrapPostCommentRepliesForLinkedPostCommentOperation.cancel();
         }
 
-        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
-            this.$emit("onWantsToReplyToReply", postComment, post);
+        onWantsToReplyToReply(postCommentReplyingTo: IPostComment) {
+            const params: ReplyToReplyParams = {
+                postCommentReplyingTo: postCommentReplyingTo,
+                parentPostComment: this.postComment,
+                post: this.post
+            };
+            this.$emit("onWantsToReplyToReply", params);
         }
 
         @Watch("linkedPostCommentReplyId")

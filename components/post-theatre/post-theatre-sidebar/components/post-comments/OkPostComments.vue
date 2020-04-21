@@ -1,5 +1,3 @@
-import {OkPostCommentsState} from "./libs/OkPostCommentsState";
-import {OkPostCommentsState} from "./libs/OkPostCommentsState";
 <template>
     <section v-if="postCommentsSortSetting">
         <ok-post-comments-sort-switcher></ok-post-comments-sort-switcher>
@@ -7,7 +5,9 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
             <div v-for="postComment in postComments" :key="postComment.id">
                 <ok-post-comment :post="post" :post-comment="postComment"
                                  :show-replies="true"
-                                 @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
+                                 @onWantsToReply="onWantsToReplyToComment"
+                                 @onWantsToReplyToReply="onWantsToReplyToReply"
+                ></ok-post-comment>
             </div>
             <span></span>
 
@@ -29,7 +29,9 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
                                      :linked-post-comment-id.sync="linkedPostCommentId"
                                      :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
                                      :highlighted-post-comment-id.sync="highlightedPostCommentId"
-                                     @onWantsToReply="onWantsToReplyToComment"></ok-post-comment>
+                                     @onWantsToReply="onWantsToReplyToComment"
+                                     @onWantsToReplyToReply="onWantsToReplyToReply"
+                    ></ok-post-comment>
                 </div>
             </ok-load-more>
         </div>
@@ -51,21 +53,25 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
     import { IPost } from "~/models/posts/post/IPost";
     import OkPostComment
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/OkPostComment.vue";
-    import { ILoggingService } from "~/services/logging/ILogging";
+    import { ILoggingService } from "~/services/logging/ILoggingService";
     import { IOkLogger } from "~/services/logging/types";
-    import { PostCommentsSortSetting } from "~/services/user-preferences-service/libs/PostCommentsSortSetting";
-    import { IUserPreferencesService } from "~/services/user-preferences-service/IUserPreferencesService";
+    import { PostCommentsSortSetting } from "~/services/user-preferences/libs/PostCommentsSortSetting";
+    import { IUserPreferencesService } from "~/services/user-preferences/IUserPreferencesService";
     import InfiniteLoading from "~/node_modules/vue-infinite-loading";
     import OkPostCommentsSortSwitcher
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comments-sort-switcher.vue";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { OkPostCommentsState } from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/libs/OkPostCommentsState";
-    import OkLoadMore from "~/components/utils/load-more/LoadMore.vue";
+    import OkLoadMore from "~/components/utils/load-more/OkLoadMore.vue";
     import { CancelableOperation } from "~/lib/CancelableOperation";
-    import { IUtilsService } from "~/services/utils-service/IUtilsService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { LoadMoreStatus } from "~/components/utils/load-more/lib/LoadMoreStatus";
-    import OkLoadingIndicator from "~/components/utils/LoadingIndicator.vue";
-    import { IHistoryService } from "~/services/history-service/IHistoryService";
+    import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
+    import { IHistoryService } from "~/services/history/IHistoryService";
+    import {
+        OnCommentedPostParams,
+        ReplyToCommentParams, ReplyToReplyParams
+    } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
 
     @Component({
@@ -134,10 +140,10 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
 
             if (this.$route && this.$route.query) {
                 routePostCommentReplyId = this.$route.query["pcr"];
-                if (typeof routePostCommentReplyId === "string" || typeof routePostCommentReplyId === "number") this.linkedPostCommentReplyId = parseInt(routePostCommentReplyId);
+                if (typeof routePostCommentReplyId === "string" || typeof routePostCommentReplyId === "number") this.linkedPostCommentReplyId = parseInt(routePostCommentReplyId.toString());
 
                 routePostCommentId = this.$route.query["pc"];
-                if (typeof routePostCommentId === "string" || typeof routePostCommentId === "number") this.linkedPostCommentId = parseInt(routePostCommentId);
+                if (typeof routePostCommentId === "string" || typeof routePostCommentId === "number") this.linkedPostCommentId = parseInt(routePostCommentId.toString());
 
                 this.updateHighlightedPostCommentId();
             }
@@ -157,8 +163,12 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
         }
 
 
-        onWantsToReplyToComment(postComment: IPostComment, post: IPost) {
-            this.$emit("onWantsToReplyToComment", postComment, post);
+        onWantsToReplyToComment(params: ReplyToCommentParams) {
+            this.$emit("onWantsToReplyToComment", params);
+        }
+
+        onWantsToReplyToReply(params: ReplyToReplyParams) {
+            this.$emit("onWantsToReplyToReply", params);
         }
 
         updateHighlightedPostCommentId() {
@@ -295,17 +305,19 @@ import {OkPostCommentsState} from "./libs/OkPostCommentsState";
         /**
          * To be called from another component
          */
-        async addPostComment(postComment: IPostComment, parentPostComment?: IPostComment) {
-            this.logger.info("Adding post comment", postComment);
+        async addPostComment(params: OnCommentedPostParams) {
+            this.logger.info("Adding post comment", params.createdPostComment);
+
             let newLinkedPostCommentId;
             let newLinkedPostCommentReplyId;
-            if (parentPostComment) {
+
+            if (params.parentPostComment) {
                 // Its a reply
-                newLinkedPostCommentId = parentPostComment.id;
-                newLinkedPostCommentReplyId = postComment.id;
+                newLinkedPostCommentId = params.parentPostComment.id;
+                newLinkedPostCommentReplyId = params.createdPostComment.id;
             } else {
                 // Its a post comment
-                newLinkedPostCommentId = postComment.id;
+                newLinkedPostCommentId = params.createdPostComment.id;
                 newLinkedPostCommentReplyId = undefined;
             }
 

@@ -1,31 +1,54 @@
 <template>
-    <header>
-        <nav class="navbar is-fixed-top is-transparent ok-has-background-primary"
+    <header class="ok-header">
+        <nav class="navbar is-fixed-top-desktop is-fixed-top-tablet is-fixed-bottom-mobile is-transparent ok-has-background-primary"
              aria-label="main navigation">
-            <div class="container">
-                <div class="navbar-brand">
-                    <ok-logo></ok-logo>
-                </div>
-                <div class="navbar-menu">
-                    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+            <div class="container is-relative">
+                <div class="columns has-width-100-percent is-gapless is-marginless is-mobile has-height-100-percent">
+                    <div class="column is-flex align-items-center is-narrow-mobile is-hidden-mobile">
+                        <ok-logo class="has-padding-left-20 has-padding-right-20"></ok-logo>
+                    </div>
+                    <div class="column is-flex align-items-center is-hidden-tablet-only is-hidden-mobile">
                         <ok-header-search-bar></ok-header-search-bar>
                     </div>
-                    <div class="navbar-end has-text-dark">
-                        <nuxt-link to="/" class="navbar-item has-cursor-pointer">
-                            <ok-home-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-home-icon>
-                        </nuxt-link>
-                        <nuxt-link to="/n" class="navbar-item has-cursor-pointer">
-                            <ok-now-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-now-icon>
-                        </nuxt-link>
-                        <nuxt-link to="/c" class="navbar-item has-cursor-pointer">
-                            <ok-communities-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-communities-icon>
-                        </nuxt-link>
-                        <nuxt-link to="/n" class="navbar-item has-cursor-pointer">
-                            <ok-notifications-icon
-                                    class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
-                        </nuxt-link>
-                        <div class="navbar-item has-cursor-pointer">
-                            <ok-menu-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-menu-icon>
+                    <div class="column is-absolute-expanded-mobile">
+                        <div class="columns is-marginless is-mobile is-paddingless has-height-100-percent">
+                            <div class="column is-flex align-items-center justify-center">
+                                <nuxt-link to="/" class="has-cursor-pointer is-flex">
+                                    <ok-home-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-home-icon>
+                                </nuxt-link>
+                            </div>
+                            <div class="column is-flex align-items-center is-hidden-desktop justify-center">
+                                <nuxt-link to="/" class="has-cursor-pointer is-flex">
+                                    <ok-search-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-search-icon>
+                                </nuxt-link>
+                            </div>
+                            <div class="column is-flex align-items-center justify-center">
+                                <nuxt-link to="/n" class="has-cursor-pointer is-flex">
+                                    <ok-now-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-now-icon>
+                                </nuxt-link>
+                            </div>
+                            <div class="column is-flex align-items-center justify-center">
+                                <nuxt-link to="/c" class="has-cursor-pointer is-flex">
+                                    <ok-communities-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-communities-icon>
+                                </nuxt-link>
+                            </div>
+                            <div class="column is-flex align-items-center justify-center">
+                                <nuxt-link to="/n" class="has-cursor-pointer is-flex">
+                                    <ok-notifications-icon
+                                            class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
+                                </nuxt-link>
+                            </div>
+                            <div class="column is-flex align-items-center is-hidden-desktop is-hidden-tablet justify-center">
+                                <nuxt-link to="/m" class="has-cursor-pointer is-flex">
+                                    <ok-menu-icon
+                                            class="ok-svg-icon-primary-invert is-icon-2x"></ok-menu-icon>
+                                </nuxt-link>
+                            </div>
+                            <div class="column is-flex align-items-center is-hidden-mobile justify-center">
+                                <div class="has-cursor-pointer">
+                                    <ok-user-dropdown></ok-user-dropdown>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -41,12 +64,13 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import OkLogo from "../../../../components/okuna-logo/okuna-logo.vue";
     import OkHeaderSearchBar from '~/pages/home/components/header/components/HeaderSearchBar.vue';
+    import OkUserDropdown from '~/pages/home/components/header/components/user-dropdown/OkUserDropdown.vue';
+    import OkLogo from '~/components/okuna-logo/OkLogo.vue';
 
     @Component({
         name: "OkHeader",
-        components: {OkHeaderSearchBar, OkLogo},
+        components: {OkLogo, OkUserDropdown, OkHeaderSearchBar},
     })
     export default class extends Vue {
 

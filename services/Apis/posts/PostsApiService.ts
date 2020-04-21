@@ -1,6 +1,6 @@
 import { IPostsApiService } from '~/services/Apis/posts/IPostsApiService';
 import { PostData } from '~/types/models-data/posts/PostData';
-import { IHttpService } from '~/services/http/IHttp';
+import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 import { AxiosResponse } from '~/node_modules/axios';
@@ -25,7 +25,7 @@ import {
     ReportPostApiParams, DeletePostApiParams, GetPostApiParams, GetPostMediaApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { UserData } from '~/types/models-data/auth/UserData';
-import { IStringTemplateService } from '~/services/string-template/IStringTemplate';
+import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
 import { PostMediaData } from '~/types/models-data/posts/PostMediaData';
 import { PostCommentData } from '~/types/models-data/posts/PostCommentData';
 import { PostReactionData } from '~/types/models-data/posts/PostReactionData';

@@ -33,6 +33,23 @@ export default {
                 "loading": "Loading",
                 "all_loaded": "Nothing more to load"
             }
+        },
+        "user_dropdown": {
+            "my_okuna": "My Okuna",
+            "profile": "Profile",
+            "circles": "Circles",
+            "lists": "Lists",
+            "followers": "Followers",
+            "following": "Following",
+            "invites": "Invites",
+            "moderation_tasks": "Moderation tasks",
+            "moderation_penalties": "Moderation penalties",
+            "app_and_account": "App & Account",
+            "settings": "Settings",
+            "themes": "Themes",
+            "support_and_feedback": "Support & Feedback",
+            "useful_links": "Useful links",
+            "logout": "Logout",
         }
     },
     "forms": {

@@ -8,7 +8,7 @@ import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IEmoji } from '~/models/common/emoji/IEmoji';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
-import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
+import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
 
 // COMMUNITIES START
 

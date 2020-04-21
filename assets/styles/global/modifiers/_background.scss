@@ -5,6 +5,13 @@
   animation: rainbow 10s ease infinite;
 }
 
+
+.has-no-background-mobile{
+  @include for-size(phone-only) {
+    background: none !important;
+  }
+}
+
 @-webkit-keyframes rainbow {
   0%{background-position:0% 82%}
   50%{background-position:100% 19%}

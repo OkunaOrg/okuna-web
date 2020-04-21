@@ -1,4 +1,4 @@
-import { PostCommentsSortSetting } from '~/services/user-preferences-service/libs/PostCommentsSortSetting';
+import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
 
 export interface GetTopPostsApiParams {
     minId?: number;

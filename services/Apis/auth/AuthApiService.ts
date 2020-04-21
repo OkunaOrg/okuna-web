@@ -7,7 +7,7 @@ import {
     RegistrationResponse,
     RequestResetPasswordApiParams, ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
-import { IHttpService } from '~/services/http/IHttp';
+import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 import { AxiosResponse } from '~/node_modules/axios';

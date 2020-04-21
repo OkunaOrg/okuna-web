@@ -37,7 +37,8 @@
                                  :linked-post-comment-id="linkedPostCommentId"
                                  :linked-post-comment-reply-id="linkedPostCommentReplyId"
                                  :highlighted-post-comment-id="highlightedPostCommentId"
-                                 v-if="showReplies && expandedReplies"></ok-post-comment-replies>
+                                 v-if="showReplies && expandedReplies"
+                                 @onWantsToReplyToReply="onWantsToReplyToReply"></ok-post-comment-replies>
     </div>
 </template>
 
@@ -45,15 +46,19 @@
     import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
-    import { OkAvatarSize } from "~/components/avatars/lib/AvatarSize";
-    import OkSmartText from "~/components/smart-text/SmartText.vue";
-    import OkUserAvatar from "~/components/avatars/user-avatar/UserAvatar.vue";
+    import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
+    import OkSmartText from "~/components/smart-text/OkSmartText.vue";
+    import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import OkPostCommentReactions
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/OkPostCommentReactions.vue";
     import OkPostCommentInlineActions
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/post-comment-inline-actions/OkPostCommentInlineActions.vue";
     import OkPostCommentReplies
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/OkPostCommentReplies.vue";
+    import {
+        ReplyToCommentParams,
+        ReplyToReplyParams
+    } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
 
     @Component({
@@ -126,7 +131,15 @@
 
 
         onWantsToReply() {
-            this.$emit("onWantsToReply", this.postComment, this.post);
+            let params : ReplyToCommentParams = {
+                postComment: this.postComment,
+                post: this.post
+            };
+            this.$emit("onWantsToReply", params);
+        }
+
+        onWantsToReplyToReply(params: ReplyToReplyParams) {
+            this.$emit("onWantsToReplyToReply", params);
         }
 
         onWantsToToggleReplies() {
