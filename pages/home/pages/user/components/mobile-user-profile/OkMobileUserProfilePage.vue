@@ -1,8 +1,9 @@
 <template>
-    <div class="ok-has-background-primary has-height-100-percent">
+    <div class="ok-has-background-primary has-height-100-percent is-relative">
         <ok-mobile-user-profile-header :user="user"></ok-mobile-user-profile-header>
         <ok-user-cover :user="user"></ok-user-cover>
         <ok-mobile-user-profile-card :user="user"></ok-mobile-user-profile-card>
+        <span>Other</span>
     </div>
 </template>
 
