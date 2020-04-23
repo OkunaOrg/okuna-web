@@ -29,3 +29,7 @@ export interface RegistrationResponse {
     token: string;
     username: string;
 }
+
+export interface GetUserApiParams {
+    userUsername: string;
+}

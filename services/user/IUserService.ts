@@ -22,7 +22,7 @@ import {
     GetPostReactionsParams,
     GetTimelinePostsParams,
     GetTopPostsParams,
-    GetTrendingPostsParams, GetUnreadNotificationsCountParams,
+    GetTrendingPostsParams, GetUnreadNotificationsCountParams, GetUserParams,
     JoinCommunityParams,
     LeaveCommunityParams, ReactToPostCommentParams,
     ReactToPostParams, ReadNotificationParams, ReadNotificationsParams,
@@ -77,6 +77,8 @@ export interface IUserService {
     bootstrapLoggedInUser(): Promise<IUser>;
 
     isLoggedIn(): boolean;
+
+    getUser(params: GetUserParams): Promise<IUser>;
 
     // AUTH ENDS
 

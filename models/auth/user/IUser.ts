@@ -9,6 +9,7 @@ export interface IUser extends IDataModel<IUser> {
     connectionsCircleId: number;
     followersCount: number;
     postsCount: number;
+    dateJoined: Date;
     inviteCount: number;
     unreadNotificationsCount: number;
     pendingCommunitiesModeratedObjectsCount: number;

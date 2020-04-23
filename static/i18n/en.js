@@ -50,6 +50,10 @@ export default {
             "support_and_feedback": "Support & Feedback",
             "useful_links": "Useful links",
             "logout": "Logout",
+        },
+        "user_profile_age": {
+            "age_in_years": "{years}y",
+            "age_in_weeks": "{weeks}w",
         }
     },
     "forms": {

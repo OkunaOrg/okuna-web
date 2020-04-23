@@ -12,15 +12,16 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
-        name: "OkDesktopUserPage",
+        name: "OkDesktopUserProfilePage",
     })
-    export default class OkDesktopUserPage extends Vue {
+    export default class OkDesktopUserProfilePage extends Vue {
         @Prop({
-            type: String,
+            type: Object,
             required: true
-        }) readonly userUsername: string;
+        }) readonly user: IUser;
 
     }
 </script>

@@ -12,6 +12,14 @@ import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCo
 import { NotificationType } from '~/models/notifications/notification/lib/NotificationType';
 import { INotification } from '~/models/notifications/notification/INotification';
 
+// AUTH START
+
+export interface GetUserParams {
+    userUsername: string;
+}
+
+// AUTH END
+
 // COMMUNITIES START
 
 export interface SearchCommunitiesParams {

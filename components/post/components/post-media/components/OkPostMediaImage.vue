@@ -10,7 +10,7 @@
     import { IPostMedia } from "~/models/posts/post-media/IPostMedia";
     import { IPostImage } from "~/models/posts/post-image/IPostImage";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
-    import OkFittedImg from '~/components/images/OkFittedImg.vue';
+    import OkFittedImg from '~/components/images/OkContainedImage.vue';
 
     @Component({
         name: "OkPostMediaImage",

@@ -8,7 +8,12 @@ import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { DataModel } from '~/models/abstract/DataModel';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
-import { userProfileDeserializer, userProfileSerializer } from '~/models/common/serializers';
+import {
+    dateDeserializer,
+    dateSerializer,
+    userProfileDeserializer,
+    userProfileSerializer
+} from '~/models/common/serializers';
 
 export class User extends DataModel<User> implements IUser {
     uuid!: string;
@@ -16,6 +21,7 @@ export class User extends DataModel<User> implements IUser {
     connectionsCircleId!: number;
     followersCount!: number;
     postsCount!: number;
+    dateJoined!: Date;
     inviteCount!: number;
     unreadNotificationsCount!: number;
     pendingCommunitiesModeratedObjectsCount!: number;
@@ -50,6 +56,12 @@ export class User extends DataModel<User> implements IUser {
         {
             dataKey: 'followers_count',
             attributeKey: 'followersCount'
+        },
+        {
+            dataKey: 'date_joined',
+            attributeKey: 'dateJoined',
+            deserializer: dateDeserializer,
+            serializer: dateSerializer,
         },
         {
             dataKey: 'posts_count',

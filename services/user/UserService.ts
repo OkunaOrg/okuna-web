@@ -40,6 +40,7 @@ import {
     GetPostReactionsEmojiApiCountParams,
     GetPostReactionsParams,
     GetTimelinePostsParams,
+    GetUserParams,
     GetTopPostsParams,
     GetTrendingPostsParams,
     GetUnreadNotificationsCountParams,
@@ -189,6 +190,14 @@ export class UserService implements IUserService {
 
     isLoggedIn(): boolean {
         return !!this.loggedInUser.value;
+    }
+
+    async getUser(params: GetUserParams): Promise<IUser> {
+        const response: AxiosResponse<UserData> = await this.authApiService.getUser({
+            userUsername: params.userUsername
+        });
+
+        return userFactory.make(response.data);
     }
 
     async getCommunity(params: GetCommunityParams): Promise<ICommunity> {
