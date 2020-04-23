@@ -27,7 +27,7 @@ export default {
         "post_comment_replies": {
             "load_more": "Load more replies"
         },
-        "load_more":{
+        "load_more": {
             "status_bar": {
                 "load_more": "Load more",
                 "loading": "Loading",
@@ -54,6 +54,15 @@ export default {
         "user_profile_age": {
             "age_in_years": "{years}y",
             "age_in_weeks": "{weeks}w",
+        },
+        "user_posts_count": {
+            "posts": "Posts",
+        },
+        "user_following_count": {
+            "following": "Following",
+        },
+        "user_followers_count": {
+            "followers": "Followers",
         }
     },
     "forms": {

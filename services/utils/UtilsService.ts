@@ -13,6 +13,15 @@ export class UtilsService implements IUtilsService {
                 @inject(TYPES.LocalizationService) private localizationService?: ILocalizationService) {
     }
 
+    private userFriendlyLargeNumberRanges = [
+        {divider: 1e18, suffix: 'e'},
+        {divider: 1e15, suffix: 'p'},
+        {divider: 1e12, suffix: 't'},
+        {divider: 1e9, suffix: 'g'},
+        {divider: 1e6, suffix: 'm'},
+        {divider: 1e3, suffix: 'k'}
+    ];
+
     generateUuid() {
         return uuidv4();
     }
@@ -98,5 +107,15 @@ export class UtilsService implements IUtilsService {
                 )
             })
             .join('&');
+    }
+
+    makeHumanFriendlyLargeNumberDisplay(n: number) {
+        for (let i = 0; i < this.userFriendlyLargeNumberRanges.length; i++) {
+            if (n >= this.userFriendlyLargeNumberRanges[i].divider) {
+                const number = (n / this.userFriendlyLargeNumberRanges[i].divider).toFixed(1);
+                return number.toString() + this.userFriendlyLargeNumberRanges[i].suffix;
+            }
+        }
+        return n.toString();
     }
 }

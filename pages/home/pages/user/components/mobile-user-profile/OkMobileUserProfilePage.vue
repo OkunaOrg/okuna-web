@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ok-has-background-primary has-height-100-percent">
         <ok-mobile-user-profile-header :user="user"></ok-mobile-user-profile-header>
         <ok-user-cover :user="user"></ok-user-cover>
         <ok-mobile-user-profile-card :user="user"></ok-mobile-user-profile-card>
