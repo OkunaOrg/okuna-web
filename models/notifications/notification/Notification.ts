@@ -1,7 +1,7 @@
-import { INotification } from 'models/notifications/notification/INotification';
-import { IUser } from 'models/auth/user/IUser';
-import { DataModel } from 'models/abstract/DataModel';
-import { DataModelAttributeMap } from 'models/abstract/IDataModel';
+import { INotification } from '~/models/notifications/notification/INotification';
+import { IUser } from '~/models/auth/user/IUser';
+import { DataModel } from '~/models/abstract/DataModel';
+import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from 'types/models-data/ModelData';
 import {
     dateDeserializer,

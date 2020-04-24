@@ -1,4 +1,4 @@
-import { DataModel } from 'models/abstract/DataModel';
+import { DataModel } from '~/models/abstract/DataModel';
 import { IModelFactory } from '~/interfaces/IModelFactory';
 import { BadgeData } from 'types/models-data/common/BadgeData';
 import { Badge } from '~/models/common/badge/Badge';

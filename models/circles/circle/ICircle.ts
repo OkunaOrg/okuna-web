@@ -1,5 +1,5 @@
-import { IUser } from 'models/auth/user/IUser';
-import { IDataModel } from 'models/abstract/IDataModel';
+import { IUser } from '~/models/auth/user/IUser';
+import { IDataModel } from '~/models/abstract/IDataModel';
 
 export interface ICircle extends IDataModel<ICircle> {
     creator: IUser;
