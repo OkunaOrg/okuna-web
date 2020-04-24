@@ -35,7 +35,6 @@
         }
     })
     export default class OkTimelinePage extends Vue {
-        // The amount of posts to retrieve at each chunk of the infinite load
         static infiniteScrollChunkPostsCount = 10;
 
         $observables!: {
