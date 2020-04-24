@@ -47,7 +47,7 @@ export class NotificationsApiService implements INotificationsApiService {
 
         if (params.maxId) queryParams['max_id'] = params.maxId;
 
-        if (params.count != null) queryParams['count'] = params;
+        if (params.count != null) queryParams['count'] = params.count;
 
         if (params.types) queryParams['types'] = params.types.map((type) => type.code);
 
