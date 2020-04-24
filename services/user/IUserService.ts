@@ -2,7 +2,7 @@ import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
-    CommentPostParams,
+    CommentPostParams, DeleteNotificationParams,
     DeletePostCommentParams, DeletePostCommentReactionParams,
     DeletePostParams,
     DeletePostReactionParams,
@@ -11,7 +11,7 @@ import {
     GetCommunityMembersParams,
     GetCommunityModeratorsParams,
     GetCommunityParams,
-    GetCommunityPostsCountParams,
+    GetCommunityPostsCountParams, GetNotificationsParams,
     GetPostCommentReactionsEmojiApiCountParams,
     GetPostCommentReactionsParams,
     GetPostCommentRepliesParams,
@@ -22,10 +22,10 @@ import {
     GetPostReactionsParams,
     GetTimelinePostsParams,
     GetTopPostsParams,
-    GetTrendingPostsParams,
+    GetTrendingPostsParams, GetUnreadNotificationsCountParams,
     JoinCommunityParams,
     LeaveCommunityParams, ReactToPostCommentParams,
-    ReactToPostParams,
+    ReactToPostParams, ReadNotificationParams, ReadNotificationsParams,
     ReplyToPostCommentParams,
     ReportCommunityParams, ReportPostCommentParams, ReportPostParams,
     SearchCommunitiesParams,
@@ -46,6 +46,7 @@ import {
     RegistrationResponse,
     RequestResetPasswordApiParams, ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
+import { INotification } from '~/models/notifications/notification/INotification';
 
 
 export interface IUserService {
@@ -156,4 +157,19 @@ export interface IUserService {
     reportPostComment(params: ReportPostCommentParams): Promise<void>;
 
     // POSTS END
+
+    // NOTIFICATIONS START
+
+    readNotifications(params: ReadNotificationsParams): Promise<void>;
+
+    getNotifications(params: GetNotificationsParams): Promise<INotification[]>;
+
+    readNotification(params: ReadNotificationParams): Promise<void>;
+
+    deleteNotification(params: DeleteNotificationParams): Promise<void>;
+
+    getUnreadNotificationsCount(params: GetUnreadNotificationsCountParams): Promise<number>;
+
+
+    // NOTIFICATIONS END
 }

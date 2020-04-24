@@ -12,14 +12,14 @@ export interface GetNotificationsApiParams {
 }
 
 export interface ReadNotificationApiParams {
-    notificationId: string;
+    notificationId: number;
 }
 
 export interface DeleteNotificationApiParams {
-    notificationId: string;
+    notificationId: number;
 }
 
-export interface GetUnreadNotificationsCountParams {
+export interface GetUnreadNotificationsCountApiParams {
     maxId?: number;
     types: NotificationType[]
 }

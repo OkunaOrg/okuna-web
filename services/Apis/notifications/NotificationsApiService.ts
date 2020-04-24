@@ -5,7 +5,7 @@ import { IStringTemplateService } from '~/services/string-template/IStringTempla
 import {
     GetNotificationsApiParams,
     ReadNotificationApiParams, DeleteNotificationApiParams,
-    ReadNotificationsApiParams, GetUnreadNotificationsCountParams, GetUnreadNotificationsCountResponse
+    ReadNotificationsApiParams, GetUnreadNotificationsCountApiParams, GetUnreadNotificationsCountResponse
 } from '~/services/Apis/notifications/NotificationsApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { NotificationData } from '~/types/models-data/notifications/NotificationData';
@@ -70,7 +70,7 @@ export class NotificationsApiService implements INotificationsApiService {
         return this.httpService.delete(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
-    getUnreadNotificationsCount(params: GetUnreadNotificationsCountParams): Promise<AxiosResponse<GetUnreadNotificationsCountResponse>> {
+    getUnreadNotificationsCount(params: GetUnreadNotificationsCountApiParams): Promise<AxiosResponse<GetUnreadNotificationsCountResponse>> {
         const url = NotificationsApiService.NOTIFICATIONS_UNREAD_COUNT_PATH;
 
         return this.httpService.get(url,

@@ -2,7 +2,7 @@ import { AxiosResponse } from '~/node_modules/axios';
 import {
     GetNotificationsApiParams,
     ReadNotificationApiParams, DeleteNotificationApiParams,
-    ReadNotificationsApiParams, GetUnreadNotificationsCountParams, GetUnreadNotificationsCountResponse,
+    ReadNotificationsApiParams, GetUnreadNotificationsCountApiParams, GetUnreadNotificationsCountResponse,
 } from '~/services/Apis/notifications/NotificationsApiServiceTypes';
 import { NotificationData } from '~/types/models-data/notifications/NotificationData';
 
@@ -15,6 +15,6 @@ export interface INotificationsApiService {
 
     deleteNotification(params: DeleteNotificationApiParams): Promise<AxiosResponse<void>>;
 
-    getUnreadNotificationsCount(params: GetUnreadNotificationsCountParams): Promise<AxiosResponse<GetUnreadNotificationsCountResponse>>;
+    getUnreadNotificationsCount(params: GetUnreadNotificationsCountApiParams): Promise<AxiosResponse<GetUnreadNotificationsCountResponse>>;
 
 }
