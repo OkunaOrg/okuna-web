@@ -39,6 +39,8 @@ import { IHistoryService } from '~/services/history/IHistoryService';
 import { HistoryService } from '~/services/history/HistoryService';
 import { IWindowService } from '~/services/window/IWindowService';
 import { WindowService } from '~/services/window/WindowService';
+import { INotificationsApiService } from '~/services/Apis/notifications/INotificationsApiService';
+import { NotificationsApiService } from '~/services/Apis/notifications/NotificationsApiService';
 
 const okunaContainer = new Container();
 
@@ -46,6 +48,7 @@ const okunaContainer = new Container();
 okunaContainer.bind<IAuthApiService>(TYPES.AuthApiService).to(AuthApiService).inSingletonScope();
 okunaContainer.bind<ICommunitiesApiService>(TYPES.CommunitiesApiService).to(CommunitiesApiService).inSingletonScope();
 okunaContainer.bind<IPostsApiService>(TYPES.PostsApiService).to(PostsApiService).inSingletonScope();
+okunaContainer.bind<INotificationsApiService>(TYPES.NotificationsApiService).to(NotificationsApiService).inSingletonScope();
 okunaContainer.bind<IHttpService>(TYPES.HttpService).to(HttpService).inSingletonScope();
 okunaContainer.bind<ILocalizationService>(TYPES.LocalizationService).to(LocalizationService).inSingletonScope();
 okunaContainer.bind<INavigationService>(TYPES.NavigationService).to(NavigationService).inSingletonScope();
