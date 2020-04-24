@@ -21,7 +21,7 @@ export interface NotificationData extends ModelData {
     read: boolean;
 }
 
-type NotificationContentData = CommunityInviteNotificationData |
+export type NotificationContentData = CommunityInviteNotificationData |
     CommunityNewPostNotificationData |
     ConnectionConfirmedNotificationData |
     ConnectionRequestNotificationData |
