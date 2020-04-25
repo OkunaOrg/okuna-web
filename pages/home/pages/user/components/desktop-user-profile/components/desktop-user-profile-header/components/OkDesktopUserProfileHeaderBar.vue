@@ -8,15 +8,14 @@
             ></ok-user-avatar>
         </div>
         <div class="column is-flex align-items-center">
-            <div class="columns is-variable is-2">
-                <div class="column is-narrow" v-if="user.profile.followersCountVisible">
-                    <ok-user-profile-followers-count :user="user"></ok-user-profile-followers-count>
-                </div>
-                <div class="column is-narrow">
-                    <ok-user-profile-posts-count :user="user"></ok-user-profile-posts-count>
-                </div>
-                <div class="column is-narrow">
-                    <ok-user-profile-following-count :user="user"></ok-user-profile-following-count>
+            <div class="columns is-gapless">
+                <div class="column">
+                    <div class="is-size-5 has-text-weight-bold ok-has-text-primary-invert is-flex align-center">
+                        {{user.profile.name}}
+                    </div>
+                    <div class="is-size-6 has-text-weight-bold ok-has-text-primary-invert-80 is-flex align-center">
+                        @{{user.username}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -32,14 +31,16 @@
 <style lang="scss">
 
     .ok-desktop-user-profile-header-bar{
-        height: 65px;
+        height: 95px;
     }
+
+    $header-avatar-padding: 25px;
 
     .ok-desktop-user-profile-header-avatar {
         position: absolute;
-        left: 30px;
-        right: 30px;
-        bottom: 30px;
+        left: $header-avatar-padding;
+        right: $header-avatar-padding;
+        bottom: $header-avatar-padding;
     }
 
 </style>
