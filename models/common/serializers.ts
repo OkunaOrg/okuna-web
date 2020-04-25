@@ -1,7 +1,6 @@
 import Color from 'color';
 import { EmojiData } from '~/types/models-data/common/EmojiData';
 import emojiFactory from '~/models/common/emoji/factory';
-import { Emoji } from '~/models/common/emoji/Emoji';
 import { PostData } from '~/types/models-data/posts/PostData';
 import { Post } from '~/models/posts/post/Post';
 import postFactory from '~/models/posts/post/factory';
@@ -60,6 +59,22 @@ import { IEmoji } from '~/models/common/emoji/IEmoji';
 import userProfileFactory from '~/models/auth/user-profile/factory';
 import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
+import { NotificationType } from '~/models/notifications/notification/lib/NotificationType';
+import { NotificationContentData } from '~/types/models-data/notifications/NotificationData';
+import { INotification } from '~/models/notifications/notification/INotification';
+import { CommunityInviteData } from '~/types/models-data/communities/CommunityInviteData';
+import { CommunityInvite } from '~/models/communities/community/community-invite/CommunityInvite';
+import communityInviteFactory from '~/models/communities/community/community-invite/factory';
+import communityNewPostNotificationFactory from '~/models/notifications/community-new-post-notification/factory';
+import connectionConfirmedNotificationFactory from '~/models/notifications/connection-confirmed-notification/factory';
+import connectionRequestNotificationFactory from '~/models/notifications/connection-request-notification/factory';
+import followNotificationFactory from '~/models/notifications/follow-notification/factory';
+import postCommentNotificationFactory from '~/models/notifications/post-comment-notification/factory';
+import postCommentReactionNotificationFactory from '~/models/notifications/post-comment-reaction-notification/factory';
+import postCommentReplyNotificationFactory from '~/models/notifications/post-comment-reply-notification/factory';
+import postCommentUserMentionNotificationFactory
+    from '~/models/notifications/post-comment-user-mention-notification/factory';
+import userNewPostNotificationFactory from '~/models/notifications/user-new-post-notification/factory';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;
@@ -362,4 +377,71 @@ export const postMediaContentObjectDeserializer = (instance: PostMedia, rawData:
 
 export const postMediaContentObjectTypeSerializer = (instance, attribute: Object) => {
     return attribute.toString();
+};
+
+export const notificationTypeDeserializer = (instance, rawData: string) => {
+    return NotificationType.parse(rawData);
+};
+
+export const notificationTypeSerializer = (instance, attribute: NotificationType) => {
+    return attribute.toString();
+};
+
+
+export const notificationContentObjectDeserializer = (instance: INotification, rawData: any) => {
+    let contentObject;
+    switch (instance.type) {
+        case NotificationType.communityInvite:
+            contentObject = communityInviteFactory.make(rawData);
+            break;
+        case NotificationType.communityNewPost:
+            contentObject = communityNewPostNotificationFactory.make(rawData);
+            break;
+        case NotificationType.connectionConfirmed:
+            contentObject = connectionConfirmedNotificationFactory.make(rawData);
+            break;
+        case NotificationType.connectionRequest:
+            contentObject = connectionRequestNotificationFactory.make(rawData);
+            break;
+        case NotificationType.follow:
+            contentObject = followNotificationFactory.make(rawData);
+            break;
+        case NotificationType.postComment:
+            contentObject = postCommentNotificationFactory.make(rawData);
+            break;
+        case NotificationType.postCommentReaction:
+            contentObject = postCommentReactionNotificationFactory.make(rawData);
+            break;
+        case NotificationType.postCommentReply:
+            contentObject = postCommentReplyNotificationFactory.make(rawData);
+            break;
+        case NotificationType.postCommentUserMention:
+            contentObject = postCommentUserMentionNotificationFactory.make(rawData);
+            break;
+        case NotificationType.postReaction:
+            contentObject = postCommentReactionNotificationFactory.make(rawData);
+            break;
+        case NotificationType.postUserMention:
+            contentObject = postCommentUserMentionNotificationFactory.make(rawData);
+            break;
+        case NotificationType.userNewPost:
+            contentObject = userNewPostNotificationFactory.make(rawData);
+            break;
+        default:
+            console.error('Unsupported notification content object type');
+    }
+
+    return contentObject;
+};
+
+export const notificationContentObjectTypeSerializer = (instance, attribute: Object) => {
+    return attribute.toString();
+};
+
+
+export const communityInviteDeserializer = (instance, rawData: CommunityInviteData) => {
+    return communityInviteFactory.make(rawData);
+};
+export const communityInviteSerializer = (instance, attribute: CommunityInvite) => {
+    return attribute.serialize();
 };

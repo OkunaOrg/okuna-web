@@ -9,6 +9,8 @@ import { IEmoji } from '~/models/common/emoji/IEmoji';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
+import { NotificationType } from '~/models/notifications/notification/lib/NotificationType';
+import { INotification } from '~/models/notifications/notification/INotification';
 
 // COMMUNITIES START
 
@@ -218,3 +220,32 @@ export interface ReportPostParams {
 }
 
 // POSTS END
+
+// NOTIFICATIONS START
+
+export interface ReadNotificationsParams {
+    maxId?: number;
+    types: NotificationType[]
+}
+
+export interface GetNotificationsParams {
+    maxId?: number;
+    types: NotificationType[]
+    count?: number;
+}
+
+export interface ReadNotificationParams {
+    notification: INotification;
+}
+
+export interface DeleteNotificationParams {
+    notification: INotification;
+}
+
+export interface GetUnreadNotificationsCountParams {
+    maxId?: number;
+    types: NotificationType[]
+}
+
+
+// NOTIFICATIONS END

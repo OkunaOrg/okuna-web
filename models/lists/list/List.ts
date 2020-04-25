@@ -1,7 +1,7 @@
-import { IList } from 'models/lists/list/IList';
-import { IUser } from 'models/auth/user/IUser';
-import { DataModel } from 'models/abstract/DataModel';
-import { DataModelAttributeMap } from 'models/abstract/IDataModel';
+import { IList } from '~/models/lists/list/IList';
+import { IUser } from '~/models/auth/user/IUser';
+import { DataModel } from '~/models/abstract/DataModel';
+import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from 'types/models-data/ModelData';
 import { IEmoji } from '~/models/common/emoji/IEmoji';
 import { emojiDeserializer, emojiSerializer, userDeserializer, userSerializer } from '~/models/common/serializers';

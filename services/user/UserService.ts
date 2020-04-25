@@ -19,6 +19,7 @@ import { ILoggingService } from '~/services/logging/ILoggingService';
 import { IOkLogger } from '~/services/logging/types';
 import {
     CommentPostParams,
+    DeleteNotificationParams,
     DeletePostCommentParams,
     DeletePostCommentReactionParams,
     DeletePostParams,
@@ -29,6 +30,7 @@ import {
     GetCommunityModeratorsParams,
     GetCommunityParams,
     GetCommunityPostsCountParams,
+    GetNotificationsParams,
     GetPostCommentReactionsEmojiApiCountParams,
     GetPostCommentReactionsParams,
     GetPostCommentRepliesParams,
@@ -38,10 +40,19 @@ import {
     GetPostReactionsEmojiApiCountParams,
     GetPostReactionsParams,
     GetTimelinePostsParams,
-    GetTopPostsParams, GetTrendingPostsParams,
+    GetTopPostsParams,
+    GetTrendingPostsParams,
+    GetUnreadNotificationsCountParams,
     JoinCommunityParams,
-    LeaveCommunityParams, ReactToPostCommentParams, ReactToPostParams, ReplyToPostCommentParams,
-    ReportCommunityParams, ReportPostCommentParams, ReportPostParams,
+    LeaveCommunityParams,
+    ReactToPostCommentParams,
+    ReactToPostParams,
+    ReadNotificationParams,
+    ReadNotificationsParams,
+    ReplyToPostCommentParams,
+    ReportCommunityParams,
+    ReportPostCommentParams,
+    ReportPostParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
@@ -80,6 +91,11 @@ import { TopPostData } from '~/types/models-data/posts/TopPostData';
 import trendingPostFactory from '~/models/posts/trending-post/factory';
 import topPostFactory from '~/models/posts/top-post/factory';
 import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
+import { NotificationData } from '~/types/models-data/notifications/NotificationData';
+import { INotificationsApiService } from '~/services/Apis/notifications/INotificationsApiService';
+import notificationFactory from '~/models/notifications/notification/factory';
+import { INotification } from '~/models/notifications/notification/INotification';
+import { GetUnreadNotificationsCountResponse } from '~/services/Apis/notifications/NotificationsApiServiceTypes';
 
 @injectable()
 export class UserService implements IUserService {
@@ -92,6 +108,7 @@ export class UserService implements IUserService {
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
                 @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
+                @inject(TYPES.NotificationsApiService) private notificationsApiService?: INotificationsApiService,
                 @inject(TYPES.HttpService) private httpService?: IHttpService,
                 @inject(TYPES.StorageService)  storageService?: IStorageService,
                 @inject(TYPES.LoggingService)  loggingService?: ILoggingService
@@ -510,6 +527,46 @@ export class UserService implements IUserService {
             postCommentId: params.postComment.id,
             moderationCategoryId: params.moderationCategory.id,
             description: params.description,
+        });
+    }
+
+
+    async getNotifications(params: GetNotificationsParams): Promise<INotification[]> {
+        const response: AxiosResponse<NotificationData[]> = await this.notificationsApiService.getNotifications({
+            maxId: params.maxId,
+            count: params.count,
+            types: params.types
+        });
+
+        return notificationFactory.makeMultiple(response.data);
+    }
+
+    async readNotifications(params: ReadNotificationsParams): Promise<void> {
+        await this.notificationsApiService.readNotifications({
+            types: params.types,
+            maxId: params.maxId
+        });
+    }
+
+    async getUnreadNotificationsCount(params: GetUnreadNotificationsCountParams): Promise<number> {
+        const response: AxiosResponse<GetUnreadNotificationsCountResponse> = await this.notificationsApiService.getUnreadNotificationsCount({
+            maxId: params.maxId,
+            types: params.types
+        });
+
+        return response.data.count;
+
+    }
+
+    async readNotification(params: ReadNotificationParams): Promise<void> {
+        await this.notificationsApiService.readNotification({
+            notificationId: params.notification.id
+        });
+    }
+
+    async deleteNotification(params: DeleteNotificationParams): Promise<void> {
+        await this.notificationsApiService.deleteNotification({
+            notificationId: params.notification.id
         });
     }
 
