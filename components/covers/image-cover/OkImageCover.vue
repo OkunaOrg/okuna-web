@@ -8,10 +8,19 @@
 
     .ok-image-cover-medium {
         height: 190px;
+
+        @include for-size(desktop-up) {
+            height: 300px;
+        }
+
     }
 
     .ok-image-cover-large {
         height: 190px;
+
+        @include for-size(desktop-up) {
+            height: 300px;
+        }
     }
 </style>
 

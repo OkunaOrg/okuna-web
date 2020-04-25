@@ -1,5 +1,5 @@
 <template>
-    <span class="ok-has-text-primary-invert-80 is-size-7-touch">
+    <span class="ok-has-text-primary-invert-80 is-size-7-touch is-size-5">
         <strong class="ok-has-text-primary-invert-80">
             {{humanFriendlyFollowingCount}}
         </strong>

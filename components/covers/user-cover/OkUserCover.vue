@@ -2,7 +2,6 @@
     <div>
         <ok-image-cover :cover-url="user.profile.cover" :cover-size="this.coverSize">
         </ok-image-cover>
-
     </div>
 </template>
 
