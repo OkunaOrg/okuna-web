@@ -15,9 +15,8 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import { IUser } from "~/models/auth/user/IUser";
     import OkUserCover from "~/components/covers/user-cover/OkUserCover.vue";
-    import Color = require("~/node_modules/@types/color");
+    import Color from 'color';
 
     @Component({
         name: "OkMobileHeader",

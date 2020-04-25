@@ -27,8 +27,8 @@
     import OkDesktopUserPage from "~/pages/home/pages/user/components/desktop-user-profile/OkDesktopUserProfilePage.vue";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUserService } from "~/services/user/IUserService";
-    import { IUser } from "~/models/users/user/IUser";
     import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IUser } from '~/models/auth/user/IUser';
 
 
     @Component({
