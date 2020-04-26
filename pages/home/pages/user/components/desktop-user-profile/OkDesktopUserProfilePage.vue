@@ -4,9 +4,12 @@
             <div class="has-padding-30">
                 <ok-desktop-user-profile-header :user="user"></ok-desktop-user-profile-header>
             </div>
-            <div class="columns has-padding-bottom-30 has-padding-left-30 has-padding-right-30">
+            <div class="columns has-padding-bottom-30 has-padding-left-30 has-padding-right-30" sticky-container>
                 <div class="column is-5">
-                    <ok-desktop-user-profile-sidebar :user="user"></ok-desktop-user-profile-sidebar>
+                    <div v-sticky
+                         :sticky-z-index="9999">
+                        <ok-desktop-user-profile-sidebar :user="user"></ok-desktop-user-profile-sidebar>
+                    </div>
                 </div>
                 <div class="column">
                     <ok-desktop-user-profile-timeline :user="user"></ok-desktop-user-profile-timeline>
@@ -22,6 +25,13 @@
         width: 100%;
         max-width: 1190px;
         position: relative;
+
+        .top-sticky {
+            .ok-desktop-user-profile-sidebar {
+                position: relative;
+                top: 95px !important;
+            }
+        }
     }
 
 </style>
@@ -38,13 +48,14 @@
     import OkDesktopUserProfileSidebar
         from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-sidebar/OkDesktopUserProfileSidebar.vue";
     import OkDesktopUserProfileTimeline
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-timeline/OkDesktopUserProfileTimeline.vue';
+        from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-timeline/OkDesktopUserProfileTimeline.vue";
 
     @Component({
         name: "OkDesktopUserProfilePage",
         components: {
             OkDesktopUserProfileTimeline,
-            OkDesktopUserProfileSidebar, OkDesktopUserProfileHeader, OkUserAvatar, OkUserCover},
+            OkDesktopUserProfileSidebar, OkDesktopUserProfileHeader, OkUserAvatar, OkUserCover
+        },
     })
     export default class OkDesktopUserProfilePage extends Vue {
         @Prop({
@@ -53,6 +64,12 @@
         }) readonly user: IUser;
 
         OkAvatarSize = OkAvatarSize;
+
+        get stickyOffset() {
+            return {
+                top: 100
+            }
+        }
 
     }
 </script>

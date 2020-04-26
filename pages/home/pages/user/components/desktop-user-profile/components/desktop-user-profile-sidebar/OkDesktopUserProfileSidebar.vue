@@ -1,5 +1,5 @@
 <template>
-    <div class="columns flex-direction-column is-variable">
+    <div class="columns flex-direction-column is-variable ok-desktop-user-profile-sidebar">
         <div class="column">
             <ok-desktop-user-profile-sidebar-details :user="user"></ok-desktop-user-profile-sidebar-details>
         </div>
