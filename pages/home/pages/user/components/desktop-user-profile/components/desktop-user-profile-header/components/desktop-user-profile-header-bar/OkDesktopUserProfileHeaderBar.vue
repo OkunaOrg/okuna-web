@@ -17,11 +17,11 @@
                 </div>
             </div>
         </div>
-        <div class="column is-narrow is-flex justify-center align-items-center">
+  <!--      <div class="column is-narrow is-flex justify-center align-items-center">
            <div class="has-padding-left-20 has-padding-right-20">
                <button class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">Manage</button>
            </div>
-        </div>
+        </div>-->
     </footer>
 </template>
 

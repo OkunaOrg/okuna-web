@@ -131,6 +131,8 @@ export default {
             "email": "E-mail",
             "password": "Password",
             "username": "Username",
+            "about": "About",
+            "manage": "Manage"
         },
         "snippets": {
             "forgot_password": "Forgot password?",

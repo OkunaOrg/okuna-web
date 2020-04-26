@@ -1,22 +1,10 @@
 <template>
-    <div class="card ok-has-background-primary">
-        <div class="card-content ok-has-border-bottom-primary-highlight">
-            <div class="content ok-has-text-primary-invert">
-                <ok-smart-text :text="user.profile.bio"></ok-smart-text>
-            </div>
+    <div class="columns flex-direction-column is-variable">
+        <div class="column">
+            <ok-desktop-user-profile-sidebar-details :user="user"></ok-desktop-user-profile-sidebar-details>
         </div>
-        <div class="card-content">
-            <div class="columns is-mobile is-multiline is-variable is-3 is-marginless">
-                <div class="column is-narrow" v-if="user.profile.location">
-                    <ok-user-profile-location :user="user"></ok-user-profile-location>
-                </div>
-                <div class="column is-narrow" v-if="user.profile.url">
-                    <ok-user-profile-url :user="user"></ok-user-profile-url>
-                </div>
-                <div class="column is-narrow">
-                    <ok-user-profile-age :user="user"></ok-user-profile-age>
-                </div>
-            </div>
+        <div class="column">
+            <ok-desktop-user-profile-sidebar-actions :user="user"></ok-desktop-user-profile-sidebar-actions>
         </div>
     </div>
 </template>
@@ -25,14 +13,17 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IUser } from "~/models/auth/user/IUser";
-    import OkSmartText from '~/components/smart-text/OkSmartText.vue';
-    import OkUserProfileLocation from '~/pages/home/pages/user/components/shared/OkUserProfileLocation.vue';
-    import OkUserProfileUrl from '~/pages/home/pages/user/components/shared/OkUserProfileUrl.vue';
-    import OkUserProfileAge from '~/pages/home/pages/user/components/shared/OkUserProfileAge.vue';
+    import OkDesktopUserProfileSidebarDetails
+        from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-sidebar/components/OkDesktopUserProfileSidebarDetails.vue";
+    import OkDesktopUserProfileSidebarActions
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-sidebar/components/OkDesktopUserProfileSidebarActions.vue';
 
     @Component({
         name: "OkDesktopUserProfileSidebar",
-        components: {OkUserProfileAge, OkUserProfileUrl, OkUserProfileLocation, OkSmartText},
+        components: {
+            OkDesktopUserProfileSidebarActions,
+            OkDesktopUserProfileSidebarDetails,
+        },
     })
     export default class OkDesktopUserProfileSidebar extends Vue {
         @Prop({
