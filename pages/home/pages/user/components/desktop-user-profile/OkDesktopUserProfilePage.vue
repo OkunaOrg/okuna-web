@@ -4,6 +4,14 @@
             <div class="has-padding-30">
                 <ok-desktop-user-profile-header :user="user"></ok-desktop-user-profile-header>
             </div>
+            <div class="columns has-padding-bottom-30 has-padding-left-30 has-padding-right-30">
+                <div class="column is-5">
+                    <ok-desktop-user-profile-sidebar :user="user"></ok-desktop-user-profile-sidebar>
+                </div>
+                <div class="column">
+                    <ok-desktop-user-profile-timeline :user="user"></ok-desktop-user-profile-timeline>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -12,7 +20,7 @@
 <style lang="scss">
     .ok-desktop-user-profile-page {
         width: 100%;
-        max-width: 1444px;
+        max-width: 1190px;
         position: relative;
     }
 
@@ -26,11 +34,17 @@
     import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkDesktopUserProfileHeader
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/OkDesktopUserProfileHeader.vue';
+        from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/OkDesktopUserProfileHeader.vue";
+    import OkDesktopUserProfileSidebar
+        from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-sidebar/OkDesktopUserProfileSidebar.vue";
+    import OkDesktopUserProfileTimeline
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-timeline/OkDesktopUserProfileTimeline.vue';
 
     @Component({
         name: "OkDesktopUserProfilePage",
-        components: {OkDesktopUserProfileHeader, OkUserAvatar, OkUserCover},
+        components: {
+            OkDesktopUserProfileTimeline,
+            OkDesktopUserProfileSidebar, OkDesktopUserProfileHeader, OkUserAvatar, OkUserCover},
     })
     export default class OkDesktopUserProfilePage extends Vue {
         @Prop({

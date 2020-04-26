@@ -94,7 +94,6 @@
                 this.postElementWidth = window.innerWidth;
             }
 
-            console.log('Post width is', this.postElementWidth);
         }
     }
 </script>

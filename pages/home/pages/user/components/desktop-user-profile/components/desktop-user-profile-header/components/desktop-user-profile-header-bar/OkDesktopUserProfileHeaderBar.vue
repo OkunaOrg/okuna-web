@@ -51,9 +51,9 @@
     import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkDesktopUserProfileHeaderBarStats
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/components/OkDesktopUserProfileHeaderBarStats.vue';
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarStats.vue';
     import OkDesktopUserProfileHeaderBarIds
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/components/OkDesktopUserProfileHeaderBarIds.vue';
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarIds.vue';
 
     @Component({
         name: "OkDesktopUserProfileHeaderBar",

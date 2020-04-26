@@ -14,7 +14,7 @@
     import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkDesktopUserProfileHeaderBar
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/OkDesktopUserProfileHeaderBar.vue';
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/OkDesktopUserProfileHeaderBar.vue';
 
     @Component({
         name: "OkDesktopUserProfileHeader",
