@@ -8,14 +8,12 @@
             ></ok-user-avatar>
         </div>
         <div class="column is-flex align-items-center">
-            <div class="columns is-gapless">
-                <div class="column">
-                    <div class="is-size-5 has-text-weight-bold ok-has-text-primary-invert is-flex align-center">
-                        {{user.profile.name}}
-                    </div>
-                    <div class="is-size-6 has-text-weight-bold ok-has-text-primary-invert-80 is-flex align-center">
-                        @{{user.username}}
-                    </div>
+            <div class="columns has-width-100-percent is-variable is-8">
+                <div class="column flex-direction-column is-narrow is-flex justify-center">
+                    <ok-desktop-user-profile-header-bar-ids :user="user"></ok-desktop-user-profile-header-bar-ids>
+                </div>
+                <div class="column flex-direction-column is-narrow is-flex align-items-center justify-center">
+                    <ok-desktop-user-profile-header-bar-stats :user="user"></ok-desktop-user-profile-header-bar-stats>
                 </div>
             </div>
         </div>
@@ -52,15 +50,16 @@
     import OkUserCover from "~/components/covers/user-cover/OkUserCover.vue";
     import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
-    import OkUserProfilePostsCount from '~/pages/home/pages/user/components/shared/OkUserProfilePostsCount.vue';
-    import OkUserProfileFollowersCount from '~/pages/home/pages/user/components/shared/OkUserProfileFollowersCount.vue';
-    import OkUserProfileFollowingCount from '~/pages/home/pages/user/components/shared/OkUserProfileFollowingCount.vue';
+    import OkDesktopUserProfileHeaderBarStats
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/components/OkDesktopUserProfileHeaderBarStats.vue';
+    import OkDesktopUserProfileHeaderBarIds
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/components/OkDesktopUserProfileHeaderBarIds.vue';
 
     @Component({
         name: "OkDesktopUserProfileHeaderBar",
         components: {
-            OkUserProfileFollowingCount,
-            OkUserProfileFollowersCount, OkUserProfilePostsCount, OkUserAvatar, OkUserCover},
+            OkDesktopUserProfileHeaderBarIds,
+            OkDesktopUserProfileHeaderBarStats, OkUserAvatar, OkUserCover},
     })
     export default class OkDesktopUserProfileHeaderBar extends Vue {
         @Prop({
