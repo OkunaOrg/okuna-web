@@ -1,20 +1,28 @@
 <template>
     <div class="media">
         <div class="media-left">
-            <ok-community-avatar v-if="post.community" :community="post.community"
-                            :avatar-size="this.OkAvatarSize.medium">
-            </ok-community-avatar>
+            <nuxt-link v-if="post.community" :to='communityUrl'>
+                <ok-community-avatar v-if="post.community" :community="post.community"
+                                     :avatar-size="this.OkAvatarSize.medium">
+                </ok-community-avatar>
+            </nuxt-link>
             <ok-user-avatar v-else :user="post.creator"
                             :avatar-size="this.OkAvatarSize.medium">
             </ok-user-avatar>
         </div>
         <div class="media-content has-overflow-hidden">
             <div v-if="post.community">
-                <p class="title is-6 ok-has-text-primary-invert">{{post.community.title}}</p>
+                <p class="title is-6 ok-has-text-primary-invert">
+                    <nuxt-link :to="communityUrl">
+                        {{post.community.title}}
+                    </nuxt-link>
+                </p>
                 <p class="subtitle is-7 ok-has-text-primary-invert-80">
-                    <span class="has-text-weight-bold">
-                    c/{{post.community.name}}
-                    </span>
+                    <nuxt-link :to="communityUrl">
+                        <span class="has-text-weight-bold">
+                                c/{{post.community.name}}
+                        </span>
+                    </nuxt-link>
                     <span>
                     ·
                     </span>
@@ -66,6 +74,10 @@
 
         broadcastWantsToOpenPostActions() {
             this.$emit("onWantsToOpenPostActions", this.post);
+        }
+
+        get communityUrl(){
+            return `/c/${this.post.community.name}`;
         }
 
 
