@@ -18,6 +18,7 @@ export interface IUser extends IDataModel<IUser> {
     username: string;
     followingCount: number;
     isFollowing: boolean;
+    isFollowed: boolean;
     isConnected: boolean;
     isGlobalModerator: boolean;
     isBlocked: boolean;
@@ -28,4 +29,8 @@ export interface IUser extends IDataModel<IUser> {
 
     connectedCircles: ICircle[];
     profile: IUserProfile;
+
+
+    incrementFollowersCount(): void;
+    decrementFollowersCount(): void;
 }

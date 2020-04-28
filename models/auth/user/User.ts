@@ -30,6 +30,7 @@ export class User extends DataModel<User> implements IUser {
     username!: string;
     followingCount!: number;
     isFollowing!: boolean;
+    isFollowed!: boolean;
     isConnected!: boolean;
     isGlobalModerator!: boolean;
     isBlocked!: boolean;
@@ -98,6 +99,9 @@ export class User extends DataModel<User> implements IUser {
         {
             dataKey: 'is_following',
             attributeKey: 'isFollowing'
+        }, {
+            dataKey: 'is_followed',
+            attributeKey: 'isFollowed'
         },
         {
             dataKey: 'is_connected',
@@ -146,6 +150,14 @@ export class User extends DataModel<User> implements IUser {
     constructor(data: ModelData) {
         super(data);
         this.updateWithData(data);
+    }
+
+    decrementFollowersCount(): void {
+        this.followersCount = this.followersCount - 1;
+    }
+
+    incrementFollowersCount(): void {
+        this.followersCount = this.followersCount + 1;
     }
 
 }

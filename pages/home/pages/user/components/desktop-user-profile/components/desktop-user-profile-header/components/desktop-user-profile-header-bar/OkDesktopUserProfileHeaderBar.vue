@@ -18,9 +18,10 @@
             </div>
         </div>
         <div class="column is-narrow is-flex justify-center align-items-center">
-           <div class="has-padding-left-20 has-padding-right-20">
-               <button class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">Manage</button>
-           </div>
+            <div class="has-padding-left-20 has-padding-right-20">
+                <ok-desktop-user-profile-header-bar-action-buttons
+                        :user="user"></ok-desktop-user-profile-header-bar-action-buttons>
+            </div>
         </div>
     </footer>
 </template>
@@ -28,7 +29,7 @@
 
 <style lang="scss">
 
-    .ok-desktop-user-profile-header-bar{
+    .ok-desktop-user-profile-header-bar {
         height: 95px;
     }
 
@@ -51,15 +52,19 @@
     import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkDesktopUserProfileHeaderBarStats
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarStats.vue';
+        from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarStats.vue";
     import OkDesktopUserProfileHeaderBarIds
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarIds.vue';
+        from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarIds.vue";
+    import OkDesktopUserProfileHeaderBarActionButtons
+        from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarActionButtons";
 
     @Component({
         name: "OkDesktopUserProfileHeaderBar",
         components: {
+            OkDesktopUserProfileHeaderBarActionButtons,
             OkDesktopUserProfileHeaderBarIds,
-            OkDesktopUserProfileHeaderBarStats, OkUserAvatar, OkUserCover},
+            OkDesktopUserProfileHeaderBarStats, OkUserAvatar, OkUserCover
+        },
     })
     export default class OkDesktopUserProfileHeaderBar extends Vue {
         @Prop({

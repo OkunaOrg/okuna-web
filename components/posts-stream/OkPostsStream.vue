@@ -5,12 +5,14 @@
             <ok-post :post="post" :post-display-context="postsDisplayContext"></ok-post>
         </div>
 
-        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+        <infinite-loading
+                ref="infiniteLoading"
+                @infinite="infiniteHandler"></infinite-loading>
     </div>
 </template>
 
 <style lang="scss">
-    .ok-posts-stream{
+    .ok-posts-stream {
         min-width: 100%;
 
         @include for-size(tablet-portrait-up) {
@@ -32,9 +34,10 @@
         OkPostsStreamOnScrollLoader,
         OkPostsStreamRefresher
     } from "~/components/posts-stream/lib/OkPostsStreamParams";
-    import { IUtilsService } from '~/services/utils/IUtilsService';
-    import { TYPES } from '~/services/inversify-types';
-    import { okunaContainer } from '~/services/inversify';
+    import { IUtilsService } from "~/services/utils/IUtilsService";
+    import { TYPES } from "~/services/inversify-types";
+    import { okunaContainer } from "~/services/inversify";
+    import InfiniteLoading from "vue-infinite-loading";
 
     @Component({
         name: "OkPostsStream",
@@ -60,8 +63,12 @@
         @Prop({
             type: String,
             required: false,
-            default: ''
+            default: ""
         }) readonly postContainerClass: string;
+
+        $refs!: {
+            infiniteLoading: InfiniteLoading
+        };
 
         posts: IPost[] = [];
 
@@ -88,6 +95,22 @@
                 $vueInfiniteLoadingState.error();
                 this.utilsService.handleErrorWithToast(error);
             }
+        }
+
+        // Public API methods
+
+        refresh() {
+            this.posts = [];
+            this.$refs.infiniteLoading.stateChanger.reset();
+        }
+
+        addPostToTop(post: IPost) {
+            this.posts.unshift(post);
+        }
+
+        removePost(post: IPost) {
+            const indexOfPost = this.posts.indexOf(post);
+            if (indexOfPost > -1) this.posts = this.posts.splice(indexOfPost, 1);
         }
 
     }
