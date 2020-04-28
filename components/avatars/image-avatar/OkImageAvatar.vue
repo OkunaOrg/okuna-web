@@ -53,7 +53,8 @@
 
         get finalAvatarUrl() {
             if (this.avatarFile) return URL.createObjectURL(this.avatarFile);
-            return this.avatarUrl;
+            if(this.avatarUrl) return this.avatarUrl;
+            return require('./assets/avatar-fallback.jpg');
         }
 
         get borderRadiusClass() {

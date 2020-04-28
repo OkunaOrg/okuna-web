@@ -46,7 +46,8 @@
 
         get finalCoverUrl() {
             if (this.coverFile) return URL.createObjectURL(this.coverFile);
-            return this.coverUrl;
+            if(this.coverUrl) return this.coverUrl;
+            return require('./assets/cover-fallback.jpg');
         }
 
         get coverClass() {
