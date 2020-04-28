@@ -1,13 +1,11 @@
 <template>
     <section id="home-timeline-posts" class="is-flex flex-column align-items-center" v-if="loggedInUser">
-        <div style="min-width:100px ; min-height: 100px;">
-            <ok-posts-stream
-                    :posts-display-context="postDisplayContext"
-                    :refresher="postsRefresher"
-                    :on-scroll-loader="postsOnScrollLoader"
-                    post-container-class="has-padding-30-tablet"
-            ></ok-posts-stream>
-        </div>
+        <ok-posts-stream
+                :posts-display-context="postDisplayContext"
+                :refresher="postsRefresher"
+                :on-scroll-loader="postsOnScrollLoader"
+                post-container-class="has-padding-30-tablet"
+        ></ok-posts-stream>
     </section>
 </template>
 
