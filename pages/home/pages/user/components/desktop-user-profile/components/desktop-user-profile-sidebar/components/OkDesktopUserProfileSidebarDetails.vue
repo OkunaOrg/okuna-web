@@ -1,10 +1,10 @@
 <template>
     <div class="card ok-has-background-primary">
-        <div class="card-content ok-has-border-bottom-primary-highlight">
-            <p class="menu-label ok-has-text-primary-invert-80">
+        <div :class="{'ok-has-border-bottom-primary-highlight': user.profile.bio}">
+            <p class="menu-label ok-has-text-primary-invert-80 has-padding-left-20 has-padding-right-20 has-padding-top-20 is-marginless">
                 {{$t('global.keywords.about')}}
             </p>
-            <div class="content ok-has-text-primary-invert">
+            <div v-if="user.profile.bio" class="content ok-has-text-primary-invert has-padding-top-10 has-padding-right-20 has-padding-left-20 has-padding-bottom-20">
                 <ok-smart-text :text="user.profile.bio"></ok-smart-text>
             </div>
         </div>
