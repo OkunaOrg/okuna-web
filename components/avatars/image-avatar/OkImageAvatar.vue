@@ -12,8 +12,12 @@
                 v-else-if="this.avatarSize === this.OkAvatarSize.medium">
             <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
         </figure>
-        <figure class="image is-128x128"
+        <figure class="image is-96x96"
                 v-else-if="this.avatarSize === this.OkAvatarSize.large">
+            <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
+        </figure>
+        <figure class="image is-128x128"
+                v-else-if="this.avatarSize === this.OkAvatarSize.extraLarge">
             <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
         </figure>
     </div>

@@ -64,6 +64,7 @@
         get cssClass() {
             let borderRadiusClass = this.avatarBorderRadius === OkAvatarBorderRadius.rounded ? "is-semi-rounded" : "is-rounded";
             let sizeClass;
+            let textClass;
 
             switch (this.avatarSize) {
                 case OkAvatarSize.large:
@@ -77,10 +78,11 @@
                     break;
                 case OkAvatarSize.extraSmall:
                     sizeClass = "is-16x16";
+                    textClass = "is-size-7";
                     break;
             }
 
-            return [borderRadiusClass, sizeClass];
+            return [borderRadiusClass, sizeClass, textClass];
 
         }
 

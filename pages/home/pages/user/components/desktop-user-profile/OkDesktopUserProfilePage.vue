@@ -6,8 +6,7 @@
             </div>
             <div class="columns has-padding-bottom-30 has-padding-left-30 has-padding-right-30" sticky-container>
                 <div class="column">
-                    <div v-sticky
-                         :sticky-z-index="9999">
+                    <div v-sticky>
                         <ok-desktop-user-profile-sidebar :user="user"></ok-desktop-user-profile-sidebar>
                     </div>
                 </div>

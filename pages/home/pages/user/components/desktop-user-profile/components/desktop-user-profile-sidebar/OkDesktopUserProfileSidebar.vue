@@ -3,9 +3,6 @@
         <div class="column">
             <ok-desktop-user-profile-sidebar-details :user="user"></ok-desktop-user-profile-sidebar-details>
         </div>
-        <div class="column">
-            <ok-desktop-user-profile-sidebar-actions :user="user"></ok-desktop-user-profile-sidebar-actions>
-        </div>
     </div>
 </template>
 

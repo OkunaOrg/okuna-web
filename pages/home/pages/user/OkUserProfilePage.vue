@@ -2,7 +2,7 @@
     <div v-if="loggedInUser && environmentResolution && user">
         <ok-desktop-user-page
                 :user="user"
-                v-if="environmentResolution === EnvironmentResolution.desktop"></ok-desktop-user-page>
+                v-if="environmentResolution !== EnvironmentResolution.mobile"></ok-desktop-user-page>
         <ok-mobile-user-page
                 :user="user"
                 v-else></ok-mobile-user-page>

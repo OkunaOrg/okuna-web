@@ -7,7 +7,7 @@
                         <ok-user-avatar :user="user" :avatar-size="OkAvatarSize.large"></ok-user-avatar>
                     </div>
                 </div>
-                <div class="columns is-gapless is-marginless has-padding-top-10">
+                <div class="columns is-gapless is-marginless has-padding-top-10 flex-direction-column">
                     <div class="column ok-mobile-user-profile-card__post-avatar">
                         <ok-user-profile-name :user="user"></ok-user-profile-name>
                     </div>
