@@ -39,9 +39,9 @@ import communityMembershipFactory from '~/models/communities/community/community
 import { CommunityMembershipData } from '~/types/models-data/communities/CommunityMembershipData';
 import { ICommunityMembership } from '~/models/communities/community/community-membership/ICommunityMembership';
 import { IUser } from '~/models/auth/user/IUser';
-import { CircleData } from '~/types/models-data/circles/CircleData';
-import circleFactory from '~/models/circles/circle/factory';
-import { ICircle } from '~/models/circles/circle/ICircle';
+import { CircleData } from '~/types/models-data/connections/CircleData';
+import circleFactory from '~/models/connections/circle/factory';
+import { ICircle } from '~/models/connections/circle/ICircle';
 import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import postReactionFactory from '~/models/posts/post-reaction/factory';

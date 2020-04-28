@@ -2,7 +2,7 @@ import { CommunityMembersExclusion } from '~/services/Apis/communities/Communiti
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
 import { IList } from '~/models/lists/list/IList';
-import { ICircle } from '~/models/circles/circle/ICircle';
+import { ICircle } from '~/models/connections/circle/ICircle';
 import { IPost } from '~/models/posts/post/IPost';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IEmoji } from '~/models/common/emoji/IEmoji';
@@ -11,6 +11,7 @@ import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPost
 import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
 import { NotificationType } from '~/models/notifications/notification/lib/NotificationType';
 import { INotification } from '~/models/notifications/notification/INotification';
+import { IUser } from '~/models/auth/user/IUser';
 
 // AUTH START
 
@@ -257,3 +258,17 @@ export interface GetUnreadNotificationsCountParams {
 
 
 // NOTIFICATIONS END
+
+// FOLLOWS START
+
+
+export interface FollowUserParams {
+    user: IUser;
+}
+
+export interface UnfollowUserParams {
+    user: IUser;
+}
+
+
+// FOLLOWS END

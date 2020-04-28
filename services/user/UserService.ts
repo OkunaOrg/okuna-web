@@ -57,7 +57,7 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams
+    SearchCommunityModeratorsParams, FollowUserParams, UnfollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -91,12 +91,15 @@ import { TrendingPostData } from '~/types/models-data/posts/TrendingPostData';
 import { TopPostData } from '~/types/models-data/posts/TopPostData';
 import trendingPostFactory from '~/models/posts/trending-post/factory';
 import topPostFactory from '~/models/posts/top-post/factory';
-import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
 import { NotificationData } from '~/types/models-data/notifications/NotificationData';
 import { INotificationsApiService } from '~/services/Apis/notifications/INotificationsApiService';
 import notificationFactory from '~/models/notifications/notification/factory';
 import { INotification } from '~/models/notifications/notification/INotification';
 import { GetUnreadNotificationsCountResponse } from '~/services/Apis/notifications/NotificationsApiServiceTypes';
+import { IFollowsApiService } from '~/services/Apis/follows/IFollowsApiService';
+import { IFollow } from '~/models/follows/follow/IFollow';
+import followFactory from '~/models/follows/follow/factory';
+import { FollowData } from '~/types/models-data/follows/FollowData';
 
 @injectable()
 export class UserService implements IUserService {
@@ -109,6 +112,7 @@ export class UserService implements IUserService {
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
                 @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
+                @inject(TYPES.FollowsApiService) private followsApiService?: IFollowsApiService,
                 @inject(TYPES.NotificationsApiService) private notificationsApiService?: INotificationsApiService,
                 @inject(TYPES.HttpService) private httpService?: IHttpService,
                 @inject(TYPES.StorageService)  storageService?: IStorageService,
@@ -578,5 +582,26 @@ export class UserService implements IUserService {
             notificationId: params.notification.id
         });
     }
+
+    // FOLLOWS START
+
+
+    async followUser(params: FollowUserParams): Promise<IFollow> {
+        const response: AxiosResponse<FollowData> = await this.followsApiService.followUser({
+            userUsername: params.user.username
+        });
+
+        return followFactory.make(response.data);
+    }
+
+    async unfollowUser(params: UnfollowUserParams): Promise<IUser> {
+        const response: AxiosResponse<UserData> = await this.followsApiService.unfollowUser({
+            userUsername: params.user.username
+        });
+
+        return userFactory.make(response.data);
+    }
+
+    // FOLLOWS END
 
 }

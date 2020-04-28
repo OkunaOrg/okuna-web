@@ -56,7 +56,7 @@
     import OkDesktopUserProfileHeaderBarIds
         from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarIds.vue";
     import OkDesktopUserProfileHeaderBarActionButtons
-        from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarActionButtons";
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarActionButtons.vue';
 
     @Component({
         name: "OkDesktopUserProfileHeaderBar",

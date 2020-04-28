@@ -1,4 +1,4 @@
-import { ICircle } from '~/models/circles/circle/ICircle';
+import { ICircle } from '~/models/connections/circle/ICircle';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
 import { DataModel } from '~/models/abstract/DataModel';

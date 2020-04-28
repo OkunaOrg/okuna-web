@@ -6,7 +6,7 @@ import {
     DeletePostCommentParams, DeletePostCommentReactionParams,
     DeletePostParams,
     DeletePostReactionParams,
-    EditPostCommentParams,
+    EditPostCommentParams, FollowUserParams,
     GetCommunityAdministratorsParams,
     GetCommunityMembersParams,
     GetCommunityModeratorsParams,
@@ -31,7 +31,7 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams
+    SearchCommunityModeratorsParams, UnfollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
@@ -47,6 +47,10 @@ import {
     RequestResetPasswordApiParams, ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { INotification } from '~/models/notifications/notification/INotification';
+import { FollowUserApiParams, UnfollowUserApiParams } from '~/services/Apis/follows/FollowsApiServiceTypes';
+import { AxiosResponse } from '~/node_modules/axios';
+import { FollowData } from '~/types/models-data/follows/FollowData';
+import { IFollow } from '~/models/follows/follow/IFollow';
 
 
 export interface IUserService {
@@ -174,4 +178,12 @@ export interface IUserService {
 
 
     // NOTIFICATIONS END
+
+    // FOLLOWS START
+
+    followUser(params: FollowUserParams): Promise<IFollow>;
+
+    unfollowUser(params: UnfollowUserParams): Promise<IUser>;
+
+    // FOLLOWS END
 }
