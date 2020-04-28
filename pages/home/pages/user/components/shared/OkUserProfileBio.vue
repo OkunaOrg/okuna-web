@@ -1,5 +1,5 @@
 <template>
-    <ok-smart-text :text="user.profile.bio" class="is-size-7-touch"></ok-smart-text>
+    <ok-smart-text :text="user.profile.bio" class="is-size-7-touch ok-has-text-primary-invert"></ok-smart-text>
 </template>
 
 

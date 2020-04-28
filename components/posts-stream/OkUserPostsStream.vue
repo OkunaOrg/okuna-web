@@ -1,6 +1,6 @@
 <template>
     <ok-posts-stream
-            :posts-display-context="postDisplayContext"
+            :posts-display-context="postsDisplayContext"
             :refresher="postsRefresher"
             :on-scroll-loader="postsOnScrollLoader"
             :post-container-class="postContainerClass"

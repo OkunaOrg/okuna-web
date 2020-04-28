@@ -26,7 +26,6 @@
         }) readonly user: IUser;
         @Prop({
             type: Number,
-            required: true
         }) readonly coverSize: OkCoverSize;
 
 

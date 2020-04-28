@@ -6,13 +6,20 @@ import { ICommunityMembership } from '~/models/communities/community/community-m
 import { ICategory } from '~/models/common/category/ICategory';
 import { CommunityType } from '~/models/communities/community/lib/CommunityType';
 import {
-    categoriesDeserializer, categoriesSerializer, communityMembershipsDeserializer, communityMembershipsSerializer,
+    categoriesDeserializer,
+    categoriesSerializer, colorDeserializer,
+    colorSerializer,
+    communityMembershipsDeserializer,
+    communityMembershipsSerializer,
     communityTypeDeserializer,
     communityTypeSerializer,
-    userDeserializer, usersDeserializer,
-    userSerializer, usersSerializer
+    userDeserializer,
+    usersDeserializer,
+    userSerializer,
+    usersSerializer
 } from '~/models/common/serializers';
 import { ICommunity } from '~/models/communities/community/ICommunity';
+import Color from 'color';
 
 export class Community extends DataModel<Community> implements ICommunity {
     creator?: IUser;
@@ -24,7 +31,7 @@ export class Community extends DataModel<Community> implements ICommunity {
     userAdjective?: string;
     usersAdjective?: string;
     description?: string;
-    color?: string;
+    color?: Color;
     cover?: string;
     isInvited?: boolean;
     areNewPostNotificationsEnabled?: boolean;
@@ -40,6 +47,10 @@ export class Community extends DataModel<Community> implements ICommunity {
     pendingModeratedObjectsCount?: number;
     categories?: ICategory[];
 
+    // Computed attributes
+
+    colorInvert: Color;
+
     dataMaps: DataModelAttributeMap<ICommunity>[] = [
         {
             dataKey: 'creator',
@@ -50,6 +61,10 @@ export class Community extends DataModel<Community> implements ICommunity {
         {
             dataKey: 'name',
             attributeKey: 'name'
+        },
+        {
+            dataKey: 'title',
+            attributeKey: 'title'
         },
         {
             dataKey: 'type',
@@ -118,6 +133,12 @@ export class Community extends DataModel<Community> implements ICommunity {
             attributeKey: 'pendingModeratedObjectsCount'
         },
         {
+            dataKey: 'color',
+            attributeKey: 'color',
+            serializer: colorSerializer,
+            deserializer: colorDeserializer,
+        },
+        {
             dataKey: 'moderators',
             attributeKey: 'moderators',
             deserializer: usersDeserializer,
@@ -147,6 +168,23 @@ export class Community extends DataModel<Community> implements ICommunity {
     constructor(data: ModelData) {
         super(data);
         this.updateWithData(data);
+        this.bootstrapComputedAttributes();
     }
+
+    private bootstrapComputedAttributes() {
+
+        let colorInvert;
+
+        if (this.color.isDark()) {
+            // Dark
+            colorInvert = Color('rgb(255, 255, 255)');
+        } else {
+            // Light
+            colorInvert = Color('rgb(0, 0, 0)');
+        }
+
+        this.colorInvert = colorInvert;
+    }
+
 
 }

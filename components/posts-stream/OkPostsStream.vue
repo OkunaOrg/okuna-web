@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ok-posts-stream">
         <div v-for="post in posts" :key="post.id" :class="postContainerClass">
             <!-- Hacker News item loop -->
             <ok-post :post="post" :post-display-context="postsDisplayContext"></ok-post>
@@ -8,6 +8,20 @@
         <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </div>
 </template>
+
+<style lang="scss">
+    .ok-posts-stream{
+        min-width: 100%;
+
+        @include for-size(tablet-portrait-up) {
+            min-width: 500px;
+        }
+
+        @include for-size(desktop-up) {
+            min-width: 635px;
+        }
+    }
+</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"

@@ -5,13 +5,13 @@
                 <ok-desktop-user-profile-header :user="user"></ok-desktop-user-profile-header>
             </div>
             <div class="columns has-padding-bottom-30 has-padding-left-30 has-padding-right-30" sticky-container>
-                <div class="column is-5">
+                <div class="column">
                     <div v-sticky
                          :sticky-z-index="9999">
                         <ok-desktop-user-profile-sidebar :user="user"></ok-desktop-user-profile-sidebar>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-narrow">
                     <ok-desktop-user-profile-timeline :user="user"></ok-desktop-user-profile-timeline>
                 </div>
             </div>
