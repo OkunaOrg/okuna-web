@@ -3,7 +3,7 @@
         <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
             Manage
         </button>
-        <div v-else class="columns is-vcentered">
+        <div v-else class="columns is-vcentered is-mobile">
             <div class="column is-narrow">
                 <ok-follow-button :user="user"></ok-follow-button>
             </div>

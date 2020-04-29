@@ -2,9 +2,14 @@
     <div class="ok-has-background-primary ok-mobile-user-profile-card">
         <div class="ok-mobile-user-profile-card__content">
             <div class="has-padding-left-20 has-padding-right-20 container">
-                <div class="columns is-gapless is-marginless">
-                    <div class="column ok-mobile-user-profile-card__avatar">
+                <div class="columns is-gapless is-marginless is-mobile has-padding-bottom-10">
+                    <div class="column ok-mobile-user-profile-card__avatar is-narrow">
                         <ok-user-avatar :user="user" :avatar-size="OkAvatarSize.large"></ok-user-avatar>
+                    </div>
+                    <div class="column is-flex flex-direction-column align-items-flex-end">
+                        <div class="has-padding-top-20 has-padding-left-20">
+                            <ok-desktop-user-profile-header-bar-action-buttons :user="user"></ok-desktop-user-profile-header-bar-action-buttons>
+                        </div>
                     </div>
                 </div>
                 <div class="columns is-gapless is-marginless has-padding-top-10 flex-direction-column">
@@ -83,11 +88,14 @@
     import OkUserProfileFollowersCount from '~/pages/home/pages/user/components/shared/OkUserProfileFollowersCount.vue';
     import OkUserProfilePostsCount from '~/pages/home/pages/user/components/shared/OkUserProfilePostsCount.vue';
     import OkUserProfileFollowingCount from '~/pages/home/pages/user/components/shared/OkUserProfileFollowingCount.vue';
+    import OkDesktopUserProfileHeaderBarActionButtons
+        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarActionButtons.vue';
 
 
     @Component({
         name: "OkMobileUserProfileCard",
         components: {
+            OkDesktopUserProfileHeaderBarActionButtons,
             OkUserProfileFollowingCount,
             OkUserProfilePostsCount,
             OkUserProfileFollowersCount,
