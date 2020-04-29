@@ -1,9 +1,9 @@
 <template>
     <span class="ok-has-text-primary-invert-80 is-size-7-touch is-size-5">
         <strong class="ok-has-text-primary-invert-80">
-            {{humanFriendlyPostsCount}}
+            {{humanFriendlyFollowersCount}}
         </strong>
-        {{$t('components.user_posts_count.posts')}}
+        {{$t('components.user_followers_count.followers')}}
     </span>
 </template>
 
@@ -16,9 +16,9 @@
     import { okunaContainer } from "~/services/inversify";
 
     @Component({
-        name: "OkUserProfilePostsCount",
+        name: "OkMobileUserProfileFollowersCount",
     })
-    export default class OkUserProfilePostsCount extends Vue {
+    export default class OkMobileUserProfileFollowersCount extends Vue {
         @Prop({
             type: Object,
             required: true
@@ -28,8 +28,8 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
 
-        get humanFriendlyPostsCount() {
-            return this.utilsService.makeHumanFriendlyLargeNumberDisplay(this.user.postsCount);
+        get humanFriendlyFollowersCount() {
+            return this.utilsService.makeHumanFriendlyLargeNumberDisplay(this.user.followersCount);
         }
 
     }

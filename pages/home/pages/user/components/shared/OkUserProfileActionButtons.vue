@@ -18,14 +18,14 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IUser } from "~/models/auth/user/IUser";
-    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { BehaviorSubject } from "node_modules/rxjs";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import OkFollowButton from "~/components/buttons/OkFollowButton.vue";
 
     @Component({
-        name: "OkDesktopUserProfileHeaderBarActionButtons",
+        name: "OkUserProfileActionButtons",
         components: {OkFollowButton},
         subscriptions: function () {
             return {
@@ -33,7 +33,7 @@
             }
         }
     })
-    export default class OkDesktopUserProfileHeaderBarActionButtons extends Vue {
+    export default class OkUserProfileActionButtons extends Vue {
         @Prop({
             type: Object,
             required: true

@@ -8,7 +8,7 @@
                     </div>
                     <div class="column is-flex flex-direction-column align-items-flex-end">
                         <div class="has-padding-top-20 has-padding-left-20">
-                            <ok-desktop-user-profile-header-bar-action-buttons :user="user"></ok-desktop-user-profile-header-bar-action-buttons>
+                            <ok-user-profile-action-buttons :user="user"></ok-user-profile-action-buttons>
                         </div>
                     </div>
                 </div>
@@ -36,13 +36,13 @@
                 </div>
                 <div class="columns is-mobile is-multiline is-variable is-2 is-marginless">
                     <div class="column is-narrow" v-if="user.profile.followersCountVisible">
-                        <ok-user-profile-followers-count :user="user"></ok-user-profile-followers-count>
+                        <ok-mobile-user-profile-followers-count :user="user"></ok-mobile-user-profile-followers-count>
                     </div>
                     <div class="column is-narrow">
-                        <ok-user-profile-posts-count :user="user"></ok-user-profile-posts-count>
+                        <ok-mobile-user-profile-posts-count :user="user"></ok-mobile-user-profile-posts-count>
                     </div>
                     <div class="column is-narrow">
-                        <ok-user-profile-following-count :user="user"></ok-user-profile-following-count>
+                        <ok-mobile-user-profile-following-count :user="user"></ok-mobile-user-profile-following-count>
                     </div>
                 </div>
             </div>
@@ -85,20 +85,22 @@
     import OkUserProfileLocation from '~/pages/home/pages/user/components/shared/OkUserProfileLocation.vue';
     import OkUserProfileUrl from '~/pages/home/pages/user/components/shared/OkUserProfileUrl.vue';
     import OkUserProfileAge from '~/pages/home/pages/user/components/shared/OkUserProfileAge.vue';
-    import OkUserProfileFollowersCount from '~/pages/home/pages/user/components/shared/OkUserProfileFollowersCount.vue';
-    import OkUserProfilePostsCount from '~/pages/home/pages/user/components/shared/OkUserProfilePostsCount.vue';
-    import OkUserProfileFollowingCount from '~/pages/home/pages/user/components/shared/OkUserProfileFollowingCount.vue';
-    import OkDesktopUserProfileHeaderBarActionButtons
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarActionButtons.vue';
+    import OkUserProfileActionButtons from '~/pages/home/pages/user/components/shared/OkUserProfileActionButtons.vue';
+    import OkMobileUserProfileFollowersCount
+        from '~/pages/home/pages/user/components/mobile-user-profile/components/mobile-user-profile-card/components/OkMobileUserProfileFollowersCount.vue';
+    import OkMobileUserProfilePostsCount
+        from '~/pages/home/pages/user/components/mobile-user-profile/components/mobile-user-profile-card/components/OkMobileUserProfilePostsCount.vue';
+    import OkMobileUserProfileFollowingCount
+        from '~/pages/home/pages/user/components/mobile-user-profile/components/mobile-user-profile-card/components/OkMobileUserProfileFollowingCount.vue';
 
 
     @Component({
         name: "OkMobileUserProfileCard",
         components: {
-            OkDesktopUserProfileHeaderBarActionButtons,
-            OkUserProfileFollowingCount,
-            OkUserProfilePostsCount,
-            OkUserProfileFollowersCount,
+            OkMobileUserProfileFollowingCount,
+            OkMobileUserProfilePostsCount,
+            OkMobileUserProfileFollowersCount,
+            OkUserProfileActionButtons,
             OkUserProfileAge,
             OkUserProfileUrl,
             OkUserProfileLocation, OkUserProfileBio, OkUserProfileUsername, OkUserProfileName, OkUserAvatar},

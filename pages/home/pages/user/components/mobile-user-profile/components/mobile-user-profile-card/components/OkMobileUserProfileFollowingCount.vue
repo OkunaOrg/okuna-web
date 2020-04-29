@@ -16,9 +16,9 @@
     import { okunaContainer } from "~/services/inversify";
 
     @Component({
-        name: "OkUserProfileFollowingCount",
+        name: "OkMobileUserProfileFollowingCount",
     })
-    export default class OkUserProfileFollowingCount extends Vue {
+    export default class OkMobileUserProfileFollowingCount extends Vue {
         @Prop({
             type: Object,
             required: true

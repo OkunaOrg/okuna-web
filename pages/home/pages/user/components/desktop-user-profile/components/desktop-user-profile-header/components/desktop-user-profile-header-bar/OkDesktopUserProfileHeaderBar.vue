@@ -19,8 +19,8 @@
         </div>
         <div class="column is-narrow is-flex justify-center align-items-center">
             <div class="has-padding-left-20 has-padding-right-20">
-                <ok-desktop-user-profile-header-bar-action-buttons
-                        :user="user"></ok-desktop-user-profile-header-bar-action-buttons>
+                <ok-user-profile-action-buttons
+                        :user="user"></ok-user-profile-action-buttons>
             </div>
         </div>
     </footer>
@@ -55,13 +55,12 @@
         from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarStats.vue";
     import OkDesktopUserProfileHeaderBarIds
         from "~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarIds.vue";
-    import OkDesktopUserProfileHeaderBarActionButtons
-        from '~/pages/home/pages/user/components/desktop-user-profile/components/desktop-user-profile-header/components/desktop-user-profile-header-bar/components/OkDesktopUserProfileHeaderBarActionButtons.vue';
+    import OkUserProfileActionButtons from "~/pages/home/pages/user/components/shared/OkUserProfileActionButtons.vue";
 
     @Component({
         name: "OkDesktopUserProfileHeaderBar",
         components: {
-            OkDesktopUserProfileHeaderBarActionButtons,
+            OkUserProfileActionButtons,
             OkDesktopUserProfileHeaderBarIds,
             OkDesktopUserProfileHeaderBarStats, OkUserAvatar, OkUserCover
         },
