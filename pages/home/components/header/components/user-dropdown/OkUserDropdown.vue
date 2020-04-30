@@ -29,7 +29,7 @@
 
 
 <script lang="ts">
-    import { Component, Vue } from "nuxt-property-decorator"
+    import { Component, Vue, Watch } from "nuxt-property-decorator"
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
@@ -39,6 +39,7 @@
     import { OkAvatarBorderRadius } from '~/components/avatars/lib/OkAvatarBorderRadius';
     import { BehaviorSubject } from '~/node_modules/rxjs';
     import OkUserMenu from '~/components/menus/OkUserMenu.vue';
+    import { Route } from "vue-router";
 
     @Component({
         name: "OkUserDropdown",
@@ -54,6 +55,7 @@
         OkAvatarSize = OkAvatarSize;
         OkAvatarBorderRadius = OkAvatarBorderRadius;
         dropdownIsOpen = false;
+        $route!: Route;
 
         $observables!: {
             loggedInUser?: BehaviorSubject<IUser>
@@ -64,6 +66,14 @@
         tooltipOptions = {
             placement: 'bottom-end'
         }
+
+        @Watch('$route')
+        onRouteChange(to, from){
+            // Close tooltip
+            this.dropdownIsOpen = false;
+        }
+
+
 
 
     }

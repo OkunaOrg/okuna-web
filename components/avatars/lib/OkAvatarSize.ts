@@ -5,6 +5,9 @@ export enum OkAvatarSize {
     small,
     // Post headers
     medium,
-    // User / community profiles
+    // User / community profiles on mobile
     large,
+    // User / community profiles on desktop
+    extraLarge,
+
 }

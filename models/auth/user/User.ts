@@ -1,14 +1,19 @@
 import { IUser } from '~/models/auth/user/IUser';
-import circleFactory from '~/models/circles/circle/factory';
+import circleFactory from '~/models/connections/circle/factory';
 import userProfileFactory from '~/models/auth/user-profile/factory';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
-import { ICircle } from '~/models/circles/circle/ICircle';
-import { CircleData } from '~/types/models-data/circles/CircleData';
+import { ICircle } from '~/models/connections/circle/ICircle';
+import { CircleData } from '~/types/models-data/connections/CircleData';
 import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { DataModel } from '~/models/abstract/DataModel';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
-import { userProfileDeserializer, userProfileSerializer } from '~/models/common/serializers';
+import {
+    dateDeserializer,
+    dateSerializer,
+    userProfileDeserializer,
+    userProfileSerializer
+} from '~/models/common/serializers';
 
 export class User extends DataModel<User> implements IUser {
     uuid!: string;
@@ -16,6 +21,7 @@ export class User extends DataModel<User> implements IUser {
     connectionsCircleId!: number;
     followersCount!: number;
     postsCount!: number;
+    dateJoined!: Date;
     inviteCount!: number;
     unreadNotificationsCount!: number;
     pendingCommunitiesModeratedObjectsCount!: number;
@@ -24,6 +30,7 @@ export class User extends DataModel<User> implements IUser {
     username!: string;
     followingCount!: number;
     isFollowing!: boolean;
+    isFollowed!: boolean;
     isConnected!: boolean;
     isGlobalModerator!: boolean;
     isBlocked!: boolean;
@@ -50,6 +57,12 @@ export class User extends DataModel<User> implements IUser {
         {
             dataKey: 'followers_count',
             attributeKey: 'followersCount'
+        },
+        {
+            dataKey: 'date_joined',
+            attributeKey: 'dateJoined',
+            deserializer: dateDeserializer,
+            serializer: dateSerializer,
         },
         {
             dataKey: 'posts_count',
@@ -85,7 +98,11 @@ export class User extends DataModel<User> implements IUser {
         },
         {
             dataKey: 'is_following',
-            attributeKey: 'isFollowing'
+            attributeKey: 'isFollowing',
+        },
+        {
+            dataKey: 'is_followed',
+            attributeKey: 'isFollowed',
         },
         {
             dataKey: 'is_connected',
@@ -134,6 +151,14 @@ export class User extends DataModel<User> implements IUser {
     constructor(data: ModelData) {
         super(data);
         this.updateWithData(data);
+    }
+
+    decrementFollowersCount(): void {
+        this.followersCount = this.followersCount - 1;
+    }
+
+    incrementFollowersCount(): void {
+        this.followersCount = this.followersCount + 1;
     }
 
 }

@@ -3,7 +3,7 @@ import { IUser } from '~/models/auth/user/IUser';
 import { ICommunityMembership } from '~/models/communities/community/community-membership/ICommunityMembership';
 import { ICategory } from '~/models/common/category/ICategory';
 import { CommunityType } from '~/models/communities/community/lib/CommunityType';
-
+import Color from 'color';
 
 export interface ICommunity extends IDataModel<ICommunity> {
     creator?: IUser;
@@ -15,7 +15,7 @@ export interface ICommunity extends IDataModel<ICommunity> {
     userAdjective?: string;
     usersAdjective?: string;
     description?: string;
-    color?: string;
+    color?: Color;
     cover?: string;
     isInvited?: boolean;
     areNewPostNotificationsEnabled?: boolean;
@@ -30,4 +30,6 @@ export interface ICommunity extends IDataModel<ICommunity> {
     postsCount?: number;
     pendingModeratedObjectsCount?: number;
     categories?: ICategory[];
+
+    colorInvert?: Color;
 }

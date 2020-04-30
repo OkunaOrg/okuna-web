@@ -1,4 +1,4 @@
-import { ICircle } from '~/models/circles/circle/ICircle';
+import { ICircle } from '~/models/connections/circle/ICircle';
 import { DataModel } from '~/models/abstract/DataModel';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';

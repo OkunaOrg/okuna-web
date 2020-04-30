@@ -5,7 +5,7 @@
         </p>
         <ul class="menu-list">
             <li>
-                <nuxt-link :to="'/'" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="profileUrl" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-profile-icon
                                          class="ok-svg-icon-primary-invert"></ok-profile-icon>
@@ -196,6 +196,8 @@
             placement: 'bottom-end'
         }
 
-
+        get profileUrl(){
+            return `/${this.$observables.loggedInUser.value.username}`;
+        }
     }
 </script>

@@ -1,4 +1,4 @@
-import { ICircle } from '~/models/circles/circle/ICircle';
+import { ICircle } from '~/models/connections/circle/ICircle';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
 import { IDataModel } from '~/models/abstract/IDataModel';
 
@@ -9,6 +9,7 @@ export interface IUser extends IDataModel<IUser> {
     connectionsCircleId: number;
     followersCount: number;
     postsCount: number;
+    dateJoined: Date;
     inviteCount: number;
     unreadNotificationsCount: number;
     pendingCommunitiesModeratedObjectsCount: number;
@@ -17,6 +18,7 @@ export interface IUser extends IDataModel<IUser> {
     username: string;
     followingCount: number;
     isFollowing: boolean;
+    isFollowed: boolean;
     isConnected: boolean;
     isGlobalModerator: boolean;
     isBlocked: boolean;
@@ -27,4 +29,8 @@ export interface IUser extends IDataModel<IUser> {
 
     connectedCircles: ICircle[];
     profile: IUserProfile;
+
+
+    incrementFollowersCount(): void;
+    decrementFollowersCount(): void;
 }

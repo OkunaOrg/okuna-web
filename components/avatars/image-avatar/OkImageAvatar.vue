@@ -12,8 +12,12 @@
                 v-else-if="this.avatarSize === this.OkAvatarSize.medium">
             <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
         </figure>
-        <figure class="image is-128x128"
+        <figure class="image is-96x96"
                 v-else-if="this.avatarSize === this.OkAvatarSize.large">
+            <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
+        </figure>
+        <figure class="image is-128x128"
+                v-else-if="this.avatarSize === this.OkAvatarSize.extraLarge">
             <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
         </figure>
     </div>
@@ -49,7 +53,8 @@
 
         get finalAvatarUrl() {
             if (this.avatarFile) return URL.createObjectURL(this.avatarFile);
-            return this.avatarUrl;
+            if(this.avatarUrl) return this.avatarUrl;
+            return require('./assets/avatar-fallback.jpg');
         }
 
         get borderRadiusClass() {

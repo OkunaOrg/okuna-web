@@ -27,7 +27,7 @@ export default {
         "post_comment_replies": {
             "load_more": "Load more replies"
         },
-        "load_more":{
+        "load_more": {
             "status_bar": {
                 "load_more": "Load more",
                 "loading": "Loading",
@@ -50,6 +50,19 @@ export default {
             "support_and_feedback": "Support & Feedback",
             "useful_links": "Useful links",
             "logout": "Logout",
+        },
+        "user_profile_age": {
+            "age_in_years": "{years}y",
+            "age_in_weeks": "{weeks}w",
+        },
+        "user_posts_count": {
+            "posts": "Posts",
+        },
+        "user_following_count": {
+            "following": "Following",
+        },
+        "user_followers_count": {
+            "followers": "Followers",
         }
     },
     "forms": {
@@ -118,6 +131,8 @@ export default {
             "email": "E-mail",
             "password": "Password",
             "username": "Username",
+            "about": "About",
+            "manage": "Manage"
         },
         "snippets": {
             "forgot_password": "Forgot password?",

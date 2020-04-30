@@ -1,0 +1,101 @@
+<template>
+    <div v-if="loggedInUser && environmentResolution && user">
+        <ok-desktop-user-page
+                :user="user"
+                v-if="environmentResolution !== EnvironmentResolution.mobile"></ok-desktop-user-page>
+        <ok-mobile-user-page
+                :user="user"
+                v-else></ok-mobile-user-page>
+    </div>
+</template>
+
+
+<style>
+
+</style>
+
+
+<script lang="ts">
+    import { Component, Vue } from "nuxt-property-decorator"
+    import { Route } from "vue-router";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
+    import { TYPES } from "~/services/inversify-types";
+    import { okunaContainer } from "~/services/inversify";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
+    import OkMobileUserPage from "~/pages/home/pages/user/components/mobile-user-profile/OkMobileUserProfilePage.vue";
+    import OkDesktopUserPage from "~/pages/home/pages/user/components/desktop-user-profile/OkDesktopUserProfilePage.vue";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
+    import { IUserService } from "~/services/user/IUserService";
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IUser } from '~/models/auth/user/IUser';
+
+
+    @Component({
+        components: {OkMobileUserPage, OkDesktopUserPage},
+        subscriptions: function () {
+            return {
+                environmentResolution: this["environmentService"].environmentResolution,
+                loggedInUser: this["userService"].loggedInUser
+            }
+        }
+    })
+    export default class OkUserPage extends Vue {
+        $route!: Route;
+
+        $observables!: {
+            environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>,
+            loggedInUser: BehaviorSubject<IUser | undefined>
+        };
+
+        EnvironmentResolution = EnvironmentResolution;
+
+        requestInProgress = false;
+        user: IUser = null;
+
+        private refreshUserOperation?: CancelableOperation<IUser>;
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
+
+
+        created() {
+            this.$observables.loggedInUser.subscribe(this.onLoggedInUser);
+        }
+
+        get userUsername() {
+            return this.$route.params["userUsername"];
+        }
+
+        private onLoggedInUser(user: IUser) {
+            if (!user) return;
+            this.refreshUser();
+        }
+
+        private async refreshUser() {
+            if (this.requestInProgress) return;
+
+            this.requestInProgress = true;
+
+            try {
+                this.refreshUserOperation = CancelableOperation.fromPromise(this.userService.getUser({
+                    userUsername: this.userUsername
+                }));
+
+                const user = await this.refreshUserOperation.value;
+
+                this.user = user;
+            } catch (error) {
+                this.utilsService.handleErrorWithToast(error);
+            } finally {
+                this.refreshUserOperation = null;
+                this.requestInProgress = false;
+            }
+        }
+
+    }
+</script>
+
+
+

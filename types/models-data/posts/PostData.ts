@@ -1,6 +1,6 @@
 import { ModelData } from 'types/models-data/ModelData';
 import { UserData } from '~/types/models-data/auth/UserData';
-import { CircleData } from '~/types/models-data/circles/CircleData';
+import { CircleData } from '~/types/models-data/connections/CircleData';
 import { ReactionsEmojiCountData } from '~/types/models-data/posts/ReactionsEmojiCountData';
 import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
 import { LanguageData } from '~/types/models-data/common/LanguageData';

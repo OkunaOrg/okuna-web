@@ -41,6 +41,8 @@ import { IWindowService } from '~/services/window/IWindowService';
 import { WindowService } from '~/services/window/WindowService';
 import { INotificationsApiService } from '~/services/Apis/notifications/INotificationsApiService';
 import { NotificationsApiService } from '~/services/Apis/notifications/NotificationsApiService';
+import { FollowsApiService } from '~/services/Apis/follows/FollowsApiService';
+import { IFollowsApiService } from '~/services/Apis/follows/IFollowsApiService';
 
 const okunaContainer = new Container();
 
@@ -49,6 +51,7 @@ okunaContainer.bind<IAuthApiService>(TYPES.AuthApiService).to(AuthApiService).in
 okunaContainer.bind<ICommunitiesApiService>(TYPES.CommunitiesApiService).to(CommunitiesApiService).inSingletonScope();
 okunaContainer.bind<IPostsApiService>(TYPES.PostsApiService).to(PostsApiService).inSingletonScope();
 okunaContainer.bind<INotificationsApiService>(TYPES.NotificationsApiService).to(NotificationsApiService).inSingletonScope();
+okunaContainer.bind<IFollowsApiService>(TYPES.FollowsApiService).to(FollowsApiService).inSingletonScope();
 okunaContainer.bind<IHttpService>(TYPES.HttpService).to(HttpService).inSingletonScope();
 okunaContainer.bind<ILocalizationService>(TYPES.LocalizationService).to(LocalizationService).inSingletonScope();
 okunaContainer.bind<INavigationService>(TYPES.NavigationService).to(NavigationService).inSingletonScope();

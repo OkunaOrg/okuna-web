@@ -1,7 +1,7 @@
 import { IModelFactory } from '~/interfaces/IModelFactory';
-import { CircleData } from '~/types/models-data/circles/CircleData';
-import { Circle } from '~/models/circles/circle/Circle';
-import { ICircle } from '~/models/circles/circle/ICircle';
+import { CircleData } from '~/types/models-data/connections/CircleData';
+import { Circle } from '~/models/connections/circle/Circle';
+import { ICircle } from '~/models/connections/circle/ICircle';
 
 class CircleFactory extends IModelFactory<ICircle> {
     make(data: CircleData): ICircle {

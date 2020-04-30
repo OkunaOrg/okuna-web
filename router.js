@@ -6,7 +6,7 @@ import OkNowPage from "./pages/home/pages/now/OkNowPage";
 import OkTimelinePage from "./pages/home/pages/timeline/OkTimelinePage";
 import OkHashtagPage from "./pages/home/pages/hashtag/OkHashtagPage";
 import OkPostPage from "./pages/home/pages/post/OkPostPage";
-import OkUserPage from "./pages/home/pages/user/OkUserPage";
+import OkUserPage from "./pages/home/pages/user/OkUserProfilePage";
 import OkCommunitiesPage from "./pages/home/pages/communities/OkCommunitiesPage";
 import OkExploreCommunitiesPage from "./pages/home/pages/communities/pages/explore/OkExploreCommunitiesPage";
 import OkCommunityPage from "./pages/home/pages/communities/pages/community/OkCommunityPage";
@@ -64,7 +64,7 @@ export function createRouter() {
                         component: OkPostPage,
                     },
                     {
-                        path: ':username',
+                        path: ':userUsername',
                         component: OkUserPage,
                     },
                 ]

@@ -35,7 +35,7 @@
     import { okunaContainer } from "~/services/inversify";
     import OkPostMediaVideo from "~/components/post/components/post-media/components/OkPostMediaVideo.vue";
     import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
-    import OkFittedImg from '~/components/images/OkFittedImg.vue';
+    import OkFittedImg from '~/components/images/OkContainedImage.vue';
 
     @Component({
         name: "OkPostMedia",

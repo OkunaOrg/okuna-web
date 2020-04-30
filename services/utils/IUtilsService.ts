@@ -6,6 +6,8 @@ export interface IUtilsService {
     handleErrorWithToast(error: any): HandledError;
 
     makeUrlQueryString(queryParams: QueryParams): string;
+
+    makeHumanFriendlyLargeNumberDisplay(n: number): string;
 }
 
 export interface QueryParams {

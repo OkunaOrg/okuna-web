@@ -1,24 +1,14 @@
 <template>
-    <section id="home-timeline-posts" class="timeline-posts" v-if="loggedInUserReady">
-        <div class="timeline-posts-stream" style="min-width:100px ; min-height: 100px;">
-            <div v-for="post in posts" :key="post.id" class="has-padding-30-tablet">
-                <!-- Hacker News item loop -->
-                <ok-post :post="post" :post-display-context="postDisplayContext"></ok-post>
-            </div>
-
-            <infinite-loading @infinite="infiniteHandler"></infinite-loading>
-        </div>
+    <section id="home-timeline-posts" class="is-flex flex-column align-items-center" v-if="loggedInUser">
+        <ok-posts-stream
+                :posts-display-context="postDisplayContext"
+                :refresher="postsRefresher"
+                :on-scroll-loader="postsOnScrollLoader"
+                post-container-class="has-padding-30-tablet"
+        ></ok-posts-stream>
     </section>
 </template>
 
-
-<style scoped lang="scss">
-    .timeline-posts{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-</style>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
@@ -29,54 +19,47 @@
     import { IPost } from "~/models/posts/post/IPost";
     import OkPost from "~/components/post/OkPost.vue";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
-    import { Subscription } from "~/node_modules/rxjs";
+    import { BehaviorSubject, Subscription } from "~/node_modules/rxjs";
     import { IUser } from "~/models/auth/user/IUser";
+    import OkPostsStream from "~/components/posts-stream/OkPostsStream.vue";
 
     @Component({
-        components: {OkPost},
-    })
-    export default class OkHomeTimelinePage extends Vue {
-        $route!: Route;
-        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-
-        posts: IPost[] = [];
-        postDisplayContext = PostDisplayContext.timelinePosts;
-        loggedInUserReady = false;
-
-        private loggedInUserSubscription: Subscription;
-
-        mounted() {
-            this.loggedInUserSubscription = this.userService.loggedInUser.subscribe(this.onLoggedInUser);
-        }
-
-        destroyed() {
-            this.loggedInUserSubscription.unsubscribe();
-        }
-
-        onLoggedInUser(loggedInUser: IUser) {
-            if (loggedInUser) {
-                this.loggedInUserReady = true;
+        name: 'OkTimelinePage',
+        components: {OkPostsStream, OkPost},
+        subscriptions: function () {
+            return {
+                loggedInUser: this['userService'].loggedInUser
             }
         }
+    })
+    export default class OkTimelinePage extends Vue {
+        static infiniteScrollChunkPostsCount = 10;
 
-        infiniteHandler($state) {
-            let lastPostId;
-            const lastPost = this.posts[this.posts.length - 1];
-            if (lastPost) lastPostId = lastPost.id;
+        $observables!: {
+            loggedInUser: BehaviorSubject<IUser | undefined>
+        };
 
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
-            this.userService.getTrendingPosts({
-                maxId: lastPostId,
-                count: 10,
-            }).then((timelinePosts) => {
-                if (timelinePosts.length) {
-                    this.posts.push(...timelinePosts);
-                    $state.loaded();
-                } else {
-                    $state.complete();
-                }
+        postDisplayContext = PostDisplayContext.timelinePosts;
+
+        postsRefresher(): Promise<IPost[]> {
+            return this.userService.getTrendingPosts({
+                count: OkTimelinePage.infiniteScrollChunkPostsCount,
             });
         }
+
+        postsOnScrollLoader(posts: IPost[]) {
+            const lastPost = posts[posts.length - 1];
+            const lastPostId = lastPost.id;
+
+
+            return this.userService.getTrendingPosts({
+                maxId: lastPostId,
+                count: OkTimelinePage.infiniteScrollChunkPostsCount,
+            })
+        }
+
 
     }
 </script>

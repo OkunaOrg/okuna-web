@@ -20,7 +20,7 @@ export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T>
     updateWithData(data: ModelData) {
         this.dataMaps.forEach((dataMap: DataModelAttributeMap<any>) => {
             let dataKeyValue = data[dataMap.dataKey];
-            if (dataKeyValue) {
+            if (typeof dataKeyValue !== 'undefined' && dataKeyValue !== null) {
                 const attributeType = typeof this[dataMap.attributeKey];
                 const attributeIsObject = attributeType === 'function' || attributeType === 'object' && !!attributeType;
                 if(attributeIsObject && this[dataMap.attributeKey]['updateWithData']){

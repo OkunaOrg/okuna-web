@@ -31,6 +31,11 @@ import Close from 'vue-material-design-icons/Close.vue';
 import MenuDown from 'vue-material-design-icons/MenuDown.vue';
 import PlusCircleOutline from 'vue-material-design-icons/PlusCircleOutline.vue';
 import FaceProfile from 'vue-material-design-icons/FaceProfile.vue';
+import LocationIcon from 'vue-material-design-icons/MapMarker.vue';
+import BabyIcon from 'vue-material-design-icons/BabyFaceOutline.vue';
+import AdultIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
+import EditIcon from 'vue-material-design-icons/Pencil.vue';
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -103,3 +108,13 @@ Vue.component('ok-menu-down-icon', MenuDown);
 Vue.component('ok-plus-circle-outline-icon', PlusCircleOutline);
 
 Vue.component('ok-profile-icon', FaceProfile);
+
+Vue.component('ok-location-icon', LocationIcon);
+
+Vue.component('ok-baby-icon', BabyIcon);
+
+Vue.component('ok-adult-icon', AdultIcon);
+
+Vue.component('ok-edit-icon', EditIcon);
+
+Vue.component('ok-chevron-right-icon', ChevronRight);
