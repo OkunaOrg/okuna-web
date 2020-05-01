@@ -10,7 +10,7 @@
         </div>
         <div class="column">
             <div class="is-size-6 is-flex align-center">
-                {{ community.usersAdjective }}
+                {{ community.usersAdjective || $t('components.community_members_count.members') }}
             </div>
             <div class="is-size-5 has-text-weight-bold is-flex align-center">
                 {{ humanFriendlyMembersCount }}

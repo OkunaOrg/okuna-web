@@ -20,7 +20,7 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import { IUser } from '~/models/auth/user/IUser';
+    import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
         name: "OkJoinCommunityButton",
@@ -51,6 +51,9 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private requestOperation?: CancelableOperation<any>;
 
+        created() {
+            this.$observables.loggedInUser.subscribe(this.onLoggedInUserChange);
+        }
 
         onWantsToToggleJoinCommunity() {
             if (this.isMemberOfCommunity) {
@@ -62,16 +65,22 @@
             }
         }
 
+        private onLoggedInUserChange(loggedInUser: IUser | undefined | null) {
+            if (!loggedInUser) return;
+            this.refreshIsMemberOfCommunity();
+        }
+
 
         private async joinCommunity() {
             if (this.requestInProgress) return;
             this.requestInProgress = true;
 
-
             try {
                 this.requestOperation = CancelableOperation.fromPromise(this.userService.joinCommunity({
                     community: this.community,
                 }));
+
+                await this.requestOperation.value;
 
                 this.refreshIsMemberOfCommunity();
             } catch (error) {
@@ -85,14 +94,12 @@
         private async leaveCommunity() {
             if (this.requestInProgress) return;
             this.requestInProgress = true;
-
             try {
                 this.requestOperation = CancelableOperation.fromPromise(this.userService.leaveCommunity({
                     community: this.community
                 }));
 
                 await this.requestOperation.value;
-
                 this.refreshIsMemberOfCommunity();
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);

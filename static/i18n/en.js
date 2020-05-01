@@ -71,6 +71,9 @@ export default {
         "community_posts_count": {
             "posts": "Posts",
         },
+        "community_members_count": {
+            "members": "Members",
+        },
     },
     "forms": {
         "login": {

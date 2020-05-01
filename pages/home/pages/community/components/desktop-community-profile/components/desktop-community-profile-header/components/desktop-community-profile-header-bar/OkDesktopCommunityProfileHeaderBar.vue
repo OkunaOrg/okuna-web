@@ -31,14 +31,6 @@
 
 <style lang="scss">
 
-    .ok-desktop-community-profile-header-bar {
-    }
-
-    $header-avatar-padding: 25px;
-
-    .ok-desktop-community-profile-header-avatar {
-    }
-
 </style>
 
 
