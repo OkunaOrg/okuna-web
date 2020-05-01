@@ -51,6 +51,22 @@ export default {
             "useful_links": "Useful links",
             "logout": "Logout",
         },
+        "notifications": {
+            "user_new_post": "posted something.",
+            "community_new_post": "There was a new post in c/{communityName}.",
+            "connection_request": "wants to connect with you.",
+            "accepted_connection_request": "accepted your connection request.",
+            "reacted_to_post": "reacted to your post.",
+            "reacted_to_post_comment": "reacted to your post comment.",
+            "following_you": "is now following you.",
+            "user_community_invite": "has invited you to join community c/{communityName}.",
+            "user_replied": "replied: {postCommentText}",
+            "user_also_replied": "also replied: {postCommentText}",
+            "commented_on_your_post": "commented on your post: {postCommentText}",
+            "also_commented": "also commented: {postCommentText}",
+            "mentioned_in_post": "mentioned you in a post.",
+            "mentioned_in_comment": "mentioned you in a comment: {postCommentText}"
+        },
         "user_profile_age": {
             "age_in_years": "{years}y",
             "age_in_weeks": "{weeks}w",

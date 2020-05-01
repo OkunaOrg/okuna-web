@@ -67,7 +67,7 @@ export class PostComment extends DataModel<PostComment> implements IPostComment 
             attributeKey: 'repliesCount',
         },
         {
-            dataKey: 'parentComment',
+            dataKey: 'parent_comment',
             attributeKey: 'parentComment',
             deserializer: postCommentDeserializer,
             serializer: postCommentSerializer,
@@ -135,4 +135,3 @@ export class PostComment extends DataModel<PostComment> implements IPostComment 
         this.reactionsEmojiCounts = newEmojiCounts;
     }
 }
-

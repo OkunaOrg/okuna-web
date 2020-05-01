@@ -57,4 +57,3 @@ export class Notification extends DataModel<Notification> implements INotificati
     }
 
 }
-

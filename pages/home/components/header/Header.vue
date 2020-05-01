@@ -32,11 +32,17 @@
                                     <ok-communities-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-communities-icon>
                                 </nuxt-link>
                             </div>
-                            <div class="column is-flex align-items-center justify-center">
+                            <div class="column is-flex align-items-center is-hidden-desktop is-hidden-tablet justify-center">
                                 <nuxt-link to="/n" class="has-cursor-pointer is-flex">
                                     <ok-notifications-icon
                                             class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
                                 </nuxt-link>
+                            </div>
+                            <div class="column is-flex align-items-center is-hidden-mobile justify-center">
+                                <div class="has-cursor-pointer is-flex">
+                                    <ok-notifications-icon
+                                            class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
+                                </div>
                             </div>
                             <div class="column is-flex align-items-center is-hidden-desktop is-hidden-tablet justify-center">
                                 <nuxt-link to="/m" class="has-cursor-pointer is-flex">
