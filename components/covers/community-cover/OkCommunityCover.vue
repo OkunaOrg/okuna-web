@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ok-image-cover :cover-url="community.cover" :cover-size="this.coverSize">
+        <ok-image-cover :cover-url="community.cover" :cover-size="OkCoverSize.medium">
         </ok-image-cover>
     </div>
 </template>
@@ -25,9 +25,7 @@
             required: true
         }) readonly community: ICommunity;
 
-        @Prop({
-            type: Number,
-        }) readonly coverSize: OkCoverSize;
+        OkCoverSize = OkCoverSize;
 
 
         mounted() {

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ok-image-cover :cover-url="user.profile.cover" :cover-size="this.coverSize">
+        <ok-image-cover :cover-url="user.profile.cover" :cover-size="OkCoverSize.large">
         </ok-image-cover>
     </div>
 </template>
@@ -24,9 +24,8 @@
             type: Object,
             required: true
         }) readonly user: IUser;
-        @Prop({
-            type: Number,
-        }) readonly coverSize: OkCoverSize;
+
+        OkCoverSize = OkCoverSize;
 
 
         mounted() {

@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="is-size-5 has-text-weight-bold ok-has-text-primary-invert is-flex align-center">
+        <div class="is-size-5 has-text-weight-bold is-flex align-center">
             {{community.title}}
         </div>
-        <div class="is-size-6 has-text-weight-bold ok-has-text-primary-invert-80 is-flex align-center">
+        <div class="is-size-6 has-text-weight-bold is-flex align-center">
             c/{{community.name}}
         </div>
     </div>

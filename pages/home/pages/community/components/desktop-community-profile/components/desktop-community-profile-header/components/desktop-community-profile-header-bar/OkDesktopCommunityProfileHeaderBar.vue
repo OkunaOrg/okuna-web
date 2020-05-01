@@ -1,19 +1,21 @@
 <template>
-    <footer class="columns is-gapless ok-desktop-community-profile-header-bar">
-        <div class="column is-narrow" style="width: 188px;">
+    <footer class="columns is-gapless ok-desktop-community-profile-header-bar" :style="barCssStyle">
+        <div class="column is-narrow">
             <ok-community-avatar
-                    class="ok-desktop-community-profile-header-avatar"
+                    class="ok-desktop-community-profile-header-avatar has-padding-25"
                     :community="community"
-                    :avatar-size="OkAvatarSize.extraLarge"
+                    :avatar-size="OkAvatarSize.extraMedium"
             ></ok-community-avatar>
         </div>
         <div class="column is-flex align-items-center">
             <div class="columns has-width-100-percent is-variable is-8">
                 <div class="column flex-direction-column is-narrow is-flex justify-center">
-                    <ok-desktop-community-profile-header-bar-ids :community="community"></ok-desktop-community-profile-header-bar-ids>
+                    <ok-desktop-community-profile-header-bar-ids
+                            :community="community"></ok-desktop-community-profile-header-bar-ids>
                 </div>
                 <div class="column flex-direction-column is-narrow is-flex align-items-center justify-center">
-                    <ok-desktop-community-profile-header-bar-stats :community="community"></ok-desktop-community-profile-header-bar-stats>
+                    <ok-desktop-community-profile-header-bar-stats
+                            :community="community"></ok-desktop-community-profile-header-bar-stats>
                 </div>
             </div>
         </div>
@@ -30,16 +32,11 @@
 <style lang="scss">
 
     .ok-desktop-community-profile-header-bar {
-        height: 95px;
     }
 
     $header-avatar-padding: 25px;
 
     .ok-desktop-community-profile-header-avatar {
-        position: absolute;
-        left: $header-avatar-padding;
-        right: $header-avatar-padding;
-        bottom: $header-avatar-padding;
     }
 
 </style>
@@ -55,7 +52,8 @@
         from "~/pages/home/pages/community/components/desktop-community-profile/components/desktop-community-profile-header/components/desktop-community-profile-header-bar/components/OkDesktopCommunityProfileHeaderBarStats.vue";
     import OkDesktopCommunityProfileHeaderBarIds
         from "~/pages/home/pages/community/components/desktop-community-profile/components/desktop-community-profile-header/components/desktop-community-profile-header-bar/components/OkDesktopCommunityProfileHeaderBarIds.vue";
-    import OkCommunityProfileActionButtons from "~/pages/home/pages/community/components/shared/OkCommunityProfileActionButtons.vue";
+    import OkCommunityProfileActionButtons
+        from "~/pages/home/pages/community/components/shared/OkCommunityProfileActionButtons.vue";
 
     @Component({
         name: "OkDesktopCommunityProfileHeaderBar",
@@ -72,6 +70,13 @@
         }) readonly community: ICommunity;
 
         OkAvatarSize = OkAvatarSize;
+
+        get barCssStyle() {
+            return {
+                "backgroundColor": this.community.color.hex(),
+                "color": `${this.community.colorInvert.hex()} !important`
+            }
+        }
 
     }
 </script>

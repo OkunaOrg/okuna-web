@@ -1,18 +1,18 @@
 <template>
     <div class="columns">
         <div class="column">
-            <div class="is-size-6 ok-has-text-primary-invert-80 is-flex align-center">
+            <div class="is-size-6 is-flex align-center">
                 {{ $t('components.community_posts_count.posts')}}
             </div>
-            <div class="is-size-5 has-text-weight-bold ok-has-text-primary-invert is-flex align-center">
+            <div class="is-size-5 has-text-weight-bold is-flex align-center">
                 {{ humanFriendlyPostsCount }}
             </div>
         </div>
         <div class="column">
-            <div class="is-size-6 ok-has-text-primary-invert-80 is-flex align-center">
-                {{ $t('components.community_members_count.members')}}
+            <div class="is-size-6 is-flex align-center">
+                {{ community.usersAdjective }}
             </div>
-            <div class="is-size-5 has-text-weight-bold ok-has-text-primary-invert is-flex align-center">
+            <div class="is-size-5 has-text-weight-bold is-flex align-center">
                 {{ humanFriendlyMembersCount }}
             </div>
         </div>

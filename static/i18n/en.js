@@ -63,7 +63,14 @@ export default {
         },
         "user_followers_count": {
             "followers": "Followers",
-        }
+        },
+        "community_profile_visibility": {
+            "public": "Public",
+            "private": "Private",
+        },
+        "community_posts_count": {
+            "posts": "Posts",
+        },
     },
     "forms": {
         "login": {

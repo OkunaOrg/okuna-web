@@ -20,6 +20,7 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { IUser } from '~/models/auth/user/IUser';
 
     @Component({
         name: "OkJoinCommunityButton",
@@ -43,7 +44,7 @@
 
 
         $observables!: {
-            loggedInUser: BehaviorSubject<ICommunity | undefined | null>
+            loggedInUser: BehaviorSubject<IUser | undefined | null>
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
@@ -103,7 +104,7 @@
 
 
         private refreshIsMemberOfCommunity() {
-            this.isMemberOfCommunity = this.community.isMember(this.user);
+            this.isMemberOfCommunity = this.community.isMember(this.$observables.loggedInUser.value);
         }
 
     }

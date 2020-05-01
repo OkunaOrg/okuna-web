@@ -1,14 +1,15 @@
 <template>
     <div>
-        <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
-            Manvisibility
+        <button v-if="isLoggedInUser"
+                class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
+            Manage
         </button>
         <div v-else class="columns is-vcentered is-mobile">
             <div class="column is-narrow">
                 <ok-join-community-button :community="community"></ok-join-community-button>
             </div>
             <div class="column is-narrow is-flex justify-center align-items-center">
-                <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
+                <ok-more-vertical class="is-icon-2x" :fillColor="iconFillColor"></ok-more-vertical>
             </div>
         </div>
     </div>
@@ -53,6 +54,9 @@
             this.$observables.loggedInUser.subscribe(this.onLoggedInUserChanged);
         }
 
+        get iconFillColor() {
+            return this.community.colorInvert.hex();
+        }
 
         private onLoggedInUserChanged(loggedInUser: ICommunity) {
             this.isLoggedInUser = loggedInUser.id === this.community.id;
