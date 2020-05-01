@@ -18,9 +18,10 @@ import {
     SearchCommunitiesApiParams,
     SearchCommunityAdministratorsApiParams,
     SearchCommunityMembersApiParams,
-    SearchCommunityModeratorsApiParams
+    SearchCommunityModeratorsApiParams, GetCommunityPostsApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
+import { PostData } from '~/types/models-data/posts/PostData';
 
 export interface ICommunitiesApiService {
     searchCommunities(params: SearchCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
@@ -28,6 +29,8 @@ export interface ICommunitiesApiService {
     getCommunity(params: GetCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
 
     getCommunityMembers(params: GetCommunityMembersApiParams): Promise<AxiosResponse<UserData[]>>;
+
+    getCommunityPosts(params: GetCommunityPostsApiParams): Promise<AxiosResponse<PostData[]>>;
 
     searchCommunityMembers(params: SearchCommunityMembersApiParams): Promise<AxiosResponse<UserData[]>>;
 

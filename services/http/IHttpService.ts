@@ -24,8 +24,10 @@ export interface HttpServiceRequestConfig {
     isApiRequest: boolean;
     // Whether the language header will be added
     appendLanguageHeader?: boolean;
-    // Whether the auth token will be added
+    // Whether the auth token will be added, fails if no token available
     appendAuthorizationToken?: boolean;
+    // Whether the auth token will be added, does not fail if not available
+    appendAuthorizationTokenIfExists?: boolean;
     // Parameters to replace in the given url
     // e.g. /api/{userId} would need urlTemplateParams: {userId : 3}
     urlTemplateParams?: {

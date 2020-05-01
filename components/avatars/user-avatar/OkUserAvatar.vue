@@ -22,7 +22,10 @@
         components: {OkImageAvatar},
     })
     export default class extends Vue {
-        @Prop(Object) readonly user: IUser;
+        @Prop({
+            type: Object,
+            required: true
+        }) readonly user: IUser;
         @Prop(Number) readonly avatarSize: OkAvatarSize;
         @Prop(Number) readonly avatarBorderRadius: OkAvatarBorderRadius;
 

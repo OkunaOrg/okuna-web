@@ -155,6 +155,7 @@ export class Community extends DataModel<Community> implements ICommunity {
             attributeKey: 'memberships',
             deserializer: communityMembershipsDeserializer,
             serializer: communityMembershipsSerializer,
+            defaultValue: []
         },
         {
             dataKey: 'categories',
@@ -169,6 +170,18 @@ export class Community extends DataModel<Community> implements ICommunity {
         super(data);
         this.updateWithData(data);
         this.bootstrapComputedAttributes();
+    }
+
+    isMember(user: IUser): boolean {
+        return !!this.getMembershipForUser(user);
+    }
+
+    private getMembershipForUser(user: IUser): ICommunityMembership | null {
+        if (this.memberships.length === 0) return null;
+
+        const membership = this.memberships.find((membership) => membership.userId === user.id);
+
+        return membership || null;
     }
 
     private bootstrapComputedAttributes() {

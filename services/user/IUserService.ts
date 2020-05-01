@@ -11,7 +11,7 @@ import {
     GetCommunityMembersParams,
     GetCommunityModeratorsParams,
     GetCommunityParams,
-    GetCommunityPostsCountParams, GetNotificationsParams,
+    GetCommunityPostsCountParams, GetCommunityPostsParams, GetNotificationsParams,
     GetPostCommentReactionsEmojiApiCountParams,
     GetPostCommentReactionsParams,
     GetPostCommentRepliesParams,
@@ -78,7 +78,7 @@ export interface IUserService {
 
     refreshLoggedInUser(): Promise<IUser>;
 
-    bootstrapLoggedInUser(): Promise<IUser>;
+    attemptToBootstrapLoggedInUser(): Promise<IUser | null>;
 
     isLoggedIn(): boolean;
 
@@ -93,6 +93,8 @@ export interface IUserService {
     getCommunity(params: GetCommunityParams): Promise<ICommunity>;
 
     getCommunityMembers(params: GetCommunityMembersParams): Promise<IUser[]>;
+
+    getCommunityPosts(params: GetCommunityPostsParams): Promise<IPost[]>;
 
     searchCommunityMembers(params: SearchCommunityMembersParams): Promise<IUser[]>;
 

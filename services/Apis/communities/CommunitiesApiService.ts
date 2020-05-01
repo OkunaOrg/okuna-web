@@ -15,7 +15,7 @@ import {
     SearchCommunitiesApiParams,
     SearchCommunityAdministratorsApiParams,
     SearchCommunityMembersApiParams,
-    SearchCommunityModeratorsApiParams
+    SearchCommunityModeratorsApiParams, GetCommunityPostsApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
@@ -70,7 +70,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     static SEARCH_MODERATED_COMMUNITIES_PATH =
         'api/communities/moderated/search/';
     static GET_COMMUNITY_POSTS_PATH =
-        'api/communities/{communityName}/postComments/';
+        'api/communities/{communityName}/posts/';
     static COUNT_COMMUNITY_POSTS_PATH =
         'api/communities/{communityName}/postComments/count/';
     static CREATE_COMMUNITY_POST_PATH =
@@ -128,12 +128,31 @@ export class CommunitiesApiService implements ICommunitiesApiService {
 
         return this.httpService.get(url,
             {
-                appendAuthorizationToken: true,
+                appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists,
                 // This version is a lighter weight serializer
                 apiVersion: 1.0,
                 isApiRequest: true
             });
     }
+
+
+    getCommunityPosts(params: GetCommunityPostsApiParams): Promise<AxiosResponse<UserData[]>> {
+        let queryParams = {};
+
+        if (params.count) queryParams['count'] = params.count;
+
+        if (params.maxId) queryParams['max_id'] = params.maxId;
+
+        const path = this.makeGetCommunityPostsPath(params.communityName);
+
+        return this.httpService.get(path,
+            {
+                queryParams: queryParams,
+                appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists,
+                isApiRequest: true
+            });
+    }
+
 
     getCommunityMembers(params: GetCommunityMembersApiParams): Promise<AxiosResponse<UserData[]>> {
         let queryParams = {};

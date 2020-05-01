@@ -2,12 +2,13 @@
     <div class="media">
         <div class="media-left">
             <ok-user-avatar
+                    :user="post.creator"
                     :avatar-size="this.OkAvatarSize.medium">
             </ok-user-avatar>
         </div>
         <div class="media-content">
-            <p class="title is-4">{{post.creator.profile.name}}</p>
-            <p class="subtitle is-6">@{{post.creator.username}}</p>
+            <p class="title is-6">{{post.creator.profile.name}}</p>
+            <p class="subtitle is-7">@{{post.creator.username}}</p>
         </div>
     </div>
 </template>

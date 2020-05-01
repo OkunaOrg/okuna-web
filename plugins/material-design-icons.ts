@@ -23,6 +23,7 @@ import FormatPaint from 'vue-material-design-icons/FormatPaint.vue';
 import ExitToApp from 'vue-material-design-icons/ExitToApp.vue';
 import Fire from 'vue-material-design-icons/Fire.vue';
 import Earth from 'vue-material-design-icons/Earth.vue';
+import Lock from 'vue-material-design-icons/LockOutline.vue';
 import Binoculars from 'vue-material-design-icons/Binoculars.vue';
 import DotsVertical from 'vue-material-design-icons/DotsVertical.vue';
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
@@ -94,6 +95,10 @@ Vue.component('ok-trending-icon', Fire);
 Vue.component('ok-explore-icon', Binoculars);
 
 Vue.component('ok-now-icon', Earth);
+
+Vue.component('ok-public-community-icon', Earth);
+
+Vue.component('ok-private-community-icon', Lock);
 
 Vue.component('ok-more-vertical', DotsVertical);
 
