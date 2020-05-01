@@ -4,7 +4,7 @@
             :background-color="community.color"
             :text-color="community.colorInvert"
     >
-        <strong class="ok-has-text-primary-invert">c/{{community.name}}</strong>
+        <span class="has-text-weight-bold">c/{{community.name}}</span>
     </ok-mobile-header>
 </template>
 

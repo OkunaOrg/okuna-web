@@ -1,5 +1,5 @@
 <template>
-    <strong class="ok-has-text-primary-invert is-size-5-touch">c/{{community.name}}</strong>
+    <strong class="ok-has-text-primary-invert is-size-7-touch">c/{{community.name}}</strong>
 </template>
 
 

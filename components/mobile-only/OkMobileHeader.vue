@@ -49,6 +49,7 @@
         }
 
         get headerStyle() {
+            debugger;
             return {
                 "backgroundColor": this.backgroundColor ? this.backgroundColor.hex() : "",
                 "color": this.textColor ? this.textColor.hex() : "",

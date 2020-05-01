@@ -6,7 +6,7 @@
                     :avatar-size="this.OkAvatarSize.medium">
             </ok-user-avatar>
         </div>
-        <div class="media-content">
+        <div class="media-content has-overflow-hidden">
             <p class="title is-6">{{post.creator.profile.name}}</p>
             <p class="subtitle is-7">@{{post.creator.username}}</p>
         </div>

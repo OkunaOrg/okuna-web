@@ -1,9 +1,9 @@
 <template>
-    <span class="ok-has-text-primary-invert-80 is-size-7-touch is-size-5">
+    <span class="ok-has-text-primary-invert-80 is-size-6-touch is-size-5">
         <strong class="ok-has-text-primary-invert-80">
             {{humanFriendlyMembersCount}}
         </strong>
-        {{$t('components.community_members_count.members')}}
+        {{ community.usersAdjective || $t('components.community_members_count.members')}}
     </span>
 </template>
 

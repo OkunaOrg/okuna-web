@@ -2,7 +2,7 @@
     <div>
         <ok-public-community-icon class="ok-svg-icon-primary-invert-80" v-if="communityIsPublic"></ok-public-community-icon>
         <ok-private-community-icon class="ok-svg-icon-primary-invert-80" v-else></ok-private-community-icon>
-        <span class="ok-has-text-primary-invert-80 is-size-7-touch">{{visibilityText}}</span>
+        <span class="ok-has-text-primary-invert-80 is-size-6-touch">{{visibilityText}}</span>
     </div>
 </template>
 
