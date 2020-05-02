@@ -39,7 +39,9 @@
             </div>
         </div>
         <div class="card-footer">
-            <ok-community-profile-info-buttons :community="community"></ok-community-profile-info-buttons>
+            <div class="has-padding-left-10">
+                <ok-community-profile-info-buttons :community="community"></ok-community-profile-info-buttons>
+            </div>
         </div>
     </div>
 </template>
