@@ -7,7 +7,7 @@
             :preview="preview"
             :notificationBody="notificationBody"
             :created="notification.created"
-        />
+        ></ok-notification-contents>
     </article>
 </template>
 
@@ -34,7 +34,7 @@
     }
 
     @Component({
-        name: "OkNotification",
+        name: "OkUserNotification",
         components: {OkNotificationContents},
         subscriptions: function () {
             return {
@@ -42,7 +42,7 @@
             };
         }
     })
-    export default class OkNotification extends Vue {
+    export default class OkUserNotification extends Vue {
         $observables!: {
             loggedInUser?: BehaviorSubject<IUser | undefined | null>
         };

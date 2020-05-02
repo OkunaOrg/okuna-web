@@ -2,11 +2,11 @@
     <section class="notifications-container" v-if="loggedInUserReady">
         <div class="notifications-stream">
             <div v-for="notification in notifications" :key="notification.id">
-                <OkNotification :notification="notification" />
+                <ok-user-notification :notification="notification"></ok-user-notification>
             </div>
         </div>
 
-        <infinite-loading @infinite="infiniteHandler" />
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </section>
 </template>
 
@@ -22,13 +22,13 @@
 
     import { INotification } from "~/models/notifications/notification/INotification";
     import { NotificationType } from "~/models/notifications/notification/lib/NotificationType";
-    import OkNotification from "~/components/notifications/components/notification/OkNotification.vue";
+    import OkUserNotification from "~/components/notifications/components/notification/OkUserNotification.vue";
 
     @Component({
-        name: "OkNotificationsContainer",
-        components: {OkNotification}
+        name: "OkUserNotifications",
+        components: {OkUserNotification}
     })
-    export default class OkNotificationsContainer extends Vue {
+    export default class OkUserNotifications extends Vue {
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         notifications: INotification[] = [];

@@ -5,12 +5,12 @@
                 v-if="community"
                 :community="community"
                 :avatar-size="avatarSize.medium"
-            />
+            ></ok-community-avatar>
             <ok-user-avatar
                 v-else
                 :user="initiator"
                 :avatar-size="avatarSize.medium"
-            />
+            ></ok-user-avatar>
         </div>
         <div class="notification-body media-content">
             <strong class="notification-body-name" v-if="!community">{{ initiator.profile.name }}</strong>
@@ -20,8 +20,8 @@
                 {{ created | moment("from", "now") }}
             </div>
         </div>
-        <ok-notification-reaction class="media-right" v-if="emoji" :emoji="emoji" />
-        <ok-notification-preview class="media-right" v-if="preview && preview.length" :thumbnail="preview" />
+        <ok-notification-reaction class="media-right" v-if="emoji" :emoji="emoji"></ok-notification-reaction>
+        <ok-notification-preview class="media-right" v-if="preview && preview.length" :thumbnail="preview"></ok-notification-preview>
     </div>
 </template>
 

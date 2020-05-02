@@ -3,7 +3,7 @@
         <ok-mobile-header class="is-flex justify-center align-items-center">
             <strong class="ok-has-text-primary-invert">Notifications</strong>
         </ok-mobile-header>
-        <ok-notifications-container class="ok-has-background-primary has-height-100-percent" />
+        <ok-user-notifications class="ok-has-background-primary has-height-100-percent"></ok-user-notifications>
     </section>
 </template>
 
@@ -20,11 +20,11 @@
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
 
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
-    import OkNotificationsContainer from "~/components/notifications/OkNotificationsContainer.vue";
+    import OkUserNotifications from "~/components/notifications/OkUserNotifications.vue";
 
     @Component({
         name: "OkNotificationsPage",
-        components: {OkMobileHeader, OkNotificationsContainer},
+        components: {OkMobileHeader, OkUserNotifications},
         subscriptions: function () {
             return {
                 environmentResolution: this["environmentService"].environmentResolution
