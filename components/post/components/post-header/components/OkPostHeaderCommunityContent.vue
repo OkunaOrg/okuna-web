@@ -1,14 +1,34 @@
 <template>
     <div class="media">
         <div class="media-left">
-            <ok-user-avatar
-                    :user="post.creator"
-                    :avatar-size="this.OkAvatarSize.medium">
-            </ok-user-avatar>
+            <nuxt-link :to="postCreatorUrl">
+                <ok-user-avatar
+                        :user="post.creator"
+                        :avatar-size="this.OkAvatarSize.medium">
+                </ok-user-avatar>
+            </nuxt-link>
         </div>
         <div class="media-content has-overflow-hidden">
-            <p class="title is-6">{{post.creator.profile.name}}</p>
-            <p class="subtitle is-7">@{{post.creator.username}}</p>
+            <p class="title is-6 ok-has-text-primary-invert">
+                <nuxt-link :to="postCreatorUrl">
+                        <span class="has-text-weight-bold">
+                            {{post.creator.profile.name}}
+                        </span>
+                </nuxt-link>
+            </p>
+            <p class="subtitle is-7 ok-has-text-primary-invert-80">
+                <nuxt-link :to="postCreatorUrl">
+                        <span class="has-text-weight-bold">
+                            @{{post.creator.username}}
+                        </span>
+                </nuxt-link>
+                <span>
+                    ·
+                </span>
+                <span>
+                    {{ post.created | moment("from", "now") }}
+                </span>
+            </p>
         </div>
     </div>
 </template>
@@ -34,6 +54,10 @@
 
         broadcastWantsToOpenPostActions(){
             this.$emit('onWantsToOpenPostActions', this.post);
+        }
+
+        get postCreatorUrl() {
+            return `/${this.post.creator.username}`;
         }
 
     }
