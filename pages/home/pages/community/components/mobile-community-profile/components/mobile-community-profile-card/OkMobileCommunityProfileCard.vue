@@ -3,7 +3,7 @@
         <div class="ok-mobile-community-profile-card__content">
             <div class="has-padding-left-20 has-padding-right-20 container has-padding-top-20">
                 <div class="columns is-gapless is-marginless is-mobile has-padding-bottom-10">
-                    <div class="column ok-mobile-community-profile-card__avatar is-narrow">
+                    <div class="column is-narrow">
                         <ok-community-avatar :community="community" :avatar-size="OkAvatarSize.extraMedium"></ok-community-avatar>
                     </div>
                     <div class="column is-flex flex-direction-column align-items-flex-end justify-center">
