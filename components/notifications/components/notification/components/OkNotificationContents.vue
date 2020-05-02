@@ -57,10 +57,6 @@
         @Prop(Number) readonly created: Date;
 
         avatarSize = OkAvatarSize;
-
-        mounted() {
-            console.log(this.initiator, this.notificationBody);
-        }
     }
 </script>
 

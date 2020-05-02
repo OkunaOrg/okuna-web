@@ -13,15 +13,11 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator";
-    import { TYPES } from "~/services/inversify-types";
-    import { IUserService } from "~/services/user/IUserService";
-    import { okunaContainer } from "~/services/inversify";
     import { INotification } from "~/models/notifications/notification/INotification";
     import { NotificationType } from "~/models/notifications/notification/lib/NotificationType";
     import { IUser } from "~/models/auth/user/IUser";
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import { IEmoji } from "~/models/common/emoji/IEmoji";
-    import { BehaviorSubject } from "rxjs";
 
     import OkNotificationContents from "./components/OkNotificationContents.vue";
 
@@ -35,21 +31,11 @@
 
     @Component({
         name: "OkUserNotification",
-        components: {OkNotificationContents},
-        subscriptions: function () {
-            return {
-                loggedInUser: this["userService"].loggedInUser
-            };
-        }
+        components: {OkNotificationContents}
     })
     export default class OkUserNotification extends Vue {
-        $observables!: {
-            loggedInUser?: BehaviorSubject<IUser | undefined | null>
-        };
-
         @Prop(Object) readonly notification: INotification;
-
-        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        @Prop(Object) readonly currentUser: IUser | undefined;
 
         componentIsReady = false;
 
@@ -62,17 +48,17 @@
         private getTranslationKeyByUser(type: "comment" | "reply", user: IUser) {
             switch (type) {
                 case "comment":
-                    return user.uuid === this.$observables.loggedInUser.value.uuid
+                    return user.uuid === this.currentUser.uuid
                         ? "components.notifications.commented_on_your_post"
                         : "components.notifications.also_commented";
                 case "reply":
-                    return user.uuid === this.$observables.loggedInUser.value.uuid
+                    return user.uuid === this.currentUser.uuid
                         ? "components.notifications.user_replied"
                         : "components.notifications.user_also_replied";
             }
         }
 
-        mounted() {
+        created() {
             let postComment;
 
             switch (this.notification.type) {

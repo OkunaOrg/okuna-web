@@ -1,8 +1,8 @@
 <template>
-    <section class="notifications-container" v-if="loggedInUserReady">
+    <section class="notifications-container" v-if="loggedInUser">
         <div class="notifications-stream">
             <div v-for="notification in notifications" :key="notification.id">
-                <ok-user-notification :notification="notification"></ok-user-notification>
+                <ok-user-notification :notification="notification" :currentUser="loggedInUser"></ok-user-notification>
             </div>
         </div>
 
@@ -12,7 +12,6 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator";
-    import { Route } from "vue-router";
     import { Subscription } from "rxjs";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
@@ -23,32 +22,25 @@
     import { INotification } from "~/models/notifications/notification/INotification";
     import { NotificationType } from "~/models/notifications/notification/lib/NotificationType";
     import OkUserNotification from "~/components/notifications/components/notification/OkUserNotification.vue";
+    import { BehaviorSubject } from "rxjs";
 
     @Component({
         name: "OkUserNotifications",
-        components: {OkUserNotification}
+        components: {OkUserNotification},
+        subscriptions: function () {
+            return {
+                loggedInUser: this["userService"].loggedInUser
+            };
+        }
     })
     export default class OkUserNotifications extends Vue {
+        $observables!: {
+            loggedInUser?: BehaviorSubject<IUser | undefined>
+        };
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         notifications: INotification[] = [];
-        loggedInUserReady = false;
-
-        private loggedInUserSubscription: Subscription;
-
-        mounted() {
-            this.loggedInUserSubscription = this.userService.loggedInUser.subscribe(this.onLoggedInUser);
-        }
-
-        destroyed() {
-            this.loggedInUserSubscription.unsubscribe();
-        }
-
-        onLoggedInUser(loggedInUser: IUser) {
-            if (loggedInUser) {
-                this.loggedInUserReady = true;
-            }
-        }
 
         infiniteHandler($state) {
             let lastNotificationId;
