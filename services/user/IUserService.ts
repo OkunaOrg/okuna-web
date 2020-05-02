@@ -47,9 +47,6 @@ import {
     RequestResetPasswordApiParams, ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { INotification } from '~/models/notifications/notification/INotification';
-import { FollowUserApiParams, UnfollowUserApiParams } from '~/services/Apis/follows/FollowsApiServiceTypes';
-import { AxiosResponse } from '~/node_modules/axios';
-import { FollowData } from '~/types/models-data/follows/FollowData';
 import { IFollow } from '~/models/follows/follow/IFollow';
 
 

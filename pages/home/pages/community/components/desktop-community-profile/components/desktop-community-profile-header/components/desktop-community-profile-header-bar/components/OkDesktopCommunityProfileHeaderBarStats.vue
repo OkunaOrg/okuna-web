@@ -1,5 +1,5 @@
 <template>
-    <div class="columns">
+    <div class="columns ok-has-text-primary-invert">
         <div class="column">
             <div class="is-size-6 is-flex align-center">
                 {{ $t('components.community_posts_count.posts')}}

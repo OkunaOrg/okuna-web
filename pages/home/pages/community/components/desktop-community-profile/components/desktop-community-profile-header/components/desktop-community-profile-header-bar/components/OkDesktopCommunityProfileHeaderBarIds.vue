@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="ok-has-text-primary-invert">
         <div class="is-size-5 has-text-weight-bold is-flex align-center">
             {{community.title}}
         </div>

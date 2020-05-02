@@ -1,7 +1,8 @@
 <template>
     <footer>
         <div class="columns flex-direction-column is-gapless">
-            <div class="column" :style="barCssStyle">
+            <div class="column" :style="barCssStyle"
+                 v-if="activeTheme">
                 <div class="ok-destop-community-profile-header-bar-line"></div>
             </div>
             <div class="column">
@@ -39,7 +40,7 @@
 
 
 <style lang="scss">
-    .ok-destop-community-profile-header-bar-line{
+    .ok-destop-community-profile-header-bar-line {
         height: 1rem;
         width: 100%;
     }
@@ -58,6 +59,11 @@
         from "~/pages/home/pages/community/components/desktop-community-profile/components/desktop-community-profile-header/components/desktop-community-profile-header-bar/components/OkDesktopCommunityProfileHeaderBarIds.vue";
     import OkCommunityProfileActionButtons
         from "~/pages/home/pages/community/components/shared/OkCommunityProfileActionButtons.vue";
+    import { IThemeService } from "~/services/theme/IThemeService";
+    import { TYPES } from "~/services/inversify-types";
+    import { okunaContainer } from "~/services/inversify";
+    import { ITheme } from "~/models/common/theme/ITheme";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
 
     @Component({
         name: "OkDesktopCommunityProfileHeaderBar",
@@ -66,6 +72,11 @@
             OkDesktopCommunityProfileHeaderBarIds,
             OkDesktopCommunityProfileHeaderBarStats, OkCommunityAvatar, OkCommunityCover
         },
+        subscriptions: function () {
+            return {
+                activeTheme: this["themeService"].activeTheme
+            }
+        }
     })
     export default class OkDesktopCommunityProfileHeaderBar extends Vue {
         @Prop({
@@ -73,12 +84,21 @@
             required: true
         }) readonly community: ICommunity;
 
+        $observables!: {
+            activeTheme: BehaviorSubject<ITheme | undefined>
+        };
+
         OkAvatarSize = OkAvatarSize;
 
+        private themeService: IThemeService = okunaContainer.get<IThemeService>(TYPES.ThemeService);
+
+
         get barCssStyle() {
+            const activeTheme = this.$observables.activeTheme.value;
+            const themeColorIsCommunityColor = this.community.color.hex() === activeTheme.primaryColor.hex();
+
             return {
-                "backgroundColor": this.community.color.hex(),
-                "color": `${this.community.colorInvert.hex()} !important`
+                "backgroundColor": themeColorIsCommunityColor ? activeTheme.primaryHighlightColor.hsl().string() : this.community.color.hex(),
             }
         }
 

@@ -1,8 +1,8 @@
 <template>
-    <button v-if="loggedInUser"
+    <button v-if="loggedInUser && activeTheme"
             :disabled="requestInProgress"
             @click="onWantsToToggleJoinCommunity"
-            class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
+            class="button is-rounded has-text-weight-bold is-borderless" :style="buttonCssStyle">
         {{ isMemberOfCommunity ? 'Leave' : 'Join'}}
     </button>
 </template>
@@ -21,13 +21,16 @@
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { IUser } from "~/models/auth/user/IUser";
+    import { IThemeService } from "~/services/theme/IThemeService";
+    import { ITheme } from "~/models/common/theme/ITheme";
 
     @Component({
         name: "OkJoinCommunityButton",
         components: {},
         subscriptions: function () {
             return {
-                loggedInUser: this["userService"].loggedInUser
+                loggedInUser: this["userService"].loggedInUser,
+                activeTheme: this["themeService"].activeTheme
             }
         }
     })
@@ -44,11 +47,13 @@
 
 
         $observables!: {
-            loggedInUser: BehaviorSubject<IUser | undefined | null>
+            loggedInUser: BehaviorSubject<IUser | undefined | null>,
+            activeTheme: BehaviorSubject<ITheme | undefined>
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private themeService: IThemeService = okunaContainer.get<IThemeService>(TYPES.ThemeService);
         private requestOperation?: CancelableOperation<any>;
 
         created() {
@@ -62,6 +67,16 @@
             } else {
                 // JoinCommunity
                 this.joinCommunity();
+            }
+        }
+
+        get buttonCssStyle() {
+            const activeTheme = this.$observables.activeTheme.value;
+            const themeColorIsCommunityColor = this.community.color.hex() === activeTheme.primaryColor.hex();
+
+            return {
+                "backgroundColor": themeColorIsCommunityColor ? activeTheme.primaryHighlightColor.hsl().string() : this.community.color.hex(),
+                "color": themeColorIsCommunityColor ? activeTheme.primaryInvertColor.hex() : this.community.colorInvert.hex(),
             }
         }
 
