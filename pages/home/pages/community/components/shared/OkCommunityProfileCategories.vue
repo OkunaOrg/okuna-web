@@ -1,5 +1,5 @@
 <template>
-    <div class="columns is-multiline is-variable is-1">
+    <div class="columns is-multiline is-variable is-1 is-mobile">
         <div class="column is-narrow" v-for="category in community.categories">
             <ok-category-button :category="category"></ok-category-button>
         </div>

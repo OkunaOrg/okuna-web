@@ -1,7 +1,7 @@
 <template>
     <div class="card ok-has-background-primary ok-desktop-community-profile-sidebar">
         <div class="card-header ok-has-border-bottom-primary-highlight" v-if="headerVisible">
-            <div class="columns has-padding-20 has-width-100-percent">
+            <div class="columns has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 has-width-100-percent is-marginless">
                 <div class="column is-narrow is-flex align-items-center">
                     <ok-community-avatar :community="community"></ok-community-avatar>
                 </div>
@@ -39,28 +39,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <div class="columns is-mobile is-multiline is-variable is-1 is-marginless has-padding-left-10">
-                <div class="column is-narrow">
-                    <button
-                            class="button is-rounded ok-has-background-primary-highlight is-borderless"
-                    >
-                        <ok-staff-icon class="ok-svg-icon-primary-invert-60" style="top: -3px"></ok-staff-icon>
-                        <span class="has-padding-left-10 has-padding-right-10">
-                            Staff
-                        </span>
-                    </button>
-                </div>
-                <div class="column is-narrow">
-                    <button
-                            class="button is-rounded ok-has-background-primary-highlight is-borderless"
-                    >
-                        <ok-rules-icon class="ok-svg-icon-primary-invert-60" style="top: -3px"></ok-rules-icon>
-                        <span class="has-padding-left-10 has-padding-right-10">
-                            Rules
-                        </span>
-                    </button>
-                </div>
-            </div>
+            <ok-community-profile-info-buttons :community="community"></ok-community-profile-info-buttons>
         </div>
     </div>
 </template>
@@ -82,10 +61,13 @@
         from '~/pages/home/pages/community/components/mobile-community-profile/components/mobile-community-profile-card/components/OkMobileCommunityProfileTitle.vue';
     import OkMobileCommunityProfileName
         from '~/pages/home/pages/community/components/mobile-community-profile/components/mobile-community-profile-card/components/OkMobileCommunityProfileName.vue';
+    import OkCommunityProfileInfoButtons
+        from '~/pages/home/pages/community/components/shared/OkCommunityProfileInfoButtons.vue';
 
     @Component({
         name: "OkDesktopCommunityProfileSidebar",
         components: {
+            OkCommunityProfileInfoButtons,
             OkMobileCommunityProfileName,
             OkMobileCommunityProfileTitle,
             OkCommunityProfileActionButtons,

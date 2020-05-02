@@ -2,13 +2,15 @@
     <button v-if="loggedInUser && activeTheme"
             :disabled="requestInProgress"
             @click="onWantsToToggleJoinCommunity"
-            class="button is-rounded has-text-weight-bold is-borderless" :style="buttonCssStyle">
+            class="button is-rounded has-text-weight-bold is-borderless ok-join-button" :style="buttonCssStyle">
         {{ isMemberOfCommunity ? 'Leave' : 'Join'}}
     </button>
 </template>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
+    .ok-join-button{
+        min-width: 100px;
+    }
 </style>
 
 <script lang="ts">

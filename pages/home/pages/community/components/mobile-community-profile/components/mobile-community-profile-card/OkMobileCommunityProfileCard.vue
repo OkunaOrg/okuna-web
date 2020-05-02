@@ -34,6 +34,14 @@
                         <ok-mobile-community-profile-posts-count :community="community"></ok-mobile-community-profile-posts-count>
                     </div>
                 </div>
+                <div class="columns is-mobile is-multiline is-variable is-2 is-marginless">
+                    <div class="column is-narrow">
+                        <ok-community-profile-categories :community="community"></ok-community-profile-categories>
+                    </div>
+                    <div class="column is-narrow">
+                        <ok-community-profile-info-buttons :community="community"></ok-community-profile-info-buttons>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -60,11 +68,17 @@
         from '~/pages/home/pages/community/components/mobile-community-profile/components/mobile-community-profile-card/components/OkMobileCommunityProfileTitle.vue';
     import OkMobileCommunityProfileName
         from '~/pages/home/pages/community/components/mobile-community-profile/components/mobile-community-profile-card/components/OkMobileCommunityProfileName.vue';
+    import OkCommunityProfileCategories
+        from '~/pages/home/pages/community/components/shared/OkCommunityProfileCategories.vue';
+    import OkCommunityProfileInfoButtons
+        from '~/pages/home/pages/community/components/shared/OkCommunityProfileInfoButtons.vue';
 
 
     @Component({
         name: "OkMobileCommunityProfileCard",
         components: {
+            OkCommunityProfileInfoButtons,
+            OkCommunityProfileCategories,
             OkMobileCommunityProfileName,
             OkMobileCommunityProfileTitle,
             OkMobileCommunityProfileMembersCount,

@@ -49,7 +49,7 @@
 
         $observables!: {
             environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>,
-            loggedInUser: BehaviorSubject<ICommunity | undefined>
+            loggedInUser: BehaviorSubject<IUser | undefined>
         };
 
         EnvironmentResolution = EnvironmentResolution;
