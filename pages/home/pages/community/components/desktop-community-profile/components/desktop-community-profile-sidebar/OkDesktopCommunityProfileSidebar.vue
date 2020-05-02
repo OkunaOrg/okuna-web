@@ -12,13 +12,10 @@
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import OkDesktopCommunityProfileSidebarDetails
         from "~/pages/home/pages/community/components/desktop-community-profile/components/desktop-community-profile-sidebar/components/OkDesktopCommunityProfileSidebarDetails.vue";
-    import OkDesktopCommunityProfileSidebarActions
-        from '~/pages/home/pages/community/components/desktop-community-profile/components/desktop-community-profile-sidebar/components/OkDesktopCommunityProfileSidebarActions.vue';
 
     @Component({
         name: "OkDesktopCommunityProfileSidebar",
         components: {
-            OkDesktopCommunityProfileSidebarActions,
             OkDesktopCommunityProfileSidebarDetails,
         },
     })

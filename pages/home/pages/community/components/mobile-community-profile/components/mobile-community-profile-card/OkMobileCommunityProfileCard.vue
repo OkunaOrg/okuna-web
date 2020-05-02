@@ -14,10 +14,10 @@
                 </div>
                 <div class="columns is-gapless is-marginless has-padding-top-10 flex-direction-column">
                     <div class="column ok-mobile-community-profile-card__post-avatar">
-                        <ok-community-profile-title :community="community"></ok-community-profile-title>
+                        <ok-mobile-community-profile-title :community="community"></ok-mobile-community-profile-title>
                     </div>
                     <div class="column">
-                        <ok-community-profile-name :community="community"></ok-community-profile-name>
+                        <ok-mobile-community-profile-name :community="community"></ok-mobile-community-profile-name>
                     </div>
                     <div class="column" v-if="community.description">
                         <ok-community-profile-description :community="community"></ok-community-profile-description>
@@ -49,7 +49,6 @@
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import OkCommunityAvatar from '~/components/avatars/community-avatar/OkCommunityAvatar.vue';
     import { OkAvatarSize } from '~/components/avatars/lib/OkAvatarSize';
-    import OkCommunityProfileName from '~/pages/home/pages/community/components/shared/OkCommunityProfileName.vue';
     import OkCommunityProfileDescription from '~/pages/home/pages/community/components/shared/OkCommunityProfileDescription.vue';
     import OkCommunityProfileVisibility from '~/pages/home/pages/community/components/shared/OkCommunityProfileVisibility.vue';
     import OkCommunityProfileActionButtons from '~/pages/home/pages/community/components/shared/OkCommunityProfileActionButtons.vue';
@@ -57,19 +56,23 @@
         from '~/pages/home/pages/community/components/mobile-community-profile/components/mobile-community-profile-card/components/OkMobileCommunityProfilePostsCount.vue';
     import OkMobileCommunityProfileMembersCount
         from '~/pages/home/pages/community/components/mobile-community-profile/components/mobile-community-profile-card/components/OkMobileCommunityProfileMembersCount.vue';
-    import OkCommunityProfileTitle from '~/pages/home/pages/community/components/shared/OkCommunityProfileTitle.vue';
+    import OkMobileCommunityProfileTitle
+        from '~/pages/home/pages/community/components/mobile-community-profile/components/mobile-community-profile-card/components/OkMobileCommunityProfileTitle.vue';
+    import OkMobileCommunityProfileName
+        from '~/pages/home/pages/community/components/mobile-community-profile/components/mobile-community-profile-card/components/OkMobileCommunityProfileName.vue';
 
 
     @Component({
         name: "OkMobileCommunityProfileCard",
         components: {
-            OkCommunityProfileTitle,
+            OkMobileCommunityProfileName,
+            OkMobileCommunityProfileTitle,
             OkMobileCommunityProfileMembersCount,
             OkMobileCommunityProfilePostsCount,
             OkCommunityProfileActionButtons,
             OkCommunityProfileVisibility,
             OkCommunityProfileDescription,
-            OkCommunityProfileName, OkCommunityAvatar},
+             OkCommunityAvatar},
     })
     export default class OkMobileCommunityProfileCard extends Vue {
         @Prop({

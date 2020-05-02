@@ -9,10 +9,10 @@
     import { ICommunity } from "~/models/communities/community/ICommunity";
 
     @Component({
-        name: "OkCommunityProfileTitle",
+        name: "OkMobileCommunityProfileTitle",
         components: {},
     })
-    export default class OkCommunityProfileTitle extends Vue {
+    export default class OkMobileCommunityProfileTitle extends Vue {
         @Prop({
             type: Object,
             required: true

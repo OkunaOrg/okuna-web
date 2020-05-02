@@ -9,7 +9,7 @@
                 <ok-join-community-button :community="community"></ok-join-community-button>
             </div>
             <div class="column is-narrow is-flex justify-center align-items-center">
-                <ok-more-vertical class="is-icon-2x" :fillColor="iconFillColor"></ok-more-vertical>
+                <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
             </div>
         </div>
     </div>

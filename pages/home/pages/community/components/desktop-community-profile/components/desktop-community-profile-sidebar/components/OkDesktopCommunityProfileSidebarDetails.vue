@@ -8,10 +8,37 @@
                 <ok-smart-text :text="community.description"></ok-smart-text>
             </div>
         </div>
-        <div class="card-content">
-            <div class="columns is-mobile is-multiline is-variable is-3 is-marginless">
-                <div class="column is-narrow">
+        <div class="card-content ok-has-border-bottom-primary-highlight">
+            <div class="columns is-mobile flex-direction-column is-variable is-3 is-marginless">
+                <div class="column">
                     <ok-community-profile-visibility :community="community"></ok-community-profile-visibility>
+                </div>
+                <div class="column">
+                    <ok-community-profile-categories :community="community"></ok-community-profile-categories>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="columns is-mobile is-multiline is-variable is-1 is-marginless has-padding-left-10">
+                <div class="column is-narrow">
+                    <button @click="onPressed"
+                            class="button is-rounded ok-has-background-primary-highlight is-borderless"
+                    >
+                        <ok-staff-icon class="ok-svg-icon-primary-invert-60" style="top: -3px"></ok-staff-icon>
+                        <span class="has-padding-left-10 has-padding-right-10">
+                            Staff
+                        </span>
+                    </button>
+                </div>
+                <div class="column is-narrow">
+                    <button @click="onPressed"
+                            class="button is-rounded ok-has-background-primary-highlight is-borderless"
+                    >
+                        <ok-rules-icon class="ok-svg-icon-primary-invert-60" style="top: -3px"></ok-rules-icon>
+                        <span class="has-padding-left-10 has-padding-right-10">
+                            Rules
+                        </span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -24,10 +51,12 @@
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import OkSmartText from '~/components/smart-text/OkSmartText.vue';
     import OkCommunityProfileVisibility from '~/pages/home/pages/community/components/shared/OkCommunityProfileVisibility.vue';
+    import OkCommunityProfileCategories
+        from '~/pages/home/pages/community/components/shared/OkCommunityProfileCategories.vue';
 
     @Component({
         name: "OkDesktopCommunityProfileSidebarDetails",
-        components: {OkCommunityProfileVisibility, OkSmartText},
+        components: {OkCommunityProfileCategories, OkCommunityProfileVisibility, OkSmartText},
     })
     export default class OkDesktopCommunityProfileSidebarDetails extends Vue {
         @Prop({

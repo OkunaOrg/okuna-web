@@ -39,57 +39,16 @@
         private requestOperation?: CancelableOperation<any>;
 
 
-        onWantsToToggleFollow() {
-            if (this.user.isFollowing) {
-                // Unfollow
-                this.unfollowUser();
-            } else {
-                // Follow
-                this.followUser();
+
+        get buttonCssStyle() {
+            const activeTheme = this.$observables.activeTheme.value;
+            const themeColorIsCommunityColor = this.community.color.hex() === activeTheme.primaryColor.hex();
+
+            return {
+                "backgroundColor": themeColorIsCommunityColor ? activeTheme.primaryHighlightColor.hsl().string() : this.community.color.hex(),
+                "color": themeColorIsCommunityColor ? activeTheme.primaryInvertColor.hex() : this.community.colorInvert.hex(),
             }
         }
-
-
-        private async followUser() {
-            if (this.requestInProgress) return;
-            this.requestInProgress = true;
-
-
-            try {
-                this.requestOperation = CancelableOperation.fromPromise(this.userService.followUser({
-                    user: this.user
-                }));
-
-                this.user.incrementFollowersCount();
-
-            } catch (error) {
-                this.utilsService.handleErrorWithToast(error);
-            } finally {
-                this.requestOperation = null;
-                this.requestInProgress = false;
-            }
-        }
-
-        private async unfollowUser() {
-            if (this.requestInProgress) return;
-            this.requestInProgress = true;
-
-            try {
-                this.requestOperation = CancelableOperation.fromPromise(this.userService.unfollowUser({
-                    user: this.user
-                }));
-
-                await this.requestOperation.value;
-
-                this.user.decrementFollowersCount();
-            } catch (error) {
-                this.utilsService.handleErrorWithToast(error);
-            } finally {
-                this.requestOperation = null;
-                this.requestInProgress = false;
-            }
-        }
-
 
     }
 </script>

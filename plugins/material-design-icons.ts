@@ -37,6 +37,8 @@ import BabyIcon from 'vue-material-design-icons/BabyFaceOutline.vue';
 import AdultIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
 import EditIcon from 'vue-material-design-icons/Pencil.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+import StaffIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
+import RulesIcon from 'vue-material-design-icons/Book.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -123,3 +125,7 @@ Vue.component('ok-adult-icon', AdultIcon);
 Vue.component('ok-edit-icon', EditIcon);
 
 Vue.component('ok-chevron-right-icon', ChevronRight);
+
+Vue.component('ok-rules-icon', RulesIcon);
+
+Vue.component('ok-staff-icon', StaffIcon);
