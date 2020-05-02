@@ -1,28 +1,37 @@
 <template>
-    <footer class="columns is-gapless ok-desktop-community-profile-header-bar" :style="barCssStyle">
-        <div class="column is-narrow">
-            <ok-community-avatar
-                    class="ok-desktop-community-profile-header-avatar has-padding-25"
-                    :community="community"
-                    :avatar-size="OkAvatarSize.extraMedium"
-            ></ok-community-avatar>
-        </div>
-        <div class="column is-flex align-items-center">
-            <div class="columns has-width-100-percent is-variable is-8">
-                <div class="column flex-direction-column is-narrow is-flex justify-center">
-                    <ok-desktop-community-profile-header-bar-ids
-                            :community="community"></ok-desktop-community-profile-header-bar-ids>
-                </div>
-                <div class="column flex-direction-column is-narrow is-flex align-items-center justify-center">
-                    <ok-desktop-community-profile-header-bar-stats
-                            :community="community"></ok-desktop-community-profile-header-bar-stats>
-                </div>
+    <footer>
+        <div class="columns flex-direction-column is-gapless">
+            <div class="column" :style="barCssStyle">
+                <div class="ok-destop-community-profile-header-bar-line"></div>
             </div>
-        </div>
-        <div class="column is-narrow is-flex justify-center align-items-center">
-            <div class="has-padding-left-20 has-padding-right-20">
-                <ok-community-profile-action-buttons
-                        :community="community"></ok-community-profile-action-buttons>
+            <div class="column">
+                <div class="columns is-gapless">
+                    <div class="column is-narrow">
+                        <ok-community-avatar
+                                class="ok-desktop-community-profile-header-avatar has-padding-25"
+                                :community="community"
+                                :avatar-size="OkAvatarSize.extraMedium"
+                        ></ok-community-avatar>
+                    </div>
+                    <div class="column is-flex align-items-center">
+                        <div class="columns has-width-100-percent is-variable is-8">
+                            <div class="column flex-direction-column is-narrow is-flex justify-center">
+                                <ok-desktop-community-profile-header-bar-ids
+                                        :community="community"></ok-desktop-community-profile-header-bar-ids>
+                            </div>
+                            <div class="column flex-direction-column is-narrow is-flex align-items-center justify-center">
+                                <ok-desktop-community-profile-header-bar-stats
+                                        :community="community"></ok-desktop-community-profile-header-bar-stats>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-narrow is-flex justify-center align-items-center">
+                        <div class="has-padding-left-20 has-padding-right-20">
+                            <ok-community-profile-action-buttons
+                                    :community="community"></ok-community-profile-action-buttons>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
@@ -30,7 +39,10 @@
 
 
 <style lang="scss">
-
+    .ok-destop-community-profile-header-bar-line{
+        height: 1rem;
+        width: 100%;
+    }
 </style>
 
 
