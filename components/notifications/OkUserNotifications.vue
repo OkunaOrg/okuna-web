@@ -7,7 +7,7 @@
                     v-if="shouldGeneralTabRender"
                 ></ok-user-notifications-stream>
             </b-tab-item>
-            <b-tab-item :label="$t('components.notifications.general_tab_label')">
+            <b-tab-item :label="$t('components.notifications.requests_tab_label')">
                 <ok-user-notifications-stream
                     :notificationTypes="requestsNotificationTypes"
                     v-if="shouldRequestsTabRender"
