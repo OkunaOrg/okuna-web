@@ -1,5 +1,5 @@
 <template>
-    <div class="notification-contents media">
+    <nuxt-link class="notification-contents media" :to="action">
         <div class="notification-avatar media-left">
             <ok-community-avatar
                 v-if="community"
@@ -22,7 +22,7 @@
         </div>
         <ok-notification-reaction class="media-right" v-if="emoji" :emoji="emoji"></ok-notification-reaction>
         <ok-notification-preview class="media-right" v-if="preview && preview.length" :thumbnail="preview"></ok-notification-preview>
-    </div>
+    </nuxt-link>
 </template>
 
 <script lang="ts">
@@ -54,6 +54,7 @@
         @Prop(Object) readonly emoji: IEmoji | undefined;
         @Prop(String) readonly preview: string | undefined;
         @Prop(String) readonly notificationBody: string;
+        @Prop(String) readonly action: string;
         @Prop(Number) readonly created: Date;
 
         avatarSize = OkAvatarSize;
