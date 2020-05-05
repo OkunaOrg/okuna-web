@@ -23,7 +23,7 @@
                                 </nuxt-link>
                             </div>
                             <div class="column is-flex align-items-center justify-center">
-                                <nuxt-link to="/n" class="has-cursor-pointer is-flex">
+                                <nuxt-link to="/now" class="has-cursor-pointer is-flex">
                                     <ok-now-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-now-icon>
                                 </nuxt-link>
                             </div>
@@ -40,8 +40,7 @@
                             </div>
                             <div class="column is-flex align-items-center is-hidden-mobile justify-center">
                                 <div class="has-cursor-pointer is-flex">
-                                    <ok-notifications-icon
-                                            class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
+                                    <ok-user-notifications-dropdown></ok-user-notifications-dropdown>
                                 </div>
                             </div>
                             <div class="column is-flex align-items-center is-hidden-desktop is-hidden-tablet justify-center">
@@ -52,7 +51,7 @@
                             </div>
                             <div class="column is-flex align-items-center is-hidden-mobile justify-center">
                                 <div class="has-cursor-pointer">
-                                    <ok-user-dropdown></ok-user-dropdown>
+                                    <ok-user-menu-dropdown></ok-user-menu-dropdown>
                                 </div>
                             </div>
                         </div>
@@ -71,12 +70,13 @@
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
     import OkHeaderSearchBar from '~/pages/home/components/header/components/HeaderSearchBar.vue';
-    import OkUserDropdown from '~/pages/home/components/header/components/user-dropdown/OkUserDropdown.vue';
+    import OkUserMenuDropdown from '~/pages/home/components/header/components/user-menu-dropdown/OkUserMenuDropdown.vue';
+    import OkUserNotificationsDropdown from '~/pages/home/components/header/components/user-notifications-dropdown/OkUserNotificationsDropdown.vue';
     import OkLogo from '~/components/okuna-logo/OkLogo.vue';
 
     @Component({
         name: "OkHeader",
-        components: {OkLogo, OkUserDropdown, OkHeaderSearchBar},
+        components: {OkLogo, OkUserMenuDropdown, OkUserNotificationsDropdown, OkHeaderSearchBar},
     })
     export default class extends Vue {
 

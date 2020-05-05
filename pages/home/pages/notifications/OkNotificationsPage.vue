@@ -41,6 +41,10 @@
         private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
         private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
 
+        mounted() {
+            this.$observables.environmentResolution.subscribe(this.onEnvironmentResolutionChanged);
+        }
+
         private onEnvironmentResolutionChanged(resolution: EnvironmentResolution) {
             if (resolution !== EnvironmentResolution.mobile) {
                 this.navigationService.navigateToHome();

@@ -3,8 +3,8 @@
         <figure class="preview-wrapper image is-32x32 is-semi-rounded">
             <img
                 :src="thumbnail"
-                :alt="description"
-                :title="description"
+                alt="Post preview"
+                title="Post preview"
             />
         </figure>
     </div>
@@ -18,7 +18,6 @@
     })
     export default class OkNotificationPreview extends Vue {
         @Prop(String) readonly thumbnail: string;
-        @Prop({ type: String, default: "notification" }) readonly description: string;
     }
 </script>
 

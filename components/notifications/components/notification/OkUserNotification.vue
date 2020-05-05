@@ -151,3 +151,9 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .ok-notification.unread {
+        background: #f5f5f5;
+    }
+</style>

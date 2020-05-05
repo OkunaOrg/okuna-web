@@ -6,7 +6,7 @@
             </div>
         </div>
 
-        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+        <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading"></infinite-loading>
     </section>
 </template>
 
@@ -15,6 +15,7 @@
     import { Subscription } from "rxjs";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
+    import InfiniteLoading from 'vue-infinite-loading';
 
     import { IUser } from "~/models/auth/user/IUser";
     import { IUserService } from '~/services/user/IUserService';
@@ -38,9 +39,19 @@
             loggedInUser?: BehaviorSubject<IUser | undefined>
         };
 
+        $refs!: {
+            infiniteLoading: InfiniteLoading
+        };
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         notifications: INotification[] = [];
+
+        mounted() {
+            if (this.$refs["infiniteLoading"]) {
+                this.$refs["infiniteLoading"]["attemptLoad"]();
+            }
+        }
 
         infiniteHandler($state) {
             let lastNotificationId;
