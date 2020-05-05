@@ -1,7 +1,7 @@
 <template>
     <section>
         <ok-mobile-header class="is-flex justify-center align-items-center">
-            <strong class="ok-has-text-primary-invert">Notifications</strong>
+            <strong class="ok-has-text-primary-invert">{{ $t('components.notifications.title') }}</strong>
         </ok-mobile-header>
         <ok-user-notifications class="ok-has-background-primary has-height-100-percent"></ok-user-notifications>
     </section>

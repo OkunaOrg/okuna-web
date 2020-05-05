@@ -3,8 +3,8 @@
         <figure class="preview-wrapper image is-32x32 is-semi-rounded">
             <img
                 :src="thumbnail"
-                alt="Post preview"
-                title="Post preview"
+                :alt="$t('components.notifications.post_preview_alt_text')"
+                :title="$t('components.notifications.post_preview_alt_text')"
             />
         </figure>
     </div>

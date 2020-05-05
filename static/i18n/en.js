@@ -52,6 +52,10 @@ export default {
             "logout": "Logout",
         },
         "notifications": {
+            "title": "Notifications",
+            "general_tab_label": "General",
+            "requests_tab_label": "Requests",
+            "post_preview_alt_text": "Post preview",
             "user_new_post": "posted something.",
             "community_new_post": "There was a new post in c/{communityName}.",
             "connection_request": "wants to connect with you.",

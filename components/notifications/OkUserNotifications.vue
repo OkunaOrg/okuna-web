@@ -1,13 +1,13 @@
 <template>
     <section class="notifications-container">
         <b-tabs position="is-centered" expanded @change="onTabChange">
-            <b-tab-item label="General">
+            <b-tab-item :label="$t('components.notifications.general_tab_label')">
                 <ok-user-notifications-stream
                     :notificationTypes="generalNotificationTypes"
                     v-if="shouldGeneralTabRender"
                 ></ok-user-notifications-stream>
             </b-tab-item>
-            <b-tab-item label="Requests">
+            <b-tab-item :label="$t('components.notifications.general_tab_label')">
                 <ok-user-notifications-stream
                     :notificationTypes="requestsNotificationTypes"
                     v-if="shouldRequestsTabRender"
