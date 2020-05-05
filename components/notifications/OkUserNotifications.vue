@@ -1,77 +1,70 @@
 <template>
-    <section class="notifications-container" v-if="loggedInUser">
-        <div class="notifications-stream">
-            <div v-for="notification in notifications" :key="notification.id">
-                <ok-user-notification :notification="notification" :currentUser="loggedInUser"></ok-user-notification>
-            </div>
-        </div>
-
-        <infinite-loading @infinite="infiniteHandler" ref="infiniteLoading"></infinite-loading>
+    <section class="notifications-container">
+        <b-tabs position="is-centered" expanded @change="onTabChange">
+            <b-tab-item label="General">
+                <ok-user-notifications-stream
+                    :notificationTypes="generalNotificationTypes"
+                    v-if="shouldGeneralTabRender"
+                ></ok-user-notifications-stream>
+            </b-tab-item>
+            <b-tab-item label="Requests">
+                <ok-user-notifications-stream
+                    :notificationTypes="requestsNotificationTypes"
+                    v-if="shouldRequestsTabRender"
+                ></ok-user-notifications-stream>
+            </b-tab-item>
+        </b-tabs>
     </section>
 </template>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator";
-    import { Subscription } from "rxjs";
-    import { TYPES } from "~/services/inversify-types";
-    import { okunaContainer } from "~/services/inversify";
-    import InfiniteLoading from 'vue-infinite-loading';
-
-    import { IUser } from "~/models/auth/user/IUser";
-    import { IUserService } from '~/services/user/IUserService';
-
-    import { INotification } from "~/models/notifications/notification/INotification";
     import { NotificationType } from "~/models/notifications/notification/lib/NotificationType";
-    import OkUserNotification from "~/components/notifications/components/notification/OkUserNotification.vue";
-    import { BehaviorSubject } from "rxjs";
+    import OkUserNotificationsStream from "~/components/notifications/components/OkUserNotificationsStream.vue";
 
     @Component({
         name: "OkUserNotifications",
-        components: {OkUserNotification},
-        subscriptions: function () {
-            return {
-                loggedInUser: this["userService"].loggedInUser
-            };
-        }
+        components: {OkUserNotificationsStream}
     })
     export default class OkUserNotifications extends Vue {
-        $observables!: {
-            loggedInUser?: BehaviorSubject<IUser | undefined>
-        };
+        private readonly requestsNotificationTypes: NotificationType[] = [ NotificationType.connectionRequest ];
+        private readonly generalNotificationTypes: NotificationType[] = NotificationType
+            .values()
+            .filter(t => !this.requestsNotificationTypes.includes(t));
 
-        $refs!: {
-            infiniteLoading: InfiniteLoading
-        };
+        shouldGeneralTabRender = true;
+        shouldRequestsTabRender = false;
+        hasForcefullyReRendered = false;
 
-        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-
-        notifications: INotification[] = [];
-
-        mounted() {
-            if (this.$refs["infiniteLoading"]) {
-                this.$refs["infiniteLoading"]["attemptLoad"]();
+        onTabChange(idx) {
+            if (idx === 1) {
+                this.shouldRequestsTabRender = true;
             }
         }
 
-        infiniteHandler($state) {
-            let lastNotificationId;
-            const lastNotification = this.notifications[this.notifications.length - 1];
-            if (lastNotification) {
-                lastNotificationId = lastNotification.id;
+        forceReRender() {
+            // Workaround for notifications not rendering in popover
+            if (!this.hasForcefullyReRendered) {
+                this.shouldGeneralTabRender = false;
+                this.$nextTick(() => {
+                    this.shouldGeneralTabRender = true;
+                    this.hasForcefullyReRendered = true;
+                });
             }
-
-            this.userService.getNotifications({
-                maxId: lastNotificationId,
-                count: 10,
-                types: NotificationType.values()
-            }).then(userNotifications => {
-                if (userNotifications.length) {
-                    this.notifications.push(...userNotifications);
-                    $state.loaded();
-                } else {
-                    $state.complete();
-                }
-            });
         }
     }
 </script>
+
+<style lang="scss">
+    .notifications-container {
+        .tab-content {
+            padding: 0 !important;
+        }
+
+        .tabs {
+            a, a:hover {
+                text-decoration: none !important;
+            }
+        }
+    }
+</style>
