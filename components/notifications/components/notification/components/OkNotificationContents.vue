@@ -1,5 +1,5 @@
 <template>
-    <nuxt-link class="notification-contents media" :to="action">
+    <nuxt-link class="notification-contents media" :to="action" @click.native="handleNotificationClick">
         <div class="notification-avatar media-left">
             <ok-community-avatar
                 v-if="community"
@@ -58,6 +58,10 @@
         @Prop(Number) readonly created: Date;
 
         avatarSize = OkAvatarSize;
+
+        handleNotificationClick() {
+            this.$emit('userClicked');
+        }
     }
 </script>
 

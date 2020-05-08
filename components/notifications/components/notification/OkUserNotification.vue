@@ -8,6 +8,7 @@
             :notificationBody="notificationBody"
             :action="action"
             :created="notification.created"
+            @userClicked="markNotificationAsRead"
         ></ok-notification-contents>
     </article>
 </template>
@@ -201,6 +202,10 @@
             }
 
             this.componentIsReady = true;
+        }
+
+        markNotificationAsRead() {
+            this.$emit("userReadNotification", this.notification);
         }
     }
 </script>
