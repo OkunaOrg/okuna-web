@@ -5,7 +5,6 @@
                 <ok-user-notification
                     :notification="notification"
                     :currentUser="loggedInUser"
-                    @userReadNotification="readNotification"
                 ></ok-user-notification>
             </div>
         </div>
@@ -48,11 +47,6 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         notifications: INotification[] = [];
-
-        async readNotification(notification: INotification) {
-            await this.userService.readNotification({ notification });
-            notification.readNotification();
-        }
 
         infiniteHandler($state) {
             let lastNotificationId;
