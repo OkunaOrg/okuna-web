@@ -1,20 +1,20 @@
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
 import { DataModel } from '~/models/abstract/DataModel';
-import { postDeserializer, postSerializer } from '~/models/common/serializers';
-import { IPost } from '~/models/posts/post/IPost';
+import { postUserMentionDeserializer, postUserMentionSerializer } from '~/models/common/serializers';
 import { IPostUserMentionNotification } from '~/models/notifications/post-user-mention-notification/IPostUserMentionNotification';
+import { IPostUserMention } from '~/models/posts/post-user-mention/IPostUserMention';
 
 export class PostUserMentionNotification extends DataModel<PostUserMentionNotification> implements IPostUserMentionNotification {
 
-    post: IPost;
+    postUserMention: IPostUserMention;
 
     dataMaps: DataModelAttributeMap<IPostUserMentionNotification>[] = [
         {
-            dataKey: 'post',
-            attributeKey: 'post',
-            serializer: postSerializer,
-            deserializer: postDeserializer
+            dataKey: 'post_user_mention',
+            attributeKey: 'postUserMention',
+            serializer: postUserMentionSerializer,
+            deserializer: postUserMentionDeserializer
         },
     ];
 
@@ -24,4 +24,3 @@ export class PostUserMentionNotification extends DataModel<PostUserMentionNotifi
     }
 
 }
-

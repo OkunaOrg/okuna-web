@@ -45,6 +45,9 @@ import { ICircle } from '~/models/connections/circle/ICircle';
 import { PostReactionData } from '~/types/models-data/posts/PostReactionData';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import postReactionFactory from '~/models/posts/post-reaction/factory';
+import { PostUserMentionData } from '~/types/models-data/posts/PostUserMentionData';
+import { IPostUserMention } from '../posts/post-user-mention/IPostUserMention';
+import postUserMentionFactory from '../posts/post-user-mention/factory';
 import { PostStatus } from '~/models/posts/post/lib/PostStatus';
 import { PostMediaData } from '~/types/models-data/posts/PostMediaData';
 import postMediaFactory from '~/models/posts/post-media/factory';
@@ -60,7 +63,6 @@ import userProfileFactory from '~/models/auth/user-profile/factory';
 import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
 import { NotificationType } from '~/models/notifications/notification/lib/NotificationType';
-import { NotificationContentData } from '~/types/models-data/notifications/NotificationData';
 import { INotification } from '~/models/notifications/notification/INotification';
 import { CommunityInviteData } from '~/types/models-data/communities/CommunityInviteData';
 import { CommunityInvite } from '~/models/communities/community/community-invite/CommunityInvite';
@@ -74,6 +76,11 @@ import postCommentReactionNotificationFactory from '~/models/notifications/post-
 import postCommentReplyNotificationFactory from '~/models/notifications/post-comment-reply-notification/factory';
 import postCommentUserMentionNotificationFactory
     from '~/models/notifications/post-comment-user-mention-notification/factory';
+import postCommentUserMentionFactory from '../posts/post-comment-user-mention/factory';
+import { PostCommentUserMentionData } from '~/types/models-data/posts/PostCommentUserMentionData';
+import { IPostCommentUserMention } from '../posts/post-comment-user-mention/IPostCommentUserMention';
+import postReactionNotificationFactory from '../notifications/post-reaction-notification/factory';
+import postUserMentionNotificationFactory from '../notifications/post-user-mention-notification/factory';
 import userNewPostNotificationFactory from '~/models/notifications/user-new-post-notification/factory';
 
 export const colorDeserializer = (instance, rawData: string) => {
@@ -155,11 +162,27 @@ export const postReactionSerializer = (instance, attribute: IPostReaction) => {
     return attribute.serialize();
 };
 
+export const postUserMentionDeserializer = (instance, rawData: PostUserMentionData) => {
+    return postUserMentionFactory.make(rawData);
+};
+
+export const postUserMentionSerializer = (instance, attribute: IPostUserMention) => {
+    return attribute.serialize();
+}
+
 export const postCommentReactionDeserializer = (instance, rawData: PostCommentReactionData) => {
     return postCommentReactionFactory.make(rawData);
 };
 
 export const postCommentReactionSerializer = (instance, attribute: IPostCommentReaction) => {
+    return attribute.serialize();
+};
+
+export const postCommentUserMentionDeserializer = (instance, rawData: PostCommentUserMentionData) => {
+    return postCommentUserMentionFactory.make(rawData);
+};
+
+export const postCommentUserMentionSerializer = (instance, attribute: IPostCommentUserMention) => {
     return attribute.serialize();
 };
 
@@ -419,10 +442,10 @@ export const notificationContentObjectDeserializer = (instance: INotification, r
             contentObject = postCommentUserMentionNotificationFactory.make(rawData);
             break;
         case NotificationType.postReaction:
-            contentObject = postCommentReactionNotificationFactory.make(rawData);
+            contentObject = postReactionNotificationFactory.make(rawData);
             break;
         case NotificationType.postUserMention:
-            contentObject = postCommentUserMentionNotificationFactory.make(rawData);
+            contentObject = postUserMentionNotificationFactory.make(rawData);
             break;
         case NotificationType.userNewPost:
             contentObject = userNewPostNotificationFactory.make(rawData);
