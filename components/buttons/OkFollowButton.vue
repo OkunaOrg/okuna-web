@@ -60,6 +60,8 @@
                     user: this.user
                 }));
 
+                await this.requestOperation.value;
+
                 this.user.incrementFollowersCount();
 
             } catch (error) {
