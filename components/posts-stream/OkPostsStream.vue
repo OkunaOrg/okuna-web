@@ -57,7 +57,8 @@
 
         @Prop({
             type: Number,
-            required: true
+            required: false,
+            default: PostDisplayContext.timelinePosts
         }) readonly postsDisplayContext: PostDisplayContext;
 
         @Prop({
@@ -115,6 +116,3 @@
 
     }
 </script>
-
-
-

@@ -77,7 +77,7 @@
     import { Component, Vue } from "nuxt-property-decorator"
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
-    import { ICommunity } from "~/models/auth/community/ICommunity";
+    import { ICommunity } from "~/models/communities/community/ICommunity";
     import OkCommunityAvatar from "~/components/avatars/community-avatar/OkCommunityAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { OkAvatarBorderRadius } from '~/components/avatars/lib/OkAvatarBorderRadius';
