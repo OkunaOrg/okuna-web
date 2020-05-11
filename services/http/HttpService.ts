@@ -116,9 +116,13 @@ export class HttpService implements IHttpService {
             axiosConfig.headers['Accept-Language'] = this.localizationService!.getActiveLocale();
         }
 
-        if (finalConfig.appendAuthorizationToken) {
-            if (!this.authToken) throw new Error('Not auth token to append to request');
-            axiosConfig.headers['Authorization'] = `Token ${this.authToken}`;
+        if (finalConfig.appendAuthorizationToken || finalConfig.appendAuthorizationTokenIfExists) {
+            if (this.authToken) {
+                axiosConfig.headers['Authorization'] = `Token ${this.authToken}`;
+            } else if (finalConfig.appendAuthorizationToken) {
+                // We explicitly wanted to append, token was not found
+                throw new Error('Not auth token to append to request');
+            }
         }
 
         if (typeof finalConfig.apiVersion !== 'undefined') {

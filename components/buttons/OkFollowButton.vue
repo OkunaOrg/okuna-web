@@ -72,6 +72,7 @@
             }
         }
 
+
         private async unfollowUser() {
             if (this.requestInProgress) return;
             this.requestInProgress = true;

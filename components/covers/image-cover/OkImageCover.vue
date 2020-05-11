@@ -7,10 +7,10 @@
 <style lang="scss">
 
     .ok-image-cover-medium {
-        height: 190px;
+        height: 160px;
 
         @include for-size(desktop-up) {
-            height: 300px;
+            height: 240px;
         }
 
     }

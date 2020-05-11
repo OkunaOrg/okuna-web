@@ -42,7 +42,7 @@
         get highlightedItemType(): OkSmartTextHighlightedItemType {
             if (this.trimmedHighlightedItemText.startsWith("#")) {
                 return OkSmartTextHighlightedItemType.hashtag;
-            } else if (this.trimmedHighlightedItemText.startsWith("c/")) {
+            } else if (this.trimmedHighlightedItemText.startsWith("c/") || this.trimmedHighlightedItemText.startsWith("/c/")) {
                 return OkSmartTextHighlightedItemType.communityName;
             } else if (this.trimmedHighlightedItemText.startsWith("@")) {
                 return OkSmartTextHighlightedItemType.username;
@@ -57,7 +57,8 @@
                 case OkSmartTextHighlightedItemType.username:
                     return this.trimmedHighlightedItemText.substring(1);
                 case OkSmartTextHighlightedItemType.communityName:
-                    return this.trimmedHighlightedItemText.substring(2);
+                    if(this.trimmedHighlightedItemText.startsWith('c/')) return this.trimmedHighlightedItemText.substring(2);
+                    return this.trimmedHighlightedItemText.substring(3);
                 case OkSmartTextHighlightedItemType.url:
                     return this.trimmedHighlightedItemText;
             }
@@ -69,9 +70,9 @@
 
             switch (this.highlightedItemType) {
                 case OkSmartTextHighlightedItemType.hashtag:
-                    return `h/${textValue}`;
+                    return `/h/${textValue}`;
                 case OkSmartTextHighlightedItemType.communityName:
-                    return `c/${textValue}`;
+                    return `/c/${textValue}`;
                 case OkSmartTextHighlightedItemType.username:
                     return `/${textValue}`;
                 case OkSmartTextHighlightedItemType.url:

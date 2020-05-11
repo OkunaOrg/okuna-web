@@ -1,5 +1,5 @@
 <template>
-    <header class="ok-mobile-header is-flex" :class="headerBackgroundClass" :style="headerStyle">
+    <header class="ok-mobile-header is-flex" :class="cssClasses" :style="headerStyle">
         <slot></slot>
     </header>
 </template>
@@ -16,7 +16,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkUserCover from "~/components/covers/user-cover/OkUserCover.vue";
-    import Color from 'color';
+    import Color from "color";
 
     @Component({
         name: "OkMobileHeader",
@@ -27,12 +27,32 @@
             type: Object,
         }) readonly backgroundColor: Color;
 
+        @Prop({
+            type: Object,
+        }) readonly textColor: Color;
+
         get headerBackgroundClass() {
             return this.backgroundColor ? "" : "ok-has-background-primary"
         }
 
-        get headerStyle(){
-            return this.backgroundColor ? `background-color:${this.backgroundColor.hex()}` : '';
+
+        get headerTextColorClass() {
+            return this.textColor ? "" : "ok-has-text-primary-invert";
+        }
+
+
+        get cssClasses() {
+            return [
+                this.headerTextColorClass,
+                this.headerBackgroundClass
+            ]
+        }
+
+        get headerStyle() {
+            return {
+                "backgroundColor": this.backgroundColor ? this.backgroundColor.hex() : "",
+                "color": this.textColor ? this.textColor.hex() : "",
+            }
         }
 
 

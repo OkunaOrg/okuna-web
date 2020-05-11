@@ -42,12 +42,12 @@
             this.logger = this.loggingService!.getLogger({
                 name: "OkHomePage"
             });
-            this.bootstrapLoggedInUser();
+            this.attemptToBootstrapLoggedInUser();
         }
 
-        async bootstrapLoggedInUser() {
+        async attemptToBootstrapLoggedInUser() {
             try{
-                const user = await this.userService.bootstrapLoggedInUser();
+                const user = await this.userService.attemptToBootstrapLoggedInUser();
                 this.logger.info('Bootstrapped user', user);
             } catch (e) {
                 this.utilsService.handleErrorWithToast(e);

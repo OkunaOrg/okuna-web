@@ -6,8 +6,11 @@
             </div>
             <div class="columns has-padding-bottom-30 has-padding-left-30 has-padding-right-30" sticky-container>
                 <div class="column">
-                    <div v-sticky>
-                        <ok-desktop-user-profile-sidebar :user="user"></ok-desktop-user-profile-sidebar>
+                    <div v-sticky on-stick="onSidebarIsSticky">
+                        <ok-desktop-user-profile-sidebar
+                                :user="user"
+                                :header-visible="sidebarHeaderIsVisible"
+                        ></ok-desktop-user-profile-sidebar>
                     </div>
                 </div>
                 <div class="column is-narrow">
@@ -64,10 +67,11 @@
 
         OkAvatarSize = OkAvatarSize;
 
-        get stickyOffset() {
-            return {
-                top: 100
-            }
+        sidebarHeaderIsVisible = false;
+
+
+        onSidebarIsSticky(state: {bottom: boolean, top: boolean, sticked: boolean}) {
+            this.sidebarHeaderIsVisible = state.sticked;
         }
 
     }

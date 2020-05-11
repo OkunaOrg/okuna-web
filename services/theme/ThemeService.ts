@@ -1,6 +1,5 @@
 import { inject, injectable } from '~/node_modules/inversify';
 import { IThemeService } from '~/services/theme/IThemeService';
-import { action, observable } from '~/node_modules/mobx';
 import { ITheme } from '~/models/common/theme/ITheme';
 import themeFactory from '~/models/common/theme/factory';
 import { TYPES } from '~/services/inversify-types';
@@ -10,6 +9,7 @@ import jss from 'jss';
 import preset from 'jss-preset-default';
 import { IOkLogger } from '~/services/logging/types';
 import { ILoggingService } from '~/services/logging/ILoggingService';
+import { BehaviorSubject } from '~/node_modules/rxjs';
 
 const createGenerateId = () => {
     return (rule: any, sheet: any) => `${rule.key}`;
@@ -353,7 +353,7 @@ export class ThemeService implements IThemeService {
         }),
     ];
 
-    @observable activeTheme: ITheme | undefined;
+    activeTheme: BehaviorSubject<ITheme | undefined> = new BehaviorSubject(undefined);
 
     private activeThemeStorage: IOkStorage<number>;
     private logger: IOkLogger;
@@ -373,13 +373,12 @@ export class ThemeService implements IThemeService {
     }
 
     isActiveTheme(theme: ITheme): boolean {
-        if (!this.activeTheme) return false;
-        return this.activeTheme.id === theme.id;
+        if (!this.activeTheme.value) return false;
+        return this.activeTheme.value.id === theme.id;
     }
 
-    @action.bound
     async setActiveTheme(theme: ITheme): Promise<void> {
-        this.activeTheme = theme;
+        this.activeTheme.next(theme);
         this.applyActiveThemeStyles();
         await this.storeActiveThemeId();
     }
@@ -419,7 +418,7 @@ export class ThemeService implements IThemeService {
     }
 
     private storeActiveThemeId() {
-        return this.activeThemeStorage.set(ThemeService.ACTIVE_THEME_STORAGE_KEY, this.activeTheme!.id);
+        return this.activeThemeStorage.set(ThemeService.ACTIVE_THEME_STORAGE_KEY, this.activeTheme.value.id);
     }
 
     private getThemeWithId(id: number): ITheme | undefined {
@@ -437,6 +436,6 @@ export class ThemeService implements IThemeService {
         }
 
         this.logger.info('Updating stylesheet');
-        this.themeStylesheet.update(this.activeTheme);
+        this.themeStylesheet.update(this.activeTheme.value);
     }
 }

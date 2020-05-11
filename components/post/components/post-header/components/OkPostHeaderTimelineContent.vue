@@ -34,7 +34,13 @@
                 </p>
             </div>
             <div v-else>
-                <p class="title is-6 ok-has-text-primary-invert">{{post.creator.profile.name}}</p>
+                <p class="title is-6 ok-has-text-primary-invert">
+                    <nuxt-link :to="postCreatorUrl">
+                        <span class="has-text-weight-bold">
+                            {{post.creator.profile.name}}
+                        </span>
+                    </nuxt-link>
+                </p>
                 <p class="subtitle is-7 ok-has-text-primary-invert-80">
                     <nuxt-link :to="postCreatorUrl">
                         <span class="has-text-weight-bold">

@@ -47,6 +47,14 @@ export interface GetCommunityModeratorsParams {
     maxId: number;
 }
 
+export interface GetCommunityPostsParams {
+    community: ICommunity;
+    count?: number;
+    maxId?: number;
+    appendAuthorizationTokenIfExists?: boolean;
+}
+
+
 export interface SearchCommunityModeratorsParams {
     community: ICommunity;
     query: string;
@@ -73,6 +81,7 @@ export interface ReportCommunityParams {
 
 export interface GetCommunityParams {
     communityName: string;
+    appendAuthorizationTokenIfExists?: boolean;
 }
 
 export interface GetCommunityPostsCountParams {

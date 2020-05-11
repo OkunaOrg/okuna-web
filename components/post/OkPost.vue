@@ -4,8 +4,8 @@
             <div class="card-content">
                 <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
             </div>
-            <div class="has-padding-bottom-20">
-                <ok-post-media :post="post" v-if="post.mediaThumbnail" :post-element-width="postElementWidth"
+            <div class="has-padding-bottom-20" v-if="post.mediaThumbnail">
+                <ok-post-media :post="post" :post-element-width="postElementWidth"
                                :post-display-context="postDisplayContext"></ok-post-media>
             </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">

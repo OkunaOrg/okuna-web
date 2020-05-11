@@ -57,7 +57,7 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams, FollowUserParams, UnfollowUserParams
+    SearchCommunityModeratorsParams, FollowUserParams, UnfollowUserParams, GetCommunityPostsParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -107,7 +107,8 @@ export class UserService implements IUserService {
     private tokenStorage: IOkStorage<string>;
     private logger: IOkLogger;
 
-    loggedInUser = new BehaviorSubject<IUser | undefined>(undefined);
+    // Undefined on startup, user object if user logged in, otherwise null.
+    loggedInUser = new BehaviorSubject<IUser | undefined | null>(undefined);
 
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
@@ -177,10 +178,14 @@ export class UserService implements IUserService {
         return user;
     }
 
-    async bootstrapLoggedInUser(): Promise<IUser> {
+    async attemptToBootstrapLoggedInUser(): Promise<IUser | null> {
         const storedAuthToken = await this.getStoredAuthToken();
-        this.httpService.setAuthToken(storedAuthToken);
-        return this.refreshLoggedInUser();
+        if (storedAuthToken) {
+            this.httpService.setAuthToken(storedAuthToken);
+            return this.refreshLoggedInUser();
+        } else {
+            this.loggedInUser.next(null);
+        }
     }
 
     private setLoggedInUser(user: IUser): void {
@@ -206,10 +211,22 @@ export class UserService implements IUserService {
 
     async getCommunity(params: GetCommunityParams): Promise<ICommunity> {
         const response: AxiosResponse<CommunityData> = await this.communitiesApiService.getCommunity({
-            communityName: params.communityName
+            communityName: params.communityName,
+            appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists
         });
 
         return communityFactory.make(response.data);
+    }
+
+    async getCommunityPosts(params: GetCommunityPostsParams): Promise<IPost[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.getCommunityPosts({
+            communityName: params.community.name,
+            count: params.count,
+            maxId: params.maxId,
+            appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists
+        });
+
+        return postFactory.makeMultiple(response.data);
     }
 
     async getCommunityAdministrators(params: GetCommunityAdministratorsParams): Promise<IUser[]> {

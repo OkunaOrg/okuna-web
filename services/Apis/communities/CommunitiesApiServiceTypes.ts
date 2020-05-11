@@ -34,6 +34,13 @@ export interface GetCommunityMembersApiParams {
     exclude: CommunityMembersExclusion[];
 }
 
+export interface GetCommunityPostsApiParams {
+    communityName: string;
+    count: number;
+    maxId: number;
+    appendAuthorizationTokenIfExists: boolean;
+}
+
 export interface SearchCommunityMembersApiParams {
     communityName: string;
     query: string;
@@ -88,6 +95,7 @@ export interface ReportCommunityApiParams {
 
 export interface GetCommunityApiParams {
     communityName: string;
+    appendAuthorizationTokenIfExists?: boolean;
 }
 
 export interface GetCommunityPostsCountApiParams {

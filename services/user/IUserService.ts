@@ -11,7 +11,7 @@ import {
     GetCommunityMembersParams,
     GetCommunityModeratorsParams,
     GetCommunityParams,
-    GetCommunityPostsCountParams, GetNotificationsParams,
+    GetCommunityPostsCountParams, GetCommunityPostsParams, GetNotificationsParams,
     GetPostCommentReactionsEmojiApiCountParams,
     GetPostCommentReactionsParams,
     GetPostCommentRepliesParams,
@@ -47,9 +47,6 @@ import {
     RequestResetPasswordApiParams, ResetPasswordApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { INotification } from '~/models/notifications/notification/INotification';
-import { FollowUserApiParams, UnfollowUserApiParams } from '~/services/Apis/follows/FollowsApiServiceTypes';
-import { AxiosResponse } from '~/node_modules/axios';
-import { FollowData } from '~/types/models-data/follows/FollowData';
 import { IFollow } from '~/models/follows/follow/IFollow';
 
 
@@ -78,7 +75,7 @@ export interface IUserService {
 
     refreshLoggedInUser(): Promise<IUser>;
 
-    bootstrapLoggedInUser(): Promise<IUser>;
+    attemptToBootstrapLoggedInUser(): Promise<IUser | null>;
 
     isLoggedIn(): boolean;
 
@@ -93,6 +90,8 @@ export interface IUserService {
     getCommunity(params: GetCommunityParams): Promise<ICommunity>;
 
     getCommunityMembers(params: GetCommunityMembersParams): Promise<IUser[]>;
+
+    getCommunityPosts(params: GetCommunityPostsParams): Promise<IPost[]>;
 
     searchCommunityMembers(params: SearchCommunityMembersParams): Promise<IUser[]>;
 

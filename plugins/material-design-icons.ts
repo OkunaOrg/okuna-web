@@ -23,6 +23,7 @@ import FormatPaint from 'vue-material-design-icons/FormatPaint.vue';
 import ExitToApp from 'vue-material-design-icons/ExitToApp.vue';
 import Fire from 'vue-material-design-icons/Fire.vue';
 import Earth from 'vue-material-design-icons/Earth.vue';
+import Lock from 'vue-material-design-icons/LockOutline.vue';
 import Binoculars from 'vue-material-design-icons/Binoculars.vue';
 import DotsVertical from 'vue-material-design-icons/DotsVertical.vue';
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
@@ -36,6 +37,8 @@ import BabyIcon from 'vue-material-design-icons/BabyFaceOutline.vue';
 import AdultIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
 import EditIcon from 'vue-material-design-icons/Pencil.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+import StaffIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
+import RulesIcon from 'vue-material-design-icons/Book.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -95,6 +98,10 @@ Vue.component('ok-explore-icon', Binoculars);
 
 Vue.component('ok-now-icon', Earth);
 
+Vue.component('ok-public-community-icon', Earth);
+
+Vue.component('ok-private-community-icon', Lock);
+
 Vue.component('ok-more-vertical', DotsVertical);
 
 Vue.component('ok-more-horizontal', DotsHorizontal);
@@ -118,3 +125,7 @@ Vue.component('ok-adult-icon', AdultIcon);
 Vue.component('ok-edit-icon', EditIcon);
 
 Vue.component('ok-chevron-right-icon', ChevronRight);
+
+Vue.component('ok-rules-icon', RulesIcon);
+
+Vue.component('ok-staff-icon', StaffIcon);
