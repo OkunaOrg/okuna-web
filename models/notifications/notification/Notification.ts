@@ -56,5 +56,7 @@ export class Notification extends DataModel<Notification> implements INotificati
         this.updateWithData(data);
     }
 
+    readNotification(): void {
+        this.read = true;
+    }
 }
-

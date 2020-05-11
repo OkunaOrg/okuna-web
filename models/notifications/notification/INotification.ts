@@ -20,6 +20,7 @@ export interface INotification extends IDataModel<INotification> {
     contentObject: NotificationContentObject;
     created: Date;
     read: boolean;
+    readNotification(): void;
 }
 
 

@@ -183,6 +183,11 @@ export class ThemeService implements IThemeService {
                 return [data.infoColorInvert.hex(), '!important'];
             }
         },
+        'ok-has-border-primary-highlight': {
+            'border': (data: ITheme) => {
+                return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
+            }
+        },
         'ok-has-border-top-primary-highlight': {
             'borderTop': (data: ITheme) => {
                 return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];

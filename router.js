@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import OkHomePage from "./pages/home/OkHomePage";
 import OkMenuPage from "./pages/home/pages/menu/OkMenuPage";
+import OkNotificationsPage from "./pages/home/pages/notifications/OkNotificationsPage";
 import OkNowPage from "./pages/home/pages/now/OkNowPage";
 import OkTimelinePage from "./pages/home/pages/timeline/OkTimelinePage";
 import OkHashtagPage from "./pages/home/pages/hashtag/OkHashtagPage";
@@ -35,7 +36,7 @@ export function createRouter() {
                     },
                     {
                         path: 'n',
-                        component: OkNowPage
+                        component: OkNotificationsPage
                     },
                     {
                         name: 'communities',
@@ -45,6 +46,10 @@ export function createRouter() {
                     {
                         path: 'c/:communityName',
                         component: OkCommunityProfile,
+                    },
+                    {
+                        path: 'now',
+                        component: OkNowPage
                     },
                     {
                         path: 'h/:hashtagName',

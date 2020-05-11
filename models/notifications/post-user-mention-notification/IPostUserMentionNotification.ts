@@ -1,7 +1,6 @@
 import { IDataModel } from '~/models/abstract/IDataModel';
-import { IPost } from '~/models/posts/post/IPost';
+import { IPostUserMention } from '~/models/posts/post-user-mention/IPostUserMention';
 
 export interface IPostUserMentionNotification extends IDataModel<IPostUserMentionNotification> {
-    post: IPost;
+    postUserMention: IPostUserMention;
 }
-

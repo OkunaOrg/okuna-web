@@ -20,7 +20,7 @@
             <ok-menu-down-icon class="ok-svg-icon-primary-invert-60 is-icon-2x"></ok-menu-down-icon>
         </button>
         <!-- This will be the content of the popover -->
-        <div slot="popover" class="ok-has-background-primary has-border-radius-10 has-overflow-hidden">
+        <div slot="popover" class="ok-has-background-primary has-border-radius-10 ok-has-border-primary-highlight">
             <ok-user-menu></ok-user-menu>
         </div>
     </v-popover>
@@ -42,7 +42,7 @@
     import { Route } from "vue-router";
 
     @Component({
-        name: "OkUserDropdown",
+        name: "OkUserMenuDropdown",
         components: {OkUserMenu, OkUserAvatar},
         subscriptions: function () {
             return {
@@ -50,7 +50,7 @@
             }
         }
     })
-    export default class OkUserDropdown extends Vue {
+    export default class OkUserMenuDropdown extends Vue {
 
         OkAvatarSize = OkAvatarSize;
         OkAvatarBorderRadius = OkAvatarBorderRadius;
@@ -72,9 +72,5 @@
             // Close tooltip
             this.dropdownIsOpen = false;
         }
-
-
-
-
     }
 </script>
