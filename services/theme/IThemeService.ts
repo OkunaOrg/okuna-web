@@ -11,6 +11,8 @@ export interface IThemeService {
 
     setActiveTheme(theme: ITheme): Promise<void>;
 
+    setRandomTheme(): Promise<void>;
+
     clearActiveTheme(): Promise<void>;
 
     bootstrapTheme(): Promise<ITheme>;

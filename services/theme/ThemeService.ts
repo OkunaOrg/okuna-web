@@ -377,6 +377,19 @@ export class ThemeService implements IThemeService {
         return this.activeTheme.value.id === theme.id;
     }
 
+    setRandomTheme(): Promise<void> {
+        let randomTheme = this.getRandomTheme();
+        while (this.activeTheme.value == randomTheme) {
+            randomTheme = this.getRandomTheme();
+        }
+
+        return this.setActiveTheme(randomTheme);
+    }
+
+    private getRandomTheme() {
+        return ThemeService.themes[Math.floor(Math.random() * ThemeService.themes.length)];
+    }
+
     async setActiveTheme(theme: ITheme): Promise<void> {
         this.activeTheme.next(theme);
         this.applyActiveThemeStyles();
