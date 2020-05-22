@@ -1,44 +1,81 @@
 // Merely for autocompletion purposes.
 // These classes are created on runtime on the ThemeService.
 
+// CSS vars
+:root {
+  --primary-color: #ffffff;
+  --primary-color-80: #ffffff;
+  --primary-color-60: #ffffff;
+  --primary-invert-color: #ffffff;
+  --primary-invert-color-80: #ffffff;
+  --primary-invert-color-60: #ffffff;
+  --primary-highlight-color: #ffffff;
+  --accent-color: #ffffff;
+  --accent-gradient-begin: #ffffff;
+  --accent-gradient-end: #ffffff;
+  --success-color: #ffffff;
+  --error-color: #ffffff;
+  --error-color-invert: #ffffff;
+  --warning-color: #ffffff;
+  --warning-color-invert: #ffffff;
+  --info-color: #ffffff;
+  --info-color-invert: #ffffff;
+}
 
 // BACKGROUNDS START //
 
 .ok-has-background-primary {
+  background-color: var(--primary-color) !important;
 }
 
 .ok-has-background-primary-80 {
+  background-color: var(--primary-color-80) !important;
 }
 
 .ok-has-background-primary-60 {
+  background-color: var(--primary-color-60) !important;
 }
 
 .ok-has-background-accent {
+  background-color: var(--accent-color) !important;
+}
+
+.ok-has-background-accent-gradient {
+  background-image: linear-gradient(315deg, var(--accent-gradient-begin) 0%, var(--accent-gradient-end) 74%) !important;
 }
 
 .ok-has-background-primary-invert {
+  background-color: var(--primary-invert-color) !important;
 }
 
 .ok-has-background-primary-invert-80 {
+  background-color: var(--primary-invert-color-80) !important;
 }
 
 .ok-has-background-primary-invert-60 {
+  background-color: var(--primary-invert-color-60) !important;
 }
 
 .ok-has-background-primary-highlight {
+  background-color: var(--primary-highlight-color) !important;
 }
 
 .ok-has-background-primary-highlight-hover {
-
+  &:hover {
+    background-color: var(--primary-highlight-color) !important;
+  }
 }
 
 .ok-has-background-success {
+  background-color: var(--success-color) !important;
 }
 
 .ok-has-background-error {
+  background-color: var(--error-color) !important;
 }
 
 .ok-has-background-info {
+  background-color: var(--info-color) !important;
 }
 
 // BACKGROUNDS END //
@@ -46,42 +83,54 @@
 // TEXT COLOR START //
 
 .ok-has-text-primary {
+  color: var(--primary-color) !important;
 }
 
 .ok-has-text-primary-80 {
+  color: var(--primary-color-80) !important;
 }
 
 .ok-has-text-primary-60 {
+  color: var(--primary-color-60) !important;
 }
 
 .ok-has-text-primary-invert {
+  color: var(--primary-invert-color) !important;
 }
 
 .ok-has-text-primary-invert-80 {
+  color: var(--primary-invert-color-80) !important;
 }
 
 .ok-has-text-primary-invert-60 {
+  color: var(--primary-invert-color-60) !important;
 }
 
 .ok-has-text-accent {
+  color: var(--accent-color) !important;
 }
 
 .ok-has-text-success {
+  color: var(--success-color) !important;
 }
 
 .ok-has-text-success-invert {
 }
 
 .ok-has-text-error {
+  color: var(--error-color) !important;
 }
 
 .ok-has-text-error-invert {
+  color: var(--error-color-invert) !important;
 }
 
 .ok-has-text-info {
+  color: var(--info-color) !important;
 }
 
 .ok-has-text-info-invert {
+  color: var(--info-color-invert) !important;
 }
 
 // TEXT COLOR ENDS //
@@ -96,7 +145,19 @@
 // BEFORE DECORATION STARTS //
 
 .ok-has-before-background-primary {
-
+  &:before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+      background-color: var(--primary-color) !important;
+    }
 }
 
 // BEFORE DECORATION ENDS //
@@ -104,25 +165,31 @@
 // BORDER STARTS //
 
 .ok-has-border-primary-highlight {
+  border: 1px solid var(--primary-highlight-color) !important;
 }
 
 .ok-has-border-top-primary-highlight {
+  border-top: 1px solid var(--primary-highlight-color) !important;
 }
 
 .ok-has-border-left-primary-highlight {
+  border-left: 1px solid var(--primary-highlight-color) !important;
 }
 
 .ok-has-border-right-primary-highlight {
+  border-right: 1px solid var(--primary-highlight-color) !important;
 }
 
 .ok-has-border-bottom-primary-highlight {
+  border-bottom: 1px solid var(--primary-highlight-color) !important;
 }
 
 .ok-has-border-top-primary-invert-80 {
+  border-top: 1px solid var(--primary-invert-color-80) !important;
 }
 
 .ok-has-border-color-primary-highlight {
-
+  border-color: var(--primary-highlight-color) !important;
 }
 
 // BORDER ENDS //
@@ -130,30 +197,34 @@
 
 // COMPONENT STARTS //
 .ok-input {
-
+  background-color: var(--primary-highlight-color) !important;
+  color: var(--primary-invert-color) !important;
+  &::placeholder {
+    color: var(--primary-invert-color-60) !important;
+  }
 }
 
 .ok-svg-icon-primary {
-  svg {
-    // Dynamically filled
+  & svg {
+    fill: var(--primary-color) !important;
   }
 }
 
 .ok-svg-icon-primary-invert {
-  svg {
-    // Dynamically filled
+  & svg {
+    fill: var(--primary-invert-color) !important;
   }
 }
 
 .ok-svg-icon-primary-invert-80 {
-  svg {
-    // Dynamically filled
+  & svg {
+    fill: var(--primary-invert-color-80) !important;
   }
 }
 
 .ok-svg-icon-primary-invert-60 {
-  svg {
-    // Dynamically filled
+  & svg {
+    fill: var(--primary-invert-color-60) !important;
   }
 }
 
@@ -162,4 +233,16 @@
 
 ::selection {
   //background: $primary-accent-color; /* WebKit/Blink Browsers */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color-60) !important;
+  &:hover {
+    background-image: linear-gradient(315deg, var(--accent-gradient-begin) 0%, var(--accent-gradient-end) 74%) !important;
+    background-color: var(--accent-gradient-begin) !important;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary-color-80) !important;
 }
