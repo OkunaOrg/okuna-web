@@ -48,6 +48,7 @@ import {
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { INotification } from '~/models/notifications/notification/INotification';
 import { IFollow } from '~/models/follows/follow/IFollow';
+import { ICategory } from '~/models/common/category/ICategory';
 
 
 export interface IUserService {
@@ -185,4 +186,10 @@ export interface IUserService {
     unfollowUser(params: UnfollowUserParams): Promise<IUser>;
 
     // FOLLOWS END
+
+    // CATEGORIES START
+
+    getCategories(): Promise<ICategory[]>
+
+    // CATEGORIES END
 }

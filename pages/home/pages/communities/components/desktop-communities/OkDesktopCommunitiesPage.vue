@@ -1,0 +1,132 @@
+<template>
+    <section class="section">
+        <div class="container" v-if="loggedInUser">
+            <b-tabs
+                    v-model="activeTab"
+                    :multiline="true"
+            >
+                <b-tab-item label="You">
+                    <template slot="header">
+                        <div class="has-padding-right-10 has-padding-bottom-10">
+                            <ok-fat-button
+                                    :text-background-theme-color-type="OkThemeColorType.accentGradient"
+                                    :text-color="youButtonTextColor"
+                                    :text="$t('global.keywords.you')">
+                                <template slot="content">
+                                    <div class="is-flex justify-center align-items-center">
+                                        <ok-user-avatar :user="loggedInUser"></ok-user-avatar>
+                                    </div>
+                                </template>
+                            </ok-fat-button>
+                        </div>
+                    </template>
+                    You content
+                </b-tab-item>
+                <template v-for="(communityCategory, index) in communitiesCategories">
+                    <b-tab-item
+                            :key="index"
+                            :label="communityCategory.title">
+                        <template slot="header">
+                            <div class="has-padding-right-10 has-padding-bottom-10">
+                                <ok-category-preview-button :category="communityCategory"></ok-category-preview-button>
+                            </div>
+                        </template>
+                        {{communityCategory.title}}
+                    </b-tab-item>
+                </template>
+            </b-tabs>
+        </div>
+    </section>
+</template>
+
+
+<style scoped>
+
+</style>
+
+<script lang="ts">
+    import { Component, Vue } from "nuxt-property-decorator"
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IUserService } from "~/services/user/IUserService";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
+    import { TYPES } from "~/services/inversify-types";
+    import { okunaContainer } from "~/services/inversify";
+    import { ICategory } from "~/model/common/category/ICategory";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { IUser } from "~/model/auth/user/IUser";
+    import OkCategoryPreviewButton from "~/components/buttons/OkCategoryPreviewButton.vue";
+    import OkFatButton from "~/components/buttons/OkFatButton.vue";
+    import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
+    import { OkThemeColorType } from "~/services/theme/ThemeService";
+    import Color from "color";
+    import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
+
+    @Component({
+        components: {OkUserAvatar, OkFatButton, OkCategoryPreviewButton},
+        subscriptions: function () {
+            return {
+                loggedInUser: this["userService"].loggedInUser,
+                environmentResolution: this["environmentService"].environmentResolution
+            }
+        }
+    })
+    export default class OkDesktopCommunitiesPage extends Vue {
+
+
+        communitiesCategories: ICategory[] = [];
+
+        $observables!: {
+            loggedInUser: BehaviorSubject<IUser | undefined>,
+            environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>
+        };
+
+        EnvironmentResolution = EnvironmentResolution;
+
+
+        requestInProgress = false;
+        OkThemeColorType = OkThemeColorType;
+        Color = Color;
+
+        activeTab = 0;
+
+        private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private requestOperation?: CancelableOperation<any>;
+
+        created() {
+            this.$observables.loggedInUser.subscribe(this.onLoggedInUser);
+        }
+
+        get youButtonTextColor() {
+            return Color("white");
+        }
+
+        private onLoggedInUser(user: IUser) {
+            if (typeof user === "undefined") return;
+            this.refreshCategories();
+        }
+
+
+        private async refreshCategories() {
+            if (this.requestInProgress) return;
+            this.requestInProgress = true;
+
+
+            try {
+                this.requestOperation = CancelableOperation.fromPromise(this.userService.getCategories());
+
+                this.communitiesCategories = await this.requestOperation.value;
+            } catch (error) {
+                this.utilsService.handleErrorWithToast(error);
+            } finally {
+                this.requestOperation = null;
+                this.requestInProgress = false;
+            }
+        }
+    }
+</script>
+
+
+

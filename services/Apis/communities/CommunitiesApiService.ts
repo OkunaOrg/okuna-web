@@ -1,4 +1,3 @@
-import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';

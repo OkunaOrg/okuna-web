@@ -33,3 +33,15 @@ body {
 .tooltip{
   z-index: 999;
 }
+
+.tabs ul, .tabs li.is-active a, .tabs a{
+  border-bottom: none !important;
+}
+
+.tabs a {
+  padding: 0;
+  &:hover{
+    text-decoration: none !important;
+  }
+}
+

@@ -43,6 +43,7 @@ export default {
         '~/plugins/di-vue',
         '~/plugins/material-design-icons',
         '~/plugins/vue-infinite-loading',
+        '~/plugins/vue-scroll',
         '~/plugins/vue-scroll-to',
         '~/plugins/vue-sticky',
         '~/plugins/scroll-behavior',

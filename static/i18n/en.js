@@ -162,7 +162,8 @@ export default {
             "password": "Password",
             "username": "Username",
             "about": "About",
-            "manage": "Manage"
+            "manage": "Manage",
+            "you": 'You'
         },
         "snippets": {
             "forgot_password": "Forgot password?",

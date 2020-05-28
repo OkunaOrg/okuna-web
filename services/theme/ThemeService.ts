@@ -10,6 +10,7 @@ import preset from 'jss-preset-default';
 import { IOkLogger } from '~/services/logging/types';
 import { ILoggingService } from '~/services/logging/ILoggingService';
 import { BehaviorSubject } from '~/node_modules/rxjs';
+import Color from 'color';
 
 const createGenerateId = () => {
     return (rule: any, sheet: any) => `${rule.key}`;
@@ -366,6 +367,7 @@ export class ThemeService implements IThemeService {
         this.logger = loggingService!.getLogger({
             name: ' ThemeService'
         });
+        window['themeService'] = this;
     }
 
     getCuratedThemes(): ITheme[] {
@@ -403,6 +405,46 @@ export class ThemeService implements IThemeService {
     bootstrapTheme(): Promise<ITheme> {
         this.logger.info('Bootstrapping theme');
         return this.bootstrapWithStoredActiveThemeId();
+    }
+
+    getColorForThemeColorType(themeColorType: OkThemeColorType): Color {
+        switch (themeColorType) {
+            case OkThemeColorType.primary:
+                return this.activeTheme.value.primary;
+            case OkThemeColorType.primaryInvert:
+                return this.activeTheme.value.primaryInvert;
+            case OkThemeColorType.accent:
+                return this.activeTheme.value.accent;
+            case OkThemeColorType.accentGradient:
+                throw Error('Accent gradient cant be converted to single Color');
+            case OkThemeColorType.success:
+                return this.activeTheme.value.success;
+            case OkThemeColorType.successInvert:
+                return this.activeTheme.value.successInvert;
+            case OkThemeColorType.error:
+                return this.activeTheme.value.error;
+            case OkThemeColorType.errorInvert:
+                return this.activeTheme.value.errorInvert;
+            case OkThemeColorType.warning:
+                return this.activeTheme.value.warning;
+            case OkThemeColorType.warningInvert:
+                return this.activeTheme.value.warningInvert;
+            case OkThemeColorType.info:
+                return this.activeTheme.value.info;
+            case OkThemeColorType.infoInvert:
+                return this.activeTheme.value.infoInvert;
+            case OkThemeColorType.primaryHighlight:
+                return this.activeTheme.value.primaryHighlight;
+        }
+    }
+
+    getBackgroundClassForThemeColorType(themeColorType: OkThemeColorType): string {
+        switch (themeColorType) {
+            case OkThemeColorType.accentGradient:
+                return 'ok-has-background-accent-gradient';
+            default:
+                throw Error('Not implemented');
+        }
     }
 
     private async bootstrapWithStoredActiveThemeId(): Promise<ITheme> {
@@ -451,4 +493,20 @@ export class ThemeService implements IThemeService {
         this.logger.info('Updating stylesheet');
         this.themeStylesheet.update(this.activeTheme.value);
     }
+}
+
+export enum OkThemeColorType {
+    primary,
+    primaryInvert,
+    accent,
+    accentGradient,
+    success,
+    successInvert,
+    error,
+    errorInvert,
+    warning,
+    warningInvert,
+    info,
+    infoInvert,
+    primaryHighlight,
 }

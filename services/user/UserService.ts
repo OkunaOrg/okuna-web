@@ -100,6 +100,10 @@ import { IFollowsApiService } from '~/services/Apis/follows/IFollowsApiService';
 import { IFollow } from '~/models/follows/follow/IFollow';
 import followFactory from '~/models/follows/follow/factory';
 import { FollowData } from '~/types/models-data/follows/FollowData';
+import { ICategoriesApiService } from '~/services/Apis/categories/ICategoriesApiService';
+import { ICategory } from '~/models/common/category/ICategory';
+import { CategoryData } from '~/types/models-data/common/CategoryData';
+import categoryFactory from '~/models/common/category/factory';
 
 @injectable()
 export class UserService implements IUserService {
@@ -112,6 +116,7 @@ export class UserService implements IUserService {
 
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
+                @inject(TYPES.CategoriesApiService) private categoriesApiService?: ICategoriesApiService,
                 @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
                 @inject(TYPES.FollowsApiService) private followsApiService?: IFollowsApiService,
                 @inject(TYPES.NotificationsApiService) private notificationsApiService?: INotificationsApiService,
@@ -620,5 +625,15 @@ export class UserService implements IUserService {
     }
 
     // FOLLOWS END
+
+    // CATEGORIES START
+
+    async getCategories(): Promise<ICategory[]> {
+        const response: AxiosResponse<CategoryData[]> = await this.categoriesApiService.getCategories();
+
+        return categoryFactory.makeMultiple(response.data);
+    }
+
+    // CATEGORIES END
 
 }
