@@ -51,9 +51,7 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
-    import { ICategory } from "~/model/common/category/ICategory";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import { IUser } from "~/model/auth/user/IUser";
     import OkCategoryPreviewButton from "~/components/buttons/OkCategoryPreviewButton.vue";
     import OkFatButton from "~/components/buttons/OkFatButton.vue";
     import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
@@ -61,6 +59,8 @@
     import Color from "color";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
+    import { ICategory } from '~/models/common/category/ICategory';
+    import { IUser } from '~/models/auth/user/IUser';
 
     @Component({
         components: {OkUserAvatar, OkFatButton, OkCategoryPreviewButton},

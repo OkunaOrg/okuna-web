@@ -16,7 +16,6 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import { IItem } from "~/models/items/item/IItem";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
@@ -32,12 +31,15 @@
         @Prop({
             type: Function,
             required: true
-        }) readonly refresher: OkHttpListRefresher;
+        }) readonly refresher: OkHttpListRefresher<T>;
 
         @Prop({
             type: Function,
-            required: true
-        }) readonly onScrollLoader: OkHttpListOnScrollLoader;
+        }) readonly onScrollLoader: OkHttpListOnScrollLoader<T>;
+
+        @Prop({
+            type: Number,
+        }) readonly limit: number;
 
         $refs!: {
             infiniteLoading: InfiniteLoading
@@ -51,8 +53,13 @@
             try {
                 let items;
                 if (this.items.length) {
-                    // Load more
-                    items = await this.onScrollLoader(this.items);
+                    if (this.onScrollLoader) {
+                        // Load more
+                        items = await this.onScrollLoader(this.items);
+                    } else {
+                        $vueInfiniteLoadingState.loaded();
+                        return;
+                    }
                 } else {
                     // Initial refresh
                     items = await this.refresher();
@@ -60,7 +67,13 @@
 
                 if (items) {
                     this.items.push(...items);
-                    $vueInfiniteLoadingState.loaded();
+
+                    if (this.limit && this.items.length >= this.limit) {
+                        this.items = this.items.slice(0, this.limit);
+                        $vueInfiniteLoadingState.complete();
+                    } else {
+                        $vueInfiniteLoadingState.loaded();
+                    }
                 } else {
                     $vueInfiniteLoadingState.complete();
                 }
@@ -77,11 +90,11 @@
             this.$refs.infiniteLoading.stateChanger.reset();
         }
 
-        addItemToTop(item: IItem) {
+        addItemToTop(item: T) {
             this.items.unshift(item);
         }
 
-        removeItem(item: IItem) {
+        removeItem(item: T) {
             const indexOfItem = this.items.indexOf(item);
             if (indexOfItem > -1) this.items = this.items.splice(indexOfItem, 1);
         }
