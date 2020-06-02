@@ -1,3 +1,7 @@
+export interface GetTrendingCommunitiesApiParams {
+    categoryName?: string;
+}
+
 export interface SearchCommunitiesApiParams {
     communityName: string;
     query: string;

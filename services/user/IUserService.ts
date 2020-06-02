@@ -21,7 +21,7 @@ import {
     GetPostReactionsEmojiApiCountParams,
     GetPostReactionsParams,
     GetTimelinePostsParams,
-    GetTopPostsParams,
+    GetTopPostsParams, GetTrendingCommunitiesParams,
     GetTrendingPostsParams, GetUnreadNotificationsCountParams, GetUserParams,
     JoinCommunityParams,
     LeaveCommunityParams, ReactToPostCommentParams,
@@ -85,6 +85,8 @@ export interface IUserService {
     // AUTH ENDS
 
     // COMMUNITIES START
+
+    getTrendingCommunities(params?: GetTrendingCommunitiesParams): Promise<ICommunity[]>;
 
     searchCommunities(params: SearchCommunitiesParams): Promise<ICommunity[]>;
 

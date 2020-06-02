@@ -34,8 +34,12 @@ body {
   z-index: 999;
 }
 
-.tabs ul, .tabs li.is-active a, .tabs a{
+.tabs ul, .tabs a{
   border-bottom: none !important;
+}
+
+.tabs li.is-active a{
+  // Border color bottom primary invert
 }
 
 .tabs a {

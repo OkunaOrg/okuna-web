@@ -12,6 +12,7 @@ import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCo
 import { NotificationType } from '~/models/notifications/notification/lib/NotificationType';
 import { INotification } from '~/models/notifications/notification/INotification';
 import { IUser } from '~/models/auth/user/IUser';
+import { ICategory } from '~/models/common/category/ICategory';
 
 // AUTH START
 
@@ -22,6 +23,10 @@ export interface GetUserParams {
 // AUTH END
 
 // COMMUNITIES START
+
+export interface GetTrendingCommunitiesParams {
+    category?: ICategory;
+}
 
 export interface SearchCommunitiesParams {
     community: ICommunity;

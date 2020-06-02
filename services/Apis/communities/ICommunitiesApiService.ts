@@ -1,12 +1,6 @@
 import { AxiosResponse } from '~/node_modules/axios';
 import { UserData } from '~/types/models-data/auth/UserData';
-import {
-    LoginApiParams,
-    LoginResponse,
-    RegistrationApiParams,
-    RegistrationResponse,
-    RequestResetPasswordApiParams, ResetPasswordApiParams
-} from '~/services/Apis/auth/AuthApiServiceTypes';
+
 import {
     GetCommunityAdministratorsApiParams,
     GetCommunityMembersApiParams,
@@ -18,12 +12,15 @@ import {
     SearchCommunitiesApiParams,
     SearchCommunityAdministratorsApiParams,
     SearchCommunityMembersApiParams,
-    SearchCommunityModeratorsApiParams, GetCommunityPostsApiParams
+    SearchCommunityModeratorsApiParams, GetCommunityPostsApiParams, GetTrendingCommunitiesApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { PostData } from '~/types/models-data/posts/PostData';
 
 export interface ICommunitiesApiService {
+
+    getTrendingCommunities(params?: GetTrendingCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
+
     searchCommunities(params: SearchCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
 
     getCommunity(params: GetCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
@@ -48,5 +45,5 @@ export interface ICommunitiesApiService {
 
     leaveCommunity(params: LeaveCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
 
-    reportCommunity( params: ReportCommunityApiParams): Promise<AxiosResponse<void>>;
+    reportCommunity(params: ReportCommunityApiParams): Promise<AxiosResponse<void>>;
 }

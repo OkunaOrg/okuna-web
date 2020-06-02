@@ -11,9 +11,21 @@
 </template>
 
 <style lang="scss">
+
+    // For when used in tabs
+    .is-active{
+        .ok-image-button{
+            transform: scale(1);
+        }
+
+        .ok-image-button__text {
+            font-weight: bold;
+        }
+    }
+
     .ok-image-button {
         overflow: hidden;
-        height: 75px;
+        height: 85px;
         background-size: cover;
         background-repeat: no-repeat;
         background-position: 50% 50%;
@@ -21,9 +33,9 @@
         text-align: center;
         display: flex;
         flex-direction: column;
-        min-width: 120px;
+        min-width: 130px;
         transition: all .2s ease-in-out;
-        transform: scale(.95);
+        transform: scale(.90);
 
         &:hover{
             transform: scale(1);

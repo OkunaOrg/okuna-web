@@ -57,7 +57,11 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams, FollowUserParams, UnfollowUserParams, GetCommunityPostsParams
+    SearchCommunityModeratorsParams,
+    FollowUserParams,
+    UnfollowUserParams,
+    GetCommunityPostsParams,
+    GetTrendingCommunitiesParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -104,6 +108,7 @@ import { ICategoriesApiService } from '~/services/Apis/categories/ICategoriesApi
 import { ICategory } from '~/models/common/category/ICategory';
 import { CategoryData } from '~/types/models-data/common/CategoryData';
 import categoryFactory from '~/models/common/category/factory';
+import { GetTrendingCommunitiesApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 
 @injectable()
 export class UserService implements IUserService {
@@ -295,6 +300,14 @@ export class UserService implements IUserService {
             moderationCategoryId: params.moderationCategory.id,
             description: params.description
         });
+    }
+
+    async getTrendingCommunities(params: GetTrendingCommunitiesParams = {}): Promise<ICommunity[]> {
+        const apiParams: GetTrendingCommunitiesApiParams = {};
+        if(params.category) apiParams.categoryName = params.category.name;
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getTrendingCommunities(apiParams);
+
+        return communityFactory.makeMultiple(response.data);
     }
 
     async searchCommunities(params: SearchCommunitiesParams): Promise<ICommunity[]> {

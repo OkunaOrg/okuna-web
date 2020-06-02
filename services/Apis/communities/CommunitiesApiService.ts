@@ -14,7 +14,7 @@ import {
     SearchCommunitiesApiParams,
     SearchCommunityAdministratorsApiParams,
     SearchCommunityMembersApiParams,
-    SearchCommunityModeratorsApiParams, GetCommunityPostsApiParams
+    SearchCommunityModeratorsApiParams, GetCommunityPostsApiParams, GetTrendingCommunitiesApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
@@ -106,6 +106,20 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     constructor(@inject(TYPES.HttpService) private httpService: IHttpService,
                 @inject(TYPES.StringTemplateService) private stringTemplateService: IStringTemplateService) {
 
+    }
+
+
+    getTrendingCommunities(params: GetTrendingCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>> {
+        let queryParams = {};
+
+        if (params.categoryName) queryParams['category'] = queryParams;
+
+        return this.httpService.get(CommunitiesApiService.GET_TRENDING_COMMUNITIES_PATH,
+            {
+                queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
     }
 
     searchCommunities(params: SearchCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>> {

@@ -1,42 +1,5 @@
 <template>
-    <section class="section">
-        <div class="container" v-if="loggedInUser">
-            <b-tabs
-                    v-model="activeTab"
-                    :multiline="environmentResolution === EnvironmentResolution.desktop"
-            >
-                <b-tab-item label="You">
-                    <template slot="header">
-                        <div class="has-padding-right-10 has-padding-bottom-10">
-                            <ok-fat-button
-                                    :text-background-theme-color-type="OkThemeColorType.accentGradient"
-                                    :text-color="youButtonTextColor"
-                                    :text="$t('global.keywords.you')">
-                                <template slot="content">
-                                    <div class="is-flex justify-center align-items-center has-height-100-percent">
-                                        <ok-user-avatar :user="loggedInUser"></ok-user-avatar>
-                                    </div>
-                                </template>
-                            </ok-fat-button>
-                        </div>
-                    </template>
-                    You content
-                </b-tab-item>
-                <template v-for="(communityCategory, index) in communitiesCategories">
-                    <b-tab-item
-                            :key="index"
-                            :label="communityCategory.title">
-                        <template slot="header">
-                            <div class="has-padding-right-10 has-padding-bottom-10">
-                                <ok-category-preview-button :category="communityCategory"></ok-category-preview-button>
-                            </div>
-                        </template>
-                        {{communityCategory.title}}
-                    </b-tab-item>
-                </template>
-            </b-tabs>
-        </div>
-    </section>
+
 </template>
 
 
@@ -71,7 +34,7 @@
             }
         }
     })
-    export default class OkDesktopCommunitiesPage extends Vue {
+    export default class OkDesktopCommunitiesYouCategory extends Vue {
 
 
         communitiesCategories: ICategory[] = [];
