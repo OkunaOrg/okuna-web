@@ -2,16 +2,24 @@ import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
-    CommentPostParams, DeleteNotificationParams,
-    DeletePostCommentParams, DeletePostCommentReactionParams,
+    CommentPostParams,
+    DeleteNotificationParams,
+    DeletePostCommentParams,
+    DeletePostCommentReactionParams,
     DeletePostParams,
     DeletePostReactionParams,
-    EditPostCommentParams, FollowUserParams,
+    EditPostCommentParams,
+    FollowUserParams,
+    GetAdministratedCommunitiesParams,
     GetCommunityAdministratorsParams,
     GetCommunityMembersParams,
     GetCommunityModeratorsParams,
     GetCommunityParams,
-    GetCommunityPostsCountParams, GetCommunityPostsParams, GetNotificationsParams,
+    GetCommunityPostsCountParams,
+    GetCommunityPostsParams,
+    GetFavoriteCommunitiesParams, GetJoinedCommunitiesParams,
+    GetModeratedCommunitiesParams,
+    GetNotificationsParams,
     GetPostCommentReactionsEmojiApiCountParams,
     GetPostCommentReactionsParams,
     GetPostCommentRepliesParams,
@@ -21,17 +29,26 @@ import {
     GetPostReactionsEmojiApiCountParams,
     GetPostReactionsParams,
     GetTimelinePostsParams,
-    GetTopPostsParams, GetTrendingCommunitiesParams,
-    GetTrendingPostsParams, GetUnreadNotificationsCountParams, GetUserParams,
+    GetTopPostsParams,
+    GetTrendingCommunitiesParams,
+    GetTrendingPostsParams,
+    GetUnreadNotificationsCountParams,
+    GetUserParams,
     JoinCommunityParams,
-    LeaveCommunityParams, ReactToPostCommentParams,
-    ReactToPostParams, ReadNotificationParams, ReadNotificationsParams,
+    LeaveCommunityParams,
+    ReactToPostCommentParams,
+    ReactToPostParams,
+    ReadNotificationParams,
+    ReadNotificationsParams,
     ReplyToPostCommentParams,
-    ReportCommunityParams, ReportPostCommentParams, ReportPostParams,
+    ReportCommunityParams,
+    ReportPostCommentParams,
+    ReportPostParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams, UnfollowUserParams
+    SearchCommunityModeratorsParams,
+    UnfollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
@@ -87,6 +104,14 @@ export interface IUserService {
     // COMMUNITIES START
 
     getTrendingCommunities(params?: GetTrendingCommunitiesParams): Promise<ICommunity[]>;
+
+    getFavoriteCommunities(params?: GetFavoriteCommunitiesParams): Promise<ICommunity[]>;
+
+    getAdministratedCommunities(params?: GetAdministratedCommunitiesParams): Promise<ICommunity[]>;
+
+    getModeratedCommunities(params?: GetModeratedCommunitiesParams): Promise<ICommunity[]>;
+
+    getJoinedCommunities(params?: GetJoinedCommunitiesParams): Promise<ICommunity[]>;
 
     searchCommunities(params: SearchCommunitiesParams): Promise<ICommunity[]>;
 

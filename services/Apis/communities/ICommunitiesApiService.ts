@@ -7,12 +7,19 @@ import {
     GetCommunityModeratorsApiParams,
     GetCommunityApiParams,
     GetCommunityPostsCountApiParams,
-    JoinCommunityApiParams, LeaveCommunityApiParams,
+    JoinCommunityApiParams,
+    LeaveCommunityApiParams,
     ReportCommunityApiParams,
     SearchCommunitiesApiParams,
     SearchCommunityAdministratorsApiParams,
     SearchCommunityMembersApiParams,
-    SearchCommunityModeratorsApiParams, GetCommunityPostsApiParams, GetTrendingCommunitiesApiParams
+    SearchCommunityModeratorsApiParams,
+    GetCommunityPostsApiParams,
+    GetTrendingCommunitiesApiParams,
+    GetAdministratedCommunitiesApiParams,
+    GetModeratedCommunitiesApiParams,
+    GetFavoriteCommunitiesApiParams,
+    GetJoinedCommunitiesApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -20,6 +27,14 @@ import { PostData } from '~/types/models-data/posts/PostData';
 export interface ICommunitiesApiService {
 
     getTrendingCommunities(params?: GetTrendingCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
+
+    getAdministratedCommunities(params?: GetAdministratedCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
+
+    getModeratedCommunities(params?: GetModeratedCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
+
+    getFavoriteCommunities(params?: GetFavoriteCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
+
+    getJoinedCommunities(params?: GetJoinedCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
 
     searchCommunities(params: SearchCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
 

@@ -61,7 +61,10 @@ import {
     FollowUserParams,
     UnfollowUserParams,
     GetCommunityPostsParams,
-    GetTrendingCommunitiesParams
+    GetTrendingCommunitiesParams,
+    GetFavoriteCommunitiesParams,
+    GetAdministratedCommunitiesParams,
+    GetModeratedCommunitiesParams, GetJoinedCommunitiesParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -306,6 +309,30 @@ export class UserService implements IUserService {
         const apiParams: GetTrendingCommunitiesApiParams = {};
         if(params.category) apiParams.categoryName = params.category.name;
         const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getTrendingCommunities(apiParams);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getFavoriteCommunities(params?: GetFavoriteCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getFavoriteCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getAdministratedCommunities(params?: GetAdministratedCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getAdministratedCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getModeratedCommunities(params?: GetModeratedCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getModeratedCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getJoinedCommunities(params?: GetJoinedCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getJoinedCommunities(params);
 
         return communityFactory.makeMultiple(response.data);
     }

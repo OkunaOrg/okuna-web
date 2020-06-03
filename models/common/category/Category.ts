@@ -32,6 +32,10 @@ export class Category extends DataModel<Category> implements ICategory {
             attributeKey: 'title',
         },
         {
+            dataKey: 'name',
+            attributeKey: 'name',
+        },
+        {
             dataKey: 'description',
             attributeKey: 'description',
         },

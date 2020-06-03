@@ -1,0 +1,135 @@
+<template>
+  <div>
+      <div>
+          <h2 class="title ok-has-text-primary-invert">
+              {{$t('pages.home.communities.favorites.title')}}
+          </h2>
+          <ok-http-list
+                  :refresher="favoriteCommunitiesRefresher" ref="okHttpList" :limit="4" :show-no-more="false"
+                  class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+              <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
+                  <ok-community-card :community="props.item"></ok-community-card>
+              </nuxt-link>
+          </ok-http-list>
+          <nuxt-link :to="'c/favorites'">
+              <span class="is-size-6 ok-has-text-primary-invert-60">
+                {{$t('pages.home.communities.favorites.see_all_communities')}}
+              </span>
+              <ok-chevron-right-icon></ok-chevron-right-icon>
+          </nuxt-link>
+      </div>
+      <div class="has-padding-top-20">
+          <h2 class="title ok-has-text-primary-invert">
+              {{$t('pages.home.communities.administrated.title')}}
+          </h2>
+          <ok-http-list
+                  :refresher="administratedCommunitiesRefresher" ref="okHttpList" :limit="4" :show-no-more="false"
+                  class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+              <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
+                  <ok-community-card :community="props.item"></ok-community-card>
+              </nuxt-link>
+          </ok-http-list>
+          <nuxt-link :to="'c/administrated'">
+              <span class="is-size-6 ok-has-text-primary-invert-60">
+                {{$t('pages.home.communities.administrated.see_all_communities')}}
+              </span>
+              <ok-chevron-right-icon></ok-chevron-right-icon>
+          </nuxt-link>
+      </div>
+      <div class="has-padding-top-20">
+          <h2 class="title ok-has-text-primary-invert">
+              {{$t('pages.home.communities.moderated.title')}}
+          </h2>
+          <ok-http-list
+                  :refresher="moderatedCommunitiesRefresher" ref="okHttpList" :limit="4" :show-no-more="false"
+                  class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+              <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
+                  <ok-community-card :community="props.item"></ok-community-card>
+              </nuxt-link>
+          </ok-http-list>
+          <nuxt-link :to="'c/moderated'">
+              <span class="is-size-6 ok-has-text-primary-invert-60">
+                {{$t('pages.home.communities.moderated.see_all_communities')}}
+              </span>
+              <ok-chevron-right-icon></ok-chevron-right-icon>
+          </nuxt-link>
+      </div>
+      <div class="has-padding-top-20">
+          <h2 class="title ok-has-text-primary-invert">
+              {{$t('pages.home.communities.joined.title')}}
+          </h2>
+          <ok-http-list
+                  :refresher="joinedCommunitiesRefresher" ref="okHttpList" :limit="4" :show-no-more="false"
+                  class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+              <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
+                  <ok-community-card :community="props.item"></ok-community-card>
+              </nuxt-link>
+          </ok-http-list>
+          <nuxt-link :to="'c/joined'">
+              <span class="is-size-6 ok-has-text-primary-invert-60">
+                {{$t('pages.home.communities.joined.see_all_communities')}}
+              </span>
+              <ok-chevron-right-icon></ok-chevron-right-icon>
+          </nuxt-link>
+      </div>
+  </div>
+</template>
+
+
+<style scoped>
+
+</style>
+
+<script lang="ts">
+    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { IUserService } from "~/services/user/IUserService";
+    import { TYPES } from "~/services/inversify-types";
+    import { okunaContainer } from "~/services/inversify";
+    import OkCategoryPreviewButton from "~/components/buttons/OkCategoryPreviewButton.vue";
+    import OkFatButton from "~/components/buttons/OkFatButton.vue";
+    import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
+    import OkHttpList from "~/components/http-list/OkHttpList.vue";
+    import { ICommunity } from '~/models/communities/community/ICommunity';
+    import { ICategory } from '~/models/common/category/ICategory';
+    import OkCommunityCard from '~/components/cards/community-card/OkCommunityCard.vue';
+
+    @Component({
+        name:'OkDesktopCommunitiesYouCategory',
+        components: {OkCommunityCard, OkHttpList, OkUserAvatar, OkFatButton, OkCategoryPreviewButton},
+        subscriptions: function () {
+            return {
+                loggedInUser: this["userService"].loggedInUser,
+            }
+        }
+    })
+    export default class OkDesktopCommunitiesYouCategory extends Vue {
+
+        $refs: {
+            okHttpList: OkHttpList
+        };
+
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+
+
+        favoriteCommunitiesRefresher(): Promise<ICommunity[]> {
+            return this.userService.getFavoriteCommunities();
+        }
+
+        administratedCommunitiesRefresher(): Promise<ICommunity[]> {
+            return this.userService.getAdministratedCommunities();
+        }
+
+        moderatedCommunitiesRefresher(): Promise<ICommunity[]> {
+            return this.userService.getModeratedCommunities();
+        }
+
+        joinedCommunitiesRefresher(): Promise<ICommunity[]> {
+            return this.userService.getJoinedCommunities();
+        }
+
+
+    }
+</script>
+
+
+

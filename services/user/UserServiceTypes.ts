@@ -28,6 +28,23 @@ export interface GetTrendingCommunitiesParams {
     category?: ICategory;
 }
 
+export interface GetFavoriteCommunitiesParams {
+    offset?: number;
+}
+
+export interface GetAdministratedCommunitiesParams {
+    offset?: number;
+}
+
+export interface GetModeratedCommunitiesParams {
+    offset?: number;
+}
+
+export interface GetJoinedCommunitiesParams {
+    offset?: number;
+}
+
+
 export interface SearchCommunitiesParams {
     community: ICommunity;
     query: string;

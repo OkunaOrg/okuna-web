@@ -1,17 +1,33 @@
 <template>
-    <div>
-        <div v-for="item in items" :key="item.id">
+    <div class="ok-http-list" :key="listKey" v-if="renderComponent">
+        <div v-for="item in items" :key="item.id" :class="itemClass">
             <slot name="default" :item="item"></slot>
         </div>
 
         <infinite-loading
                 ref="infiniteLoading"
-                @infinite="infiniteHandler"></infinite-loading>
+                @infinite="infiniteHandler">
+
+            <template slot="no-more">
+                <div :class="{'is-hidden': !showNoMore}">
+                    🎉 All loaded!
+                </div>
+            </template>
+            <template slot="no-results">
+                <div :class="{'is-hidden': !showNoResults || reachedLimit}">
+                    ☹️ No items found
+                </div>
+            </template>
+
+        </infinite-loading>
     </div>
 </template>
 
 <style lang="scss">
-
+    .ok-http-list {
+        min-height: 100px;
+        min-width: 100%;
+    }
 </style>
 
 <script lang="ts">
@@ -21,6 +37,7 @@
     import { okunaContainer } from "~/services/inversify";
     import InfiniteLoading from "vue-infinite-loading";
     import { OkHttpListOnScrollLoader, OkHttpListRefresher } from "~/components/http-list/lib/OkHttpListParams";
+
 
     @Component({
         name: "OkHttpList",
@@ -41,15 +58,40 @@
             type: Number,
         }) readonly limit: number;
 
+        @Prop({
+            type: Boolean,
+            default: true,
+        }) readonly showNoMore: boolean;
+
+        @Prop({
+            type: Boolean,
+            default: true,
+        }) readonly showNoResults: boolean;
+
+        @Prop({
+            type: String,
+        }) readonly itemClass: boolean;
+
         $refs!: {
             infiniteLoading: InfiniteLoading
         };
 
         items: T[] = [];
+        listKey: String;
+        renderComponent = true;
+        reachedLimit = false;
+
+        private wasBootstrapped = false;
 
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
+        created() {
+            this.listKey = `l-${this.utilsService.generateUuid()}`;
+        }
+
         async infiniteHandler($vueInfiniteLoadingState) {
+            if (!this.wasBootstrapped) this.wasBootstrapped = true;
+
             try {
                 let items;
                 if (this.items.length) {
@@ -57,7 +99,7 @@
                         // Load more
                         items = await this.onScrollLoader(this.items);
                     } else {
-                        $vueInfiniteLoadingState.loaded();
+                        $vueInfiniteLoadingState.complete();
                         return;
                     }
                 } else {
@@ -67,9 +109,9 @@
 
                 if (items) {
                     this.items.push(...items);
-
                     if (this.limit && this.items.length >= this.limit) {
                         this.items = this.items.slice(0, this.limit);
+                        this.reachedLimit = true;
                         $vueInfiniteLoadingState.complete();
                     } else {
                         $vueInfiniteLoadingState.loaded();
@@ -83,10 +125,25 @@
             }
         }
 
+
         // Public API methods
+
+        // This is useful if the httplist was on a tab or hidden when it was created.
+        // Calling this, will try to refresh the httplist again.
+        ensureWasBootstrapped() {
+            if (!this.wasBootstrapped) {
+                // Remove my-component from the DOM
+                this.renderComponent = false;
+                this.$nextTick(() => {
+                    // Add the component back in
+                    this.renderComponent = true;
+                });
+            }
+        }
 
         refresh() {
             this.items = [];
+            this.reachedLimit = false;
             this.$refs.infiniteLoading.stateChanger.reset();
         }
 

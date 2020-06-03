@@ -2,6 +2,7 @@
     <section class="section">
         <div class="container" v-if="loggedInUser">
             <b-tabs
+                    @change="onTabChanged"
                     v-model="activeTab"
                     :multiline="environmentResolution === EnvironmentResolution.desktop"
             >
@@ -20,7 +21,7 @@
                             </ok-fat-button>
                         </div>
                     </template>
-                    You content
+                    <ok-desktop-communities-you-category></ok-desktop-communities-you-category>
                 </b-tab-item>
                 <template v-for="(communityCategory, index) in communitiesCategories">
                     <b-tab-item
@@ -31,7 +32,11 @@
                                 <ok-category-preview-button :category="communityCategory"></ok-category-preview-button>
                             </div>
                         </template>
-                        {{communityCategory.title}}
+                        <h2 class="title ok-has-text-primary-invert">
+                            {{ communityCategory.title }}
+                        </h2>
+                        <ok-desktop-communities-category :ref="'okDesktopCommunitiesCategory_' + index "
+                                                         :category="communityCategory"></ok-desktop-communities-category>
                     </b-tab-item>
                 </template>
             </b-tabs>
@@ -45,7 +50,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Vue } from "nuxt-property-decorator"
+    import { Component, Vue, Watch } from "nuxt-property-decorator"
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUserService } from "~/services/user/IUserService";
     import { IUtilsService } from "~/services/utils/IUtilsService";
@@ -59,11 +64,17 @@
     import Color from "color";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
-    import { ICategory } from '~/models/common/category/ICategory';
-    import { IUser } from '~/models/auth/user/IUser';
+    import { ICategory } from "~/models/common/category/ICategory";
+    import { IUser } from "~/models/auth/user/IUser";
+    import OkDesktopCommunitiesCategory
+        from "~/pages/home/pages/communities/components/desktop-communities/components/OkDesktopCommunitiesCategory.vue";
+    import OkDesktopCommunitiesYouCategory
+        from '~/pages/home/pages/communities/components/desktop-communities/components/OkDesktopCommunitiesYouCategory.vue';
 
     @Component({
-        components: {OkUserAvatar, OkFatButton, OkCategoryPreviewButton},
+        components: {
+            OkDesktopCommunitiesYouCategory,
+            OkDesktopCommunitiesCategory, OkUserAvatar, OkFatButton, OkCategoryPreviewButton},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser,
@@ -101,6 +112,17 @@
 
         get youButtonTextColor() {
             return Color("white");
+        }
+
+        onTabChanged(newActiveTab: number) {
+            // First tab is the You tab
+            if(newActiveTab === 0) return;
+
+            const categoryElement = this.$refs[`okDesktopCommunitiesCategory_${newActiveTab - 1}`][0] as OkDesktopCommunitiesCategory;
+
+            this.$nextTick(() => {
+                categoryElement.ensureWasBootstrapped();
+            });
         }
 
         private onLoggedInUser(user: IUser) {

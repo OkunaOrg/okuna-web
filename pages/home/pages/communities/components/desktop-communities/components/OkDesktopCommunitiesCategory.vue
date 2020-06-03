@@ -1,16 +1,12 @@
 <template>
-    <div>
-        <div class="content">
-            <span>
-                {{ communityCategory.name }}
-            </span>
-        </div>
-        <ok-http-list :refresher="communityCategoryRefresher">
-            <div slot-scope="props">
-                {{props.item}}
-            </div>
-        </ok-http-list>
-    </div>
+    <ok-http-list
+            :refresher="communityCategoryRefresher"
+            ref="okHttpList"
+            class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+        <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
+            <ok-community-card :community="props.item"></ok-community-card>
+        </nuxt-link>
+    </ok-http-list>
 </template>
 
 
@@ -29,31 +25,40 @@
     import OkHttpList from "~/components/http-list/OkHttpList.vue";
     import { ICommunity } from '~/models/communities/community/ICommunity';
     import { ICategory } from '~/models/common/category/ICategory';
+    import OkCommunityCard from '~/components/cards/community-card/OkCommunityCard.vue';
 
     @Component({
-        components: {OkHttpList, OkUserAvatar, OkFatButton, OkCategoryPreviewButton},
+        name:'OkDesktopCommunitiesCategory',
+        components: {OkCommunityCard, OkHttpList, OkUserAvatar, OkFatButton, OkCategoryPreviewButton},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser,
-                environmentResolution: this["environmentService"].environmentResolution
             }
         }
     })
-    export default class OkDesktopCommunitiesYouCategory extends Vue {
+    export default class OkDesktopCommunitiesCategory extends Vue {
 
 
         @Prop({
             type: Object,
             required: true
-        }) readonly communityCategory: ICategory;
+        }) readonly category: ICategory;
+
+        $refs: {
+            okHttpList: OkHttpList
+        };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
 
         communityCategoryRefresher(): Promise<ICommunity[]> {
             return this.userService.getTrendingCommunities({
-                category: this.communityCategory
+                category: this.category
             });
+        }
+
+        ensureWasBootstrapped(){
+            this.$refs.okHttpList.ensureWasBootstrapped();
         }
     }
 </script>

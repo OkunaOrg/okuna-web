@@ -1,5 +1,5 @@
 <template>
-    <strong class="ok-has-text-primary-invert is-size-5-touch">{{community.title}}</strong>
+    <strong class="ok-has-text-primary-invert is-size-5-touch" v-line-clamp:20="lineClamp">{{community.title}}</strong>
 </template>
 
 
@@ -17,6 +17,13 @@
             type: Object,
             required: true
         }) readonly community: ICommunity;
+
+        @Prop({
+            type: Number,
+            required: false
+        }) readonly lineClamp: number;
+
+
 
     }
 </script>

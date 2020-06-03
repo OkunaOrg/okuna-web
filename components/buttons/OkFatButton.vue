@@ -38,7 +38,7 @@
         transform: scale(.90);
 
         &:hover{
-            transform: scale(1);
+            //transform: scale(1);
         }
 
         &__content {
