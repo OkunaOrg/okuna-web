@@ -105,7 +105,7 @@
     export default class OkDesktopCommunitiesYouCategory extends Vue {
 
         $refs: {
-            okHttpList: OkHttpList
+            okHttpList: OkHttpList<ICommunity>
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);

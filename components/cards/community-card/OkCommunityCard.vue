@@ -27,7 +27,7 @@
         </div>
         <div class="card-content ok-has-border-bottom-primary-highlight">
             <div class="columns is-mobile is-multiline is-variable is-2 is-marginless">
-                <div class="column is-narrow">
+                <div class="column is-narrow" v-if="community.visibility">
                     <ok-community-profile-visibility :community="community"></ok-community-profile-visibility>
                 </div>
                 <div class="column is-narrow" v-if="community.postsCount">

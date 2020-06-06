@@ -45,7 +45,7 @@
         }) readonly category: ICategory;
 
         $refs: {
-            okHttpList: OkHttpList
+            okHttpList: OkHttpList<ICommunity>
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
