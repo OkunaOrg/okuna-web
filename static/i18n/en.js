@@ -13,6 +13,7 @@ export default {
         },
         "home": {
             "communities": {
+                "title": "Communities",
                 "favorites": {
                     "title": "Favorites",
                     "see_all_communities": "See all favorite communities",

@@ -12,6 +12,18 @@
   }
 }
 
+.has-background-covered{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
+.has-background-contained{
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+
 @-webkit-keyframes rainbow {
   0%{background-position:0% 82%}
   50%{background-position:100% 19%}
