@@ -9,12 +9,12 @@
                 @infinite="infiniteHandler">
 
             <template slot="no-more">
-                <div :class="{'is-hidden': !showNoMore}">
+                <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
                     🎉 All loaded!
                 </div>
             </template>
             <template slot="no-results">
-                <div :class="{'is-hidden': !showNoResults || reachedLimit}">
+                <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
                     ☹️ No items found
                 </div>
             </template>
@@ -107,7 +107,7 @@
                     items = await this.refresher();
                 }
 
-                if (items) {
+                if (items && items.length > 0) {
                     this.items.push(...items);
                     if (this.limit && this.items.length >= this.limit) {
                         this.items = this.items.slice(0, this.limit);

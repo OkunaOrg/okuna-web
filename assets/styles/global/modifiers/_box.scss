@@ -14,9 +14,16 @@
   overflow: hidden;
 }
 
+.has-overflow-scroll{
+  overflow: scroll;
+}
 
 .has-height-100-percent{
   height: 100%;
+}
+
+.has-min-height-100-percent{
+  min-height: 100%;
 }
 
 .has-width-100-percent{

@@ -16,6 +16,11 @@
             <ok-post-comment-reactions-modal :return-data-setter="setModalReturnData"
                                              :params="activeModalParams"></ok-post-comment-reactions-modal>
         </b-modal>
+        <b-modal :active.sync="communitiesListModalOpen" :trap-focus="true" :width="1444" @close="onModalClosed"
+                 :custom-class="'ok-reactions-modal'">
+            <ok-communities-list-modal :return-data-setter="setModalReturnData"
+                                             :params="activeModalParams"></ok-communities-list-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -49,10 +54,11 @@
     import { ModalType } from "~/services/modal/lib/ModalType";
     import OkPostReactionsModal from "~/pages/home/components/modals/components/OkPostReactionsModal.vue";
     import OkPostCommentReactionsModal from "~/pages/home/components/modals/components/OkPostCommentReactionsModal.vue";
+    import OkCommunitiesListModal from '~/pages/home/components/modals/components/OkCommunitiesListModal.vue';
 
     @Component({
         name: "OkModals",
-        components: {OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal},
+        components: {OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal},
         subscriptions: function () {
             return {
                 activeModal: this["modalService"].activeModal,
@@ -68,6 +74,7 @@
         postModalOpened: boolean = false;
         postReactionsModalOpened: boolean = false;
         postCommentReactionsModalOpened: boolean = false;
+        communitiesListModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -92,6 +99,7 @@
             this.postModalOpened = activeModalValue === ModalType.post;
             this.postReactionsModalOpened = activeModalValue === ModalType.postReactions;
             this.postCommentReactionsModalOpened = activeModalValue === ModalType.postCommentReactions;
+            this.communitiesListModalOpen = activeModalValue === ModalType.communitiesList;
         }
     }
 </script>
