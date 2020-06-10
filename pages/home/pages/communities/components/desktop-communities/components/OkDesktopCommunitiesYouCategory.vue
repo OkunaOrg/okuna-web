@@ -114,7 +114,7 @@
 
         openFavoriteCommunitiesModal() {
             this.modalService.openCommunitiesList({
-                    title: this.$t("pages.home.communities.favorites.title"),
+                    title: this.$t("pages.home.communities.favorites.title") as string,
                     onScrollLoader: this.favoriteCommunitiesOnScrollLoader,
                     refresher: this.favoriteCommunitiesRefresher,
                 }
@@ -133,7 +133,7 @@
 
         openAdministratedCommunitiesModal() {
             this.modalService.openCommunitiesList({
-                    title: this.$t("pages.home.communities.administrated.title"),
+                    title: this.$t("pages.home.communities.administrated.title") as string,
                     onScrollLoader: this.administratedCommunitiesOnScrollLoader,
                     refresher: this.administratedCommunitiesRefresher,
                 }
@@ -152,7 +152,7 @@
 
         openModeratedCommunitiesModal() {
             this.modalService.openCommunitiesList({
-                    title: this.$t("pages.home.communities.moderated.title"),
+                    title: this.$t("pages.home.communities.moderated.title") as string,
                     onScrollLoader: this.moderatedCommunitiesOnScrollLoader,
                     refresher: this.moderatedCommunitiesRefresher,
                 }
@@ -171,7 +171,7 @@
 
         openJoinedCommunitiesModal() {
             this.modalService.openCommunitiesList({
-                title: this.$t('pages.home.communities.joined.title'),
+                title: this.$t('pages.home.communities.joined.title') as string,
                 onScrollLoader: this.joinedCommunitiesOnScrollLoader,
                     refresher: this.joinedCommunitiesRefresher,
                 }
