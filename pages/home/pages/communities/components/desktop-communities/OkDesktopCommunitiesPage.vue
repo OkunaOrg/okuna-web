@@ -23,6 +23,20 @@
                     </template>
                     <ok-desktop-communities-you-category></ok-desktop-communities-you-category>
                 </b-tab-item>
+                <b-tab-item label="All">
+                    <template slot="header">
+                        <div class="has-padding-right-10 has-padding-bottom-10">
+                            <ok-fat-button
+                                    :backgroundImageSrc="allButtonBackgroundImage"
+                                    :text-color="youButtonTextColor"
+                                    :text-background-color="allButtonTextColor"
+                                    :text="$t('global.keywords.all')">
+                            </ok-fat-button>
+                        </div>
+                    </template>
+                    <ok-desktop-communities-category
+                            ref="okDesktopCommunitiesCategory_0"></ok-desktop-communities-category>
+                </b-tab-item>
                 <template v-for="(communityCategory, index) in communitiesCategories">
                     <b-tab-item
                             :key="index"
@@ -35,7 +49,7 @@
                         <h2 class="title ok-has-text-primary-invert">
                             {{ communityCategory.title }}
                         </h2>
-                        <ok-desktop-communities-category :ref="'okDesktopCommunitiesCategory_' + index "
+                        <ok-desktop-communities-category :ref="'okDesktopCommunitiesCategory_' + (index + 1)"
                                                          :category="communityCategory"></ok-desktop-communities-category>
                     </b-tab-item>
                 </template>
@@ -69,12 +83,13 @@
     import OkDesktopCommunitiesCategory
         from "~/pages/home/pages/communities/components/desktop-communities/components/OkDesktopCommunitiesCategory.vue";
     import OkDesktopCommunitiesYouCategory
-        from '~/pages/home/pages/communities/components/desktop-communities/components/OkDesktopCommunitiesYouCategory.vue';
+        from "~/pages/home/pages/communities/components/desktop-communities/components/OkDesktopCommunitiesYouCategory.vue";
 
     @Component({
         components: {
             OkDesktopCommunitiesYouCategory,
-            OkDesktopCommunitiesCategory, OkUserAvatar, OkFatButton, OkCategoryPreviewButton},
+            OkDesktopCommunitiesCategory, OkUserAvatar, OkFatButton, OkCategoryPreviewButton
+        },
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser,
@@ -114,14 +129,23 @@
             return Color("white");
         }
 
+        get allButtonTextColor() {
+            return Color("#2d2d2d");
+        }
+
+        get allButtonBackgroundImage() {
+            return require("./../../assets/category_all.png");
+        }
+
         onTabChanged(newActiveTab: number) {
             // First tab is the You tab
-            if(newActiveTab === 0) return;
+            if (newActiveTab === 0) return;
 
-            const categoryElement = this.$refs[`okDesktopCommunitiesCategory_${newActiveTab - 1}`][0] as OkDesktopCommunitiesCategory;
+            let categoryElement = this.$refs[`okDesktopCommunitiesCategory_${newActiveTab - 1}`];
+            if (categoryElement[0]) categoryElement = categoryElement[0];
 
             this.$nextTick(() => {
-                categoryElement.ensureWasBootstrapped();
+                categoryElement['ensureWasBootstrapped']();
             });
         }
 

@@ -41,7 +41,8 @@
 
         @Prop({
             type: Object,
-            required: true
+            // If none given, fetches all
+            required: false
         }) readonly category: ICategory;
 
         $refs: {

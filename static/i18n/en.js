@@ -184,7 +184,8 @@ export default {
             "username": "Username",
             "about": "About",
             "manage": "Manage",
-            "you": 'You'
+            "you": 'You',
+            "all": 'All',
         },
         "snippets": {
             "forgot_password": "Forgot password?",
