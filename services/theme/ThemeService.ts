@@ -157,7 +157,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[0];
+        const defaultTheme = ThemeService.themes[1];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }
