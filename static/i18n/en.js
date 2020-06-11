@@ -186,6 +186,8 @@ export default {
             "manage": "Manage",
             "you": 'You',
             "all": 'All',
+            "explore": 'Explore',
+            "trending": 'Trending',
         },
         "snippets": {
             "forgot_password": "Forgot password?",

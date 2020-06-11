@@ -11,7 +11,7 @@
                 <template slot="header">
                     <div class="is-flex align-items-center ok-now-page-tab-header">
                         <ok-trending-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-trending-icon>
-                        <span class="has-padding-left-10"> Trending </span>
+                        <span class="has-padding-left-10"> {{$t('global.keywords.trending')}} </span>
                     </div>
                 </template>
                 <ok-trending-posts-stream
@@ -22,7 +22,7 @@
                 <template slot="header">
                     <div class="is-flex align-items-center ok-now-page-tab-header">
                         <ok-explore-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-explore-icon>
-                        <span class="has-padding-left-10"> Explore </span>
+                        <span class="has-padding-left-10"> {{$t('global.keywords.explore')}}</span>
                     </div>
                 </template>
                 <ok-top-posts-stream
@@ -37,7 +37,7 @@
 <style lang="scss">
 
     .ok-now-page {
-        .infinite-loading-container{
+        .infinite-loading-container {
             padding-top: 10px !important;
         }
 
@@ -51,7 +51,6 @@
             padding-top: 30px;
             padding-left: 30px;
             padding-right: 30px;
-
 
 
             @include for-size(phone-only) {
