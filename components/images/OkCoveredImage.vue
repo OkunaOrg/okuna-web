@@ -1,18 +1,8 @@
 <template>
-    <figure :style="{ backgroundImage: `url('${src}')`}" class="ok-covered-image">
+    <figure :style="{ backgroundImage: `url('${src}')`}" class="has-width-100-percent has-height-100-percent ok-covered-image has-background-covered">
         <img :alt="alt" :src="src" style="display: none;">
     </figure>
 </template>
-
-<style lang="scss" scoped>
-    .ok-covered-image {
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"

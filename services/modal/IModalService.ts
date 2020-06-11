@@ -4,6 +4,7 @@ import { ModalType } from '~/services/modal/lib/ModalType';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
+import { OkHttpListOnScrollLoader, OkHttpListRefresher } from '~/components/http-list/lib/OkHttpListParams';
 
 export interface IModalService {
 
@@ -13,6 +14,8 @@ export interface IModalService {
     openPostReactionsModal(params: PostReactionsModalParams): Promise<void>;
 
     openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void>;
+
+    openCommunitiesList<T>(params: HttpListModalParams<T>): Promise<void>;
 
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
@@ -25,7 +28,13 @@ export interface IModalService {
 
 }
 
-export type ModalParams = PostModalParams | PostReactionsModalParams;
+export type ModalParams = PostModalParams | PostReactionsModalParams | HttpListModalParams<any>;
+
+export interface HttpListModalParams<T> {
+    refresher: OkHttpListRefresher<T>;
+    onScrollLoader: OkHttpListOnScrollLoader<T>;
+    title?: string;
+}
 
 export interface PostModalParams {
     post: IPost;

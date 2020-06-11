@@ -1,5 +1,6 @@
 import { inject, injectable } from '~/node_modules/inversify';
 import {
+    HttpListModalParams,
     IModalService,
     ModalParams, PostCommentReactionsModalParams,
     PostModalParams,
@@ -45,6 +46,11 @@ export class ModalService implements IModalService {
         return this.openModal(ModalType.postCommentReactions, params);
     }
 
+    async openCommunitiesList<T>(params: HttpListModalParams<T>): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communitiesList, params);
+    }
+
 
     async openPostModal(params: PostModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
@@ -75,7 +81,7 @@ export class ModalService implements IModalService {
         this.activeModalReturnData = any;
     }
 
-    private openModal(modalType: ModalType, params: PostModalParams): Promise<any> {
+    private openModal(modalType: ModalType, params: ModalParams): Promise<any> {
         this.activeModalParams.next(params);
         this.activeModal.next(modalType);
         this.logModalOpened();

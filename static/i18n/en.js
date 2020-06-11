@@ -11,6 +11,27 @@ export default {
                 "planet": " We are committed to donating a percentage of our profits towards preserving improving our only home."
             }
         },
+        "home": {
+            "communities": {
+                "title": "Communities",
+                "favorites": {
+                    "title": "Favorites",
+                    "see_all_communities": "See all favorite communities",
+                },
+                "joined": {
+                    "see_all_communities": "See all joined communities",
+                    "title": "Joined",
+                },
+                "administrated": {
+                    "see_all_communities": "See all administrated communities",
+                    "title": "Administrated",
+                },
+                "moderated": {
+                    "see_all_communities": "See all moderated communities",
+                    "title": "Moderated",
+                },
+            }
+        }
     },
     "components": {
         "post_comments_sort_switcher": {
@@ -162,7 +183,9 @@ export default {
             "password": "Password",
             "username": "Username",
             "about": "About",
-            "manage": "Manage"
+            "manage": "Manage",
+            "you": 'You',
+            "all": 'All',
         },
         "snippets": {
             "forgot_password": "Forgot password?",

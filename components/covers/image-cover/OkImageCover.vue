@@ -6,6 +6,16 @@
 
 <style lang="scss">
 
+
+    .ok-image-cover-small {
+        height: 140px;
+
+        @include for-size(desktop-up) {
+            height: 190px;
+        }
+
+    }
+
     .ok-image-cover-medium {
         height: 160px;
 
@@ -27,7 +37,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { OkCoverSize } from "~/components/covers/lib/OkCoverSize";
-    import OkCoveredImage from '~/components/images/OkCoveredImage.vue';
+    import OkCoveredImage from "~/components/images/OkCoveredImage.vue";
 
     @Component({
         name: "OkImageCover",
@@ -46,12 +56,20 @@
 
         get finalCoverUrl() {
             if (this.coverFile) return URL.createObjectURL(this.coverFile);
-            if(this.coverUrl) return this.coverUrl;
-            return require('./assets/cover-fallback.jpg');
+            if (this.coverUrl) return this.coverUrl;
+            return require("./assets/cover-fallback.jpg");
         }
 
         get coverClass() {
-            return this.coverSize === OkCoverSize.large ? 'ok-image-cover-large' : 'ok-image-cover-medium';
+            switch (this.coverSize) {
+                case OkCoverSize.medium:
+                    return "ok-image-cover-medium";
+                case OkCoverSize.small:
+                    return "ok-image-cover-small";
+                case OkCoverSize.large:
+                    return "ok-image-cover-large";
+
+            }
         }
 
 

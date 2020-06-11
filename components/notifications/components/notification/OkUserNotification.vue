@@ -213,13 +213,13 @@
             this.componentIsReady = true;
         }
 
-        async readNotification(notification: INotification) {
+        async readNotification() {
             if (this.readNotificationOperation) return;
 
             try {
-                this.readNotificationOperation = CancelableOperation.fromPromise(this.userService.readNotification({notification}));
+                this.readNotificationOperation = CancelableOperation.fromPromise(this.userService.readNotification({notification: this.notification}));
                 await this.readNotificationOperation.value;
-                notification.readNotification();
+                this.notification.readNotification();
 
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);

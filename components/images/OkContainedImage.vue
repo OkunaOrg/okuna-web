@@ -1,5 +1,5 @@
 <template>
-    <figure :style="{ backgroundImage: `url('${src}')`}" class="ok-contained-img">
+    <figure :style="{ backgroundImage: `url('${src}')`}" class="has-width-100-percent has-height-100-percent ok-covered-image has-background-contained">
         <img :alt="alt" :src="src" style="display: none;">
     </figure>
 </template>

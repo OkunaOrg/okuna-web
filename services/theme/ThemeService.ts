@@ -5,318 +5,15 @@ import themeFactory from '~/models/common/theme/factory';
 import { TYPES } from '~/services/inversify-types';
 import { IStorageService } from '~/services/storage/IStorageService';
 import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
-import jss from 'jss';
-import preset from 'jss-preset-default';
 import { IOkLogger } from '~/services/logging/types';
 import { ILoggingService } from '~/services/logging/ILoggingService';
 import { BehaviorSubject } from '~/node_modules/rxjs';
-
-const createGenerateId = () => {
-    return (rule: any, sheet: any) => `${rule.key}`;
-};
-
-jss.setup(Object.assign(preset(), {createGenerateId}));
+import Color from 'color';
 
 @injectable()
 export class ThemeService implements IThemeService {
 
     static ACTIVE_THEME_STORAGE_KEY = 'activeThemeId';
-
-    static themeStylesheet = {
-        'ok-has-background-primary': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryColor.hex(), '!important'];
-            }
-        },
-        'ok-has-background-primary-80': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryColor80.hex(), '!important'];
-            }
-        },
-        'ok-has-background-primary-60': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryColor60.hex(), '!important'];
-            }
-        },
-        'ok-has-background-primary-invert': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryInvertColor.hex(), '!important'];
-            }
-        },
-        'ok-has-background-primary-invert-80': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryInvertColor80.hex(), '!important'];
-            }
-        },
-        'ok-has-background-primary-invert-60': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryInvertColor60.hex(), '!important'];
-            }
-        },
-        'ok-has-background-primary-highlight': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryHighlightColor.hsl().string(), '!important'];
-            }
-        },
-        'ok-has-background-primary-highlight-hover': {
-            '&:hover': {
-                'background-color': (data: ITheme) => {
-                    return [data.primaryHighlightColor.hsl().string(), '!important'];
-                }
-            }
-        },
-        'ok-has-background-accent': {
-            'background-color': (data: ITheme) => {
-                return [data.accentColor.hex(), '!important'];
-            }
-        },
-        'ok-has-background-accent-gradient': {
-            'background-image': (data: ITheme) => {
-                return [`linear-gradient(315deg, ${data.accentGradient[0].hex()} 0%, ${data.accentGradient[1].hex()} 74%)`, '!important'];
-            },
-            'background-color': (data: ITheme) => {
-                return [data.accentGradient[0].hex(), '!important'];
-            },
-        },
-        'ok-has-background-success': {
-            'background-color': (data: ITheme) => {
-                return [data.successColor.hex(), '!important'];
-            }
-        },
-        'ok-has-background-success-invert': {
-            'background-color': (data: ITheme) => {
-                return [data.successColorInvert.hex(), '!important'];
-            }
-        },
-        'ok-has-background-error': {
-            'background-color': (data: ITheme) => {
-                return [data.errorColor.hex(), '!important'];
-            }
-        },
-        'ok-has-background-error-invert': {
-            'background-color': (data: ITheme) => {
-                return [data.errorColorInvert.hex(), '!important'];
-            }
-        },
-        'ok-has-background-warning': {
-            'background-color': (data: ITheme) => {
-                return [data.warningColor.hex(), '!important'];
-            }
-        },
-        'ok-has-background-warning-invert': {
-            'background-color': (data: ITheme) => {
-                return [data.warningColorInvert.hex(), '!important'];
-            }
-        },
-        'ok-has-background-info': {
-            'background-color': (data: ITheme) => {
-                return [data.infoColor.hex(), '!important'];
-            }
-        },
-        'ok-has-background-info-invert': {
-            'background-color': (data: ITheme) => {
-                return [data.infoColorInvert.hex(), '!important'];
-            }
-        },
-        'ok-has-text-primary': {
-            'color': (data: ITheme) => {
-                return [data.primaryColor.hex(), '!important'];
-            }
-        },
-        'ok-has-text-primary-80': {
-            'color': (data: ITheme) => {
-                return [data.primaryColor80.hex(), '!important'];
-            }
-        },
-        'ok-has-text-primary-60': {
-            'color': (data: ITheme) => {
-                return [data.primaryColor60.hex(), '!important'];
-            }
-        },
-        'ok-has-text-primary-invert': {
-            'color': (data: ITheme) => {
-                return [data.primaryInvertColor.hex(), '!important'];
-            }
-        },
-        'ok-has-text-primary-invert-80': {
-            'color': (data: ITheme) => {
-                return [data.primaryInvertColor80.hex(), '!important'];
-            }
-        },
-        'ok-has-text-primary-invert-60': {
-            'color': (data: ITheme) => {
-                return [data.primaryInvertColor60.hex(), '!important'];
-            }
-        },
-        'ok-has-text-accent': {
-            'color': (data: ITheme) => {
-                return [data.accentColor.hex(), '!important'];
-            }
-        },
-        'ok-has-text-error': {
-            'color': (data: ITheme) => {
-                return [data.errorColor.hex(), '!important'];
-            }
-        },
-        'ok-has-text-error-invert': {
-            'color': (data: ITheme) => {
-                return [data.errorColorInvert.hex(), '!important'];
-            }
-        },
-        'ok-has-text-warning': {
-            'color': (data: ITheme) => {
-                return [data.warningColor.hex(), '!important'];
-            }
-        },
-        'ok-has-text-warning-invert': {
-            'color': (data: ITheme) => {
-                return [data.warningColorInvert.hex(), '!important'];
-            }
-        },
-        'ok-has-text-info': {
-            'color': (data: ITheme) => {
-                return [data.infoColor.hex(), '!important'];
-            }
-        },
-        'ok-has-text-info-invert': {
-            'color': (data: ITheme) => {
-                return [data.infoColorInvert.hex(), '!important'];
-            }
-        },
-        'ok-has-border-primary-highlight': {
-            'border': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
-            }
-        },
-        'ok-has-border-top-primary-highlight': {
-            'borderTop': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
-            }
-        },
-        'ok-has-border-right-primary-highlight': {
-            'borderRight': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
-            }
-        },
-        'ok-has-border-left-primary-highlight': {
-            'borderLeft': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
-            }
-        },
-        'ok-has-border-bottom-primary-highlight': {
-            'borderBottom': (data: ITheme) => {
-                return [`solid 1px ${data.primaryHighlightColor.hsl().string()}`, '!important'];
-            }
-        },
-        'ok-has-border-color-primary-highlight': {
-            'borderColor': (data: ITheme) => {
-                return [`${data.primaryHighlightColor.hsl().string()}`, '!important'];
-            }
-        },
-        'ok-has-before-background-primary': {
-            '&:before': {
-                content: '""',
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-                top: 0,
-                width: '100%',
-                height: '100%',
-                display: 'block',
-                'z-index': 0,
-                'background-color': (data: ITheme) => {
-                    return [data.primaryColor.hex(), '!important'];
-                }
-            }
-        },
-        //Global
-        'ok-input': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryHighlightColor.hsl().string(), '!important'];
-            },
-            'color': (data: ITheme) => {
-                return [data.primaryInvertColor.hex(), '!important'];
-            },
-            '&::placeholder': {
-                'color': (data: ITheme) => {
-                    return [data.primaryInvertColor60.hex(), '!important'];
-                },
-            }
-        },
-        'ok-svg-icon-primary': {
-            '& svg': {
-                'fill': (data: ITheme) => {
-                    return [data.primaryColor.hex(), '!important'];
-                },
-            }
-        },
-        'ok-svg-icon-primary-invert': {
-            '& svg': {
-                'fill': (data: ITheme) => {
-                    return [data.primaryInvertColor.hsl().string(), '!important'];
-                },
-            }
-        },
-        'ok-svg-icon-primary-invert-80': {
-            '& svg': {
-                'fill': (data: ITheme) => {
-                    return [data.primaryInvertColor80.hsl().string(), '!important'];
-                },
-            }
-        },
-        'ok-svg-icon-primary-invert-60': {
-            '& svg': {
-                'fill': (data: ITheme) => {
-                    return [data.primaryInvertColor60.hsl().string(), '!important'];
-                },
-            }
-        },
-        // Bulma overrides
-        'card-header': {
-            'boxShadow': (data: ITheme) => {
-                return [`0 1px 2px ${data.primaryInvertColor.hex()}`, '!important'];
-            }
-        },
-        'card-footer': {
-            'borderTop': (data: ITheme) => {
-                return [`1px solid ${data.primaryHighlightColor.hsl().string()}`, '!important'];
-            }
-        },
-        'dropdown-content': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryColor.hsl().string(), '!important'];
-            },
-        },
-        'dropdown-item': {
-            'background-color': (data: ITheme) => {
-                return [data.primaryHighlightColor.hsl().string(), '!important'];
-            },
-            'color': (data: ITheme) => {
-                return [data.primaryInvertColor.hsl().string(), '!important'];
-            },
-        },
-        '@global': {
-            '::-webkit-scrollbar-thumb': {
-                'background': (data: ITheme) => {
-                    return [`${data.primaryColor60.hex()}`, '!important'];
-                },
-                '&:hover': {
-                    'background-image': (data: ITheme) => {
-                        return [`linear-gradient(315deg, ${data.accentGradient[0].hex()} 0%, ${data.accentGradient[1].hex()} 74%)`, '!important'];
-                    },
-                    'background-color': (data: ITheme) => {
-                        return [data.accentGradient[0].hex(), '!important'];
-                    },
-                }
-            },
-            '::-webkit-scrollbar-track': {
-                'background': (data: ITheme) => {
-                    return [`${data.primaryColor80.hex()}`, '!important'];
-                },
-            }
-        }
-    };
 
     static themes = [
         themeFactory.make({
@@ -358,14 +55,13 @@ export class ThemeService implements IThemeService {
     private activeThemeStorage: IOkStorage<number>;
     private logger: IOkLogger;
 
-    private themeStylesheet?: any;
-
     constructor(@inject(TYPES.StorageService)  storageService?: IStorageService,
                 @inject(TYPES.LoggingService)  loggingService?: ILoggingService,) {
         this.activeThemeStorage = storageService!.getLocalForageStorage('activeThemeStorage');
         this.logger = loggingService!.getLogger({
             name: ' ThemeService'
         });
+        window['themeService'] = this;
     }
 
     getCuratedThemes(): ITheme[] {
@@ -375,6 +71,19 @@ export class ThemeService implements IThemeService {
     isActiveTheme(theme: ITheme): boolean {
         if (!this.activeTheme.value) return false;
         return this.activeTheme.value.id === theme.id;
+    }
+
+    setRandomTheme(): Promise<void> {
+        let randomTheme = this.getRandomTheme();
+        while (this.activeTheme.value == randomTheme) {
+            randomTheme = this.getRandomTheme();
+        }
+
+        return this.setActiveTheme(randomTheme);
+    }
+
+    private getRandomTheme() {
+        return ThemeService.themes[Math.floor(Math.random() * ThemeService.themes.length)];
     }
 
     async setActiveTheme(theme: ITheme): Promise<void> {
@@ -392,8 +101,48 @@ export class ThemeService implements IThemeService {
         return this.bootstrapWithStoredActiveThemeId();
     }
 
+    getColorForThemeColorType(themeColorType: OkThemeColorType): Color {
+        switch (themeColorType) {
+            case OkThemeColorType.primary:
+                return this.activeTheme.value.primary;
+            case OkThemeColorType.primaryInvert:
+                return this.activeTheme.value.primaryInvert;
+            case OkThemeColorType.accent:
+                return this.activeTheme.value.accent;
+            case OkThemeColorType.accentGradient:
+                throw Error('Accent gradient cant be converted to single Color');
+            case OkThemeColorType.success:
+                return this.activeTheme.value.success;
+            case OkThemeColorType.successInvert:
+                return this.activeTheme.value.successInvert;
+            case OkThemeColorType.error:
+                return this.activeTheme.value.error;
+            case OkThemeColorType.errorInvert:
+                return this.activeTheme.value.errorInvert;
+            case OkThemeColorType.warning:
+                return this.activeTheme.value.warning;
+            case OkThemeColorType.warningInvert:
+                return this.activeTheme.value.warningInvert;
+            case OkThemeColorType.info:
+                return this.activeTheme.value.info;
+            case OkThemeColorType.infoInvert:
+                return this.activeTheme.value.infoInvert;
+            case OkThemeColorType.primaryHighlight:
+                return this.activeTheme.value.primaryHighlight;
+        }
+    }
+
+    getBackgroundClassForThemeColorType(themeColorType: OkThemeColorType): string {
+        switch (themeColorType) {
+            case OkThemeColorType.accentGradient:
+                return 'ok-has-background-accent-gradient';
+            default:
+                throw Error('Not implemented');
+        }
+    }
+
     private async bootstrapWithStoredActiveThemeId(): Promise<ITheme> {
-        const storedActiveThemeId = null;
+        const storedActiveThemeId = await this.getStoredActiveThemeId();
         if (!storedActiveThemeId) return this.setDefaultTheme();
 
         const theme = this.getThemeWithId(storedActiveThemeId);
@@ -408,7 +157,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[0];
+        const defaultTheme = ThemeService.themes[1];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }
@@ -428,14 +177,40 @@ export class ThemeService implements IThemeService {
     }
 
     private applyActiveThemeStyles(): void {
-        if (!this.themeStylesheet) {
-            this.logger.info('Creating and attaching stylesheet');
-            // @ts-ignore
-            this.themeStylesheet = jss.createStyleSheet(ThemeService.themeStylesheet, {link: true});
-            this.themeStylesheet.attach();
-        }
-
-        this.logger.info('Updating stylesheet');
-        this.themeStylesheet.update(this.activeTheme.value);
+        this.logger.info('Updating style properties');
+        let styles = document.querySelector('html').style;
+        styles.setProperty('--primary-color', this.activeTheme.value.primaryColor.hex());
+        styles.setProperty('--primary-color-80', this.activeTheme.value.primaryColor80.hex());
+        styles.setProperty('--primary-color-60', this.activeTheme.value.primaryColor60.hex());
+        styles.setProperty('--primary-invert-color', this.activeTheme.value.primaryInvertColor.hex());
+        styles.setProperty('--primary-invert-color-80', this.activeTheme.value.primaryInvertColor80.hsl().toString());
+        styles.setProperty('--primary-invert-color-60', this.activeTheme.value.primaryInvertColor60.hsl().toString());
+        styles.setProperty('--primary-highlight-color', this.activeTheme.value.primaryHighlightColor.hsl().toString());
+        styles.setProperty('--accent-color', this.activeTheme.value.accentColor.hex());
+        styles.setProperty('--accent-gradient-begin', this.activeTheme.value.accentGradient[0].hex());
+        styles.setProperty('--accent-gradient-end', this.activeTheme.value.accentGradient[1].hex());
+        styles.setProperty('--success-color', this.activeTheme.value.successColor.hex());
+        styles.setProperty('--error-color', this.activeTheme.value.errorColor.hex());
+        styles.setProperty('--error-color-invert', this.activeTheme.value.errorColorInvert.hex());
+        styles.setProperty('--warning-color', this.activeTheme.value.warningColor.hex());
+        styles.setProperty('--warning-color-invert', this.activeTheme.value.warningColorInvert.hex());
+        styles.setProperty('--info-color', this.activeTheme.value.infoColor.hex());
+        styles.setProperty('--info-color-invert', this.activeTheme.value.infoColorInvert.hex());
     }
+}
+
+export enum OkThemeColorType {
+    primary,
+    primaryInvert,
+    accent,
+    accentGradient,
+    success,
+    successInvert,
+    error,
+    errorInvert,
+    warning,
+    warningInvert,
+    info,
+    infoInvert,
+    primaryHighlight,
 }

@@ -43,12 +43,15 @@ import { INotificationsApiService } from '~/services/Apis/notifications/INotific
 import { NotificationsApiService } from '~/services/Apis/notifications/NotificationsApiService';
 import { FollowsApiService } from '~/services/Apis/follows/FollowsApiService';
 import { IFollowsApiService } from '~/services/Apis/follows/IFollowsApiService';
+import { ICategoriesApiService } from '~/services/Apis/categories/ICategoriesApiService';
+import { CategoriesApiService } from '~/services/Apis/categories/CategoriesApiService';
 
 const okunaContainer = new Container();
 
 
 okunaContainer.bind<IAuthApiService>(TYPES.AuthApiService).to(AuthApiService).inSingletonScope();
 okunaContainer.bind<ICommunitiesApiService>(TYPES.CommunitiesApiService).to(CommunitiesApiService).inSingletonScope();
+okunaContainer.bind<ICategoriesApiService>(TYPES.CategoriesApiService).to(CategoriesApiService).inSingletonScope();
 okunaContainer.bind<IPostsApiService>(TYPES.PostsApiService).to(PostsApiService).inSingletonScope();
 okunaContainer.bind<INotificationsApiService>(TYPES.NotificationsApiService).to(NotificationsApiService).inSingletonScope();
 okunaContainer.bind<IFollowsApiService>(TYPES.FollowsApiService).to(FollowsApiService).inSingletonScope();

@@ -1,4 +1,3 @@
-import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -10,12 +9,19 @@ import {
     GetCommunityModeratorsApiParams,
     GetCommunityApiParams,
     GetCommunityPostsCountApiParams,
-    JoinCommunityApiParams, LeaveCommunityApiParams,
+    JoinCommunityApiParams,
+    LeaveCommunityApiParams,
     ReportCommunityApiParams,
     SearchCommunitiesApiParams,
     SearchCommunityAdministratorsApiParams,
     SearchCommunityMembersApiParams,
-    SearchCommunityModeratorsApiParams, GetCommunityPostsApiParams
+    SearchCommunityModeratorsApiParams,
+    GetCommunityPostsApiParams,
+    GetTrendingCommunitiesApiParams,
+    GetFavoriteCommunitiesApiParams,
+    GetModeratedCommunitiesApiParams,
+    GetJoinedCommunitiesApiParams,
+    GetAdministratedCommunitiesApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
@@ -107,6 +113,71 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     constructor(@inject(TYPES.HttpService) private httpService: IHttpService,
                 @inject(TYPES.StringTemplateService) private stringTemplateService: IStringTemplateService) {
 
+    }
+
+
+    getTrendingCommunities(params: GetTrendingCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>> {
+        let queryParams = {};
+        if (params.categoryName) queryParams['category'] = params.categoryName;
+
+        return this.httpService.get(CommunitiesApiService.GET_TRENDING_COMMUNITIES_PATH,
+            {
+                queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    getFavoriteCommunities(params: GetFavoriteCommunitiesApiParams = {}): Promise<AxiosResponse<CommunityData[]>> {
+        let queryParams = {};
+
+        if (params.offset) queryParams['offset'] = params.offset;
+
+        return this.httpService.get(CommunitiesApiService.GET_FAVORITE_COMMUNITIES_PATH,
+            {
+                queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    getAdministratedCommunities(params: GetAdministratedCommunitiesApiParams = {}): Promise<AxiosResponse<CommunityData[]>> {
+        let queryParams = {};
+
+        if (params.offset) queryParams['offset'] = params.offset;
+
+        return this.httpService.get(CommunitiesApiService.GET_ADMINISTRATED_COMMUNITIES_PATH,
+            {
+                queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    getModeratedCommunities(params: GetModeratedCommunitiesApiParams = {}): Promise<AxiosResponse<CommunityData[]>> {
+        let queryParams = {};
+
+        if (params.offset) queryParams['offset'] = params.offset;
+
+        return this.httpService.get(CommunitiesApiService.GET_MODERATED_COMMUNITIES_PATH,
+            {
+                queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    getJoinedCommunities(params: GetJoinedCommunitiesApiParams = {}): Promise<AxiosResponse<CommunityData[]>> {
+        let queryParams = {};
+
+        if (params.offset) queryParams['offset'] = params.offset;
+
+        return this.httpService.get(CommunitiesApiService.GET_JOINED_COMMUNITIES_PATH,
+            {
+                queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
     }
 
     searchCommunities(params: SearchCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>> {

@@ -1,5 +1,5 @@
 <template>
-    <nuxt-link class="notification-contents media" :to="action" @click.native="onClick">
+    <nuxt-link class="notification-contents media has-no-hover-text-decoration" :to="action" @click.native="onClick">
         <div class="notification-avatar media-left">
             <ok-community-avatar
                 v-if="community"
