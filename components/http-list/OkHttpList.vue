@@ -26,7 +26,8 @@
 <style lang="scss">
     .ok-http-list {
         min-height: 100px;
-        min-width: 100%;
+        position: relative;
+        min-width:  100%;
     }
 </style>
 

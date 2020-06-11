@@ -246,3 +246,20 @@
 ::-webkit-scrollbar-track {
   background: var(--primary-color-80) !important;
 }
+
+.tabs.is-toggle li a{
+  background: var(--primary-color) !important;
+  color: var(--primary-invert-color) !important;
+  border: none !important;
+
+  &:hover{
+    border: none !important;
+  }
+}
+
+
+.tabs.is-toggle li.is-active a{
+  background: var(--primary-highlight-color) !important;
+  color: var(--primary-invert-color) !important;
+  border: none !important;
+}
