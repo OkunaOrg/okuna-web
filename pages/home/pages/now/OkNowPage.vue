@@ -37,6 +37,10 @@
 <style lang="scss">
 
     .ok-now-page {
+        .infinite-loading-container{
+            padding-top: 10px !important;
+        }
+
         .b-tabs {
             display: flex;
             flex-direction: column;
