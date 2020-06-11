@@ -1,3 +1,24 @@
+export interface GetTrendingCommunitiesApiParams {
+    categoryName?: string;
+}
+
+export interface GetFavoriteCommunitiesApiParams {
+    offset?: number;
+}
+
+export interface GetJoinedCommunitiesApiParams {
+    offset?: number;
+}
+
+export interface GetAdministratedCommunitiesApiParams {
+    offset?: number;
+}
+
+export interface GetModeratedCommunitiesApiParams {
+    offset?: number;
+}
+
+
 export interface SearchCommunitiesApiParams {
     communityName: string;
     query: string;

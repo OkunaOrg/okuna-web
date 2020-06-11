@@ -1,0 +1,62 @@
+<template>
+    <article class="media has-background-covered has-border-radius-10 has-overflow-hidden is-flex align-items-center ok-has-black-overlay-80 has-padding-5" :style="{ backgroundImage: 'url(' + tileBackgroundImage + ')' }">
+        <figure class="media-left">
+            <ok-community-avatar :community="community" class="has-padding-left-10"></ok-community-avatar>
+        </figure>
+        <div class="media-content has-z-index-1">
+            <div class="has-text-overflow-ellipsis">
+                <span class="has-text-white">
+                    c/{{community.name}}
+                </span>
+            </div>
+            <div class="has-text-overflow-ellipsis">
+                <span class="has-text-weight-bold has-text-white">
+                    {{community.title}}
+                </span>
+            </div>
+        </div>
+        <div class="media-right has-z-index-1">
+            <slot name="trailing"></slot>
+        </div>
+    </article>
+</template>
+
+<style lang="scss">
+    .ok-has-black-overlay-80{
+        position: relative;
+
+        &::before{
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.60);
+        }
+    }
+</style>
+
+<script lang="ts">
+    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
+    import OkCommunityAvatar from "../avatars/community-avatar/OkCommunityAvatar.vue";
+    import { ICommunity } from "~/models/communities/community/ICommunity";
+
+    @Component({
+        name: "OkCommunityTile",
+        components: {OkCommunityAvatar},
+    })
+    export default class OkCommunityTile extends Vue {
+
+        @Prop({
+            type: Object,
+            required: true,
+        }) readonly community: ICommunity;
+
+
+        get tileBackgroundImage() {
+            return this.community.avatar;
+        }
+
+    }
+</script>

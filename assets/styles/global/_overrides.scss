@@ -2,7 +2,7 @@ a {
   color: inherit;
 
   &:hover, &:focus {
-    text-decoration: underline !important;
+    text-decoration: none !important;
   }
 }
 
@@ -32,4 +32,19 @@ body {
 
 .tooltip{
   z-index: 999;
+}
+
+.tabs ul, .tabs a{
+  border-bottom: none !important;
+}
+
+.tabs li.is-active a{
+  // Border color bottom primary invert
+}
+
+.tabs a {
+  padding: 0;
+  &:hover{
+    text-decoration: none !important;
+  }
 }

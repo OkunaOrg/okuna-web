@@ -77,19 +77,19 @@
     import { Component, Vue } from "nuxt-property-decorator"
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
-    import { ICommunity } from "~/models/auth/community/ICommunity";
     import OkCommunityAvatar from "~/components/avatars/community-avatar/OkCommunityAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { OkAvatarBorderRadius } from '~/components/avatars/lib/OkAvatarBorderRadius';
     import { BehaviorSubject } from '~/node_modules/rxjs';
     import { IUserService } from '~/services/user/IUserService';
+    import { IUser } from '~/models/auth/user/IUser';
 
     @Component({
         name: "OkCommunityProfileActionsMenu",
         components: {OkCommunityAvatar},
         subscriptions: function () {
             return {
-                loggedInCommunity: this["userService"].loggedInCommunity
+                loggedInUser: this["userService"].loggedInUser
             }
         }
     })
@@ -100,13 +100,13 @@
         dropdownIsOpen = false;
 
         $observables!: {
-            loggedInCommunity?: BehaviorSubject<ICommunity>
+            loggedInUser?: BehaviorSubject<IUser>
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         get profileUrl(){
-            return `/${this.$observables.loggedInCommunity.value.communityname}`;
+            return `/${this.$observables.loggedInUser.value.username}`;
         }
     }
 </script>

@@ -57,7 +57,14 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams, FollowUserParams, UnfollowUserParams, GetCommunityPostsParams
+    SearchCommunityModeratorsParams,
+    FollowUserParams,
+    UnfollowUserParams,
+    GetCommunityPostsParams,
+    GetTrendingCommunitiesParams,
+    GetFavoriteCommunitiesParams,
+    GetAdministratedCommunitiesParams,
+    GetModeratedCommunitiesParams, GetJoinedCommunitiesParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -100,6 +107,11 @@ import { IFollowsApiService } from '~/services/Apis/follows/IFollowsApiService';
 import { IFollow } from '~/models/follows/follow/IFollow';
 import followFactory from '~/models/follows/follow/factory';
 import { FollowData } from '~/types/models-data/follows/FollowData';
+import { ICategoriesApiService } from '~/services/Apis/categories/ICategoriesApiService';
+import { ICategory } from '~/models/common/category/ICategory';
+import { CategoryData } from '~/types/models-data/common/CategoryData';
+import categoryFactory from '~/models/common/category/factory';
+import { GetTrendingCommunitiesApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 
 @injectable()
 export class UserService implements IUserService {
@@ -112,6 +124,7 @@ export class UserService implements IUserService {
 
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
+                @inject(TYPES.CategoriesApiService) private categoriesApiService?: ICategoriesApiService,
                 @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
                 @inject(TYPES.FollowsApiService) private followsApiService?: IFollowsApiService,
                 @inject(TYPES.NotificationsApiService) private notificationsApiService?: INotificationsApiService,
@@ -290,6 +303,38 @@ export class UserService implements IUserService {
             moderationCategoryId: params.moderationCategory.id,
             description: params.description
         });
+    }
+
+    async getTrendingCommunities(params: GetTrendingCommunitiesParams = {}): Promise<ICommunity[]> {
+        const apiParams: GetTrendingCommunitiesApiParams = {};
+        if(params.category) apiParams.categoryName = params.category.name;
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getTrendingCommunities(apiParams);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getFavoriteCommunities(params?: GetFavoriteCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getFavoriteCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getAdministratedCommunities(params?: GetAdministratedCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getAdministratedCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getModeratedCommunities(params?: GetModeratedCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getModeratedCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getJoinedCommunities(params?: GetJoinedCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getJoinedCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
     }
 
     async searchCommunities(params: SearchCommunitiesParams): Promise<ICommunity[]> {
@@ -620,5 +665,15 @@ export class UserService implements IUserService {
     }
 
     // FOLLOWS END
+
+    // CATEGORIES START
+
+    async getCategories(): Promise<ICategory[]> {
+        const response: AxiosResponse<CategoryData[]> = await this.categoriesApiService.getCategories();
+
+        return categoryFactory.makeMultiple(response.data);
+    }
+
+    // CATEGORIES END
 
 }

@@ -14,13 +14,24 @@
   overflow: hidden;
 }
 
+.has-overflow-scroll{
+  overflow: scroll;
+}
 
 .has-height-100-percent{
   height: 100%;
 }
 
+.has-min-height-100-percent{
+  min-height: 100%;
+}
+
 .has-width-100-percent{
   width: 100%;
+}
+
+.has-max-width-100-vw{
+  max-width: 100vw;
 }
 
 .has-width-auto{
@@ -85,4 +96,8 @@
   @include for-size(phone-only) {
     border-radius: 0 !important;
   }
+}
+
+.has-z-index-1{
+  z-index: 1;
 }

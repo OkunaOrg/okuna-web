@@ -1,8 +1,8 @@
 <template>
-    <div>
-        <ok-image-cover :cover-url="community.cover" :cover-size="OkCoverSize.medium">
-        </ok-image-cover>
-    </div>
+    <ok-image-cover
+            :cover-url="community.cover"
+            :cover-size="coverSize">
+    </ok-image-cover>
 </template>
 
 <style lang="scss" scoped>
@@ -13,7 +13,7 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { OkCoverSize } from "~/components/covers/lib/OkCoverSize";
     import OkImageCover from "~/components/covers/image-cover/OkImageCover.vue";
-    import { ICommunity } from '~/models/communities/community/ICommunity';
+    import { ICommunity } from "~/models/communities/community/ICommunity";
 
     @Component({
         name: "OkCommunityCover",
@@ -25,11 +25,10 @@
             required: true
         }) readonly community: ICommunity;
 
-        OkCoverSize = OkCoverSize;
-
-
-        mounted() {
-        }
+        @Prop({
+            type: Number,
+            default: OkCoverSize.medium
+        }) readonly coverSize: OkCoverSize;
 
     }
 </script>

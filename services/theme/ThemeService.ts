@@ -8,6 +8,7 @@ import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 import { IOkLogger } from '~/services/logging/types';
 import { ILoggingService } from '~/services/logging/ILoggingService';
 import { BehaviorSubject } from '~/node_modules/rxjs';
+import Color from 'color';
 
 @injectable()
 export class ThemeService implements IThemeService {
@@ -60,6 +61,7 @@ export class ThemeService implements IThemeService {
         this.logger = loggingService!.getLogger({
             name: ' ThemeService'
         });
+        window['themeService'] = this;
     }
 
     getCuratedThemes(): ITheme[] {
@@ -69,6 +71,19 @@ export class ThemeService implements IThemeService {
     isActiveTheme(theme: ITheme): boolean {
         if (!this.activeTheme.value) return false;
         return this.activeTheme.value.id === theme.id;
+    }
+
+    setRandomTheme(): Promise<void> {
+        let randomTheme = this.getRandomTheme();
+        while (this.activeTheme.value == randomTheme) {
+            randomTheme = this.getRandomTheme();
+        }
+
+        return this.setActiveTheme(randomTheme);
+    }
+
+    private getRandomTheme() {
+        return ThemeService.themes[Math.floor(Math.random() * ThemeService.themes.length)];
     }
 
     async setActiveTheme(theme: ITheme): Promise<void> {
@@ -84,6 +99,46 @@ export class ThemeService implements IThemeService {
     bootstrapTheme(): Promise<ITheme> {
         this.logger.info('Bootstrapping theme');
         return this.bootstrapWithStoredActiveThemeId();
+    }
+
+    getColorForThemeColorType(themeColorType: OkThemeColorType): Color {
+        switch (themeColorType) {
+            case OkThemeColorType.primary:
+                return this.activeTheme.value.primary;
+            case OkThemeColorType.primaryInvert:
+                return this.activeTheme.value.primaryInvert;
+            case OkThemeColorType.accent:
+                return this.activeTheme.value.accent;
+            case OkThemeColorType.accentGradient:
+                throw Error('Accent gradient cant be converted to single Color');
+            case OkThemeColorType.success:
+                return this.activeTheme.value.success;
+            case OkThemeColorType.successInvert:
+                return this.activeTheme.value.successInvert;
+            case OkThemeColorType.error:
+                return this.activeTheme.value.error;
+            case OkThemeColorType.errorInvert:
+                return this.activeTheme.value.errorInvert;
+            case OkThemeColorType.warning:
+                return this.activeTheme.value.warning;
+            case OkThemeColorType.warningInvert:
+                return this.activeTheme.value.warningInvert;
+            case OkThemeColorType.info:
+                return this.activeTheme.value.info;
+            case OkThemeColorType.infoInvert:
+                return this.activeTheme.value.infoInvert;
+            case OkThemeColorType.primaryHighlight:
+                return this.activeTheme.value.primaryHighlight;
+        }
+    }
+
+    getBackgroundClassForThemeColorType(themeColorType: OkThemeColorType): string {
+        switch (themeColorType) {
+            case OkThemeColorType.accentGradient:
+                return 'ok-has-background-accent-gradient';
+            default:
+                throw Error('Not implemented');
+        }
     }
 
     private async bootstrapWithStoredActiveThemeId(): Promise<ITheme> {
@@ -102,7 +157,7 @@ export class ThemeService implements IThemeService {
     }
 
     private async setDefaultTheme(): Promise<ITheme> {
-        const defaultTheme = ThemeService.themes[0];
+        const defaultTheme = ThemeService.themes[1];
         await this.setActiveTheme(defaultTheme);
         return defaultTheme;
     }
@@ -142,4 +197,20 @@ export class ThemeService implements IThemeService {
         styles.setProperty('--info-color', this.activeTheme.value.infoColor.hex());
         styles.setProperty('--info-color-invert', this.activeTheme.value.infoColorInvert.hex());
     }
+}
+
+export enum OkThemeColorType {
+    primary,
+    primaryInvert,
+    accent,
+    accentGradient,
+    success,
+    successInvert,
+    error,
+    errorInvert,
+    warning,
+    warningInvert,
+    info,
+    infoInvert,
+    primaryHighlight,
 }

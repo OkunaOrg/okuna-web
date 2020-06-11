@@ -8,7 +8,7 @@ import OkTimelinePage from "./pages/home/pages/timeline/OkTimelinePage";
 import OkHashtagPage from "./pages/home/pages/hashtag/OkHashtagPage";
 import OkPostPage from "./pages/home/pages/post/OkPostPage";
 import OkUserPage from "./pages/home/pages/user/OkUserProfilePage";
-import OkExploreCommunitiesPage from "./pages/home/pages/communities/pages/explore/OkExploreCommunitiesPage";
+import OkCommunitiesPage from "./pages/home/pages/communities/OkCommunitiesPage";
 import OkAuthPage from "./pages/auth/OkAuthPage";
 import OkLoginPage from "./pages/auth/pages/OkLoginPage";
 import OkRegisterPage from "./pages/auth/pages/OkRegisterPage";
@@ -41,7 +41,7 @@ export function createRouter() {
                     {
                         name: 'communities',
                         path: 'c',
-                        component: OkExploreCommunitiesPage,
+                        component: OkCommunitiesPage,
                     },
                     {
                         path: 'c/:communityName',
