@@ -64,7 +64,7 @@ import {
     GetTrendingCommunitiesParams,
     GetFavoriteCommunitiesParams,
     GetAdministratedCommunitiesParams,
-    GetModeratedCommunitiesParams, GetJoinedCommunitiesParams
+    GetModeratedCommunitiesParams, GetJoinedCommunitiesParams, GetHashtagParams, GetHashtagPostsParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -112,6 +112,10 @@ import { ICategory } from '~/models/common/category/ICategory';
 import { CategoryData } from '~/types/models-data/common/CategoryData';
 import categoryFactory from '~/models/common/category/factory';
 import { GetTrendingCommunitiesApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
+import { IHashtag } from '~/models/common/hashtag/IHashtag';
+import hashtagFactory from '~/models/common/hashtag/factory';
+import { HashtagData } from '~/types/models-data/common/HashtagData';
+import { IHashtagsApiService } from '~/services/Apis/hashtags/IHashtagsApiService';
 
 @injectable()
 export class UserService implements IUserService {
@@ -124,6 +128,7 @@ export class UserService implements IUserService {
 
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
+                @inject(TYPES.HashtagsApiService) private hashtagsApiService?: IHashtagsApiService,
                 @inject(TYPES.CategoriesApiService) private categoriesApiService?: ICategoriesApiService,
                 @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
                 @inject(TYPES.FollowsApiService) private followsApiService?: IFollowsApiService,
@@ -307,7 +312,7 @@ export class UserService implements IUserService {
 
     async getTrendingCommunities(params: GetTrendingCommunitiesParams = {}): Promise<ICommunity[]> {
         const apiParams: GetTrendingCommunitiesApiParams = {};
-        if(params.category) apiParams.categoryName = params.category.name;
+        if (params.category) apiParams.categoryName = params.category.name;
         const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getTrendingCommunities(apiParams);
 
         return communityFactory.makeMultiple(response.data);
@@ -675,5 +680,30 @@ export class UserService implements IUserService {
     }
 
     // CATEGORIES END
+
+    // HASHTAGS BEGIN
+
+    async getHashtag(params: GetHashtagParams): Promise<IHashtag> {
+        const response: AxiosResponse<HashtagData> = await this.hashtagsApiService.getHashtag({
+            hashtagName: params.hashtagName,
+            appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists
+        });
+
+        return hashtagFactory.make(response.data);
+    }
+
+
+    async getHashtagPosts(params: GetHashtagPostsParams): Promise<IPost[]> {
+        const response: AxiosResponse<UserData[]> = await this.hashtagsApiService.getHashtagPosts({
+            hashtagName: params.hashtag.name,
+            count: params.count,
+            maxId: params.maxId,
+            appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists
+        });
+
+        return postFactory.makeMultiple(response.data);
+    }
+
+    // HASHTAGS END
 
 }

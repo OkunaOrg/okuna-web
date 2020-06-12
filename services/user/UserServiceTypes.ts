@@ -13,6 +13,7 @@ import { NotificationType } from '~/models/notifications/notification/lib/Notifi
 import { INotification } from '~/models/notifications/notification/INotification';
 import { IUser } from '~/models/auth/user/IUser';
 import { ICategory } from '~/models/common/category/ICategory';
+import { IHashtag } from '~/models/common/hashtag/IHashtag';
 
 // AUTH START
 
@@ -303,3 +304,20 @@ export interface UnfollowUserParams {
 
 
 // FOLLOWS END
+
+// HASHTAGS START
+
+export interface GetHashtagParams {
+    hashtagName: string;
+    appendAuthorizationTokenIfExists?: boolean;
+}
+
+export interface GetHashtagPostsParams {
+    hashtag: IHashtag;
+    count?: number;
+    maxId?: number;
+    appendAuthorizationTokenIfExists?: boolean;
+}
+
+// HASHTAGS END
+
