@@ -24,7 +24,11 @@
 </template>
 
 <style lang="scss">
-
+    .ok-hashtag-page {
+        .infinite-loading-container {
+            padding-top: 10px !important;
+        }
+    }
 </style>
 
 <script lang="ts">
