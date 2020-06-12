@@ -15,7 +15,7 @@
         <div class="media-right has-z-index-1">
             <slot name="trailing">
                 <div class="has-padding-20 is-flex align-items-center justify-center">
-                    <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
+                    <ok-more-vertical class="is-icon-2x has-text-white"></ok-more-vertical>
                 </div>
             </slot>
         </div>
