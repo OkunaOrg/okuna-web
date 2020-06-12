@@ -44,7 +44,7 @@
         postDisplayContext = PostDisplayContext.timelinePosts;
 
         postsRefresher(): Promise<IPost[]> {
-            return this.userService.getTrendingPosts({
+            return this.userService.getTimelinePosts({
                 count: OkTimelinePage.infiniteScrollChunkPostsCount,
             });
         }
@@ -54,7 +54,7 @@
             const lastPostId = lastPost.id;
 
 
-            return this.userService.getTrendingPosts({
+            return this.userService.getTimelinePosts({
                 maxId: lastPostId,
                 count: OkTimelinePage.infiniteScrollChunkPostsCount,
             })

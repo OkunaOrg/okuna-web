@@ -1,19 +1,16 @@
 <template>
     <div class="ok-posts-stream">
-        <div v-for="post in posts" :key="post.id" :class="postContainerClass">
-            <!-- Hacker News item loop -->
-            <ok-post :post="post" :post-display-context="postsDisplayContext"></ok-post>
-        </div>
-
-        <infinite-loading
-                ref="infiniteLoading"
-                @infinite="infiniteHandler"></infinite-loading>
+        <ok-http-list
+                :refresher="refresher" :on-scroll-loader="onScrollLoader" ref="okHttpList"
+                :item-class="postContainerClass">
+            <ok-post slot-scope="props" :post="props.item" :post-display-context="postsDisplayContext"></ok-post>
+        </ok-http-list>
     </div>
 </template>
 
 <style lang="scss">
     .ok-posts-stream {
-        min-width: 100%;
+        min-width: 100vw;
 
         @include for-size(tablet-portrait-up) {
             min-width: 500px;
@@ -34,14 +31,11 @@
         OkPostsStreamOnScrollLoader,
         OkPostsStreamRefresher
     } from "~/components/posts-stream/lib/OkPostsStreamParams";
-    import { IUtilsService } from "~/services/utils/IUtilsService";
-    import { TYPES } from "~/services/inversify-types";
-    import { okunaContainer } from "~/services/inversify";
-    import InfiniteLoading from "vue-infinite-loading";
+    import OkHttpList from '~/components/http-list/OkHttpList.vue';
 
     @Component({
         name: "OkPostsStream",
-        components: {OkPost},
+        components: {OkHttpList, OkPost},
     })
     export default class OkPostsStream extends Vue {
         @Prop({
@@ -57,7 +51,8 @@
 
         @Prop({
             type: Number,
-            required: true
+            required: false,
+            default: PostDisplayContext.timelinePosts
         }) readonly postsDisplayContext: PostDisplayContext;
 
         @Prop({
@@ -67,54 +62,25 @@
         }) readonly postContainerClass: string;
 
         $refs!: {
-            infiniteLoading: InfiniteLoading
+            okHttpList: OkHttpList<IPost>
         };
 
         posts: IPost[] = [];
-
-        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
-
-        async infiniteHandler($vueInfiniteLoadingState) {
-            try {
-                let posts;
-                if (this.posts.length) {
-                    // Load more
-                    posts = await this.onScrollLoader(this.posts);
-                } else {
-                    // Initial refresh
-                    posts = await this.refresher();
-                }
-
-                if (posts) {
-                    this.posts.push(...posts);
-                    $vueInfiniteLoadingState.loaded();
-                } else {
-                    $vueInfiniteLoadingState.complete();
-                }
-            } catch (error) {
-                $vueInfiniteLoadingState.error();
-                this.utilsService.handleErrorWithToast(error);
-            }
-        }
 
         // Public API methods
 
         refresh() {
             this.posts = [];
-            this.$refs.infiniteLoading.stateChanger.reset();
+            this.$refs.okHttpList.refresh();
         }
 
         addPostToTop(post: IPost) {
-            this.posts.unshift(post);
+            this.$refs.okHttpList.addItemToTop(post);
         }
 
         removePost(post: IPost) {
-            const indexOfPost = this.posts.indexOf(post);
-            if (indexOfPost > -1) this.posts = this.posts.splice(indexOfPost, 1);
+            this.$refs.okHttpList.removeItem(post);
         }
 
     }
 </script>
-
-
-
