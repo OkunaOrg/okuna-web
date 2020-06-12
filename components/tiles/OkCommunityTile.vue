@@ -21,22 +21,6 @@
     </article>
 </template>
 
-<style lang="scss">
-    .ok-has-black-overlay-80{
-        position: relative;
-
-        &::before{
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.60);
-        }
-    }
-</style>
-
 <script lang="ts">
     import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import OkCommunityAvatar from "../avatars/community-avatar/OkCommunityAvatar.vue";

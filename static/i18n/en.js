@@ -188,6 +188,7 @@ export default {
             "all": 'All',
             "explore": 'Explore',
             "trending": 'Trending',
+            "posts": "posts"
         },
         "snippets": {
             "forgot_password": "Forgot password?",

@@ -50,7 +50,7 @@ export class Hashtag extends DataModel<Hashtag> implements IHashtag {
             attributeKey: 'keyword',
         },
         {
-            dataKey: 'postsCount',
+            dataKey: 'posts_count',
             attributeKey: 'postsCount',
         },
         {
