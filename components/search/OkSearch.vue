@@ -38,7 +38,7 @@
                     </div>
                 </template>
                 <ok-http-list :searcher="hashtagsSearcher" ref="hashtagsList" :show-search-bar="false">
-                    <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
+                    <nuxt-link slot-scope="props" :to="'/h/' + props.item.name">
                         <div class="has-padding-bottom-5">
                             <ok-hashtag-tile :hashtag="props.item"></ok-hashtag-tile>
                         </div>
