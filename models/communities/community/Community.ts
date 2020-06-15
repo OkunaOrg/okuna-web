@@ -185,18 +185,19 @@ export class Community extends DataModel<Community> implements ICommunity {
     }
 
     private bootstrapComputedAttributes() {
+        if (this.color) {
+            let colorInvert;
 
-        let colorInvert;
+            if (this.color.isDark()) {
+                // Dark
+                colorInvert = Color('rgb(255, 255, 255)');
+            } else {
+                // Light
+                colorInvert = Color('rgb(0, 0, 0)');
+            }
 
-        if (this.color.isDark()) {
-            // Dark
-            colorInvert = Color('rgb(255, 255, 255)');
-        } else {
-            // Light
-            colorInvert = Color('rgb(0, 0, 0)');
+            this.colorInvert = colorInvert;
         }
-
-        this.colorInvert = colorInvert;
     }
 
 

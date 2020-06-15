@@ -17,7 +17,7 @@ import {
     GetCommunityParams,
     GetCommunityPostsCountParams,
     GetCommunityPostsParams,
-    GetFavoriteCommunitiesParams, GetJoinedCommunitiesParams,
+    GetFavoriteCommunitiesParams, GetHashtagParams, GetHashtagPostsParams, GetJoinedCommunitiesParams,
     GetModeratedCommunitiesParams,
     GetNotificationsParams,
     GetPostCommentReactionsEmojiApiCountParams,
@@ -66,6 +66,7 @@ import {
 import { INotification } from '~/models/notifications/notification/INotification';
 import { IFollow } from '~/models/follows/follow/IFollow';
 import { ICategory } from '~/models/common/category/ICategory';
+import { IHashtag } from '~/models/common/hashtag/IHashtag';
 
 
 export interface IUserService {
@@ -219,4 +220,12 @@ export interface IUserService {
     getCategories(): Promise<ICategory[]>
 
     // CATEGORIES END
+
+    // HASHTAGS START
+
+    getHashtag(params: GetHashtagParams): Promise<IHashtag>;
+
+    getHashtagPosts(params: GetHashtagPostsParams): Promise<IPost[]>;
+
+    // HASHTAGS END
 }

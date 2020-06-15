@@ -1,5 +1,6 @@
 <template>
     <div class="ok-posts-stream">
+        <slot name="leading"></slot>
         <ok-http-list
                 :refresher="refresher" :on-scroll-loader="onScrollLoader" ref="okHttpList"
                 :item-class="postContainerClass">
