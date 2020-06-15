@@ -64,7 +64,11 @@ import {
     GetTrendingCommunitiesParams,
     GetFavoriteCommunitiesParams,
     GetAdministratedCommunitiesParams,
-    GetModeratedCommunitiesParams, GetJoinedCommunitiesParams, GetHashtagParams, GetHashtagPostsParams
+    GetModeratedCommunitiesParams,
+    GetJoinedCommunitiesParams,
+    GetHashtagParams,
+    GetHashtagPostsParams,
+    SearchHashtagsParams, SearchUsersParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -227,6 +231,15 @@ export class UserService implements IUserService {
         return userFactory.make(response.data);
     }
 
+    async searchUsers(params: SearchUsersParams): Promise<IHashtag[]> {
+        const response: AxiosResponse<HashtagData[]> = await this.authApiService.searchUsers({
+            query: params.query,
+            appendAuthorizationTokenIfExists: true
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
     async getCommunity(params: GetCommunityParams): Promise<ICommunity> {
         const response: AxiosResponse<CommunityData> = await this.communitiesApiService.getCommunity({
             communityName: params.communityName,
@@ -346,7 +359,6 @@ export class UserService implements IUserService {
         const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.searchCommunities({
             query: params.query,
             excludedFromProfilePosts: params.excludedFromProfilePosts,
-            communityName: params.community.name
         });
 
         return communityFactory.makeMultiple(response.data);
@@ -702,6 +714,16 @@ export class UserService implements IUserService {
         });
 
         return postFactory.makeMultiple(response.data);
+    }
+
+
+    async searchHashtags(params: SearchHashtagsParams): Promise<IHashtag[]> {
+        const response: AxiosResponse<HashtagData[]> = await this.hashtagsApiService.searchHashtags({
+            query: params.query,
+            appendAuthorizationTokenIfExists: true
+        });
+
+        return hashtagFactory.makeMultiple(response.data);
     }
 
     // HASHTAGS END

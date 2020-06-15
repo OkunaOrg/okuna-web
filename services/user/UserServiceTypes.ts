@@ -21,6 +21,10 @@ export interface GetUserParams {
     userUsername: string;
 }
 
+export interface SearchUsersParams {
+    query: string;
+}
+
 // AUTH END
 
 // COMMUNITIES START
@@ -47,9 +51,8 @@ export interface GetJoinedCommunitiesParams {
 
 
 export interface SearchCommunitiesParams {
-    community: ICommunity;
     query: string;
-    excludedFromProfilePosts: boolean;
+    excludedFromProfilePosts?: boolean;
 }
 
 export interface GetCommunityAdministratorsParams {
@@ -318,6 +321,13 @@ export interface GetHashtagPostsParams {
     maxId?: number;
     appendAuthorizationTokenIfExists?: boolean;
 }
+
+
+export interface SearchHashtagsParams {
+    query: string;
+    appendAuthorizationTokenIfExists?: boolean;
+}
+
 
 // HASHTAGS END
 
