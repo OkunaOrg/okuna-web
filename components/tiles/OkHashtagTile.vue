@@ -25,6 +25,9 @@
     import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import OkHashtagAvatar from "../avatars/hashtag-avatar/OkHashtagAvatar.vue";
     import { IHashtag } from '~/models/common/hashtag/IHashtag';
+    import { IUtilsService } from '~/services/utils/IUtilsService';
+    import { TYPES } from '~/services/inversify-types';
+    import { okunaContainer } from '~/services/inversify';
 
     @Component({
         name: "OkHashtagTile",
@@ -36,5 +39,12 @@
             type: Object,
             required: true,
         }) readonly hashtag: IHashtag;
+
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+
+        get humanFriendlyPostsCount() {
+            if (!this.hashtag.postsCount) return 0;
+            return this.utilsService.makeHumanFriendlyLargeNumberDisplay(this.hashtag.postsCount);
+        }
     }
 </script>
