@@ -1,25 +1,46 @@
 <template>
     <div class="ok-http-list" :key="listKey" v-if="renderComponent">
-        <div v-for="item in items" :key="item.id" :class="itemClass">
-            <slot name="default" :item="item"></slot>
+        <div v-if="searcher && showSearchBar">
+            Search bar
         </div>
-
-        <infinite-loading
-                ref="infiniteLoading"
-                @infinite="infiniteHandler">
-
-            <template slot="no-more">
-                <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
-                    🎉 All loaded!
+        <div v-if="searchQuery">
+            <div v-if="searchInProgress">
+                👀 Searching...
+            </div>
+            <div v-else-if="searchItems">
+                <div v-for="item in searchItems" :key="searchItems.id" :class="itemClass">
+                    <slot name="default" :item="item"></slot>
                 </div>
-            </template>
-            <template slot="no-results">
-                <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
-                    ☹️ No items found
-                </div>
-            </template>
+            </div>
+            <div v-else>
+                ☹️ No items were found with query "{{ searchQuery }}"
+            </div>
+        </div>
+        <div v-else-if="refresher">
+            <div v-for="item in items" :key="item.id" :class="itemClass">
+                <slot name="default" :item="item"></slot>
+            </div>
 
-        </infinite-loading>
+            <infinite-loading
+                    ref="infiniteLoading"
+                    @infinite="infiniteHandler">
+
+                <template slot="no-more">
+                    <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
+                        🎉 All loaded!
+                    </div>
+                </template>
+                <template slot="no-results">
+                    <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
+                        ☹️ No items found
+                    </div>
+                </template>
+
+            </infinite-loading>
+        </div>
+        <div v-else-if="searcher">
+            Awaiting for search...
+        </div>
     </div>
 </template>
 
@@ -27,7 +48,7 @@
     .ok-http-list {
         min-height: 100px;
         position: relative;
-        min-width:  100%;
+        min-width: 100%;
     }
 </style>
 
@@ -37,7 +58,11 @@
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import InfiniteLoading from "vue-infinite-loading";
-    import { OkHttpListOnScrollLoader, OkHttpListRefresher } from "~/components/http-list/lib/OkHttpListParams";
+    import {
+        OkHttpListOnScrollLoader,
+        OkHttpListRefresher, OkHttpListSearcher,
+    } from "~/components/http-list/lib/OkHttpListParams";
+    import { CancelableOperation } from "~/lib/CancelableOperation";
 
 
     @Component({
@@ -48,12 +73,17 @@
 
         @Prop({
             type: Function,
-            required: true
+            required: false
         }) readonly refresher: OkHttpListRefresher<T>;
 
         @Prop({
             type: Function,
+            required: false
         }) readonly onScrollLoader: OkHttpListOnScrollLoader<T>;
+
+        @Prop({
+            type: Function,
+        }) readonly searcher: OkHttpListSearcher<T>;
 
         @Prop({
             type: Number,
@@ -63,6 +93,12 @@
             type: Boolean,
             default: true,
         }) readonly showNoMore: boolean;
+
+
+        @Prop({
+            type: Boolean,
+            default: true,
+        }) readonly showSearchBar: boolean;
 
         @Prop({
             type: Boolean,
@@ -77,7 +113,13 @@
             infiniteLoading: InfiniteLoading
         };
 
+        searchItems: T[] = [];
+        searchQuery = "";
+        searchInProgress = false;
+        private searchRequestOperation?: CancelableOperation<any>;
+
         items: T[] = [];
+
         listKey: String;
         renderComponent = true;
         reachedLimit = false;
@@ -146,6 +188,29 @@
             this.items = [];
             this.reachedLimit = false;
             this.$refs.infiniteLoading.stateChanger.reset();
+        }
+
+        async searchWithQuery(query: string) {
+            if (!this.searcher) return;
+
+            if (this.searchInProgress) {
+                // Cancel
+                this.searchRequestOperation.cancel();
+            }
+
+            this.searchInProgress = true;
+            this.searchQuery = query;
+
+            try {
+                this.searchRequestOperation = CancelableOperation.fromPromise(this.searcher(query));
+
+                this.searchItems = await this.searchRequestOperation.value;
+            } catch (error) {
+                this.utilsService.handleErrorWithToast(error);
+            } finally {
+                this.searchRequestOperation = null;
+                this.searchInProgress = false;
+            }
         }
 
         addItemToTop(item: T) {
