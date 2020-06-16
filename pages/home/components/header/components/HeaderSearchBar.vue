@@ -13,6 +13,7 @@
                     class="popper ok-has-background-primary has-border-radius-10 ok-has-border-primary-highlight">
                 <ok-search class="ok-header-search-dropdown"
                            :initial-search-query="searchQuery"
+                           @onSearchItemClicked="onSearchItemClicked"
                            ref="okSearch">
                 </ok-search>
             </div>
@@ -41,7 +42,9 @@
 
 <style lang="scss">
 
-    .tooltip { top: 0; }
+    .tooltip {
+        top: 0;
+    }
 
     .ok-header-search-bar {
         width: 100%;
@@ -107,12 +110,16 @@
             }
         }
 
+        onSearchItemClicked(searchItem: any) {
+            this.dropdownIsOpen = false;
+        }
+
         @Watch("searchQuery")
         onChildChanged(val: string, oldVal: string) {
             if (val) {
                 this.dropdownIsOpen = true;
                 this.$refs.okSearch.searchWithQuery(val);
-            } else{
+            } else {
                 this.$refs.okSearch.clearSearch();
             }
         }

@@ -7,7 +7,8 @@
                             {{$t('global.keywords.users')}}
                         </span>
                 </template>
-                <ok-http-list :searcher="usersSearcher" ref="usersList" :show-search-bar="false">
+                <ok-http-list :searcher="usersSearcher" ref="usersList" :show-search-bar="false"
+                              @onListItemClicked="onListItemClicked">
                     <nuxt-link slot-scope="props" :to="'/' + props.item.username">
                         <div class="has-padding-bottom-5">
                             <ok-user-tile :user="props.item"></ok-user-tile>
@@ -22,6 +23,7 @@
                         </span>
                 </template>
                 <ok-http-list :searcher="communitiesSearcher" ref="communitiesList" :show-search-bar="false"
+                              @onListItemClicked="onListItemClicked"
                               class="has-padding-10">
                     <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
                         <div class="has-padding-bottom-10">
@@ -38,7 +40,8 @@
                         </span>
                     </div>
                 </template>
-                <ok-http-list :searcher="hashtagsSearcher" ref="hashtagsList" :show-search-bar="false">
+                <ok-http-list :searcher="hashtagsSearcher" ref="hashtagsList" :show-search-bar="false"
+                              @onListItemClicked="onListItemClicked">
                     <nuxt-link slot-scope="props" :to="'/h/' + props.item.name">
                         <div class="has-padding-bottom-5">
                             <ok-hashtag-tile :hashtag="props.item"></ok-hashtag-tile>
@@ -135,6 +138,10 @@
             this.$refs.usersList.clearSearch();
             this.$refs.communitiesList.clearSearch();
             this.$refs.hashtagsList.clearSearch();
+        }
+
+        onListItemClicked(item: any) {
+            this.$emit("onSearchItemClicked", item);
         }
 
         async usersSearcher(query: string) {

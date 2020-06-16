@@ -8,7 +8,8 @@
                 <ok-loading-indicator></ok-loading-indicator>
             </div>
             <div v-else-if="searchItems.length > 0">
-                <div v-for="item in searchItems" :key="searchItems.id" :class="itemClass">
+                <div v-for="item in searchItems" :key="searchItems.id" :class="itemClass"
+                     @click="onListItemClicked(item)">
                     <slot name="default" :item="item"></slot>
                 </div>
             </div>
@@ -167,6 +168,10 @@
                 $vueInfiniteLoadingState.error();
                 this.utilsService.handleErrorWithToast(error);
             }
+        }
+
+        onListItemClicked(item: T) {
+            this.$emit("onListItemClicked", item);
         }
 
 
