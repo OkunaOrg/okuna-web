@@ -9,7 +9,7 @@
       modifiers: { offset: { offset: '0,10px' } }
     }">
             <div
-                    v-bind:style="{opacity: searchQuery ? 1 : 0}"
+                    v-bind:style="{opacity: searchQuery ? 1 : 0, 'pointer-events': searchQuery ? 'auto': 'none' }"
                     class="popper ok-has-background-primary has-border-radius-10 ok-has-border-primary-highlight">
                 <ok-search class="ok-header-search-dropdown"
                            :initial-search-query="searchQuery"
