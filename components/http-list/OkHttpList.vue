@@ -4,7 +4,7 @@
             Search bar
         </div>
         <div v-if="searchQuery">
-            <div v-if="searchInProgress" class="has-padding-20 ok-has-text-primary-invert">
+            <div v-if="searchInProgress && ! (searchItems.length > 0)" class="has-padding-20 ok-has-text-primary-invert">
                 <ok-loading-indicator></ok-loading-indicator>
             </div>
             <div v-else-if="searchItems.length > 0">
