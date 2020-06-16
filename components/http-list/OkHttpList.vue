@@ -4,16 +4,16 @@
             Search bar
         </div>
         <div v-if="searchQuery">
-            <div v-if="searchInProgress">
-                👀 Searching...
+            <div v-if="searchInProgress" class="has-padding-20 ok-has-text-primary-invert">
+                <ok-loading-indicator></ok-loading-indicator>
             </div>
-            <div v-else-if="searchItems">
+            <div v-else-if="searchItems.length > 0">
                 <div v-for="item in searchItems" :key="searchItems.id" :class="itemClass">
                     <slot name="default" :item="item"></slot>
                 </div>
             </div>
-            <div v-else>
-                ☹️ No items were found with query "{{ searchQuery }}"
+            <div v-else class="has-padding-20 ok-has-text-primary-invert">
+                {{ $t('global.snippets.no_results_for_query', {query: searchQuery})}}
             </div>
         </div>
         <div v-else-if="refresher">
@@ -27,26 +27,26 @@
 
                 <template slot="no-more">
                     <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
-                        🎉 All loaded!
+                        {{ $t('global.snippets.all_loaded')}}
                     </div>
                 </template>
                 <template slot="no-results">
                     <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
-                        ☹️ No items found
+                        {{ $t('global.snippets.no_items_found')}}
                     </div>
                 </template>
 
             </infinite-loading>
         </div>
-        <div v-else-if="searcher">
-            Awaiting for search...
+        <div v-else-if="searcher" class="has-padding-20 ok-has-text-primary-invert">
+            {{ $t('global.snippets.search_for_something')}}
         </div>
     </div>
 </template>
 
 <style lang="scss">
     .ok-http-list {
-        min-height: 100px;
+        min-height: 50px;
         position: relative;
         min-width: 100%;
     }
@@ -63,11 +63,12 @@
         OkHttpListRefresher, OkHttpListSearcher,
     } from "~/components/http-list/lib/OkHttpListParams";
     import { CancelableOperation } from "~/lib/CancelableOperation";
+    import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
 
 
     @Component({
         name: "OkHttpList",
-        components: {},
+        components: {OkLoadingIndicator},
     })
     export default class OkHttpList<T> extends Vue {
 
@@ -211,6 +212,15 @@
                 this.searchRequestOperation = null;
                 this.searchInProgress = false;
             }
+        }
+
+        clearSearch() {
+            if (this.searchRequestOperation) {
+                this.searchRequestOperation.cancel();
+            }
+            this.searchInProgress = false;
+            this.searchItems = [];
+            this.searchQuery = "";
         }
 
         addItemToTop(item: T) {

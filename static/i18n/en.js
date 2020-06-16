@@ -205,6 +205,10 @@ export default {
             "sign_up": "Sign up",
             "login": "Login",
             "operational_status": "Status",
+            "no_results_for_query": "☹️ No results for \"{query}\"",
+            "search_for_something": "🕵️‍♀️ Search for something...",
+            "all_loaded": "🎉 All loaded!",
+            "no_items_found": "☹️ No items found",
         },
     },
 }

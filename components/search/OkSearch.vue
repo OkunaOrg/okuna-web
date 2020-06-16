@@ -21,7 +21,8 @@
                             {{$t('global.keywords.communities')}}
                         </span>
                 </template>
-                <ok-http-list :searcher="communitiesSearcher" ref="communitiesList" :show-search-bar="false" class="has-padding-10">
+                <ok-http-list :searcher="communitiesSearcher" ref="communitiesList" :show-search-bar="false"
+                              class="has-padding-10">
                     <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
                         <div class="has-padding-bottom-10">
                             <ok-community-tile :community="props.item"></ok-community-tile>
@@ -53,9 +54,10 @@
 <style lang="scss">
     .ok-search {
 
-        .tab-content{
+        .tab-content {
             padding: 0 !important;
         }
+
         .tabs {
             .is-active {
                 background-color: var(--primary-highlight-color) !important;
@@ -82,11 +84,11 @@
     import { IUser } from "~/models/auth/user/IUser";
     import { IHashtag } from "~/models/common/hashtag/IHashtag";
     import { ICommunity } from "~/models/communities/community/ICommunity";
-    import { ILoggingService } from '~/services/logging/ILoggingService';
-    import { IOkLogger } from '~/services/logging/types';
-    import OkCommunityTile from '~/components/tiles/OkCommunityTile.vue';
-    import OkUserTile from '~/components/tiles/OkUserTile.vue';
-    import OkHashtagTile from '~/components/tiles/OkHashtagTile.vue';
+    import { ILoggingService } from "~/services/logging/ILoggingService";
+    import { IOkLogger } from "~/services/logging/types";
+    import OkCommunityTile from "~/components/tiles/OkCommunityTile.vue";
+    import OkUserTile from "~/components/tiles/OkUserTile.vue";
+    import OkHashtagTile from "~/components/tiles/OkHashtagTile.vue";
 
     @Component({
         name: "OkSearch",
@@ -95,7 +97,7 @@
     export default class OkSearch extends Vue {
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
-        private logger : IOkLogger;
+        private logger: IOkLogger;
 
         @Prop({
             type: String,
@@ -108,12 +110,12 @@
             communitiesList: OkHttpList<ICommunity>,
         };
 
-        created(){
+        created() {
             this.logger = this.loggingService.getLogger({
-                name: 'OkSearch'
+                name: "OkSearch"
             });
 
-            if(this.initialSearchQuery) this.searchWithQuery(this.initialSearchQuery);
+            if (this.initialSearchQuery) this.searchWithQuery(this.initialSearchQuery);
         }
 
 
@@ -127,6 +129,12 @@
             ];
 
             return Promise.all(searchPromises)
+        }
+
+        clearSearch() {
+            this.$refs.usersList.clearSearch();
+            this.$refs.communitiesList.clearSearch();
+            this.$refs.hashtagsList.clearSearch();
         }
 
         async usersSearcher(query: string) {
