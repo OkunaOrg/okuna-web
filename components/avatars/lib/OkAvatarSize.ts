@@ -11,5 +11,4 @@ export enum OkAvatarSize {
     large,
     // User / community profiles on desktop
     extraLarge,
-
 }

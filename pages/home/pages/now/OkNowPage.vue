@@ -26,7 +26,7 @@
         <div class="ok-now-page-content">
             <div class="ok-now-page-content-scroll-container">
                 <keep-alive>
-                    <ok-search class="ok-now-page-content-search"
+                    <ok-search class="ok-now-page-content-search ok-has-background-primary"
                                :initial-search-query="searchQuery"
                                v-if="searchQuery"
                                ref="okSearch">
@@ -91,6 +91,8 @@
     }
 
     .ok-now-page-content-search {
+        min-height: 100%;
+
         .tabs {
             width: 100%;
         }

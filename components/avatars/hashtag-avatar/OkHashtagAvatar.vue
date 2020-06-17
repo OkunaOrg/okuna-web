@@ -1,6 +1,7 @@
 <template>
     <div>
         <ok-image-avatar v-if="hashtag.image" :avatar-url="hashtag.image" :avatar-size="this.avatarSize"
+                         :image-fit="imageAvatarFit"
                          :avatar-border-radius="avatarBorderRadius">
         </ok-image-avatar>
         <ok-letter-avatar v-else letter="#" :text-color="hashtag.colorInvert"
@@ -19,7 +20,8 @@
     import OkImageAvatar from "~/components/avatars/image-avatar/OkImageAvatar.vue";
     import { OkAvatarBorderRadius } from "~/components/avatars/lib/OkAvatarBorderRadius";
     import OkLetterAvatar from "~/components/avatars/letter-avatar/OkLetterAvatar.vue";
-    import { IHashtag } from '~/models/common/hashtag/IHashtag';
+    import { IHashtag } from "~/models/common/hashtag/IHashtag";
+    import { OkImageFit } from "~/components/images/OkImageFit";
 
     @Component({
         name: "OkHashtagAvatar",
@@ -30,6 +32,7 @@
         @Prop(Number) readonly avatarSize: OkAvatarSize;
         @Prop(Number) readonly avatarBorderRadius: OkAvatarBorderRadius;
 
+        imageAvatarFit = OkImageFit.covered;
 
         mounted() {
 
