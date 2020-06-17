@@ -15,6 +15,7 @@
     import { okunaContainer } from "../../services/inversify";
     import { TYPES } from "../../services/inversify-types";
     import { IPost } from "../../models/posts/post/IPost";
+    import { ITrendingPost } from "~/models/posts/trending-post/ITrendingPost";
 
     @Component({
         name: "OkTrendingPostsStream",
@@ -30,21 +31,30 @@
         }) readonly postContainerClass: string;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private trendingPosts: ITrendingPost[] = [];
 
-        postsRefresher(): Promise<IPost[]> {
-            return this.userService.getTrendingPosts({
+        async postsRefresher(): Promise<IPost[]> {
+            const initialTrendingPosts = await this.userService.getTrendingPosts({
                 count: OkTrendingPostsStream.infiniteScrollChunkPostsCount,
             });
+
+            this.trendingPosts = initialTrendingPosts;
+
+            return initialTrendingPosts.map(trendingPost => trendingPost.post);
         }
 
-        postsOnScrollLoader(posts: IPost[]) {
-            const lastPost = posts[posts.length - 1];
+        async postsOnScrollLoader(): Promise<IPost[]> {
+            const lastPost = this.trendingPosts[this.trendingPosts.length - 1];
             const lastPostId = lastPost.id;
 
-            return this.userService.getTrendingPosts({
+            const newTrendingPosts = await this.userService.getTrendingPosts({
                 maxId: lastPostId,
                 count: OkTrendingPostsStream.infiniteScrollChunkPostsCount,
             });
+
+            this.trendingPosts.push(...newTrendingPosts);
+
+            return newTrendingPosts.map(trendingPost => trendingPost.post);
         }
     }
 </script>

@@ -12,6 +12,7 @@ import { ITopPost } from '~/models/posts/top-post/ITopPost';
 
 
 export class TopPost extends DataModel<TopPost> implements ITopPost {
+    id: number;
     post: IPost;
     created: Date;
 

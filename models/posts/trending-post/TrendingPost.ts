@@ -12,6 +12,7 @@ import { ITrendingPost } from '~/models/posts/trending-post/ITrendingPost';
 
 
 export class TrendingPost extends DataModel<TrendingPost> implements ITrendingPost {
+    id: number;
     post: IPost;
     created: Date;
 
