@@ -1,29 +1,12 @@
 <template>
     <div v-if="this.finalAvatarUrl">
-        <figure class="image is-16x16"
-                v-if="this.avatarSize === this.OkAvatarSize.extraSmall">
-            <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
+        <figure :class="imgClass" v-if="imageFit === OkImageFit.auto">
+            <img
+                    :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
         </figure>
-        <figure class="image is-24x24"
-                v-else-if="this.avatarSize === this.OkAvatarSize.small">
-            <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
-        </figure>
-        <figure class="image is-32x32"
-                v-else-if="this.avatarSize === this.OkAvatarSize.medium">
-            <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
-        </figure>
-        <figure class="image is-64x64"
-                v-else-if="this.avatarSize === this.OkAvatarSize.extraMedium">
-            <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
-        </figure>
-        <figure class="image is-96x96"
-                v-else-if="this.avatarSize === this.OkAvatarSize.large">
-            <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
-        </figure>
-        <figure class="image is-128x128"
-                v-else-if="this.avatarSize === this.OkAvatarSize.extraLarge">
-            <img :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
-        </figure>
+        <div :class="imgClass" v-else>
+            <ok-covered-image :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass"></ok-covered-image>
+        </div>
     </div>
 </template>
 
@@ -35,9 +18,12 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { OkAvatarBorderRadius } from "~/components/avatars/lib/OkAvatarBorderRadius";
+    import { OkImageFit } from "~/components/images/OkImageFit";
+    import OkCoveredImage from "~/components/images/OkCoveredImage.vue";
 
     @Component({
         name: "OkImageAvatar",
+        components: {OkCoveredImage},
     })
     export default class extends Vue {
         @Prop(String) readonly avatarUrl: string;
@@ -50,19 +36,54 @@
 
         @Prop({
             type: Number,
+            default: OkImageFit.auto
+        }) readonly imageFit: OkImageFit;
+
+        @Prop({
+            type: Number,
             default: OkAvatarBorderRadius.rounded
         }) readonly avatarBorderRadius: OkAvatarBorderRadius;
 
         readonly OkAvatarSize = OkAvatarSize;
 
+        readonly OkImageFit = OkImageFit;
+
         get finalAvatarUrl() {
             if (this.avatarFile) return URL.createObjectURL(this.avatarFile);
-            if(this.avatarUrl) return this.avatarUrl;
-            return require('./assets/avatar-fallback.jpg');
+            if (this.avatarUrl) return this.avatarUrl;
+            return require("./assets/avatar-fallback.jpg");
         }
 
         get borderRadiusClass() {
             return this.avatarBorderRadius === OkAvatarBorderRadius.rounded ? "is-semi-rounded" : "is-rounded";
+        }
+
+        get imgClass() {
+            let sizeClass;
+
+            switch (this.avatarSize) {
+                case OkAvatarSize.extraSmall:
+                    sizeClass = "is-16x16";
+                    break;
+                case OkAvatarSize.small:
+                    sizeClass = "is-24x24";
+                    break;
+                case OkAvatarSize.medium:
+                    sizeClass = "is-32x32";
+                    break;
+                case OkAvatarSize.extraMedium:
+                    sizeClass = "is-64x64";
+                    break;
+                case OkAvatarSize.large:
+                    sizeClass = "is-96x96";
+                    break;
+                case OkAvatarSize.extraLarge:
+                    sizeClass = "is-128x128";
+                    break;
+
+            }
+
+            return ["image", sizeClass]
         }
 
 

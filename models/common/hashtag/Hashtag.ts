@@ -7,16 +7,20 @@ import {
     colorDeserializer, emojiSerializer, emojiDeserializer
 } from '~/models/common/serializers';
 import { IEmoji } from '~/models/common/emoji/IEmoji';
+import Color from 'color';
 
 export class Hashtag extends DataModel<Hashtag> implements IHashtag {
 
     name?: string;
     emoji?: IEmoji;
     image?: string;
-    color?: string;
+    color?: Color;
     textColor?: string;
     postsCount?: number;
     isReported?: boolean;
+
+    // Computed
+    colorInvert: Color;
 
     dataMaps: DataModelAttributeMap<IHashtag>[] = [
         {
@@ -59,9 +63,29 @@ export class Hashtag extends DataModel<Hashtag> implements IHashtag {
         }
     ];
 
+    // Computed attributes
+
     constructor(data: ModelData) {
         super(data);
         this.updateWithData(data);
+        this.bootstrapComputedAttributes();
+    }
+
+
+    private bootstrapComputedAttributes() {
+        if (this.color) {
+            let colorInvert;
+
+            if (this.color.isDark()) {
+                // Dark
+                colorInvert = Color('rgb(255, 255, 255)');
+            } else {
+                // Light
+                colorInvert = Color('rgb(0, 0, 0)');
+            }
+
+            this.colorInvert = colorInvert;
+        }
     }
 
 }

@@ -188,7 +188,13 @@ export default {
             "all": 'All',
             "explore": 'Explore',
             "trending": 'Trending',
-            "posts": "posts"
+            "posts": "posts",
+            "search": "Search",
+            "hashtag": "Hashtag",
+            "hashtags": "Hashtags",
+            "community": "Community",
+            "communities": "Communities",
+            "users": "Users"
         },
         "snippets": {
             "forgot_password": "Forgot password?",
@@ -199,6 +205,10 @@ export default {
             "sign_up": "Sign up",
             "login": "Login",
             "operational_status": "Status",
+            "no_results_for_query": "☹️ No results for \"{query}\"",
+            "search_for_something": "🕵️‍♀️ Search for something...",
+            "all_loaded": "🎉 All loaded!",
+            "no_items_found": "☹️ No items found",
         },
     },
 }

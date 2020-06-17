@@ -47,7 +47,7 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams,
+    SearchCommunityModeratorsParams, SearchHashtagsParams, SearchUsersParams,
     UnfollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
@@ -99,6 +99,8 @@ export interface IUserService {
     isLoggedIn(): boolean;
 
     getUser(params: GetUserParams): Promise<IUser>;
+
+    searchUsers(params: SearchUsersParams): Promise<IHashtag[]>;
 
     // AUTH ENDS
 
@@ -226,6 +228,8 @@ export interface IUserService {
     getHashtag(params: GetHashtagParams): Promise<IHashtag>;
 
     getHashtagPosts(params: GetHashtagPostsParams): Promise<IPost[]>;
+
+    searchHashtags(params: SearchHashtagsParams): Promise<IHashtag[]>;
 
     // HASHTAGS END
 }

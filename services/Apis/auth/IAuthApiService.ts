@@ -6,7 +6,7 @@ import {
     LoginResponse,
     RegistrationApiParams,
     RegistrationResponse,
-    RequestResetPasswordApiParams, ResetPasswordApiParams
+    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 
 export interface IAuthApiService {
@@ -22,4 +22,6 @@ export interface IAuthApiService {
     getAuthenticatedUser(): Promise<AxiosResponse<UserData>>;
 
     getUser(params: GetUserApiParams): Promise<AxiosResponse<UserData>>;
+
+    searchUsers(params: SearchUsersApiParams): Promise<AxiosResponse<UserData[]>>;
 }

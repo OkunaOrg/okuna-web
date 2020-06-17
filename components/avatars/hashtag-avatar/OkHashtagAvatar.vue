@@ -1,10 +1,11 @@
 <template>
     <div>
-        <ok-image-avatar v-if="community.avatar" :avatar-url="community.avatar" :avatar-size="this.avatarSize"
+        <ok-image-avatar v-if="hashtag.image" :avatar-url="hashtag.image" :avatar-size="this.avatarSize"
+                         :image-fit="imageAvatarFit"
                          :avatar-border-radius="avatarBorderRadius">
         </ok-image-avatar>
-        <ok-letter-avatar v-else :letter="community.name.charAt(0)" :text-color="community.colorInvert"
-                          :background-color="community.color" :avatar-size="this.avatarSize"
+        <ok-letter-avatar v-else letter="#" :text-color="hashtag.colorInvert"
+                          :background-color="hashtag.color" :avatar-size="this.avatarSize"
                           :avatar-border-radius="avatarBorderRadius"></ok-letter-avatar>
     </div>
 </template>
@@ -18,17 +19,24 @@
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkImageAvatar from "~/components/avatars/image-avatar/OkImageAvatar.vue";
     import { OkAvatarBorderRadius } from "~/components/avatars/lib/OkAvatarBorderRadius";
-    import { ICommunity } from "~/models/communities/community/ICommunity";
     import OkLetterAvatar from "~/components/avatars/letter-avatar/OkLetterAvatar.vue";
+    import { IHashtag } from "~/models/common/hashtag/IHashtag";
+    import { OkImageFit } from "~/components/images/OkImageFit";
 
     @Component({
-        name: "OkCommunityAvatar",
+        name: "OkHashtagAvatar",
         components: {OkLetterAvatar, OkImageAvatar},
     })
     export default class extends Vue {
-        @Prop(Object) readonly community: ICommunity;
+        @Prop(Object) readonly hashtag: IHashtag;
         @Prop(Number) readonly avatarSize: OkAvatarSize;
         @Prop(Number) readonly avatarBorderRadius: OkAvatarBorderRadius;
+
+        imageAvatarFit = OkImageFit.covered;
+
+        mounted() {
+
+        }
 
     }
 </script>

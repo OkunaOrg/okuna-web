@@ -6,7 +6,7 @@ import {
     LoginResponse,
     RegistrationApiParams,
     RegistrationResponse,
-    RequestResetPasswordApiParams, ResetPasswordApiParams
+    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -78,4 +78,15 @@ export class AuthApiService implements IAuthApiService {
             appendAuthorizationToken: true
         });
     }
+
+    searchUsers(params: SearchUsersApiParams): Promise<AxiosResponse<UserData[]>> {
+        return this.httpService.get<UserData[]>(`${AuthApiService.GET_USERS_PATH}`, {
+            queryParams: {
+                query: params.query
+            },
+            isApiRequest: true,
+            appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists,
+        });
+    }
+
 }

@@ -30,13 +30,10 @@ export class HashtagsApiService implements IHashtagsApiService {
     searchHashtags(params: SearchHashtagsApiParams): Promise<AxiosResponse<HashtagData[]>> {
         let queryParams = {'query': params.query};
 
-        if (typeof params.excludedFromProfilePosts !== 'undefined')
-            queryParams['excluded_from_profile_posts'] = params.excludedFromProfilePosts;
-
         return this.httpService.get(HashtagsApiService.SEARCH_HASHTAGS_PATH,
             {
                 queryParams: queryParams,
-                appendAuthorizationToken: true,
+                appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists,
                 isApiRequest: true
             });
     }

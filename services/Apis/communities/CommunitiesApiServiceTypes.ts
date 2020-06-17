@@ -20,7 +20,6 @@ export interface GetModeratedCommunitiesApiParams {
 
 
 export interface SearchCommunitiesApiParams {
-    communityName: string;
     query: string;
     excludedFromProfilePosts: boolean;
 }

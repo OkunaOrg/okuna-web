@@ -33,3 +33,9 @@ export interface RegistrationResponse {
 export interface GetUserApiParams {
     userUsername: string;
 }
+
+export interface SearchUsersApiParams {
+    query: string;
+    appendAuthorizationTokenIfExists: boolean;
+}
+

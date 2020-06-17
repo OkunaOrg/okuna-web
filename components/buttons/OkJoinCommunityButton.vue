@@ -62,6 +62,10 @@
             this.$observables.loggedInUser.subscribe(this.onLoggedInUserChange);
         }
 
+        beforeDestroy(){
+            this.requestOperation?.cancel();
+        }
+
         onWantsToToggleJoinCommunity() {
             if (this.isMemberOfCommunity) {
                 // LeaveCommunity

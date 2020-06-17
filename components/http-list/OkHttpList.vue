@@ -1,33 +1,58 @@
 <template>
     <div class="ok-http-list" :key="listKey" v-if="renderComponent">
-        <div v-for="item in items" :key="item.id" :class="itemClass">
-            <slot name="default" :item="item"></slot>
+        <div v-if="searcher && showSearchBar">
         </div>
-
-        <infinite-loading
-                ref="infiniteLoading"
-                @infinite="infiniteHandler">
-
-            <template slot="no-more">
-                <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
-                    🎉 All loaded!
+        <div v-if="searchQuery">
+            <div v-if="searchInProgress && ! (searchItems.length > 0)" class="has-padding-20 ok-has-text-primary-invert">
+                <ok-loading-indicator></ok-loading-indicator>
+            </div>
+            <div v-else-if="searchItems.length > 0">
+                <div v-for="item in searchItems" :key="searchItems.id" :class="itemClass"
+                     @click="onListItemClicked(item)">
+                    <slot name="default" :item="item"></slot>
                 </div>
-            </template>
-            <template slot="no-results">
-                <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
-                    ☹️ No items found
-                </div>
-            </template>
+            </div>
+            <div v-else class="has-padding-20 ok-has-text-primary-invert">
+                {{ $t('global.snippets.no_results_for_query', {query: searchQuery})}}
+            </div>
+        </div>
+        <div v-else-if="refresher" class="ok-http-list-infinite-loading" :class="itemsContainerClass">
+            <div v-for="item in items" :key="item.id" :class="itemClass">
+                <slot name="default" :item="item"></slot>
+            </div>
+            <infinite-loading
+                    ref="infiniteLoading"
+                    @infinite="infiniteHandler">
 
-        </infinite-loading>
+                <template slot="no-more">
+                    <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
+                        {{ $t('global.snippets.all_loaded')}}
+                    </div>
+                </template>
+                <template slot="no-results">
+                    <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
+                        {{ $t('global.snippets.no_items_found')}}
+                    </div>
+                </template>
+
+            </infinite-loading>
+        </div>
+        <div v-else-if="searcher" class="has-padding-20 ok-has-text-primary-invert">
+            {{ $t('global.snippets.search_for_something')}}
+        </div>
     </div>
 </template>
 
 <style lang="scss">
     .ok-http-list {
-        min-height: 100px;
+        min-height: 50px;
         position: relative;
-        min-width:  100%;
+        min-width: 100%;
+    }
+
+    .ok-http-list-infinite-loading{
+        min-height: 50px;
+        min-width: 100%;
     }
 </style>
 
@@ -37,23 +62,33 @@
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import InfiniteLoading from "vue-infinite-loading";
-    import { OkHttpListOnScrollLoader, OkHttpListRefresher } from "~/components/http-list/lib/OkHttpListParams";
+    import {
+        OkHttpListOnScrollLoader,
+        OkHttpListRefresher, OkHttpListSearcher,
+    } from "~/components/http-list/lib/OkHttpListParams";
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
 
 
     @Component({
         name: "OkHttpList",
-        components: {},
+        components: {OkLoadingIndicator},
     })
     export default class OkHttpList<T> extends Vue {
 
         @Prop({
             type: Function,
-            required: true
+            required: false
         }) readonly refresher: OkHttpListRefresher<T>;
 
         @Prop({
             type: Function,
+            required: false
         }) readonly onScrollLoader: OkHttpListOnScrollLoader<T>;
+
+        @Prop({
+            type: Function,
+        }) readonly searcher: OkHttpListSearcher<T>;
 
         @Prop({
             type: Number,
@@ -64,6 +99,12 @@
             default: true,
         }) readonly showNoMore: boolean;
 
+
+        @Prop({
+            type: Boolean,
+            default: true,
+        }) readonly showSearchBar: boolean;
+
         @Prop({
             type: Boolean,
             default: true,
@@ -71,13 +112,23 @@
 
         @Prop({
             type: String,
-        }) readonly itemClass: boolean;
+        }) readonly itemClass: string;
+
+        @Prop({
+            type: String,
+        }) readonly itemsContainerClass: string;
 
         $refs!: {
             infiniteLoading: InfiniteLoading
         };
 
+        searchItems: T[] = [];
+        searchQuery = "";
+        searchInProgress = false;
+        private searchRequestOperation?: CancelableOperation<any>;
+
         items: T[] = [];
+
         listKey: String;
         renderComponent = true;
         reachedLimit = false;
@@ -126,6 +177,10 @@
             }
         }
 
+        onListItemClicked(item: T) {
+            this.$emit("onListItemClicked", item);
+        }
+
 
         // Public API methods
 
@@ -146,6 +201,38 @@
             this.items = [];
             this.reachedLimit = false;
             this.$refs.infiniteLoading.stateChanger.reset();
+        }
+
+        async searchWithQuery(query: string) {
+            if (!this.searcher) return;
+
+            if (this.searchInProgress) {
+                // Cancel
+                this.searchRequestOperation.cancel();
+            }
+
+            this.searchInProgress = true;
+            this.searchQuery = query;
+
+            try {
+                this.searchRequestOperation = CancelableOperation.fromPromise(this.searcher(query));
+
+                this.searchItems = await this.searchRequestOperation.value;
+            } catch (error) {
+                this.utilsService.handleErrorWithToast(error);
+            } finally {
+                this.searchRequestOperation = null;
+                this.searchInProgress = false;
+            }
+        }
+
+        clearSearch() {
+            if (this.searchRequestOperation) {
+                this.searchRequestOperation.cancel();
+            }
+            this.searchInProgress = false;
+            this.searchItems = [];
+            this.searchQuery = "";
         }
 
         addItemToTop(item: T) {

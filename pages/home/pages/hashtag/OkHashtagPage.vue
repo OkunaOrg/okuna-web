@@ -16,7 +16,7 @@
         <ok-hashtag-posts-stream post-container-class="has-padding-30-tablet" :hashtag="hashtag">
             <template slot="leading" v-if="environmentResolution === EnvironmentResolution.desktop">
                 <div class="has-padding-left-30 has-padding-right-30 has-padding-top-30">
-                    <ok-hashtag-tile :hashtag="hashtag"></ok-hashtag-tile>
+                    <ok-hashtag-banner :hashtag="hashtag"></ok-hashtag-banner>
                 </div>
             </template>
         </ok-hashtag-posts-stream>
@@ -46,11 +46,11 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import OkHashtagPostsStream from "~/components/posts-stream/OkHashtagPostsStream.vue";
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
-    import OkHashtagTile from "~/components/tiles/OkHashtagTile.vue";
+    import OkHashtagBanner from '~/components/tiles/OkHashtagBanner.vue';
 
     @Component({
         name: "OkHashtagPage",
-        components: {OkHashtagTile, OkMobileHeader, OkHashtagPostsStream},
+        components: {OkHashtagBanner, OkMobileHeader, OkHashtagPostsStream},
         subscriptions: function () {
             return {
                 environmentResolution: this["environmentService"].environmentResolution,

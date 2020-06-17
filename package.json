@@ -49,6 +49,7 @@
     "vue-media-queries": "0.0.5",
     "vue-moment": "^4.1.0",
     "vue-not-visible": "^1.0.9",
+    "vue-popperjs": "^2.3.0",
     "vue-progressive-image": "^3.2.0",
     "vue-router-multiguard": "^1.0.3",
     "vue-rx": "^6.2.0",

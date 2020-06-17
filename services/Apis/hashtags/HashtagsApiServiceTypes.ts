@@ -1,7 +1,6 @@
 export interface SearchHashtagsApiParams {
-    hashtagName: string;
     query: string;
-    excludedFromProfilePosts: boolean;
+    appendAuthorizationTokenIfExists: boolean;
 }
 
 export interface GetHashtagPostsApiParams {

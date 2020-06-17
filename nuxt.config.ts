@@ -16,7 +16,8 @@ export default {
     },
     loading: {color: '#000000'},
     css: [
-        '~/assets/styles/index.scss'
+        '~/assets/styles/index.scss',
+        'vue-popperjs/dist/vue-popper.css',
     ],
     buildModules: [
         '@nuxt/typescript-build',
@@ -47,6 +48,7 @@ export default {
         '~/plugins/vue-sticky',
         '~/plugins/scroll-behavior',
         '~/plugins/vue-moment',
+        '~/plugins/vue-popper',
         '~/plugins/vue-progressive-image',
         '~/plugins/vue-video-player',
         '~/plugins/vue-highlight',
