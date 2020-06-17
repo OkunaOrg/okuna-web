@@ -104,9 +104,9 @@ export class ThemeService implements IThemeService {
     getColorForThemeColorType(themeColorType: OkThemeColorType): Color {
         switch (themeColorType) {
             case OkThemeColorType.primary:
-                return this.activeTheme.value.primary;
+                return this.activeTheme.value.primaryColor;
             case OkThemeColorType.primaryInvert:
-                return this.activeTheme.value.primaryInvert;
+                return this.activeTheme.value.primaryInvertColor;
             case OkThemeColorType.accent:
                 return this.activeTheme.value.accent;
             case OkThemeColorType.accentGradient:
@@ -114,21 +114,21 @@ export class ThemeService implements IThemeService {
             case OkThemeColorType.success:
                 return this.activeTheme.value.success;
             case OkThemeColorType.successInvert:
-                return this.activeTheme.value.successInvert;
+                return this.activeTheme.value.successInvertColor;
             case OkThemeColorType.error:
                 return this.activeTheme.value.error;
             case OkThemeColorType.errorInvert:
-                return this.activeTheme.value.errorInvert;
+                return this.activeTheme.value.errorInvertColor;
             case OkThemeColorType.warning:
                 return this.activeTheme.value.warning;
             case OkThemeColorType.warningInvert:
-                return this.activeTheme.value.warningInvert;
+                return this.activeTheme.value.warningInvertColor;
             case OkThemeColorType.info:
-                return this.activeTheme.value.info;
+                return this.activeTheme.value.infoColor;
             case OkThemeColorType.infoInvert:
-                return this.activeTheme.value.infoInvert;
+                return this.activeTheme.value.infoInvertColor;
             case OkThemeColorType.primaryHighlight:
-                return this.activeTheme.value.primaryHighlight;
+                return this.activeTheme.value.primaryHighlightColor;
         }
     }
 

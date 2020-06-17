@@ -1,5 +1,6 @@
 <template>
     <figure class="image is-flex justify-center align-items-center has-text-weight-bold"
+            v-if="activeTheme"
             :class="cssClass"
             :style="cssStyle">
         <span>{{letter.toUpperCase()}}</span>
@@ -15,9 +16,20 @@
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { OkAvatarBorderRadius } from "~/components/avatars/lib/OkAvatarBorderRadius";
     import Color from "color";
+    import { IThemeService } from "~/services/theme/IThemeService";
+    import { okunaContainer } from "~/services/inversify";
+    import { TYPES } from "~/services/inversify-types";
+    import { OkThemeColorType } from "~/services/theme/ThemeService";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { ITheme } from "~/models/common/theme/ITheme";
 
     @Component({
         name: "OkLetterAvatar",
+        subscriptions: function () {
+            return {
+                activeTheme: this["themeService"].activeTheme,
+            }
+        }
     })
     export default class extends Vue {
         @Prop(String) readonly avatarUrl: string;
@@ -50,11 +62,20 @@
 
         readonly OkAvatarSize = OkAvatarSize;
 
+        private themeService: IThemeService = okunaContainer.get<IThemeService>(TYPES.ThemeService);
+
+
+        $observables!: {
+            activeTheme: BehaviorSubject<ITheme | undefined>,
+        };
+
         get cssStyle() {
             return {
-                backgroundColor: this.backgroundColor.hex(),
-                color: this.textColor.hex(),
-            }
+                backgroundColor: this.backgroundColor
+                    ? this.backgroundColor.hex()
+                    : this.themeService.getColorForThemeColorType(OkThemeColorType.primaryInvert).hex(),
+                color: this.textColor ? this.textColor.hex() : this.themeService.getColorForThemeColorType(OkThemeColorType.primary).hex(),
+            };
         }
 
         get borderRadiusClass() {

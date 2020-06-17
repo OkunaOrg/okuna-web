@@ -30,10 +30,5 @@
         @Prop(Number) readonly avatarSize: OkAvatarSize;
         @Prop(Number) readonly avatarBorderRadius: OkAvatarBorderRadius;
 
-
-        mounted() {
-
-        }
-
     }
 </script>
