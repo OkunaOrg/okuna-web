@@ -1,50 +1,109 @@
 <template>
     <div class="is-flex flex-column align-items-center ok-now-page" v-if="loggedInUser && environmentResolution">
         <ok-mobile-header
-                v-if="environmentResolution === EnvironmentResolution.mobile"
-                class="is-flex justify-center align-items-center"
-        >
-            <span class="has-text-weight-bold">Now</span>
+                v-if="environmentResolution === EnvironmentResolution.mobile">
+            <div class="columns is-paddingless is-mobile is-marginless has-width-100-percent">
+                <div class="column is-narrow is-flex justify-center align-items-center has-padding-left-20">
+                    <ok-search-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-search-icon>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label for="search" class="label has-text-left ok-has-text-primary-invert-80 is-hidden">
+                            {{$t('')}}
+                        </label>
+                        <div class="control has-icons-left ok-header-search-bar">
+                            <input type="text" placeholder="Search"
+                                   class="input is-rounded is-normal ok-input"
+                                   required
+                                   id="search"
+                                   v-model="searchQuery"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
         </ok-mobile-header>
-        <b-tabs position="is-centered" @change="onTabChange" class="now-tab" type="is-toggle-rounded">
-            <b-tab-item>
-                <template slot="header">
-                    <div class="is-flex align-items-center ok-now-page-tab-header">
-                        <ok-trending-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-trending-icon>
-                        <span class="has-padding-left-10"> {{$t('global.keywords.trending')}} </span>
-                    </div>
-                </template>
-                <ok-trending-posts-stream
-                        post-container-class="has-padding-30-tablet"
-                ></ok-trending-posts-stream>
-            </b-tab-item>
-            <b-tab-item>
-                <template slot="header">
-                    <div class="is-flex align-items-center ok-now-page-tab-header">
-                        <ok-explore-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-explore-icon>
-                        <span class="has-padding-left-10"> {{$t('global.keywords.explore')}}</span>
-                    </div>
-                </template>
-                <ok-top-posts-stream
-                        post-container-class="has-padding-30-tablet"
-                        v-if="shouldTopTabRender"
-                ></ok-top-posts-stream>
-            </b-tab-item>
-        </b-tabs>
+        <div class="ok-now-page-content">
+            <div class="ok-now-page-content-scroll-container">
+                <keep-alive>
+                    <ok-search class="ok-now-page-content-search"
+                               :initial-search-query="searchQuery"
+                               v-if="searchQuery"
+                               ref="okSearch">
+                    </ok-search>
+                    <b-tabs v-else position="is-centered" @change="onTabChange" class="ok-now-page-content-tabs"
+                            type="is-toggle-rounded">
+                        <b-tab-item>
+                            <template slot="header">
+                                <div class="is-flex align-items-center ok-now-page-tab-header">
+                                    <ok-trending-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-trending-icon>
+                                    <span class="has-padding-left-10"> {{$t('global.keywords.trending')}} </span>
+                                </div>
+                            </template>
+                            <ok-trending-posts-stream
+                                    post-container-class="has-padding-30-tablet"
+                            ></ok-trending-posts-stream>
+                        </b-tab-item>
+                        <b-tab-item>
+                            <template slot="header">
+                                <div class="is-flex align-items-center ok-now-page-tab-header">
+                                    <ok-explore-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-explore-icon>
+                                    <span class="has-padding-left-10"> {{$t('global.keywords.explore')}}</span>
+                                </div>
+                            </template>
+                            <ok-top-posts-stream
+                                    post-container-class="has-padding-30-tablet"
+                                    v-if="shouldTopTabRender"
+                            ></ok-top-posts-stream>
+                        </b-tab-item>
+                    </b-tabs>
+                </keep-alive>
+            </div>
+        </div>
     </div>
 </template>
 
 <style lang="scss">
 
     .ok-now-page {
-        .infinite-loading-container {
-            padding-top: 10px !important;
-        }
-
         .b-tabs {
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+    }
+
+    .ok-now-page-content {
+        position: relative;
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+    }
+
+    .ok-now-page-content-scroll-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-x: hidden;
+    }
+
+    .ok-now-page-content-search {
+        .tabs {
+            width: 100%;
+        }
+
+        .tab-content {
+            width: 100%;
+        }
+    }
+
+
+    .ok-now-page-content-tabs {
+        .tab-content {
+            padding: 0 !important;
         }
 
         .tabs {
@@ -53,10 +112,15 @@
             padding-right: 30px;
 
 
+            ul {
+                li {
+                    width: 50%;
+                }
+            }
+
             @include for-size(phone-only) {
                 padding-bottom: 30px;
             }
-
         }
     }
 
@@ -69,7 +133,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Vue } from "nuxt-property-decorator"
+    import { Component, Vue, Watch } from "nuxt-property-decorator"
     import { Route } from "vue-router";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
@@ -81,10 +145,11 @@
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
+    import OkSearch from "~/components/search/OkSearch.vue";
 
     @Component({
         name: "OkHomeNowPage",
-        components: {OkMobileHeader, OkTrendingPostsStream, OkTopPostsStream},
+        components: {OkSearch, OkMobileHeader, OkTrendingPostsStream, OkTopPostsStream},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser,
@@ -100,6 +165,10 @@
             loggedInUser: BehaviorSubject<IUser | undefined>
         };
 
+        $refs!: {
+            okSearch: OkSearch,
+        };
+
         EnvironmentResolution = EnvironmentResolution;
 
         private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
@@ -109,26 +178,28 @@
 
         shouldTopTabRender = false;
 
+        searchQuery = "";
+        searchIsOpen = false;
+
         onTabChange(idx) {
             if (idx === 1) {
                 this.shouldTopTabRender = true;
             }
         }
-    }
-</script>
 
-<style lang="scss">
-    .now-tab {
-        .tab-content {
-            padding: 0 !important;
-        }
-
-        .tabs {
-            ul {
-                li {
-                    width: 50%;
+        @Watch("searchQuery")
+        onChildChanged(val: string, oldVal: string) {
+            if (!this.$refs.okSearch) {
+                // Has to be created
+                this.$nextTick(() => this.onChildChanged(val, oldVal));
+            } else {
+                if (val) {
+                    this.searchIsOpen = true;
+                    this.$refs.okSearch.searchWithQuery(val);
+                } else {
+                    this.$refs.okSearch.clearSearch();
                 }
             }
         }
     }
-</style>
+</script>

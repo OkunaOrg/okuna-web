@@ -17,19 +17,16 @@
                                     <ok-home-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-home-icon>
                                 </nuxt-link>
                             </div>
-                            <div class="column is-flex align-items-center is-hidden-desktop justify-center">
-                                <nuxt-link to="/" class="has-cursor-pointer is-flex">
-                                    <ok-search-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-search-icon>
-                                </nuxt-link>
-                            </div>
                             <div class="column is-flex align-items-center justify-center">
                                 <nuxt-link to="/now" class="has-cursor-pointer is-flex">
-                                    <ok-now-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-now-icon>
+                                    <ok-search-icon class="ok-svg-icon-primary-invert is-icon-2x" v-if="environmentResolution === EnvironmentResolution.mobile"></ok-search-icon>
+                                    <ok-now-icon v-else class="ok-svg-icon-primary-invert is-icon-2x"></ok-now-icon>
                                 </nuxt-link>
                             </div>
                             <div class="column is-flex align-items-center justify-center">
                                 <nuxt-link to="/c" class="has-cursor-pointer is-flex">
-                                    <ok-communities-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-communities-icon>
+                                    <ok-communities-icon
+                                            class="ok-svg-icon-primary-invert is-icon-2x"></ok-communities-icon>
                                 </nuxt-link>
                             </div>
                             <div class="column is-flex align-items-center is-hidden-desktop is-hidden-tablet justify-center">
@@ -69,16 +66,35 @@
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
-    import OkHeaderSearchBar from '~/pages/home/components/header/components/HeaderSearchBar.vue';
-    import OkUserMenuDropdown from '~/pages/home/components/header/components/user-menu-dropdown/OkUserMenuDropdown.vue';
-    import OkUserNotificationsDropdown from '~/pages/home/components/header/components/user-notifications-dropdown/OkUserNotificationsDropdown.vue';
-    import OkLogo from '~/components/okuna-logo/OkLogo.vue';
+    import OkHeaderSearchBar from "~/pages/home/components/header/components/HeaderSearchBar.vue";
+    import OkUserMenuDropdown
+        from "~/pages/home/components/header/components/user-menu-dropdown/OkUserMenuDropdown.vue";
+    import OkUserNotificationsDropdown
+        from "~/pages/home/components/header/components/user-notifications-dropdown/OkUserNotificationsDropdown.vue";
+    import OkLogo from "~/components/okuna-logo/OkLogo.vue";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
+    import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
+    import { okunaContainer } from "~/services/inversify";
+    import { TYPES } from "~/services/inversify-types";
 
     @Component({
         name: "OkHeader",
         components: {OkLogo, OkUserMenuDropdown, OkUserNotificationsDropdown, OkHeaderSearchBar},
+        subscriptions: function () {
+            return {
+                environmentResolution: this["environmentService"].environmentResolution
+            }
+        }
     })
     export default class extends Vue {
+        $observables!: {
+            environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>
+        };
 
+        EnvironmentResolution = EnvironmentResolution;
+
+
+        private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
     }
 </script>

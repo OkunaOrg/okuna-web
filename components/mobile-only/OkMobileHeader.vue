@@ -7,7 +7,7 @@
 
 <style lang="scss">
     .ok-mobile-header {
-        height: 45px;
+        min-height: 45px;
         width: 100%;
 
         & > *{
