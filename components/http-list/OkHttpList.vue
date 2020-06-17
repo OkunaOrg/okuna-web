@@ -1,7 +1,6 @@
 <template>
     <div class="ok-http-list" :key="listKey" v-if="renderComponent">
         <div v-if="searcher && showSearchBar">
-            Search bar
         </div>
         <div v-if="searchQuery">
             <div v-if="searchInProgress && ! (searchItems.length > 0)" class="has-padding-20 ok-has-text-primary-invert">
@@ -17,11 +16,10 @@
                 {{ $t('global.snippets.no_results_for_query', {query: searchQuery})}}
             </div>
         </div>
-        <div v-else-if="refresher">
+        <div v-else-if="refresher" class="ok-http-list-infinite-loading" :class="itemsContainerClass">
             <div v-for="item in items" :key="item.id" :class="itemClass">
                 <slot name="default" :item="item"></slot>
             </div>
-
             <infinite-loading
                     ref="infiniteLoading"
                     @infinite="infiniteHandler">
@@ -49,6 +47,11 @@
     .ok-http-list {
         min-height: 50px;
         position: relative;
+        min-width: 100%;
+    }
+
+    .ok-http-list-infinite-loading{
+        min-height: 50px;
         min-width: 100%;
     }
 </style>
@@ -109,7 +112,11 @@
 
         @Prop({
             type: String,
-        }) readonly itemClass: boolean;
+        }) readonly itemClass: string;
+
+        @Prop({
+            type: String,
+        }) readonly itemsContainerClass: string;
 
         $refs!: {
             infiniteLoading: InfiniteLoading

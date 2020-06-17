@@ -6,7 +6,7 @@
             </h2>
             <ok-http-list
                     :refresher="favoriteCommunitiesRefresher" ref="okHttpList" :limit="4" :show-no-more="false"
-                    class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+                    :items-container-class="'columns is-multiline'" :item-class="'column is-4-touch is-3-desktop'" class="has-padding-bottom-20">
                 <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
                     <ok-community-card :community="props.item"></ok-community-card>
                 </nuxt-link>
@@ -24,7 +24,7 @@
             </h2>
             <ok-http-list
                     :refresher="administratedCommunitiesRefresher" ref="okHttpList" :limit="4" :show-no-more="false"
-                    class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+                    :items-container-class="'columns is-multiline'" :item-class="'column is-4-touch is-3-desktop'" class="has-padding-bottom-20">
                 <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
                     <ok-community-card :community="props.item"></ok-community-card>
                 </nuxt-link>
@@ -42,7 +42,7 @@
             </h2>
             <ok-http-list
                     :refresher="moderatedCommunitiesRefresher" ref="okHttpList" :limit="4" :show-no-more="false"
-                    class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+                    :items-container-class="'columns is-multiline'" :item-class="'column is-4-touch is-3-desktop'" class="has-padding-bottom-20">
                 <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
                     <ok-community-card :community="props.item"></ok-community-card>
                 </nuxt-link>
@@ -60,7 +60,7 @@
             </h2>
             <ok-http-list
                     :refresher="joinedCommunitiesRefresher" ref="okHttpList" :limit="4" :show-no-more="false"
-                    class="columns is-multiline" :item-class="'column is-4-touch is-3-desktop'">
+                    :items-container-class="'columns is-multiline'" :item-class="'column is-4-touch is-3-desktop'" class="has-padding-bottom-20">
                 <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
                     <ok-community-card :community="props.item"></ok-community-card>
                 </nuxt-link>
