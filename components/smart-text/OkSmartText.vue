@@ -1,14 +1,12 @@
 <template>
-    <text-highlight
+    <text-highlight class="has-preserved-whitespace"
             :queries="textHighlightQueries"
             :highlightComponent="customTextHighlightItem"
             @onHashtagPressed="onHashtagPressed"
             @onUsernamePressed="onUsernamePressed"
             @onCommunityNamePressed="onCommunityNamePressed"
             @onUrlPressed="onUrlPressed"
-    >
-        {{text}}
-    </text-highlight>
+    >{{text}}</text-highlight>
 </template>
 
 <style lang="scss" scoped>
