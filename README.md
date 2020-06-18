@@ -21,7 +21,7 @@ Okuna is coming to the web.
 
 ## Project overview
 
-The project is a [Nuxt](nuxtjs.org/) application.
+The project is a [Nuxt](https://nuxtjs.org/) application.
  
 It's dependent on the [okuna-api](https://github.com/OkunaOrg/okuna-api) backend, be it whether you host your own or use the Okuna backend at https://api.openbook.social/
 
