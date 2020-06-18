@@ -17,6 +17,7 @@
     import { TYPES } from "../../services/inversify-types";
     import { IPost } from "../../models/posts/post/IPost";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
+    import { ITopPost } from "~/models/posts/top-post/ITopPost";
 
     @Component({
         name: "OkTopPostsStream",
@@ -32,23 +33,32 @@
         }) readonly postContainerClass: string;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private topPosts: ITopPost[] = [];
 
         postDisplayContext = PostDisplayContext.topPosts;
 
-        postsRefresher(): Promise<IPost[]> {
-            return this.userService.getTopPosts({
+        async postsRefresher(): Promise<IPost[]> {
+            const initialTopPosts = await this.userService.getTopPosts({
                 count: OkTopPostsStream.infiniteScrollChunkPostsCount,
             });
+
+            this.topPosts = initialTopPosts;
+
+            return initialTopPosts.map(topPost => topPost.post);
         }
 
-        postsOnScrollLoader(posts: IPost[]) {
-            const lastPost = posts[posts.length - 1];
+        async postsOnScrollLoader(): Promise<IPost[]> {
+            const lastPost = this.topPosts[this.topPosts.length - 1];
             const lastPostId = lastPost.id;
 
-            return this.userService.getTopPosts({
+            const newTopPosts = await this.userService.getTopPosts({
                 maxId: lastPostId,
                 count: OkTopPostsStream.infiniteScrollChunkPostsCount,
             });
+
+            this.topPosts.push(...newTopPosts);
+
+            return newTopPosts.map(topPost => topPost.post);
         }
     }
 </script>

@@ -51,6 +51,8 @@ import {
     UnfollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
+import { ITopPost } from "~/models/posts/top-post/ITopPost";
+import { ITrendingPost } from "~/models/posts/trending-post/ITrendingPost";
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
@@ -146,9 +148,9 @@ export interface IUserService {
 
     // POSTS START
 
-    getTopPosts(params?: GetTopPostsParams): Promise<IPost[]>;
+    getTopPosts(params?: GetTopPostsParams): Promise<ITopPost[]>;
 
-    getTrendingPosts(params?: GetTrendingPostsParams): Promise<IPost[]>;
+    getTrendingPosts(params?: GetTrendingPostsParams): Promise<ITrendingPost[]>;
 
     getTimelinePosts(params?: GetTimelinePostsParams): Promise<IPost[]>;
 

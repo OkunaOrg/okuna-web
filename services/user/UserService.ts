@@ -80,6 +80,8 @@ import { UserData } from '~/types/models-data/auth/UserData';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPost } from '~/models/posts/post/IPost';
+import { ITopPost } from "~/models/posts/top-post/ITopPost";
+import { ITrendingPost } from "~/models/posts/trending-post/ITrendingPost";
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
@@ -541,24 +543,24 @@ export class UserService implements IUserService {
         return postFactory.makeMultiple(response.data);
     }
 
-    async getTopPosts(params: GetTopPostsParams = {}): Promise<IPost[]> {
+    async getTopPosts(params: GetTopPostsParams = {}): Promise<ITopPost[]> {
         const response: AxiosResponse<TopPostData[]> = await this.postsApiService.getTopPosts({
             minId: params.minId,
             maxId: params.maxId,
             count: params.count,
         });
 
-        return topPostFactory.makeMultiple(response.data).map((topPost) => topPost.post);
+        return topPostFactory.makeMultiple(response.data);
     }
 
-    async getTrendingPosts(params: GetTrendingPostsParams = {}): Promise<IPost[]> {
+    async getTrendingPosts(params: GetTrendingPostsParams = {}): Promise<ITrendingPost[]> {
         const response: AxiosResponse<TrendingPostData[]> = await this.postsApiService.getTrendingPosts({
             minId: params.minId,
             maxId: params.maxId,
             count: params.count,
         });
 
-        return trendingPostFactory.makeMultiple(response.data).map((trendingPost) => trendingPost.post);
+        return trendingPostFactory.makeMultiple(response.data);
     }
 
     async reactToPost(params: ReactToPostParams): Promise<IPostReaction> {
