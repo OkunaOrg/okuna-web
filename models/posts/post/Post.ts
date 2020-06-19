@@ -202,8 +202,11 @@ export class Post extends DataModel<Post> implements IPost {
         this.reactionsEmojiCounts = newEmojiCounts;
     }
 
-    clearReaction() : void{
+    clearReaction(): void {
         this.setReaction(null);
     }
 
+    isCreator(user: IUser): boolean {
+        return this.creator && this.creator.id === user.id;
+    }
 }

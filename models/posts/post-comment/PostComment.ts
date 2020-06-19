@@ -134,4 +134,9 @@ export class PostComment extends DataModel<PostComment> implements IPostComment 
         this.reaction = newReaction;
         this.reactionsEmojiCounts = newEmojiCounts;
     }
+
+    isCommenter(user: IUser): boolean {
+        return this.commenter.id === user.id;
+    }
+
 }

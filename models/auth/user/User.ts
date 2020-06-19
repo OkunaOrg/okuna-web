@@ -10,10 +10,14 @@ import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
 import {
     dateDeserializer,
-    dateSerializer,
+    dateSerializer, languageDeserializer, languageSerializer,
     userProfileDeserializer,
     userProfileSerializer
 } from '~/models/common/serializers';
+import { IPost } from '~/models/posts/post/IPost';
+import { ICommunity } from '~/models/communities/community/ICommunity';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
+import { ILanguage } from '~/models/common/language/ILanguage';
 
 export class User extends DataModel<User> implements IUser {
     uuid!: string;
@@ -40,6 +44,7 @@ export class User extends DataModel<User> implements IUser {
     isPendingConnectionConfirmation!: boolean;
     connectedCircles!: ICircle[];
     profile!: IUserProfile;
+    language!: ILanguage;
 
     dataMaps: DataModelAttributeMap<IUser>[] = [
         {
@@ -63,6 +68,12 @@ export class User extends DataModel<User> implements IUser {
             attributeKey: 'dateJoined',
             deserializer: dateDeserializer,
             serializer: dateSerializer,
+        },
+        {
+            dataKey: 'language',
+            attributeKey: 'language',
+            deserializer: languageDeserializer,
+            serializer: languageSerializer
         },
         {
             dataKey: 'posts_count',
@@ -160,5 +171,83 @@ export class User extends DataModel<User> implements IUser {
     incrementFollowersCount(): void {
         this.followersCount = this.followersCount + 1;
     }
+
+    canDeletePost(post: IPost): boolean {
+        return (post.isCreator(this)) || (post.community && post.community.isStaff(this));
+    }
+
+    canReportPost(post: IPost): boolean {
+        return !post.isCreator(this);
+    }
+
+    canEditPost(post: IPost) {
+        return post.isCreator(this) && !post.isClosed;
+    }
+
+    canCommentPost(post: IPost): boolean {
+        if (post.community) {
+            if (!post.areCommentsEnabled) {
+                return post.community.isStaff(this);
+            }
+        }
+
+        return true;
+    }
+
+    canDeletePostComment(postComment: IPostComment, post: IPost): boolean {
+        return (postComment.isCommenter(this)) || (post.community && post.community.isStaff(this));
+    }
+
+    canReportPostComment(postComment: IPostComment, post: IPost): boolean {
+        return !postComment.isCommenter(this);
+    }
+
+    canEditPostComment(postComment: IPostComment): boolean {
+        return postComment.isCommenter(this);
+    }
+
+    canBlockOrUnblockUser(user: IUser): boolean {
+        return user.id !== this.id;
+    }
+
+    canTranslatePost(post: IPost): boolean {
+        if ((!post.community && post.isEncircled) ||
+            !this.language) return false;
+
+        return post.language && post.language.code != this.language.code;
+    }
+
+    canTranslatePostComment(postComment: IPostComment, post: IPost): boolean {
+        if ((!post.community && post.isEncircled) ||
+            !this.language) return false;
+
+        return postComment.language &&
+            postComment.language.code != this.language.code;
+    }
+
+    canManageCommunityAdministrators(community: ICommunity): boolean {
+        return community.canManageAdministrators(this.user);
+    }
+
+    canManageCommunityModerators(community: ICommunity): boolean {
+        return community.canManageModerators(this.user);
+    }
+
+    canEnableOrDisablePostComments(post: IPost): boolean {
+        if (post.community) return post.community.canManagePosts(this);
+
+        return false;
+    }
+
+    canCloseOrOpenPost(post: IPost): boolean {
+        if (post.community) return post.community.canManagePosts(this);
+
+        return false;
+    }
+
+    isCommunityCreator(community: ICommunity): boolean {
+        return community.isCreator;
+    }
+
 
 }
