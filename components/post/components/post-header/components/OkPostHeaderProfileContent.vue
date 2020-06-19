@@ -72,10 +72,6 @@
         mounted() {
         }
 
-        broadcastWantsToOpenPostActions() {
-            this.$emit("onWantsToOpenPostActions", this.post);
-        }
-
         get communityUrl(){
             return `/c/${this.post.community.name}`;
         }

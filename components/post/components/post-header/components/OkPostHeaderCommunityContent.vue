@@ -52,10 +52,6 @@
 
         OkAvatarSize = OkAvatarSize;
 
-        broadcastWantsToOpenPostActions(){
-            this.$emit('onWantsToOpenPostActions', this.post);
-        }
-
         get postCreatorUrl() {
             return `/${this.post.creator.username}`;
         }

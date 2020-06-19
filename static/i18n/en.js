@@ -194,7 +194,8 @@ export default {
             "hashtags": "Hashtags",
             "community": "Community",
             "communities": "Communities",
-            "users": "Users"
+            "users": "Users",
+            "more": "More",
         },
         "snippets": {
             "forgot_password": "Forgot password?",
