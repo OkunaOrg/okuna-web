@@ -13,6 +13,8 @@ export interface IModalService {
 
     openPostReactionsModal(params: PostReactionsModalParams): Promise<void>;
 
+    openPostActionsModal(params: PostActionsModalParams): Promise<void>;
+
     openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void>;
 
     openCommunitiesList<T>(params: HttpListModalParams<T>): Promise<void>;
@@ -28,7 +30,11 @@ export interface IModalService {
 
 }
 
-export type ModalParams = PostModalParams | PostReactionsModalParams | HttpListModalParams<any>;
+export type ModalParams =
+    PostModalParams
+    | PostReactionsModalParams
+    | HttpListModalParams<any>
+    | PostActionsModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -37,6 +43,10 @@ export interface HttpListModalParams<T> {
 }
 
 export interface PostModalParams {
+    post: IPost;
+}
+
+export interface PostActionsModalParams {
     post: IPost;
 }
 

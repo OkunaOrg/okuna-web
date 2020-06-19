@@ -1,6 +1,7 @@
 export class ModalType {
     static post = new ModalType('Post');
     static postReactions = new ModalType('PostReactions');
+    static postActions = new ModalType('PostActions');
     static postCommentReactions = new ModalType('PostCommentReactions');
     static communitiesList = new ModalType('CommunitiesList');
 
@@ -8,6 +9,7 @@ export class ModalType {
         ModalType.post,
         ModalType.postReactions,
         ModalType.communitiesList,
+        ModalType.postActions,
     ];
 
     static values() {
