@@ -1,6 +1,6 @@
 <template>
     <section class="ok-search">
-        <b-tabs position="is-centered" expanded>
+        <b-tabs v-model="searchTabIndex" position="is-centered" expanded>
             <b-tab-item>
                 <template slot="header">
                     <span class="ok-has-text-primary-invert">
@@ -121,9 +121,21 @@
             if (this.initialSearchQuery) this.searchWithQuery(this.initialSearchQuery);
         }
 
+        data() {
+            return {
+                searchTabIndex: 0,
+                shortCuts: ['@','c/','#']
+            }
+        };
+
 
         async searchWithQuery(query: string) {
             this.logger.info(`Searching with query: ${query}`);
+            
+            query = this.handleShortCutSearch(query);
+            if(!query){
+                return;
+            }
 
             const searchPromises: Promise[] = [
                 this.$refs.usersList.searchWithQuery(query),
@@ -138,6 +150,20 @@
             this.$refs.usersList.clearSearch();
             this.$refs.communitiesList.clearSearch();
             this.$refs.hashtagsList.clearSearch();
+        }
+
+        handleShortCutSearch(query: string): string {
+            if (query.startsWith(this.shortCuts[0])) {
+                this.searchTabIndex = 0;
+                query = query.replace(this.shortCuts[0],'');
+            } else if(query.startsWith(this.shortCuts[1])) {
+                this.searchTabIndex = 1;
+                query = query.replace(this.shortCuts[1],'');
+            } else if (query.startsWith(this.shortCuts[2])) {
+                this.searchTabIndex = 2;
+                query = query.replace(this.shortCuts[2],'');
+            }
+            return query;
         }
 
         onListItemClicked(item: any) {
