@@ -6,7 +6,7 @@
 
 <style lang="scss">
     .ok-post-actions-modal{
-        max-width: 300px;
+        max-width: 350px;
         width: 100%;
     }
 </style>

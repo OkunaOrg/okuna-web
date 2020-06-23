@@ -1,5 +1,7 @@
 <template>
-    <article class="media has-overflow-hidden is-flex align-items-center has-padding-left-20 has-padding-right-20 has-padding-top-5 has-padding-top-5 ok-tile">
+    <article
+            class="media is-marginless has-overflow-hidden is-flex align-items-center has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 ok-tile"
+            :class="tileClass" :role="tileRole" @click="onClick ? handleClick : null">
         <figure class="media-left">
             <slot name="leading"></slot>
         </figure>
@@ -13,18 +15,70 @@
 </template>
 
 <style lang="scss">
-    .ok-tile{
+    .ok-tile {
         min-height: 65px;
     }
 </style>
 
 <script lang="ts">
-    import { Component, Vue} from "nuxt-property-decorator"
+    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { okunaContainer } from "~/services/inversify";
+    import { TYPES } from "~/services/inversify-types";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
 
     @Component({
         name: "OkTile",
     })
     export default class OkTile extends Vue {
+
+        @Prop({
+            type: Object,
+            required: false
+        }) readonly onClick: () => Promise | void;
+
+
+        requestInProgress = false;
+
+        private requestOperation?: CancelableOperation<Promise | void>;
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+
+        async handleClick() {
+            if (this.requestInProgress) return;
+            this.requestInProgress = true;
+
+
+            try {
+                const clickResult = this.onClick();
+
+                this.requestOperation = CancelableOperation.fromPromise(Promise.resolve(clickResult) as Promise);
+
+                await this.requestOperation.value;
+            } catch (error) {
+                this.utilsService.handleErrorWithToast(error);
+            } finally {
+                this.requestOperation = null;
+                this.requestInProgress = false;
+            }
+        }
+
+
+        get tileClass() {
+            const cssClasses = [];
+
+            if (this.requestInProgress) cssClasses.push("is-loading");
+
+            if (this.onClick) cssClasses.push("has-cursor-pointer");
+
+            return cssClasses;
+        }
+
+
+        get tileRole() {
+            if (!this.onClick) return;
+
+            return "button";
+        }
 
     }
 </script>
