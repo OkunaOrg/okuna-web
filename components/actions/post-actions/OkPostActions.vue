@@ -2,18 +2,7 @@
     <div class="ok-has-background-primary is-semi-rounded">
         <div
                 class="box ok-has-background-primary-highlight is-paddingless">
-            <ok-tile :on-click="onWantsToReportPost">
-                <template v-slot:leading>
-                    <ok-report-icon
-                            class="ok-svg-icon-primary-invert"></ok-report-icon>
-                </template>
-
-                <template v-slot:content>
-                    <span class="ok-has-text-primary-invert">
-                                {{$t('components.post_actions.report_post')}}
-                            </span>
-                </template>
-            </ok-tile>
+            <ok-report-post-tile :post="post"></ok-report-post-tile>
 
             <ok-tile :on-click="onWantsToDeletePost">
                 <template v-slot:leading>
@@ -42,10 +31,11 @@
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
+    import OkReportPostTile from '~/components/tiles/action/OkReportPostTile.vue';
 
     @Component({
         name: "OkPostActions",
-        components: {OkTile},
+        components: {OkReportPostTile, OkTile},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
