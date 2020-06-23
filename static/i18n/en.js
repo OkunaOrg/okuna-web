@@ -34,6 +34,15 @@ export default {
         }
     },
     "components": {
+        "post_actions": {
+            "report_post": "Report post",
+            "delete_post": "Delete post",
+            "close_post": "Close post",
+            "open_post": "Open post",
+            "disable_post_comments": "Disable post comments",
+            "edit_post": "Edit post"
+        },
+
         "post_comments_sort_switcher": {
             "showing": "Showing",
             "first": "first."
