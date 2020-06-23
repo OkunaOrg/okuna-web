@@ -206,6 +206,14 @@ export default {
             "users": "Users",
             "more": "More",
         },
+        "models": {
+            "post": "Post",
+            "post_comment": "Post comment",
+            "user": "User",
+            "hashtag": "Hashtag",
+            "community": "Community",
+            "fallback": "Item"
+        },
         "snippets": {
             "forgot_password": "Forgot password?",
             "about_us": "About us",

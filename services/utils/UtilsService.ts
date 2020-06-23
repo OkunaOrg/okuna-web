@@ -6,6 +6,11 @@ import { IToastService } from '~/services/toast/IToastService';
 import { ILocalizationService } from '~/services/localization/ILocalizationService';
 import { ToastType } from '~/services/toast/lib/ToastType';
 import { v4 as uuidv4 } from 'uuid';
+import { Post } from '~/models/posts/post/Post';
+import { PostComment } from '~/models/posts/post-comment/PostComment';
+import { Community } from '~/models/communities/community/Community';
+import { User } from '~/models/auth/user/User';
+import { Hashtag } from '~/models/common/hashtag/Hashtag';
 
 @injectable()
 export class UtilsService implements IUtilsService {
@@ -123,5 +128,31 @@ export class UtilsService implements IUtilsService {
         let processedTemplate = template;
         Object.keys(templateData).forEach((key) => processedTemplate = processedTemplate.replace(`{${key}}`, templateData[key].toString()));
         return processedTemplate;
+    }
+
+    convertModelInstanceTypeToString(modelInstance, capitalize = false): string {
+
+        let result;
+        if (modelInstance instanceof Post) {
+            result = this.localizationService.localize('globals.models.post');
+        } else if (modelInstance instanceof PostComment) {
+            result = this.localizationService.localize('globals.models.post_comment');
+        } else if (modelInstance instanceof Community) {
+            result = this.localizationService.localize('globals.models.community');
+        } else if (modelInstance instanceof User) {
+            result = this.localizationService.localize('globals.models.user');
+        } else if (modelInstance instanceof Hashtag) {
+            result = this.localizationService.localize('globals.models.hashtag');
+        } else {
+            result = this.localizationService.localize('globals.models.fallback');
+        }
+
+        return capitalize ? this.capitalizeString(result) : result;
+    }
+
+    capitalizeString(s) {
+        if (typeof s !== 'string') return '';
+
+        return s.charAt(0).toUpperCase() + s.slice(1)
     }
 }

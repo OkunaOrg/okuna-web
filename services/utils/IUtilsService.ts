@@ -10,6 +10,9 @@ export interface IUtilsService {
     makeHumanFriendlyLargeNumberDisplay(n: number): string;
 
     parseTemplateString(template: string, templateData: {[key: string]: boolean | number | string}): string;
+
+    convertModelInstanceTypeToString(modelInstance): string;
+
 }
 
 export interface QueryParams {
