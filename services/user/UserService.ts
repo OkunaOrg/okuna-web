@@ -68,7 +68,7 @@ import {
     GetJoinedCommunitiesParams,
     GetHashtagParams,
     GetHashtagPostsParams,
-    SearchHashtagsParams, SearchUsersParams
+    SearchHashtagsParams, SearchUsersParams, ReportUserParams, ReportHashtagParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -80,8 +80,8 @@ import { UserData } from '~/types/models-data/auth/UserData';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPost } from '~/models/posts/post/IPost';
-import { ITopPost } from "~/models/posts/top-post/ITopPost";
-import { ITrendingPost } from "~/models/posts/trending-post/ITrendingPost";
+import { ITopPost } from '~/models/posts/top-post/ITopPost';
+import { ITrendingPost } from '~/models/posts/trending-post/ITrendingPost';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
@@ -148,6 +148,8 @@ export class UserService implements IUserService {
             name: 'UserService'
         });
     }
+
+    // AUTH START
 
     async register(data: RegistrationApiParams): Promise<RegistrationResponse> {
         const response = await this.authApiService!.register(data);
@@ -241,6 +243,19 @@ export class UserService implements IUserService {
 
         return userFactory.makeMultiple(response.data);
     }
+
+
+    async reportUser(params: ReportUserParams): Promise<void> {
+        await this.authApiService.reportUser({
+            userUsername: params.user.username,
+            description: params.description,
+            moderationCategoryId: params.moderationCategory.id,
+        });
+    }
+
+    // AUTH END
+
+    // COMMUNITIES START
 
     async getCommunity(params: GetCommunityParams): Promise<ICommunity> {
         const response: AxiosResponse<CommunityData> = await this.communitiesApiService.getCommunity({
@@ -393,6 +408,10 @@ export class UserService implements IUserService {
 
         return userFactory.makeMultiple(response.data);
     }
+
+    // COMMUNITIES START
+
+    // POSTS START
 
     async commentPost(params: CommentPostParams): Promise<IPostComment> {
         const response: AxiosResponse<PostCommentData> = await this.postsApiService.commentPost({
@@ -624,6 +643,10 @@ export class UserService implements IUserService {
         });
     }
 
+    // POSTS END
+
+    // NOTIFICATIONS START
+
 
     async getNotifications(params: GetNotificationsParams): Promise<INotification[]> {
         const response: AxiosResponse<NotificationData[]> = await this.notificationsApiService.getNotifications({
@@ -663,6 +686,8 @@ export class UserService implements IUserService {
             notificationId: params.notification.id
         });
     }
+
+    // NOTIFICATIONS END
 
     // FOLLOWS START
 
@@ -726,6 +751,14 @@ export class UserService implements IUserService {
         });
 
         return hashtagFactory.makeMultiple(response.data);
+    }
+
+    async reportHashtag(params: ReportHashtagParams): Promise<void> {
+        await this.hashtagsApiService.reportHashtag({
+            hashtagName: params.hashtag.name,
+            description: params.description,
+            moderationCategoryId: params.moderationCategory.id,
+        });
     }
 
     // HASHTAGS END

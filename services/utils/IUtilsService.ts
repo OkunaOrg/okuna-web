@@ -8,6 +8,8 @@ export interface IUtilsService {
     makeUrlQueryString(queryParams: QueryParams): string;
 
     makeHumanFriendlyLargeNumberDisplay(n: number): string;
+
+    parseTemplateString(template: string, templateData: {[key: string]: boolean | number | string}): string;
 }
 
 export interface QueryParams {

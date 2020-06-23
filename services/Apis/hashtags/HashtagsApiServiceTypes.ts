@@ -13,7 +13,7 @@ export interface GetHashtagPostsApiParams {
 export interface ReportHashtagApiParams {
     hashtagName: string;
     moderationCategoryId: number;
-    description: string;
+    description?: string;
 }
 
 export interface GetHashtagApiParams {

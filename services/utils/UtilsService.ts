@@ -118,4 +118,10 @@ export class UtilsService implements IUtilsService {
         }
         return n.toString();
     }
+
+    parseTemplateString(template: string, templateData: {[key: string]: boolean | number | string}): string {
+        let processedTemplate = template;
+        Object.keys(templateData).forEach((key) => processedTemplate = processedTemplate.replace(`{${key}}`, templateData[key].toString()));
+        return processedTemplate;
+    }
 }

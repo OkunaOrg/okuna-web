@@ -41,9 +41,9 @@ import {
     ReadNotificationParams,
     ReadNotificationsParams,
     ReplyToPostCommentParams,
-    ReportCommunityParams,
+    ReportCommunityParams, ReportHashtagParams,
     ReportPostCommentParams,
-    ReportPostParams,
+    ReportPostParams, ReportUserParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
@@ -51,8 +51,8 @@ import {
     UnfollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
-import { ITopPost } from "~/models/posts/top-post/ITopPost";
-import { ITrendingPost } from "~/models/posts/trending-post/ITrendingPost";
+import { ITopPost } from '~/models/posts/top-post/ITopPost';
+import { ITrendingPost } from '~/models/posts/trending-post/ITrendingPost';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
@@ -103,6 +103,8 @@ export interface IUserService {
     getUser(params: GetUserParams): Promise<IUser>;
 
     searchUsers(params: SearchUsersParams): Promise<IHashtag[]>;
+
+    reportUser(params: ReportUserParams): Promise<void>;
 
     // AUTH ENDS
 
@@ -232,6 +234,8 @@ export interface IUserService {
     getHashtagPosts(params: GetHashtagPostsParams): Promise<IPost[]>;
 
     searchHashtags(params: SearchHashtagsParams): Promise<IHashtag[]>;
+
+    reportHashtag(params: ReportHashtagParams): Promise<void>;
 
     // HASHTAGS END
 }

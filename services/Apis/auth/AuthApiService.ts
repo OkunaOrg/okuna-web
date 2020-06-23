@@ -5,13 +5,14 @@ import {
     LoginApiParams,
     LoginResponse,
     RegistrationApiParams,
-    RegistrationResponse,
+    RegistrationResponse, ReportUserApiParams,
     RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 import { AxiosResponse } from '~/node_modules/axios';
+import { IUtilsService } from '~/services/utils/IUtilsService';
 
 @injectable()
 export class AuthApiService implements IAuthApiService {
@@ -21,8 +22,10 @@ export class AuthApiService implements IAuthApiService {
     static REGISTER_PATH = 'api/auth/register/';
     static AUTHENTICATED_USER_PATH = 'api/auth/user/';
     static GET_USERS_PATH = 'api/auth/users/';
+    static REPORT_USER_PATH = 'api/auth/users/{userUsername}/report/';
 
-    constructor(@inject(TYPES.HttpService) private httpService: IHttpService) {
+    constructor(@inject(TYPES.HttpService) private httpService: IHttpService,
+                @inject(TYPES.UtilsService) private utilsService: IUtilsService) {
 
     }
 
@@ -86,6 +89,23 @@ export class AuthApiService implements IAuthApiService {
             },
             isApiRequest: true,
             appendAuthorizationTokenIfExists: params.appendAuthorizationTokenIfExists,
+        });
+    }
+
+    reportUser(params: ReportUserApiParams): Promise<AxiosResponse<void>> {
+        const path = this.utilsService.parseTemplateString(AuthApiService.REPORT_USER_PATH, {
+            userUsername: params.userUsername
+        });
+
+        const body = {
+            'category_id': params.moderationCategoryId
+        };
+
+        if (params.description) body['description'] = params.description;
+
+        return this.httpService.post<void>(path, body, {
+            isApiRequest: true,
+            appendAuthorizationToken: true
         });
     }
 
