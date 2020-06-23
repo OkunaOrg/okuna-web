@@ -131,6 +131,7 @@
 
         async searchWithQuery(query: string) {
             this.logger.info(`Searching with query: ${query}`);
+            query = query.trim();
             
             query = this.handleShortCutSearch(query);
             if(!query){
