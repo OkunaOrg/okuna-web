@@ -1,7 +1,9 @@
 <template>
     <div>
         <ok-link-icon class="ok-svg-icon-primary-invert-80"></ok-link-icon>
-        <span class="ok-has-text-primary-invert-80 is-size-7-touch">{{user.profile.url}}</span>
+        <span class="ok-has-text-primary-invert-80 is-size-7-touch">
+            <ok-smart-text :text="user.profile.url"></ok-smart-text>
+        </span>      
     </div>
 </template>
 
