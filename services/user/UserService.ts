@@ -122,6 +122,10 @@ import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import hashtagFactory from '~/models/common/hashtag/factory';
 import { HashtagData } from '~/types/models-data/common/HashtagData';
 import { IHashtagsApiService } from '~/services/Apis/hashtags/IHashtagsApiService';
+import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
+import { ModerationCategoryData } from '~/types/models-data/moderation/ModerationCategoryData';
+import { IModerationApiService } from '~/services/Apis/moderation/IModerationApiService';
+import moderationCategoryFactory from '~/models/moderation/moderation_category/factory';
 
 @injectable()
 export class UserService implements IUserService {
@@ -135,6 +139,7 @@ export class UserService implements IUserService {
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
                 @inject(TYPES.HashtagsApiService) private hashtagsApiService?: IHashtagsApiService,
+                @inject(TYPES.ModerationApiService) private moderationApiService?: IModerationApiService,
                 @inject(TYPES.CategoriesApiService) private categoriesApiService?: ICategoriesApiService,
                 @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
                 @inject(TYPES.FollowsApiService) private followsApiService?: IFollowsApiService,
@@ -762,5 +767,16 @@ export class UserService implements IUserService {
     }
 
     // HASHTAGS END
+
+    // MODERATION START
+
+
+    async getModerationCategories(): Promise<IModerationCategory[]> {
+        const response: AxiosResponse<ModerationCategoryData[]> = await this.moderationApiService.getModerationCategories();
+
+        return moderationCategoryFactory.makeMultiple(response.data);
+    }
+
+    // MODERATION END
 
 }

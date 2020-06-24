@@ -69,6 +69,7 @@ import { INotification } from '~/models/notifications/notification/INotification
 import { IFollow } from '~/models/follows/follow/IFollow';
 import { ICategory } from '~/models/common/category/ICategory';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
+import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
 
 
 export interface IUserService {
@@ -238,4 +239,10 @@ export interface IUserService {
     reportHashtag(params: ReportHashtagParams): Promise<void>;
 
     // HASHTAGS END
+
+    // MODERATION START
+
+    getModerationCategories(): Promise<IModerationCategory[]>;
+
+    // MODERATION END
 }

@@ -4,7 +4,7 @@ import {
     IModalService,
     ModalParams, PostActionsModalParams, PostCommentReactionsModalParams,
     PostModalParams,
-    PostReactionsModalParams
+    PostReactionsModalParams, ReportObjectModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -35,6 +35,11 @@ export class ModalService implements IModalService {
         });
     };
 
+    async openReportObjectModal(params: ReportObjectModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.reportObject, params);
+    }
+
 
     async openPostReactionsModal(params: PostReactionsModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
@@ -55,7 +60,6 @@ export class ModalService implements IModalService {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.communitiesList, params);
     }
-
 
     async openPostModal(params: PostModalParams): Promise<void> {
         this.ensureHasNoActiveModal();

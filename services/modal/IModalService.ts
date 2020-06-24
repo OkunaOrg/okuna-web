@@ -5,6 +5,7 @@ import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 import { OkHttpListOnScrollLoader, OkHttpListRefresher } from '~/components/http-list/lib/OkHttpListParams';
+import { IDataModel } from '~/models/abstract/IDataModel';
 
 export interface IModalService {
 
@@ -18,6 +19,8 @@ export interface IModalService {
     openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void>;
 
     openCommunitiesList<T>(params: HttpListModalParams<T>): Promise<void>;
+
+    openReportObjectModal(params: ReportObjectModalParams): Promise<void>;
 
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
@@ -34,7 +37,8 @@ export type ModalParams =
     PostModalParams
     | PostReactionsModalParams
     | HttpListModalParams<any>
-    | PostActionsModalParams;
+    | PostActionsModalParams
+    | ReportObjectModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -62,4 +66,9 @@ export interface PostCommentReactionsModalParams {
     postComment: IPostComment;
     onRequestInProgress: (requestInProgress: boolean) => void;
     onReacted: (reaction: IPostCommentReaction) => void;
+}
+
+export interface ReportObjectModalParams {
+    object: IDataModel<any>;
+    extraData: {[key: string]: any}
 }

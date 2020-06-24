@@ -10,6 +10,7 @@ const TYPES = {
     CategoriesApiService: Symbol.for('CategoriesApiService'),
     PostsApiService: Symbol.for('PostsApiService'),
     NotificationsApiService: Symbol.for('NotificationsApiService'),
+    ModerationApiService: Symbol.for('ModerationApiService'),
     FollowsApiService: Symbol.for('FollowsApiService'),
     EnvironmentService: Symbol.for('EnvironmentService'),
     LocalizationService: Symbol.for('LocalizationService'),
