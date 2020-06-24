@@ -114,7 +114,9 @@ export class ModalService implements IModalService {
     }
 
     private ensureHasNoActiveModal() {
-        if (this.activeModalPromise) throw 'Modal is already active. Cannot proceed';
+        if (this.activeModalPromise)  {
+            this.notifyModalClosed();
+        }
     }
 
     private ensureHasActiveModal() {

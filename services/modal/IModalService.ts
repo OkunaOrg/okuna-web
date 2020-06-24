@@ -70,5 +70,5 @@ export interface PostCommentReactionsModalParams {
 
 export interface ReportObjectModalParams {
     object: IDataModel<any>;
-    extraData: {[key: string]: any}
+    extraData?: {[key: string]: any}
 }

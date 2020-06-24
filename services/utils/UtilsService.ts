@@ -134,23 +134,23 @@ export class UtilsService implements IUtilsService {
 
         let result;
         if (modelInstance instanceof Post) {
-            result = this.localizationService.localize('globals.models.post');
+            result = this.localizationService.localize('global.models.post');
         } else if (modelInstance instanceof PostComment) {
-            result = this.localizationService.localize('globals.models.post_comment');
+            result = this.localizationService.localize('global.models.post_comment');
         } else if (modelInstance instanceof Community) {
-            result = this.localizationService.localize('globals.models.community');
+            result = this.localizationService.localize('global.models.community');
         } else if (modelInstance instanceof User) {
-            result = this.localizationService.localize('globals.models.user');
+            result = this.localizationService.localize('global.models.user');
         } else if (modelInstance instanceof Hashtag) {
-            result = this.localizationService.localize('globals.models.hashtag');
+            result = this.localizationService.localize('global.models.hashtag');
         } else {
-            result = this.localizationService.localize('globals.models.fallback');
+            result = this.localizationService.localize('global.models.fallback');
         }
 
         return capitalize ? this.capitalizeString(result) : result;
     }
 
-    capitalizeString(s) {
+    capitalizeString(s: string): string {
         if (typeof s !== 'string') return '';
 
         return s.charAt(0).toUpperCase() + s.slice(1)

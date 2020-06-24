@@ -11,8 +11,9 @@ export interface IUtilsService {
 
     parseTemplateString(template: string, templateData: {[key: string]: boolean | number | string}): string;
 
-    convertModelInstanceTypeToString(modelInstance): string;
+    convertModelInstanceTypeToString(modelInstance: any,  capitalize: boolean): string;
 
+    capitalizeString(s: string): string;
 }
 
 export interface QueryParams {

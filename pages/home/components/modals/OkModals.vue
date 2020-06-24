@@ -25,6 +25,10 @@
             <ok-post-actions-modal :return-data-setter="setModalReturnData"
                                    :params="activeModalParams"></ok-post-actions-modal>
         </b-modal>
+        <b-modal :active.sync="reportObjectModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-report-object-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-report-object-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -52,10 +56,12 @@
     import OkPostCommentReactionsModal from "~/pages/home/components/modals/components/OkPostCommentReactionsModal.vue";
     import OkCommunitiesListModal from "~/pages/home/components/modals/components/OkCommunitiesListModal.vue";
     import OkPostActionsModal from "~/pages/home/components/modals/components/OkPostActionsModal.vue";
+    import OkReportObjectModal from '~/pages/home/components/modals/components/OkReportObjectModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkReportObjectModal,
             OkPostActionsModal,
             OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal
         },
@@ -76,6 +82,7 @@
         postActionsModalOpened: boolean = false;
         postCommentReactionsModalOpened: boolean = false;
         communitiesListModalOpen: boolean = false;
+        reportObjectModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -102,6 +109,7 @@
             this.postCommentReactionsModalOpened = activeModalValue === ModalType.postCommentReactions;
             this.communitiesListModalOpen = activeModalValue === ModalType.communitiesList;
             this.postActionsModalOpened = activeModalValue === ModalType.postActions;
+            this.reportObjectModalOpen = activeModalValue === ModalType.reportObject;
         }
     }
 </script>

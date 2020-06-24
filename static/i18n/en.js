@@ -34,6 +34,9 @@ export default {
         }
     },
     "components": {
+        "report_object_modal": {
+            "why": "Why are you reporting this {objectName}?",
+        },
         "post_actions": {
             "report_post": "Report post",
             "delete_post": "Delete post",
@@ -207,12 +210,12 @@ export default {
             "more": "More",
         },
         "models": {
-            "post": "Post",
-            "post_comment": "Post comment",
-            "user": "User",
-            "hashtag": "Hashtag",
-            "community": "Community",
-            "fallback": "Item"
+            "post": "post",
+            "post_comment": "post comment",
+            "user": "user",
+            "hashtag": "hashtag",
+            "community": "community",
+            "fallback": "item"
         },
         "snippets": {
             "forgot_password": "Forgot password?",

@@ -22,6 +22,15 @@
   height: 100%;
 }
 
+
+.has-height-100-percent-mobile{
+  @include for-size(phone-only) {
+    height: 100%;
+
+  }
+}
+
+
 .has-min-height-100-percent{
   min-height: 100%;
 }

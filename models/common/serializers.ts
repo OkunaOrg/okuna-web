@@ -82,6 +82,7 @@ import { IPostCommentUserMention } from '../posts/post-comment-user-mention/IPos
 import postReactionNotificationFactory from '../notifications/post-reaction-notification/factory';
 import postUserMentionNotificationFactory from '../notifications/post-user-mention-notification/factory';
 import userNewPostNotificationFactory from '~/models/notifications/user-new-post-notification/factory';
+import { ModerationCategorySeverity } from '~/models/moderation/moderation_category/lib/ModerationCategorySeverity';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;

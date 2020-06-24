@@ -6,6 +6,7 @@ import {
     moderationCategorySeverityDeserializer,
     moderationCategorySeveritySerializer
 } from '~/models/common/serializers';
+import { ModerationCategorySeverity } from '~/models/moderation/moderation_category/lib/ModerationCategorySeverity';
 
 export class ModerationCategory extends DataModel<ModerationCategory> implements IModerationCategory {
     name: string;

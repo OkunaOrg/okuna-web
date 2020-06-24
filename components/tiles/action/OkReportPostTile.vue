@@ -21,6 +21,9 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkTile from "~/components/tiles/OkTile.vue";
     import { IPost } from "~/models/posts/post/IPost";
+    import { IModalService } from "~/services/modal/IModalService";
+    import { okunaContainer } from "~/services/inversify";
+    import { TYPES } from "~/services/inversify-types";
 
     @Component({
         name: "OkReportPostTile",
@@ -33,8 +36,13 @@
             required: false
         }) readonly post: IPost;
 
-        onWantsToReportPost(){
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
+
+        onWantsToReportPost() {
+            this.modalService.openReportObjectModal({
+                object: this.post,
+            });
         }
     }
 </script>

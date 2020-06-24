@@ -1,7 +1,7 @@
 <template>
     <article
-            class="media is-marginless has-overflow-hidden is-flex align-items-center has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 ok-tile"
-            :class="tileClass" :role="tileRole" @click="onClick ? handleClick : null">
+            class="media is-marginless has-overflow-hidden is-flex align-items-center has-padding-left-10 has-padding-right-10 has-padding-top-10 has-padding-bottom-10 ok-tile"
+            :class="tileClass" :role="tileRole" @click="handleClick">
         <figure class="media-left">
             <slot name="leading"></slot>
         </figure>
@@ -33,7 +33,7 @@
     export default class OkTile extends Vue {
 
         @Prop({
-            type: Object,
+            type: Function,
             required: false
         }) readonly onClick: () => Promise | void;
 
@@ -44,11 +44,12 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         async handleClick() {
-            if (this.requestInProgress) return;
+            if (this.requestInProgress || !this.onClick) return;
             this.requestInProgress = true;
 
 
             try {
+
                 const clickResult = this.onClick();
 
                 this.requestOperation = CancelableOperation.fromPromise(Promise.resolve(clickResult) as Promise);
