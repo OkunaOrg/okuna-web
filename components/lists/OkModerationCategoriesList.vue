@@ -3,7 +3,7 @@
             :show-no-more="false"
             :refresher="refresher">
         <div slot-scope="props">
-            <ok-tile :on-click="onModerationCategoryClicked">
+            <ok-tile :on-click="()=>{ onModerationCategoryClicked(props.item)}">
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert has-text-weight-bold">
                         {{props.item.title}}

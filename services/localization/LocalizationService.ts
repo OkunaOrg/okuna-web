@@ -10,8 +10,8 @@ export class LocalizationService implements ILocalizationService {
         this.vuei18n = vueTranslator;
     }
 
-    localize(key: string) {
-        return this.vuei18n.t(key) as string;
+    localize(key: string, values?: VueI18n.Values) {
+        return this.vuei18n.t(key, values) as string;
     }
 
     getActiveLocale() {

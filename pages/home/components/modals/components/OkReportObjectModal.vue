@@ -2,14 +2,23 @@
     <div class="is-flex justify-center align-items-center has-height-100-percent">
         <div class="ok-has-background-primary is-semi-rounded is-relative has-height-100-percent">
             <div
-                    class="box ok-has-background-primary-highlight is-paddingless ok-report-object-modal has-height-100-percent-mobile">
-                <template v-if="!moderationCategory">
-                    <h3 class="ok-has-text-primary-invert is-size-5 has-text-weight-bold has-padding-20">
-                        {{$t('components.report_object_modal.why', {objectName: reportedObjectInstanceTypeToString})}}
-                    </h3>
+                    class="box ok-has-background-primary-highlight is-paddingless ok-report-object-modal has-height-100-percent-mobile"
+                    ref="modalBoxContainer">
+                <template v-if="!selectedModerationCategory">
+                    <div class="content is-small is-marginless">
+                        <h3 class="ok-has-text-primary-invert has-text-weight-bold has-padding-20 is-marginless">
+                            {{$t('components.report_object_modal.why', {objectName:
+                            reportedObjectInstanceTypeToString})}}
+                        </h3>
+                    </div>
                     <ok-moderation-categories-list
                             @onModerationCategoryClicked="onModerationCategoryClicked"></ok-moderation-categories-list>
                 </template>
+                <div v-else class="has-padding-20 content is-small">
+                    <ok-report-object-form :object="params.object" :extra-data="params.extraData"
+                                           :moderation-category="selectedModerationCategory"
+                                           @onObjectReported="onObjectReported"></ok-report-object-form>
+                </div>
             </div>
         </div>
     </div>
@@ -29,16 +38,19 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
     import { ReportObjectModalParams } from "~/services/modal/IModalService";
-    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
-    import { CancelableOperation } from "~/lib/CancelableOperation";
     import OkModerationCategoriesList from "~/components/lists/OkModerationCategoriesList.vue";
     import { IModerationCategory } from "~/models/moderation/moderation_category/IModerationCategory";
+    import OkReportObjectForm from "~/components/forms/OkReportObjectForm.vue";
+    import { IToastService } from "~/services/toast/IToastService";
+    import { ILocalizationService } from "~/services/localization/ILocalizationService";
+    import { ToastType } from "~/services/toast/lib/ToastType";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
 
     @Component({
         name: "OkReportObjectModal",
-        components: {OkModerationCategoriesList, OkPostTheatre},
+        components: {OkReportObjectForm, OkModerationCategoriesList, OkPostTheatre},
     })
     export default class OkReportObjectModal extends Vue {
         @Prop({
@@ -51,16 +63,32 @@
             required: false
         }) readonly returnDataSetter: (data: any) => void;
 
-        private requestOperation?: CancelableOperation<Promise | void>;
+        $el: HTMLElement;
+        $refs!: {
+            modalBoxContainer: HTMLElement
+        };
+
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
+        private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
 
         requestInProgress = false;
-        selectedModerationCategory: IModerationCategory;
-        moderationDescription = "";
+        selectedModerationCategory: IModerationCategory = null;
 
 
         onModerationCategoryClicked(moderationCategory: IModerationCategory) {
             this.selectedModerationCategory = moderationCategory;
+            this.$nextTick(() => {
+                this.$refs.modalBoxContainer.scrollTo(0,0 );
+            });
+        }
+
+        onObjectReported(object: any) {
+            this.toastService.show({
+                message: this.localizationService.localize("components.report_object_modal.success", {objectName: this.utilsService.capitalizeString(this.reportedObjectInstanceTypeToString)}),
+                type: ToastType.success
+            });
+            this.$parent["close"]();
         }
 
 

@@ -42,7 +42,6 @@
         }
 
         resizeTextarea(event) {
-            console.log(this);
             if (!event.target.value) {
                 this.removeStyleAttribute();
                 return;

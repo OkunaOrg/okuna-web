@@ -349,7 +349,7 @@ export class PostsApiService implements IPostsApiService {
 
         const path = this.makeReportPostPath(params.postUuid);
 
-        return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.post(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
@@ -366,7 +366,7 @@ export class PostsApiService implements IPostsApiService {
 
         const path = this.makeReportPostCommentPath(params.postCommentId, params.postUuid);
 
-        return this.httpService.put(path, body, {appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.post(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
