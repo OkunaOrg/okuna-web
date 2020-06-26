@@ -1,14 +1,14 @@
 <template>
     <article
-            class="media is-marginless has-overflow-hidden is-flex align-items-center has-padding-left-10 has-padding-right-10 has-padding-top-10 has-padding-bottom-10 ok-tile"
+            class="media is-marginless has-overflow-hidden is-flex align-items-center has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 ok-tile"
             :class="tileClass" :role="tileRole" @click="handleClick">
-        <figure class="media-left">
+        <figure class="media-left" v-if="hasLeadingSlot">
             <slot name="leading"></slot>
         </figure>
         <div class="media-content has-z-index-1">
             <slot name="content"></slot>
         </div>
-        <div class="media-right has-z-index-1">
+        <div class="media-right has-z-index-1" v-if="hasTrailingSlot">
             <slot name="trailing"></slot>
         </div>
     </article>
@@ -41,6 +41,8 @@
             type: Boolean,
             required: false
         }) readonly disabled: boolean;
+
+        $slots: {};
 
 
         requestInProgress = false;
@@ -86,6 +88,14 @@
             if (!this.onClick) return;
 
             return "button";
+        }
+
+        get hasLeadingSlot () {
+            return !!this.$slots['leading'];
+        }
+
+        get hasTrailingSlot () {
+            return !!this.$slots['trailing'];
         }
 
     }
