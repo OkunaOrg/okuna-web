@@ -68,7 +68,12 @@ import {
     GetJoinedCommunitiesParams,
     GetHashtagParams,
     GetHashtagPostsParams,
-    SearchHashtagsParams, SearchUsersParams, ReportUserParams, ReportHashtagParams
+    SearchHashtagsParams,
+    SearchUsersParams,
+    ReportUserParams,
+    ReportHashtagParams,
+    EnablePostCommentsParams,
+    OpenPostParams, ClosePostParams, DisablePostCommentsParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -647,6 +652,32 @@ export class UserService implements IUserService {
             description: params.description,
         });
     }
+
+
+    async openPost(params: OpenPostParams): Promise<void> {
+        await this.postsApiService.openPost({
+            postUuid: params.post.uuid,
+        });
+    }
+
+    async closePost(params: ClosePostParams): Promise<void> {
+        await this.postsApiService.closePost({
+            postUuid: params.post.uuid,
+        });
+    }
+
+    async enablePostComments(params: EnablePostCommentsParams): Promise<void> {
+        await this.postsApiService.enablePostComments({
+            postUuid: params.post.uuid,
+        });
+    }
+
+    async disablePostComments(params: DisablePostCommentsParams): Promise<void> {
+        await this.postsApiService.disablePostComments({
+            postUuid: params.post.uuid,
+        });
+    }
+
 
     // POSTS END
 

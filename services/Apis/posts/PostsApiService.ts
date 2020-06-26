@@ -8,7 +8,8 @@ import {
     CommentPostApiParams,
     DeletePostCommentApiParams,
     DeletePostCommentReactionApiParams,
-    DeletePostReactionApiParams, EditPostCommentApiParams,
+    DeletePostReactionApiParams,
+    EditPostCommentApiParams,
     GetPostCommentsApiParams,
     GetPostCommentReactionsEmojiApiCountApiParams,
     GetPostCommentReactionsApiParams,
@@ -22,7 +23,12 @@ import {
     ReactToPostApiParams,
     ReplyToPostCommentApiParams,
     ReportPostCommentApiParams,
-    ReportPostApiParams, DeletePostApiParams, GetPostApiParams, GetPostMediaApiParams
+    ReportPostApiParams,
+    DeletePostApiParams,
+    GetPostApiParams,
+    GetPostMediaApiParams,
+    ClosePostApiParams,
+    OpenPostApiParams, DisablePostCommentsApiParams, EnablePostCommentsApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
@@ -367,6 +373,30 @@ export class PostsApiService implements IPostsApiService {
         const path = this.makeReportPostCommentPath(params.postCommentId, params.postUuid);
 
         return this.httpService.post(path, body, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    closePost(params: ClosePostApiParams): Promise<AxiosResponse<void>> {
+        const path = this.makeClosePostPath(params.postUuid);
+
+        return this.httpService.post(path, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    openPost(params: OpenPostApiParams): Promise<AxiosResponse<void>> {
+        const path = this.makeOpenPostPath(params.postUuid);
+
+        return this.httpService.post(path, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    disablePostComments(params: DisablePostCommentsApiParams): Promise<AxiosResponse<void>> {
+        const path = this.makeDisableCommentsForPostPath(params.postUuid);
+
+        return this.httpService.post(path, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    enablePostComments(params: EnablePostCommentsApiParams): Promise<AxiosResponse<void>> {
+        const path = this.makeEnableCommentsForPostPath(params.postUuid);
+
+        return this.httpService.post(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 

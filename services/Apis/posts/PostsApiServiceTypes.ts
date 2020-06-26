@@ -135,3 +135,20 @@ export interface ReportPostApiParams {
     postUuid: string;
     moderationCategoryId: number;
 }
+
+export interface OpenPostApiParams {
+    postUuid: string;
+}
+
+export interface ClosePostApiParams {
+    postUuid: string;
+}
+
+
+export interface DisablePostCommentsApiParams {
+    postUuid: string;
+}
+
+export interface EnablePostCommentsApiParams {
+    postUuid: string;
+}

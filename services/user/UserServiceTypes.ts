@@ -269,6 +269,24 @@ export interface ReportPostParams {
     moderationCategory: IModerationCategory;
 }
 
+export interface OpenPostParams {
+    post: IPost;
+}
+
+export interface ClosePostParams {
+    post: IPost;
+}
+
+export interface EnablePostCommentsParams {
+    post: IPost;
+}
+
+
+export interface DisablePostCommentsParams {
+    post: IPost;
+}
+
+
 // POSTS END
 
 // NOTIFICATIONS START

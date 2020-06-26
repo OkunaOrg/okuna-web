@@ -2,13 +2,14 @@ import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
+    ClosePostParams,
     CommentPostParams,
     DeleteNotificationParams,
     DeletePostCommentParams,
     DeletePostCommentReactionParams,
     DeletePostParams,
-    DeletePostReactionParams,
-    EditPostCommentParams,
+    DeletePostReactionParams, DisablePostCommentsParams,
+    EditPostCommentParams, EnablePostCommentsParams,
     FollowUserParams,
     GetAdministratedCommunitiesParams,
     GetCommunityAdministratorsParams,
@@ -35,7 +36,7 @@ import {
     GetUnreadNotificationsCountParams,
     GetUserParams,
     JoinCommunityParams,
-    LeaveCommunityParams,
+    LeaveCommunityParams, OpenPostParams,
     ReactToPostCommentParams,
     ReactToPostParams,
     ReadNotificationParams,
@@ -196,6 +197,14 @@ export interface IUserService {
     reportPost(params: ReportPostParams): Promise<void>;
 
     reportPostComment(params: ReportPostCommentParams): Promise<void>;
+
+    openPost(params: OpenPostParams): Promise<void>;
+
+    closePost(params: ClosePostParams): Promise<void>;
+
+    enablePostComments(params: EnablePostCommentsParams): Promise<void>;
+
+    disablePostComments(params: DisablePostCommentsParams): Promise<void>;
 
     // POSTS END
 
