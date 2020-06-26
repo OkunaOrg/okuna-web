@@ -1,13 +1,13 @@
 <template>
-    <ok-tile :on-click="onWantsToReportPost">
+    <ok-tile :disabled="true">
         <template v-slot:leading>
-            <ok-report-icon
-                    class="ok-svg-icon-primary-invert"></ok-report-icon>
+            <ok-edit-icon
+                    class="ok-svg-icon-primary-invert"></ok-edit-icon>
         </template>
 
         <template v-slot:content>
                     <span class="ok-has-text-primary-invert">
-                                {{$t('global.snippets.report_post')}}
+                                {{$t('global.snippets.edit_post')}}
                             </span>
         </template>
     </ok-tile>
@@ -26,13 +26,12 @@
     import { TYPES } from "~/services/inversify-types";
     import { IToastService } from "~/services/toast/IToastService";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
-    import { ToastType } from '~/services/toast/lib/ToastType';
 
     @Component({
-        name: "OkReportPostTile",
+        name: "OkEditPostTile",
         components: {OkTile},
     })
-    export default class OkReportPostTile extends Vue {
+    export default class OkEditPostTile extends Vue {
 
         @Prop({
             type: Object,
@@ -44,17 +43,18 @@
         private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
 
 
-        onWantsToReportPost() {
-            this.modalService.openReportObjectModal({
-                object: this.post,
-                onObjectReported: (post: IPost) => {
-                    this.toastService.show({
-                        type: ToastType.success,
-                        message: this.localizationService.localize("global.snippets.post_reported")
-                    });
-                    this.$emit("onPostReported", post);
-                }
-            });
+        onWantsToEditPost() {
+            // NOT Implemented
+            // this.modalService.openEditPostModal({
+            //     post: this.post,
+            //     onPostEdited: (post: IPost) => {
+            //         this.toastService.show({
+            //             type: ToastType.success,
+            //             message: this.localizationService.localize("global.snippets.post_edited")
+            //         });
+            //         this.$emit("onPostEdited", post);
+            //     }
+            // });
         }
     }
 </script>

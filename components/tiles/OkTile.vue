@@ -37,6 +37,11 @@
             required: false
         }) readonly onClick: () => Promise | void;
 
+        @Prop({
+            type: Boolean,
+            required: false
+        }) readonly disabled: boolean;
+
 
         requestInProgress = false;
 
@@ -70,6 +75,8 @@
             if (this.requestInProgress) cssClasses.push("is-loading");
 
             if (this.onClick) cssClasses.push("has-cursor-pointer");
+
+            if(this.disabled) cssClasses.push('is-disabled');
 
             return cssClasses;
         }

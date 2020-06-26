@@ -38,11 +38,7 @@ export default {
             "why": "Why are you reporting this {objectName}?",
         },
         "post_actions": {
-            "report_post": "Report post",
-            "close_post": "Close post",
-            "open_post": "Open post",
-            "disable_post_comments": "Disable post comments",
-            "edit_post": "Edit post",
+
         },
 
         "post_comments_sort_switcher": {
@@ -248,6 +244,12 @@ export default {
             "delete_post": "Delete post",
             "post_deleted": "Post deleted",
             "post_reported": "Post reported",
+            "report_post": "Report post",
+            "close_post": "Close post",
+            "open_post": "Open post",
+            "disable_post_comments": "Disable post comments",
+            "enable_post_comments": "Enable post comments",
+            "edit_post": "Edit post",
         },
     },
 }

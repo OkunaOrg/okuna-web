@@ -61,6 +61,12 @@
   pointer-events: none !important;
 }
 
+.is-disabled{
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 
 .is-absolute-expanded{
   position: absolute;

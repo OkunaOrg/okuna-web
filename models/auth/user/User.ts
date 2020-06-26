@@ -186,7 +186,7 @@ export class User extends DataModel<User> implements IUser {
 
     canCommentPost(post: IPost): boolean {
         if (post.community) {
-            if (!post.areCommentsEnabled) {
+            if (!post.commentsEnabled) {
                 return post.community.isStaff(this);
             }
         }

@@ -4,7 +4,7 @@
                 class="box ok-has-background-primary-highlight is-paddingless">
             <ok-edit-post-tile :post="post" @onPostEdited="onPostEdited" v-if="canEditPost"></ok-edit-post-tile>
             <ok-close-post-tile :post="post" @onPostClosedChange="onPostClosedChange" v-if="canCloseOrOpenPost"></ok-close-post-tile>
-            <ok-close-post-comments-tile :post="post" @onPostCommentsEnabledChange="onPostCommentsEnabledChange" v-if="canEnableOrDisablePostComments"></ok-close-post-comments-tile>
+            <ok-enable-post-comments-tile :post="post" @onPostCommentsEnabledChange="onPostCommentsEnabledChange" v-if="canEnableOrDisablePostComments"></ok-enable-post-comments-tile>
             <ok-delete-post-tile :post="post" @onPostDeleted="onPostDeleted" v-if="canDeletePost"></ok-delete-post-tile>
             <ok-report-post-tile :post="post" @onPostReported="onPostReported" v-if="canReportPost"></ok-report-post-tile>
         </div>
@@ -23,10 +23,15 @@
     import { okunaContainer } from "~/services/inversify";
     import OkReportPostTile from "~/components/tiles/action/OkReportPostTile.vue";
     import OkDeletePostTile from "~/components/tiles/action/OkDeletePostTile.vue";
+    import OkEditPostTile from '~/components/tiles/action/OkEditPostTile.vue';
+    import OkClosePostTile from '~/components/tiles/action/OkClosePostTile.vue';
+    import OkEnablePostCommentsTile from '~/components/tiles/action/OkEnablePostCommentsTile.vue';
 
     @Component({
         name: "OkPostActions",
-        components: {OkDeletePostTile, OkReportPostTile, OkTile},
+        components: {
+            OkEnablePostCommentsTile,
+            OkClosePostTile, OkEditPostTile, OkDeletePostTile, OkReportPostTile, OkTile},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
