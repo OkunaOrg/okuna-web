@@ -378,25 +378,24 @@ export class PostsApiService implements IPostsApiService {
     closePost(params: ClosePostApiParams): Promise<AxiosResponse<void>> {
         const path = this.makeClosePostPath(params.postUuid);
 
-        return this.httpService.post(path, {appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.post(path, null,{appendAuthorizationToken: true, isApiRequest: true});
     }
 
     openPost(params: OpenPostApiParams): Promise<AxiosResponse<void>> {
         const path = this.makeOpenPostPath(params.postUuid);
 
-        return this.httpService.post(path, {appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.post(path, null,{appendAuthorizationToken: true, isApiRequest: true});
     }
 
     disablePostComments(params: DisablePostCommentsApiParams): Promise<AxiosResponse<void>> {
         const path = this.makeDisableCommentsForPostPath(params.postUuid);
 
-        return this.httpService.post(path, {appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
     enablePostComments(params: EnablePostCommentsApiParams): Promise<AxiosResponse<void>> {
         const path = this.makeEnableCommentsForPostPath(params.postUuid);
-
-        return this.httpService.post(path, {appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
