@@ -66,7 +66,13 @@
 
         onWantsToOpenPostActions() {
             this.modalService.openPostActionsModal({
-                post: this.post
+                post: this.post,
+                onPostDeleted: (post: IPost) => {
+                    this.$emit("onPostDeleted", post);
+                },
+                onPostReported: (post: IPost) => {
+                    this.$emit("onPostReported", post);
+                }
             })
         }
 

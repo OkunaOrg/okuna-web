@@ -1,7 +1,7 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <ok-post-actions :post="params.post" class="ok-post-actions-modal"
-                         @onPostDeleted="onPostDeleted" @onPostReported="onPostReported"></ok-post-actions>
+                         @onPostDeleted="onPostDeleted" :on-post-reported="params.onPostReported"></ok-post-actions>
     </div>
 </template>
 
@@ -37,12 +37,6 @@
         onPostDeleted(post: IPost) {
             this.$parent["close"]();
             if (this.params.onPostDeleted) this.params.onPostDeleted(post);
-        }
-
-        onPostReported(post: IPost) {
-            // This one opens up a new modal and manages closing there, no need to close
-            if (this.params.onPostReported) this.params.onPostReported(post);
-
         }
 
     }

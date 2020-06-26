@@ -52,8 +52,8 @@ export interface PostModalParams {
 
 export interface PostActionsModalParams {
     post: IPost;
-    onPostDeleted: (post: IPost) => void;
-    onPostReported: (post: IPost) => void;
+    onPostDeleted?: (post: IPost) => void;
+    onPostReported?: (post: IPost) => void;
 }
 
 export interface PostReactionsModalParams {

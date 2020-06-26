@@ -2,7 +2,7 @@
     <article class="ok-post">
         <div class="card ok-has-background-primary has-no-borer-radius-mobile">
             <div class="card-content">
-                <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
+                <ok-post-header :post="post" :post-display-context="postDisplayContext" @onPostDeleted="onPostDeleted" @onPostReported="onPostReported"></ok-post-header>
             </div>
             <div class="has-padding-bottom-20" v-if="post.mediaThumbnail">
                 <ok-post-media :post="post" :post-element-width="postElementWidth"
@@ -92,6 +92,14 @@
 
         onWindowResize() {
             this.updatePostElementWidth();
+        }
+
+        onPostDeleted(post: IPost){
+            this.$emit('onPostDeleted', post);
+        }
+
+        onPostReported(post: IPost){
+            this.$emit('onPostReported', post);
         }
 
 

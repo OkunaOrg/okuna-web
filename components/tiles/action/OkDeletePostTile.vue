@@ -55,7 +55,9 @@
 
 
             try {
-                this.requestOperation = CancelableOperation.fromPromise(Promise.resolve(true) as Promise<void>);
+                this.requestOperation = CancelableOperation.fromPromise(this.userService.deletePost({
+                    post: this.post
+                }));
 
                 await this.requestOperation.value;
                 this.toastService.show({

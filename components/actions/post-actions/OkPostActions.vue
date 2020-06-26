@@ -3,10 +3,13 @@
         <div
                 class="box ok-has-background-primary-highlight is-paddingless">
             <ok-edit-post-tile :post="post" @onPostEdited="onPostEdited" v-if="canEditPost"></ok-edit-post-tile>
-            <ok-close-post-tile :post="post" @onPostClosedChange="onPostClosedChange" v-if="canCloseOrOpenPost"></ok-close-post-tile>
-            <ok-enable-post-comments-tile :post="post" @onPostCommentsEnabledChange="onPostCommentsEnabledChange" v-if="canEnableOrDisablePostComments"></ok-enable-post-comments-tile>
+            <ok-close-post-tile :post="post" @onPostClosedChange="onPostClosedChange"
+                                v-if="canCloseOrOpenPost"></ok-close-post-tile>
+            <ok-enable-post-comments-tile :post="post" @onPostCommentsEnabledChange="onPostCommentsEnabledChange"
+                                          v-if="canEnableOrDisablePostComments"></ok-enable-post-comments-tile>
             <ok-delete-post-tile :post="post" @onPostDeleted="onPostDeleted" v-if="canDeletePost"></ok-delete-post-tile>
-            <ok-report-post-tile :post="post" @onPostReported="onPostReported" v-if="canReportPost"></ok-report-post-tile>
+            <ok-report-post-tile :post="post" :on-post-reported="onPostReported"
+                                 v-if="canReportPost"></ok-report-post-tile>
         </div>
     </div>
 </template>
@@ -23,15 +26,16 @@
     import { okunaContainer } from "~/services/inversify";
     import OkReportPostTile from "~/components/tiles/action/OkReportPostTile.vue";
     import OkDeletePostTile from "~/components/tiles/action/OkDeletePostTile.vue";
-    import OkEditPostTile from '~/components/tiles/action/OkEditPostTile.vue';
-    import OkClosePostTile from '~/components/tiles/action/OkClosePostTile.vue';
-    import OkEnablePostCommentsTile from '~/components/tiles/action/OkEnablePostCommentsTile.vue';
+    import OkEditPostTile from "~/components/tiles/action/OkEditPostTile.vue";
+    import OkClosePostTile from "~/components/tiles/action/OkClosePostTile.vue";
+    import OkEnablePostCommentsTile from "~/components/tiles/action/OkEnablePostCommentsTile.vue";
 
     @Component({
         name: "OkPostActions",
         components: {
             OkEnablePostCommentsTile,
-            OkClosePostTile, OkEditPostTile, OkDeletePostTile, OkReportPostTile, OkTile},
+            OkClosePostTile, OkEditPostTile, OkDeletePostTile, OkReportPostTile, OkTile
+        },
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
@@ -46,6 +50,11 @@
             required: false
         }) readonly post: IPost;
 
+        @Prop({
+            type: Function,
+            required: false
+        }) readonly onPostReported: (post: IPost) => void;
+
 
         $observables!: {
             loggedInUser: BehaviorSubject<IUser | undefined>
@@ -58,27 +67,23 @@
             this.$emit("onPostDeleted", post);
         }
 
-        onPostReported(post: IPost) {
-            this.$emit("onPostReported", post);
-        }
-
-        get canReportPost(){
+        get canReportPost() {
             return this.$observables.loggedInUser.value.canReportPost(this.post);
         }
 
-        get canDeletePost(){
+        get canDeletePost() {
             return this.$observables.loggedInUser.value.canDeletePost(this.post);
         }
 
-        get canEditPost(){
+        get canEditPost() {
             return this.$observables.loggedInUser.value.canEditPost(this.post);
         }
 
-        get canCloseOrOpenPost(): boolean{
+        get canCloseOrOpenPost(): boolean {
             return this.$observables.loggedInUser.value.canCloseOrOpenPost(this.post);
         }
 
-        get canEnableOrDisablePostComments(): boolean{
+        get canEnableOrDisablePostComments(): boolean {
             return this.$observables.loggedInUser.value.canEnableOrDisablePostComments(this.post);
         }
 

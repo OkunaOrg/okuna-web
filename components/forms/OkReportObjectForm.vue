@@ -147,8 +147,8 @@
 
             try {
 
-                let reportPromise = Promise.resolve() as Promise<void>;
-           /*
+                let reportPromise;
+
                 if (this.object instanceof Post) {
                     reportPromise = this.userService.reportPost({
                         post: this.object,
@@ -186,7 +186,7 @@
                 } else {
                     throw new Error("Object type not supported to report");
                 }
-*/
+
 
                 this.reportOperation = CancelableOperation.fromPromise<void>(reportPromise);
                 await this.reportOperation.value;

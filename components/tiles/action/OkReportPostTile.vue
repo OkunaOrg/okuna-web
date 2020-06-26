@@ -39,6 +39,12 @@
             required: false
         }) readonly post: IPost;
 
+
+        @Prop({
+            type: Function,
+            required: false
+        }) readonly onPostReported: (post: IPost) => void;
+
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
         private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
         private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
@@ -53,6 +59,8 @@
                         message: this.localizationService.localize("global.snippets.post_reported")
                     });
                     this.$emit("onPostReported", post);
+                    debugger;
+                    if(this.onPostReported) this.onPostReported(post);
                 }
             });
         }
