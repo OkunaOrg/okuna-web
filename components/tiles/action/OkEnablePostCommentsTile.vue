@@ -26,6 +26,9 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUserService } from "~/services/user/IUserService";
     import { IPost } from "~/models/posts/post/IPost";
+    import { ToastType } from '~/services/toast/lib/ToastType';
+    import { IToastService } from '~/services/toast/IToastService';
+    import { ILocalizationService } from '~/services/localization/ILocalizationService';
 
     @Component({
         name: "OkEnablePostCommentsTile",
@@ -43,6 +46,9 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
+        private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
+
         private requestOperation?: CancelableOperation<any>;
 
 
@@ -70,6 +76,7 @@
                 await this.requestOperation.value;
 
                 this.post.commentsEnabled = true;
+                this.notifyChange();
 
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);
@@ -93,12 +100,22 @@
 
                 this.post.commentsEnabled = false;
 
+                this.notifyChange();
+
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);
             } finally {
                 this.requestOperation = null;
                 this.requestInProgress = false;
             }
+        }
+
+        private notifyChange(){
+            this.toastService.show({
+                type: ToastType.success,
+                message: this.localizationService.localize(this.post.commentsEnabled ? "global.snippets.post_comments_enabled" : "global.snippets.post_comments_disabled")
+            });
+            this.$emit('onPostCommentsEnabledChange', this.post.commentsEnabled);
         }
 
 

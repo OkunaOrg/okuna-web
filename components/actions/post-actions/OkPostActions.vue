@@ -67,6 +67,14 @@
             this.$emit("onPostDeleted", post);
         }
 
+        onPostCommentsEnabledChange(commentsEnabled: boolean) {
+            this.$emit("onPostCommentsEnabledChange", commentsEnabled);
+        }
+
+        onPostClosedChange(postIsClosed: boolean) {
+            this.$emit("onPostClosedChange", postIsClosed);
+        }
+
         get canReportPost() {
             return this.$observables.loggedInUser.value.canReportPost(this.post);
         }

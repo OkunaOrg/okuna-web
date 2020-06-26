@@ -1,7 +1,10 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <ok-post-actions :post="params.post" class="ok-post-actions-modal"
-                         @onPostDeleted="onPostDeleted" :on-post-reported="params.onPostReported"></ok-post-actions>
+                         @onPostDeleted="onPostDeleted"
+                         @onPostCommentsEnabledChange="onPostCommentsEnabledChange"
+                         @onPostClosedChange="onPostClosedChange"
+                         :on-post-reported="params.onPostReported"></ok-post-actions>
     </div>
 </template>
 
@@ -37,6 +40,14 @@
         onPostDeleted(post: IPost) {
             this.$parent["close"]();
             if (this.params.onPostDeleted) this.params.onPostDeleted(post);
+        }
+
+        onPostCommentsEnabledChange(commentsEnabled: boolean) {
+            this.$parent["close"]();
+        }
+
+        onPostClosedChange(postIsClosed: boolean) {
+            this.$parent["close"]();
         }
 
     }

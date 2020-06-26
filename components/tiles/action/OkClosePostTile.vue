@@ -1,8 +1,9 @@
+import {ToastType} from "../../../services/toast/lib/ToastType";
 <template>
     <ok-tile :on-click="onWantsToToggleClose">
         <template v-slot:leading>
             <ok-public-community-icon v-if="post.isClosed"
-                    class="ok-svg-icon-primary-invert"></ok-public-community-icon>
+                                      class="ok-svg-icon-primary-invert"></ok-public-community-icon>
             <ok-private-community-icon v-else
                                        class="ok-svg-icon-primary-invert"></ok-private-community-icon>
         </template>
@@ -28,6 +29,9 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUserService } from "~/services/user/IUserService";
     import { IPost } from "~/models/posts/post/IPost";
+    import { IToastService } from "~/services/toast/IToastService";
+    import { ToastType } from "~/services/toast/lib/ToastType";
+    import { ILocalizationService } from "~/services/localization/ILocalizationService";
 
     @Component({
         name: "OkClosePostTile",
@@ -45,6 +49,9 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
+        private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
+
         private requestOperation?: CancelableOperation<any>;
 
 
@@ -73,6 +80,8 @@
 
                 this.post.isClosed = true;
 
+                this.notifyChange();
+
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);
             } finally {
@@ -95,12 +104,22 @@
 
                 this.post.isClosed = false;
 
+                this.notifyChange();
+
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);
             } finally {
                 this.requestOperation = null;
                 this.requestInProgress = false;
             }
+        }
+
+        private notifyChange() {
+            this.toastService.show({
+                type: ToastType.success,
+                message: this.localizationService.localize(this.post.isClosed ? "global.snippets.post_closed" : "global.snippets.post_opened")
+            });
+            this.$emit("onPostClosedChange", this.post.isClosed);
         }
 
 
