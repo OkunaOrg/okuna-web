@@ -52,6 +52,8 @@ export interface PostModalParams {
 
 export interface PostActionsModalParams {
     post: IPost;
+    onPostDeleted: (post: IPost) => void;
+    onPostReported: (post: IPost) => void;
 }
 
 export interface PostReactionsModalParams {
@@ -70,5 +72,6 @@ export interface PostCommentReactionsModalParams {
 
 export interface ReportObjectModalParams {
     object: IDataModel<any>;
-    extraData?: {[key: string]: any}
+    extraData?: {[key: string]: any};
+    onObjectReported: (object: any) => void;
 }

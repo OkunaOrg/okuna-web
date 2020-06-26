@@ -36,11 +36,9 @@ export default {
     "components": {
         "report_object_modal": {
             "why": "Why are you reporting this {objectName}?",
-            "success": "{objectName} reported.",
         },
         "post_actions": {
             "report_post": "Report post",
-            "delete_post": "Delete post",
             "close_post": "Close post",
             "open_post": "Open post",
             "disable_post_comments": "Disable post comments",
@@ -247,6 +245,9 @@ export default {
             "search_for_something": "🕵️‍♀️ Search for something...",
             "all_loaded": "🎉 All loaded!",
             "no_items_found": "☹️ No items found",
+            "delete_post": "Delete post",
+            "post_deleted": "Post deleted",
+            "post_reported": "Post reported",
         },
     },
 }

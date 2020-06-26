@@ -69,8 +69,6 @@
         };
 
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
-        private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
-        private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
 
         requestInProgress = false;
         selectedModerationCategory: IModerationCategory = null;
@@ -84,11 +82,8 @@
         }
 
         onObjectReported(object: any) {
-            this.toastService.show({
-                message: this.localizationService.localize("components.report_object_modal.success", {objectName: this.utilsService.capitalizeString(this.reportedObjectInstanceTypeToString)}),
-                type: ToastType.success
-            });
             this.$parent["close"]();
+            if(this.params.onObjectReported) this.params.onObjectReported(object);
         }
 
 

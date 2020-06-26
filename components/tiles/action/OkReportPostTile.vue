@@ -24,6 +24,9 @@
     import { IModalService } from "~/services/modal/IModalService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
+    import { IToastService } from "~/services/toast/IToastService";
+    import { ILocalizationService } from "~/services/localization/ILocalizationService";
+    import { ToastType } from '~/services/toast/lib/ToastType';
 
     @Component({
         name: "OkReportPostTile",
@@ -37,11 +40,20 @@
         }) readonly post: IPost;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+        private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
+        private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
 
 
         onWantsToReportPost() {
             this.modalService.openReportObjectModal({
                 object: this.post,
+                onObjectReported: (post: IPost) => {
+                    this.toastService.show({
+                        type: ToastType.success,
+                        message: this.localizationService.localize("global.snippets.post_reported")
+                    });
+                    this.$emit("onPostReported", post);
+                }
             });
         }
     }

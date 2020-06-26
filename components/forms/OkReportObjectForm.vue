@@ -147,12 +147,12 @@
 
             try {
 
-                let reportPromise;
-                debugger;
+                let reportPromise = Promise.resolve() as Promise<void>;
+           /*
                 if (this.object instanceof Post) {
                     reportPromise = this.userService.reportPost({
                         post: this.object,
-                        description: this.description,
+                        description: this.reportDescription,
                         moderationCategory: this.moderationCategory,
                     });
                 } else if (this.object instanceof PostComment) {
@@ -162,31 +162,31 @@
                     reportPromise = this.userService.reportPostComment({
                         post: post,
                         postComment: this.object,
-                        description: this.description,
+                        description: this.reportDescription,
                         moderationCategory: this.moderationCategory,
                     })
                 } else if (this.object instanceof User) {
                     reportPromise = this.userService.reportUser({
                         user: this.object,
-                        description: this.description,
+                        description: this.reportDescription,
                         moderationCategory: this.moderationCategory,
                     });
                 } else if (this.object instanceof Community) {
                     reportPromise = this.userService.reportCommunity({
                         community: this.object,
-                        description: this.description,
+                        description: this.reportDescription,
                         moderationCategory: this.moderationCategory,
                     });
                 } else if (this.object instanceof Hashtag) {
                     reportPromise = this.userService.reportHashtag({
                         hashtag: this.object,
-                        description: this.description,
+                        description: this.reportDescription,
                         moderationCategory: this.moderationCategory,
                     });
                 } else {
                     throw new Error("Object type not supported to report");
                 }
-
+*/
 
                 this.reportOperation = CancelableOperation.fromPromise<void>(reportPromise);
                 await this.reportOperation.value;
