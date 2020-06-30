@@ -49,6 +49,8 @@ import { IHashtagsApiService } from '~/services/Apis/hashtags/IHashtagsApiServic
 import { HashtagsApiService } from '~/services/Apis/hashtags/HashtagsApiService';
 import { ModerationApiService } from '~/services/Apis/moderation/ModerationApiService';
 import { IModerationApiService } from '~/services/Apis/moderation/IModerationApiService';
+import { IConnectionsApiService } from '~/services/Apis/connections/IConnectionsApiService';
+import { ConnectionsApiService } from '~/services/Apis/connections/ConnectionsApiService';
 
 const okunaContainer = new Container();
 
@@ -59,6 +61,7 @@ okunaContainer.bind<IHashtagsApiService>(TYPES.HashtagsApiService).to(HashtagsAp
 okunaContainer.bind<ICategoriesApiService>(TYPES.CategoriesApiService).to(CategoriesApiService).inSingletonScope();
 okunaContainer.bind<IPostsApiService>(TYPES.PostsApiService).to(PostsApiService).inSingletonScope();
 okunaContainer.bind<INotificationsApiService>(TYPES.NotificationsApiService).to(NotificationsApiService).inSingletonScope();
+okunaContainer.bind<IConnectionsApiService>(TYPES.ConnectionsApiService).to(ConnectionsApiService).inSingletonScope();
 okunaContainer.bind<IFollowsApiService>(TYPES.FollowsApiService).to(FollowsApiService).inSingletonScope();
 okunaContainer.bind<IModerationApiService>(TYPES.ModerationApiService).to(ModerationApiService).inSingletonScope();
 okunaContainer.bind<IHttpService>(TYPES.HttpService).to(HttpService).inSingletonScope();

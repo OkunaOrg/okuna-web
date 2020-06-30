@@ -1,5 +1,5 @@
 <template>
-    <ok-tile :on-click="onWantsToToggleClose">
+    <ok-tile :on-click="onWantsToToggle">
         <template v-slot:leading>
             <ok-cancel-icon
                     class="ok-svg-icon-primary-invert"></ok-cancel-icon>
@@ -52,10 +52,10 @@
         private requestOperation?: CancelableOperation<any>;
 
 
-        onWantsToToggleClose() {
+        onWantsToToggle() {
             if (this.user.commentsEnabled) {
                 // Open
-                return this.disableUserComments();
+                return this.unblockUser();
             } else {
                 // Close
                 return this.blockUser();
@@ -87,7 +87,7 @@
         }
 
 
-        private async disableUserComments() {
+        private async unblockUser() {
             if (this.requestInProgress) return;
             this.requestInProgress = true;
 

@@ -36,6 +36,29 @@ export interface UnblockUserParams {
     user: IUser;
 }
 
+export interface ConnectWithUserParams {
+    user: IUser;
+    circles: ICircle[];
+}
+
+export interface DisconnectFromUserParams {
+    user: IUser;
+}
+
+export interface ConfirmConnectionWithUserParaUserParams {
+    user: IUser;
+    circles: ICircle[];
+}
+
+export interface UpdateConnectionWithUserParaUserParams {
+    user: IUser;
+    circles: ICircle[];
+}
+
+export interface GetConnectionsCircleParams {
+    circleId: string;
+}
+
 export interface SearchUsersParams {
     query: string;
 }

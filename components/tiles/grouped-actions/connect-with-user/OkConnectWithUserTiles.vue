@@ -1,15 +1,33 @@
 <template>
+   <div>
+       <template
+               v-if="user.isConnected &&
+            !user.isFullyConnected &&
+            !user.isPendingConnectionConfirmation"
+       >
+           Disconnect and update connection
+       </template>
+       <template v-else-if="user.isPendingConnectionConfirmation">
+           Confirm connection
+           Disconnect
+       </template>
+       <template v-else-if="user.isFullyConnected">
+           Updaet connections
+           Disconnect
+       </template>
+       <template v-else>
+           Connect
+       </template>
+   </div>
     <ok-tile :on-click="onWantsToToggle">
         <template v-slot:leading>
-            <ok-public-community-icon v-if="post.isClosed"
-                                      class="ok-svg-icon-primary-invert"></ok-public-community-icon>
-            <ok-private-community-icon v-else
-                                       class="ok-svg-icon-primary-invert"></ok-private-community-icon>
+            <ok-cancel-icon
+                    class="ok-svg-icon-primary-invert"></ok-cancel-icon>
         </template>
 
         <template v-slot:content>
                     <span class="ok-has-text-primary-invert">
-                                {{ post.isClosed ? $t('global.snippets.open_post') : $t('global.snippets.close_post')}}
+                                {{ user.isBlocked ? $t('global.snippets.unblock_user') : $t('global.snippets.block_user')}}
                             </span>
         </template>
     </ok-tile>
@@ -27,21 +45,21 @@
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUserService } from "~/services/user/IUserService";
-    import { IPost } from "~/models/posts/post/IPost";
-    import { IToastService } from "~/services/toast/IToastService";
     import { ToastType } from "~/services/toast/lib/ToastType";
+    import { IToastService } from "~/services/toast/IToastService";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
+    import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
-        name: "OkClosePostTile",
+        name: "OkConnectWithUserTiles",
         components: {OkTile},
     })
-    export default class OkClosePostTile extends Vue {
+    export default class OkConnectWithUserTiles extends Vue {
 
         @Prop({
             type: Object,
             required: true
-        }) readonly post: IPost;
+        }) readonly user: IUser;
 
 
         requestInProgress = false;
@@ -55,30 +73,35 @@
 
 
         onWantsToToggle() {
-            if (this.post.isClosed) {
+            if (this.user.commentsEnabled) {
                 // Open
-                return this.openPost();
+                return this.disableUserComments();
             } else {
                 // Close
-                return this.closePost();
+                return this.connectWithUser();
             }
         }
 
+        get shouldShowDisconnectTile() {
+            return this.user.isConnected &&
+                !this.user.isFullyConnected &&
+                !this.user.isPendingConnectionConfirmation;
+        }
 
-        private async closePost() {
+
+        private async connectWithUser() {
             if (this.requestInProgress) return;
             this.requestInProgress = true;
 
 
             try {
-                this.requestOperation = CancelableOperation.fromPromise(this.userService.closePost({
-                    post: this.post
+                this.requestOperation = CancelableOperation.fromPromise(this.userService.connectWithUser({
+                    user: this.user
                 }));
 
                 await this.requestOperation.value;
 
-                this.post.isClosed = true;
-
+                this.user.isBlocked = true;
                 this.notifyChange();
 
             } catch (error) {
@@ -90,18 +113,18 @@
         }
 
 
-        private async openPost() {
+        private async disableUserComments() {
             if (this.requestInProgress) return;
             this.requestInProgress = true;
 
             try {
-                this.requestOperation = CancelableOperation.fromPromise(this.userService.openPost({
-                    post: this.post
+                this.requestOperation = CancelableOperation.fromPromise(this.userService.unconnectWithUser({
+                    user: this.user
                 }));
 
                 await this.requestOperation.value;
 
-                this.post.isClosed = false;
+                this.user.isBlocked = false;
 
                 this.notifyChange();
 
@@ -116,9 +139,9 @@
         private notifyChange() {
             this.toastService.show({
                 type: ToastType.success,
-                message: this.localizationService.localize(this.post.isClosed ? "global.snippets.post_closed" : "global.snippets.post_opened")
+                message: this.localizationService.localize(this.user.isBlocked ? "global.snippets.user_blocked" : "global.snippets.user_unblocked")
             });
-            this.$emit("onPostClosedChange", this.post.isClosed);
+            this.$emit("onUserIsBlockedChange", this.user.isBlocked);
         }
 
 

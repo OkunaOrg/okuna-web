@@ -1,5 +1,5 @@
 <template>
-    <ok-tile :on-click="onWantsToToggleClose">
+    <ok-tile :on-click="onWantsToToggle">
         <template v-slot:leading>
             <ok-comment-icon
                     class="ok-svg-icon-primary-invert"></ok-comment-icon>
@@ -52,7 +52,7 @@
         private requestOperation?: CancelableOperation<any>;
 
 
-        onWantsToToggleClose() {
+        onWantsToToggle() {
             if (this.post.commentsEnabled) {
                 // Open
                 return this.disablePostComments();
