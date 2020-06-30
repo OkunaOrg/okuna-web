@@ -1,6 +1,10 @@
 import { ICircle } from '~/models/connections/circle/ICircle';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
 import { IDataModel } from '~/models/abstract/IDataModel';
+import { IPost } from '~/models/posts/post/IPost';
+import { ILanguage } from '~/models/common/language/ILanguage';
+import { IPostComment } from '~/models/posts/post-comment/IPostComment';
+import { ICommunity } from '~/models/communities/community/ICommunity';
 
 
 export interface IUser extends IDataModel<IUser> {
@@ -26,11 +30,43 @@ export interface IUser extends IDataModel<IUser> {
     isFullyConnected: boolean;
     isMemberOfCommunities: boolean;
     isPendingConnectionConfirmation: boolean;
+    language: ILanguage;
 
     connectedCircles: ICircle[];
     profile: IUserProfile;
 
 
     incrementFollowersCount(): void;
+
     decrementFollowersCount(): void;
+
+    canDeletePost(post: IPost): boolean;
+
+    canReportPost(post: IPost): boolean;
+
+    canEditPost(post: IPost);
+
+    canCommentPost(post: IPost): boolean;
+
+    canDeletePostComment(postComment: IPostComment, post: IPost): boolean;
+
+    canReportPostComment(postComment: IPostComment, post: IPost): boolean;
+
+    canEditPostComment(postComment: IPostComment): boolean;
+
+    canBlockOrUnblockUser(user: IUser): boolean;
+
+    canTranslatePost(post: IPost): boolean;
+
+    canTranslatePostComment(postComment: IPostComment, post: IPost): boolean;
+
+    canManageCommunityAdministrators(community: ICommunity): boolean;
+
+    canManageCommunityModerators(community: ICommunity): boolean;
+
+    canEnableOrDisablePostComments(post: IPost): boolean;
+
+    canCloseOrOpenPost(post: IPost): boolean;
+
+    isCommunityCreator(community: ICommunity): boolean;
 }

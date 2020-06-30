@@ -62,6 +62,7 @@
         }
 
         .tabs {
+            padding: 10px;
             a, a:hover {
                 text-decoration: none !important;
             }

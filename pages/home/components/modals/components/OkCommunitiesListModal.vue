@@ -1,5 +1,5 @@
 <template>
-    <div class="has-height-100-percent ok-has-background-primary">
+    <div class="has-height-100-percent ok-has-background-primary is-semi-rounded has-overflow-hidden">
         <div class="box ok-has-background-primary-highlight has-height-100-percent has-overflow-scroll">
             <div class="has-padding-bottom-30" v-if="params.title">
                 <h2 class="title ok-has-text-primary-invert">
@@ -12,7 +12,7 @@
                         :refresher="params.refresher"
                         :on-scroll-loader="params.onScrollLoader"
                         :show-no-more="false"
-                        class="columns is-multiline" :item-class="'column is-4-tablet is-3-desktop is-paddingless'">
+                        :items-container-class="'columns is-multiline'" :item-class="'column is-4-tablet is-3-desktop is-paddingless'">
                     <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
                         <div
                                 v-if="environmentResolution === EnvironmentResolution.desktop"

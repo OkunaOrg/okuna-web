@@ -2,6 +2,7 @@ import { IStringTemplateService } from '~/services/string-template/IStringTempla
 import { injectable } from '~/node_modules/inversify';
 
 
+// Deprecated, use utilsService
 @injectable()
 export class StringTemplateService implements IStringTemplateService {
     parse(template: string, templateData: {[key: string]: boolean | number | string}): string {

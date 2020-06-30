@@ -22,6 +22,15 @@
   height: 100%;
 }
 
+
+.has-height-100-percent-mobile{
+  @include for-size(phone-only) {
+    height: 100%;
+
+  }
+}
+
+
 .has-min-height-100-percent{
   min-height: 100%;
 }
@@ -50,6 +59,12 @@
 .is-loading{
   opacity: 0.6 !important;
   pointer-events: none !important;
+}
+
+.is-disabled{
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 

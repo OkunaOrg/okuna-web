@@ -184,6 +184,42 @@ export class Community extends DataModel<Community> implements ICommunity {
         return membership || null;
     }
 
+    isModerator(user: IUser) {
+        const membership = this.getMembershipForUser(user);
+        if (!membership) return false;
+        return membership.isModerator;
+    }
+
+    isAdministrator(user: IUser) {
+        const membership = this.getMembershipForUser(user);
+        if (!membership) return false;
+        return membership.isAdministrator;
+    }
+
+    isStaff(user: IUser) {
+        return this.isModerator(user) || this.isAdministrator(user);
+    }
+
+    canManageAdministrators(user: IUser): boolean {
+        return this.isCreator;
+    }
+
+    canManageModerators(user: IUser): boolean {
+        return this.isAdministrator(user);
+    }
+
+    canManageDetails(user: IUser): boolean {
+        return this.isAdministrator(user);
+    }
+
+    canManageMembers(user: IUser): boolean {
+        return this.isStaff(user);
+    }
+
+    canManagePosts(user: IUser): boolean {
+        return this.isStaff(user);
+    }
+
     private bootstrapComputedAttributes() {
         if (this.color) {
             let colorInvert;
@@ -199,6 +235,5 @@ export class Community extends DataModel<Community> implements ICommunity {
             this.colorInvert = colorInvert;
         }
     }
-
 
 }

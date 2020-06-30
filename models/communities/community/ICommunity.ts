@@ -33,4 +33,21 @@ export interface ICommunity extends IDataModel<ICommunity> {
     colorInvert?: Color;
 
     isMember(user: IUser): boolean;
+
+    isModerator(user: IUser): boolean;
+
+    isAdministrator(user: IUser): boolean;
+
+    isStaff(user: IUser): boolean;
+
+    canManageAdministrators(user: IUser): boolean;
+
+    canManageModerators(user: IUser): boolean;
+
+    canManageDetails(user: IUser): boolean;
+
+    canManageMembers(user: IUser): boolean
+
+    canManagePosts(user: IUser): boolean
+
 }

@@ -68,7 +68,12 @@ import {
     GetJoinedCommunitiesParams,
     GetHashtagParams,
     GetHashtagPostsParams,
-    SearchHashtagsParams, SearchUsersParams
+    SearchHashtagsParams,
+    SearchUsersParams,
+    ReportUserParams,
+    ReportHashtagParams,
+    EnablePostCommentsParams,
+    OpenPostParams, ClosePostParams, DisablePostCommentsParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -80,8 +85,8 @@ import { UserData } from '~/types/models-data/auth/UserData';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPost } from '~/models/posts/post/IPost';
-import { ITopPost } from "~/models/posts/top-post/ITopPost";
-import { ITrendingPost } from "~/models/posts/trending-post/ITrendingPost";
+import { ITopPost } from '~/models/posts/top-post/ITopPost';
+import { ITrendingPost } from '~/models/posts/trending-post/ITrendingPost';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 import { IReactionsEmojiCount } from '~/models/posts/reactions-emoji-count/IReactionsEmojiCount';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
@@ -122,6 +127,10 @@ import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import hashtagFactory from '~/models/common/hashtag/factory';
 import { HashtagData } from '~/types/models-data/common/HashtagData';
 import { IHashtagsApiService } from '~/services/Apis/hashtags/IHashtagsApiService';
+import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
+import { ModerationCategoryData } from '~/types/models-data/moderation/ModerationCategoryData';
+import { IModerationApiService } from '~/services/Apis/moderation/IModerationApiService';
+import moderationCategoryFactory from '~/models/moderation/moderation_category/factory';
 
 @injectable()
 export class UserService implements IUserService {
@@ -135,6 +144,7 @@ export class UserService implements IUserService {
     constructor(@inject(TYPES.AuthApiService) private authApiService?: IAuthApiService,
                 @inject(TYPES.CommunitiesApiService) private communitiesApiService?: ICommunitiesApiService,
                 @inject(TYPES.HashtagsApiService) private hashtagsApiService?: IHashtagsApiService,
+                @inject(TYPES.ModerationApiService) private moderationApiService?: IModerationApiService,
                 @inject(TYPES.CategoriesApiService) private categoriesApiService?: ICategoriesApiService,
                 @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
                 @inject(TYPES.FollowsApiService) private followsApiService?: IFollowsApiService,
@@ -148,6 +158,8 @@ export class UserService implements IUserService {
             name: 'UserService'
         });
     }
+
+    // AUTH START
 
     async register(data: RegistrationApiParams): Promise<RegistrationResponse> {
         const response = await this.authApiService!.register(data);
@@ -241,6 +253,19 @@ export class UserService implements IUserService {
 
         return userFactory.makeMultiple(response.data);
     }
+
+
+    async reportUser(params: ReportUserParams): Promise<void> {
+        await this.authApiService.reportUser({
+            userUsername: params.user.username,
+            description: params.description,
+            moderationCategoryId: params.moderationCategory.id,
+        });
+    }
+
+    // AUTH END
+
+    // COMMUNITIES START
 
     async getCommunity(params: GetCommunityParams): Promise<ICommunity> {
         const response: AxiosResponse<CommunityData> = await this.communitiesApiService.getCommunity({
@@ -393,6 +418,10 @@ export class UserService implements IUserService {
 
         return userFactory.makeMultiple(response.data);
     }
+
+    // COMMUNITIES START
+
+    // POSTS START
 
     async commentPost(params: CommentPostParams): Promise<IPostComment> {
         const response: AxiosResponse<PostCommentData> = await this.postsApiService.commentPost({
@@ -625,6 +654,36 @@ export class UserService implements IUserService {
     }
 
 
+    async openPost(params: OpenPostParams): Promise<void> {
+        await this.postsApiService.openPost({
+            postUuid: params.post.uuid,
+        });
+    }
+
+    async closePost(params: ClosePostParams): Promise<void> {
+        await this.postsApiService.closePost({
+            postUuid: params.post.uuid,
+        });
+    }
+
+    async enablePostComments(params: EnablePostCommentsParams): Promise<void> {
+        await this.postsApiService.enablePostComments({
+            postUuid: params.post.uuid,
+        });
+    }
+
+    async disablePostComments(params: DisablePostCommentsParams): Promise<void> {
+        await this.postsApiService.disablePostComments({
+            postUuid: params.post.uuid,
+        });
+    }
+
+
+    // POSTS END
+
+    // NOTIFICATIONS START
+
+
     async getNotifications(params: GetNotificationsParams): Promise<INotification[]> {
         const response: AxiosResponse<NotificationData[]> = await this.notificationsApiService.getNotifications({
             maxId: params.maxId,
@@ -663,6 +722,8 @@ export class UserService implements IUserService {
             notificationId: params.notification.id
         });
     }
+
+    // NOTIFICATIONS END
 
     // FOLLOWS START
 
@@ -728,6 +789,25 @@ export class UserService implements IUserService {
         return hashtagFactory.makeMultiple(response.data);
     }
 
+    async reportHashtag(params: ReportHashtagParams): Promise<void> {
+        await this.hashtagsApiService.reportHashtag({
+            hashtagName: params.hashtag.name,
+            description: params.description,
+            moderationCategoryId: params.moderationCategory.id,
+        });
+    }
+
     // HASHTAGS END
+
+    // MODERATION START
+
+
+    async getModerationCategories(): Promise<IModerationCategory[]> {
+        const response: AxiosResponse<ModerationCategoryData[]> = await this.moderationApiService.getModerationCategories();
+
+        return moderationCategoryFactory.makeMultiple(response.data);
+    }
+
+    // MODERATION END
 
 }

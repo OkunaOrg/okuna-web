@@ -110,7 +110,7 @@ export class CommunityMembersExclusion {
 export interface ReportCommunityApiParams {
     communityName: string;
     moderationCategoryId: number;
-    description: string;
+    description?: string;
 }
 
 export interface GetCommunityApiParams {

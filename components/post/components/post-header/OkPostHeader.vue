@@ -4,22 +4,20 @@
             <ok-post-header-community-content
                     v-if="this.postDisplayContext === this.PostDisplayContext.communityPosts"
                     :post="this.post"
-                    @on-wants-to-open-post-actions="this.onWantsToOpenPostActions"
             >
             </ok-post-header-community-content>
             <ok-post-header-timeline-content
                     v-if="this.postDisplayContext === this.PostDisplayContext.timelinePosts"
-                    :post="this.post"
-                    @on-wants-to-open-post-actions="this.onWantsToOpenPostActions">
+                    :post="this.post">
             </ok-post-header-timeline-content>
             <ok-post-header-profile-content
                     v-else-if="this.postDisplayContext === this.PostDisplayContext.ownProfilePosts || this.postDisplayContext === this.PostDisplayContext.foreignProfilePosts"
                     :post="this.post"
-                    @on-wants-to-open-post-actions="this.onWantsToOpenPostActions"
             >
             </ok-post-header-profile-content>
         </div>
-        <div class="column is-narrow is-flex align-items-center">
+        <div class="column is-narrow is-flex align-items-center has-cursor-pointer" role="button"
+             :aria-label="$t('globals.keywords.more')" @click="onWantsToOpenPostActions">
             <div class="card-header-icon" aria-label="more options">
                 <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
             </div>
@@ -43,6 +41,9 @@
         from "~/components/post/components/post-header/components/OkPostHeaderProfileContent.vue";
     import OkPostHeaderTimelineContent
         from "~/components/post/components/post-header/components/OkPostHeaderTimelineContent.vue";
+    import { IModalService } from "~/services/modal/IModalService";
+    import { TYPES } from "~/services/inversify-types";
+    import { okunaContainer } from "~/services/inversify";
 
     @Component({
         name: "OkPostHeader",
@@ -58,11 +59,21 @@
         PostDisplayContext = PostDisplayContext;
         OkAvatarSize = OkAvatarSize;
 
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+
         mounted() {
         }
 
-        onWantsToOpenPostActions(post: IPost) {
-            console.log("Wants to open actions for post", post);
+        onWantsToOpenPostActions() {
+            this.modalService.openPostActionsModal({
+                post: this.post,
+                onPostDeleted: (post: IPost) => {
+                    this.$emit("onPostDeleted", post);
+                },
+                onPostReported: (post: IPost) => {
+                    this.$emit("onPostReported", post);
+                }
+            })
         }
 
     }

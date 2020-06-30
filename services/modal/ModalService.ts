@@ -2,9 +2,9 @@ import { inject, injectable } from '~/node_modules/inversify';
 import {
     HttpListModalParams,
     IModalService,
-    ModalParams, PostCommentReactionsModalParams,
+    ModalParams, PostActionsModalParams, PostCommentReactionsModalParams,
     PostModalParams,
-    PostReactionsModalParams
+    PostReactionsModalParams, ReportObjectModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -35,10 +35,20 @@ export class ModalService implements IModalService {
         });
     };
 
+    async openReportObjectModal(params: ReportObjectModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.reportObject, params);
+    }
+
 
     async openPostReactionsModal(params: PostReactionsModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.postReactions, params);
+    }
+
+    async openPostActionsModal(params: PostActionsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.postActions, params);
     }
 
     async openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void> {
@@ -50,7 +60,6 @@ export class ModalService implements IModalService {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.communitiesList, params);
     }
-
 
     async openPostModal(params: PostModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
@@ -105,7 +114,9 @@ export class ModalService implements IModalService {
     }
 
     private ensureHasNoActiveModal() {
-        if (this.activeModalPromise) throw 'Modal is already active. Cannot proceed';
+        if (this.activeModalPromise)  {
+            this.notifyModalClosed();
+        }
     }
 
     private ensureHasActiveModal() {

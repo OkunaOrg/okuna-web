@@ -21,6 +21,12 @@ export interface GetUserParams {
     userUsername: string;
 }
 
+export interface ReportUserParams {
+    user: IUser;
+    description?: string;
+    moderationCategory: IModerationCategory;
+}
+
 export interface SearchUsersParams {
     query: string;
 }
@@ -263,6 +269,24 @@ export interface ReportPostParams {
     moderationCategory: IModerationCategory;
 }
 
+export interface OpenPostParams {
+    post: IPost;
+}
+
+export interface ClosePostParams {
+    post: IPost;
+}
+
+export interface EnablePostCommentsParams {
+    post: IPost;
+}
+
+
+export interface DisablePostCommentsParams {
+    post: IPost;
+}
+
+
 // POSTS END
 
 // NOTIFICATIONS START
@@ -326,6 +350,12 @@ export interface GetHashtagPostsParams {
 export interface SearchHashtagsParams {
     query: string;
     appendAuthorizationTokenIfExists?: boolean;
+}
+
+export interface ReportHashtagParams {
+    hashtag: IHashtag;
+    description?: string;
+    moderationCategory: IModerationCategory;
 }
 
 

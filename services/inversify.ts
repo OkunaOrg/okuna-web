@@ -47,6 +47,8 @@ import { ICategoriesApiService } from '~/services/Apis/categories/ICategoriesApi
 import { CategoriesApiService } from '~/services/Apis/categories/CategoriesApiService';
 import { IHashtagsApiService } from '~/services/Apis/hashtags/IHashtagsApiService';
 import { HashtagsApiService } from '~/services/Apis/hashtags/HashtagsApiService';
+import { ModerationApiService } from '~/services/Apis/moderation/ModerationApiService';
+import { IModerationApiService } from '~/services/Apis/moderation/IModerationApiService';
 
 const okunaContainer = new Container();
 
@@ -58,6 +60,7 @@ okunaContainer.bind<ICategoriesApiService>(TYPES.CategoriesApiService).to(Catego
 okunaContainer.bind<IPostsApiService>(TYPES.PostsApiService).to(PostsApiService).inSingletonScope();
 okunaContainer.bind<INotificationsApiService>(TYPES.NotificationsApiService).to(NotificationsApiService).inSingletonScope();
 okunaContainer.bind<IFollowsApiService>(TYPES.FollowsApiService).to(FollowsApiService).inSingletonScope();
+okunaContainer.bind<IModerationApiService>(TYPES.ModerationApiService).to(ModerationApiService).inSingletonScope();
 okunaContainer.bind<IHttpService>(TYPES.HttpService).to(HttpService).inSingletonScope();
 okunaContainer.bind<ILocalizationService>(TYPES.LocalizationService).to(LocalizationService).inSingletonScope();
 okunaContainer.bind<INavigationService>(TYPES.NavigationService).to(NavigationService).inSingletonScope();

@@ -2,13 +2,14 @@ import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
+    ClosePostParams,
     CommentPostParams,
     DeleteNotificationParams,
     DeletePostCommentParams,
     DeletePostCommentReactionParams,
     DeletePostParams,
-    DeletePostReactionParams,
-    EditPostCommentParams,
+    DeletePostReactionParams, DisablePostCommentsParams,
+    EditPostCommentParams, EnablePostCommentsParams,
     FollowUserParams,
     GetAdministratedCommunitiesParams,
     GetCommunityAdministratorsParams,
@@ -35,15 +36,15 @@ import {
     GetUnreadNotificationsCountParams,
     GetUserParams,
     JoinCommunityParams,
-    LeaveCommunityParams,
+    LeaveCommunityParams, OpenPostParams,
     ReactToPostCommentParams,
     ReactToPostParams,
     ReadNotificationParams,
     ReadNotificationsParams,
     ReplyToPostCommentParams,
-    ReportCommunityParams,
+    ReportCommunityParams, ReportHashtagParams,
     ReportPostCommentParams,
-    ReportPostParams,
+    ReportPostParams, ReportUserParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
@@ -51,8 +52,8 @@ import {
     UnfollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
-import { ITopPost } from "~/models/posts/top-post/ITopPost";
-import { ITrendingPost } from "~/models/posts/trending-post/ITrendingPost";
+import { ITopPost } from '~/models/posts/top-post/ITopPost';
+import { ITrendingPost } from '~/models/posts/trending-post/ITrendingPost';
 import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
@@ -69,6 +70,7 @@ import { INotification } from '~/models/notifications/notification/INotification
 import { IFollow } from '~/models/follows/follow/IFollow';
 import { ICategory } from '~/models/common/category/ICategory';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
+import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
 
 
 export interface IUserService {
@@ -103,6 +105,8 @@ export interface IUserService {
     getUser(params: GetUserParams): Promise<IUser>;
 
     searchUsers(params: SearchUsersParams): Promise<IHashtag[]>;
+
+    reportUser(params: ReportUserParams): Promise<void>;
 
     // AUTH ENDS
 
@@ -194,6 +198,14 @@ export interface IUserService {
 
     reportPostComment(params: ReportPostCommentParams): Promise<void>;
 
+    openPost(params: OpenPostParams): Promise<void>;
+
+    closePost(params: ClosePostParams): Promise<void>;
+
+    enablePostComments(params: EnablePostCommentsParams): Promise<void>;
+
+    disablePostComments(params: DisablePostCommentsParams): Promise<void>;
+
     // POSTS END
 
     // NOTIFICATIONS START
@@ -233,5 +245,13 @@ export interface IUserService {
 
     searchHashtags(params: SearchHashtagsParams): Promise<IHashtag[]>;
 
+    reportHashtag(params: ReportHashtagParams): Promise<void>;
+
     // HASHTAGS END
+
+    // MODERATION START
+
+    getModerationCategories(): Promise<IModerationCategory[]>;
+
+    // MODERATION END
 }

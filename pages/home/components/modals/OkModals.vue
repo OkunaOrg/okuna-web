@@ -1,39 +1,39 @@
 <template>
     <div>
         <b-modal :active.sync="postModalOpened" @close="onModalClosed" :trap-focus="true" :width="1444"
-                 :custom-class="'ok-post-modal'">
+                 :custom-class="'ok-modal'">
             <ok-post-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-post-modal>
         </b-modal>
 
         <b-modal :active.sync="postReactionsModalOpened" :trap-focus="true" :width="1444" @close="onModalClosed"
-                 :custom-class="'ok-reactions-modal'">
+                 :custom-class="'ok-modal'">
             <ok-post-reactions-modal :return-data-setter="setModalReturnData"
                                      :params="activeModalParams"></ok-post-reactions-modal>
         </b-modal>
 
         <b-modal :active.sync="postCommentReactionsModalOpened" :trap-focus="true" :width="1444" @close="onModalClosed"
-                 :custom-class="'ok-reactions-modal'">
+                 :custom-class="'ok-modal'">
             <ok-post-comment-reactions-modal :return-data-setter="setModalReturnData"
                                              :params="activeModalParams"></ok-post-comment-reactions-modal>
         </b-modal>
         <b-modal :active.sync="communitiesListModalOpen" :trap-focus="true" :width="1444" @close="onModalClosed"
-                 :custom-class="'ok-reactions-modal'">
+                 :custom-class="'ok-modal'">
             <ok-communities-list-modal :return-data-setter="setModalReturnData"
-                                             :params="activeModalParams"></ok-communities-list-modal>
+                                       :params="activeModalParams"></ok-communities-list-modal>
+        </b-modal>
+        <b-modal :active.sync="postActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-post-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-post-actions-modal>
+        </b-modal>
+        <b-modal :active.sync="reportObjectModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-report-object-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-report-object-modal>
         </b-modal>
     </div>
 </template>
 
 <style lang="scss">
-    .ok-post-modal {
-        .modal-content {
-            height: 85%;
-            width: 85%;
-            padding: 0 2rem;
-        }
-    }
-
-    .ok-reactions-modal {
+    .ok-modal {
         .modal-content {
             height: 85%;
             width: 85%;
@@ -54,11 +54,17 @@
     import { ModalType } from "~/services/modal/lib/ModalType";
     import OkPostReactionsModal from "~/pages/home/components/modals/components/OkPostReactionsModal.vue";
     import OkPostCommentReactionsModal from "~/pages/home/components/modals/components/OkPostCommentReactionsModal.vue";
-    import OkCommunitiesListModal from '~/pages/home/components/modals/components/OkCommunitiesListModal.vue';
+    import OkCommunitiesListModal from "~/pages/home/components/modals/components/OkCommunitiesListModal.vue";
+    import OkPostActionsModal from "~/pages/home/components/modals/components/OkPostActionsModal.vue";
+    import OkReportObjectModal from '~/pages/home/components/modals/components/OkReportObjectModal.vue';
 
     @Component({
         name: "OkModals",
-        components: {OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal},
+        components: {
+            OkReportObjectModal,
+            OkPostActionsModal,
+            OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal
+        },
         subscriptions: function () {
             return {
                 activeModal: this["modalService"].activeModal,
@@ -73,8 +79,10 @@
         ModalType = ModalType;
         postModalOpened: boolean = false;
         postReactionsModalOpened: boolean = false;
+        postActionsModalOpened: boolean = false;
         postCommentReactionsModalOpened: boolean = false;
         communitiesListModalOpen: boolean = false;
+        reportObjectModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -100,6 +108,8 @@
             this.postReactionsModalOpened = activeModalValue === ModalType.postReactions;
             this.postCommentReactionsModalOpened = activeModalValue === ModalType.postCommentReactions;
             this.communitiesListModalOpen = activeModalValue === ModalType.communitiesList;
+            this.postActionsModalOpened = activeModalValue === ModalType.postActions;
+            this.reportObjectModalOpen = activeModalValue === ModalType.reportObject;
         }
     }
 </script>

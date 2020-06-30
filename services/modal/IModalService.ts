@@ -5,6 +5,7 @@ import { IPostReaction } from '~/models/posts/post-reaction/IPostReaction';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 import { OkHttpListOnScrollLoader, OkHttpListRefresher } from '~/components/http-list/lib/OkHttpListParams';
+import { IDataModel } from '~/models/abstract/IDataModel';
 
 export interface IModalService {
 
@@ -13,9 +14,13 @@ export interface IModalService {
 
     openPostReactionsModal(params: PostReactionsModalParams): Promise<void>;
 
+    openPostActionsModal(params: PostActionsModalParams): Promise<void>;
+
     openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void>;
 
     openCommunitiesList<T>(params: HttpListModalParams<T>): Promise<void>;
+
+    openReportObjectModal(params: ReportObjectModalParams): Promise<void>;
 
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
@@ -28,7 +33,12 @@ export interface IModalService {
 
 }
 
-export type ModalParams = PostModalParams | PostReactionsModalParams | HttpListModalParams<any>;
+export type ModalParams =
+    PostModalParams
+    | PostReactionsModalParams
+    | HttpListModalParams<any>
+    | PostActionsModalParams
+    | ReportObjectModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -38,6 +48,12 @@ export interface HttpListModalParams<T> {
 
 export interface PostModalParams {
     post: IPost;
+}
+
+export interface PostActionsModalParams {
+    post: IPost;
+    onPostDeleted?: (post: IPost) => void;
+    onPostReported?: (post: IPost) => void;
 }
 
 export interface PostReactionsModalParams {
@@ -52,4 +68,10 @@ export interface PostCommentReactionsModalParams {
     postComment: IPostComment;
     onRequestInProgress: (requestInProgress: boolean) => void;
     onReacted: (reaction: IPostCommentReaction) => void;
+}
+
+export interface ReportObjectModalParams {
+    object: IDataModel<any>;
+    extraData?: {[key: string]: any};
+    onObjectReported: (object: any) => void;
 }

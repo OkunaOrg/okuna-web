@@ -41,7 +41,7 @@ export class Post extends DataModel<Post> implements IPost {
     mediaHeight?: number;
     mediaWidth?: number;
     mediaThumbnail?: string;
-    areCommentsEnabled?: boolean;
+    commentsEnabled?: boolean;
     publicReactions?: boolean;
     text?: string;
     language?: ILanguage;
@@ -118,8 +118,8 @@ export class Post extends DataModel<Post> implements IPost {
             attributeKey: 'mediaThumbnail',
         },
         {
-            dataKey: 'are_comments_enabled',
-            attributeKey: 'areCommentsEnabled',
+            dataKey: 'comments_enabled',
+            attributeKey: 'commentsEnabled',
         },
         {
             dataKey: 'public_reactions',
@@ -202,8 +202,11 @@ export class Post extends DataModel<Post> implements IPost {
         this.reactionsEmojiCounts = newEmojiCounts;
     }
 
-    clearReaction() : void{
+    clearReaction(): void {
         this.setReaction(null);
     }
 
+    isCreator(user: IUser): boolean {
+        return this.creator && this.creator.id === user.id;
+    }
 }

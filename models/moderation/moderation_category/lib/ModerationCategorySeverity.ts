@@ -1,4 +1,4 @@
-enum ModerationCategorySeverity {
+export enum ModerationCategorySeverity {
     critical,
     high,
     medium,

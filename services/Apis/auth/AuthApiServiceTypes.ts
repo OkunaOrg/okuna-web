@@ -39,3 +39,8 @@ export interface SearchUsersApiParams {
     appendAuthorizationTokenIfExists: boolean;
 }
 
+export interface ReportUserApiParams {
+    userUsername: string;
+    moderationCategoryId: number;
+    description?: string;
+}

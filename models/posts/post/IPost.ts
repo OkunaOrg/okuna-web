@@ -24,7 +24,7 @@ export interface IPost extends IDataModel<IPost> {
     mediaHeight?: number;
     mediaWidth?: number;
     mediaThumbnail?: string;
-    areCommentsEnabled?: boolean;
+    commentsEnabled?: boolean;
     publicReactions?: boolean;
     text?: string;
     language?: ILanguage;
@@ -39,6 +39,9 @@ export interface IPost extends IDataModel<IPost> {
     isClosed?: boolean;
     isReported?: boolean;
 
-    clearReaction() : void;
+    clearReaction(): void;
+
     setReaction(newReaction: IPostReaction): void;
+
+    isCreator(user: IUser): boolean;
 }

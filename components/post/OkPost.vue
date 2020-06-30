@@ -2,7 +2,7 @@
     <article class="ok-post">
         <div class="card ok-has-background-primary has-no-borer-radius-mobile">
             <div class="card-content">
-                <ok-post-header :post="post" :post-display-context="postDisplayContext"></ok-post-header>
+                <ok-post-header :post="post" :post-display-context="postDisplayContext" @onPostDeleted="onPostDeleted" @onPostReported="onPostReported"></ok-post-header>
             </div>
             <div class="has-padding-bottom-20" v-if="post.mediaThumbnail">
                 <ok-post-media :post="post" :post-element-width="postElementWidth"
@@ -10,9 +10,23 @@
             </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
                 <ok-post-text v-if="post.text" :post="post"></ok-post-text>
-                <div class="columns">
+                <div class="columns is-mobile">
                     <div class="column" v-if="post.commentsCount && post.commentsCount > 0">
                         <ok-post-comment-counts :post="post"></ok-post-comment-counts>
+                    </div>
+                    <div class="column">
+                        <div v-if="post.isClosed" class="is-flex align-items-flex-end justify-end">
+                            <ok-private-community-icon class="ok-svg-icon-primary-invert-80"></ok-private-community-icon>
+                            <span class="ok-has-text-primary-invert-80 is-size-6 has-padding-left-5">
+                                {{ $t('global.snippets.post_closed') }}
+                            </span>
+                        </div>
+                        <div v-if="!post.commentsEnabled" class="is-flex align-items-flex-end justify-end">
+                            <ok-comment-icon class="ok-svg-icon-primary-invert-80"></ok-comment-icon>
+                            <span class="ok-svg-icon-primary-invert-80 is-size-6 has-padding-left-5">
+                                {{ $t('global.snippets.post_comments_disabled') }}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,6 +94,14 @@
             this.updatePostElementWidth();
         }
 
+        onPostDeleted(post: IPost){
+            this.$emit('onPostDeleted', post);
+        }
+
+        onPostReported(post: IPost){
+            this.$emit('onPostReported', post);
+        }
+
 
         updatePostElementWidth() {
             if (window.innerWidth >= 1024) {
@@ -90,7 +112,7 @@
                 this.postElementWidth = this.$parent.$el.clientWidth;
             }
 
-            if(!this.postElementWidth){
+            if (!this.postElementWidth) {
                 this.postElementWidth = window.innerWidth;
             }
 

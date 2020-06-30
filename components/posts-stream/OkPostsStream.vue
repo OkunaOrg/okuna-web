@@ -4,7 +4,7 @@
         <ok-http-list
                 :refresher="refresher" :on-scroll-loader="onScrollLoader" ref="okHttpList"
                 :item-class="postContainerClass">
-            <ok-post slot-scope="props" :post="props.item" :post-display-context="postsDisplayContext"></ok-post>
+            <ok-post slot-scope="props" :post="props.item" :post-display-context="postsDisplayContext" @onPostDeleted="removePost" @onPostReported="removePost"></ok-post>
         </ok-http-list>
     </div>
 </template>

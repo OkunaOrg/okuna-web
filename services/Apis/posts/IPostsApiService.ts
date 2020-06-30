@@ -1,9 +1,11 @@
 import {
     CommentPostApiParams,
-    DeletePostCommentApiParams, DeletePostCommentReactionApiParams,
+    DeletePostCommentApiParams,
+    DeletePostCommentReactionApiParams,
     DeletePostApiParams,
     DeletePostReactionApiParams,
-    EditPostCommentApiParams, GetPostCommentReactionsEmojiApiCountApiParams,
+    EditPostCommentApiParams,
+    GetPostCommentReactionsEmojiApiCountApiParams,
     GetPostCommentReactionsApiParams,
     GetPostCommentRepliesApiParams,
     GetPostCommentsApiParams,
@@ -13,9 +15,15 @@ import {
     GetPostReactionsApiParams,
     GetTimelinePostsApiParams,
     GetTopPostsApiParams,
-    GetTrendingPostsApiParams, ReactToPostCommentApiParams,
+    GetTrendingPostsApiParams,
+    ReactToPostCommentApiParams,
     ReactToPostApiParams,
-    ReplyToPostCommentApiParams, ReportPostCommentApiParams, ReportPostApiParams
+    ReplyToPostCommentApiParams,
+    ReportPostCommentApiParams,
+    ReportPostApiParams,
+    ClosePostApiParams,
+    OpenPostApiParams,
+    DisablePostCommentsApiParams, EnablePostCommentsApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -75,4 +83,12 @@ export interface IPostsApiService {
     reportPost(params: ReportPostApiParams): Promise<AxiosResponse<void>>;
 
     reportPostComment(params: ReportPostCommentApiParams): Promise<AxiosResponse<void>>;
+
+    closePost(params: ClosePostApiParams): Promise<AxiosResponse<void>>;
+
+    openPost(params: OpenPostApiParams): Promise<AxiosResponse<void>>;
+
+    disablePostComments(params: DisablePostCommentsApiParams): Promise<AxiosResponse<void>>;
+
+    enablePostComments(params: EnablePostCommentsApiParams): Promise<AxiosResponse<void>>;
 }

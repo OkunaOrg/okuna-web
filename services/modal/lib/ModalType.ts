@@ -1,13 +1,17 @@
 export class ModalType {
     static post = new ModalType('Post');
     static postReactions = new ModalType('PostReactions');
+    static postActions = new ModalType('PostActions');
     static postCommentReactions = new ModalType('PostCommentReactions');
     static communitiesList = new ModalType('CommunitiesList');
+    static reportObject = new ModalType('ReportObject');
 
     static _values: ModalType[] = [
         ModalType.post,
         ModalType.postReactions,
         ModalType.communitiesList,
+        ModalType.postActions,
+        ModalType.reportObject,
     ];
 
     static values() {

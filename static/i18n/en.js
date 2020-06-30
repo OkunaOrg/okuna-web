@@ -34,6 +34,13 @@ export default {
         }
     },
     "components": {
+        "report_object_modal": {
+            "why": "Why are you reporting this {objectName}?",
+        },
+        "post_actions": {
+
+        },
+
         "post_comments_sort_switcher": {
             "showing": "Showing",
             "first": "first."
@@ -117,6 +124,16 @@ export default {
         },
     },
     "forms": {
+        "report_object":{
+            "provide_additional_details": "Can you provide additional details that might be relevant to the report?",
+            "heres_what_happens_next": "Here's what will happen next:",
+            "report_submitted_anon": "Your report will be submitted anonymously.",
+            "if_reporting_post_or_comment": "If you are reporting a post or comment, the report will be sent to the Okuna staff and the community moderators if applicable and the post will be hidden from your feed.",
+            "if_reporting_account_or_community": "If you are reporting an account or community, it will be sent to the Okuna staff.",
+            "we_will_review_it": "We'll review it, if approved, content will be deleted and penalties delivered to the people involved ranging from a temporary suspension to deletion of the account depending on the severity of the transgression.",
+            "if_report_approved": "If the report is found to be made in an attempt to damage the reputation of another member or community in the platform with no infringement of the stated reason, penalties will be applied to you.",
+            "i_understand_submit": "I understand, submit.",
+        },
         "login": {
             "or_signup_delimited": "or"
         },
@@ -169,6 +186,9 @@ export default {
                 "required": "Comment is required",
                 "max_length": "Text has to be smaller than 5000 characters"
             },
+            "moderation_report_description": {
+                "max_length": "Description has to be smaller than 1000 characters"
+            },
             "username": {
                 "required": "Username is required",
                 "username": "Username has to be smaller than 64 characters"
@@ -194,10 +214,22 @@ export default {
             "hashtags": "Hashtags",
             "community": "Community",
             "communities": "Communities",
-            "users": "Users"
+            "users": "Users",
+            "more": "More",
+            "optional": "Optional",
+            "description": "description",
+        },
+        "models": {
+            "post": "post",
+            "post_comment": "post comment",
+            "user": "user",
+            "hashtag": "hashtag",
+            "community": "community",
+            "fallback": "item"
         },
         "snippets": {
             "forgot_password": "Forgot password?",
+            "type_here": "Type here...",
             "about_us": "About us",
             "privacy_policy": "Privacy policy",
             "terms_of_use": "Terms of use",
@@ -209,6 +241,19 @@ export default {
             "search_for_something": "🕵️‍♀️ Search for something...",
             "all_loaded": "🎉 All loaded!",
             "no_items_found": "☹️ No items found",
+            "delete_post": "Delete post",
+            "post_deleted": "Post deleted",
+            "post_reported": "Post reported",
+            "post_closed": "Post closed",
+            "post_opened": "Post opened",
+            "report_post": "Report post",
+            "close_post": "Close post",
+            "open_post": "Open post",
+            "disable_post_comments": "Disable post comments",
+            "enable_post_comments": "Enable post comments",
+            "post_comments_disabled": "Post comments disabled",
+            "post_comments_enabled": "Post comments enabled",
+            "edit_post": "Edit post",
         },
     },
 }
