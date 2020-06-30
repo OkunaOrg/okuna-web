@@ -254,6 +254,12 @@ export default {
             "post_comments_disabled": "Post comments disabled",
             "post_comments_enabled": "Post comments enabled",
             "edit_post": "Edit post",
+            "report_user": "Report user",
+            "user_reported": "User reported",
+            "report_hashtag": "Report hashtag",
+            "hashtag_reported": "Hashtag reported",
+            "report_community": "Report community",
+            "commmunity_reported": "Community reported",
         },
     },
 }

@@ -20,7 +20,7 @@
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
     import { PostActionsModalParams } from "~/services/modal/IModalService";
     import { IPost } from "~/models/posts/post/IPost";
-    import OkPostMoreActions from '~/components/actions/post-actions/OkPostMoreActions.vue';
+    import OkPostMoreActions from '~/components/actions/post-more-actions/OkPostMoreActions.vue';
 
     @Component({
         name: "OkPostActionsModal",
