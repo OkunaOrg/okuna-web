@@ -35,7 +35,7 @@
         @Prop({
             type: Function,
             required: false
-        }) readonly onClick: () => Promise | void;
+        }) readonly onClick: () => Promise<void> | void;
 
         @Prop({
             type: Boolean,
@@ -47,11 +47,11 @@
 
         requestInProgress = false;
 
-        private requestOperation?: CancelableOperation<Promise | void>;
+        private requestOperation?: CancelableOperation<Promise<void> | void>;
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         async handleClick() {
-            if (this.requestInProgress || !this.onClick) return;
+            if (this.requestInProgress || !this.onClick) return;ß
             this.requestInProgress = true;
 
 
@@ -59,7 +59,7 @@
 
                 const clickResult = this.onClick();
 
-                this.requestOperation = CancelableOperation.fromPromise(Promise.resolve(clickResult) as Promise);
+                this.requestOperation = CancelableOperation.fromPromise(Promise.resolve(clickResult) as Promise<void>);
 
                 await this.requestOperation.value;
             } catch (error) {

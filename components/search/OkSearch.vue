@@ -125,7 +125,7 @@
         async searchWithQuery(query: string) {
             this.logger.info(`Searching with query: ${query}`);
 
-            const searchPromises: Promise[] = [
+            const searchPromises: Promise<void>[] = [
                 this.$refs.usersList.searchWithQuery(query),
                 this.$refs.communitiesList.searchWithQuery(query),
                 this.$refs.hashtagsList.searchWithQuery(query),

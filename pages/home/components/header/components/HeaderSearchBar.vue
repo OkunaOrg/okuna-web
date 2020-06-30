@@ -79,13 +79,13 @@
 
         searchQuery = "";
 
-        $el?: any;
+        $el: Element;
 
         $refs: {
             okSearch: OkSearch,
         };
 
-        boundOnDomClicked: Function;
+        boundOnDomClicked: EventListener;
 
         mounted() {
             this.boundOnDomClicked = this.onDomClicked.bind(this);
@@ -115,7 +115,7 @@
         }
 
         @Watch("searchQuery")
-        onChildChanged(val: string, oldVal: string) {
+        onSearchQueryChanged(val: string, oldVal: string) {
             if (val) {
                 this.dropdownIsOpen = true;
                 this.$refs.okSearch.searchWithQuery(val);
