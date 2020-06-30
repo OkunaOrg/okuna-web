@@ -31,7 +31,7 @@
     import OkEnablePostCommentsTile from "~/components/tiles/action/OkEnablePostCommentsTile.vue";
 
     @Component({
-        name: "OkPostActions",
+        name: "OkPostMoreActions",
         components: {
             OkEnablePostCommentsTile,
             OkClosePostTile, OkEditPostTile, OkDeletePostTile, OkReportPostTile, OkTile
@@ -42,7 +42,7 @@
             }
         }
     })
-    export default class OkPostActions extends Vue {
+    export default class OkPostMoreActions extends Vue {
 
 
         @Prop({
