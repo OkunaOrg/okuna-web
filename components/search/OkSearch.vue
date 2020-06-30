@@ -113,6 +113,9 @@
             communitiesList: OkHttpList<ICommunity>,
         };
 
+        searchTabIndex = 0;
+        shortCuts = ['@','c/','#'];
+
         created() {
             this.logger = this.loggingService.getLogger({
                 name: "OkSearch"
@@ -121,18 +124,11 @@
             if (this.initialSearchQuery) this.searchWithQuery(this.initialSearchQuery);
         }
 
-        data() {
-            return {
-                searchTabIndex: 0,
-                shortCuts: ['@','c/','#']
-            }
-        };
-
 
         async searchWithQuery(query: string) {
             this.logger.info(`Searching with query: ${query}`);
             query = query.trim();
-            
+
             query = this.handleShortCutSearch(query);
             if(!query){
                 return;

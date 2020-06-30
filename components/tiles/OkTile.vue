@@ -51,7 +51,7 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         async handleClick() {
-            if (this.requestInProgress || !this.onClick) return;ß
+            if (this.requestInProgress || !this.onClick) return;
             this.requestInProgress = true;
 
 
