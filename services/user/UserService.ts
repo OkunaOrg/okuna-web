@@ -73,7 +73,7 @@ import {
     ReportUserParams,
     ReportHashtagParams,
     EnablePostCommentsParams,
-    OpenPostParams, ClosePostParams, DisablePostCommentsParams
+    OpenPostParams, ClosePostParams, DisablePostCommentsParams, BlockUserParams, UnblockUserParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -260,6 +260,19 @@ export class UserService implements IUserService {
             userUsername: params.user.username,
             description: params.description,
             moderationCategoryId: params.moderationCategory.id,
+        });
+    }
+
+    async blockUser(params: BlockUserParams): Promise<void> {
+        await this.authApiService.blockUser({
+            userUsername: params.user.username,
+        });
+    }
+
+
+    async unblockUser(params: UnblockUserParams): Promise<void> {
+        await this.authApiService.unblockUser({
+            userUsername: params.user.username,
         });
     }
 

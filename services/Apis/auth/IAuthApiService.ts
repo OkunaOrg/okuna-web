@@ -1,12 +1,13 @@
 import { AxiosResponse } from '~/node_modules/axios';
 import { UserData } from '~/types/models-data/auth/UserData';
 import {
+    BlockUserApiParams,
     GetUserApiParams,
     LoginApiParams,
     LoginResponse,
     RegistrationApiParams,
     RegistrationResponse, ReportUserApiParams,
-    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams
+    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams, UnblockUserApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 
 export interface IAuthApiService {
@@ -26,4 +27,8 @@ export interface IAuthApiService {
     searchUsers(params: SearchUsersApiParams): Promise<AxiosResponse<UserData[]>>;
 
     reportUser(params: ReportUserApiParams): Promise<AxiosResponse<void>>;
+
+    blockUser(params: BlockUserApiParams): Promise<AxiosResponse<void>>;
+
+    unblockUser(params: UnblockUserApiParams): Promise<AxiosResponse<void>>;
 }

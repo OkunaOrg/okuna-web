@@ -44,3 +44,12 @@ export interface ReportUserApiParams {
     moderationCategoryId: number;
     description?: string;
 }
+
+export interface BlockUserApiParams {
+    userUsername: string;
+}
+
+export interface UnblockUserApiParams {
+    userUsername: string;
+}
+

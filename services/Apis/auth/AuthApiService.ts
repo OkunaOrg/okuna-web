@@ -1,12 +1,13 @@
 import { IAuthApiService } from '~/services/Apis/auth/IAuthApiService';
 import { UserData } from '~/types/models-data/auth/UserData';
 import {
+    BlockUserApiParams,
     GetUserApiParams,
     LoginApiParams,
     LoginResponse,
     RegistrationApiParams,
     RegistrationResponse, ReportUserApiParams,
-    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams
+    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams, UnblockUserApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -23,6 +24,8 @@ export class AuthApiService implements IAuthApiService {
     static AUTHENTICATED_USER_PATH = 'api/auth/user/';
     static GET_USERS_PATH = 'api/auth/users/';
     static REPORT_USER_PATH = 'api/auth/users/{userUsername}/report/';
+    static BLOCK_USER_PATH = 'api/auth/users/{userUsername}/block/';
+    static UNBLOCK_USER_PATH = 'api/auth/users/{userUsername}/unblock/';
 
     constructor(@inject(TYPES.HttpService) private httpService: IHttpService,
                 @inject(TYPES.UtilsService) private utilsService: IUtilsService) {
@@ -104,6 +107,29 @@ export class AuthApiService implements IAuthApiService {
         if (params.description) body['description'] = params.description;
 
         return this.httpService.post<void>(path, body, {
+            isApiRequest: true,
+            appendAuthorizationToken: true
+        });
+    }
+
+
+    blockUser(params: BlockUserApiParams): Promise<AxiosResponse<void>> {
+        const path = this.utilsService.parseTemplateString(AuthApiService.BLOCK_USER_PATH, {
+            userUsername: params.userUsername
+        });
+
+        return this.httpService.post<void>(path, null, {
+            isApiRequest: true,
+            appendAuthorizationToken: true
+        });
+    }
+
+    unblockUser(params: UnblockUserApiParams): Promise<AxiosResponse<void>> {
+        const path = this.utilsService.parseTemplateString(AuthApiService.UNBLOCK_USER_PATH, {
+            userUsername: params.userUsername
+        });
+
+        return this.httpService.post<void>(path, null, {
             isApiRequest: true,
             appendAuthorizationToken: true
         });

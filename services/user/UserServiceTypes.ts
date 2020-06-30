@@ -27,6 +27,15 @@ export interface ReportUserParams {
     moderationCategory: IModerationCategory;
 }
 
+export interface BlockUserParams {
+    user: IUser;
+}
+
+
+export interface UnblockUserParams {
+    user: IUser;
+}
+
 export interface SearchUsersParams {
     query: string;
 }

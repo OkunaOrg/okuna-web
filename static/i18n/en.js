@@ -260,6 +260,10 @@ export default {
             "hashtag_reported": "Hashtag reported",
             "report_community": "Report community",
             "commmunity_reported": "Community reported",
+            "block_user": "Block user",
+            "user_blocked": "User blocked",
+            "unblock_user": "Unblock user",
+            "user_unblocked": "User unblocked",
         },
     },
 }

@@ -2,6 +2,7 @@ import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
+    BlockUserParams,
     ClosePostParams,
     CommentPostParams,
     DeleteNotificationParams,
@@ -48,7 +49,7 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams, SearchHashtagsParams, SearchUsersParams,
+    SearchCommunityModeratorsParams, SearchHashtagsParams, SearchUsersParams, UnblockUserParams,
     UnfollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
@@ -107,6 +108,10 @@ export interface IUserService {
     searchUsers(params: SearchUsersParams): Promise<IHashtag[]>;
 
     reportUser(params: ReportUserParams): Promise<void>;
+
+    blockUser(params: BlockUserParams): Promise<void>;
+
+    unblockUser(params: UnblockUserParams): Promise<void>;
 
     // AUTH ENDS
 
