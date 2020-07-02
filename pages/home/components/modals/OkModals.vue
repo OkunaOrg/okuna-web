@@ -73,10 +73,12 @@
     import OkCommunitiesListModal from "~/pages/home/components/modals/components/OkCommunitiesListModal.vue";
     import OkPostActionsModal from "~/pages/home/components/modals/components/OkPostActionsModal.vue";
     import OkReportObjectModal from '~/pages/home/components/modals/components/OkReportObjectModal.vue';
+    import OkUserActionsModal from '~/pages/home/components/modals/components/OkUserActionsModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkUserActionsModal,
             OkReportObjectModal,
             OkPostActionsModal,
             OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal

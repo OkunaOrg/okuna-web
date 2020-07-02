@@ -19,6 +19,14 @@ export interface IModalService {
 
     openPostActionsModal(params: PostActionsModalParams): Promise<void>;
 
+    openUserActionsModal(params: UserActionsModalParams): Promise<void>;
+
+    openHashtagActionsModal(params: HashtagActionsModalParams): Promise<void>;
+
+    openPostCommentActionsModal(params: PostCommentActionsModalParams): Promise<void>;
+
+    openCommunityActionsModal(params: CommunityActionsModalParams): Promise<void>;
+
     openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void>;
 
     openCommunitiesList<T>(params: HttpListModalParams<T>): Promise<void>;

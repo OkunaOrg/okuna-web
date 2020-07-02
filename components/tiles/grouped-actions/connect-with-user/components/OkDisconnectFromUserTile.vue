@@ -1,13 +1,13 @@
 <template>
     <ok-tile :on-click="onWantsToDisconnectFromUser">
         <template v-slot:leading>
-            <ok-delete-icon
-                    class="ok-svg-icon-primary-invert"></ok-delete-icon>
+            <ok-cancel-icon
+                    class="ok-svg-icon-primary-invert"></ok-cancel-icon>
         </template>
 
         <template v-slot:content>
                     <span class="ok-has-text-primary-invert">
-                                {{$t('global.snippets.delete_post')}}
+                                {{user.isFullyConnected ? $t('global.snippets.disconnect_from_user') : $t('global.snippets.cancel_connection_request')}}
                             </span>
         </template>
     </ok-tile>
@@ -29,6 +29,7 @@
     import { IUserService } from "~/services/user/IUserService";
     import { ToastType } from "~/services/toast/lib/ToastType";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
+    import { IUser } from '~/models/auth/user/IUser';
 
     @Component({
         name: "OkDisconnectFromUserTile",
@@ -39,7 +40,7 @@
         @Prop({
             type: Object,
             required: false
-        }) readonly post: IPost;
+        }) readonly user: IUser;
 
         private requestOperation?: CancelableOperation<void>;
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
@@ -56,13 +57,13 @@
 
             try {
                 this.requestOperation = CancelableOperation.fromPromise(this.userService.disconnectFromUser({
-                    post: this.post
+                    user: this.user
                 }));
 
                 await this.requestOperation.value;
                 this.toastService.show({
                     type: ToastType.success,
-                    message: this.localizationService.localize("global.snippets.post_deleted")
+                    message: this.localizationService.localize("global.snippets.disconnected_from_user")
                 });
                 this.$emit("onPostDeleted", this.post);
             } catch (error) {

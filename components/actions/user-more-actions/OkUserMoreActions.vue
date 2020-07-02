@@ -2,12 +2,8 @@
     <div class="ok-has-background-primary is-semi-rounded">
         <div
                 class="box ok-has-background-primary-highlight is-paddingless">
-            <ok-edit-user-tile :user="user" @onUserEdited="onUserEdited" v-if="canEditUser"></ok-edit-user-tile>
-            <ok-close-user-tile :user="user" @onUserClosedChange="onUserClosedChange"
-                                v-if="canCloseOrOpenUser"></ok-close-user-tile>
-            <ok-enable-user-comments-tile :user="user" @onUserCommentsEnabledChange="onUserCommentsEnabledChange"
-                                          v-if="canEnableOrDisableUserComments"></ok-enable-user-comments-tile>
-            <ok-delete-user-tile :user="user" @onUserDeleted="onUserDeleted" v-if="canDeleteUser"></ok-delete-user-tile>
+            <ok-user-connection-tiles :user="user"></ok-user-connection-tiles>
+            <ok-block-user-tile :user="user" v-if="canBlockOrUnblockUser"></ok-block-user-tile>
             <ok-report-user-tile :user="user" :on-user-reported="onUserReported"
                                  v-if="canReportUser"></ok-report-user-tile>
         </div>
@@ -17,24 +13,21 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import { IUser } from "~/models/users/user/IUser";
     import OkTile from "~/components/tiles/OkTile.vue";
     import { BehaviorSubject } from "~/node_modules/rxjs";
-    import { IUser } from "~/models/auth/user/IUser";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import OkReportUserTile from "~/components/tiles/action/OkReportUserTile.vue";
-    import OkDeleteUserTile from "~/components/tiles/action/OkDeleteUserTile.vue";
-    import OkEditUserTile from "~/components/tiles/action/OkEditUserTile.vue";
-    import OkCloseUserTile from "~/components/tiles/action/OkCloseUserTile.vue";
-    import OkEnableUserCommentsTile from "~/components/tiles/action/OkEnableUserCommentsTile.vue";
+    import OkBlockUserTile from '~/components/tiles/action/OkBlockUserTile.vue';
+    import OkUserConnectionTiles from '~/components/tiles/grouped-actions/connect-with-user/OkUserConnectionTiles.vue';
+    import { IUser } from '~/models/auth/user/IUser';
 
     @Component({
         name: "OkUserMoreActions",
         components: {
-            OkEnableUserCommentsTile,
-            OkCloseUserTile, OkEditUserTile, OkDeleteUserTile, OkReportUserTile, OkTile
+            OkUserConnectionTiles,
+            OkBlockUserTile, OkReportUserTile, OkTile
         },
         subscriptions: function () {
             return {
@@ -79,21 +72,10 @@
             return this.$observables.loggedInUser.value.canReportUser(this.user);
         }
 
-        get canDeleteUser() {
-            return this.$observables.loggedInUser.value.canDeleteUser(this.user);
+        get canBlockOrUnblockUser() {
+            return this.$observables.loggedInUser.value.canBlockOrUnblockUser(this.user);
         }
 
-        get canEditUser() {
-            return this.$observables.loggedInUser.value.canEditUser(this.user);
-        }
-
-        get canCloseOrOpenUser(): boolean {
-            return this.$observables.loggedInUser.value.canCloseOrOpenUser(this.user);
-        }
-
-        get canEnableOrDisableUserComments(): boolean {
-            return this.$observables.loggedInUser.value.canEnableOrDisableUserComments(this.user);
-        }
 
 
     }

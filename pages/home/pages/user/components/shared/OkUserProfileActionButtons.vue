@@ -8,7 +8,7 @@
                 <ok-follow-button :user="user"></ok-follow-button>
             </div>
             <div class="column is-narrow is-flex justify-center align-items-center">
-                <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
+                <ok-more-user-actions-button :user="user"></ok-more-user-actions-button>
             </div>
         </div>
     </div>
@@ -23,10 +23,11 @@
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import OkFollowButton from "~/components/buttons/OkFollowButton.vue";
+    import OkMoreUserActionsButton from '~/components/buttons/more-buttons/OkMoreUserActionsButton.vue';
 
     @Component({
         name: "OkUserProfileActionButtons",
-        components: {OkFollowButton},
+        components: {OkMoreUserActionsButton, OkFollowButton},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser

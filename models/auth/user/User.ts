@@ -249,5 +249,9 @@ export class User extends DataModel<User> implements IUser {
         return community.isCreator;
     }
 
+    canReportUser(user: IUser): boolean {
+        return !user.isReported;
+    }
+
 
 }

@@ -69,4 +69,7 @@ export interface IUser extends IDataModel<IUser> {
     canCloseOrOpenPost(post: IPost): boolean;
 
     isCommunityCreator(community: ICommunity): boolean;
+
+    canReportUser(user: IUser): boolean;
+
 }

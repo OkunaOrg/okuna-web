@@ -19,18 +19,6 @@
            Connect
        </template>
    </div>
-    <ok-tile :on-click="onWantsToToggle">
-        <template v-slot:leading>
-            <ok-cancel-icon
-                    class="ok-svg-icon-primary-invert"></ok-cancel-icon>
-        </template>
-
-        <template v-slot:content>
-                    <span class="ok-has-text-primary-invert">
-                                {{ user.isBlocked ? $t('global.snippets.unblock_user') : $t('global.snippets.block_user')}}
-                            </span>
-        </template>
-    </ok-tile>
 </template>
 
 <style lang="scss">
@@ -51,10 +39,10 @@
     import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
-        name: "OkConnectWithUserTiles",
+        name: "OkUserConnectionTiles",
         components: {OkTile},
     })
-    export default class OkConnectWithUserTiles extends Vue {
+    export default class OkUserConnectionTiles extends Vue {
 
         @Prop({
             type: Object,

@@ -264,6 +264,7 @@ export default {
             "user_blocked": "User blocked",
             "unblock_user": "Unblock user",
             "user_unblocked": "User unblocked",
+            "disconnected_from_user": "You have been disconnected from this user",
         },
     },
 }
