@@ -25,6 +25,22 @@
             <ok-post-actions-modal :return-data-setter="setModalReturnData"
                                    :params="activeModalParams"></ok-post-actions-modal>
         </b-modal>
+        <b-modal :active.sync="communityActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-community-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-community-actions-modal>
+        </b-modal>
+        <b-modal :active.sync="userActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-user-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-user-actions-modal>
+        </b-modal>
+        <b-modal :active.sync="postCommentActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-post-comment-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-post-comment-actions-modal>
+        </b-modal>
+        <b-modal :active.sync="hashtagActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-hashtag-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-hashtag-actions-modal>
+        </b-modal>
         <b-modal :active.sync="reportObjectModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-report-object-modal :return-data-setter="setModalReturnData"
                                    :params="activeModalParams"></ok-report-object-modal>
@@ -80,6 +96,10 @@
         postModalOpened: boolean = false;
         postReactionsModalOpened: boolean = false;
         postActionsModalOpened: boolean = false;
+        userActionsModalOpened: boolean = false;
+        communityActionsModalOpened: boolean = false;
+        hashtagActionsModalOpened: boolean = false;
+        postCommentActionsModalOpened: boolean = false;
         postCommentReactionsModalOpened: boolean = false;
         communitiesListModalOpen: boolean = false;
         reportObjectModalOpen: boolean = false;
@@ -109,6 +129,10 @@
             this.postCommentReactionsModalOpened = activeModalValue === ModalType.postCommentReactions;
             this.communitiesListModalOpen = activeModalValue === ModalType.communitiesList;
             this.postActionsModalOpened = activeModalValue === ModalType.postActions;
+            this.userActionsModalOpened = activeModalValue === ModalType.userActions;
+            this.hashtagActionsModalOpened = activeModalValue === ModalType.hashtagActions;
+            this.communityActionsModalOpened = activeModalValue === ModalType.communityActions;
+            this.postCommentActionsModalOpened = activeModalValue === ModalType.postCommentActions;
             this.reportObjectModalOpen = activeModalValue === ModalType.reportObject;
         }
     }

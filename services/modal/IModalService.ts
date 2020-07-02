@@ -6,6 +6,9 @@ import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 import { OkHttpListOnScrollLoader, OkHttpListRefresher } from '~/components/http-list/lib/OkHttpListParams';
 import { IDataModel } from '~/models/abstract/IDataModel';
+import { IUser } from '~/models/auth/user/IUser';
+import { IHashtag } from '~/models/common/hashtag/IHashtag';
+import { ICommunity } from '~/models/communities/community/ICommunity';
 
 export interface IModalService {
 
@@ -38,7 +41,11 @@ export type ModalParams =
     | PostReactionsModalParams
     | HttpListModalParams<any>
     | PostActionsModalParams
-    | ReportObjectModalParams;
+    | ReportObjectModalParams
+    | UserActionsModalParams
+    | CommunityActionsModalParams
+    | PostCommentActionsModalParams
+    | HashtagActionsModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -54,6 +61,28 @@ export interface PostActionsModalParams {
     post: IPost;
     onPostDeleted?: (post: IPost) => void;
     onPostReported?: (post: IPost) => void;
+}
+
+export interface UserActionsModalParams {
+    user: IUser;
+    onUserBlocked?: (user: IUser) => void;
+    onUserReported?: (user: IUser) => void;
+}
+
+export interface CommunityActionsModalParams {
+    community: ICommunity;
+    onCommunityReported?: (community: ICommunity) => void;
+}
+
+export interface PostCommentActionsModalParams {
+    postComment: IPostComment;
+    onPostCommentDeleted?: (postComment: IPostComment) => void;
+    onPostCommentReported?: (postComment: IPostComment) => void;
+}
+
+export interface HashtagActionsModalParams {
+    hashtag: IHashtag;
+    onHashtagReported?: (hashtag: IHashtag) => void;
 }
 
 export interface PostReactionsModalParams {
