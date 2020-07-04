@@ -91,7 +91,7 @@
         @Prop({
             type: Function,
             required: true,
-        }) readonly onWantsToPickCircles: (circles: ICircle[]) => Promise<void>;
+        }) onWantsToPickCircles: (circles: ICircle[]) => Promise<void>;
 
 
         @Prop({
@@ -103,31 +103,31 @@
             type: Array,
             required: false,
             default: ()=> [],
-        }) readonly initialConnectionsCircles: ICircle[];
+        }) initialConnectionsCircles: ICircle[];
 
         @Prop({
             type: Array,
             required: false,
             default: ()=> [],
-        }) readonly disabledConnectionsCircles: ICircle[];
+        }) disabledConnectionsCircles: ICircle[];
 
         @Prop({
             type: Array,
             required: false,
             default: () => [],
-        }) readonly initialConnectionsCirclesIds: number[];
+        }) initialConnectionsCirclesIds: number[];
 
         @Prop({
             type: Array,
             required: false,
             default: () => [],
-        }) readonly disabledConnectionsCirclesIds: number[];
+        }) disabledConnectionsCirclesIds: number[];
 
         @Prop({
             type: Array,
             required: false,
             default: () => [],
-        }) readonly disabledConnectionsCirclesIds: number[];
+        }) disabledConnectionsCirclesIds: number[];
 
         selectedConnectionsCircles: ICircle[] = [];
         connectionsCircles: ICircle[] = [];

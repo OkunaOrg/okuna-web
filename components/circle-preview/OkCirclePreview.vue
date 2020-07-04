@@ -80,7 +80,6 @@
                     break;
                 case OkCirclePreviewSize.extraSmall:
                     sizeClass = "is-16x16";
-                    textClass = "is-size-7";
                     break;
             }
 
