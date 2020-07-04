@@ -18,9 +18,9 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { UserActionsModalParams } from "~/services/modal/IModalService";
-    import { IUser } from "~/models/users/user/IUser";
     import OkUserMoreActions from "~/components/actions/user-more-actions/OkUserMoreActions.vue";
     import { IConnection } from "~/models/connections/connection/IConnection";
+    import { IUser } from '~/models/auth/user/IUser';
 
     @Component({
         name: "OkUserActionsModal",

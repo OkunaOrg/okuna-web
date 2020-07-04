@@ -123,12 +123,6 @@
             default: () => [],
         }) disabledConnectionsCirclesIds: number[];
 
-        @Prop({
-            type: Array,
-            required: false,
-            default: () => [],
-        }) disabledConnectionsCirclesIds: number[];
-
         selectedConnectionsCircles: ICircle[] = [];
         connectionsCircles: ICircle[] = [];
 
