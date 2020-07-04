@@ -133,12 +133,15 @@
                     break;
 
                 case NotificationType.postCommentUserMention:
-                    this.initiator = contentObject['postCommentUserMention'].postComment.commenter;
-                    this.notificationBody = this.$t("components.notifications.mentioned_in_comment");
-                    this.preview = contentObject['postCommentUserMention'].postComment.post.mediaThumbnail || null;
+                    postComment = contentObject['postCommentUserMention'].postComment
+                    this.initiator = postComment.commenter;
+                    this.notificationBody = this.$t("components.notifications.mentioned_in_comment", {
+                        postCommentText: truncate(postComment.text, 255)
+                    });
+                    this.preview = postComment.post.mediaThumbnail || null;
                     this.action = this.buildPostUrl(
-                        contentObject['postCommentUserMention'].postComment.post.uuid,
-                        contentObject['postCommentUserMention'].postComment.id
+                        postComment.post.uuid,
+                        postComment.id
                     );
                     break;
 
