@@ -3,6 +3,8 @@
         <ok-connections-circles-picker
                 :initial-connections-circles="params.initialConnectionsCircles"
                 :disabled-connections-circles="params.disabledConnectionsCircles"
+                :initial-connections-circles-ids="params.initialConnectionsCirclesIds"
+                :disabled-connections-circles-ids="params.disabledConnectionsCirclesIds"
                 :title="params.title"
                 :action-label="params.actionLabel"
                 :on-wants-to-pick-circles="params.onWantsToPickCircles"

@@ -102,14 +102,32 @@
         @Prop({
             type: Array,
             required: false,
-            default: [],
+            default: ()=> [],
         }) readonly initialConnectionsCircles: ICircle[];
 
         @Prop({
             type: Array,
             required: false,
-            default: [],
+            default: ()=> [],
         }) readonly disabledConnectionsCircles: ICircle[];
+
+        @Prop({
+            type: Array,
+            required: false,
+            default: () => [],
+        }) readonly initialConnectionsCirclesIds: number[];
+
+        @Prop({
+            type: Array,
+            required: false,
+            default: () => [],
+        }) readonly disabledConnectionsCirclesIds: number[];
+
+        @Prop({
+            type: Array,
+            required: false,
+            default: () => [],
+        }) readonly disabledConnectionsCirclesIds: number[];
 
         selectedConnectionsCircles: ICircle[] = [];
         connectionsCircles: ICircle[] = [];
@@ -154,6 +172,21 @@
             try {
                 this.getConnectionsCirclesOperation = CancelableOperation.fromPromise(this.userService.getConnectionsCircles());
                 this.connectionsCircles = (await this.getConnectionsCirclesOperation.value).reverse();
+
+                this.connectionsCircles.forEach((connectionsCircle) => {
+                    this.initialConnectionsCirclesIds.forEach((initialConnectionsCircleId) => {
+                        if (connectionsCircle.id === initialConnectionsCircleId) {
+                            this.selectedConnectionsCircles.push(connectionsCircle);
+                        }
+                    });
+
+                    this.disabledConnectionsCirclesIds.forEach((disabledConnectionsCircleId) => {
+                        if (connectionsCircle.id === disabledConnectionsCircleId) {
+                            this.disabledConnectionsCircles.push(connectionsCircle);
+                        }
+                    });
+                })
+
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);
             } finally {

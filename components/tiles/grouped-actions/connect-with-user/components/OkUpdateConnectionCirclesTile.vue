@@ -71,7 +71,7 @@
             });
 
             this.modalService.openConnectionsCirclesPickerModal({
-                title: this.localizationService.localize("global.snippets.add_connection_to_circle"),
+                title: this.localizationService.localize("global.snippets.update_connection_circles"),
                 actionLabel: this.localizationService.localize("global.keywords.save"),
                 initialConnectionsCircles: this.user.connectedCircles,
                 disabledConnectionsCircles: disabledConectionsCircles,

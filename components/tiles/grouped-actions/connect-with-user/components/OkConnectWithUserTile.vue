@@ -32,10 +32,16 @@
     import { IUser } from "~/models/auth/user/IUser";
     import { IModalService } from "~/services/modal/IModalService";
     import { ICircle } from "~/models/connections/circle/ICircle";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
 
     @Component({
         name: "OkConnectWithUserTile",
         components: {OkTile},
+        subscriptions: function () {
+            return {
+                loggedInUser: this["userService"].loggedInUser
+            }
+        }
     })
     export default class OkConnectWithUserTile extends Vue {
 
@@ -43,6 +49,10 @@
             type: Object,
             required: false
         }) readonly user: IUser;
+
+        $observables!: {
+            loggedInUser: BehaviorSubject<IUser | undefined>
+        };
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
         private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
@@ -52,9 +62,13 @@
 
         onWantsToConnectWithUser() {
             if (this.user.isReported) return;
+
+
             this.modalService.openConnectionsCirclesPickerModal({
-                title: this.localizationService.localize("global.snippets.update_connection_circles"),
+                title: this.localizationService.localize("global.snippets.add_connection_to_circle"),
                 actionLabel: this.localizationService.localize("global.keywords.done"),
+                initialConnectionsCirclesIds: [this.$observables.loggedInUser.value.connectionsCircleId],
+                disabledConnectionsCirclesIds: [this.$observables.loggedInUser.value.connectionsCircleId],
                 onWantsToPickCircles: async (circles: ICircle[]) => {
                     const weWereFollowingUser = this.user.isFollowing;
                     const connection = await this.userService.connectWithUser({
@@ -62,7 +76,7 @@
                         circles: circles
                     });
 
-                    if(!weWereFollowingUser){
+                    if (!weWereFollowingUser) {
                         this.user.incrementFollowersCount();
                     }
 
