@@ -1,41 +1,41 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <div class="ok-connections-circles-picker-modal">
-            <ok-connections-circles-picker></ok-connections-circles-picker>
-        </div>
+        <ok-connections-circles-picker
+                :initial-connections-circles="params.initialConnectionsCircles"
+                :disabled-connections-circles="params.disabledConnectionsCircles"></ok-connections-circles-picker>
     </div>
 </template>
 
 <style lang="scss">
-    .ok-connections-circles-picker-modal {
-        max-width: 350px;
-        width: 100%;
-    }
 </style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
-    import { PostActionsModalParams } from "~/services/modal/IModalService";
+    import { ConnectionsCirclesPickerModalParams } from "~/services/modal/IModalService";
     import { IPost } from "~/models/posts/post/IPost";
     import OkPostMoreActions from '~/components/actions/post-more-actions/OkPostMoreActions.vue';
     import OkConnectionsCirclesPicker
         from '~/components/pickers/connections-circles-picker/OkConnectionsCirclesPicker.vue';
 
     @Component({
-        name: "OkConnectionsCirclesModal",
+        name: "OkConnectionsCirclesPickerModal",
         components: {OkConnectionsCirclesPicker, OkPostMoreActions, OkPostTheatre},
     })
-    export default class OkConnectionsCirclesModal extends Vue {
+    export default class OkConnectionsCirclesPickerModal extends Vue {
         @Prop({
             type: Object,
             required: true
-        }) readonly params: PostActionsModalParams;
+        }) readonly params: ConnectionsCirclesPickerModalParams;
 
         @Prop({
             type: Function,
             required: false
         }) readonly returnDataSetter: (data: any) => void;
+
+        created(){
+            console.log(this.params);
+        }
 
         onPostDeleted(post: IPost) {
             this.$parent["close"]();

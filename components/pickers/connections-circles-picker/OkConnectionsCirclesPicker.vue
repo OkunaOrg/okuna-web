@@ -1,36 +1,28 @@
 <template>
-    <div class="ok-has-background-primary is-semi-rounded">
+    <div class="ok-has-background-primary is-semi-rounded ok-connections-circles-picker">
         <div
-                class="box ok-connections-circles-picker ok-has-background-primary-highlight"
+                class="box ok-has-background-primary-highlight"
                 :class="{'is-loading': requestInProgress, 'has-width-100-percent': isFullWidth}">
             <template v-if="requestInProgress">
                 <ok-loading-indicator></ok-loading-indicator>
             </template>
-            <template v-else>
-                <div v-for="connectionsCircle in connectionsCircles">
-                    <div role="button" @click="toggleSelection(connectionsCircle)">
-                        <div class="ok-connections-circles-picker-circle-preview">
-                            <ok-circle-preview :circle="connectionsCircle"></ok-circle-preview>
-                            <div class="ok-connections-circles-picker-circle-preview-checkbox">
-                            </div>
-                        </div>
-                        <div>
-                            {{connectionsCircle.name}}
-                        </div>
-                        <div>
-                            {{humanFriendlyCount(connectionsCircle.usersCount)}}
-                        </div>
-                    </div>
+            <div v-else class="columns is-multiline is-mobile">
+                <div v-for="connectionsCircle in connectionsCircles" class="column is-narrow"
+                     :key="connectionsCircle.id">
+                    <ok-picker-connections-circle
+                            :circle="connectionsCircle"
+                            :is-selected="circleIsSelected(connectionsCircle)"
+                            :is-disabled="circleIsDisabled(connectionsCircle)"
+                            @onClick="onCircleClicked"></ok-picker-connections-circle>
                 </div>
-            </template>
+            </div>
         </div>
     </div>
 </template>
 
 <style lang="scss">
     .ok-connections-circles-picker {
-        width: 358px;
-        height: 250px;
+        max-width: 358px;
         overflow-x: hidden;
         overflow-y: auto;
 
@@ -39,8 +31,8 @@
 
             &-checkbox {
                 position: absolute;
-                bottom: 0;
-                right: 0;
+                bottom: -12px;
+                right: -12px;
             }
         }
     }
@@ -59,10 +51,12 @@
     import { ICircle } from "~/models/connections/circle/ICircle";
     import OkCirclePreview from "~/components/circle-preview/OkCirclePreview.vue";
     import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
+    import OkPickerConnectionsCircle
+        from '~/components/pickers/connections-circles-picker/components/OkPickerConnectionsCircle.vue';
 
     @Component({
         name: "OkConnectionsCirclesPicker",
-        components: {OkLoadingIndicator, OkCirclePreview},
+        components: {OkPickerConnectionsCircle, OkLoadingIndicator, OkCirclePreview},
     })
     export default class OkConnectionsCirclesPicker extends Vue {
 
@@ -75,10 +69,16 @@
 
         @Prop({
             type: Array,
+            required: false,
         }) readonly initialConnectionsCircles: ICircle[];
 
-        initialConnectionsCircles: ICircle[] = [];
+        @Prop({
+            type: Array,
+            required: false,
+        }) readonly disabledConnectionsCircles: ICircle[];
+
         selectedConnectionsCircles: ICircle[] = [];
+        selectedConnectionsCirclesIds: number[] = [];
         connectionsCircles: ICircle[] = [];
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
@@ -92,7 +92,8 @@
 
         created() {
             if (this.initialConnectionsCircles) {
-                this.selectedConnectionsCircles = this.initialConnectionsCircles.slice();
+                this.selectedConnectionsCircles = [...this.initialConnectionsCircles];
+                this.selectedConnectionsCirclesIds = this.selectedConnectionsCircles.map((circle) => circle.id);
             }
         }
 
@@ -104,7 +105,7 @@
             if (this.getConnectionsCirclesOperation) this.getConnectionsCirclesOperation.cancel();
         }
 
-        toggleSelection(circle: ICircle) {
+        onCircleClicked(circle: ICircle) {
             if (this.isPicked(circle)) {
                 this.removeSelection(circle);
             } else {
@@ -120,7 +121,7 @@
 
             try {
                 this.getConnectionsCirclesOperation = CancelableOperation.fromPromise(this.userService.getConnectionsCircles());
-                this.connectionsCircles = await this.getConnectionsCirclesOperation.value;
+                this.connectionsCircles = (await this.getConnectionsCirclesOperation.value).reverse();
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);
             } finally {
@@ -138,12 +139,26 @@
         }
 
         removeSelection(circle: ICircle) {
-            const indexOfItem = this.selectedConnectionsCircles.indexOf(circle);
+            let indexOfItem = this.selectedConnectionsCircles.indexOf(circle);
             if (indexOfItem > -1) this.selectedConnectionsCircles.splice(indexOfItem, 1);
+
+            indexOfItem = this.selectedConnectionsCirclesIds.indexOf(circle.id);
+            if (indexOfItem > -1) this.selectedConnectionsCirclesIds.splice(indexOfItem, 1);
         }
 
         addSelection(circle: ICircle) {
             this.selectedConnectionsCircles.push(circle);
+            this.selectedConnectionsCirclesIds.push(circle.id);
+        }
+
+        circleIsDisabled(circle: ICircle){
+            const item = this.disabledConnectionsCircles.find((item)=> item.id === circle.id);
+            return !!item;
+        }
+
+        circleIsSelected(circle: ICircle){
+            const item = this.selectedConnectionsCircles.find((item)=> item.id === circle.id);
+            return !!item;
         }
     }
 </script>

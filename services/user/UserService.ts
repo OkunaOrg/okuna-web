@@ -272,6 +272,7 @@ export class UserService implements IUserService {
 
 
     async reportUser(params: ReportUserParams): Promise<void> {
+        return Promise.resolve();
         await this.authApiService.reportUser({
             userUsername: params.user.username,
             description: params.description,
@@ -280,6 +281,7 @@ export class UserService implements IUserService {
     }
 
     async blockUser(params: BlockUserParams): Promise<void> {
+        return Promise.resolve();
         await this.authApiService.blockUser({
             userUsername: params.user.username,
         });
@@ -287,12 +289,17 @@ export class UserService implements IUserService {
 
 
     async unblockUser(params: UnblockUserParams): Promise<void> {
+        return Promise.resolve();
         await this.authApiService.unblockUser({
             userUsername: params.user.username,
         });
     }
 
     async connectWithUser(params: ConnectWithUserParams): Promise<IConnection> {
+        return Promise.resolve({
+            targetUser: params.user
+        } as unknown as IConnection);
+
         const response: AxiosResponse<ConnectionData> = await this.connectionsApiService.connectWithUser({
             userUsername: params.user.username,
             circlesIds: params.circles ? params.circles.map((item) => item.id) : null,
@@ -302,12 +309,18 @@ export class UserService implements IUserService {
     }
 
     async disconnectFromUser(params: DisconnectFromUserParams): Promise<void> {
+        return Promise.resolve();
         await this.connectionsApiService.disconnectFromUser({
             userUsername: params.user.username,
         });
     }
 
     async confirmConnectionWithUser(params: ConfirmConnectionWithUserParaUserParams): Promise<IConnection> {
+        return Promise.resolve({
+            id: 1,
+            targetUser: params.user,
+        } as unknown as  IConnection);
+
         const response: AxiosResponse<ConnectionData> = await this.connectionsApiService.confirmConnectionWithUser({
             userUsername: params.user.username,
             circlesIds: params.circles ? params.circles.map((item) => item.id) : null,
@@ -316,6 +329,10 @@ export class UserService implements IUserService {
     }
 
     async updateConnectionWithUser(params: UpdateConnectionWithUserParaUserParams): Promise<IConnection> {
+        return Promise.resolve({
+            targetUser: params.user
+        } as unknown as IConnection);
+
         const response: AxiosResponse<ConnectionData> = await this.connectionsApiService.updateConnectionWithUser({
             userUsername: params.user.username,
             circlesIds: params.circles ? params.circles.map((item) => item.id) : null,

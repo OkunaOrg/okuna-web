@@ -45,7 +45,6 @@
 
         @Prop({
             type: Boolean,
-            required: true,
         }) readonly isDisabled: boolean;
 
         readonly OkCirclePreviewSize = OkCirclePreviewSize;
@@ -59,7 +58,7 @@
         get cssStyle() {
             return {
                 backgroundColor: this.circle.color.hex(),
-                border: `solid 2px ${this.themeService.getColorForThemeColorType(OkThemeColorType.primaryHighlight).hex()}`,
+                border: `solid 2px ${this.themeService.getColorForThemeColorType(OkThemeColorType.primaryHighlight).hsl().toString()}`,
             };
         }
 

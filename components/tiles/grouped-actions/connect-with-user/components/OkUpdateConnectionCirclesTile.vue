@@ -1,5 +1,5 @@
 <template>
-    <ok-tile :on-click="onWantsToUpdateConnectionCircles">
+    <ok-tile :on-click="onWantsToUpdateConnectionCircles" v-if="loggedInUser">
         <template v-slot:leading>
             <ok-circles-icon
                     class="ok-svg-icon-primary-invert"></ok-circles-icon>
@@ -29,17 +29,28 @@
     import { IUser } from "~/models/auth/user/IUser";
     import { IModalService } from "~/services/modal/IModalService";
     import { ICircle } from "~/models/connections/circle/ICircle";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
 
     @Component({
         name: "OkUpdateConnectionCirclesTile",
         components: {OkTile},
+        subscriptions: function () {
+            return {
+                loggedInUser: this["userService"].loggedInUser
+            }
+        }
     })
     export default class OkUpdateConnectionCirclesTile extends Vue {
 
         @Prop({
             type: Object,
-            required: false
+            required: true
         }) readonly user: IUser;
+
+        $observables!: {
+            loggedInUser: BehaviorSubject<IUser | undefined>
+        };
+
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
         private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
@@ -49,10 +60,21 @@
 
         onWantsToUpdateConnectionCircles() {
             if (this.user.isReported) return;
+
+            let disabledConectionsCircles = [];
+
+
+            this.user.connectedCircles.forEach((connectedCircle) => {
+                if (connectedCircle.id === this.$observables.loggedInUser.value.connectionsCircleId) {
+                    disabledConectionsCircles.push(connectedCircle);
+                }
+            });
+
             this.modalService.openConnectionsCirclesPickerModal({
                 title: this.localizationService.localize("global.snippets.add_connection_to_circle"),
                 actionLabel: this.localizationService.localize("global.keywords.done"),
-                initialPickedCircles: this.user.connectedCircles,
+                initialConnectionsCircles: this.user.connectedCircles,
+                disabledConnectionsCircles: disabledConectionsCircles,
                 onPickedCircles: async (circles: ICircle[]) => {
                     await this.userService.updateConnectionWithUser({
                         user: this.user,

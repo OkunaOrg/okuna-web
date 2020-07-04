@@ -73,7 +73,8 @@ export interface ConnectionsCirclesPickerModalParams {
     title: string;
     actionLabel: string;
     onPickedCircles: (circles: ICircle[])=> Promise<void>;
-    initialPickedCircles?: ICircle[];
+    initialConnectionsCircles?: ICircle[];
+    disabledConnectionsCircles?: ICircle[];
 }
 
 export interface PostActionsModalParams {

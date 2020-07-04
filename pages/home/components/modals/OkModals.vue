@@ -46,8 +46,8 @@
                                    :params="activeModalParams"></ok-report-object-modal>
         </b-modal>
         <b-modal :active.sync="connectionsCirclesPickerOpen" :trap-focus="true" @close="onModalClosed">
-            <ok-connections-circles-picker :return-data-setter="setModalReturnData"
-                                    :params="activeModalParams"></ok-connections-circles-picker>
+            <ok-connections-circles-picker-modal :return-data-setter="setModalReturnData"
+                                    :params="activeModalParams"></ok-connections-circles-picker-modal>
         </b-modal>
     </div>
 </template>
@@ -78,13 +78,14 @@
     import OkPostActionsModal from "~/pages/home/components/modals/components/OkPostActionsModal.vue";
     import OkReportObjectModal from '~/pages/home/components/modals/components/OkReportObjectModal.vue';
     import OkUserActionsModal from '~/pages/home/components/modals/components/OkUserActionsModal.vue';
-    import OkConnectionsCirclesPicker
-        from '~/components/pickers/connections-circles-picker/OkConnectionsCirclesPicker.vue';
+
+    import OkConnectionsCirclesPickerModal
+        from '~/pages/home/components/modals/components/OkConnectionsCirclesPickerModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
-            OkConnectionsCirclesPicker,
+            OkConnectionsCirclesPickerModal,
             OkUserActionsModal,
             OkReportObjectModal,
             OkPostActionsModal,
