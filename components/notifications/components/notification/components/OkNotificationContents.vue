@@ -15,7 +15,7 @@
         <div class="notification-body media-content">
             <strong class="notification-body-name" v-if="!community">{{ initiator.profile.name }}</strong>
             <span class="notification-body-username" v-if="!community">@{{ initiator.username }}</span>
-            <span class="notification-text">{{ notificationBody }}</span>
+            <span class="notification-text has-preserved-whitespace">{{ notificationBody }}</span>
             <div class="created-at">
                 {{ created | moment("from", "now") }}
             </div>

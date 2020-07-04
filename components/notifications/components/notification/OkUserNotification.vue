@@ -91,65 +91,69 @@
         }
 
         created() {
-            let postComment;
             const contentObject = this.notification.contentObject;
 
             switch (this.notification.type) {
                 case NotificationType.postReaction:
-                    this.initiator = contentObject['postReaction'].reactor;
-                    this.emoji = contentObject['postReaction'].emoji;
+                    let postReaction = contentObject['postReaction'];
+                    this.initiator = postReaction.reactor;
+                    this.emoji = postReaction.emoji;
                     this.notificationBody = this.$t("components.notifications.reacted_to_post");
-                    this.preview = contentObject['postReaction'].post.mediaThumbnail || null;
+                    this.preview = postReaction.post.mediaThumbnail || null;
                     this.action = this.buildPostUrl(
-                        contentObject['postReaction'].post.uuid
+                        postReaction.post.uuid
                     );
                     break;
 
                 case NotificationType.postComment:
-                    postComment = contentObject['postComment'];
-                    this.initiator = postComment.commenter;
-                    this.notificationBody = this.$t(this.getTranslationKeyByUser("comment", postComment.post.creator), {
-                        postCommentText: truncate(postComment.text, 255)
+                    let comment = contentObject['postComment'];
+                    this.initiator = comment.commenter;
+                    this.notificationBody = this.$t(this.getTranslationKeyByUser("comment", comment.post.creator), {
+                        postCommentText: truncate(comment.text, 255)
                     });
-                    this.preview = postComment.post.mediaThumbnail || null;
+                    this.preview = comment.post.mediaThumbnail || null;
                     this.action = this.buildPostUrl(
-                        contentObject['postComment'].post.uuid,
-                        contentObject['postComment'].id
+                        comment.post.uuid,
+                        comment.id
                     );
                     break;
 
                 case NotificationType.postCommentReply:
-                    postComment = contentObject['postComment'];
-                    this.initiator = postComment.commenter;
-                    this.notificationBody = this.$t(this.getTranslationKeyByUser("reply", postComment.parentComment.commenter), {
-                        postCommentText: truncate(postComment.text, 255)
+                    let reply = contentObject['postComment'];
+                    this.initiator = reply.commenter;
+                    this.notificationBody = this.$t(this.getTranslationKeyByUser("reply", reply.parentComment.commenter), {
+                        postCommentText: truncate(reply.text, 255)
                     });
-                    this.preview = postComment.post.mediaThumbnail || null;
+                    this.preview = reply.post.mediaThumbnail || null;
                     this.action = this.buildPostUrl(
-                        contentObject['postComment'].post.uuid,
-                        contentObject['postComment'].parentComment.id,
-                        contentObject['postComment'].id
+                        reply.post.uuid,
+                        reply.parentComment.id,
+                        reply.id
                     );
                     break;
 
                 case NotificationType.postCommentUserMention:
-                    this.initiator = contentObject['postCommentUserMention'].postComment.commenter;
-                    this.notificationBody = this.$t("components.notifications.mentioned_in_comment");
-                    this.preview = contentObject['postCommentUserMention'].postComment.post.mediaThumbnail || null;
+                    let commentMention = contentObject['postCommentUserMention']
+                    this.initiator = commentMention.postComment.commenter;
+                    this.notificationBody = this.$t("components.notifications.mentioned_in_comment", {
+                        postCommentText: truncate(commentMention.postComment.text, 255)
+                    });
+                    this.preview = commentMention.postComment.post.mediaThumbnail || null;
                     this.action = this.buildPostUrl(
-                        contentObject['postCommentUserMention'].postComment.post.uuid,
-                        contentObject['postCommentUserMention'].postComment.id
+                        commentMention.postComment.post.uuid,
+                        commentMention.postComment.id
                     );
                     break;
 
                 case NotificationType.postCommentReaction:
-                    this.initiator = contentObject['postCommentReaction'].reactor;
-                    this.emoji = contentObject['postCommentReaction'].emoji;
+                    let commentReaction = contentObject['postCommentReaction'];
+                    this.initiator = commentReaction.reactor;
+                    this.emoji = commentReaction.emoji;
                     this.notificationBody = this.$t("components.notifications.reacted_to_post_comment");
-                    this.preview = contentObject['postCommentReaction'].postComment.post.mediaThumbnail || null;
+                    this.preview = commentReaction.postComment.post.mediaThumbnail || null;
                     this.action = this.buildPostUrl(
-                        contentObject['postCommentReaction'].postComment.post.uuid,
-                        contentObject['postCommentReaction'].postComment.id
+                        commentReaction.postComment.post.uuid,
+                        commentReaction.postComment.id
                     );
                     break;
 
@@ -180,29 +184,32 @@
                     break;
 
                 case NotificationType.postUserMention:
-                    this.initiator = contentObject['postUserMention'].post.creator;
+                    let postMention = contentObject['postUserMention'];
+                    this.initiator = postMention.post.creator;
                     this.notificationBody = this.$t("components.notifications.mentioned_in_post");
-                    this.preview = contentObject['postUserMention'].post.mediaThumbnail || null;
+                    this.preview = postMention.post.mediaThumbnail || null;
                     this.action = this.buildPostUrl(
-                        contentObject['postUserMention'].post.uuid
+                        postMention.post.uuid
                     );
                     break;
 
                 case NotificationType.communityNewPost:
-                    this.initiator = contentObject['post'].creator;
-                    this.community = contentObject['post'].community;
+                    let communityPost = contentObject['post'];
+                    this.initiator = communityPost.creator;
+                    this.community = communityPost.community;
                     this.notificationBody = this.$t("components.notifications.community_new_post", {
-                        communityName: contentObject['post'].community.name
+                        communityName: communityPost.community.name
                     });
-                    this.preview = contentObject['post'].mediaThumbnail || null;
-                    this.action = this.buildPostUrl(contentObject['post'].uuid);
+                    this.preview = communityPost.mediaThumbnail || null;
+                    this.action = this.buildPostUrl(communityPost.uuid);
                     break;
 
                 case NotificationType.userNewPost:
-                    this.initiator = contentObject['post'].creator;
+                    let userPost = contentObject['post'];
+                    this.initiator = userPost.creator;
                     this.notificationBody = this.$t("components.notifications.user_new_post");
-                    this.preview = contentObject['post'].mediaThumbnail || null;
-                    this.action = this.buildPostUrl(contentObject['post'].uuid);
+                    this.preview = userPost.mediaThumbnail || null;
+                    this.action = this.buildPostUrl(userPost.uuid);
                     break;
 
                 default:
