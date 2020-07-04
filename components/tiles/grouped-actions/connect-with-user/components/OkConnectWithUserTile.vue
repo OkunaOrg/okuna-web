@@ -77,6 +77,7 @@
                     });
 
                     if (!weWereFollowingUser) {
+                        this.user.isFollowing = true;
                         this.user.incrementFollowersCount();
                     }
 
