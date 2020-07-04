@@ -83,6 +83,8 @@
                     this.user.isConnected = true;
                     this.user.isFullyConnected = false;
 
+                    this.user.connectedCircles = [...circles];
+
                     this.toastService.show({
                         type: ToastType.success,
                         message: this.localizationService.localize("global.snippets.connection_request_sent")
