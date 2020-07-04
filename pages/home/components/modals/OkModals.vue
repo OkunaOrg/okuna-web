@@ -45,6 +45,10 @@
             <ok-report-object-modal :return-data-setter="setModalReturnData"
                                    :params="activeModalParams"></ok-report-object-modal>
         </b-modal>
+        <b-modal :active.sync="connectionsCirclesPickerOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-connections-circles-picker :return-data-setter="setModalReturnData"
+                                    :params="activeModalParams"></ok-connections-circles-picker>
+        </b-modal>
     </div>
 </template>
 
@@ -74,10 +78,13 @@
     import OkPostActionsModal from "~/pages/home/components/modals/components/OkPostActionsModal.vue";
     import OkReportObjectModal from '~/pages/home/components/modals/components/OkReportObjectModal.vue';
     import OkUserActionsModal from '~/pages/home/components/modals/components/OkUserActionsModal.vue';
+    import OkConnectionsCirclesPicker
+        from '~/components/pickers/connections-circles-picker/OkConnectionsCirclesPicker.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkConnectionsCirclesPicker,
             OkUserActionsModal,
             OkReportObjectModal,
             OkPostActionsModal,
@@ -105,6 +112,7 @@
         postCommentReactionsModalOpened: boolean = false;
         communitiesListModalOpen: boolean = false;
         reportObjectModalOpen: boolean = false;
+        connectionsCirclesPickerOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -136,6 +144,7 @@
             this.communityActionsModalOpened = activeModalValue === ModalType.communityActions;
             this.postCommentActionsModalOpened = activeModalValue === ModalType.postCommentActions;
             this.reportObjectModalOpen = activeModalValue === ModalType.reportObject;
+            this.connectionsCirclesPickerOpen = activeModalValue === ModalType.connectionsCirclesPicker;
         }
     }
 </script>

@@ -1,13 +1,13 @@
 <template>
-    <ok-tile :on-click="onWantsToUpdateConnectionCircles">
+    <ok-tile :on-click="onWantsToConnectWithUser">
         <template v-slot:leading>
-            <ok-circles-icon
-                    class="ok-svg-icon-primary-invert"></ok-circles-icon>
+            <ok-connect-icon
+                    class="ok-svg-icon-primary-invert"></ok-connect-icon>
         </template>
 
         <template v-slot:content>
                     <span class="ok-has-text-primary-invert">
-                                {{ $t('global.snippets.update_connection_circles') }}
+                                {{ $t('global.snippets.connect_with_user') }}
                             </span>
         </template>
     </ok-tile>
@@ -20,9 +20,12 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkTile from "~/components/tiles/OkTile.vue";
+    import { IPost } from "~/models/posts/post/IPost";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IToastService } from "~/services/toast/IToastService";
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUserService } from "~/services/user/IUserService";
     import { ToastType } from "~/services/toast/lib/ToastType";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
@@ -31,10 +34,10 @@
     import { ICircle } from "~/models/connections/circle/ICircle";
 
     @Component({
-        name: "OkUpdateConnectionCirclesTile",
+        name: "OkConnectWithUserTile",
         components: {OkTile},
     })
-    export default class OkUpdateConnectionCirclesTile extends Vue {
+    export default class OkConnectWithUserTile extends Vue {
 
         @Prop({
             type: Object,
@@ -47,24 +50,23 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
 
-        onWantsToUpdateConnectionCircles() {
+        onWantsToConnectWithUser() {
             if (this.user.isReported) return;
             this.modalService.openConnectionsCirclesPickerModal({
-                title: this.localizationService.localize("global.snippets.add_connection_to_circle"),
-                actionLabel: this.localizationService.localize("global.keywords.done"),
-                initialPickedCircles: this.user.connectedCircles,
+                title: this.localizationService.localize("global.snippets.update_connection_circles"),
+                actionLabel: this.localizationService.localize("global.keywords.save"),
                 onPickedCircles: async (circles: ICircle[]) => {
-                    await this.userService.updateConnectionWithUser({
+                    const connection = await this.userService.connectWithUser({
                         user: this.user,
                         circles: circles
                     });
 
                     this.toastService.show({
                         type: ToastType.success,
-                        message: this.localizationService.localize("global.snippets.connection_circles_updated")
+                        message: this.localizationService.localize("global.snippets.connection_request_sent")
                     });
 
-                    this.$emit("onConnectionCirclesUpdated", circles);
+                    this.$emit("onConnectionRequestSent", connection);
                 },
             });
         }

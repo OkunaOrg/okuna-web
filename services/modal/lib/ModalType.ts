@@ -9,6 +9,7 @@ export class ModalType {
     static communityActions = new ModalType('CommunityActions');
     static hashtagActions = new ModalType('HashtagActions');
     static postCommentActions = new ModalType('PostCommentActions');
+    static connectionsCirclesPicker = new ModalType('ConnectionsCirclesPicker');
 
 
     static _values: ModalType[] = [
@@ -20,6 +21,7 @@ export class ModalType {
         ModalType.userActions,
         ModalType.communityActions,
         ModalType.postCommentActions,
+        ModalType.connectionsCirclesPicker,
     ];
 
     static values() {

@@ -53,7 +53,7 @@
 
 
         onWantsToToggle() {
-            if (this.user.commentsEnabled) {
+            if (this.user.isBlocked) {
                 // Open
                 return this.unblockUser();
             } else {

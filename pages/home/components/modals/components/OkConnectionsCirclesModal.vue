@@ -1,11 +1,13 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <ok-connections-circles-picker></ok-connections-circles-picker>
+        <div class="ok-connections-circles-picker-modal">
+            <ok-connections-circles-picker></ok-connections-circles-picker>
+        </div>
     </div>
 </template>
 
 <style lang="scss">
-    .ok-post-actions-modal {
+    .ok-connections-circles-picker-modal {
         max-width: 350px;
         width: 100%;
     }
@@ -21,10 +23,10 @@
         from '~/components/pickers/connections-circles-picker/OkConnectionsCirclesPicker.vue';
 
     @Component({
-        name: "OkUpdateConnectionCirclesModal",
+        name: "OkConnectionsCirclesModal",
         components: {OkConnectionsCirclesPicker, OkPostMoreActions, OkPostTheatre},
     })
-    export default class OkUpdateConnectionCirclesModal extends Vue {
+    export default class OkConnectionsCirclesModal extends Vue {
         @Prop({
             type: Object,
             required: true

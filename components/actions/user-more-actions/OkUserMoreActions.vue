@@ -4,8 +4,7 @@
                 class="box ok-has-background-primary-highlight is-paddingless">
             <ok-user-connection-tiles :user="user"></ok-user-connection-tiles>
             <ok-block-user-tile :user="user" v-if="canBlockOrUnblockUser"></ok-block-user-tile>
-            <ok-report-user-tile :user="user" :on-user-reported="onUserReported"
-                                 v-if="canReportUser"></ok-report-user-tile>
+            <ok-report-user-tile :user="user" :on-user-reported="onUserReported"></ok-report-user-tile>
         </div>
     </div>
 </template>
@@ -66,10 +65,6 @@
 
         onUserClosedChange(userIsClosed: boolean) {
             this.$emit("onUserClosedChange", userIsClosed);
-        }
-
-        get canReportUser() {
-            return this.$observables.loggedInUser.value.canReportUser(this.user);
         }
 
         get canBlockOrUnblockUser() {

@@ -47,7 +47,7 @@ export interface DisconnectFromUserParams {
 
 export interface ConfirmConnectionWithUserParaUserParams {
     user: IUser;
-    circles: ICircle[];
+    circles?: ICircle[];
 }
 
 export interface UpdateConnectionWithUserParaUserParams {

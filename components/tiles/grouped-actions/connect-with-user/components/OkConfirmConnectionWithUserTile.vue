@@ -1,19 +1,13 @@
 <template>
-    <ok-tile :on-click="onWantsToDisconnectFromUser">
+    <ok-tile :on-click="onWantsToConfirmConnectionWithUser">
         <template v-slot:leading>
-            <template v-if="user.isFullyConnected ">
-                <ok-cancel-icon
-                        class="ok-svg-icon-primary-invert"></ok-cancel-icon>
-            </template>
-            <template v-else>
-                <ok-reject-icon
-                        class="ok-svg-icon-primary-invert"></ok-reject-icon>
-            </template>
+            <ok-approve-icon
+                    class="ok-svg-icon-primary-invert"></ok-approve-icon>
         </template>
 
         <template v-slot:content>
                     <span class="ok-has-text-primary-invert">
-                                {{user.isFullyConnected ? $t('global.snippets.disconnect_from_user') : $t('global.snippets.deny_user_connection')}}
+                                {{ $t('global.snippets.confirm_user_connection')}}
                             </span>
         </template>
     </ok-tile>
@@ -26,7 +20,6 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkTile from "~/components/tiles/OkTile.vue";
-    import { IPost } from "~/models/posts/post/IPost";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IToastService } from "~/services/toast/IToastService";
@@ -35,20 +28,21 @@
     import { IUserService } from "~/services/user/IUserService";
     import { ToastType } from "~/services/toast/lib/ToastType";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
-    import { IUser } from '~/models/auth/user/IUser';
+    import { IUser } from "~/models/auth/user/IUser";
+    import { IConnection } from "~/models/connections/connection/IConnection";
 
     @Component({
-        name: "OkDisconnectFromUserTile",
+        name: "OkConfirmConnectionWithUserTile",
         components: {OkTile},
     })
-    export default class OkDisconnectFromUserTile extends Vue {
+    export default class OkConfirmConnectionWithUserTile extends Vue {
 
         @Prop({
             type: Object,
             required: false
         }) readonly user: IUser;
 
-        private requestOperation?: CancelableOperation<void>;
+        private requestOperation?: CancelableOperation<IConnection>;
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
@@ -56,26 +50,28 @@
 
         requestInProgress = false;
 
-        async onWantsToDisconnectFromUser() {
+        async onWantsToConfirmConnectionWithUser() {
             if (this.requestInProgress) return;
             this.requestInProgress = true;
 
 
             try {
-                this.requestOperation = CancelableOperation.fromPromise(this.userService.disconnectFromUser({
+                this.requestOperation = CancelableOperation.fromPromise(this.userService.confirmConnectionWithUser({
                     user: this.user
                 }));
 
-                await this.requestOperation.value;
+                const connection = await this.requestOperation.value;
+
+                this.user.isFullyConnected = true;
+                this.user.isPendingConnectionConfirmation = false;
+
+                if(!this.user.isFollowing) this.user.incrementFollowersCount();
+
                 this.toastService.show({
                     type: ToastType.success,
-                    message: this.localizationService.localize("global.snippets.disconnected_from_user")
+                    message: this.localizationService.localize("global.snippets.user_connection_confirmed")
                 });
-                this.user.isConnected = false;
-                this.user.isPendingConnectionConfirmation = false;
-                this.user.isFullyConnected = false;
-
-                this.$emit("onDisconnectedFromUser", this.user);
+                this.$emit("onConnectionConfirmed", connection);
             } catch (error) {
                 this.utilsService.handleErrorWithToast(error);
             } finally {

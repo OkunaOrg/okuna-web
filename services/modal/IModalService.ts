@@ -9,6 +9,7 @@ import { IDataModel } from '~/models/abstract/IDataModel';
 import { IUser } from '~/models/auth/user/IUser';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { ICommunity } from '~/models/communities/community/ICommunity';
+import { ICircle } from '~/models/connections/circle/ICircle';
 
 export interface IModalService {
 
@@ -33,6 +34,8 @@ export interface IModalService {
 
     openReportObjectModal(params: ReportObjectModalParams): Promise<void>;
 
+    openConnectionsCirclesPickerModal(params: ConnectionsCirclesPickerModalParams): Promise<void>;
+
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
 
@@ -53,7 +56,8 @@ export type ModalParams =
     | UserActionsModalParams
     | CommunityActionsModalParams
     | PostCommentActionsModalParams
-    | HashtagActionsModalParams;
+    | HashtagActionsModalParams
+    | ConnectionsCirclesPickerModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -63,6 +67,13 @@ export interface HttpListModalParams<T> {
 
 export interface PostModalParams {
     post: IPost;
+}
+
+export interface ConnectionsCirclesPickerModalParams {
+    title: string;
+    actionLabel: string;
+    onPickedCircles: (circles: ICircle[])=> Promise<void>;
+    initialPickedCircles?: ICircle[];
 }
 
 export interface PostActionsModalParams {

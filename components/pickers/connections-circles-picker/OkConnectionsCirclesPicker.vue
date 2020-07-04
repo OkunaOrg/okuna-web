@@ -12,7 +12,6 @@
                         <div class="ok-connections-circles-picker-circle-preview">
                             <ok-circle-preview :circle="connectionsCircle"></ok-circle-preview>
                             <div class="ok-connections-circles-picker-circle-preview-checkbox">
-                                <b-checkbox v-model="isPicked(connectionsCircle)"></b-checkbox>
                             </div>
                         </div>
                         <div>

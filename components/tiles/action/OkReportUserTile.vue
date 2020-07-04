@@ -1,5 +1,5 @@
 <template>
-    <ok-tile :on-click="onWantsToReportUser">
+    <ok-tile :on-click="onWantsToReportUser" :disabled="user.isReported">
         <template v-slot:leading>
             <ok-report-icon
                     class="ok-svg-icon-primary-invert"></ok-report-icon>
@@ -7,7 +7,7 @@
 
         <template v-slot:content>
                     <span class="ok-has-text-primary-invert">
-                                {{$t('global.snippets.report_user')}}
+                                {{user.isReported ? $t('global.snippets.user_reported'): $t('global.snippets.report_user') }}
                             </span>
         </template>
     </ok-tile>
@@ -25,8 +25,8 @@
     import { TYPES } from "~/services/inversify-types";
     import { IToastService } from "~/services/toast/IToastService";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
-    import { ToastType } from '~/services/toast/lib/ToastType';
-    import { IUser } from '~/models/auth/user/IUser';
+    import { ToastType } from "~/services/toast/lib/ToastType";
+    import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
         name: "OkReportUserTile",
@@ -51,6 +51,7 @@
 
 
         onWantsToReportUser() {
+            if (this.user.isReported) return;
             this.modalService.openReportObjectModal({
                 object: this.user,
                 onObjectReported: (user: any) => {
@@ -59,7 +60,7 @@
                         message: this.localizationService.localize("global.snippets.user_reported")
                     });
                     this.$emit("onUserReported", user);
-                    if(this.onUserReported) this.onUserReported(user);
+                    if (this.onUserReported) this.onUserReported(user);
                 }
             });
         }
