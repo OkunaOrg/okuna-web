@@ -72,10 +72,12 @@
 
             this.modalService.openConnectionsCirclesPickerModal({
                 title: this.localizationService.localize("global.snippets.add_connection_to_circle"),
-                actionLabel: this.localizationService.localize("global.keywords.done"),
+                actionLabel: this.localizationService.localize("global.keywords.save"),
                 initialConnectionsCircles: this.user.connectedCircles,
                 disabledConnectionsCircles: disabledConectionsCircles,
-                onPickedCircles: async (circles: ICircle[]) => {
+                onWantsToPickCircles: async (circles: ICircle[]) => {
+                    console.log(circles);
+
                     await this.userService.updateConnectionWithUser({
                         user: this.user,
                         circles: circles

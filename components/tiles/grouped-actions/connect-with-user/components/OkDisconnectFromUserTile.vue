@@ -13,7 +13,7 @@
 
         <template v-slot:content>
                     <span class="ok-has-text-primary-invert">
-                                {{user.isFullyConnected ? $t('global.snippets.disconnect_from_user') : $t('global.snippets.deny_user_connection')}}
+                                {{title || (user.isFullyConnected ? $t('global.snippets.disconnect_from_user') : $t('global.snippets.deny_user_connection'))}}
                             </span>
         </template>
     </ok-tile>
@@ -35,7 +35,7 @@
     import { IUserService } from "~/services/user/IUserService";
     import { ToastType } from "~/services/toast/lib/ToastType";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
-    import { IUser } from '~/models/auth/user/IUser';
+    import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
         name: "OkDisconnectFromUserTile",
@@ -47,6 +47,11 @@
             type: Object,
             required: false
         }) readonly user: IUser;
+
+        @Prop({
+            type: String,
+            required: false
+        }) readonly title: string;
 
         private requestOperation?: CancelableOperation<void>;
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);

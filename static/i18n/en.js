@@ -219,6 +219,7 @@ export default {
             "optional": "Optional",
             "description": "description",
             "done": "Done",
+            "save": "Save",
         },
         "models": {
             "post": "post",
@@ -275,6 +276,7 @@ export default {
             "add_connection_to_circle": "Add connection to circle",
             "update_connection_circles": "Update connection circles",
             "connection_circles_updated": "Connection circles updated",
+            "cancel_connection_request": "Cancel connection request",
         },
     },
 }

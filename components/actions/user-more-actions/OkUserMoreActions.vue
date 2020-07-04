@@ -2,8 +2,10 @@
     <div class="ok-has-background-primary is-semi-rounded">
         <div
                 class="box ok-has-background-primary-highlight is-paddingless">
-            <ok-user-connection-tiles :user="user"></ok-user-connection-tiles>
-            <ok-block-user-tile :user="user" v-if="canBlockOrUnblockUser"></ok-block-user-tile>
+            <ok-user-connection-tiles :user="user"
+                                      @onDisconnectedFromUser="onDisconnectedFromUser"
+                                      @onConnectionConfirmed="onConnectionConfirmed"></ok-user-connection-tiles>
+            <ok-block-user-tile :user="user" v-if="canBlockOrUnblockUser" @onUserIsBlockedChange="onUserIsBlockedChange"></ok-block-user-tile>
             <ok-report-user-tile :user="user" :on-user-reported="onUserReported"></ok-report-user-tile>
         </div>
     </div>
@@ -21,6 +23,7 @@
     import OkBlockUserTile from '~/components/tiles/action/OkBlockUserTile.vue';
     import OkUserConnectionTiles from '~/components/tiles/grouped-actions/connect-with-user/OkUserConnectionTiles.vue';
     import { IUser } from '~/models/auth/user/IUser';
+    import { IConnection } from '~/models/connections/connection/IConnection';
 
     @Component({
         name: "OkUserMoreActions",
@@ -55,17 +58,20 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
 
-        onUserDeleted(user: IUser) {
-            this.$emit("onUserDeleted", user);
+        onDisconnectedFromUser(user: IUser){
+            this.$emit('onDisconnectedFromUser', user);
         }
 
-        onUserCommentsEnabledChange(commentsEnabled: boolean) {
-            this.$emit("onUserCommentsEnabledChange", commentsEnabled);
+        onConnectionConfirmed(connection: IConnection){
+            this.$emit('onConnectionConfirmed', connection);
         }
 
-        onUserClosedChange(userIsClosed: boolean) {
-            this.$emit("onUserClosedChange", userIsClosed);
+
+        onUserIsBlockedChange(isBlocked: boolean){
+            this.$emit('onUserIsBlockedChange', isBlocked);
         }
+
+
 
         get canBlockOrUnblockUser() {
             return this.$observables.loggedInUser.value.canBlockOrUnblockUser(this.user);

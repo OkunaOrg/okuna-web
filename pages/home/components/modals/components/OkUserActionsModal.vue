@@ -1,8 +1,10 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <ok-user-more-actions :user="params.user" class="ok-user-actions-modal"
-                         @onUserClosedChange="onUserClosedChange"
-                         :on-user-reported="params.onUserReported"></ok-user-more-actions>
+                              @onDisconnectedFromUser="onDisconnectedFromUser"
+                              @onConnectionConfirmed="onConnectionConfirmed"
+                              @onUserIsBlockedChange="onUserIsBlockedChange"
+                              :on-user-reported="params.onUserReported"></ok-user-more-actions>
     </div>
 </template>
 
@@ -17,7 +19,8 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { UserActionsModalParams } from "~/services/modal/IModalService";
     import { IUser } from "~/models/users/user/IUser";
-    import OkUserMoreActions from '~/components/actions/user-more-actions/OkUserMoreActions.vue';
+    import OkUserMoreActions from "~/components/actions/user-more-actions/OkUserMoreActions.vue";
+    import { IConnection } from "~/models/connections/connection/IConnection";
 
     @Component({
         name: "OkUserActionsModal",
@@ -34,15 +37,17 @@
             required: false
         }) readonly returnDataSetter: (data: any) => void;
 
-        onUserDeleted(user: IUser) {
+
+        onDisconnectedFromUser(user: IUser) {
             this.$parent["close"]();
         }
 
-        onUserCommentsEnabledChange(commentsEnabled: boolean) {
+        onConnectionConfirmed(connection: IConnection) {
             this.$parent["close"]();
         }
 
-        onUserClosedChange(userIsClosed: boolean) {
+
+        onUserIsBlockedChange(isBlocked: boolean) {
             this.$parent["close"]();
         }
 

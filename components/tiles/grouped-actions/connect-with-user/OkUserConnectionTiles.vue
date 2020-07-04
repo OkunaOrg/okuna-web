@@ -5,16 +5,16 @@
             !user.isFullyConnected &&
             !user.isPendingConnectionConfirmation"
        >
-           <ok-disconnect-from-user-tile :user="user"></ok-disconnect-from-user-tile>
+           <ok-disconnect-from-user-tile :user="user" :title="$t('global.snippets.cancel_connection_request')" @onDisconnectedFromUser="onDisconnectedFromUser"></ok-disconnect-from-user-tile>
            <ok-update-connection-circles-tile :user="user"></ok-update-connection-circles-tile>
        </template>
        <template v-else-if="user.isPendingConnectionConfirmation">
-           <ok-confirm-connection-with-user-tile :user="user"></ok-confirm-connection-with-user-tile>
-           <ok-disconnect-from-user-tile :user="user"></ok-disconnect-from-user-tile>
+           <ok-confirm-connection-with-user-tile :user="user" @onConnectionConfirmed="onConnectionConfirmed"></ok-confirm-connection-with-user-tile>
+           <ok-disconnect-from-user-tile :user="user" @onDisconnectedFromUser="onDisconnectedFromUser"></ok-disconnect-from-user-tile>
        </template>
        <template v-else-if="user.isFullyConnected">
            <ok-update-connection-circles-tile :user="user"></ok-update-connection-circles-tile>
-           <ok-disconnect-from-user-tile :user="user"></ok-disconnect-from-user-tile>
+           <ok-disconnect-from-user-tile :user="user" @onDisconnectedFromUser="onDisconnectedFromUser"></ok-disconnect-from-user-tile>
        </template>
        <template v-else>
            <ok-connect-with-user-tile :user="user"></ok-connect-with-user-tile>
@@ -46,6 +46,7 @@
         from '~/components/tiles/grouped-actions/connect-with-user/components/OkConfirmConnectionWithUserTile.vue';
     import OkConnectWithUserTile
         from '~/components/tiles/grouped-actions/connect-with-user/components/OkConnectWithUserTile.vue';
+    import { IConnection } from '~/models/connections/connection/IConnection';
 
     @Component({
         name: "OkUserConnectionTiles",
@@ -60,89 +61,12 @@
             required: true
         }) readonly user: IUser;
 
-
-        requestInProgress = false;
-
-        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
-        private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
-        private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
-
-        private requestOperation?: CancelableOperation<any>;
-
-
-        onWantsToToggle() {
-            if (this.user.commentsEnabled) {
-                // Open
-                return this.disableUserComments();
-            } else {
-                // Close
-                return this.connectWithUser();
-            }
+        onDisconnectedFromUser(user: IUser){
+            this.$emit('onDisconnectedFromUser', user);
         }
 
-        get shouldShowDisconnectTile() {
-            return this.user.isConnected &&
-                !this.user.isFullyConnected &&
-                !this.user.isPendingConnectionConfirmation;
+        onConnectionConfirmed(connection: IConnection){
+            this.$emit('onConnectionConfirmed', connection);
         }
-
-
-        private async connectWithUser() {
-            if (this.requestInProgress) return;
-            this.requestInProgress = true;
-
-
-            try {
-                this.requestOperation = CancelableOperation.fromPromise(this.userService.connectWithUser({
-                    user: this.user
-                }));
-
-                await this.requestOperation.value;
-
-                this.user.isBlocked = true;
-                this.notifyChange();
-
-            } catch (error) {
-                this.utilsService.handleErrorWithToast(error);
-            } finally {
-                this.requestOperation = null;
-                this.requestInProgress = false;
-            }
-        }
-
-
-        private async disableUserComments() {
-            if (this.requestInProgress) return;
-            this.requestInProgress = true;
-
-            try {
-                this.requestOperation = CancelableOperation.fromPromise(this.userService.unconnectWithUser({
-                    user: this.user
-                }));
-
-                await this.requestOperation.value;
-
-                this.user.isBlocked = false;
-
-                this.notifyChange();
-
-            } catch (error) {
-                this.utilsService.handleErrorWithToast(error);
-            } finally {
-                this.requestOperation = null;
-                this.requestInProgress = false;
-            }
-        }
-
-        private notifyChange() {
-            this.toastService.show({
-                type: ToastType.success,
-                message: this.localizationService.localize(this.user.isBlocked ? "global.snippets.user_blocked" : "global.snippets.user_unblocked")
-            });
-            this.$emit("onUserIsBlockedChange", this.user.isBlocked);
-        }
-
-
     }
 </script>

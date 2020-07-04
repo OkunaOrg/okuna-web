@@ -54,12 +54,20 @@
             if (this.user.isReported) return;
             this.modalService.openConnectionsCirclesPickerModal({
                 title: this.localizationService.localize("global.snippets.update_connection_circles"),
-                actionLabel: this.localizationService.localize("global.keywords.save"),
-                onPickedCircles: async (circles: ICircle[]) => {
+                actionLabel: this.localizationService.localize("global.keywords.done"),
+                onWantsToPickCircles: async (circles: ICircle[]) => {
+                    const weWereFollowingUser = this.user.isFollowing;
                     const connection = await this.userService.connectWithUser({
                         user: this.user,
                         circles: circles
                     });
+
+                    if(!weWereFollowingUser){
+                        this.user.incrementFollowersCount();
+                    }
+
+                    this.user.isConnected = true;
+                    this.user.isFullyConnected = false;
 
                     this.toastService.show({
                         type: ToastType.success,
