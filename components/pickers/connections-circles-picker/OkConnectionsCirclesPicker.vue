@@ -156,7 +156,7 @@
         }
 
         onCircleClicked(circle: ICircle) {
-            if (this.isPicked(circle)) {
+            if (this.circleIsSelected(circle)) {
                 this.removeSelection(circle);
             } else {
                 this.addSelection(circle);
@@ -199,14 +199,14 @@
             return this.utilsService.makeHumanFriendlyLargeNumberDisplay(count);
         }
 
-        isPicked(circle: ICircle) {
-            return this.selectedConnectionsCircles.indexOf(circle) !== -1;
-        }
-
         removeSelection(circle: ICircle) {
-            circle.usersCount--;
-            let indexOfItem = this.selectedConnectionsCircles.indexOf(circle);
-            if (indexOfItem > -1) this.selectedConnectionsCircles.splice(indexOfItem, 1);
+            const item = this.selectedConnectionsCircles.find((item) => item.id === circle.id);
+
+            let indexOfItem = this.selectedConnectionsCircles.indexOf(item);
+            if (indexOfItem > -1) {
+                this.selectedConnectionsCircles.splice(indexOfItem, 1);
+                circle.usersCount--;
+            }
         }
 
         addSelection(circle: ICircle) {
