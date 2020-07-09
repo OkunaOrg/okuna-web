@@ -200,6 +200,8 @@ export default {
         },
         "keywords": {
             "email": "E-mail",
+            "follow": "Follow",
+            "unfollow": "Unfollow",
             "password": "Password",
             "username": "Username",
             "about": "About",
@@ -277,6 +279,7 @@ export default {
             "update_connection_circles": "Update connection circles",
             "connection_circles_updated": "Connection circles updated",
             "cancel_connection_request": "Cancel connection request",
+            "request_to_follow": "Request to follow"
         },
     },
 }
