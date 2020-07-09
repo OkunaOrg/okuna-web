@@ -2,7 +2,8 @@ import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
-    BlockUserParams,
+    ApproveFollowRequestFromUserParams,
+    BlockUserParams, CancelRequestToFollowUserParams,
     ClosePostParams,
     CommentPostParams, ConfirmConnectionWithUserParaUserParams, ConnectWithUserParams,
     DeleteNotificationParams,
@@ -41,11 +42,11 @@ import {
     ReactToPostCommentParams,
     ReactToPostParams,
     ReadNotificationParams,
-    ReadNotificationsParams,
+    ReadNotificationsParams, RejectFollowRequestFromUserParams,
     ReplyToPostCommentParams,
     ReportCommunityParams, ReportHashtagParams,
     ReportPostCommentParams,
-    ReportPostParams, ReportUserParams,
+    ReportPostParams, ReportUserParams, RequestToFollowUserParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
@@ -235,6 +236,14 @@ export interface IUserService {
     followUser(params: FollowUserParams): Promise<IFollow>;
 
     unfollowUser(params: UnfollowUserParams): Promise<IUser>;
+
+    requestToFollowUser(params: RequestToFollowUserParams): Promise<void>;
+
+    cancelRequestToFollowUser(params: CancelRequestToFollowUserParams): Promise<void>;
+
+    approveFollowRequestFromUser(params: ApproveFollowRequestFromUserParams): Promise<void>;
+
+    rejectFollowRequestFromUser(params: RejectFollowRequestFromUserParams): Promise<void>;
 
     // FOLLOWS END
 

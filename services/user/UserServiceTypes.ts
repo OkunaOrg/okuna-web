@@ -357,6 +357,24 @@ export interface FollowUserParams {
     user: IUser;
 }
 
+
+export interface RequestToFollowUserParams {
+    user: IUser;
+}
+
+export interface CancelRequestToFollowUserParams {
+    user: IUser;
+}
+
+export interface ApproveFollowRequestFromUserParams {
+    user: IUser;
+}
+
+export interface RejectFollowRequestFromUserParams {
+    user: IUser;
+}
+
+
 export interface UnfollowUserParams {
     user: IUser;
 }
