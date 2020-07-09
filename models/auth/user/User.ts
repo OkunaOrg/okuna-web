@@ -4,7 +4,6 @@ import userProfileFactory from '~/models/auth/user-profile/factory';
 import { IUserProfile } from '~/models/auth/user-profile/IUserProfile';
 import { ICircle } from '~/models/connections/circle/ICircle';
 import { CircleData } from '~/types/models-data/connections/CircleData';
-import { UserProfileData } from '~/types/models-data/auth/UserProfileData';
 import { DataModel } from '~/models/abstract/DataModel';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
@@ -12,12 +11,13 @@ import {
     dateDeserializer,
     dateSerializer, languageDeserializer, languageSerializer,
     userProfileDeserializer,
-    userProfileSerializer
+    userProfileSerializer, userVisibilityDeserializer, userVisibilitySerializer
 } from '~/models/common/serializers';
 import { IPost } from '~/models/posts/post/IPost';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { ILanguage } from '~/models/common/language/ILanguage';
+import { UserVisibility } from '~/models/auth/user/lib/UserVisibility';
 
 export class User extends DataModel<User> implements IUser {
     uuid!: string;
@@ -45,6 +45,7 @@ export class User extends DataModel<User> implements IUser {
     connectedCircles!: ICircle[];
     profile!: IUserProfile;
     language!: ILanguage;
+    visibility!: UserVisibility;
 
     dataMaps: DataModelAttributeMap<IUser>[] = [
         {
@@ -82,6 +83,12 @@ export class User extends DataModel<User> implements IUser {
         {
             dataKey: 'invite_count',
             attributeKey: 'inviteCount'
+        },
+        {
+            dataKey: 'visibility',
+            attributeKey: 'visibility',
+            serializer: userVisibilitySerializer,
+            deserializer: userVisibilityDeserializer,
         },
         {
             dataKey: 'unread_notifications_count',
