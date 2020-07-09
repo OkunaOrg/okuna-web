@@ -73,7 +73,15 @@ import {
     ReportUserParams,
     ReportHashtagParams,
     EnablePostCommentsParams,
-    OpenPostParams, ClosePostParams, DisablePostCommentsParams
+    OpenPostParams,
+    ClosePostParams,
+    DisablePostCommentsParams,
+    BlockUserParams,
+    UnblockUserParams,
+    ConnectWithUserParams,
+    DisconnectFromUserParams,
+    ConfirmConnectionWithUserParaUserParams,
+    UpdateConnectionWithUserParaUserParams, GetConnectionsCircleParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -131,6 +139,13 @@ import { IModerationCategory } from '~/models/moderation/moderation_category/IMo
 import { ModerationCategoryData } from '~/types/models-data/moderation/ModerationCategoryData';
 import { IModerationApiService } from '~/services/Apis/moderation/IModerationApiService';
 import moderationCategoryFactory from '~/models/moderation/moderation_category/factory';
+import { IConnection } from '~/models/connections/connection/IConnection';
+import { ConnectionData } from '~/types/models-data/connections/ConnectionData';
+import connectionFactory from '~/models/connections/connection/factory';
+import { CircleData } from '~/types/models-data/connections/CircleData';
+import { ICircle } from '~/models/connections/circle/ICircle';
+import circleFactory from '~/models/connections/circle/factory';
+import { IConnectionsApiService } from '~/services/Apis/connections/IConnectionsApiService';
 
 @injectable()
 export class UserService implements IUserService {
@@ -148,6 +163,7 @@ export class UserService implements IUserService {
                 @inject(TYPES.CategoriesApiService) private categoriesApiService?: ICategoriesApiService,
                 @inject(TYPES.PostsApiService) private postsApiService?: IPostsApiService,
                 @inject(TYPES.FollowsApiService) private followsApiService?: IFollowsApiService,
+                @inject(TYPES.ConnectionsApiService) private connectionsApiService?: IConnectionsApiService,
                 @inject(TYPES.NotificationsApiService) private notificationsApiService?: INotificationsApiService,
                 @inject(TYPES.HttpService) private httpService?: IHttpService,
                 @inject(TYPES.StorageService)  storageService?: IStorageService,
@@ -262,6 +278,66 @@ export class UserService implements IUserService {
             moderationCategoryId: params.moderationCategory.id,
         });
     }
+
+    async blockUser(params: BlockUserParams): Promise<void> {
+        await this.authApiService.blockUser({
+            userUsername: params.user.username,
+        });
+    }
+
+
+    async unblockUser(params: UnblockUserParams): Promise<void> {
+        await this.authApiService.unblockUser({
+            userUsername: params.user.username,
+        });
+    }
+
+    async connectWithUser(params: ConnectWithUserParams): Promise<IConnection> {
+        const response: AxiosResponse<ConnectionData> = await this.connectionsApiService.connectWithUser({
+            userUsername: params.user.username,
+            circlesIds: params.circles ? params.circles.map((item) => item.id) : null,
+        });
+
+        return connectionFactory.make(response.data);
+    }
+
+    async disconnectFromUser(params: DisconnectFromUserParams): Promise<void> {
+        await this.connectionsApiService.disconnectFromUser({
+            userUsername: params.user.username,
+        });
+    }
+
+    async confirmConnectionWithUser(params: ConfirmConnectionWithUserParaUserParams): Promise<IConnection> {
+        const response: AxiosResponse<ConnectionData> = await this.connectionsApiService.confirmConnectionWithUser({
+            userUsername: params.user.username,
+            circlesIds: params.circles ? params.circles.map((item) => item.id) : null,
+        });
+        return connectionFactory.make(response.data);
+    }
+
+    async updateConnectionWithUser(params: UpdateConnectionWithUserParaUserParams): Promise<IConnection> {
+        const response: AxiosResponse<ConnectionData> = await this.connectionsApiService.updateConnectionWithUser({
+            userUsername: params.user.username,
+            circlesIds: params.circles ? params.circles.map((item) => item.id) : null,
+        });
+        return connectionFactory.make(response.data);
+    }
+
+
+    async getConnectionsCircle(params: GetConnectionsCircleParams): Promise<ICircle> {
+        const response: AxiosResponse<CircleData> = await this.connectionsApiService.getConnectionsCircle({
+            circleId: params.circleId
+        });
+
+        return circleFactory.make(response.data);
+    }
+
+    async getConnectionsCircles(): Promise<ICircle[]> {
+        const response: AxiosResponse<CircleData[]> = await this.connectionsApiService.getConnectionsCircles();
+
+        return circleFactory.makeMultiple(response.data);
+    }
+
 
     // AUTH END
 

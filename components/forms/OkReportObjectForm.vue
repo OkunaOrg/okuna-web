@@ -164,7 +164,8 @@
                         postComment: this.object,
                         description: this.reportDescription,
                         moderationCategory: this.moderationCategory,
-                    })
+                    });
+
                 } else if (this.object instanceof User) {
                     reportPromise = this.userService.reportUser({
                         user: this.object,
@@ -177,15 +178,19 @@
                         description: this.reportDescription,
                         moderationCategory: this.moderationCategory,
                     });
+
                 } else if (this.object instanceof Hashtag) {
                     reportPromise = this.userService.reportHashtag({
                         hashtag: this.object,
                         description: this.reportDescription,
                         moderationCategory: this.moderationCategory,
                     });
+
                 } else {
                     throw new Error("Object type not supported to report");
                 }
+
+                this.object.isReported = true;
 
 
                 this.reportOperation = CancelableOperation.fromPromise<void>(reportPromise);

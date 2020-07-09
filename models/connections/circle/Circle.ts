@@ -5,11 +5,13 @@ import { DataModel } from '~/models/abstract/DataModel';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
 import { ModelData } from '~/types/models-data/ModelData';
+import { colorDeserializer, colorSerializer } from '~/models/common/serializers';
+import Color from 'color';
 
 export class Circle extends DataModel<Circle> implements ICircle {
     creator!: IUser;
     name!: string;
-    color!: string;
+    color!: Color;
     usersCount!: number;
     users!: IUser[];
 
@@ -20,7 +22,9 @@ export class Circle extends DataModel<Circle> implements ICircle {
         },
         {
             dataKey: 'color',
-            attributeKey: 'color'
+            attributeKey: 'color',
+            serializer: colorSerializer,
+            deserializer: colorDeserializer
         },
         {
             dataKey: 'users_count',

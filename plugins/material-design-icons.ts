@@ -39,6 +39,10 @@ import EditIcon from 'vue-material-design-icons/Pencil.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 import StaffIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
 import RulesIcon from 'vue-material-design-icons/Book.vue';
+import CancelIcon from 'vue-material-design-icons/Cancel.vue';
+import CheckIcon from 'vue-material-design-icons/Check.vue';
+import CloseIcon from 'vue-material-design-icons/Close.vue';
+import AccountMultiplePlus from 'vue-material-design-icons/AccountMultiplePlus.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -129,3 +133,11 @@ Vue.component('ok-chevron-right-icon', ChevronRight);
 Vue.component('ok-rules-icon', RulesIcon);
 
 Vue.component('ok-staff-icon', StaffIcon);
+
+Vue.component('ok-cancel-icon', CancelIcon);
+
+Vue.component('ok-approve-icon', CheckIcon);
+
+Vue.component('ok-reject-icon', CloseIcon);
+
+Vue.component('ok-connect-icon', AccountMultiplePlus);

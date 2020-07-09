@@ -25,9 +25,29 @@
             <ok-post-actions-modal :return-data-setter="setModalReturnData"
                                    :params="activeModalParams"></ok-post-actions-modal>
         </b-modal>
+        <b-modal :active.sync="communityActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-community-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-community-actions-modal>
+        </b-modal>
+        <b-modal :active.sync="userActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-user-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-user-actions-modal>
+        </b-modal>
+        <b-modal :active.sync="postCommentActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-post-comment-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-post-comment-actions-modal>
+        </b-modal>
+        <b-modal :active.sync="hashtagActionsModalOpened" :trap-focus="true" @close="onModalClosed">
+            <ok-hashtag-actions-modal :return-data-setter="setModalReturnData"
+                                   :params="activeModalParams"></ok-hashtag-actions-modal>
+        </b-modal>
         <b-modal :active.sync="reportObjectModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-report-object-modal :return-data-setter="setModalReturnData"
                                    :params="activeModalParams"></ok-report-object-modal>
+        </b-modal>
+        <b-modal :active.sync="connectionsCirclesPickerOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-connections-circles-picker-modal :return-data-setter="setModalReturnData"
+                                    :params="activeModalParams"></ok-connections-circles-picker-modal>
         </b-modal>
     </div>
 </template>
@@ -57,10 +77,16 @@
     import OkCommunitiesListModal from "~/pages/home/components/modals/components/OkCommunitiesListModal.vue";
     import OkPostActionsModal from "~/pages/home/components/modals/components/OkPostActionsModal.vue";
     import OkReportObjectModal from '~/pages/home/components/modals/components/OkReportObjectModal.vue';
+    import OkUserActionsModal from '~/pages/home/components/modals/components/OkUserActionsModal.vue';
+
+    import OkConnectionsCirclesPickerModal
+        from '~/pages/home/components/modals/components/OkConnectionsCirclesPickerModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkConnectionsCirclesPickerModal,
+            OkUserActionsModal,
             OkReportObjectModal,
             OkPostActionsModal,
             OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal
@@ -80,9 +106,14 @@
         postModalOpened: boolean = false;
         postReactionsModalOpened: boolean = false;
         postActionsModalOpened: boolean = false;
+        userActionsModalOpened: boolean = false;
+        communityActionsModalOpened: boolean = false;
+        hashtagActionsModalOpened: boolean = false;
+        postCommentActionsModalOpened: boolean = false;
         postCommentReactionsModalOpened: boolean = false;
         communitiesListModalOpen: boolean = false;
         reportObjectModalOpen: boolean = false;
+        connectionsCirclesPickerOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -109,7 +140,12 @@
             this.postCommentReactionsModalOpened = activeModalValue === ModalType.postCommentReactions;
             this.communitiesListModalOpen = activeModalValue === ModalType.communitiesList;
             this.postActionsModalOpened = activeModalValue === ModalType.postActions;
+            this.userActionsModalOpened = activeModalValue === ModalType.userActions;
+            this.hashtagActionsModalOpened = activeModalValue === ModalType.hashtagActions;
+            this.communityActionsModalOpened = activeModalValue === ModalType.communityActions;
+            this.postCommentActionsModalOpened = activeModalValue === ModalType.postCommentActions;
             this.reportObjectModalOpen = activeModalValue === ModalType.reportObject;
+            this.connectionsCirclesPickerOpen = activeModalValue === ModalType.connectionsCirclesPicker;
         }
     }
 </script>

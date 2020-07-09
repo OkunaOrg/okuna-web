@@ -12,6 +12,7 @@ const TYPES = {
     NotificationsApiService: Symbol.for('NotificationsApiService'),
     ModerationApiService: Symbol.for('ModerationApiService'),
     FollowsApiService: Symbol.for('FollowsApiService'),
+    ConnectionsApiService: Symbol.for('ConnectionsApiService'),
     EnvironmentService: Symbol.for('EnvironmentService'),
     LocalizationService: Symbol.for('LocalizationService'),
     StringTemplateService: Symbol.for('StringTemplateService'),

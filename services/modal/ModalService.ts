@@ -1,10 +1,11 @@
 import { inject, injectable } from '~/node_modules/inversify';
 import {
+    CommunityActionsModalParams, ConnectionsCirclesPickerModalParams, HashtagActionsModalParams,
     HttpListModalParams,
     IModalService,
-    ModalParams, PostActionsModalParams, PostCommentReactionsModalParams,
+    ModalParams, PostActionsModalParams, PostCommentActionsModalParams, PostCommentReactionsModalParams,
     PostModalParams,
-    PostReactionsModalParams, ReportObjectModalParams
+    PostReactionsModalParams, ReportObjectModalParams, UserActionsModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -51,6 +52,27 @@ export class ModalService implements IModalService {
         return this.openModal(ModalType.postActions, params);
     }
 
+    async openUserActionsModal(params: UserActionsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.userActions, params);
+    }
+
+    async openCommunityActionsModal(params: CommunityActionsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityActions, params);
+    }
+
+    async openPostCommentActionsModal(params: PostCommentActionsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.postCommentActions, params);
+    }
+
+    async openHashtagActionsModal(params: HashtagActionsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.hashtagActions, params);
+    }
+
+
     async openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.postCommentReactions, params);
@@ -59,6 +81,11 @@ export class ModalService implements IModalService {
     async openCommunitiesList<T>(params: HttpListModalParams<T>): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.communitiesList, params);
+    }
+
+    async openConnectionsCirclesPickerModal(params: ConnectionsCirclesPickerModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.connectionsCirclesPicker, params);
     }
 
     async openPostModal(params: PostModalParams): Promise<void> {
@@ -114,7 +141,7 @@ export class ModalService implements IModalService {
     }
 
     private ensureHasNoActiveModal() {
-        if (this.activeModalPromise)  {
+        if (this.activeModalPromise) {
             this.notifyModalClosed();
         }
     }

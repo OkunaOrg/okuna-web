@@ -6,6 +6,10 @@ import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
 import { OkHttpListOnScrollLoader, OkHttpListRefresher } from '~/components/http-list/lib/OkHttpListParams';
 import { IDataModel } from '~/models/abstract/IDataModel';
+import { IUser } from '~/models/auth/user/IUser';
+import { IHashtag } from '~/models/common/hashtag/IHashtag';
+import { ICommunity } from '~/models/communities/community/ICommunity';
+import { ICircle } from '~/models/connections/circle/ICircle';
 
 export interface IModalService {
 
@@ -16,11 +20,21 @@ export interface IModalService {
 
     openPostActionsModal(params: PostActionsModalParams): Promise<void>;
 
+    openUserActionsModal(params: UserActionsModalParams): Promise<void>;
+
+    openHashtagActionsModal(params: HashtagActionsModalParams): Promise<void>;
+
+    openPostCommentActionsModal(params: PostCommentActionsModalParams): Promise<void>;
+
+    openCommunityActionsModal(params: CommunityActionsModalParams): Promise<void>;
+
     openPostCommentReactionsModal(params: PostCommentReactionsModalParams): Promise<void>;
 
     openCommunitiesList<T>(params: HttpListModalParams<T>): Promise<void>;
 
     openReportObjectModal(params: ReportObjectModalParams): Promise<void>;
+
+    openConnectionsCirclesPickerModal(params: ConnectionsCirclesPickerModalParams): Promise<void>;
 
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
@@ -38,7 +52,12 @@ export type ModalParams =
     | PostReactionsModalParams
     | HttpListModalParams<any>
     | PostActionsModalParams
-    | ReportObjectModalParams;
+    | ReportObjectModalParams
+    | UserActionsModalParams
+    | CommunityActionsModalParams
+    | PostCommentActionsModalParams
+    | HashtagActionsModalParams
+    | ConnectionsCirclesPickerModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -50,10 +69,42 @@ export interface PostModalParams {
     post: IPost;
 }
 
+export interface ConnectionsCirclesPickerModalParams {
+    title: string;
+    actionLabel: string;
+    onWantsToPickCircles: (circles: ICircle[])=> Promise<void>;
+    initialConnectionsCircles?: ICircle[];
+    disabledConnectionsCircles?: ICircle[];
+    initialConnectionsCirclesIds?: number[];
+    disabledConnectionsCirclesIds?: number[];
+}
+
 export interface PostActionsModalParams {
     post: IPost;
     onPostDeleted?: (post: IPost) => void;
     onPostReported?: (post: IPost) => void;
+}
+
+export interface UserActionsModalParams {
+    user: IUser;
+    onUserBlocked?: (user: IUser) => void;
+    onUserReported?: (user: IUser) => void;
+}
+
+export interface CommunityActionsModalParams {
+    community: ICommunity;
+    onCommunityReported?: (community: ICommunity) => void;
+}
+
+export interface PostCommentActionsModalParams {
+    postComment: IPostComment;
+    onPostCommentDeleted?: (postComment: IPostComment) => void;
+    onPostCommentReported?: (postComment: IPostComment) => void;
+}
+
+export interface HashtagActionsModalParams {
+    hashtag: IHashtag;
+    onHashtagReported?: (hashtag: IHashtag) => void;
 }
 
 export interface PostReactionsModalParams {

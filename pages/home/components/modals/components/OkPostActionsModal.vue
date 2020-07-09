@@ -1,10 +1,10 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <ok-post-actions :post="params.post" class="ok-post-actions-modal"
+        <ok-post-more-actions :post="params.post" class="ok-post-actions-modal"
                          @onPostDeleted="onPostDeleted"
                          @onPostCommentsEnabledChange="onPostCommentsEnabledChange"
                          @onPostClosedChange="onPostClosedChange"
-                         :on-post-reported="params.onPostReported"></ok-post-actions>
+                         :on-post-reported="params.onPostReported"></ok-post-more-actions>
     </div>
 </template>
 
@@ -19,12 +19,12 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkPostTheatre from "~/components/post-theatre/OkPostTheatre.vue";
     import { PostActionsModalParams } from "~/services/modal/IModalService";
-    import OkPostActions from "~/components/actions/post-actions/OkPostActions.vue";
     import { IPost } from "~/models/posts/post/IPost";
+    import OkPostMoreActions from '~/components/actions/post-more-actions/OkPostMoreActions.vue';
 
     @Component({
         name: "OkPostActionsModal",
-        components: {OkPostActions, OkPostTheatre},
+        components: {OkPostMoreActions, OkPostTheatre},
     })
     export default class OkPostActionsModal extends Vue {
         @Prop({

@@ -2,13 +2,14 @@ import { BehaviorSubject } from '~/node_modules/rxjs';
 import { IUser } from '~/models/auth/user/IUser';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
+    BlockUserParams,
     ClosePostParams,
-    CommentPostParams,
+    CommentPostParams, ConfirmConnectionWithUserParaUserParams, ConnectWithUserParams,
     DeleteNotificationParams,
     DeletePostCommentParams,
     DeletePostCommentReactionParams,
     DeletePostParams,
-    DeletePostReactionParams, DisablePostCommentsParams,
+    DeletePostReactionParams, DisablePostCommentsParams, DisconnectFromUserParams,
     EditPostCommentParams, EnablePostCommentsParams,
     FollowUserParams,
     GetAdministratedCommunitiesParams,
@@ -17,7 +18,7 @@ import {
     GetCommunityModeratorsParams,
     GetCommunityParams,
     GetCommunityPostsCountParams,
-    GetCommunityPostsParams,
+    GetCommunityPostsParams, GetConnectionsCircleParams,
     GetFavoriteCommunitiesParams, GetHashtagParams, GetHashtagPostsParams, GetJoinedCommunitiesParams,
     GetModeratedCommunitiesParams,
     GetNotificationsParams,
@@ -48,8 +49,8 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams, SearchHashtagsParams, SearchUsersParams,
-    UnfollowUserParams
+    SearchCommunityModeratorsParams, SearchHashtagsParams, SearchUsersParams, UnblockUserParams,
+    UnfollowUserParams, UpdateConnectionWithUserParaUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -71,6 +72,8 @@ import { IFollow } from '~/models/follows/follow/IFollow';
 import { ICategory } from '~/models/common/category/ICategory';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
+import { IConnection } from '~/models/connections/connection/IConnection';
+import { ICircle } from '~/models/connections/circle/ICircle';
 
 
 export interface IUserService {
@@ -107,6 +110,10 @@ export interface IUserService {
     searchUsers(params: SearchUsersParams): Promise<IHashtag[]>;
 
     reportUser(params: ReportUserParams): Promise<void>;
+
+    blockUser(params: BlockUserParams): Promise<void>;
+
+    unblockUser(params: UnblockUserParams): Promise<void>;
 
     // AUTH ENDS
 
@@ -254,4 +261,20 @@ export interface IUserService {
     getModerationCategories(): Promise<IModerationCategory[]>;
 
     // MODERATION END
+
+    // CONNECTIONS START
+
+    connectWithUser(params: ConnectWithUserParams): Promise<IConnection>;
+
+    disconnectFromUser(params: DisconnectFromUserParams): Promise<void>;
+
+    confirmConnectionWithUser(params: ConfirmConnectionWithUserParaUserParams): Promise<IConnection>;
+
+    updateConnectionWithUser(params: UpdateConnectionWithUserParaUserParams): Promise<IConnection>;
+
+    getConnectionsCircle(params: GetConnectionsCircleParams): Promise<ICircle>;
+
+    getConnectionsCircles(): Promise<ICircle[]>;
+
+    // CONNECTIONS END
 }
