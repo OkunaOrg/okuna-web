@@ -3,7 +3,7 @@
             :disabled="requestInProgress"
             @click="onWantsToToggleFollow"
             class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
-        {{ user.isFollowing ? 'Unfollow' : user.isFollowed ? "Follow back" : "Follow"}}
+        {{ buttonText }}
     </button>
 </template>
 
@@ -19,6 +19,15 @@
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils/IUtilsService";
+    import { UserVisibility } from "~/models/auth/user/lib/UserVisibility";
+    import { ILocalizationService } from "~/services/localization/ILocalizationService";
+
+    enum OkFollowButtonType {
+        follow,
+        unfollow,
+        requestToFollow,
+        cancelRequestToFollow,
+    }
 
     @Component({
         name: "OkFollowButton",
@@ -36,16 +45,87 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
         private requestOperation?: CancelableOperation<any>;
 
 
-        onWantsToToggleFollow() {
+        get buttonType(): OkFollowButtonType {
             if (this.user.isFollowing) {
-                // Unfollow
-                this.unfollowUser();
+                return OkFollowButtonType.unfollow;
+            } else if (this.user.visibility != UserVisibility.private || this.user.isFollowing) {
+                return OkFollowButtonType.unfollow;
             } else {
-                // Follow
-                this.followUser();
+                return this.user.isFollowRequested ? OkFollowButtonType.cancelRequestToFollow : OkFollowButtonType.requestToFollow;
+            }
+        }
+
+        get buttonText() {
+            switch (this.buttonType) {
+                case OkFollowButtonType.unfollow:
+                    return this.localizationService.localize("global.keywords.unfollow");
+                case OkFollowButtonType.follow:
+                    return this.localizationService.localize("global.keywords.follow");
+                case OkFollowButtonType.requestToFollow:
+                    return this.localizationService.localize("global.snippets.request_to_follow");
+                case OkFollowButtonType.cancelRequestToFollow:
+                    return this.localizationService.localize("global.snippets.cancel_request_to_follow");
+            }
+        }
+
+        onClicked() {
+            switch (this.buttonType) {
+                case OkFollowButtonType.unfollow:
+                    this.unfollowUser();
+                    return;
+                case OkFollowButtonType.follow:
+                    this.followUser();
+                    return;
+                case OkFollowButtonType.requestToFollow:
+                    this.requestToFollowUser();
+                    return;
+                case OkFollowButtonType.cancelRequestToFollow:
+                    this.cancelRequestToFollowUser();
+                    return;
+            }
+        }
+
+        private async requestToFollowUser() {
+            if (this.requestInProgress) return;
+            this.requestInProgress = true;
+
+
+            try {
+                this.requestOperation = CancelableOperation.fromPromise(this.userService.requestToFollowUser({
+                    user: this.user
+                }));
+
+                await this.requestOperation.value;
+
+            } catch (error) {
+                this.utilsService.handleErrorWithToast(error);
+            } finally {
+                this.requestOperation = null;
+                this.requestInProgress = false;
+            }
+        }
+
+        private async cancelRequestToFollowUser() {
+            if (this.requestInProgress) return;
+            this.requestInProgress = true;
+
+
+            try {
+                this.requestOperation = CancelableOperation.fromPromise(this.userService.cancelRequestToFollowUser({
+                    user: this.user
+                }));
+
+                await this.requestOperation.value;
+
+            } catch (error) {
+                this.utilsService.handleErrorWithToast(error);
+            } finally {
+                this.requestOperation = null;
+                this.requestInProgress = false;
             }
         }
 

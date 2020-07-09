@@ -35,6 +35,7 @@ export class User extends DataModel<User> implements IUser {
     followingCount!: number;
     isFollowing!: boolean;
     isFollowed!: boolean;
+    isFollowRequested!: boolean;
     isConnected!: boolean;
     isGlobalModerator!: boolean;
     isBlocked!: boolean;
@@ -119,6 +120,10 @@ export class User extends DataModel<User> implements IUser {
             attributeKey: 'isFollowing',
         },
         {
+            dataKey: 'is_follow_requested',
+            attributeKey: 'isFollowRequested',
+        },
+        {
             dataKey: 'is_followed',
             attributeKey: 'isFollowed',
         },
@@ -137,6 +142,10 @@ export class User extends DataModel<User> implements IUser {
         {
             dataKey: 'is_reported',
             attributeKey: 'isReported'
+        },
+        {
+            dataKey: 'is_follow_requested',
+            attributeKey: 'isFollowRequested'
         },
         {
             dataKey: 'is_fully_connected',

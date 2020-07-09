@@ -279,7 +279,8 @@ export default {
             "update_connection_circles": "Update connection circles",
             "connection_circles_updated": "Connection circles updated",
             "cancel_connection_request": "Cancel connection request",
-            "request_to_follow": "Request to follow"
+            "request_to_follow": "Request to follow",
+            "cancel_request_to_follow": "Cancel request to follow",
         },
     },
 }
