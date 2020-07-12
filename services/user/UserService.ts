@@ -81,7 +81,10 @@ import {
     ConnectWithUserParams,
     DisconnectFromUserParams,
     ConfirmConnectionWithUserParaUserParams,
-    UpdateConnectionWithUserParaUserParams, GetConnectionsCircleParams
+    UpdateConnectionWithUserParaUserParams,
+    GetConnectionsCircleParams,
+    RejectFollowRequestFromUserParams,
+    ApproveFollowRequestFromUserParams, CancelRequestToFollowUserParams, RequestToFollowUserParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -803,6 +806,30 @@ export class UserService implements IUserService {
 
     // FOLLOWS START
 
+
+    async requestToFollowUser(params: RequestToFollowUserParams): Promise<void> {
+        await this.followsApiService.requestToFollowUser({
+            userUsername: params.user.username
+        });
+    }
+
+    async cancelRequestToFollowUser(params: CancelRequestToFollowUserParams): Promise<void> {
+        await this.followsApiService.cancelRequestToFollowUser({
+            userUsername: params.user.username
+        });
+    }
+
+    async approveFollowRequestFromUser(params: ApproveFollowRequestFromUserParams): Promise<void> {
+        await this.followsApiService.approveFollowRequestFromUser({
+            userUsername: params.user.username
+        });
+    }
+
+    async rejectFollowRequestFromUser(params: RejectFollowRequestFromUserParams): Promise<void> {
+        await this.followsApiService.rejectFollowRequestFromUser({
+            userUsername: params.user.username
+        });
+    }
 
     async followUser(params: FollowUserParams): Promise<IFollow> {
         const response: AxiosResponse<FollowData> = await this.followsApiService.followUser({
