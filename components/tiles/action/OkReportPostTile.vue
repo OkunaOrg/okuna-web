@@ -59,7 +59,6 @@
                         message: this.localizationService.localize("global.snippets.post_reported")
                     });
                     this.$emit("onPostReported", post);
-                    debugger;
                     if(this.onPostReported) this.onPostReported(post);
                 }
             });

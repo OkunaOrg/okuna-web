@@ -7,8 +7,8 @@
 
         <template v-slot:content>
                     <span class="ok-has-text-primary-invert">
-                                {{$t('global.snippets.report_post_comment')}}
-                            </span>
+                        {{postComment.isReported ? $t('global.snippets.post_comment_reported'): $t('global.snippets.report_post_comment') }}
+                    </span>
         </template>
     </ok-tile>
 </template>
@@ -61,14 +61,13 @@
                 object: this.postComment,
                 extraData: {
                     post: this.post
-                }
+                },
                 onObjectReported: (postComment: IPostComment) => {
                     this.toastService.show({
                         type: ToastType.success,
                         message: this.localizationService.localize("global.snippets.post_comment_reported")
                     });
                     this.$emit("onPostCommentReported", postComment);
-                    debugger;
                     if(this.onPostCommentReported) this.onPostCommentReported(postComment);
                 }
             });

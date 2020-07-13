@@ -281,6 +281,10 @@ export default {
             "cancel_connection_request": "Cancel connection request",
             "request_to_follow": "Request to follow",
             "cancel_request_to_follow": "Cancel request to follow",
+            "delete_post_comment": "Delete post comment",
+            "post_comment_deleted": "Post comment deleted",
+            "report_post_comment": "Report post comment",
+            "post_comment_reported": "Post comment reported"
         },
     },
 }
