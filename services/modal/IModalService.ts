@@ -72,7 +72,7 @@ export interface PostModalParams {
 export interface ConnectionsCirclesPickerModalParams {
     title: string;
     actionLabel: string;
-    onWantsToPickCircles: (circles: ICircle[])=> Promise<void>;
+    onWantsToPickCircles: (circles: ICircle[]) => Promise<void>;
     initialConnectionsCircles?: ICircle[];
     disabledConnectionsCircles?: ICircle[];
     initialConnectionsCirclesIds?: number[];
@@ -98,8 +98,9 @@ export interface CommunityActionsModalParams {
 
 export interface PostCommentActionsModalParams {
     postComment: IPostComment;
-    onPostCommentDeleted?: (postComment: IPostComment) => void;
-    onPostCommentReported?: (postComment: IPostComment) => void;
+    post: IPost;
+    onPostCommentDeleted?: (postComment: IPostComment, post: IPost) => void;
+    onPostCommentReported?: (postComment: IPostComment, post: IPost) => void;
 }
 
 export interface HashtagActionsModalParams {

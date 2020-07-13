@@ -31,6 +31,7 @@
         <ok-post-comment-inline-actions :post="post" :post-comment="postComment"
                                         :expanded-replies="expandedReplies"
                                         @onWantsToReply="onWantsToReply"
+                                        @onPostCommentDeleted="onPostCommentDeleted"
                                         @onWantsToToggleReplies="onWantsToToggleReplies"
                                         v-if="showActions"></ok-post-comment-inline-actions>
         <ok-post-comment-replies :post="post" :post-comment="postComment"
@@ -131,11 +132,15 @@
 
 
         onWantsToReply() {
-            let params : ReplyToCommentParams = {
+            let params: ReplyToCommentParams = {
                 postComment: this.postComment,
                 post: this.post
             };
             this.$emit("onWantsToReply", params);
+        }
+
+        onPostCommentDeleted(postComment, post) {
+            this.$emit("onPostCommentDeleted", postComment, post)
         }
 
         onWantsToReplyToReply(params: ReplyToReplyParams) {

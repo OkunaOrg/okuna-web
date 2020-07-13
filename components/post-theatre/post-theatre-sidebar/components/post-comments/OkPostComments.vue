@@ -6,6 +6,7 @@
                 <ok-post-comment :post="post" :post-comment="postComment"
                                  :show-replies="true"
                                  @onWantsToReply="onWantsToReplyToComment"
+                                 @onPostCommentDeleted="onPostCommentDeleted"
                                  @onWantsToReplyToReply="onWantsToReplyToReply"
                 ></ok-post-comment>
             </div>
@@ -29,6 +30,7 @@
                                      :linked-post-comment-id.sync="linkedPostCommentId"
                                      :linked-post-comment-reply-id.sync="linkedPostCommentReplyId"
                                      :highlighted-post-comment-id.sync="highlightedPostCommentId"
+                                     @onPostCommentDeleted="onPostCommentDeleted"
                                      @onWantsToReply="onWantsToReplyToComment"
                                      @onWantsToReplyToReply="onWantsToReplyToReply"
                     ></ok-post-comment>
@@ -44,7 +46,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
+    import { Component, Prop, Vue } from "nuxt-property-decorator"
     import VueRouter, { Route } from "vue-router";
     import { IUserService } from "~/services/user/IUserService";
     import { TYPES } from "~/services/inversify-types";
@@ -70,7 +72,8 @@
     import { IHistoryService } from "~/services/history/IHistoryService";
     import {
         OnCommentedPostParams,
-        ReplyToCommentParams, ReplyToReplyParams
+        ReplyToCommentParams,
+        ReplyToReplyParams
     } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
 
 
@@ -169,6 +172,11 @@
 
         onWantsToReplyToReply(params: ReplyToReplyParams) {
             this.$emit("onWantsToReplyToReply", params);
+        }
+
+        onPostCommentDeleted(postComment: IPostComment, post: IPost){
+            const indexOfItem = this.postComments.indexOf(postComment);
+            if (indexOfItem > -1) this.postComments.splice(indexOfItem, 1);
         }
 
         updateHighlightedPostCommentId() {

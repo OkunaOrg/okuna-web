@@ -24,6 +24,7 @@ export interface IUser extends IDataModel<IUser> {
     followingCount: number;
     isFollowing: boolean;
     isFollowed: boolean;
+    isFollowRequested: boolean;
     isConnected: boolean;
     isGlobalModerator: boolean;
     isBlocked: boolean;

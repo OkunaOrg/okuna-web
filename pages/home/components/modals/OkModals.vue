@@ -81,10 +81,12 @@
 
     import OkConnectionsCirclesPickerModal
         from '~/pages/home/components/modals/components/OkConnectionsCirclesPickerModal.vue';
+    import OkPostCommentActionsModal from '~/pages/home/components/modals/components/OkPostCommentActionsModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkPostCommentActionsModal,
             OkConnectionsCirclesPickerModal,
             OkUserActionsModal,
             OkReportObjectModal,

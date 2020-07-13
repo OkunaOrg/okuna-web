@@ -83,6 +83,7 @@ import postReactionNotificationFactory from '../notifications/post-reaction-noti
 import postUserMentionNotificationFactory from '../notifications/post-user-mention-notification/factory';
 import userNewPostNotificationFactory from '~/models/notifications/user-new-post-notification/factory';
 import { ModerationCategorySeverity } from '~/models/moderation/moderation_category/lib/ModerationCategorySeverity';
+import { UserVisibility } from '~/models/auth/user/lib/UserVisibility';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;
@@ -283,6 +284,14 @@ export const communityTypeDeserializer = (instance, rawData: string) => {
 };
 
 export const communityTypeSerializer = (instance, attribute: CommunityType) => {
+    return attribute.toString();
+};
+
+export const userVisibilityDeserializer = (instance, rawData: string) => {
+    return UserVisibility.parse(rawData);
+};
+
+export const userVisibilitySerializer = (instance, attribute: UserVisibility) => {
     return attribute.toString();
 };
 
