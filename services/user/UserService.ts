@@ -149,6 +149,7 @@ import { CircleData } from '~/types/models-data/connections/CircleData';
 import { ICircle } from '~/models/connections/circle/ICircle';
 import circleFactory from '~/models/connections/circle/factory';
 import { IConnectionsApiService } from '~/services/Apis/connections/IConnectionsApiService';
+import { IUserPreferencesService } from '~/services/user-preferences/IUserPreferencesService';
 
 @injectable()
 export class UserService implements IUserService {
@@ -169,6 +170,7 @@ export class UserService implements IUserService {
                 @inject(TYPES.ConnectionsApiService) private connectionsApiService?: IConnectionsApiService,
                 @inject(TYPES.NotificationsApiService) private notificationsApiService?: INotificationsApiService,
                 @inject(TYPES.HttpService) private httpService?: IHttpService,
+                @inject(TYPES.UserPreferencesService) private userPreferencesService?: IUserPreferencesService,
                 @inject(TYPES.StorageService)  storageService?: IStorageService,
                 @inject(TYPES.LoggingService)  loggingService?: ILoggingService
     ) {
@@ -200,7 +202,8 @@ export class UserService implements IUserService {
     }
 
     async logout() {
-        this.httpService!.clearAuthToken();
+        await this.httpService!.clearAuthToken();
+        await this.userPreferencesService.clear();
         await this.tokenStorage.remove(UserService.AUTH_TOKEN_STORAGE_KEY);
     }
 

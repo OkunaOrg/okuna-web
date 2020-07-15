@@ -5,7 +5,8 @@
         </p>
         <ul class="menu-list">
             <li>
-                <nuxt-link :to="profileUrl" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="profileUrl"
+                           class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-profile-icon
                                          class="ok-svg-icon-primary-invert"></ok-profile-icon>
@@ -16,7 +17,8 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-circles-icon
                                          class="ok-svg-icon-primary-invert"></ok-circles-icon>
@@ -27,7 +29,8 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-lists-icon
                                          class="ok-svg-icon-primary-invert"></ok-lists-icon>
@@ -38,7 +41,8 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-followers-icon
                                          class="ok-svg-icon-primary-invert"></ok-followers-icon>
@@ -49,7 +53,8 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-following-icon
                                          class="ok-svg-icon-primary-invert"></ok-following-icon>
@@ -60,7 +65,8 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-invites-icon
                                          class="ok-svg-icon-primary-invert"></ok-invites-icon>
@@ -71,7 +77,8 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-moderator-icon
                                          class="ok-svg-icon-primary-invert"></ok-moderator-icon>
@@ -82,7 +89,8 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-report-icon
                                          class="ok-svg-icon-primary-invert"></ok-report-icon>
@@ -98,7 +106,8 @@
         </p>
         <ul class="menu-list">
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-settings-icon
                                          class="ok-svg-icon-primary-invert"></ok-settings-icon>
@@ -144,7 +153,9 @@
         </ul>
         <ul class="menu-list ok-has-border-top-primary-highlight has-padding-top-10">
             <li>
-                <nuxt-link :to="'/'" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <div :to="'/'"
+                     class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover has-cursor-pointer has-padding-10"
+                     role="button" tabindex="0" @click="onWantsToLogout">
                             <span class="icon has-padding-right-10">
                                  <ok-logout-icon
                                          class="ok-svg-icon-primary-invert"></ok-logout-icon>
@@ -152,12 +163,11 @@
                     <span class="ok-has-text-primary-invert">
                                 {{$t('components.user_dropdown.logout')}}
                             </span>
-                </nuxt-link>
+                </div>
             </li>
         </ul>
     </nav>
 </template>
-
 
 
 <script lang="ts">
@@ -168,8 +178,11 @@
     import { IUser } from "~/models/auth/user/IUser";
     import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
-    import { OkAvatarBorderRadius } from '~/components/avatars/lib/OkAvatarBorderRadius';
-    import { BehaviorSubject } from '~/node_modules/rxjs';
+    import { OkAvatarBorderRadius } from "~/components/avatars/lib/OkAvatarBorderRadius";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { INavigationService } from "~/services/navigation/INavigationService";
+    import { IToastService } from "~/services/toast/IToastService";
+    import { ToastType } from "~/services/toast/lib/ToastType";
 
     @Component({
         name: "OkUserMenu",
@@ -191,13 +204,24 @@
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
+        private toastService: IToastService = okunaContainer.get<IToastService>(TYPES.ToastService);
 
         tooltipOptions = {
-            placement: 'bottom-end'
+            placement: "bottom-end"
+        };
+
+        get profileUrl() {
+            return `/${this.$observables.loggedInUser.value.username}`;
         }
 
-        get profileUrl(){
-            return `/${this.$observables.loggedInUser.value.username}`;
+        async onWantsToLogout() {
+            await this.userService.logout();
+            await this.navigationService.navigateToLogin();
+            this.toastService.show({
+                message: "You have been logged out",
+                type: ToastType.success,
+            });
         }
     }
 </script>
