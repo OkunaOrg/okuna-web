@@ -6,8 +6,13 @@ import {
     LoginApiParams,
     LoginResponse,
     RegistrationApiParams,
-    RegistrationResponse, ReportUserApiParams,
-    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams, UnblockUserApiParams
+    RegistrationResponse,
+    ReportUserApiParams,
+    RequestResetPasswordApiParams,
+    ResetPasswordApiParams,
+    SearchUsersApiParams,
+    UnblockUserApiParams,
+    ValidateInviteTokenApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -23,6 +28,7 @@ export class AuthApiService implements IAuthApiService {
     static REGISTER_PATH = 'api/auth/register/';
     static AUTHENTICATED_USER_PATH = 'api/auth/user/';
     static GET_USERS_PATH = 'api/auth/users/';
+    static VALIDATE_INVITE_TOKEN = 'api/auth/register/verify-token/';
     static REPORT_USER_PATH = 'api/auth/users/{userUsername}/report/';
     static BLOCK_USER_PATH = 'api/auth/users/{userUsername}/block/';
     static UNBLOCK_USER_PATH = 'api/auth/users/{userUsername}/unblock/';
@@ -69,6 +75,14 @@ export class AuthApiService implements IAuthApiService {
         }, {
             isApiRequest: true
         })
+    }
+
+    validateInviteToken(data: ValidateInviteTokenApiParams): Promise<AxiosResponse<void>> {
+        return this.httpService.post<void>(AuthApiService.VALIDATE_INVITE_TOKEN, {
+            token: data.token
+        }, {
+            isApiRequest: true,
+        });
     }
 
     getUser(params: GetUserApiParams): Promise<AxiosResponse<UserData>> {

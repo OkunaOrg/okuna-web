@@ -53,3 +53,6 @@ export interface UnblockUserApiParams {
     userUsername: string;
 }
 
+export interface ValidateInviteTokenApiParams {
+    token: string
+}

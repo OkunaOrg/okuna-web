@@ -6,7 +6,7 @@ import {
     RegistrationApiParams,
     RegistrationResponse,
     RequestResetPasswordApiParams,
-    ResetPasswordApiParams
+    ResetPasswordApiParams, ValidateInviteTokenApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
@@ -185,6 +185,16 @@ export class UserService implements IUserService {
     async register(data: RegistrationApiParams): Promise<RegistrationResponse> {
         const response = await this.authApiService!.register(data);
         return response.data;
+    }
+
+    async validateInviteToken(data: ValidateInviteTokenApiParams): Promise<boolean> {
+        try {
+            await this.authApiService.validateInviteToken(data);
+            return true;
+        } catch (error) {
+            if (error.response && error.response.status === 400) return false;
+            throw error;
+        }
     }
 
     async requestResetPassword(data: RequestResetPasswordApiParams): Promise<void> {

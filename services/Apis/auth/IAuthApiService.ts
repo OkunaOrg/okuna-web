@@ -6,8 +6,13 @@ import {
     LoginApiParams,
     LoginResponse,
     RegistrationApiParams,
-    RegistrationResponse, ReportUserApiParams,
-    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams, UnblockUserApiParams
+    RegistrationResponse,
+    ReportUserApiParams,
+    RequestResetPasswordApiParams,
+    ResetPasswordApiParams,
+    SearchUsersApiParams,
+    UnblockUserApiParams,
+    ValidateInviteTokenApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 
 export interface IAuthApiService {
@@ -31,4 +36,6 @@ export interface IAuthApiService {
     blockUser(params: BlockUserApiParams): Promise<AxiosResponse<void>>;
 
     unblockUser(params: UnblockUserApiParams): Promise<AxiosResponse<void>>;
+
+    validateInviteToken(data: ValidateInviteTokenApiParams): Promise<AxiosResponse<void>>;
 }

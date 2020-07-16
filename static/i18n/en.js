@@ -196,6 +196,10 @@ export default {
             "email": {
                 "required": "Email is required",
                 "invalid": "Email is invalid",
+            },
+            "invite_token": {
+                "required": "Invite token is required",
+                "invalid": "The token is not valid",
             }
         },
         "keywords": {
@@ -222,6 +226,7 @@ export default {
             "description": "description",
             "done": "Done",
             "save": "Save",
+            "validate": "Validate",
         },
         "models": {
             "post": "post",
@@ -238,6 +243,10 @@ export default {
             "privacy_policy": "Privacy policy",
             "terms_of_use": "Terms of use",
             "dont_have_an_account": "Dont have an account?",
+            "already_have_an_account": "Already have an account?",
+            "paste_your_invite_code": "Paste your invite link or code",
+            "dont_have_one": "Don't have one?",
+            "request_one": "Request one",
             "sign_up": "Sign up",
             "login": "Login",
             "operational_status": "Status",
