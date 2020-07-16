@@ -1,13 +1,31 @@
 <template>
     <section class="notifications-container">
         <b-tabs position="is-centered" expanded @change="onTabChange">
-            <b-tab-item :label="$t('components.notifications.general_tab_label')">
+            <b-tab-item>
+                <template slot="header">
+                    <div
+                        class="ok-notification-tab has-padding-10 ok-has-text-primary-invert"
+                        :class="{ 'ok-has-border-bottom-accent': currentTabIndex === 0 }"
+                    >
+                        {{ $t('components.notifications.general_tab_label') }}
+                    </div>
+                </template>
+
                 <ok-user-notifications-stream
                     :notificationTypes="generalNotificationTypes"
                     v-if="shouldGeneralTabRender"
                 ></ok-user-notifications-stream>
             </b-tab-item>
-            <b-tab-item :label="$t('components.notifications.requests_tab_label')">
+            <b-tab-item>
+                <template slot="header">
+                    <div
+                        class="ok-notification-tab has-padding-10 ok-has-text-primary-invert"
+                        :class="{ 'ok-has-border-bottom-accent': currentTabIndex === 1 }"
+                    >
+                        {{ $t('components.notifications.requests_tab_label') }}
+                    </div>
+                </template>
+
                 <ok-user-notifications-stream
                     :notificationTypes="requestsNotificationTypes"
                     v-if="shouldRequestsTabRender"
@@ -35,11 +53,14 @@
         shouldGeneralTabRender = true;
         shouldRequestsTabRender = false;
         hasForcefullyReRendered = false;
+        currentTabIndex = 0;
 
         onTabChange(idx) {
             if (idx === 1) {
                 this.shouldRequestsTabRender = true;
             }
+
+            this.currentTabIndex = idx;
         }
 
         forceReRender() {
@@ -62,9 +83,21 @@
         }
 
         .tabs {
-            padding: 10px;
-            a, a:hover {
-                text-decoration: none !important;
+            li {
+                a {
+                    display: block;
+                    text-align: center;
+                    margin-bottom: 0;
+
+                    &:hover {
+                        text-decoration: none !important;
+                    }
+
+                    .ok-notification-tab {
+                        border-bottom: 2px solid transparent;
+                        border-bottom-width: 2px !important;
+                    }
+                }
             }
         }
     }
