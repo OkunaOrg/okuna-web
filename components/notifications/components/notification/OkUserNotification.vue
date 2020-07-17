@@ -1,5 +1,5 @@
 <template>
-    <article class="ok-notification" :class="{ unread: !notification.read }">
+    <article class="ok-notification" :class="{ 'ok-has-background-primary-highlight': !notification.read }">
         <ok-notification-contents
                 v-if="componentIsReady"
                 :initiator="initiator"
@@ -236,9 +236,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .ok-notification.unread {
-        background: #f5f5f5;
-    }
-</style>

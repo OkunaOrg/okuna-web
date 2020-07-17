@@ -12,11 +12,11 @@
                 :avatar-size="avatarSize.medium"
             ></ok-user-avatar>
         </div>
-        <div class="notification-body media-content">
+        <div class="notification-body media-content ok-has-text-primary-invert">
             <strong class="notification-body-name" v-if="!community">{{ initiator.profile.name }}</strong>
             <span class="notification-body-username" v-if="!community">@{{ initiator.username }}</span>
             <span class="notification-text has-preserved-whitespace">{{ notificationBody }}</span>
-            <div class="created-at">
+            <div class="created-at subtitle is-7 ok-has-text-primary-invert-80">
                 {{ created | moment("from", "now") }}
             </div>
         </div>
