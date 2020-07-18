@@ -188,6 +188,10 @@
   border-top: 1px solid var(--primary-invert-color-80) !important;
 }
 
+.ok-has-border-accent {
+  border: 1px solid var(--accent-color) !important;
+}
+
 .ok-has-border-bottom-accent {
   border-bottom: 1px solid var(--accent-color) !important;
 }

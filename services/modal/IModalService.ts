@@ -36,6 +36,8 @@ export interface IModalService {
 
     openConnectionsCirclesPickerModal(params: ConnectionsCirclesPickerModalParams): Promise<void>;
 
+    openThemesModal(params: ThemeModalParams): Promise<void>;
+
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
 
@@ -57,7 +59,8 @@ export type ModalParams =
     | CommunityActionsModalParams
     | PostCommentActionsModalParams
     | HashtagActionsModalParams
-    | ConnectionsCirclesPickerModalParams;
+    | ConnectionsCirclesPickerModalParams
+    | ThemeModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -126,4 +129,8 @@ export interface ReportObjectModalParams {
     object: IDataModel<any>;
     extraData?: {[key: string]: any};
     onObjectReported: (object: any) => void;
+}
+
+export interface ThemeModalParams {
+    title: string;
 }
