@@ -109,7 +109,11 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <a
+                    href="javascript://"
+                    class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover"
+                    @click="onThemesClick"
+                >
                             <span class="icon has-padding-right-10">
                                  <ok-customize-icon
                                          class="ok-svg-icon-primary-invert"></ok-customize-icon>
@@ -117,7 +121,7 @@
                     <span class="ok-has-text-primary-invert">
                                 {{$t('components.user_dropdown.themes')}}
                             </span>
-                </nuxt-link>
+                </a>
             </li>
             <li>
                 <nuxt-link :to="'/'" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
@@ -170,6 +174,7 @@
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import { OkAvatarBorderRadius } from '~/components/avatars/lib/OkAvatarBorderRadius';
     import { BehaviorSubject } from '~/node_modules/rxjs';
+    import { IModalService } from "../../services/modal/IModalService";
 
     @Component({
         name: "OkUserMenu",
@@ -191,6 +196,7 @@
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
         tooltipOptions = {
             placement: 'bottom-end'
@@ -198,6 +204,13 @@
 
         get profileUrl(){
             return `/${this.$observables.loggedInUser.value.username}`;
+        }
+
+        async onThemesClick() {
+            this.$emit('leaveMenu');
+            await this.modalService.openThemesModal({
+                title: this.$t('components.user_dropdown.themes').toString()
+            });
         }
     }
 </script>
