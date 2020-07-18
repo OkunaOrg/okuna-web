@@ -1,7 +1,7 @@
 <template>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" class="is-flex flex-direction-column">
         <div class="field">
-            <label for="inviteToken" class="label has-text-left ok-has-text-primary-invert-80">
+            <label for="inviteToken" class="label has-text-left ok-has-text-primary-invert-80 is-medium">
                 {{$t('global.snippets.paste_your_invite_code')}}
             </label>
             <div class="control">
@@ -11,12 +11,14 @@
                        required
                        id="inviteToken" v-model="inviteToken">
             </div>
-            <p class="help is-danger has-text-left" v-if="!$v.inviteToken.required && $v.inviteToken.$dirty">
-                {{$t('global.errors.invite_token.required')}}
-            </p>
-            <p class="help is-danger has-text-left" v-if="formWasSubmitted && !tokenValid">
-                {{$t('global.errors.invite_token.invalid')}}
-            </p>
+            <div v-if="$v.inviteToken.$invalid || !tokenValid" class="has-padding-top-5">
+                <p class="help is-danger has-text-left" v-if="!$v.inviteToken.required && $v.inviteToken.$dirty">
+                    {{$t('global.errors.invite_token.required')}}
+                </p>
+                <p class="help is-danger has-text-left" v-else-if="formWasSubmitted && !tokenValid">
+                    {{$t('global.errors.invite_token.invalid')}}
+                </p>
+            </div>
         </div>
         <div class="field has-text-left ok-has-text-primary-invert">
              <span>
@@ -26,12 +28,14 @@
                 {{$t('global.snippets.request_one')}}.
             </nuxt-link>
         </div>
-        <div class="field has-padding-top-20">
-            <button class="button is-success is-rounded is-fullwidth is-medium has-background-rainbow has-text-weight-bold"
-                    type="submit"
-                    :class="{'is-disabled' : submitInProgress}" :disabled="submitInProgress">
-                {{$t('global.keywords.validate')}}
-            </button>
+        <div class="is-flex-1 flex-direction-column-reverse">
+            <div class="field has-padding-top-20">
+                <button class="button is-success is-rounded is-fullwidth is-medium has-background-rainbow has-text-weight-bold"
+                        type="submit"
+                        :class="{'is-disabled' : submitInProgress}" :disabled="submitInProgress">
+                    {{$t('global.keywords.validate')}}
+                </button>
+            </div>
         </div>
     </form>
 </template>

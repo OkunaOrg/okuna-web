@@ -155,4 +155,8 @@ export class UtilsService implements IUtilsService {
 
         return s.charAt(0).toUpperCase() + s.slice(1)
     }
+
+    isPromise(obj: Object): boolean {
+        return obj && Object.prototype.toString.call(obj) === "[object Promise]";
+    }
 }

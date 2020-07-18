@@ -12,6 +12,11 @@
   text-decoration: underline;
 }
 
+.has-no-text-decoration{
+  text-decoration: unset !important;
+}
+
+
 .has-text-logo {
   font-family: CocogooseProSemilight, sans-serif !important
 }

@@ -196,10 +196,16 @@ export default {
             "email": {
                 "required": "Email is required",
                 "invalid": "Email is invalid",
+                "taken": "This email is already taken",
             },
             "invite_token": {
                 "required": "Invite token is required",
                 "invalid": "The token is not valid",
+            },
+            "user_name": {
+                "required": "You must provide a name",
+                "max_length": "Your name can't be longer than $max characters",
+                "min_length": "Your name can't be shorter than $min characters"
             }
         },
         "keywords": {
@@ -227,6 +233,8 @@ export default {
             "done": "Done",
             "save": "Save",
             "validate": "Validate",
+            "next": "Next",
+            "previous": "Previous",
         },
         "models": {
             "post": "post",
@@ -293,7 +301,19 @@ export default {
             "delete_post_comment": "Delete post comment",
             "post_comment_deleted": "Post comment deleted",
             "report_post_comment": "Report post comment",
-            "post_comment_reported": "Post comment reported"
+            "post_comment_reported": "Post comment reported",
+            "valid_invite_token": "🎉 The token is valid!",
+            "whats_your_name": "What's your name?",
+            "whats_your_email": "What's your email?",
+            "choose_a_password": "Choose a password",
+            "password_requirement": "($min-$max characters)",
+            "please_take_a_moment_to_read_our_guidelines": "Please take a moment to read and accept our guidelines",
+            "great_now_check_our_terms_of_service": "Great! Now please read through our terms of service.",
+            "we_have_made_tos_simple": "We have made them a simple as our jurisdiction allows us to do so.",
+            "hang_in_there": "Hang in there!",
+            "were_creating_your_account": "We're creating your account",
+            "awww_yeah": "Aww yeah!",
+            "your_account_is_ready": "Your account is ready.",
         },
     },
 }
