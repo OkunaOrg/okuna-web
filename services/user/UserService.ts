@@ -6,7 +6,7 @@ import {
     RegistrationApiParams,
     RegistrationResponse,
     RequestResetPasswordApiParams,
-    ResetPasswordApiParams, IsInviteTokenValidApiParams, IsEmailAvailableApiParams
+    ResetPasswordApiParams, IsInviteTokenValidApiParams, IsEmailAvailableApiParams, IsUsernameAvailableApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
@@ -200,6 +200,16 @@ export class UserService implements IUserService {
     async isEmailAvailable(data: IsEmailAvailableApiParams): Promise<boolean> {
         try {
             await this.authApiService.isEmailAvailable(data);
+            return true;
+        } catch (error) {
+            if (!error || (error.response && error.response.status === 400)) return false;
+            throw error;
+        }
+    }
+
+    async isUsernameAvailable(data: IsUsernameAvailableApiParams): Promise<boolean> {
+        try {
+            await this.authApiService.isUsernameAvailable(data);
             return true;
         } catch (error) {
             if (!error || (error.response && error.response.status === 400)) return false;

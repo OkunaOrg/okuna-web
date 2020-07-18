@@ -8,12 +8,17 @@
         </template>
         <template v-else-if="activeStep === 1">
             <ok-register-user-email-form
+                    :initialEmail="userEmail"
                     @onUserEmailIsValid="onUserEmailIsValid"
                     :onPrevious="goToPreviousStep"
             />
         </template>
         <template v-else-if="activeStep === 2">
-            Pick a username
+            <ok-register-user-username-form
+                    :initialUsername="userUsername"
+                    @onUserEmailIsValid="onUserUsernameIsValid"
+                    :onPrevious="goToPreviousStep"
+            />
         </template>
         <template v-else-if="activeStep === 3">
             Pick a password
@@ -42,10 +47,11 @@
     import OkButtonsNavigation from "~/components/navigation/OkButtonsNavigation.vue";
     import OkRegisterUserNameForm from "~/components/forms/register-form/components/OkRegisterUserNameForm.vue";
     import OkRegisterUserEmailForm from "~/components/forms/register-form/components/OkRegisterUserEmailForm.vue";
+    import OkRegisterUserUsernameForm from '~/components/forms/register-form/components/OkRegisterUserUsernameForm.vue';
 
     @Component({
         name: "OkRegisterForm",
-        components: {OkRegisterUserEmailForm, OkRegisterUserNameForm, OkButtonsNavigation}
+        components: {OkRegisterUserUsernameForm, OkRegisterUserEmailForm, OkRegisterUserNameForm, OkButtonsNavigation}
     })
     export default class extends Vue {
 
@@ -82,8 +88,9 @@
             this.goToNextStep();
         }
 
-        onValidUserUsername(userUsername: string) {
+        onUserUsernameIsValid(userUsername: string) {
             this.userUsername = userUsername;
+            this.goToNextStep();
         }
 
         onUserEmailIsValid(userEmail: string) {

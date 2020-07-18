@@ -60,3 +60,7 @@ export interface IsInviteTokenValidApiParams {
 export interface IsEmailAvailableApiParams {
     email: string
 }
+
+export interface IsUsernameAvailableApiParams {
+    username: string
+}

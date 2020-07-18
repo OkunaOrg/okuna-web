@@ -189,9 +189,11 @@ export default {
             "moderation_report_description": {
                 "max_length": "Description has to be smaller than 1000 characters"
             },
-            "username": {
+            "user_username": {
                 "required": "Username is required",
-                "username": "Username has to be smaller than 64 characters"
+                "max_length": "Your username can't be longer than $max characters",
+                "min_length": "Your username can't be shorter than $min characters",
+                "taken": "This username is already taken",
             },
             "email": {
                 "required": "Email is required",
@@ -305,6 +307,7 @@ export default {
             "valid_invite_token": "🎉 The token is valid!",
             "whats_your_name": "What's your name?",
             "whats_your_email": "What's your email?",
+            "pick_your_username": "Pick your username!",
             "choose_a_password": "Choose a password",
             "password_requirement": "($min-$max characters)",
             "please_take_a_moment_to_read_our_guidelines": "Please take a moment to read and accept our guidelines",

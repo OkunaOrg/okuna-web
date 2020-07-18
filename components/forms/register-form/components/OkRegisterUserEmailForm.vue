@@ -49,6 +49,11 @@
     export default class OkRegisterUserEmailForm extends Vue {
 
         @Prop({
+            type: String,
+            required: false,
+        }) readonly initialEmail: string;
+
+        @Prop({
             type: Function,
             required: true,
         }) readonly onPrevious: () => Promise | void;
@@ -65,6 +70,12 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
+        created() {
+            if (this.initialEmail) {
+                this.userEmail = this.initialEmail;
+            }
+        }
+        
         @Watch("userEmail")
         onUserEmailChange(val: string, oldVal: string) {
             if (!this.emailIsAvailable) this.emailIsAvailable = true;
