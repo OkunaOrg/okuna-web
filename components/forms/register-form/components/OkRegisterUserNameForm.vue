@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent="onSubmit">
         <div class="field">
             <label for="userName" class="label is-medium ok-has-text-primary-invert-80 has-text-left">
                 {{$t('global.snippets.whats_your_name')}}

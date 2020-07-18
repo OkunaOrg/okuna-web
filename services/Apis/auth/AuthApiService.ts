@@ -12,7 +12,7 @@ import {
     ResetPasswordApiParams,
     SearchUsersApiParams,
     UnblockUserApiParams,
-    ValidateInviteTokenApiParams
+    IsInviteTokenValidApiParams, IsEmailAvailableApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -32,6 +32,7 @@ export class AuthApiService implements IAuthApiService {
     static REPORT_USER_PATH = 'api/auth/users/{userUsername}/report/';
     static BLOCK_USER_PATH = 'api/auth/users/{userUsername}/block/';
     static UNBLOCK_USER_PATH = 'api/auth/users/{userUsername}/unblock/';
+    static CHECK_EMAIL_PATH = 'api/auth/email-check/';
 
     constructor(@inject(TYPES.HttpService) private httpService: IHttpService,
                 @inject(TYPES.UtilsService) private utilsService: IUtilsService) {
@@ -77,9 +78,17 @@ export class AuthApiService implements IAuthApiService {
         })
     }
 
-    validateInviteToken(data: ValidateInviteTokenApiParams): Promise<AxiosResponse<void>> {
+    isInviteTokenValid(data: IsInviteTokenValidApiParams): Promise<AxiosResponse<void>> {
         return this.httpService.post<void>(AuthApiService.VALIDATE_INVITE_TOKEN, {
             token: data.token
+        }, {
+            isApiRequest: true,
+        });
+    }
+
+    isEmailAvailable(data: IsEmailAvailableApiParams): Promise<AxiosResponse<void>> {
+        return this.httpService.post<void>(AuthApiService.CHECK_EMAIL_PATH, {
+            email: data.email
         }, {
             isApiRequest: true,
         });

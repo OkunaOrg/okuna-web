@@ -100,7 +100,7 @@
             if (this.requestOperation) return;
 
             try {
-                this.requestOperation = CancelableOperation.fromPromise<boolean>(this.userService.validateInviteToken({
+                this.requestOperation = CancelableOperation.fromPromise<boolean>(this.userService.isInviteTokenValid({
                     token: this.inviteToken
                 }));
                 this.tokenValid = await this.requestOperation.value;

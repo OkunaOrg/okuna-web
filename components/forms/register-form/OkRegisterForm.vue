@@ -8,7 +8,7 @@
         </template>
         <template v-else-if="activeStep === 1">
             <ok-register-user-email-form
-                    @onEmailIsValid="onEmailIsValid"
+                    @onUserEmailIsValid="onUserEmailIsValid"
                     :onPrevious="goToPreviousStep"
             />
         </template>
@@ -86,7 +86,7 @@
             this.userUsername = userUsername;
         }
 
-        onEmailIsValid(userEmail: string) {
+        onUserEmailIsValid(userEmail: string) {
             this.userEmail = userEmail;
             this.goToNextStep();
         }

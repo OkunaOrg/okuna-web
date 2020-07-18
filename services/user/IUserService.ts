@@ -66,7 +66,7 @@ import {
     LoginApiParams,
     RegistrationApiParams,
     RegistrationResponse,
-    RequestResetPasswordApiParams, ResetPasswordApiParams, ValidateInviteTokenApiParams
+    RequestResetPasswordApiParams, ResetPasswordApiParams, IsInviteTokenValidApiParams, IsEmailAvailableApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { INotification } from '~/models/notifications/notification/INotification';
 import { IFollow } from '~/models/follows/follow/IFollow';
@@ -86,7 +86,9 @@ export interface IUserService {
 
     register(data: RegistrationApiParams): Promise<RegistrationResponse>;
 
-    validateInviteToken(data: ValidateInviteTokenApiParams): Promise<boolean>;
+    isInviteTokenValid(data: IsInviteTokenValidApiParams): Promise<boolean>;
+
+    isEmailAvailable(data: IsEmailAvailableApiParams): Promise<boolean>;
 
     requestResetPassword(data: RequestResetPasswordApiParams): Promise<void>;
 
