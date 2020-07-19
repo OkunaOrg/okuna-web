@@ -35,7 +35,7 @@
         @Prop({
             type: Function,
             required: false,
-        }) readonly onPrevious: () => Promise | void;
+        }) readonly onPrevious: () => Promise<void> | void;
 
         @Prop({
             type: String,
@@ -45,7 +45,7 @@
         @Prop({
             type: Function,
             required: true,
-        }) readonly onNext: () => Promise | void;
+        }) readonly onNext: () => Promise<void> | void;
 
         @Prop({
             type: String,

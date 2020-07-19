@@ -56,7 +56,7 @@
         @Prop({
             type: Function,
             required: true,
-        }) readonly onPrevious: () => Promise | void;
+        }) readonly onPrevious: () => Promise<void> | void;
 
         requestOperation?: CancelableOperation<boolean>;
         formWasSubmitted = false;

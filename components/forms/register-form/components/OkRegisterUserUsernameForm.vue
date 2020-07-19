@@ -47,7 +47,6 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
-    import { usernameValidators } from "~/validators/username";
     import { CancelableOperation } from "~/lib/CancelableOperation";
 
     @Component({
@@ -64,7 +63,7 @@
         @Prop({
             type: Function,
             required: true,
-        }) readonly onPrevious: () => Promise | void;
+        }) readonly onPrevious: () => Promise<void> | void;
 
         requestOperation?: CancelableOperation<boolean>;
         formWasSubmitted = false;

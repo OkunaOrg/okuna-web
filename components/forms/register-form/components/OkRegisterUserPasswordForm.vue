@@ -56,7 +56,7 @@
         @Prop({
             type: Function,
             required: true,
-        }) readonly onPrevious: () => Promise | void;
+        }) readonly onPrevious: () => Promise<void> | void;
 
         formWasSubmitted = false;
 
@@ -70,12 +70,12 @@
         userPassword = "";
 
         onSubmit() {
-            const formIsValid = this._validateAll();
+            const formIsValid = this.validateAll();
 
             this.formWasSubmitted = true;
 
             if (formIsValid) {
-                this._onSubmitWithValidForm();
+                this.onSubmitWithValidForm();
             }
         }
 
@@ -98,12 +98,12 @@
             });
         }
 
-        _onSubmitWithValidForm() {
+        private onSubmitWithValidForm() {
             this.$emit("onUserPasswordIsValid", this.userPassword);
         }
 
 
-        _validateAll() {
+        private validateAll() {
             this.$v.$touch();
             return !this.$v.$invalid;
         }

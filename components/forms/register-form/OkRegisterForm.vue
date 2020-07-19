@@ -127,21 +127,7 @@
             this.registrationOperation?.cancel();
         }
 
-        async onSubmit() {
-            if (this.submitInProgress) return;
-            this.submitInProgress = true;
-
-            const formIsValid = await this._validateAll();
-
-            this.formWasSubmitted = true;
-            if (formIsValid) {
-                await this._onSubmitWithValidForm();
-            }
-
-            this.submitInProgress = false;
-        }
-
-        async _onSubmitWithValidForm() {
+        private async onSubmitWithValidForm() {
             if (this.registrationOperation) return;
 
             try {
@@ -155,7 +141,7 @@
                     isOfLegalAge: this.isOfLegalAge
                 }));
                 const registrationData = await this.registrationOperation.value;
-                this._onUserRegistered(registrationData);
+                this.onUserRegistered(registrationData);
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;
@@ -164,7 +150,7 @@
             }
         }
 
-        _onUserRegistered(data: RegistrationResponse) {
+        private onUserRegistered(data: RegistrationResponse) {
             this.$emit("onUserRegistered", data);
         }
 
