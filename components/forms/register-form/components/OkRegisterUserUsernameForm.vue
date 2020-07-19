@@ -11,21 +11,21 @@
                        required
                        id="userUsername" v-model="userUsername">
             </div>
-            <div v-if="$v.userUsername.$invalid || !usernameIsAvailable" class="has-padding-top-5 has-text-left">
+            <div v-if="($v.userUsername.$invalid || !usernameIsAvailable) && formWasSubmitted" class="has-padding-top-5 has-text-left">
                 <p class="help is-danger"
-                   v-if="!$v.userUsername.required && ($v.userUsername.$dirty || formWasSubmitted)">
+                   v-if="!$v.userUsername.required">
                     {{$t('global.errors.user_name.required')}}
                 </p>
                 <p class="help is-danger"
-                   v-if="!$v.userUsername.maxLength && ($v.userUsername.$dirty || formWasSubmitted)">
+                   v-if="!$v.userUsername.maxLength">
                     {{usernameMaxLengthError}}
                 </p>
                 <p class="help is-danger"
-                   v-if="!$v.userUsername.minLength && ($v.userUsername.$dirty || formWasSubmitted)">
+                   v-if="!$v.userUsername.minLength">
                     {{onUsernameIsAvailable}}
                 </p>
                 <p class="help is-danger"
-                   v-else-if="!usernameIsAvailable && ($v.userUsername.$dirty || formWasSubmitted)">
+                   v-else-if="!usernameIsAvailable">
                     {{$t('global.errors.user_username.taken')}}
                 </p>
             </div>

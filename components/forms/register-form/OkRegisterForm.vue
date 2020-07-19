@@ -16,12 +16,16 @@
         <template v-else-if="activeStep === 2">
             <ok-register-user-username-form
                     :initialUsername="userUsername"
-                    @onUserEmailIsValid="onUserUsernameIsValid"
+                    @onUserUsernameIsValid="onUserUsernameIsValid"
                     :onPrevious="goToPreviousStep"
             />
         </template>
         <template v-else-if="activeStep === 3">
-            Pick a password
+            <ok-register-user-password-form
+                    :initialPassword="userPassword"
+                    @onUserPasswordIsValid="onUserPasswordIsValid"
+                    :onPrevious="goToPreviousStep"
+            />        
         </template>
         <template v-else-if="activeStep === 4">
             Guidelines
@@ -48,10 +52,13 @@
     import OkRegisterUserNameForm from "~/components/forms/register-form/components/OkRegisterUserNameForm.vue";
     import OkRegisterUserEmailForm from "~/components/forms/register-form/components/OkRegisterUserEmailForm.vue";
     import OkRegisterUserUsernameForm from '~/components/forms/register-form/components/OkRegisterUserUsernameForm.vue';
+    import OkRegisterUserPasswordForm from '~/components/forms/register-form/components/OkRegisterUserPasswordForm.vue';
 
     @Component({
         name: "OkRegisterForm",
-        components: {OkRegisterUserUsernameForm, OkRegisterUserEmailForm, OkRegisterUserNameForm, OkButtonsNavigation}
+        components: {
+            OkRegisterUserPasswordForm,
+            OkRegisterUserUsernameForm, OkRegisterUserEmailForm, OkRegisterUserNameForm, OkButtonsNavigation}
     })
     export default class extends Vue {
 
@@ -98,8 +105,9 @@
             this.goToNextStep();
         }
 
-        onValidUserPassword(userPassword: string) {
+        onUserPasswordIsValid(userPassword: string) {
             this.userPassword = userPassword;
+            this.goToNextStep();
         }
 
         onAcceptedGuidelinesChange(acceptedGuidelines) {

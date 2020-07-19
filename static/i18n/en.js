@@ -191,8 +191,8 @@ export default {
             },
             "user_username": {
                 "required": "Username is required",
-                "max_length": "Your username can't be longer than $max characters",
-                "min_length": "Your username can't be shorter than $min characters",
+                "max_length": "Your username can't be longer than {max} characters",
+                "min_length": "Your username can't be shorter than {min} characters",
                 "taken": "This username is already taken",
             },
             "email": {
@@ -206,8 +206,8 @@ export default {
             },
             "user_name": {
                 "required": "You must provide a name",
-                "max_length": "Your name can't be longer than $max characters",
-                "min_length": "Your name can't be shorter than $min characters"
+                "max_length": "Your name can't be longer than {max} characters",
+                "min_length": "Your name can't be shorter than {min} characters"
             }
         },
         "keywords": {
@@ -309,7 +309,7 @@ export default {
             "whats_your_email": "What's your email?",
             "pick_your_username": "Pick your username!",
             "choose_a_password": "Choose a password",
-            "password_requirement": "($min-$max characters)",
+            "password_requirement": "({min}-{max} characters)",
             "please_take_a_moment_to_read_our_guidelines": "Please take a moment to read and accept our guidelines",
             "great_now_check_our_terms_of_service": "Great! Now please read through our terms of service.",
             "we_have_made_tos_simple": "We have made them a simple as our jurisdiction allows us to do so.",

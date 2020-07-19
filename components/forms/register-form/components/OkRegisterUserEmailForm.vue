@@ -11,14 +11,14 @@
                        required
                        id="userEmail" v-model="userEmail">
             </div>
-            <div v-if="$v.userEmail.$invalid || !emailIsAvailable" class="has-padding-top-5">
-                <p class="help is-danger" v-if="!$v.userEmail.required && ($v.userEmail.$dirty || formWasSubmitted)">
+            <div v-if="($v.userEmail.$invalid || !emailIsAvailable) && formWasSubmitted" class="has-padding-top-5">
+                <p class="help is-danger" v-if="!$v.userEmail.required">
                     {{$t('global.errors.email.required')}}
                 </p>
-                <p class="help is-danger" v-else-if="!$v.userEmail.email && ($v.userEmail.$dirty || formWasSubmitted)">
+                <p class="help is-danger" v-else-if="!$v.userEmail.email">
                     {{$t('global.errors.email.invalid')}}
                 </p>
-                <p class="help is-danger" v-else-if="!emailIsAvailable && ($v.userEmail.$dirty || formWasSubmitted)">
+                <p class="help is-danger" v-else-if="!emailIsAvailable">
                     {{$t('global.errors.email.taken')}}
                 </p>
             </div>
