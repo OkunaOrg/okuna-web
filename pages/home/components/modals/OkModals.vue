@@ -49,6 +49,10 @@
             <ok-connections-circles-picker-modal :return-data-setter="setModalReturnData"
                                     :params="activeModalParams"></ok-connections-circles-picker-modal>
         </b-modal>
+        <b-modal :active.sync="termsOfUseModalOpened" @close="onModalClosed" :trap-focus="true" :width="1444"
+                 :custom-class="'ok-modal'">
+            <ok-terms-of-use-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-terms-of-use-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -116,6 +120,9 @@
         communitiesListModalOpen: boolean = false;
         reportObjectModalOpen: boolean = false;
         connectionsCirclesPickerOpen: boolean = false;
+        termsOfUseModalOpened: boolean = false;
+        communityGuidelinesModalOpened: boolean = false;
+        privacyPolicyModalOpened: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -148,6 +155,9 @@
             this.postCommentActionsModalOpened = activeModalValue === ModalType.postCommentActions;
             this.reportObjectModalOpen = activeModalValue === ModalType.reportObject;
             this.connectionsCirclesPickerOpen = activeModalValue === ModalType.connectionsCirclesPicker;
+            this.termsOfUseModalOpened = activeModalValue === ModalType.termsOfUse;
+            this.communityGuidelinesModalOpened = activeModalValue === ModalType.communityGuidelines;
+            this.privacyPolicyModalOpened = activeModalValue === ModalType.privacyPolicy;
         }
     }
 </script>

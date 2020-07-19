@@ -34,7 +34,7 @@
 
     .ok-register-page-card{
         @include for-size(desktop-up) {
-            //width: 370px;
+            max-width: 370px;
         }
     }
 

@@ -36,6 +36,12 @@ export interface IModalService {
 
     openConnectionsCirclesPickerModal(params: ConnectionsCirclesPickerModalParams): Promise<void>;
 
+    openTermsOfUseModal(): Promise<void>;
+
+    openPrivacyPolicyModal(): Promise<void>;
+
+    openCommunityGuidelinesModal(): Promise<void>;
+
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
 

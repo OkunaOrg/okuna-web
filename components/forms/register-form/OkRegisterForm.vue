@@ -25,10 +25,14 @@
                     :initialPassword="userPassword"
                     @onUserPasswordIsValid="onUserPasswordIsValid"
                     :onPrevious="goToPreviousStep"
-            />        
+            />
         </template>
         <template v-else-if="activeStep === 4">
-            Guidelines
+            <ok-register-user-documents-form
+                    :initialAcceptsDocuments="userAcceptedDocuments"
+                    @onUserAcceptedDocumentsChange="onUserAcceptedDocumentsChange"
+                    :onPrevious="goToPreviousStep"
+            />
         </template>
         <template v-else-if="activeStep === 5">
             One last thing
@@ -51,14 +55,18 @@
     import OkButtonsNavigation from "~/components/navigation/OkButtonsNavigation.vue";
     import OkRegisterUserNameForm from "~/components/forms/register-form/components/OkRegisterUserNameForm.vue";
     import OkRegisterUserEmailForm from "~/components/forms/register-form/components/OkRegisterUserEmailForm.vue";
-    import OkRegisterUserUsernameForm from '~/components/forms/register-form/components/OkRegisterUserUsernameForm.vue';
-    import OkRegisterUserPasswordForm from '~/components/forms/register-form/components/OkRegisterUserPasswordForm.vue';
+    import OkRegisterUserUsernameForm from "~/components/forms/register-form/components/OkRegisterUserUsernameForm.vue";
+    import OkRegisterUserPasswordForm from "~/components/forms/register-form/components/OkRegisterUserPasswordForm.vue";
+    import OkRegisterUserDocumentsForm
+        from "~/components/forms/register-form/components/OkRegisterUserDocumentsForm.vue";
 
     @Component({
         name: "OkRegisterForm",
         components: {
+            OkRegisterUserDocumentsForm,
             OkRegisterUserPasswordForm,
-            OkRegisterUserUsernameForm, OkRegisterUserEmailForm, OkRegisterUserNameForm, OkButtonsNavigation}
+            OkRegisterUserUsernameForm, OkRegisterUserEmailForm, OkRegisterUserNameForm, OkButtonsNavigation
+        }
     })
     export default class extends Vue {
 
@@ -76,15 +84,14 @@
 
         formWasSubmitted = false;
         submitInProgress = false;
-        areGuidelinesAccepted = false;
-        isOfLegalAge = false;
+
 
         userName = "";
         userEmail = "";
         userPassword = "";
         userUsername = "";
-        userAcceptedGuidelines = false;
-        userAcceptedTos = false;
+        userAcceptedDocuments = false;
+        userIsOfLegalAge = false;
 
         $refs!: {
             registerUserNameForm: OkRegisterUserNameForm
@@ -110,16 +117,13 @@
             this.goToNextStep();
         }
 
-        onAcceptedGuidelinesChange(acceptedGuidelines) {
-            this.userAcceptedGuidelines = acceptedGuidelines;
+        onUserAcceptedDocumentsChange(userAcceptedDocuments: boolean) {
+            this.userAcceptedDocuments = userAcceptedDocuments;
+            console.log(userAcceptedDocuments)
         }
 
-        onAcceptedTosChange(acceptedTos) {
-            this.userAcceptedTos = acceptedTos;
-        }
-
-        onIsOfLegalAgeChange(isOfLegalAge) {
-            this.isOfLegalAge = isOfLegalAge;
+        onUserAcceptedDocuments() {
+            this.goToNextStep();
         }
 
 
