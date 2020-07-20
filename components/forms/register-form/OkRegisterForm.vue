@@ -32,6 +32,7 @@
                     :initialAcceptsDocuments="userAcceptedDocuments"
                     @onUserAcceptedDocumentsChange="onUserAcceptedDocumentsChange"
                     :onPrevious="goToPreviousStep"
+                    :onNext="goToNextStep"
             />
         </template>
         <template v-else-if="activeStep === 5">
@@ -80,7 +81,7 @@
 
         registrationOperation?: CancelableOperation<RegistrationResponse> | undefined;
 
-        activeStep = 0;
+        activeStep = 4;
 
         formWasSubmitted = false;
         submitInProgress = false;

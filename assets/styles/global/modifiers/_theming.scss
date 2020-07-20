@@ -228,6 +228,12 @@
   }
 }
 
+.ok-svg-icon-primary-highlight {
+  & svg {
+    fill: var(--primary-highlight-color) !important;
+  }
+}
+
 // COMPONENT ENDS //
 
 

@@ -55,6 +55,7 @@ export default {
         '~/plugins/vue-tooltip',
         '~/plugins/vue-rx',
         '~/plugins/vue-not-visible',
+        '~/plugins/vue-markdown',
     ],
     router: {
         middleware: ['post-redirect'],
@@ -107,6 +108,7 @@ export default {
     },
     proxy: {
         '/local/': {target: 'https://api.openbook.social', pathRewrite: {'^/local/': ''}},
+        '/www/': {target: 'https://www.okuna.io', pathRewrite: {'^/www/': ''}},
     },
     styleResources: {
         scss: [

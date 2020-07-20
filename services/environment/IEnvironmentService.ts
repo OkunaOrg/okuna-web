@@ -13,5 +13,11 @@ export interface IEnvironmentService {
 
     sentryDsn: string;
 
+    termsOfUseMdUrl: string;
+
+    privacyPolicyMdUrl: string;
+
+    communityGuidelinesMdUrl: string;
+
 }
 

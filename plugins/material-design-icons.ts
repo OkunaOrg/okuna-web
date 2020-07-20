@@ -43,6 +43,7 @@ import CancelIcon from 'vue-material-design-icons/Cancel.vue';
 import CheckIcon from 'vue-material-design-icons/Check.vue';
 import CloseIcon from 'vue-material-design-icons/Close.vue';
 import AccountMultiplePlus from 'vue-material-design-icons/AccountMultiplePlus.vue';
+import OpenInNew from 'vue-material-design-icons/OpenInNew.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -141,3 +142,5 @@ Vue.component('ok-approve-icon', CheckIcon);
 Vue.component('ok-reject-icon', CloseIcon);
 
 Vue.component('ok-connect-icon', AccountMultiplePlus);
+
+Vue.component('ok-open-in-new-icon', OpenInNew);

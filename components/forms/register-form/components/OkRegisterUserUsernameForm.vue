@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="onSubmit">
         <div class="field">
-            <label for="userUsername" class="label is-medium ok-has-text-primary-invert-80 has-text-left">
+            <label for="userUsername" class="label is-medium ok-has-text-primary-invert has-text-left">
                 {{$t('global.snippets.pick_your_username')}}
             </label>
             <div class="control">

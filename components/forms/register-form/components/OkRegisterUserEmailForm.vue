@@ -1,7 +1,7 @@
 <template>
     <form class="has-text-left" @submit.prevent="onSubmit">
         <div class="field">
-            <label for="userEmail" class="label is-medium ok-has-text-primary-invert-80">
+            <label for="userEmail" class="label is-medium ok-has-text-primary-invert">
                 {{$t('global.snippets.whats_your_email')}}
             </label>
             <div class="control">

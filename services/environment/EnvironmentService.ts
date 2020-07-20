@@ -33,6 +33,19 @@ export class EnvironmentService implements IEnvironmentService {
         return process.env.SENTRY_DSN as string;
     }
 
+    get termsOfUseMdUrl(): string {
+        return process.env.TERMS_OF_USE_MD_URL as string;
+    }
+
+    get privacyPolicyMdUrl(): string {
+        return process.env.PRIVACY_POLICY_MD_URL as string;
+    }
+
+    get communityGuidelinesMdUrl(): string {
+        return process.env.COMMUNITY_GUIDELINES_MD_URL as string;
+    }
+
+
     private recalculateEnvironmentResolution(windowWidth: number) {
         let environmentResolution;
         if (windowWidth > 1024) {

@@ -49,9 +49,14 @@
             <ok-connections-circles-picker-modal :return-data-setter="setModalReturnData"
                                     :params="activeModalParams"></ok-connections-circles-picker-modal>
         </b-modal>
-        <b-modal :active.sync="termsOfUseModalOpened" @close="onModalClosed" :trap-focus="true" :width="1444"
-                 :custom-class="'ok-modal'">
+        <b-modal :active.sync="termsOfUseModalOpened" @close="onModalClosed" :trap-focus="true">
             <ok-terms-of-use-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-terms-of-use-modal>
+        </b-modal>
+        <b-modal :active.sync="privacyPolicyModalOpened" @close="onModalClosed" :trap-focus="true">
+            <ok-privacy-policy-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-privacy-policy-modal>
+        </b-modal>
+        <b-modal :active.sync="communityGuidelinesModalOpened" @close="onModalClosed" :trap-focus="true">
+            <ok-community-guidelines-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-community-guidelines-modal>
         </b-modal>
     </div>
 </template>
@@ -86,10 +91,16 @@
     import OkConnectionsCirclesPickerModal
         from '~/pages/home/components/modals/components/OkConnectionsCirclesPickerModal.vue';
     import OkPostCommentActionsModal from '~/pages/home/components/modals/components/OkPostCommentActionsModal.vue';
+    import OkTermsOfUseModal from '~/pages/home/components/modals/components/OkTermsOfUseModal.vue';
+    import OkPrivacyPolicyModal from '~/pages/home/components/modals/components/OkPrivacyPolicyModal.vue';
+    import OkCommunityGuidelinesModal from '~/pages/home/components/modals/components/OkCommunityGuidelinesModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkCommunityGuidelinesModal,
+            OkPrivacyPolicyModal,
+            OkTermsOfUseModal,
             OkPostCommentActionsModal,
             OkConnectionsCirclesPickerModal,
             OkUserActionsModal,

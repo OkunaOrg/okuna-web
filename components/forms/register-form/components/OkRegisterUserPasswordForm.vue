@@ -1,10 +1,10 @@
 <template>
     <form @submit.prevent="onSubmit">
         <div class="field">
-            <label for="userPassword" class="label is-medium ok-has-text-primary-invert-80 has-text-left is-marginless">
+            <label for="userPassword" class="label is-medium ok-has-text-primary-invert has-text-left is-marginless">
                 {{$t('global.snippets.choose_a_password')}}
             </label>
-            <p class="help ok-has-text-primary-invert has-text-left has-margin-bottom-15">
+            <p class="help ok-has-text-primary-invert-80 has-text-left has-margin-bottom-15">
                 {{passwordRequirementText}}
             </p>
             <div class="control">
