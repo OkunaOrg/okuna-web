@@ -4,14 +4,14 @@
             <button class="button is-rounded is-fullwidth is-medium has-text-weight-bold is-text has-no-text-decoration"
                     type="button"
                     :class="{'is-disabled' : nextInProgress}" :disabled="nextInProgress" @click="onPreviousButtonPressed">
-                {{$t('global.keywords.previous')}}
+                {{previousText || $t('global.keywords.previous')}}
             </button>
         </div>
         <div class="column" :class="{'is-6': onPrevious, 'is-12': !onPrevious}">
             <button class="button is-success is-rounded is-fullwidth is-medium has-background-rainbow has-text-weight-bold"
                     type="button"
                     :class="{'is-disabled' : nextInProgress}" :disabled="nextInProgress" @click="onNextButtonPressed">
-                {{$t('global.keywords.next')}}
+                {{nextText || $t('global.keywords.next')}}
             </button>
         </div>
     </div>

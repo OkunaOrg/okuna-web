@@ -43,7 +43,7 @@
     import { IUtilsService } from '~/services/utils/IUtilsService';
 
     @Component({
-        email: "OkRegisterUserEmailForm",
+        name: "OkRegisterUserEmailForm",
         components: {OkButtonsNavigation}
     })
     export default class OkRegisterUserEmailForm extends Vue {

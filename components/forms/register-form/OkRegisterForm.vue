@@ -29,14 +29,17 @@
         </template>
         <template v-else-if="activeStep === 4">
             <ok-register-user-documents-form
-                    :initialAcceptsDocuments="userAcceptedDocuments"
-                    @onUserAcceptedDocumentsChange="onUserAcceptedDocumentsChange"
                     :onPrevious="goToPreviousStep"
                     :onNext="goToNextStep"
             />
         </template>
         <template v-else-if="activeStep === 5">
-            One last thing
+            <ok-register-user-accepts-documents
+                    :initialAcceptsDocuments="userAcceptedDocuments"
+                    @onUserAcceptedDocumentsChange="onUserAcceptedDocumentsChange"
+                    :onPrevious="goToPreviousStep"
+                    :onNext="registerUser"
+            />
         </template>
     </div>
 </template>
@@ -60,10 +63,13 @@
     import OkRegisterUserPasswordForm from "~/components/forms/register-form/components/OkRegisterUserPasswordForm.vue";
     import OkRegisterUserDocumentsForm
         from "~/components/forms/register-form/components/OkRegisterUserDocumentsForm.vue";
+    import OkRegisterUserAcceptsDocuments
+        from "~/components/forms/register-form/components/OkRegisterUserAcceptsDocuments.vue";
 
     @Component({
         name: "OkRegisterForm",
         components: {
+            OkRegisterUserAcceptsDocuments,
             OkRegisterUserDocumentsForm,
             OkRegisterUserPasswordForm,
             OkRegisterUserUsernameForm, OkRegisterUserEmailForm, OkRegisterUserNameForm, OkButtonsNavigation
@@ -92,7 +98,6 @@
         userPassword = "";
         userUsername = "";
         userAcceptedDocuments = false;
-        userIsOfLegalAge = false;
 
         $refs!: {
             registerUserNameForm: OkRegisterUserNameForm
@@ -118,34 +123,24 @@
             this.goToNextStep();
         }
 
-        onUserAcceptedDocumentsChange(userAcceptedDocuments: boolean) {
-            this.userAcceptedDocuments = userAcceptedDocuments;
-            console.log(userAcceptedDocuments)
-        }
-
-        onUserAcceptedDocuments() {
-            this.goToNextStep();
-        }
-
-
         destroyed() {
             this.registrationOperation?.cancel();
         }
 
-        private async onSubmitWithValidForm() {
-            if (this.registrationOperation) return;
-
+        async registerUser() {
             try {
-                this.registrationOperation = CancelableOperation.fromPromise<RegistrationResponse>(this.userService.register({
-                    name: this.userName,
-                    email: this.userEmail,
-                    password: this.userPassword,
-                    inviteToken: this.inviteToken,
-                    areGuidelinesAccepted: this.userAcceptedGuidelines,
-                    //areTosAccepted: this.userAcceptedTos,
-                    isOfLegalAge: this.isOfLegalAge
-                }));
-                const registrationData = await this.registrationOperation.value;
+                // const registrationData = await this.userService.register({
+                //     name: this.userName,
+                //     email: this.userEmail,
+                //     password: this.userPassword,
+                //     inviteToken: this.inviteToken,
+                //     areGuidelinesAccepted: true,
+                //     isOfLegalAge: true
+                // });
+                const registrationData = {
+                    token: "3b2f015a746e4c984ce89ead1324989e88b00a01",
+                    username: "joel",
+                };
                 this.onUserRegistered(registrationData);
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
@@ -155,8 +150,9 @@
             }
         }
 
-        private onUserRegistered(data: RegistrationResponse) {
+        private async onUserRegistered(data: RegistrationResponse) {
             this.$emit("onUserRegistered", data);
+            await this.userService.loginWithAuthToken(data.token);
         }
 
         goToPreviousStep() {

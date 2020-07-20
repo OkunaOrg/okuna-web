@@ -67,16 +67,16 @@ export class AuthApiService implements IAuthApiService {
     }
 
     register(data: RegistrationApiParams): Promise<AxiosResponse<RegistrationResponse>> {
-        return this.httpService.post<RegistrationResponse>(AuthApiService.REGISTER_PATH, {
-            email: data.email,
-            password: data.password,
-            name: data.password,
-            token: data.inviteToken,
-            is_of_legal_age: data.isOfLegalAge,
-            are_guidelines_accepted: data.areGuidelinesAccepted
-        }, {
+        const bodyFormData = new FormData();
+        bodyFormData.set('email', data.email);
+        bodyFormData.set('password', data.password);
+        bodyFormData.set('token', data.inviteToken);
+        bodyFormData.set('is_of_legal_age', data.isOfLegalAge.toString());
+        bodyFormData.set('are_guidelines_accepted', data.areGuidelinesAccepted.toString());
+
+        return this.httpService.post<RegistrationResponse>(AuthApiService.REGISTER_PATH, bodyFormData, {
             isApiRequest: true
-        })
+        });
     }
 
     isInviteTokenValid(data: IsInviteTokenValidApiParams): Promise<AxiosResponse<void>> {

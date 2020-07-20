@@ -43,7 +43,7 @@
     import OkButtonsNavigation from "~/components/navigation/OkButtonsNavigation.vue";
 
     @Component({
-        password: "OkRegisterUserPasswordForm",
+        name: "OkRegisterUserPasswordForm",
         components: {OkButtonsNavigation}
     })
     export default class OkRegisterUserPasswordForm extends Vue {

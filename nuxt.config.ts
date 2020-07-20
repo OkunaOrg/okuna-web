@@ -55,7 +55,6 @@ export default {
         '~/plugins/vue-tooltip',
         '~/plugins/vue-rx',
         '~/plugins/vue-not-visible',
-        '~/plugins/vue-markdown',
     ],
     router: {
         middleware: ['post-redirect'],

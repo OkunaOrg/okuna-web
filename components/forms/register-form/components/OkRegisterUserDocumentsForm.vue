@@ -113,16 +113,10 @@
     import { IModalService } from '~/services/modal/IModalService';
 
     @Component({
-        email: "OkRegisterUserDocumentsForm",
+        name: "OkRegisterUserDocumentsForm",
         components: {OkButtonsNavigation}
     })
     export default class OkRegisterUserDocumentsForm extends Vue {
-
-        @Prop({
-            type: Boolean,
-            required: false,
-        }) readonly initialAcceptsDocuments: boolean;
-
         @Prop({
             type: Function,
             required: true,
