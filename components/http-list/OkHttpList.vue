@@ -7,7 +7,7 @@
                 <ok-loading-indicator></ok-loading-indicator>
             </div>
             <div v-else-if="searchItems.length > 0">
-                <div v-for="item in searchItems" :key="searchItems.id" :class="itemClass"
+                <div v-for="item in searchItems" :key="item.id" :class="itemClass"
                      @click="onListItemClicked(item)">
                     <slot name="default" :item="item"></slot>
                 </div>
@@ -23,6 +23,10 @@
             <infinite-loading
                     ref="infiniteLoading"
                     @infinite="infiniteHandler">
+
+                <template v-if="listType === 'post' && !items.length" slot="spinner">
+                    <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
+                </template>
 
                 <template slot="no-more">
                     <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
@@ -68,11 +72,11 @@
     } from "~/components/http-list/lib/OkHttpListParams";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
-
+    import OkPostSkeleton from '~/components/skeletons/post/OkPostSkeleton.vue';
 
     @Component({
         name: "OkHttpList",
-        components: {OkLoadingIndicator},
+        components: {OkLoadingIndicator, OkPostSkeleton},
     })
     export default class OkHttpList<T> extends Vue {
 
@@ -117,6 +121,10 @@
         @Prop({
             type: String,
         }) readonly itemsContainerClass: string;
+
+        @Prop({
+            type: String,
+        }) readonly listType: boolean;
 
         $refs!: {
             infiniteLoading: InfiniteLoading
@@ -246,6 +254,3 @@
 
     }
 </script>
-
-
-
