@@ -1,11 +1,19 @@
 <template>
-    <div v-if="loggedInUser && environmentResolution && community">
-        <ok-desktop-community-profile
-                :community="community"
-                v-if="environmentResolution !== EnvironmentResolution.mobile"></ok-desktop-community-profile>
-        <ok-mobile-community-profile
-                :community="community"
-                v-else></ok-mobile-community-profile>
+    <div v-if="loggedInUser && environmentResolution">
+        <div v-if="community">
+            <ok-desktop-community-profile
+                    :community="community"
+                    v-if="environmentResolution !== EnvironmentResolution.mobile"></ok-desktop-community-profile>
+            <ok-mobile-community-profile
+                    :community="community"
+                    v-else></ok-mobile-community-profile>
+        </div>
+        <div v-else>
+            <ok-desktop-community-profile-skeleton
+                v-if="environmentResolution !== EnvironmentResolution.mobile"
+            ></ok-desktop-community-profile-skeleton>
+            <ok-mobile-community-profile-skeleton v-else></ok-mobile-community-profile-skeleton>
+        </div>
     </div>
 </template>
 
@@ -30,13 +38,21 @@
     import { IUser } from "~/models/auth/user/IUser";
     import OkDesktopCommunityProfile
         from '~/pages/home/pages/community/components/desktop-community-profile/OkDesktopCommunityProfile.vue';
+    import OkDesktopCommunityProfileSkeleton
+        from '~/components/skeletons/community/desktop-community-profile/OkDesktopCommunityProfilePageSkeleton.vue';
     import OkMobileCommunityProfile
         from '~/pages/home/pages/community/components/mobile-community-profile/OkMobileCommunityProfile.vue';
-
+    import OkMobileCommunityProfileSkeleton
+        from '~/components/skeletons/community/mobile-community-profile/OkMobileCommunityProfilePageSkeleton.vue';
 
     @Component({
         name: "OkCommunityProfile",
-        components: {OkMobileCommunityProfile, OkDesktopCommunityProfile},
+        components: {
+            OkMobileCommunityProfile,
+            OkMobileCommunityProfileSkeleton,
+            OkDesktopCommunityProfile,
+            OkDesktopCommunityProfileSkeleton
+        },
         subscriptions: function () {
             return {
                 environmentResolution: this["environmentService"].environmentResolution,
@@ -101,6 +117,3 @@
 
     }
 </script>
-
-
-
