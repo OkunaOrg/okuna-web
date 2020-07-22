@@ -28,6 +28,10 @@
                     {{ $t('global.snippets.we_have_recorded_the_error') }}
                 </p>
             </div>
+            <ok-buttons-navigation
+                    :onNext="registerUser"
+                    :nextText="$t('global.keywords.retry')"
+                    class="has-padding-top-20"/>
         </div>
         <div v-else>
             <div class="has-padding-bottom-20">
@@ -42,8 +46,7 @@
                 </p>
             </div>
             <ok-buttons-navigation
-                    :onNext="hasError ? registerUser : onNext"
-                    :nextText="hasError ? 'Retry' : undefined"
+                    :onNext="onNext"
                     class="has-padding-top-20"/>
         </div>
     </div>
@@ -134,6 +137,7 @@
                 );
 
                 const registrationData = await this.registrationOperation.value;
+
                 this.$emit('onUserRegistered', registrationData);
 
             } catch (error) {

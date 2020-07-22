@@ -68,7 +68,6 @@
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
-    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { RegistrationResponse } from "~/services/Apis/auth/AuthApiServiceTypes";
     import OkButtonsNavigation from "~/components/navigation/OkButtonsNavigation.vue";
@@ -81,10 +80,14 @@
     import OkRegisterUserAcceptsDocuments
         from "~/components/forms/register-form/components/OkRegisterUserAcceptsDocuments.vue";
     import OkRegisterUserSubmit from "~/components/forms/register-form/components/OkRegisterUserSubmit.vue";
+    import OkRegisterUserSuggestedCommunities
+        from '~/components/forms/register-form/components/OkRegisterUserSuggestedCommunities.vue';
+    import { INavigationService } from '~/services/navigation/INavigationService';
 
     @Component({
         name: "OkRegisterForm",
         components: {
+            OkRegisterUserSuggestedCommunities,
             OkRegisterUserSubmit,
             OkRegisterUserAcceptsDocuments,
             OkRegisterUserDocumentsForm,
@@ -100,11 +103,11 @@
         }) readonly inviteToken: string;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
 
         registrationOperation?: CancelableOperation<RegistrationResponse> | undefined;
 
-        activeStep = 6;
+        activeStep = 0;
 
         formWasSubmitted = false;
         submitInProgress = false;
@@ -144,17 +147,13 @@
             this.registrationOperation?.cancel();
         }
 
-        onUserRegistered(registrationResponse: RegistrationResponse) {
-            this.$emit("onUserRegistered", registrationResponse);
+        async onUserRegistered(data: RegistrationResponse) {
+            this.$emit("onUserRegistered", data);
+            await this.userService.loginWithAuthToken(data.token);
         }
 
         onRegistrationDone() {
-
-        }
-
-        private async onUserRegistered(data: RegistrationResponse) {
-            this.$emit("onUserRegistered", data);
-            await this.userService.loginWithAuthToken(data.token);
+            this.navigationService.navigateToHome();
         }
 
         goToPreviousStep() {

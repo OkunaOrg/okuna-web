@@ -267,8 +267,6 @@ export class UserService implements IUserService {
     }
 
     async loginWithStoredAuthToken(): Promise<IUser> {
-        const authToken = await this.getStoredAuthToken();
-        this.httpService!.setAuthToken(authToken);
         return this.refreshLoggedInUser();
     }
 
@@ -296,7 +294,8 @@ export class UserService implements IUserService {
         this.loggedInUser.next(user);
     }
 
-    private storeAuthToken(token: string) {
+    storeAuthToken(token: string) {
+        this.httpService!.setAuthToken(token);
         return this.tokenStorage.set(UserService.AUTH_TOKEN_STORAGE_KEY, token);
     }
 

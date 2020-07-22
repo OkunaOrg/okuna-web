@@ -109,6 +109,8 @@ export interface IUserService {
 
     loginWithAuthToken(token: string): Promise<IUser>;
 
+    storeAuthToken(token: string): void;
+
     loginWithStoredAuthToken(): Promise<IUser>;
 
     refreshLoggedInUser(): Promise<IUser>;

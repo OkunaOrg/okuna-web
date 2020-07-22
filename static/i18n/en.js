@@ -211,6 +211,7 @@ export default {
             }
         },
         "keywords": {
+            "retry": "Retry",
             "email": "E-mail",
             "follow": "Follow",
             "unfollow": "Unfollow",
@@ -247,6 +248,7 @@ export default {
             "fallback": "item"
         },
         "snippets": {
+            "get_started_with_communities": "Get started by joining the following communities.",
             "forgot_password": "Forgot password?",
             "type_here": "Type here...",
             "about_us": "About us",
