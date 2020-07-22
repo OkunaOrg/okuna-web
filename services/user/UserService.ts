@@ -190,17 +190,8 @@ export class UserService implements IUserService {
     // AUTH START
 
     async register(data: RegistrationApiParams): Promise<RegistrationResponse> {
-
-        console.log('Setting sleep', performance.now());
-        await sleep(5000);
-        console.log('Done sleeping', performance.now());
-        return {
-            token: '3b2f015a746e4c984ce89ead1324989e88b00a01',
-            username: 'joel',
-        };
-
-        //const response = await this.authApiService!.register(data);
-        //return response.data;
+        const response = await this.authApiService!.register(data);
+        return response.data;
     }
 
     async isInviteTokenValid(data: IsInviteTokenValidApiParams): Promise<boolean> {
