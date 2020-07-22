@@ -133,7 +133,10 @@ import { ICategoriesApiService } from '~/services/Apis/categories/ICategoriesApi
 import { ICategory } from '~/models/common/category/ICategory';
 import { CategoryData } from '~/types/models-data/common/CategoryData';
 import categoryFactory from '~/models/common/category/factory';
-import { GetTrendingCommunitiesApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
+import {
+    GetSuggestedCommunitiesApiParams,
+    GetTrendingCommunitiesApiParams
+} from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import hashtagFactory from '~/models/common/hashtag/factory';
 import { HashtagData } from '~/types/models-data/common/HashtagData';
@@ -471,6 +474,12 @@ export class UserService implements IUserService {
     }
 
     async getFavoriteCommunities(params?: GetFavoriteCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getFavoriteCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getSuggestedCommunities(params?: GetSuggestedCommunitiesApiParams): Promise<ICommunity[]> {
         const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getFavoriteCommunities(params);
 
         return communityFactory.makeMultiple(response.data);

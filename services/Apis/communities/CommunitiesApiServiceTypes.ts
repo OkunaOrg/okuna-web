@@ -6,6 +6,9 @@ export interface GetFavoriteCommunitiesApiParams {
     offset?: number;
 }
 
+export interface GetSuggestedCommunitiesApiParams {
+}
+
 export interface GetJoinedCommunitiesApiParams {
     offset?: number;
 }

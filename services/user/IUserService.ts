@@ -79,6 +79,7 @@ import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
 import { IConnection } from '~/models/connections/connection/IConnection';
 import { ICircle } from '~/models/connections/circle/ICircle';
+import { GetSuggestedCommunitiesApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 
 
 export interface IUserService {
@@ -133,6 +134,8 @@ export interface IUserService {
     getTrendingCommunities(params?: GetTrendingCommunitiesParams): Promise<ICommunity[]>;
 
     getFavoriteCommunities(params?: GetFavoriteCommunitiesParams): Promise<ICommunity[]>;
+
+    getSuggestedCommunities(params?: GetSuggestedCommunitiesApiParams): Promise<ICommunity[]>;
 
     getAdministratedCommunities(params?: GetAdministratedCommunitiesParams): Promise<ICommunity[]>;
 
