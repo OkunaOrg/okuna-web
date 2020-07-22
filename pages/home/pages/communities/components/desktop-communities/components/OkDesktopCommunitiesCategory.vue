@@ -2,6 +2,7 @@
     <ok-http-list
             :refresher="communityCategoryRefresher"
             ref="okHttpList"
+            list-type="community"
             :items-container-class="'columns is-multiline'" :item-class="'column is-4-touch is-3-desktop'">
         <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
             <ok-community-card :community="props.item"></ok-community-card>
@@ -63,6 +64,3 @@
         }
     }
 </script>
-
-
-

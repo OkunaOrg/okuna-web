@@ -16,7 +16,7 @@
                 {{ $t('global.snippets.no_results_for_query', {query: searchQuery})}}
             </div>
         </div>
-        <div v-else-if="refresher" class="ok-http-list-infinite-loading" :class="itemsContainerClass">
+        <div v-else-if="refresher" class="ok-http-list-infinite-loading" :class="{[`${itemsContainerClass}`]: items.length}">
             <div v-for="item in items" :key="item.id" :class="itemClass">
                 <slot name="default" :item="item"></slot>
             </div>
@@ -26,6 +26,14 @@
 
                 <template v-if="listType === 'post' && !items.length" slot="spinner">
                     <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
+                </template>
+
+                <template v-if="listType === 'community' && !items.length" slot="spinner">
+                    <ok-community-card-skeleton></ok-community-card-skeleton>
+                </template>
+
+                <template v-if="listType === 'community-mobile' && !items.length" slot="spinner">
+                    <ok-community-tile-skeleton></ok-community-tile-skeleton>
                 </template>
 
                 <template slot="no-more">
@@ -73,10 +81,17 @@
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
     import OkPostSkeleton from '~/components/skeletons/post/OkPostSkeleton.vue';
+    import OkCommunityCardSkeleton from '~/components/skeletons/cards/community-card/OkCommunityCardSkeleton.vue';
+    import OkCommunityTileSkeleton from '~/components/skeletons/tiles/OkCommunityTileSkeleton.vue';
 
     @Component({
         name: "OkHttpList",
-        components: {OkLoadingIndicator, OkPostSkeleton},
+        components: {
+            OkLoadingIndicator,
+            OkPostSkeleton,
+            OkCommunityCardSkeleton,
+            OkCommunityTileSkeleton
+        },
     })
     export default class OkHttpList<T> extends Vue {
 
@@ -124,7 +139,7 @@
 
         @Prop({
             type: String,
-        }) readonly listType: boolean;
+        }) readonly listType: string;
 
         $refs!: {
             infiniteLoading: InfiniteLoading

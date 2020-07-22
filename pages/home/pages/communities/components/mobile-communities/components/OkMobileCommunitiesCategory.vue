@@ -2,6 +2,7 @@
     <ok-http-list
             :refresher="communityCategoryRefresher"
             ref="okHttpList"
+            list-type="community-mobile"
             :item-class="'has-padding-bottom-10'">
         <nuxt-link slot-scope="props" :to="'/c/' + props.item.name">
             <ok-community-tile :community="props.item"></ok-community-tile>
@@ -62,6 +63,3 @@
         }
     }
 </script>
-
-
-
