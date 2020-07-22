@@ -16,6 +16,11 @@ export interface IUtilsService {
     capitalizeString(s: string): string;
 
     isPromise(obj: Object): boolean;
+
+    getQueryStringParams(query): {[key: string]: string};
+
+    isUrl(str: string): boolean;
+
 }
 
 export interface QueryParams {

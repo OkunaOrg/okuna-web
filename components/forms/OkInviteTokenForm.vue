@@ -98,10 +98,16 @@
 
         async _onSubmitWithValidForm() {
             if (this.requestOperation) return;
+            let inviteToken = this.inviteToken;
+
+            if (this.utilsService.isUrl(this.inviteToken)) {
+                const queryParams = this.utilsService.getQueryStringParams(this.inviteToken);
+                inviteToken = queryParams.token;
+            }
 
             try {
                 this.requestOperation = CancelableOperation.fromPromise<boolean>(this.userService.isInviteTokenValid({
-                    token: this.inviteToken
+                    token: inviteToken
                 }));
                 this.tokenValid = await this.requestOperation.value;
                 if (this.tokenValid) this._onTokenIsValid(this.inviteToken);
