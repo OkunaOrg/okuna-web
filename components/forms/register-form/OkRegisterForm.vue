@@ -38,7 +38,22 @@
                     :initialAcceptsDocuments="userAcceptedDocuments"
                     @onUserAcceptedDocumentsChange="onUserAcceptedDocumentsChange"
                     :onPrevious="goToPreviousStep"
-                    :onNext="registerUser"
+                    :onNext="goToNextStep"
+            />
+        </template>
+        <template v-else-if="activeStep === 6">
+            <ok-register-user-submit
+                    :userName="userName"
+                    :userEmail="userEmail"
+                    :userPassword="userPassword"
+                    :inviteToken="inviteToken"
+                    :onNext="goToNextStep"
+                    @onUserRegistered="onUserRegistered"
+            />
+        </template>
+        <template v-else-if="activeStep === 7">
+            <ok-register-user-suggested-communities
+                    :onNext="onRegistrationDone"
             />
         </template>
     </div>
@@ -65,10 +80,12 @@
         from "~/components/forms/register-form/components/OkRegisterUserDocumentsForm.vue";
     import OkRegisterUserAcceptsDocuments
         from "~/components/forms/register-form/components/OkRegisterUserAcceptsDocuments.vue";
+    import OkRegisterUserSubmit from "~/components/forms/register-form/components/OkRegisterUserSubmit.vue";
 
     @Component({
         name: "OkRegisterForm",
         components: {
+            OkRegisterUserSubmit,
             OkRegisterUserAcceptsDocuments,
             OkRegisterUserDocumentsForm,
             OkRegisterUserPasswordForm,
@@ -87,7 +104,7 @@
 
         registrationOperation?: CancelableOperation<RegistrationResponse> | undefined;
 
-        activeStep = 4;
+        activeStep = 6;
 
         formWasSubmitted = false;
         submitInProgress = false;
@@ -127,27 +144,12 @@
             this.registrationOperation?.cancel();
         }
 
-        async registerUser() {
-            try {
-                // const registrationData = await this.userService.register({
-                //     name: this.userName,
-                //     email: this.userEmail,
-                //     password: this.userPassword,
-                //     inviteToken: this.inviteToken,
-                //     areGuidelinesAccepted: true,
-                //     isOfLegalAge: true
-                // });
-                const registrationData = {
-                    token: "3b2f015a746e4c984ce89ead1324989e88b00a01",
-                    username: "joel",
-                };
-                this.onUserRegistered(registrationData);
-            } catch (error) {
-                const handledError = this.utilsService.handleErrorWithToast(error);
-                if (handledError.isUnhandled) throw handledError.error;
-            } finally {
-                this.registrationOperation = undefined;
-            }
+        onUserRegistered(registrationResponse: RegistrationResponse) {
+            this.$emit("onUserRegistered", registrationResponse);
+        }
+
+        onRegistrationDone() {
+
         }
 
         private async onUserRegistered(data: RegistrationResponse) {

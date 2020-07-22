@@ -10,9 +10,12 @@
                         </h2>
                     </div>
                 </div>
-                <div class="card-content has-text-centered is-flex-1">
-                    <ok-register-token-form @onTokenIsValid="onTokenIsValid" v-if="!inviteToken"></ok-register-token-form>
-                    <ok-register-form :invite-token="inviteToken" v-else/>
+                <div class="card-content has-text-centered is-flex-1"
+                     :style="{padding: registerFormClass ? '0 !important' : null}">
+                    <ok-register-token-form @onTokenIsValid="onTokenIsValid"
+                                            v-if="!inviteToken"></ok-register-token-form>
+                    <ok-register-form :invite-token="inviteToken" v-else @onUserRegistered="onUserRegistered"
+                                      :class="registerFormClass" class="has-background-covered"/>
                 </div>
                 <div class="card-footer ok-has-border-top-primary-highlight">
                     <div class="card-footer-item ok-has-text-primary-invert-60">
@@ -32,10 +35,16 @@
 
 <style scoped lang="scss">
 
-    .ok-register-page-card{
+    .ok-register-page-card {
         @include for-size(desktop-up) {
             max-width: 370px;
+            min-width: 300px;
         }
+    }
+
+
+    .has-background-confetti {
+        background: url("./assets/confetti-background.gif");
     }
 
 </style>
@@ -52,7 +61,8 @@
     import OkRegisterForm from "~/components/forms/register-form/OkRegisterForm.vue";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
     import { IToastService } from "~/services/toast/IToastService";
-    import { ToastType } from '~/services/toast/lib/ToastType';
+    import { ToastType } from "~/services/toast/lib/ToastType";
+    import { RegistrationResponse } from "~/services/Apis/auth/AuthApiServiceTypes";
 
     @Component({
         name: "OkRegisterPage",
@@ -66,7 +76,8 @@
         private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
         private logger: IOkLogger;
 
-        inviteToken = '';
+        inviteToken = "";
+        registerFormClass = "";
 
         mounted() {
             this.logger = this.loggingService!.getLogger({
@@ -74,12 +85,16 @@
             });
         }
 
-        onTokenIsValid(token: string){
+        onTokenIsValid(token: string) {
             this.inviteToken = token;
             this.toastService.show({
-                message: this.localizationService.localize('global.snippets.valid_invite_token'),
+                message: this.localizationService.localize("global.snippets.valid_invite_token"),
                 type: ToastType.success
             })
+        }
+
+        onUserRegistered(registrationResponse: RegistrationResponse) {
+            this.registerFormClass = "has-background-confetti";
         }
 
     }
