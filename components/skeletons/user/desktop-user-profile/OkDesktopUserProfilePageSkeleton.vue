@@ -2,12 +2,12 @@
     <div class="columns flex-direction-column is-vcentered">
         <div class="column ok-desktop-user-profile-page">
             <div class="has-padding-30">
-                <ok-desktop-user-profile-header-skeleton></ok-desktop-user-profile-header-skeleton>
+                <ok-desktop-user-profile-skeleton-header></ok-desktop-user-profile-skeleton-header>
             </div>
 
             <div class="columns has-padding-bottom-30 has-padding-left-30 has-padding-right-30">
                 <div class="column">
-                    <ok-desktop-user-profile-sidebar-skeleton></ok-desktop-user-profile-sidebar-skeleton>
+                    <ok-desktop-user-profile-skeleton-sidebar></ok-desktop-user-profile-skeleton-sidebar>
                 </div>
                 <div class="column is-narrow ok-desktop-user-post-stream-skeleton">
                     <ok-post-skeleton></ok-post-skeleton>
@@ -32,15 +32,15 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator";
     import OkPostSkeleton from "~/components/skeletons/post/OkPostSkeleton.vue";
-    import OkDesktopUserProfileHeaderSkeleton from "~/components/skeletons/user/desktop-user-profile/components/OkDesktopUserProfileHeaderSkeleton.vue";
-    import OkDesktopUserProfileSidebarSkeleton from "~/components/skeletons/user/desktop-user-profile/components/OkDesktopUserProfileSidebarSkeleton.vue";
+    import OkDesktopUserProfileSkeletonHeader from "~/components/skeletons/user/desktop-user-profile/components/OkDesktopUserProfileSkeletonHeader.vue";
+    import OkDesktopUserProfileSkeletonSidebar from "~/components/skeletons/user/desktop-user-profile/components/OkDesktopUserProfileSkeletonSidebar.vue";
 
     @Component({
         name: "OkDesktopUserProfilePageSkeleton",
         components: {
             OkPostSkeleton,
-            OkDesktopUserProfileHeaderSkeleton,
-            OkDesktopUserProfileSidebarSkeleton
+            OkDesktopUserProfileSkeletonHeader,
+            OkDesktopUserProfileSkeletonSidebar
         }
     })
     export default class OkDesktopUserProfilePageSkeleton extends Vue {}

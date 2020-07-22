@@ -65,13 +65,13 @@
     import { OkCoverSize } from "~/components/covers/lib/OkCoverSize";
 
     @Component({
-        name: "OkDesktopUserProfileHeaderSkeleton",
+        name: "OkDesktopUserProfileSkeletonHeader",
         components: {
             OkImageCover,
             OkImageAvatar
         }
     })
-    export default class OkDesktopUserProfileHeaderSkeleton extends Vue {
+    export default class OkDesktopUserProfileSkeletonHeader extends Vue {
         OkAvatarSize = OkAvatarSize;
         OkCoverSize = OkCoverSize;
     }

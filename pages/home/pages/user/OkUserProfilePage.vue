@@ -12,6 +12,7 @@
             <ok-desktop-user-page-skeleton
                 v-if="environmentResolution !== EnvironmentResolution.mobile"
             ></ok-desktop-user-page-skeleton>
+            <ok-mobile-user-page-skeleton v-else></ok-mobile-user-page-skeleton>
         </div>
     </div>
 </template>
@@ -31,6 +32,7 @@
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import OkMobileUserPage from "~/pages/home/pages/user/components/mobile-user-profile/OkMobileUserProfilePage.vue";
+    import OkMobileUserPageSkeleton from "~/components/skeletons/user/mobile-user-profile/OkMobileUserProfilePageSkeleton.vue";
     import OkDesktopUserPage from "~/pages/home/pages/user/components/desktop-user-profile/OkDesktopUserProfilePage.vue";
     import OkDesktopUserPageSkeleton from "~/components/skeletons/user/desktop-user-profile/OkDesktopUserProfilePageSkeleton.vue";
     import { IUtilsService } from "~/services/utils/IUtilsService";
@@ -40,7 +42,12 @@
 
 
     @Component({
-        components: {OkMobileUserPage, OkDesktopUserPage, OkDesktopUserPageSkeleton},
+        components: {
+            OkMobileUserPage,
+            OkMobileUserPageSkeleton,
+            OkDesktopUserPage,
+            OkDesktopUserPageSkeleton
+        },
         subscriptions: function () {
             return {
                 environmentResolution: this["environmentService"].environmentResolution,

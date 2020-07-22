@@ -13,7 +13,7 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator";
 
     @Component({
-        name: "OkDesktopUserProfileSidebarSkeleton"
+        name: "OkDesktopUserProfileSkeletonSidebar"
     })
-    export default class OkDestopUserProfileSidebarSkeleton extends Vue {}
+    export default class OkDestopUserProfileSkeletonSidebar extends Vue {}
 </script>
