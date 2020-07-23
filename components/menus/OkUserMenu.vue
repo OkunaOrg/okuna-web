@@ -133,7 +133,7 @@
                 </a>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-help-icon
                                          class="ok-svg-icon-primary-invert"></ok-help-icon>
@@ -144,7 +144,7 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-link-icon
                                          class="ok-svg-icon-primary-invert"></ok-link-icon>
