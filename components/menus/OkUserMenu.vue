@@ -1,5 +1,14 @@
 <template>
     <nav class="menu has-padding-20">
+        <ul class="menu-list">
+            <li class="has-padding-bottom-5">
+                <button class="button is-success is-rounded is-fullwidth has-background-rainbow has-text-weight-bold justify-center align-items-center">
+                    <ok-cellphone-icon
+                            class="is-white ok-user-menu-get-app-icon"></ok-cellphone-icon>
+                    <span class="has-padding-left-10">{{$t('global.snippets.get_the_app')}}</span>
+                </button>
+            </li>
+        </ul>
         <p class="menu-label ok-has-text-primary-invert-80">
             {{$t('components.user_dropdown.my_okuna')}}
         </p>
@@ -173,6 +182,12 @@
     </nav>
 </template>
 
+<style lang="scss">
+    .ok-user-menu-get-app-icon{
+        position: relative;
+        top: -2px;
+    }
+</style>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
