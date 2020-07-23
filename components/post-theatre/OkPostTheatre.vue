@@ -5,6 +5,7 @@
             <div
                     class="has-height-100-percent">
                 <div
+                        id="wtf"
                         class="box ok-has-background-primary is-paddingless has-height-100-percent is-flex has-overflow-hidden"
                         :class="{'is-loading': requestInProgress}"
                 >

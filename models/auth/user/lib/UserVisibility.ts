@@ -25,7 +25,7 @@ export class UserVisibility {
         }
 
         if (!badgeKeyword) {
-            console.error('Unsupported userVisibility type');
+            console.error(`Unsupported userVisibility type ${badgeKeyword}`);
         }
 
         return badgeKeyword;

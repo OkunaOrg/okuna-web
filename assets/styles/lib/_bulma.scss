@@ -5,7 +5,7 @@ $primary: $black-bis;
 $primary-invert: white;
 $link: $black;
 $link-visited: $black-ter;
-
+$card-shadow: 'none';
 $family-primary: 'Nunito Sans', sans-serif;
 
 $navbar-height: 4.25rem !default$box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1), 0 17px 50px rgba(0, 0, 0, 0.1);
@@ -82,7 +82,7 @@ $box-shadow: 0 12px 15px rgba(0, 0, 0, 0.1), 0 17px 50px rgba(0, 0, 0, 0.1);
 }
 
 .card-footer {
-  box-shadow: 0 1px 2px var(--primary-highlight-color) !important;
+  //box-shadow: 0 1px 2px var(--primary-highlight-color) !important;
 }
 
 .dropdown-content {
