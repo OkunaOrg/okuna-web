@@ -21,7 +21,7 @@
         </button>
         <!-- This will be the content of the popover -->
         <div slot="popover" class="ok-has-background-primary has-border-radius-10 ok-has-border-primary-highlight">
-            <ok-user-menu></ok-user-menu>
+            <ok-user-menu @leaveMenu="handleLeaveMenu"></ok-user-menu>
         </div>
     </v-popover>
 </template>
@@ -70,6 +70,10 @@
         @Watch('$route')
         onRouteChange(to, from){
             // Close tooltip
+            this.dropdownIsOpen = false;
+        }
+
+        handleLeaveMenu() {
             this.dropdownIsOpen = false;
         }
     }

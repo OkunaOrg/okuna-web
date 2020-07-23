@@ -5,7 +5,7 @@ import {
     IModalService,
     ModalParams, PostActionsModalParams, PostCommentActionsModalParams, PostCommentReactionsModalParams,
     PostModalParams,
-    PostReactionsModalParams, ReportObjectModalParams, UserActionsModalParams
+    PostReactionsModalParams, ReportObjectModalParams, UserActionsModalParams, ThemeModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -102,6 +102,11 @@ export class ModalService implements IModalService {
 
         // Restore original path
         this.historyService.setPathSilently(originalPath);
+    }
+
+    async openThemesModal(params: ThemeModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.themes, params);
     }
 
 

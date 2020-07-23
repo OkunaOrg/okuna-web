@@ -58,6 +58,9 @@
         <b-modal :active.sync="communityGuidelinesModalOpened" @close="onModalClosed" :trap-focus="true">
             <ok-community-guidelines-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-community-guidelines-modal>
         </b-modal>
+        <b-modal :active.sync="themesModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-themes-modal :params="activeModalParams"></ok-themes-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -94,6 +97,7 @@
     import OkTermsOfUseModal from '~/pages/home/components/modals/components/OkTermsOfUseModal.vue';
     import OkPrivacyPolicyModal from '~/pages/home/components/modals/components/OkPrivacyPolicyModal.vue';
     import OkCommunityGuidelinesModal from '~/pages/home/components/modals/components/OkCommunityGuidelinesModal.vue';
+    import OkThemesModal from '~/pages/home/components/modals/components/OkThemesModal.vue';
 
     @Component({
         name: "OkModals",
@@ -106,7 +110,8 @@
             OkUserActionsModal,
             OkReportObjectModal,
             OkPostActionsModal,
-            OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal
+            OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal,
+            OkThemesModal
         },
         subscriptions: function () {
             return {
@@ -134,6 +139,7 @@
         termsOfUseModalOpened: boolean = false;
         communityGuidelinesModalOpened: boolean = false;
         privacyPolicyModalOpened: boolean = false;
+        themesModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -169,6 +175,7 @@
             this.termsOfUseModalOpened = activeModalValue === ModalType.termsOfUse;
             this.communityGuidelinesModalOpened = activeModalValue === ModalType.communityGuidelines;
             this.privacyPolicyModalOpened = activeModalValue === ModalType.privacyPolicy;
+            this.themesModalOpen = activeModalValue === ModalType.themes;
         }
     }
 </script>

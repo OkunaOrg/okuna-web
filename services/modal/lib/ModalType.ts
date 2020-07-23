@@ -13,6 +13,7 @@ export class ModalType {
     static termsOfUse = new ModalType('TermsOfUse');
     static privacyPolicy = new ModalType('PrivacyPolicy');
     static communityGuidelines = new ModalType('PrivacyPolicy');
+    static themes = new ModalType('Themes');
 
 
     static _values: ModalType[] = [
@@ -28,6 +29,7 @@ export class ModalType {
         ModalType.termsOfUse,
         ModalType.privacyPolicy,
         ModalType.communityGuidelines,
+        ModalType.themes,
     ];
 
     static values() {
