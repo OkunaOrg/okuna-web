@@ -36,7 +36,6 @@
         <template v-else-if="activeStep === 5">
             <ok-register-user-accepts-documents
                     :initialAcceptsDocuments="userAcceptedDocuments"
-                    @onUserAcceptedDocumentsChange="onUserAcceptedDocumentsChange"
                     :onPrevious="goToPreviousStep"
                     :onNext="goToNextStep"
             />

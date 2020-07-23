@@ -123,6 +123,7 @@
             this.registerUser();
         }
 
+
         async registerUser() {
             if (this.requestInProgress) return;
             this.requestInProgress = true;
@@ -130,7 +131,7 @@
 
             try {
 
-                this.registrationOperation =  CancelableOperation.fromPromise(
+                this.registrationOperation = CancelableOperation.fromPromise(
                     this.userService.register({
                         userUsername: this.userUsername,
                         name: this.userName,
@@ -144,7 +145,7 @@
 
                 const registrationData = await this.registrationOperation.value;
 
-                this.$emit('onUserRegistered', registrationData);
+                this.$emit("onUserRegistered", registrationData);
 
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
@@ -155,7 +156,6 @@
                 this.registrationOperation = undefined;
             }
         }
-
 
 
     }

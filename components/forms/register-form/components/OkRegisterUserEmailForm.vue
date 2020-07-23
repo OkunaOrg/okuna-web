@@ -6,6 +6,7 @@
             </label>
             <div class="control">
                 <input type="email"
+                       ref="email"
                        placeholder="e.g. vincent@vega.com"
                        class="input is-rounded is-medium ok-input"
                        required
@@ -36,11 +37,11 @@
     import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import { emailValidators } from "~/validators/email";
     import OkButtonsNavigation from "~/components/navigation/OkButtonsNavigation.vue";
-    import { CancelableOperation } from '~/lib/CancelableOperation';
-    import { IUserService } from '~/services/user/IUserService';
-    import { okunaContainer } from '~/services/inversify';
-    import { TYPES } from '~/services/inversify-types';
-    import { IUtilsService } from '~/services/utils/IUtilsService';
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IUserService } from "~/services/user/IUserService";
+    import { okunaContainer } from "~/services/inversify";
+    import { TYPES } from "~/services/inversify-types";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
 
     @Component({
         name: "OkRegisterUserEmailForm",
@@ -58,6 +59,10 @@
             required: true,
         }) readonly onPrevious: () => Promise<void> | void;
 
+        $refs!: {
+            email: HTMLInputElement
+        };
+
         requestOperation?: CancelableOperation<boolean>;
         formWasSubmitted = false;
         submitInProgress = false;
@@ -70,12 +75,18 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
+
+        mounted() {
+            this.$refs.email.focus();
+        }
+
+
         created() {
             if (this.initialEmail) {
                 this.userEmail = this.initialEmail;
             }
         }
-        
+
         @Watch("userEmail")
         onUserEmailChange(val: string, oldVal: string) {
             if (!this.emailIsAvailable) this.emailIsAvailable = true;

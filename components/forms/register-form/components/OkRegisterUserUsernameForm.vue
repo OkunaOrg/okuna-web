@@ -9,9 +9,11 @@
                        placeholder="e.g. jbiebs"
                        class="input is-rounded is-medium ok-input"
                        required
+                       ref="username"
                        id="userUsername" v-model="userUsername">
             </div>
-            <div v-if="($v.userUsername.$invalid || !usernameIsAvailable) && formWasSubmitted" class="has-padding-top-5 has-text-left">
+            <div v-if="($v.userUsername.$invalid || !usernameIsAvailable) && formWasSubmitted"
+                 class="has-padding-top-5 has-text-left">
                 <p class="help is-danger"
                    v-if="!$v.userUsername.required">
                     {{$t('global.errors.user_name.required')}}
@@ -59,11 +61,15 @@
             type: String,
             required: false,
         }) readonly initialUsername: string;
-        
+
         @Prop({
             type: Function,
             required: true,
         }) readonly onPrevious: () => Promise<void> | void;
+
+        $refs!: {
+            username: HTMLInputElement
+        };
 
         requestOperation?: CancelableOperation<boolean>;
         formWasSubmitted = false;
@@ -82,6 +88,11 @@
                 this.userUsername = this.initialUsername;
             }
         }
+
+        mounted() {
+            this.$refs.username.focus();
+        }
+
 
         @Watch("userUsername")
         onUserUsernameChange(val: string, oldVal: string) {

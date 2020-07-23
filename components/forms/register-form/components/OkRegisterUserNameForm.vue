@@ -6,6 +6,7 @@
             </label>
             <div class="control">
                 <input type="text"
+                       ref="name"
                        placeholder="e.g. Pablo Picasso"
                        class="input is-rounded is-medium ok-input"
                        required
@@ -51,12 +52,20 @@
             required: false,
         }) readonly initialName: string;
 
+        $refs!: {
+            name: HTMLInputElement
+        };
+
         formWasSubmitted = false;
 
         created() {
             if (this.initialName) {
                 this.userName = this.initialName;
             }
+        }
+
+        mounted() {
+            this.$refs.name.focus();
         }
 
         @Validate(userNameValidators)

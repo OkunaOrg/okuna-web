@@ -11,6 +11,7 @@
                 <input type="password"
                        class="input is-rounded is-medium ok-input"
                        required
+                       ref="password"
                        id="userPassword" v-model="userPassword">
             </div>
             <div v-if="$v.userPassword.$invalid & formWasSubmitted" class="has-padding-top-5 has-text-left">
@@ -58,6 +59,10 @@
             required: true,
         }) readonly onPrevious: () => Promise<void> | void;
 
+        $refs!: {
+            password: HTMLInputElement
+        };
+
         formWasSubmitted = false;
 
         created() {
@@ -66,8 +71,14 @@
             }
         }
 
+        mounted() {
+            this.$refs.password.focus();
+        }
+
+
         @Validate(passwordValidators)
         userPassword = "";
+
 
         onSubmit() {
             const formIsValid = this.validateAll();
