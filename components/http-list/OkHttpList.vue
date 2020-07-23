@@ -28,11 +28,11 @@
                     <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
                 </template>
 
-                <template v-if="listType === 'community' && !items.length" slot="spinner">
+                <template v-else-if="listType === 'community' && !items.length" slot="spinner">
                     <ok-community-card-skeleton></ok-community-card-skeleton>
                 </template>
 
-                <template v-if="listType === 'community-mobile' && !items.length" slot="spinner">
+                <template v-else-if="listType === 'community-mobile' && !items.length" slot="spinner">
                     <ok-community-tile-skeleton></ok-community-tile-skeleton>
                 </template>
 
