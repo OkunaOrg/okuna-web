@@ -10,6 +10,7 @@ export interface LoginResponse {
 export interface RegistrationApiParams {
     email: string;
     password: string;
+    userUsername: string;
     name: string;
     inviteToken: string;
     isOfLegalAge: boolean;

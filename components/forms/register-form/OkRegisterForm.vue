@@ -44,6 +44,7 @@
         <template v-else-if="activeStep === 6">
             <ok-register-user-submit
                     :userName="userName"
+                    :userUsername="userUsername"
                     :userEmail="userEmail"
                     :userPassword="userPassword"
                     :inviteToken="inviteToken"

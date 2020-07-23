@@ -85,6 +85,11 @@
         @Prop({
             type: String, required: true
         })
+        userUsername: string;
+
+        @Prop({
+            type: String, required: true
+        })
         userEmail: string;
 
         @Prop({
@@ -127,6 +132,7 @@
 
                 this.registrationOperation =  CancelableOperation.fromPromise(
                     this.userService.register({
+                        userUsername: this.userUsername,
                         name: this.userName,
                         email: this.userEmail,
                         password: this.userPassword,
