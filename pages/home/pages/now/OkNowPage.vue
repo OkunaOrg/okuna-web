@@ -142,8 +142,8 @@
     import { BehaviorSubject } from "rxjs";
     import { IUserService } from "~/services/user/IUserService";
     import { IUser } from "~/models/auth/user/IUser";
-    import OkTrendingPostsStream from "~/components/now-streams/OkTrendingPostsStream.vue";
-    import OkTopPostsStream from "~/components/now-streams/OkTopPostsStream.vue";
+    import OkTrendingPostsStream from "~/components/posts-stream/OkTrendingPostsStream.vue";
+    import OkTopPostsStream from "~/components/posts-stream/OkTopPostsStream.vue";
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";

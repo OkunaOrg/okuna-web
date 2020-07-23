@@ -6,7 +6,7 @@ export default {
             "usps": {
                 "friends": "Meet new friends and discover interests by joining or hosting communities.",
                 "privacy": "We don't track nor monitor what you do.",
-                "revenue": "We have zero ads and sustain the network through an optional coffee subscription.",
+                "revenue": "We have zero ads and sustain the network through an optional subscription.",
                 "mental_health": " With private comments, toggleable follower counts and batch notifications, make your surfing experience, stress-free.",
                 "planet": " We are committed to donating a percentage of our profits towards preserving improving our only home."
             }
@@ -189,16 +189,29 @@ export default {
             "moderation_report_description": {
                 "max_length": "Description has to be smaller than 1000 characters"
             },
-            "username": {
+            "user_username": {
                 "required": "Username is required",
-                "username": "Username has to be smaller than 64 characters"
+                "max_length": "Your username can't be longer than {max} characters",
+                "min_length": "Your username can't be shorter than {min} characters",
+                "taken": "This username is already taken",
             },
             "email": {
                 "required": "Email is required",
                 "invalid": "Email is invalid",
+                "taken": "This email is already taken",
+            },
+            "invite_token": {
+                "required": "Invite token is required",
+                "invalid": "The token is not valid",
+            },
+            "user_name": {
+                "required": "You must provide a name",
+                "max_length": "Your name can't be longer than {max} characters",
+                "min_length": "Your name can't be shorter than {min} characters"
             }
         },
         "keywords": {
+            "retry": "Retry",
             "email": "E-mail",
             "follow": "Follow",
             "unfollow": "Unfollow",
@@ -222,6 +235,10 @@ export default {
             "description": "description",
             "done": "Done",
             "save": "Save",
+            "validate": "Validate",
+            "next": "Next",
+            "previous": "Previous",
+            "guidelines": "Guidelines",
         },
         "models": {
             "post": "post",
@@ -232,12 +249,26 @@ export default {
             "fallback": "item"
         },
         "snippets": {
+            "get_started_with_communities": "Get started by joining the following communities.",
             "forgot_password": "Forgot password?",
             "type_here": "Type here...",
             "about_us": "About us",
+            "hooray": "Hooray!",
+            "account_created": "Your account has been created.",
+            "legal_confirmation": "Legal confirmation",
+            "legal_confirmation_description": "By registering in Okuna, I certify that I'm older than 16 years old and have read the Community Guidelines, Privacy Policy and Terms of Use and agree to all of the items included.",
             "privacy_policy": "Privacy policy",
             "terms_of_use": "Terms of use",
+            "one_last_thing": "One last thing",
+            "do_you_agree_to_the_presented_terms": "Do you agree?",
+            "please_take_a_moment_to_read_the_following_documents": "Please take a moment to read through the following documents.",
+            "documents_contain_important_information": "They contain important information about your experience in Okuna and you must agree to them.",
+            "community_guidelines": "Community guidelines",
             "dont_have_an_account": "Dont have an account?",
+            "already_have_an_account": "Already have an account?",
+            "paste_your_invite_code": "Paste your invite link or code",
+            "dont_have_one": "Don't have one?",
+            "request_one": "Request one",
             "sign_up": "Sign up",
             "login": "Login",
             "operational_status": "Status",
@@ -284,7 +315,23 @@ export default {
             "delete_post_comment": "Delete post comment",
             "post_comment_deleted": "Post comment deleted",
             "report_post_comment": "Report post comment",
-            "post_comment_reported": "Post comment reported"
+            "post_comment_reported": "Post comment reported",
+            "valid_invite_token": "🎉 The token is valid!",
+            "whats_your_name": "What's your name?",
+            "whats_your_email": "What's your email?",
+            "pick_your_username": "Pick your username!",
+            "choose_a_password": "Choose a password",
+            "password_requirement": "({min}-{max} characters)",
+            "please_take_a_moment_to_read_our_guidelines": "Please take a moment to read and accept our guidelines",
+            "great_now_check_our_terms_of_service": "Great! Now please read through our terms of service.",
+            "we_have_made_tos_simple": "We have made them a simple as our jurisdiction allows us to do so.",
+            "hang_in_there": "Hang in there!",
+            "were_creating_your_account": "We're creating your account",
+            "oh_no": "Oh no",
+            "we_couldnt_create_your_account": "We couldn't create your account.",
+            "we_have_recorded_the_error": " We have recorded what went wrong and will fix it as soon as possible.",
+            "awww_yeah": "Aww yeah!",
+            "your_account_is_ready": "Your account is ready.",
         },
     },
 }

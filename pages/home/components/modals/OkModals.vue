@@ -49,6 +49,15 @@
             <ok-connections-circles-picker-modal :return-data-setter="setModalReturnData"
                                     :params="activeModalParams"></ok-connections-circles-picker-modal>
         </b-modal>
+        <b-modal :active.sync="termsOfUseModalOpened" @close="onModalClosed" :trap-focus="true">
+            <ok-terms-of-use-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-terms-of-use-modal>
+        </b-modal>
+        <b-modal :active.sync="privacyPolicyModalOpened" @close="onModalClosed" :trap-focus="true">
+            <ok-privacy-policy-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-privacy-policy-modal>
+        </b-modal>
+        <b-modal :active.sync="communityGuidelinesModalOpened" @close="onModalClosed" :trap-focus="true">
+            <ok-community-guidelines-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-community-guidelines-modal>
+        </b-modal>
         <b-modal :active.sync="themesModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-themes-modal :params="activeModalParams"></ok-themes-modal>
         </b-modal>
@@ -85,11 +94,17 @@
     import OkConnectionsCirclesPickerModal
         from '~/pages/home/components/modals/components/OkConnectionsCirclesPickerModal.vue';
     import OkPostCommentActionsModal from '~/pages/home/components/modals/components/OkPostCommentActionsModal.vue';
+    import OkTermsOfUseModal from '~/pages/home/components/modals/components/OkTermsOfUseModal.vue';
+    import OkPrivacyPolicyModal from '~/pages/home/components/modals/components/OkPrivacyPolicyModal.vue';
+    import OkCommunityGuidelinesModal from '~/pages/home/components/modals/components/OkCommunityGuidelinesModal.vue';
     import OkThemesModal from '~/pages/home/components/modals/components/OkThemesModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkCommunityGuidelinesModal,
+            OkPrivacyPolicyModal,
+            OkTermsOfUseModal,
             OkPostCommentActionsModal,
             OkConnectionsCirclesPickerModal,
             OkUserActionsModal,
@@ -121,6 +136,9 @@
         communitiesListModalOpen: boolean = false;
         reportObjectModalOpen: boolean = false;
         connectionsCirclesPickerOpen: boolean = false;
+        termsOfUseModalOpened: boolean = false;
+        communityGuidelinesModalOpened: boolean = false;
+        privacyPolicyModalOpened: boolean = false;
         themesModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
@@ -154,6 +172,9 @@
             this.postCommentActionsModalOpened = activeModalValue === ModalType.postCommentActions;
             this.reportObjectModalOpen = activeModalValue === ModalType.reportObject;
             this.connectionsCirclesPickerOpen = activeModalValue === ModalType.connectionsCirclesPicker;
+            this.termsOfUseModalOpened = activeModalValue === ModalType.termsOfUse;
+            this.communityGuidelinesModalOpened = activeModalValue === ModalType.communityGuidelines;
+            this.privacyPolicyModalOpened = activeModalValue === ModalType.privacyPolicy;
             this.themesModalOpen = activeModalValue === ModalType.themes;
         }
     }

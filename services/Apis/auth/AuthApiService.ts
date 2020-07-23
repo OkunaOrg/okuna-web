@@ -6,8 +6,13 @@ import {
     LoginApiParams,
     LoginResponse,
     RegistrationApiParams,
-    RegistrationResponse, ReportUserApiParams,
-    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams, UnblockUserApiParams
+    RegistrationResponse,
+    ReportUserApiParams,
+    RequestResetPasswordApiParams,
+    ResetPasswordApiParams,
+    SearchUsersApiParams,
+    UnblockUserApiParams,
+    IsInviteTokenValidApiParams, IsEmailAvailableApiParams, IsUsernameAvailableApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -23,9 +28,12 @@ export class AuthApiService implements IAuthApiService {
     static REGISTER_PATH = 'api/auth/register/';
     static AUTHENTICATED_USER_PATH = 'api/auth/user/';
     static GET_USERS_PATH = 'api/auth/users/';
+    static VALIDATE_INVITE_TOKEN = 'api/auth/register/verify-token/';
     static REPORT_USER_PATH = 'api/auth/users/{userUsername}/report/';
     static BLOCK_USER_PATH = 'api/auth/users/{userUsername}/block/';
     static UNBLOCK_USER_PATH = 'api/auth/users/{userUsername}/unblock/';
+    static CHECK_EMAIL_PATH = 'api/auth/email-check/';
+    static CHECK_USERNAME_PATH = 'api/auth/username-check/';
 
     constructor(@inject(TYPES.HttpService) private httpService: IHttpService,
                 @inject(TYPES.UtilsService) private utilsService: IUtilsService) {
@@ -59,16 +67,41 @@ export class AuthApiService implements IAuthApiService {
     }
 
     register(data: RegistrationApiParams): Promise<AxiosResponse<RegistrationResponse>> {
-        return this.httpService.post<RegistrationResponse>(AuthApiService.REGISTER_PATH, {
-            email: data.email,
-            password: data.password,
-            name: data.password,
-            token: data.inviteToken,
-            is_of_legal_age: data.isOfLegalAge,
-            are_guidelines_accepted: data.areGuidelinesAccepted
-        }, {
+        const bodyFormData = new FormData();
+        bodyFormData.set('email', data.email);
+        bodyFormData.set('username', data.userUsername);
+        bodyFormData.set('password', data.password);
+        bodyFormData.set('token', data.inviteToken);
+        bodyFormData.set('is_of_legal_age', data.isOfLegalAge.toString());
+        bodyFormData.set('are_guidelines_accepted', data.areGuidelinesAccepted.toString());
+
+        return this.httpService.post<RegistrationResponse>(AuthApiService.REGISTER_PATH, bodyFormData, {
             isApiRequest: true
-        })
+        });
+    }
+
+    isInviteTokenValid(data: IsInviteTokenValidApiParams): Promise<AxiosResponse<void>> {
+        return this.httpService.post<void>(AuthApiService.VALIDATE_INVITE_TOKEN, {
+            token: data.token
+        }, {
+            isApiRequest: true,
+        });
+    }
+
+    isEmailAvailable(data: IsEmailAvailableApiParams): Promise<AxiosResponse<void>> {
+        return this.httpService.post<void>(AuthApiService.CHECK_EMAIL_PATH, {
+            email: data.email
+        }, {
+            isApiRequest: true,
+        });
+    }
+
+    isUsernameAvailable(data: IsUsernameAvailableApiParams): Promise<AxiosResponse<void>> {
+        return this.httpService.post<void>(AuthApiService.CHECK_USERNAME_PATH, {
+            username: data.username
+        }, {
+            isApiRequest: true,
+        });
     }
 
     getUser(params: GetUserApiParams): Promise<AxiosResponse<UserData>> {

@@ -155,4 +155,21 @@ export class UtilsService implements IUtilsService {
 
         return s.charAt(0).toUpperCase() + s.slice(1)
     }
+
+    isPromise(obj: Object): boolean {
+        return obj && Object.prototype.toString.call(obj) === "[object Promise]";
+    }
+
+    getQueryStringParams(query): {[key: string]: string} {
+        let res = {};
+        (new URL(query)).searchParams.forEach((value: string, key: string,)=>{
+            res[key] = value;
+        });
+        return res;
+    };
+
+    isUrl(str: string) : boolean {
+        const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        return regexp.test(str);
+    }
 }

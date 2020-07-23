@@ -2,12 +2,17 @@ import { AxiosResponse } from '~/node_modules/axios';
 import { UserData } from '~/types/models-data/auth/UserData';
 import {
     BlockUserApiParams,
-    GetUserApiParams,
+    GetUserApiParams, IsEmailAvailableApiParams,
     LoginApiParams,
     LoginResponse,
     RegistrationApiParams,
-    RegistrationResponse, ReportUserApiParams,
-    RequestResetPasswordApiParams, ResetPasswordApiParams, SearchUsersApiParams, UnblockUserApiParams
+    RegistrationResponse,
+    ReportUserApiParams,
+    RequestResetPasswordApiParams,
+    ResetPasswordApiParams,
+    SearchUsersApiParams,
+    UnblockUserApiParams,
+    IsInviteTokenValidApiParams, IsUsernameAvailableApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 
 export interface IAuthApiService {
@@ -31,4 +36,10 @@ export interface IAuthApiService {
     blockUser(params: BlockUserApiParams): Promise<AxiosResponse<void>>;
 
     unblockUser(params: UnblockUserApiParams): Promise<AxiosResponse<void>>;
+
+    isInviteTokenValid(data: IsInviteTokenValidApiParams): Promise<AxiosResponse<void>>;
+
+    isEmailAvailable(data: IsEmailAvailableApiParams): Promise<AxiosResponse<void>>;
+    
+    isUsernameAvailable(data: IsUsernameAvailableApiParams): Promise<AxiosResponse<void>>;
 }

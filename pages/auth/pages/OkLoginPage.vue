@@ -15,7 +15,7 @@
                   <span>
                       {{$t('global.snippets.dont_have_an_account')}}
                   </span>
-                        <nuxt-link :to="localePath({path: '/', hash: 'pricing'})"
+                        <nuxt-link :to="localePath({path: '/a/register'})"
                                    class="has-text-underline has-padding-left-5">
                             {{$t('global.snippets.sign_up')}}
                         </nuxt-link>

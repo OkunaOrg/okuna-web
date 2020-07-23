@@ -75,6 +75,8 @@ export interface GetFavoriteCommunitiesParams {
     offset?: number;
 }
 
+
+
 export interface GetAdministratedCommunitiesParams {
     offset?: number;
 }

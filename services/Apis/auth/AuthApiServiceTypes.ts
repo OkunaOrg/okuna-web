@@ -10,6 +10,7 @@ export interface LoginResponse {
 export interface RegistrationApiParams {
     email: string;
     password: string;
+    userUsername: string;
     name: string;
     inviteToken: string;
     isOfLegalAge: boolean;
@@ -53,3 +54,14 @@ export interface UnblockUserApiParams {
     userUsername: string;
 }
 
+export interface IsInviteTokenValidApiParams {
+    token: string
+}
+
+export interface IsEmailAvailableApiParams {
+    email: string
+}
+
+export interface IsUsernameAvailableApiParams {
+    username: string
+}

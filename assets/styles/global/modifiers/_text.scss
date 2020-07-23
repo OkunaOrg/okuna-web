@@ -4,13 +4,17 @@
 
 .has-text-overflow-ellipsis {
   text-overflow: ellipsis;
-  white-space: nowrap;
   overflow: hidden;
 }
 
 .has-text-underline {
   text-decoration: underline;
 }
+
+.has-no-text-decoration{
+  text-decoration: unset !important;
+}
+
 
 .has-text-logo {
   font-family: CocogooseProSemilight, sans-serif !important

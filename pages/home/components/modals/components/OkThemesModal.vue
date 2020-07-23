@@ -1,12 +1,10 @@
 <template>
     <div class="is-flex justify-center align-items-center" v-if="activeTheme">
         <div class="ok-has-background-primary is-semi-rounded">
-            <div class="box ok-has-background-primary-highlight has-height-100-percent">
-                <span class="ok-has-text-primary-invert">{{ params.title }}</span>
-
-                <div class="is-flex justify-center align-items-center" v-if="curatedThemes && curatedThemes.length">
+            <div class="box ok-has-background-primary-highlight has-height-100-percent" style="max-width: 420px">
+                <div class="columns is-multiline is-mobile is-centered" v-if="curatedThemes && curatedThemes.length">
                     <div
-                        class="ok-themes-wrapper has-padding-20"
+                        class="ok-themes-wrapper is-narrow has-padding-20"
                         v-for="theme in curatedThemes"
                         :key="theme.id"
                         @click="onThemeClick(theme)"
@@ -15,7 +13,7 @@
                             <div class="accent-gradient" :style="getThemeGradientStyles(theme)"></div>
                             <div class="primary" :style="getThemePrimaryStyles(theme)"></div>
                         </div>
-                        <div class="ok-has-text-primary-invert is-size-7">{{ theme.name }}</div>
+                        <div class="ok-has-text-primary-invert is-size-7 has-text-centered">{{ theme.name }}</div>
                     </div>
                 </div>
             </div>
@@ -87,6 +85,7 @@
 
     .ok-themes-wrapper {
         cursor: pointer;
+        width: 100px;
     }
 
     .ok-theme-circle {

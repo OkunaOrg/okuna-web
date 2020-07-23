@@ -110,6 +110,23 @@ export class ModalService implements IModalService {
     }
 
 
+    async openTermsOfUseModal(): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.termsOfUse);
+    }
+
+
+    async openPrivacyPolicyModal(): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.privacyPolicy);
+    }
+
+
+    async openCommunityGuidelinesModal(): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityGuidelines);
+    }
+
     notifyModalClosed(): void {
         this.ensureHasActiveModal();
         this.logModalClosed();
@@ -122,7 +139,7 @@ export class ModalService implements IModalService {
         this.activeModalReturnData = any;
     }
 
-    private openModal(modalType: ModalType, params: ModalParams): Promise<any> {
+    private openModal(modalType: ModalType, params?: ModalParams): Promise<any> {
         this.activeModalParams.next(params);
         this.activeModal.next(modalType);
         this.logModalOpened();
