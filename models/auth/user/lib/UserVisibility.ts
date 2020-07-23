@@ -6,7 +6,7 @@ export class UserVisibility {
     static _values: UserVisibility[] = [
         UserVisibility.private,
         UserVisibility.public,
-        UserVisibility.public,
+        UserVisibility.okuna,
     ];
 
     static values() {
@@ -25,7 +25,7 @@ export class UserVisibility {
         }
 
         if (!badgeKeyword) {
-            console.error('Unsupported userVisibility type');
+            console.error(`Unsupported userVisibility type ${val}`);
         }
 
         return badgeKeyword;

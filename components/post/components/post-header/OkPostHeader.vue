@@ -17,7 +17,7 @@
             </ok-post-header-profile-content>
         </div>
         <div class="column is-narrow is-flex align-items-center has-cursor-pointer" role="button"
-             :aria-label="$t('globals.keywords.more')" @click="onWantsToOpenPostActions">
+             :aria-label="$t('global.keywords.more')" @click="onWantsToOpenPostActions">
             <div class="card-header-icon" aria-label="more options">
                 <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
             </div>

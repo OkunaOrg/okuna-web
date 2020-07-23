@@ -6,7 +6,7 @@ import {
     RegistrationApiParams,
     RegistrationResponse,
     RequestResetPasswordApiParams,
-    ResetPasswordApiParams
+    ResetPasswordApiParams, IsInviteTokenValidApiParams, IsEmailAvailableApiParams, IsUsernameAvailableApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IUser } from '~/models/auth/user/IUser';
 import userFactory from '~/models/auth/user/factory';
@@ -133,7 +133,10 @@ import { ICategoriesApiService } from '~/services/Apis/categories/ICategoriesApi
 import { ICategory } from '~/models/common/category/ICategory';
 import { CategoryData } from '~/types/models-data/common/CategoryData';
 import categoryFactory from '~/models/common/category/factory';
-import { GetTrendingCommunitiesApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
+import {
+    GetSuggestedCommunitiesApiParams,
+    GetTrendingCommunitiesApiParams
+} from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import hashtagFactory from '~/models/common/hashtag/factory';
 import { HashtagData } from '~/types/models-data/common/HashtagData';
@@ -149,6 +152,11 @@ import { CircleData } from '~/types/models-data/connections/CircleData';
 import { ICircle } from '~/models/connections/circle/ICircle';
 import circleFactory from '~/models/connections/circle/factory';
 import { IConnectionsApiService } from '~/services/Apis/connections/IConnectionsApiService';
+import { IUserPreferencesService } from '~/services/user-preferences/IUserPreferencesService';
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 @injectable()
 export class UserService implements IUserService {
@@ -169,6 +177,7 @@ export class UserService implements IUserService {
                 @inject(TYPES.ConnectionsApiService) private connectionsApiService?: IConnectionsApiService,
                 @inject(TYPES.NotificationsApiService) private notificationsApiService?: INotificationsApiService,
                 @inject(TYPES.HttpService) private httpService?: IHttpService,
+                @inject(TYPES.UserPreferencesService) private userPreferencesService?: IUserPreferencesService,
                 @inject(TYPES.StorageService)  storageService?: IStorageService,
                 @inject(TYPES.LoggingService)  loggingService?: ILoggingService
     ) {
@@ -183,6 +192,36 @@ export class UserService implements IUserService {
     async register(data: RegistrationApiParams): Promise<RegistrationResponse> {
         const response = await this.authApiService!.register(data);
         return response.data;
+    }
+
+    async isInviteTokenValid(data: IsInviteTokenValidApiParams): Promise<boolean> {
+        try {
+            await this.authApiService.isInviteTokenValid(data);
+            return true;
+        } catch (error) {
+            if (error.response && error.response.status === 400) return false;
+            throw error;
+        }
+    }
+
+    async isEmailAvailable(data: IsEmailAvailableApiParams): Promise<boolean> {
+        try {
+            await this.authApiService.isEmailAvailable(data);
+            return true;
+        } catch (error) {
+            if (!error || (error.response && error.response.status === 400)) return false;
+            throw error;
+        }
+    }
+
+    async isUsernameAvailable(data: IsUsernameAvailableApiParams): Promise<boolean> {
+        try {
+            await this.authApiService.isUsernameAvailable(data);
+            return true;
+        } catch (error) {
+            if (!error || (error.response && error.response.status === 400)) return false;
+            throw error;
+        }
     }
 
     async requestResetPassword(data: RequestResetPasswordApiParams): Promise<void> {
@@ -200,7 +239,8 @@ export class UserService implements IUserService {
     }
 
     async logout() {
-        this.httpService!.clearAuthToken();
+        await this.httpService!.clearAuthToken();
+        await this.userPreferencesService.clear();
         await this.tokenStorage.remove(UserService.AUTH_TOKEN_STORAGE_KEY);
     }
 
@@ -218,8 +258,6 @@ export class UserService implements IUserService {
     }
 
     async loginWithStoredAuthToken(): Promise<IUser> {
-        const authToken = await this.getStoredAuthToken();
-        this.httpService!.setAuthToken(authToken);
         return this.refreshLoggedInUser();
     }
 
@@ -247,7 +285,8 @@ export class UserService implements IUserService {
         this.loggedInUser.next(user);
     }
 
-    private storeAuthToken(token: string) {
+    storeAuthToken(token: string) {
+        this.httpService!.setAuthToken(token);
         return this.tokenStorage.set(UserService.AUTH_TOKEN_STORAGE_KEY, token);
     }
 
@@ -438,6 +477,12 @@ export class UserService implements IUserService {
     }
 
     async getFavoriteCommunities(params?: GetFavoriteCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getFavoriteCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async getSuggestedCommunities(params?: GetSuggestedCommunitiesApiParams): Promise<ICommunity[]> {
         const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getFavoriteCommunities(params);
 
         return communityFactory.makeMultiple(response.data);

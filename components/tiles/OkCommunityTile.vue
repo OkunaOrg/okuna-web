@@ -5,18 +5,19 @@
         </figure>
         <div class="media-content has-z-index-1">
             <div class="has-text-overflow-ellipsis">
-                <span class="has-text-white">
+                <span class="has-text-white" v-line-clamp:20="1">
                     c/{{community.name}}
                 </span>
             </div>
             <div class="has-text-overflow-ellipsis">
-                <span class="has-text-weight-bold has-text-white">
+                <span class="has-text-weight-bold has-text-white" v-line-clamp:20="1">
                     {{community.title}}
                 </span>
             </div>
         </div>
         <div class="media-right has-z-index-1">
             <slot name="trailing"></slot>
+
         </div>
     </article>
 </template>

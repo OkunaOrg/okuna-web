@@ -1,5 +1,6 @@
 <template>
     <section class="hero is-fullheight ok-has-background-primary-highlight">
+        <ok-modals></ok-modals>
         <div class="columns is-flex-1 is-flex-touch flex-direction-column-reverse-touch is-marginless">
             <div class="column ok-has-background-primary is-flex flex-direction-column">
                 <div class="columns is-flex-1 is-vcentered is-centered is-marginless">
@@ -60,12 +61,14 @@
     import { Observer } from "~/node_modules/mobx-vue";
     import OkFooter from "~/components/layout/footer/OkFooter.vue";
     import ensureHasNoStoredAuthToken from '~/middleware/ensure-has-no-stored-auth-token';
+    import OkModals from '~/pages/home/components/modals/OkModals.vue';
 
     @Observer
     @Component({
         name: "OkAuthPage",
         components: {
-            OkFooter
+            OkFooter,
+            OkModals
         },
         middleware: [
             ensureHasNoStoredAuthToken

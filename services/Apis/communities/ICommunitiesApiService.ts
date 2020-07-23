@@ -19,7 +19,7 @@ import {
     GetAdministratedCommunitiesApiParams,
     GetModeratedCommunitiesApiParams,
     GetFavoriteCommunitiesApiParams,
-    GetJoinedCommunitiesApiParams
+    GetJoinedCommunitiesApiParams, GetSuggestedCommunitiesApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -33,6 +33,8 @@ export interface ICommunitiesApiService {
     getModeratedCommunities(params?: GetModeratedCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
 
     getFavoriteCommunities(params?: GetFavoriteCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
+    
+    getSuggestedCommunities(params?: GetSuggestedCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
 
     getJoinedCommunities(params?: GetJoinedCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>>;
 

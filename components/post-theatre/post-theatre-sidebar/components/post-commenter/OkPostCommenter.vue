@@ -1,5 +1,5 @@
 <template>
-    <section class="has-padding-20 ok-has-background-primary-80 ok-post-commenter" v-if="loggedInUser">
+    <section class="has-padding-20 ok-has-background-primary-highlight ok-post-commenter" v-if="loggedInUser">
         <div v-if="postComment" class="has-padding-bottom-20">
             <div class="card ok-has-background-primary-highlight">
                 <header class="card-header">

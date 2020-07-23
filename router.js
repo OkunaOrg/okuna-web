@@ -11,7 +11,7 @@ import OkUserPage from "./pages/home/pages/user/OkUserProfilePage";
 import OkCommunitiesPage from "./pages/home/pages/communities/OkCommunitiesPage";
 import OkAuthPage from "./pages/auth/OkAuthPage";
 import OkLoginPage from "./pages/auth/pages/OkLoginPage";
-import OkRegisterPage from "./pages/auth/pages/OkRegisterPage";
+import OkRegisterPage from "./pages/auth/pages/register-page/OkRegisterPage";
 import OkCommunityProfile from "./pages/home/pages/community/OkCommunityProfile";
 
 Vue.use(Router);

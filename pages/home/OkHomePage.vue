@@ -2,7 +2,9 @@
     <section class="is-flex">
         <ok-modals></ok-modals>
         <ok-header></ok-header>
-        <nuxt-child class="ok-has-background-primary-80 has-width-100-percent is-relative"></nuxt-child>
+        <div class="ok-has-background-primary has-width-100-percent is-relative">
+            <nuxt-child class="has-width-100-percent ok-has-background-primary-highlight has-height-100-percent"/>
+        </div>
     </section>
 </template>
 

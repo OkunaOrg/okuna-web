@@ -11,9 +11,16 @@ export interface IUtilsService {
 
     parseTemplateString(template: string, templateData: {[key: string]: boolean | number | string}): string;
 
-    convertModelInstanceTypeToString(modelInstance: any,  capitalize: boolean): string;
+    convertModelInstanceTypeToString(modelInstance: any, capitalize: boolean): string;
 
     capitalizeString(s: string): string;
+
+    isPromise(obj: Object): boolean;
+
+    getQueryStringParams(query): {[key: string]: string};
+
+    isUrl(str: string): boolean;
+
 }
 
 export interface QueryParams {

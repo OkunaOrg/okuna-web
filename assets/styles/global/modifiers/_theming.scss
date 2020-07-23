@@ -160,6 +160,23 @@
     }
 }
 
+
+.ok-has-before-background-primary-highlight {
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+    background-color: var(--primary-highlight-color) !important;
+  }
+}
+
 // BEFORE DECORATION ENDS //
 
 // BORDER STARTS //
@@ -233,6 +250,12 @@
 .ok-svg-icon-primary-invert-60 {
   & svg {
     fill: var(--primary-invert-color-60) !important;
+  }
+}
+
+.ok-svg-icon-primary-highlight {
+  & svg {
+    fill: var(--primary-highlight-color) !important;
   }
 }
 

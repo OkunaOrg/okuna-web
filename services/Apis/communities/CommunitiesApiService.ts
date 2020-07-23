@@ -21,7 +21,7 @@ import {
     GetFavoriteCommunitiesApiParams,
     GetModeratedCommunitiesApiParams,
     GetJoinedCommunitiesApiParams,
-    GetAdministratedCommunitiesApiParams
+    GetAdministratedCommunitiesApiParams, GetSuggestedCommunitiesApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
@@ -136,6 +136,14 @@ export class CommunitiesApiService implements ICommunitiesApiService {
         return this.httpService.get(CommunitiesApiService.GET_FAVORITE_COMMUNITIES_PATH,
             {
                 queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    getSuggestedCommunities(params: GetSuggestedCommunitiesApiParams = {}): Promise<AxiosResponse<CommunityData[]>> {
+        return this.httpService.get(CommunitiesApiService.GET_SUGGESTED_COMMUNITIES_PATH,
+            {
                 appendAuthorizationToken: true,
                 isApiRequest: true
             });
