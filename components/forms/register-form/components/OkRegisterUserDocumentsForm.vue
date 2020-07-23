@@ -101,15 +101,10 @@
 </style>
 
 <script lang="ts">
-    import { Validate } from "vuelidate-property-decorators";
-    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
-    import { emailValidators } from "~/validators/email";
+    import { Component, Prop, Vue} from "nuxt-property-decorator"
     import OkButtonsNavigation from "~/components/navigation/OkButtonsNavigation.vue";
-    import { CancelableOperation } from "~/lib/CancelableOperation";
-    import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
-    import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IModalService } from '~/services/modal/IModalService';
 
     @Component({

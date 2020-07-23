@@ -6,7 +6,7 @@ export default {
             "usps": {
                 "friends": "Meet new friends and discover interests by joining or hosting communities.",
                 "privacy": "We don't track nor monitor what you do.",
-                "revenue": "We have zero ads and sustain the network through an optional coffee subscription.",
+                "revenue": "We have zero ads and sustain the network through an optional subscription.",
                 "mental_health": " With private comments, toggleable follower counts and batch notifications, make your surfing experience, stress-free.",
                 "planet": " We are committed to donating a percentage of our profits towards preserving improving our only home."
             }
@@ -238,6 +238,7 @@ export default {
             "validate": "Validate",
             "next": "Next",
             "previous": "Previous",
+            "guidelines": "Guidelines",
         },
         "models": {
             "post": "post",
