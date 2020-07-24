@@ -333,6 +333,9 @@ export default {
             "we_have_recorded_the_error": " We have recorded what went wrong and will fix it as soon as possible.",
             "awww_yeah": "Aww yeah!",
             "your_account_is_ready": "Your account is ready.",
+            "its_better_on_the_app": "It's better on the app",
+            "okuna_web_is_wip": "Okuna for the web is a work-in-progress.",
+            "get_the_mobile_app": "Get the Okuna mobile app to create posts, circles, lists, moderate your communities reports and more.",
         },
     },
 }

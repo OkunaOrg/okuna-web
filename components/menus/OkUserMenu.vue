@@ -2,7 +2,7 @@
     <nav class="menu has-padding-20">
         <ul class="menu-list">
             <li class="has-padding-bottom-5">
-                <button class="button is-success is-rounded is-fullwidth has-background-rainbow has-text-weight-bold justify-center align-items-center">
+                <button class="button is-success is-rounded is-fullwidth has-background-rainbow has-text-weight-bold justify-center align-items-center" @click="onWantsToGetTheApp">
                     <ok-cellphone-icon
                             class="is-white ok-user-menu-get-app-icon"></ok-cellphone-icon>
                     <span class="has-padding-left-10">{{$t('global.snippets.get_the_app')}}</span>
@@ -250,6 +250,11 @@
             await this.modalService.openThemesModal({
                 title: this.$t('components.user_dropdown.themes').toString()
             });
+        }
+
+        async onWantsToGetTheApp(){
+            this.$emit('leaveMenu');
+            await this.modalService.openGetTheAppModal();
         }
     }
 </script>

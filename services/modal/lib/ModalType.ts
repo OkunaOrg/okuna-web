@@ -14,6 +14,8 @@ export class ModalType {
     static privacyPolicy = new ModalType('PrivacyPolicy');
     static communityGuidelines = new ModalType('PrivacyPolicy');
     static themes = new ModalType('Themes');
+    static welcomeToOkunaWeb = new ModalType('WelcomeToOkunaWeb');
+    static getTheApp = new ModalType('GetTheApp');
 
 
     static _values: ModalType[] = [
@@ -30,6 +32,8 @@ export class ModalType {
         ModalType.privacyPolicy,
         ModalType.communityGuidelines,
         ModalType.themes,
+        ModalType.welcomeToOkunaWeb,
+        ModalType.getTheApp,
     ];
 
     static values() {

@@ -62,6 +62,12 @@
         <b-modal :active.sync="themesModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-themes-modal :params="activeModalParams"></ok-themes-modal>
         </b-modal>
+        <b-modal :active.sync="getTheAppModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-get-the-app-modal :params="activeModalParams"></ok-get-the-app-modal>
+        </b-modal>
+        <b-modal :active.sync="welcomeToOkunaWebModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-welcome-to-okuna-web-modal :params="activeModalParams"></ok-welcome-to-okuna-web-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -99,10 +105,12 @@
     import OkPrivacyPolicyModal from '~/pages/home/components/modals/components/OkPrivacyPolicyModal.vue';
     import OkCommunityGuidelinesModal from '~/pages/home/components/modals/components/OkCommunityGuidelinesModal.vue';
     import OkThemesModal from '~/pages/home/components/modals/components/OkThemesModal.vue';
+    import OkGetTheAppModal from '~/pages/home/components/modals/components/get-the-app/OkGetTheAppModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkGetTheAppModal,
             OkCommunityGuidelinesModal,
             OkPrivacyPolicyModal,
             OkTermsOfUseModal,
@@ -141,6 +149,8 @@
         communityGuidelinesModalOpened: boolean = false;
         privacyPolicyModalOpened: boolean = false;
         themesModalOpen: boolean = false;
+        getTheAppModalOpen: boolean = false;
+        welcomeToOkunaWebModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -177,6 +187,7 @@
             this.communityGuidelinesModalOpened = activeModalValue === ModalType.communityGuidelines;
             this.privacyPolicyModalOpened = activeModalValue === ModalType.privacyPolicy;
             this.themesModalOpen = activeModalValue === ModalType.themes;
+            this.getTheAppModalOpen = activeModalValue === ModalType.getTheApp;
         }
     }
 </script>

@@ -109,6 +109,16 @@ export class ModalService implements IModalService {
         return this.openModal(ModalType.themes, params);
     }
 
+    async openGetTheAppModal(): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.getTheApp);
+    }
+
+    async openWelcomeToOkunaWebModal(): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.welcomeToOkunaWeb);
+    }
+
 
     async openTermsOfUseModal(): Promise<void> {
         this.ensureHasNoActiveModal();

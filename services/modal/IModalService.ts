@@ -44,6 +44,10 @@ export interface IModalService {
 
     openThemesModal(params: ThemeModalParams): Promise<void>;
 
+    openGetTheAppModal(): Promise<void>;
+
+    openWelcomeToOkunaWebModal(): Promise<void>;
+
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
 
