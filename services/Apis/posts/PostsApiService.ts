@@ -28,7 +28,7 @@ import {
     GetPostApiParams,
     GetPostMediaApiParams,
     ClosePostApiParams,
-    OpenPostApiParams, DisablePostCommentsApiParams, EnablePostCommentsApiParams
+    OpenPostApiParams, DisablePostCommentsApiParams, EnablePostCommentsApiParams, TranslatePostApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
@@ -395,6 +395,11 @@ export class PostsApiService implements IPostsApiService {
 
     enablePostComments(params: EnablePostCommentsApiParams): Promise<AxiosResponse<void>> {
         const path = this.makeEnableCommentsForPostPath(params.postUuid);
+        return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    translatePost(params: TranslatePostApiParams): Promise<AxiosResponse<Object>> {
+        const path = this.makeTranslatePostPath(params.postUuid);
         return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
     }
 

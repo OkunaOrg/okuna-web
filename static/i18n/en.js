@@ -41,6 +41,11 @@ export default {
 
         },
 
+        "translate": {
+            "show_original": "Show original",
+            "see_translation": "See translation"
+        },
+
         "post_comments_sort_switcher": {
             "showing": "Showing",
             "first": "first."

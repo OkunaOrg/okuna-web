@@ -70,6 +70,7 @@ import {
     GetHashtagPostsParams,
     SearchHashtagsParams,
     SearchUsersParams,
+    TranslatePostParams,
     ReportUserParams,
     ReportHashtagParams,
     EnablePostCommentsParams,
@@ -800,6 +801,12 @@ export class UserService implements IUserService {
         await this.postsApiService.disablePostComments({
             postUuid: params.post.uuid,
         });
+    }
+
+    async translatePost(params: TranslatePostParams): Promise<String> {
+        const response: AxiosResponse<Object> = await this.postsApiService.translatePost({postUuid: params.post.uuid});
+
+        return response.data['translated_text'];
     }
 
 
