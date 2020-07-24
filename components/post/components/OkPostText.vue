@@ -1,29 +1,18 @@
 <template>
     <div class="content ok-has-text-primary-invert">
+        <!-- IDEA: Create OkTranslatableSmartText -->
         <ok-smart-text :text="postText"></ok-smart-text>
-        <!-- TODO(komposten): Wrap this up as a custom component so it's reusable for comments? -->
-        <div v-if="canTranslatePost"
-             class="has-padding-top-10">
-            <ok-loading-indicator v-if="translationInProgress"
-                                  class="has-width-fit-content"
-                                  :size="2">
-            </ok-loading-indicator>
-            <div v-else
-                 class="ok-has-text-primary-invert-80 is-size-6 has-cursor-pointer"
-                 role="button"
-                 @click="toggleTranslatePostText">
-                <span>
-                    {{translateButtonText}}
-                </span>
-            </div>
-        </div>
+        <ok-translate-button v-if="canTranslatePost"
+                             class="has-padding-top-10"
+                             :is-showing-translation="showTranslatedText"
+                             :is-translation-in-progress="translationInProgress"
+                             :toggle-translate-text="toggleTranslatePostText">
+        </ok-translate-button>
     </div>
 </template>
 
 <style lang="scss" scoped>
-    .has-width-fit-content{
-        width: fit-content !important;
-    }
+
 </style>
 
 <script lang="ts">
@@ -40,10 +29,11 @@
     import {IUtilsService} from "~/services/utils/IUtilsService";
     import {BehaviorSubject} from "rxjs";
     import {IUser} from "~/models/auth/user/IUser";
+    import OkTranslateButton from "~/components/OkTranslateButton.vue";
 
     @Component({
         name: "OkPostText",
-        components: {OkLoadingIndicator, OkSmartText},
+        components: {OkTranslateButton, OkLoadingIndicator, OkSmartText},
         subscriptions: function() {
             return {
                 loggedInUser: this["userService"].loggedInUser
@@ -53,7 +43,6 @@
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;
 
-        private localizationService: ILocalizationService = okunaContainer.get<ILocalizationService>(TYPES.LocalizationService);
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
@@ -86,14 +75,6 @@
 
         get postText() {
             return this.showTranslatedText ? this.translatedText : this.post.text;
-        }
-
-        get translateButtonText() {
-            if (this.showTranslatedText) {
-                return this.localizationService.localize("components.translate.show_original");
-            } else {
-                return this.localizationService.localize("components.translate.see_translation");
-            }
         }
 
         get canTranslatePost() {

@@ -156,3 +156,8 @@ export interface EnablePostCommentsApiParams {
 export interface TranslatePostApiParams {
     postUuid: string;
 }
+
+export interface TranslatePostCommentApiParams {
+    postUuid: string;
+    postCommentId: number;
+}

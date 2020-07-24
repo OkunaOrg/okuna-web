@@ -47,6 +47,10 @@ export class PostComment extends DataModel<PostComment> implements IPostComment 
             attributeKey: 'text',
         },
         {
+            dataKey: 'language',
+            attributeKey: 'language'
+        },
+        {
             dataKey: 'creator_id',
             attributeKey: 'creatorId',
         },

@@ -326,6 +326,12 @@ export interface TranslatePostParams {
 }
 
 
+export interface TranslatePostCommentParams {
+    postComment: IPostComment;
+    post: IPost;
+}
+
+
 // POSTS END
 
 // NOTIFICATIONS START

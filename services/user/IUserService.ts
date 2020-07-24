@@ -50,7 +50,12 @@ import {
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
-    SearchCommunityModeratorsParams, SearchHashtagsParams, SearchUsersParams, TranslatePostParams, UnblockUserParams,
+    SearchCommunityModeratorsParams,
+    SearchHashtagsParams,
+    SearchUsersParams,
+    TranslatePostParams,
+    TranslatePostCommentParams,
+    UnblockUserParams,
     UnfollowUserParams, UpdateConnectionWithUserParaUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
@@ -230,6 +235,8 @@ export interface IUserService {
     disablePostComments(params: DisablePostCommentsParams): Promise<void>;
 
     translatePost(params: TranslatePostParams): Promise<String>;
+
+    translatePostComment(params: TranslatePostCommentParams): Promise<String>;
 
     // POSTS END
 

@@ -23,7 +23,7 @@ import {
     ReportPostApiParams,
     ClosePostApiParams,
     OpenPostApiParams,
-    DisablePostCommentsApiParams, EnablePostCommentsApiParams, TranslatePostApiParams
+    DisablePostCommentsApiParams, EnablePostCommentsApiParams, TranslatePostApiParams, TranslatePostCommentApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -93,4 +93,6 @@ export interface IPostsApiService {
     enablePostComments(params: EnablePostCommentsApiParams): Promise<AxiosResponse<void>>;
 
     translatePost(params: TranslatePostApiParams): Promise<AxiosResponse<Object>>;
+
+    translatePostComment(params: TranslatePostCommentApiParams): Promise<AxiosResponse<Object>>;
 }
