@@ -3,7 +3,7 @@
         <slot name="leading"></slot>
         <ok-http-list
                 :refresher="refresher" :on-scroll-loader="onScrollLoader" ref="okHttpList"
-                :item-class="postContainerClass">
+                :item-class="postContainerClass" list-type="post">
             <ok-post slot-scope="props" :post="props.item" :post-display-context="postsDisplayContext" @onPostDeleted="removePost" @onPostReported="removePost"></ok-post>
         </ok-http-list>
     </div>
@@ -33,10 +33,11 @@
         OkPostsStreamRefresher
     } from "~/components/posts-stream/lib/OkPostsStreamParams";
     import OkHttpList from '~/components/http-list/OkHttpList.vue';
+    import OkPostSkeleton from '~/components/skeletons/post/OkPostSkeleton.vue';
 
     @Component({
         name: "OkPostsStream",
-        components: {OkHttpList, OkPost},
+        components: {OkHttpList, OkPost, OkPostSkeleton},
     })
     export default class OkPostsStream extends Vue {
         @Prop({

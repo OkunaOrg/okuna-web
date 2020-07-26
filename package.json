@@ -14,10 +14,11 @@
     "@types/vue-markdown": "^2.2.1",
     "@types/vuelidate": "^0.7.11",
     "axios": "^0.19.2",
-    "buefy": "^0.8.13",
+    "buefy": "^0.8.20",
     "bulma": "^0.8.0",
     "bulma-helpers": "^0.3.10",
     "color": "^3.1.2",
+    "crypto-hash": "^1.2.2",
     "dotenv": "^8.2.0",
     "es6-dynamic-template": "^2.0.0",
     "fs": "0.0.1-security",
@@ -77,7 +78,7 @@
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/pino": "^5.17.0",
     "css-loader": "^3.4.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2"
   }
 }

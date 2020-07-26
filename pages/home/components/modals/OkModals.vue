@@ -2,51 +2,52 @@
     <div>
         <b-modal :active.sync="postModalOpened" @close="onModalClosed" :trap-focus="true" :width="1444"
                  :custom-class="'ok-modal'">
-            <ok-post-modal :return-data-setter="setModalReturnData" :params="activeModalParams"></ok-post-modal>
+            <ok-post-modal :return-data-setter="setModalReturnData" :params="activeModalParams" v-if="activeModalParams"></ok-post-modal>
         </b-modal>
 
         <b-modal :active.sync="postReactionsModalOpened" :trap-focus="true" :width="1444" @close="onModalClosed"
                  :custom-class="'ok-modal'">
-            <ok-post-reactions-modal :return-data-setter="setModalReturnData"
+            <ok-post-reactions-modal :return-data-setter="setModalReturnData" v-if="activeModalParams"
                                      :params="activeModalParams"></ok-post-reactions-modal>
         </b-modal>
 
         <b-modal :active.sync="postCommentReactionsModalOpened" :trap-focus="true" :width="1444" @close="onModalClosed"
                  :custom-class="'ok-modal'">
-            <ok-post-comment-reactions-modal :return-data-setter="setModalReturnData"
+            <ok-post-comment-reactions-modal :return-data-setter="setModalReturnData" v-if="activeModalParams"
                                              :params="activeModalParams"></ok-post-comment-reactions-modal>
         </b-modal>
         <b-modal :active.sync="communitiesListModalOpen" :trap-focus="true" :width="1444" @close="onModalClosed"
                  :custom-class="'ok-modal'">
-            <ok-communities-list-modal :return-data-setter="setModalReturnData"
+            <ok-communities-list-modal :return-data-setter="setModalReturnData" v-if="activeModalParams"
                                        :params="activeModalParams"></ok-communities-list-modal>
         </b-modal>
         <b-modal :active.sync="postActionsModalOpened" :trap-focus="true" @close="onModalClosed">
             <ok-post-actions-modal :return-data-setter="setModalReturnData"
+                                   v-if="activeModalParams"
                                    :params="activeModalParams"></ok-post-actions-modal>
         </b-modal>
         <b-modal :active.sync="communityActionsModalOpened" :trap-focus="true" @close="onModalClosed">
-            <ok-community-actions-modal :return-data-setter="setModalReturnData"
+            <ok-community-actions-modal :return-data-setter="setModalReturnData" v-if="activeModalParams"
                                    :params="activeModalParams"></ok-community-actions-modal>
         </b-modal>
         <b-modal :active.sync="userActionsModalOpened" :trap-focus="true" @close="onModalClosed">
-            <ok-user-actions-modal :return-data-setter="setModalReturnData"
+            <ok-user-actions-modal :return-data-setter="setModalReturnData" v-if="activeModalParams"
                                    :params="activeModalParams"></ok-user-actions-modal>
         </b-modal>
         <b-modal :active.sync="postCommentActionsModalOpened" :trap-focus="true" @close="onModalClosed">
-            <ok-post-comment-actions-modal :return-data-setter="setModalReturnData"
+            <ok-post-comment-actions-modal :return-data-setter="setModalReturnData" v-if="activeModalParams"
                                    :params="activeModalParams"></ok-post-comment-actions-modal>
         </b-modal>
         <b-modal :active.sync="hashtagActionsModalOpened" :trap-focus="true" @close="onModalClosed">
-            <ok-hashtag-actions-modal :return-data-setter="setModalReturnData"
-                                   :params="activeModalParams"></ok-hashtag-actions-modal>
+            <ok-hashtag-actions-mo :return-data-setter="setModalReturnData" v-if="activeModalParams"
+                                   :params="activeModalParams"></ok-hashtag-actions-mo>
         </b-modal>
         <b-modal :active.sync="reportObjectModalOpen" :trap-focus="true" @close="onModalClosed">
-            <ok-report-object-modal :return-data-setter="setModalReturnData"
+            <ok-report-object-modal :return-data-setter="setModalReturnData" v-if="activeModalParams"
                                    :params="activeModalParams"></ok-report-object-modal>
         </b-modal>
         <b-modal :active.sync="connectionsCirclesPickerOpen" :trap-focus="true" @close="onModalClosed">
-            <ok-connections-circles-picker-modal :return-data-setter="setModalReturnData"
+            <ok-connections-circles-picker-modal :return-data-setter="setModalReturnData" v-if="activeModalParams"
                                     :params="activeModalParams"></ok-connections-circles-picker-modal>
         </b-modal>
         <b-modal :active.sync="termsOfUseModalOpened" @close="onModalClosed" :trap-focus="true">
@@ -60,6 +61,12 @@
         </b-modal>
         <b-modal :active.sync="themesModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-themes-modal :params="activeModalParams"></ok-themes-modal>
+        </b-modal>
+        <b-modal :active.sync="getTheAppModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-get-the-app-modal :params="activeModalParams"></ok-get-the-app-modal>
+        </b-modal>
+        <b-modal :active.sync="welcomeToOkunaWebModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-welcome-to-okuna-web-modal :params="activeModalParams"></ok-welcome-to-okuna-web-modal>
         </b-modal>
     </div>
 </template>
@@ -98,10 +105,14 @@
     import OkPrivacyPolicyModal from '~/pages/home/components/modals/components/OkPrivacyPolicyModal.vue';
     import OkCommunityGuidelinesModal from '~/pages/home/components/modals/components/OkCommunityGuidelinesModal.vue';
     import OkThemesModal from '~/pages/home/components/modals/components/OkThemesModal.vue';
+    import OkGetTheAppModal from '~/pages/home/components/modals/components/get-the-app/OkGetTheAppModal.vue';
+    import OkWelcomeToOkunaWebModal from '~/pages/home/components/modals/components/OkWelcomeToOkunaWebModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkWelcomeToOkunaWebModal,
+            OkGetTheAppModal,
             OkCommunityGuidelinesModal,
             OkPrivacyPolicyModal,
             OkTermsOfUseModal,
@@ -140,6 +151,8 @@
         communityGuidelinesModalOpened: boolean = false;
         privacyPolicyModalOpened: boolean = false;
         themesModalOpen: boolean = false;
+        getTheAppModalOpen: boolean = false;
+        welcomeToOkunaWebModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -176,6 +189,8 @@
             this.communityGuidelinesModalOpened = activeModalValue === ModalType.communityGuidelines;
             this.privacyPolicyModalOpened = activeModalValue === ModalType.privacyPolicy;
             this.themesModalOpen = activeModalValue === ModalType.themes;
+            this.getTheAppModalOpen = activeModalValue === ModalType.getTheApp;
+            this.welcomeToOkunaWebModalOpen = activeModalValue === ModalType.welcomeToOkunaWeb
         }
     }
 </script>

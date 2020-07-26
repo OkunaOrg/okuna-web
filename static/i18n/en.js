@@ -256,6 +256,7 @@ export default {
         "snippets": {
             "get_started_with_communities": "Get started by joining the following communities.",
             "forgot_password": "Forgot password?",
+            "get_the_app": "Get the app",
             "type_here": "Type here...",
             "about_us": "About us",
             "hooray": "Hooray!",
@@ -337,6 +338,15 @@ export default {
             "we_have_recorded_the_error": " We have recorded what went wrong and will fix it as soon as possible.",
             "awww_yeah": "Aww yeah!",
             "your_account_is_ready": "Your account is ready.",
+            "its_better_on_the_app": "It's better on the app",
+            "okuna_web_is_wip": "Okuna for the web is a work-in-progress.",
+            "get_the_mobile_app": "Get the Okuna mobile app to create posts, circles, lists, moderate your communities reports and more.",
+            "glad_you_made_it": "We're glad you made it!",
+            "welcome_to_okuna": "Welcome to Okuna for the web.",
+            "welcome_to_okuna_keep_in_mind_okuna_wip": "Please keep in mind that this version is a WIP (Work In Progress) and some functionality will be missing while we catch up with our mobile version.",
+            "welcome_to_okuna_get_the_app": "If you want to experience the whole of Okuna right now, get the app!",
+            "welcome_to_okuna_thanks": "Thanks for being part of Okuna! We hope you have a fun, friendly and joyful experience.",
+            "welcome_to_okuna_signature": "- ❤️ Okuna Team",
         },
     },
 }

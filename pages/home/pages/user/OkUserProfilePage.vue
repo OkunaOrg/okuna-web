@@ -1,11 +1,19 @@
 <template>
-    <div v-if="loggedInUser && environmentResolution && user">
-        <ok-desktop-user-page
-                :user="user"
-                v-if="environmentResolution !== EnvironmentResolution.mobile"></ok-desktop-user-page>
-        <ok-mobile-user-page
-                :user="user"
-                v-else></ok-mobile-user-page>
+    <div v-if="loggedInUser && environmentResolution">
+        <div v-if="user">
+            <ok-desktop-user-page
+                    :user="user"
+                    v-if="environmentResolution !== EnvironmentResolution.mobile"></ok-desktop-user-page>
+            <ok-mobile-user-page
+                    :user="user"
+                    v-else></ok-mobile-user-page>
+        </div>
+        <div v-else>
+            <ok-desktop-user-page-skeleton
+                v-if="environmentResolution !== EnvironmentResolution.mobile"
+            ></ok-desktop-user-page-skeleton>
+            <ok-mobile-user-page-skeleton v-else></ok-mobile-user-page-skeleton>
+        </div>
     </div>
 </template>
 
@@ -24,7 +32,9 @@
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import OkMobileUserPage from "~/pages/home/pages/user/components/mobile-user-profile/OkMobileUserProfilePage.vue";
+    import OkMobileUserPageSkeleton from "~/components/skeletons/user/mobile-user-profile/OkMobileUserProfilePageSkeleton.vue";
     import OkDesktopUserPage from "~/pages/home/pages/user/components/desktop-user-profile/OkDesktopUserProfilePage.vue";
+    import OkDesktopUserPageSkeleton from "~/components/skeletons/user/desktop-user-profile/OkDesktopUserProfilePageSkeleton.vue";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUserService } from "~/services/user/IUserService";
     import { CancelableOperation } from "~/lib/CancelableOperation";
@@ -32,7 +42,12 @@
 
 
     @Component({
-        components: {OkMobileUserPage, OkDesktopUserPage},
+        components: {
+            OkMobileUserPage,
+            OkMobileUserPageSkeleton,
+            OkDesktopUserPage,
+            OkDesktopUserPageSkeleton
+        },
         subscriptions: function () {
             return {
                 environmentResolution: this["environmentService"].environmentResolution,
@@ -96,6 +111,3 @@
 
     }
 </script>
-
-
-

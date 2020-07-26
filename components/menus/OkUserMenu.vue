@@ -1,5 +1,14 @@
 <template>
     <nav class="menu has-padding-20">
+        <ul class="menu-list">
+            <li class="has-padding-bottom-5">
+                <button class="button is-success is-rounded is-fullwidth has-background-rainbow has-text-weight-bold justify-center align-items-center" @click="onWantsToGetTheApp">
+                    <ok-cellphone-icon
+                            class="is-white ok-user-menu-get-app-icon"></ok-cellphone-icon>
+                    <span class="has-padding-left-10">{{$t('global.snippets.get_the_app')}}</span>
+                </button>
+            </li>
+        </ul>
         <p class="menu-label ok-has-text-primary-invert-80">
             {{$t('components.user_dropdown.my_okuna')}}
         </p>
@@ -133,7 +142,7 @@
                 </a>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-help-icon
                                          class="ok-svg-icon-primary-invert"></ok-help-icon>
@@ -144,7 +153,7 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-link-icon
                                          class="ok-svg-icon-primary-invert"></ok-link-icon>
@@ -173,6 +182,12 @@
     </nav>
 </template>
 
+<style lang="scss">
+    .ok-user-menu-get-app-icon{
+        position: relative;
+        top: -2px;
+    }
+</style>
 
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator"
@@ -235,6 +250,11 @@
             await this.modalService.openThemesModal({
                 title: this.$t('components.user_dropdown.themes').toString()
             });
+        }
+
+        async onWantsToGetTheApp(){
+            this.$emit('leaveMenu');
+            await this.modalService.openGetTheAppModal();
         }
     }
 </script>

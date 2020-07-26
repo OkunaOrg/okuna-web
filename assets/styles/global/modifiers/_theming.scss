@@ -259,6 +259,12 @@
   }
 }
 
+.ok-svg-icon-accent {
+  & svg {
+    fill: var(--accent-color) !important;
+  }
+}
+
 // COMPONENT ENDS //
 
 

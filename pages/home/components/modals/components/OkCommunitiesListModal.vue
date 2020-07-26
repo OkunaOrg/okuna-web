@@ -10,6 +10,7 @@
                 <ok-http-list
                         v-if="environmentResolution"
                         :refresher="params.refresher"
+                        :list-type="(environmentResolution === EnvironmentResolution.desktop ? 'community' : 'community-mobile')"
                         :on-scroll-loader="params.onScrollLoader"
                         :show-no-more="false"
                         :items-container-class="'columns is-multiline'" :item-class="'column is-4-tablet is-3-desktop is-paddingless'">
