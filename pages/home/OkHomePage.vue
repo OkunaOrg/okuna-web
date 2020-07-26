@@ -55,7 +55,7 @@
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
         private logger: IOkLogger;
-        private storage: IOkStorage;
+        private storage: IOkStorage<boolean>;
 
         $observables!: {
             loggedInUser: BehaviorSubject<IUser | undefined>
