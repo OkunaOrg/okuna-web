@@ -20,8 +20,12 @@
                     </span>
                     </p>
                     <p class="subtitle" style="margin-bottom: 0;">
-                        <ok-smart-text :text="postComment.text"
-                                       class="ok-has-text-primary-invert is-size-6"></ok-smart-text>
+                        <ok-translatable-smart-text class="ok-has-text-primary-invert is-size-6"
+                                                    :initial-text="postComment.text"
+                                                    :can-translate-text="canTranslateComment"
+                                                    :translate-text="translateCommentText"
+                        >
+                        </ok-translatable-smart-text>
                     </p>
                     <ok-post-comment-reactions :post="post" :post-comment="postComment" v-if="showReactions"
                                                class="has-padding-top-10"></ok-post-comment-reactions>
@@ -48,7 +52,6 @@
     import { IPost } from "~/models/posts/post/IPost";
     import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
-    import OkSmartText from "~/components/smart-text/OkSmartText.vue";
     import OkUserAvatar from "~/components/avatars/user-avatar/OkUserAvatar.vue";
     import OkPostCommentReactions
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/components/post-comment/components/OkPostCommentReactions.vue";
@@ -60,17 +63,28 @@
         ReplyToCommentParams,
         ReplyToReplyParams
     } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
+    import {IUserService} from "~/services/user/IUserService";
+    import {okunaContainer} from "~/services/inversify";
+    import {TYPES} from "~/services/inversify-types";
+    import {BehaviorSubject} from "rxjs";
+    import {IUser} from "~/models/auth/user/IUser";
+    import OkTranslatableSmartText from "~/components/smart-text/OkTranslatableSmartText.vue";
 
 
     @Component({
         name: "OkPostComment",
         components: {
+            OkTranslatableSmartText,
             OkPostCommentReplies,
             OkPostCommentReactions,
             OkPostCommentInlineActions,
             OkUserAvatar,
-            OkSmartText
         },
+        subscriptions: function() {
+            return {
+                loggedInUser: this["userService"].loggedInUser
+            }
+        }
     })
     export default class OkPostComment extends Vue {
 
@@ -107,6 +121,12 @@
         @Prop({
             type: Number,
         }) readonly highlightedPostCommentId: number;
+
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+
+        $observables!: {
+            loggedInUser?: BehaviorSubject<IUser>
+        };
 
 
         expandedReplies = false;
@@ -161,6 +181,17 @@
 
         get haslinkedPostCommentReply() {
             return !!this.linkedPostCommentReplyId;
+        }
+
+        async translateCommentText() {
+            return await this.userService.translatePostComment({
+                postComment: this.postComment,
+                post: this.post
+            });
+        }
+
+        get canTranslateComment() {
+            return this.$observables.loggedInUser?.value?.canTranslatePostComment(this.postComment, this.post);
         }
 
     }

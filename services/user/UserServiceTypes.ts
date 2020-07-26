@@ -321,6 +321,17 @@ export interface DisablePostCommentsParams {
 }
 
 
+export interface TranslatePostParams {
+    post: IPost;
+}
+
+
+export interface TranslatePostCommentParams {
+    postComment: IPostComment;
+    post: IPost;
+}
+
+
 // POSTS END
 
 // NOTIFICATIONS START

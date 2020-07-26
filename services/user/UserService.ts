@@ -70,6 +70,7 @@ import {
     GetHashtagPostsParams,
     SearchHashtagsParams,
     SearchUsersParams,
+    TranslatePostParams,
     ReportUserParams,
     ReportHashtagParams,
     EnablePostCommentsParams,
@@ -84,7 +85,10 @@ import {
     UpdateConnectionWithUserParaUserParams,
     GetConnectionsCircleParams,
     RejectFollowRequestFromUserParams,
-    ApproveFollowRequestFromUserParams, CancelRequestToFollowUserParams, RequestToFollowUserParams
+    ApproveFollowRequestFromUserParams,
+    CancelRequestToFollowUserParams,
+    RequestToFollowUserParams,
+    TranslatePostCommentParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -800,6 +804,20 @@ export class UserService implements IUserService {
         await this.postsApiService.disablePostComments({
             postUuid: params.post.uuid,
         });
+    }
+
+    async translatePost(params: TranslatePostParams): Promise<String> {
+        const response: AxiosResponse<Object> = await this.postsApiService.translatePost({postUuid: params.post.uuid});
+        return response.data['translated_text'];
+    }
+
+    async translatePostComment(params: TranslatePostCommentParams): Promise<String> {
+        const response: AxiosResponse<Object> = await this.postsApiService.translatePostComment({
+            postUuid: params.post.uuid,
+            postCommentId: params.postComment.id
+        });
+
+        return response.data['translated_text'];
     }
 
 
