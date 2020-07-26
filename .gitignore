@@ -13,3 +13,5 @@ dist
 /.idea/workspace.xml
 .DS_Store
 /.env
+/.prod.env
+/.dev.env

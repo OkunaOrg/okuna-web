@@ -1,4 +1,8 @@
-const result = require('dotenv').config();
+const dotEnvSrc = process.env.NODE_ENV === 'production' ? './.prod.env' : './.dev.env';
+
+const result = require('dotenv').config({
+    path: dotEnvSrc
+});
 
 export default {
     mode: 'spa',

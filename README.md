@@ -78,8 +78,9 @@ $ npm install
 ### Configure the .env file
 
 ``` bash
-$ copy .sample.env .env
-$ nano .env
+$ copy .sample.env .dev.env
+$ copy .sample.env .prod.env
+$ nano .{dev|prod}.env
 ```
 
 ### Start the development server
