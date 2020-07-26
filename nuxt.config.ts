@@ -4,14 +4,32 @@ export default {
     mode: 'spa',
     env: result.parsed,
     head: {
-        title: 'okuna-web',
+        title: 'Okuna',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1.0'},
-            {hid: 'description', name: 'description', content: 'The Okuna social network web version'}
+            {hid: 'description', name: 'description', content: 'Ethical social network.'},
+            {name: 'theme-color', content: '#ffffff'},
+            {name: 'msapplication-TileColor', content: '#000000'},
+            {
+                'property': 'og:title',
+                'content': `Okuna`,
+            },
+            {
+                'property': 'og:description',
+                'content': `Ethical Social Network.`,
+            },
+            {
+                'property': 'og:image',
+                'content': `https://okuna.io/og-image.png`
+            }
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+            {rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png'},
+            {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png'},
+            {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png'},
+            {rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ffffff'},
         ],
     },
     loading: {color: '#000000'},
