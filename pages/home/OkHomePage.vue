@@ -22,8 +22,14 @@
     import OkHeader from "~/pages/home/components/header/Header.vue";
     import { IOkLogger } from "~/services/logging/types";
     import { ILoggingService } from "~/services/logging/ILoggingService";
-    import { IUtilsService } from '~/services/utils/IUtilsService';
-    import OkModals from '~/pages/home/components/modals/OkModals.vue';
+    import { IUtilsService } from "~/services/utils/IUtilsService";
+    import OkModals from "~/pages/home/components/modals/OkModals.vue";
+    import { IStorageService } from "~/services/storage/IStorageService";
+    import { IOkStorage } from "~/services/storage/lib/okuna-storage/IOkStorage";
+    import { IModalService } from "~/services/modal/IModalService";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { IUser } from "~/models/auth/user/IUser";
+    import { sha256 } from "crypto-hash";
 
     @Component({
         components: {
@@ -32,27 +38,59 @@
         },
         middleware: [
             ensureHasStoredAuthToken
-        ]
+        ],
+        subscriptions: function () {
+            return {
+                loggedInUser: this["userService"].loggedInUser
+            }
+        }
     })
-    export default class extends Vue {
+    export default class OkHomePage extends Vue {
+        static readonly welcomeModalWasDisplayedStorageKey = "welcomeModalWasDisplayed";
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
+        private storageService: IStorageService = okunaContainer.get<IStorageService>(TYPES.StorageService);
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+
         private logger: IOkLogger;
+        private storage: IOkStorage;
+
+        $observables!: {
+            loggedInUser: BehaviorSubject<IUser | undefined>
+        };
+
+        created() {
+            this.$observables.loggedInUser.subscribe(this.onLoggedInUserChange)
+        }
 
         mounted() {
             this.logger = this.loggingService!.getLogger({
                 name: "OkHomePage"
             });
+            this.storage = this.storageService.getLocalForageStorage("okHomePage");
             this.attemptToBootstrapLoggedInUser();
         }
 
         async attemptToBootstrapLoggedInUser() {
-            try{
+            try {
                 const user = await this.userService.attemptToBootstrapLoggedInUser();
-                this.logger.info('Bootstrapped user', user);
+                this.logger.info("Bootstrapped user", user);
             } catch (e) {
                 this.utilsService.handleErrorWithToast(e);
+            }
+        }
+
+        async onLoggedInUserChange(user: IUser | undefined | null) {
+            if (user) {
+                const userUsernameHash = await sha256(user.username);
+                const welcomeModalWasDisplayed = await this.storage.get(userUsernameHash, false);
+
+                if (!welcomeModalWasDisplayed) {
+                    await this.modalService.openWelcomeToOkunaWebModal();
+                    await this.storage.set(userUsernameHash, true);
+                }
             }
         }
     }

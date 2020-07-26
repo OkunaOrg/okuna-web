@@ -18,6 +18,7 @@
     "bulma": "^0.8.0",
     "bulma-helpers": "^0.3.10",
     "color": "^3.1.2",
+    "crypto-hash": "^1.2.2",
     "dotenv": "^8.2.0",
     "es6-dynamic-template": "^2.0.0",
     "fs": "0.0.1-security",

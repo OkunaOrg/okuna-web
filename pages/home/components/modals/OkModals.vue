@@ -106,10 +106,12 @@
     import OkCommunityGuidelinesModal from '~/pages/home/components/modals/components/OkCommunityGuidelinesModal.vue';
     import OkThemesModal from '~/pages/home/components/modals/components/OkThemesModal.vue';
     import OkGetTheAppModal from '~/pages/home/components/modals/components/get-the-app/OkGetTheAppModal.vue';
+    import OkWelcomeToOkunaWebModal from '~/pages/home/components/modals/components/OkWelcomeToOkunaWebModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkWelcomeToOkunaWebModal,
             OkGetTheAppModal,
             OkCommunityGuidelinesModal,
             OkPrivacyPolicyModal,
@@ -188,6 +190,7 @@
             this.privacyPolicyModalOpened = activeModalValue === ModalType.privacyPolicy;
             this.themesModalOpen = activeModalValue === ModalType.themes;
             this.getTheAppModalOpen = activeModalValue === ModalType.getTheApp;
+            this.welcomeToOkunaWebModalOpen = activeModalValue === ModalType.welcomeToOkunaWeb
         }
     }
 </script>
