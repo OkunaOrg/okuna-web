@@ -128,7 +128,7 @@ export default {
         seo: false,
     },
     proxy: {
-        '/local/': {target: 'https://api.okuna.io', pathRewrite: {'^/local/': ''}},
+        '/local/': {target: 'https://api.openbook.social', pathRewrite: {'^/local/': ''}},
         '/www/': {target: 'https://www.okuna.io', pathRewrite: {'^/www/': ''}},
     },
     styleResources: {

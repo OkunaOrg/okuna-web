@@ -1,0 +1,45 @@
+version: 2
+jobs:
+    build:
+        docker:
+        - image: circleci/node:10.15-browsers
+        working_directory: ~/repo
+        steps:
+        - checkout
+        - run:
+              name: Install dependencies
+              command: npm install
+    deploy:
+        docker:
+        - image: circleci/node:10.15
+        working_directory: ~/repo
+        steps:
+        - checkout
+        - run:
+              name: Install dependencies
+              command: npm install
+        - run:
+              name: Installing deployment dependencies
+              working_directory: /
+              command: |
+                  sudo apt-get -y -qq update
+                  sudo apt-get install python-pip python-dev build-essential
+                  sudo pip install awscli
+        - run:
+              name: Build dist
+              command: npm run build
+        - deploy:
+              name: Deploy to AWS
+              command: |
+                  aws s3 sync ./dist s3://$AWS_BUCKET --delete --no-progress
+
+workflows:
+    version: 2
+    build:
+        jobs:
+        - build
+        - deploy:
+              filters:
+                  branches:
+                      only:
+                      - master
