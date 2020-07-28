@@ -2,12 +2,31 @@ const dotEnvSrc = process.env.NODE_ENV === 'production' ? './.prod.env' : './.de
 
 const result = require('dotenv').config({
     path: dotEnvSrc,
-    debug: true
 });
+
+const processEnvVars = {
+    LOGGING: undefined,
+    SENTRY_DSN: undefined,
+    ENVIRONMENT: undefined,
+    API_URL: undefined,
+    TERMS_OF_USE_MD_URL: undefined,
+    PRIVACY_POLICY_MD_URL: undefined,
+    COMMUNITY_GUIDELINES_MD_URL: undefined,
+};
+
+Object.keys(processEnvVars).forEach((envVar) => {
+    if (process.env[envVar]) processEnvVars[envVar] = process.env[envVar];
+});
+
+const frontendEnvVars = {
+    ...result.parsed,
+    ...processEnvVars,
+};
+
 
 export default {
     mode: 'spa',
-    env: result.parsed,
+    env: frontendEnvVars,
     head: {
         title: 'Okuna',
         meta: [
