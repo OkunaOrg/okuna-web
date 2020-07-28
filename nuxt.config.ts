@@ -1,7 +1,8 @@
 const dotEnvSrc = process.env.NODE_ENV === 'production' ? './.prod.env' : './.dev.env';
 
 const result = require('dotenv').config({
-    path: dotEnvSrc
+    path: dotEnvSrc,
+    debug: true
 });
 
 export default {
