@@ -68,15 +68,14 @@
     "vuex-class": "0.3.2"
   },
   "scripts": {
-    "dev": "nuxt-ts",
-    "build": "nuxt-ts build",
-    "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate"
+    "dev": "cross-env NODE_ENV=development nuxt-ts",
+    "build": "cross-env NODE_ENV=production nuxt-ts build"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "@types/pino": "^5.17.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2"
