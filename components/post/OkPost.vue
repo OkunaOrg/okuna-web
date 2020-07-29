@@ -8,7 +8,7 @@
                 <ok-post-media :post="post" :post-element-width="postElementWidth"
                                :post-display-context="postDisplayContext"></ok-post-media>
             </div>
-            <div class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20" v-if="postHasLinkPreview">
+            <div class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20" v-if="postTextFirstLink && postTextFirstLink.length">
                 <ok-post-link-preview :url="postTextFirstLink"></ok-post-link-preview>
             </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
@@ -66,17 +66,8 @@
     import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
     import OkPostCommentCounts from "~/components/post/components/post-comments-count/OkPostCommentCounts.vue";
     import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
-    import UrlMatcher from "~/lib/matchers/UrlMatcher";
-    function isSafeURL(url: string): boolean {
-        try {
-            const parsedURL = new URL(url);
-            const forbiddenURLs = [ 'localhost', '127.0.0.1', '0.0.0.0' ];
-            return !forbiddenURLs.includes(parsedURL.hostname);
-        } catch {
-            // Normally this catch block should never be reached by the app
-            return false;
-        }
-    }
+    import getFirstLink from "~/components/post/components/post-link-preview/lib/GetFirstLink";
+
     @Component({
         name: "OkPost",
         components: {
@@ -94,44 +85,35 @@
         @Prop(String) readonly postUuid: string;
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
         postElementWidth = 0;
-        postHasLinkPreview: boolean = false;
-        postTextFirstLink: null | string = null;
+
         created() {
             this.updatePostElementWidth();
-            this.updatePostTextFirstLink();
         }
+
         mounted() {
             window.addEventListener("resize", this.onWindowResize)
         }
+
         beforeDestroy() {
             window.removeEventListener("resize", this.onWindowResize)
         }
+
         onWindowResize() {
             this.updatePostElementWidth();
         }
+
         onPostDeleted(post: IPost){
             this.$emit('onPostDeleted', post);
         }
+
         onPostReported(post: IPost){
             this.$emit('onPostReported', post);
         }
-        updatePostTextFirstLink() {
-            if (!this.post.text || !this.post.text.length) {
-                // Post likely doesn't have text, ignore it
-                return;
-            }
 
-            if (this.post.mediaThumbnail) {
-                // Post has media, don't display link preview
-                return;
-            }
-
-            const URLs = this.post.text.match(UrlMatcher);
-            if (URLs && URLs.length && isSafeURL(URLs[0])) {
-                this.postHasLinkPreview = true;
-                this.postTextFirstLink = URLs[0];
-            }
+        get postTextFirstLink(): string | null {
+            return getFirstLink(this.post);
         }
+
         updatePostElementWidth() {
             if (window.innerWidth >= 1024) {
                 this.postElementWidth = 635;
