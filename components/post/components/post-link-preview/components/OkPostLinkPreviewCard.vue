@@ -1,28 +1,29 @@
 <template>
     <div class="card ok-link-preview ok-has-background-primary-highlight has-overflow-hidden">
         <a :href="url" target="_blank">
-            <ok-image-cover
+            <ok-post-link-preview-cover
                 :cover-url="preview.imageUrl"
                 v-if="preview.imageUrl"
-                :cover-size="OkCoverSize.medium"
-            ></ok-image-cover>
+            ></ok-post-link-preview-cover>
             <div class="card-header">
                 <div class="columns is-gapless is-marginless has-padding-20 flex-direction-column website-info-rows">
                     <div class="column has-margin-bottom-5">
-                        <div class="columns is-gapless is-marginless">
-                            <div class="column is-narrow has-margin-right-10" v-if="preview.faviconUrl">
-                                <img :src="preview.faviconUrl" width="16px" height="16px" :alt="preview.domainUrl" />
+                        <div class="media has-overflow-hidden is-flex align-items-center">
+                            <div class="media-left has-margin-right-10" v-if="preview.faviconUrl">
+                                <figure class="image is-16x16">
+                                    <img :src="preview.faviconUrl" :alt="preview.domainUrl" />
+                                </figure>
                             </div>
-                            <div class="column is-narrow ok-has-text-primary-invert-80 website-address" v-if="preview.domainUrl">
+                            <div class="media-content ok-has-text-primary-invert-80 website-address" v-if="preview.domainUrl">
                                 {{ preview.domainUrl }}
                             </div>
                         </div>
                     </div>
                     <div class="column ok-has-text-primary-invert has-margin-bottom-5 has-text-weight-bold" v-if="preview.title">
-                        {{ preview.title }}
+                        {{ title }}
                     </div>
                     <div class="column ok-has-text-primary-invert-80 website-description" v-if="preview.description">
-                        {{ preview.description }}
+                        {{ description }}
                     </div>
                 </div>
             </div>
@@ -52,12 +53,13 @@
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';
     import OkImageCover from '~/components/covers/image-cover/OkImageCover.vue';
-    import { OkCoverSize } from '~/components/covers/lib/OkCoverSize';
     import { LinkPreview } from '~/components/post/components/post-link-preview/lib/GetLinkMetadata';
+    import OkPostLinkPreviewCover from '~/components/post/components/post-link-preview/components/OkPostLinkPreviewCover.vue';
+    import truncate from '~/lib/truncate';
 
     @Component({
         name: "OkPostLinkPreview",
-        components: {OkImageCover}
+        components: {OkPostLinkPreviewCover}
     })
     export default class OkPostLinkPreview extends Vue {
         @Prop({
@@ -70,6 +72,12 @@
             required: true
         }) readonly url: string;
 
-        OkCoverSize = OkCoverSize;
+        get description() {
+            return truncate(this.preview.description, 265);
+        }
+
+        get title() {
+            return truncate(this.preview.title, 150);
+        }
     }
 </script>

@@ -10,14 +10,7 @@
     import OkPostLinkPreviewCard from '~/components/post/components/post-link-preview/components/OkPostLinkPreviewCard.vue';
     import OkPostLinkPreviewSkeleton from '~/components/skeletons/post/OkPostLinkPreviewSkeleton.vue';
     import getLinkMetadata, { LinkPreview } from '~/components/post/components/post-link-preview/lib/GetLinkMetadata';
-
-    function truncateTitle(str: string): string {
-        if (str.length > 60 - 3) {
-            return `${str}...`;
-        }
-
-        return str;
-    }
+    import truncate from '~/lib/truncate';
 
     @Component({
         name: "OkPostLinkPreview",
@@ -35,7 +28,7 @@
             this.preview = await getLinkMetadata(this.url);
             if (!this.preview) {
                 this.preview = {
-                    title: truncateTitle(this.url),
+                    title: truncate(this.url, 60),
                     domainUrl: new URL(this.url).hostname
                 };
             }
