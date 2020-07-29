@@ -116,6 +116,11 @@
             this.$emit('onPostReported', post);
         }
         updatePostTextFirstLink() {
+            if (!this.post.text || !this.post.text.length) {
+                // Post likely doesn't have text, ignore it
+                return;
+            }
+
             const URLs = this.post.text.match(UrlMatcher);
             if (URLs && URLs.length && isSafeURL(URLs[0])) {
                 this.postHasLinkPreview = true;
