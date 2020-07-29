@@ -9,6 +9,7 @@ const processEnvVars = {
     SENTRY_DSN: undefined,
     ENVIRONMENT: undefined,
     API_URL: undefined,
+    CONTENTPROXY_URL: undefined,
     TERMS_OF_USE_MD_URL: undefined,
     PRIVACY_POLICY_MD_URL: undefined,
     COMMUNITY_GUIDELINES_MD_URL: undefined,
@@ -30,11 +31,11 @@ export default {
     head: {
         title: 'Okuna',
         meta: [
-            {charset: 'utf-8'},
-            {name: 'viewport', content: 'width=device-width, initial-scale=1.0'},
-            {hid: 'description', name: 'description', content: 'Ethical social network.'},
-            {name: 'theme-color', content: '#ffffff'},
-            {name: 'msapplication-TileColor', content: '#000000'},
+            { charset: 'utf-8' },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
+            { hid: 'description', name: 'description', content: 'Ethical social network.' },
+            { name: 'theme-color', content: '#ffffff' },
+            { name: 'msapplication-TileColor', content: '#000000' },
             {
                 'property': 'og:title',
                 'content': `Okuna`,
@@ -49,14 +50,14 @@ export default {
             }
         ],
         link: [
-            {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
-            {rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png'},
-            {rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png'},
-            {rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png'},
-            {rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ffffff'},
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+            { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+            { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+            { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ffffff' },
         ],
     },
-    loading: {color: '#000000'},
+    loading: { color: '#000000' },
     css: [
         '~/assets/styles/index.scss',
         'vue-popperjs/dist/vue-popper.css',
@@ -80,7 +81,7 @@ export default {
     },
     plugins: [
         '~/plugins/buefy',
-        {src: '~/plugins/line-clamp', ssr: false},
+        { src: '~/plugins/line-clamp', ssr: false },
         '~/plugins/directives',
         '~/plugins/vuelidate',
         '~/plugins/di-vue',
@@ -148,8 +149,9 @@ export default {
         seo: false,
     },
     proxy: {
-        '/local/': {target: 'https://api.openbook.social', pathRewrite: {'^/local/': ''}},
-        '/www/': {target: 'https://www.okuna.io', pathRewrite: {'^/www/': ''}},
+        '/local/': { target: 'https://api.openbook.social', pathRewrite: { '^/local/': '' } },
+        '/contentproxy': { target: 'https://contentproxy.okuna.io', pathRewrite: { '^/contentproxy': '' } },
+        '/www/': { target: 'https://www.okuna.io', pathRewrite: { '^/www/': '' } },
     },
     styleResources: {
         scss: [
@@ -163,7 +165,7 @@ export default {
     },
     build: {
         devtools: true,
-        extend(config, {isDev, isClient}) {
+        extend(config, { isDev, isClient }) {
             config.node = {
                 fs: 'empty'
             }
