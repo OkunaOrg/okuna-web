@@ -8,10 +8,10 @@
                 <ok-post-media :post="post" :post-element-width="postElementWidth"
                                :post-display-context="postDisplayContext"></ok-post-media>
             </div>
+            <div class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20" v-if="postHasLinkPreview">
+                <ok-post-link-preview :url="postTextFirstLink"></ok-post-link-preview>
+            </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
-                <div v-if="postHasLinkPreview">
-                    <ok-post-link-preview :url="postTextFirstLink"></ok-post-link-preview>
-                </div>
                 <ok-post-text v-if="post.text" :post="post"></ok-post-text>
                 <div class="columns is-mobile">
                     <div class="column" v-if="post.commentsCount && post.commentsCount > 0">
@@ -118,6 +118,11 @@
         updatePostTextFirstLink() {
             if (!this.post.text || !this.post.text.length) {
                 // Post likely doesn't have text, ignore it
+                return;
+            }
+
+            if (this.post.mediaThumbnail) {
+                // Post has media, don't display link preview
                 return;
             }
 

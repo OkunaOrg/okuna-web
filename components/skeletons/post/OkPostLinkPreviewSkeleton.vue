@@ -1,5 +1,5 @@
 <template>
-    <div class="card ok-has-background-primary-highlight has-overflow-hidden has-margin-bottom-20">
+    <div class="card ok-has-background-primary-highlight has-overflow-hidden">
         <ok-image-cover :cover-size="OkCoverSize.medium"></ok-image-cover>
         <div class="card-header">
             <div class="columns is-gapless is-marginless has-padding-20 flex-direction-column has-width-100-percent">

@@ -1,5 +1,5 @@
 <template>
-    <div class="card ok-link-preview ok-has-background-primary-highlight has-overflow-hidden has-margin-bottom-20">
+    <div class="card ok-link-preview ok-has-background-primary-highlight has-overflow-hidden">
         <a :href="url" target="_blank">
             <ok-image-cover
                 :cover-url="preview.imageUrl"
