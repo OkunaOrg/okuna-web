@@ -52,10 +52,9 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';
-    import OkImageCover from '~/components/covers/image-cover/OkImageCover.vue';
-    import { LinkPreview } from '~/components/post/components/post-link-preview/lib/GetLinkMetadata';
     import OkPostLinkPreviewCover from '~/components/post/components/post-link-preview/components/OkPostLinkPreviewCover.vue';
     import truncate from '~/lib/truncate';
+    import { LinkPreview } from '~/components/post/components/post-link-preview/lib/GetLinkMetadata';
 
     @Component({
         name: "OkPostLinkPreview",

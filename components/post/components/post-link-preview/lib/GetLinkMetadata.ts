@@ -1,8 +1,8 @@
 // TODO: move this file into services
 
-import { okunaContainer } from "~/services/inversify";
-import { IHttpService } from "~/services/http/IHttpService";
-import { TYPES } from "~/services/inversify-types";
+import { okunaContainer } from '~/services/inversify';
+import { IHttpService } from '~/services/http/IHttpService';
+import { TYPES } from '~/services/inversify-types';
 
 export interface LinkPreview {
     title?: string;
@@ -26,7 +26,13 @@ function getFaviconFromDocument(dom: Document): (string | null) {
         faviconUrl = faviconElement?.attributes['href']?.value;
     }
 
-    return faviconUrl || null;
+    if (faviconUrl) {
+        const faviconParts = faviconUrl.split('.');
+        const faviconExtension = faviconParts[faviconParts.length - 1];
+        if (faviconExtension === 'ico') faviconUrl = null;
+    }
+
+    return faviconUrl;
 }
 
 function getLinkPreviewFromResponse(url: string, response: string): LinkPreview {
@@ -85,6 +91,8 @@ function getLinkPreviewFromResponse(url: string, response: string): LinkPreview 
                 }
 
                 if (imageSrc.endsWith('jpg') || imageSrc.endsWith('gif') || imageSrc.endsWith('png')) {
+                    const contentProxyUrl = getContentProxyURL;
+                    linkPreview.imageUrl =
                     linkPreview.imageUrl = imageSrc;
                 }
             }
