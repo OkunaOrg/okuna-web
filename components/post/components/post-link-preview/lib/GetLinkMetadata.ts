@@ -13,9 +13,7 @@ export interface LinkPreview {
     faviconUrl?: string;
 }
 
-function getContentProxyURL(): string {
-    return process.env['CONTENTPROXY_URL'] as string;
-}
+const CONTENTPROXY_URL = process.env['CONTENTPROXY_URL'] as string;
 
 function getFaviconFromDocument(dom: Document): (string | null) {
     const shortcutIconElement = dom.querySelector('link[rel*="shortcut icon"]');
@@ -27,12 +25,11 @@ function getFaviconFromDocument(dom: Document): (string | null) {
     }
 
     if (faviconUrl) {
-        const faviconParts = faviconUrl.split('.');
-        const faviconExtension = faviconParts[faviconParts.length - 1];
-        if (faviconExtension === 'ico') faviconUrl = null;
+        const faviconExtension = faviconUrl.split('.').pop();
+        if (faviconExtension && faviconExtension.toLowerCase().startsWith('ico')) faviconUrl = null;
     }
 
-    return faviconUrl;
+    return faviconUrl || null;
 }
 
 function getLinkPreviewFromResponse(url: string, response: string): LinkPreview {
@@ -91,8 +88,6 @@ function getLinkPreviewFromResponse(url: string, response: string): LinkPreview 
                 }
 
                 if (imageSrc.endsWith('jpg') || imageSrc.endsWith('gif') || imageSrc.endsWith('png')) {
-                    const contentProxyUrl = getContentProxyURL;
-                    linkPreview.imageUrl =
                     linkPreview.imageUrl = imageSrc;
                 }
             }
@@ -103,7 +98,7 @@ function getLinkPreviewFromResponse(url: string, response: string): LinkPreview 
 }
 
 export default async function getLinkMetadata(url: string): Promise<LinkPreview | null> {
-    const proxiedUrl = `${getContentProxyURL()}?${url}`;
+    const proxiedUrl = `${CONTENTPROXY_URL}?${url}`;
     const httpService = okunaContainer.get<IHttpService>(TYPES.HttpService);
 
     try {
