@@ -60,7 +60,6 @@ export class LinkPreviewService implements ILinkPreviewService {
             }
         } catch(e){
             console.info(`Failed to link preview ${url} with error ${e}`);
-            console.trace();
             linkPreview = {
                 domainUrl: hostname,
                 title: hostname
@@ -233,7 +232,6 @@ export class LinkPreviewService implements ILinkPreviewService {
         } catch (e) {
             // We swallow errors, we dont care if it fails
             console.info(`Failed to retrieve image for link preview ${imageUrl} with error ${e}`);
-            console.trace();
         }
 
     }
