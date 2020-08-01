@@ -210,9 +210,10 @@ export class LinkPreviewService implements ILinkPreviewService {
                 return;
             }
 
-            const u8 = new Uint8Array(response.data);
-            const b64encoded = btoa(String.fromCharCode.apply(null, u8));
 
+            const b64encoded = btoa(new Uint8Array(response.data).reduce(function (data, byte) {
+                return data + String.fromCharCode(byte);
+            }, ''));
 
             return {
                 data: b64encoded,
@@ -221,6 +222,7 @@ export class LinkPreviewService implements ILinkPreviewService {
         } catch (e) {
             // We swallow errors, we dont care if it fails
             console.info(`Failed to retrieve image for link preview ${imageUrl} with error ${e}`);
+            console.trace();
         }
 
     }
