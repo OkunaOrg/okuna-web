@@ -203,13 +203,17 @@ export class LinkPreviewService implements ILinkPreviewService {
                 responseType: 'arraybuffer',
             });
 
+            const contentType = response.headers['content-type'];
+
+            if(contentType !== 'image/png' || contentType !== 'image/jpeg' || contentType !== 'image/gif') return;
+
             const u8 = new Uint8Array(response.data);
             const b64encoded = btoa(String.fromCharCode.apply(null, u8));
 
 
             return {
                 data: b64encoded,
-                contentType: response.headers['content-type'],
+                contentType: contentType,
             };
         } catch (e) {
             // We swallow errors, we dont care if it fails
