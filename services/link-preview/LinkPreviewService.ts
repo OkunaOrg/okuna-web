@@ -32,30 +32,41 @@ export class LinkPreviewService implements ILinkPreviewService {
 
         const proxiedUrl = this.makeProxiedUrl(normalizedUrl);
 
-        const response = await this.httpService.get(proxiedUrl, {
-            isApiRequest: false,
-            appendAuthorizationToken: true
-        });
+        const hostname = new URL(url).hostname;
 
-        const contentType: string = response.headers['content-type'];
-
-        if (contentType.startsWith('image/')) {
-            const hostname = new URL(url).hostname;
-
-            const result = await this.getLinkPreviewImageData(proxiedUrl);
-
-            linkPreview = {
-                imageUrl: proxiedUrl,
-                imageData: result?.data,
-                imageContentType: result?.contentType,
-                domainUrl: hostname,
-            };
-        } else if (contentType.startsWith('text/')) {
-            linkPreview = await this.getLinkPreviewFromResponseData({
-                url: url,
-                htmlContent: response.data
+        try{
+            const response = await this.httpService.get(proxiedUrl, {
+                isApiRequest: false,
+                appendAuthorizationToken: true
             });
+
+
+            const contentType: string = response.headers['content-type'];
+
+            if (contentType.startsWith('image/')) {
+                const result = await this.getLinkPreviewImageData(proxiedUrl);
+
+                linkPreview = {
+                    imageUrl: proxiedUrl,
+                    imageData: result?.data,
+                    imageContentType: result?.contentType,
+                    domainUrl: hostname,
+                };
+            } else if (contentType.startsWith('text/')) {
+                linkPreview = await this.getLinkPreviewFromResponseData({
+                    url: url,
+                    htmlContent: response.data
+                });
+            }
+        } catch(e){
+            console.info(`Failed to link preview ${url} with error ${e}`);
+            console.trace();
+            linkPreview = {
+                domainUrl: hostname,
+                title: hostname
+            };
         }
+
 
         this.cache.set(url, linkPreview);
 
