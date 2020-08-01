@@ -92,7 +92,7 @@
 
         @Watch("$route.params.hashtagName")
         onChildChanged(val: string, oldVal: string) {
-            this.logger.info("Hashtag name in route changed, removing community.");
+            this.logger?.info("Hashtag name in route changed, removing community.");
             this.hashtag = null;
             this.refreshHashtag();
         }

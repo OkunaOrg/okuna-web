@@ -92,7 +92,7 @@
 
         @Watch("$route.params.userUsername")
         onChildChanged(val: string, oldVal: string) {
-            this.logger.info("Username in route changed, removing user.");
+            this.logger?.info("Username in route changed, removing user.");
             this.user = null;
             this.refreshUser();
         }

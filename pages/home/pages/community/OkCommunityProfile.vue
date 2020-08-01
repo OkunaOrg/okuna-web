@@ -94,7 +94,7 @@
 
         @Watch("$route.params.communityName")
         onChildChanged(val: string, oldVal: string) {
-            this.logger.info("Community name in route changed, removing community.");
+            this.logger?.info("Community name in route changed, removing community.");
             this.community = null;
             this.refreshCommunity();
         }
