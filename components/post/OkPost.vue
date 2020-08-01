@@ -8,6 +8,9 @@
                 <ok-post-media :post="post" :post-element-width="postElementWidth"
                                :post-display-context="postDisplayContext"></ok-post-media>
             </div>
+            <div class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20" v-if="postTextFirstLink && postTextFirstLink.length">
+                <ok-post-link-preview :url="postTextFirstLink"></ok-post-link-preview>
+            </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
                 <ok-post-text v-if="post.text" :post="post"></ok-post-text>
                 <div class="columns is-mobile">
@@ -43,11 +46,9 @@
         position: relative;
         max-width: 100vw;
         overflow: hidden;
-
         @include for-size(tablet-portrait-up) {
             width: 500px;
         }
-
         @include for-size(desktop-up) {
             width: 635px;
         }
@@ -61,21 +62,28 @@
     import OkPostText from "~/components/post/components/OkPostText.vue";
     import { PostDisplayContext } from "~/components/post/lib/PostDisplayContext";
     import OkPostMedia from "~/components/post/components/post-media/OkPostMedia.vue";
+    import OkPostLinkPreview from "~/components/post/components/post-link-preview/OkPostLinkPreview.vue";
     import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
     import OkPostCommentCounts from "~/components/post/components/post-comments-count/OkPostCommentCounts.vue";
     import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
+    import getFirstLink from "~/components/post/components/post-link-preview/lib/GetFirstLink";
 
     @Component({
         name: "OkPost",
-        components: {OkPostActions, OkPostCommentCounts, OkPostReactions, OkPostMedia, OkPostText, OkPostHeader},
+        components: {
+            OkPostActions,
+            OkPostCommentCounts,
+            OkPostReactions,
+            OkPostMedia,
+            OkPostLinkPreview,
+            OkPostText,
+            OkPostHeader
+        },
     })
     export default class OkPost extends Vue {
-
         @Prop(Object) readonly post: IPost;
         @Prop(String) readonly postUuid: string;
-
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
-
         postElementWidth = 0;
 
         created() {
@@ -102,6 +110,9 @@
             this.$emit('onPostReported', post);
         }
 
+        get postTextFirstLink(): string | null {
+            return getFirstLink(this.post);
+        }
 
         updatePostElementWidth() {
             if (window.innerWidth >= 1024) {
@@ -111,11 +122,9 @@
             } else {
                 this.postElementWidth = this.$parent.$el.clientWidth;
             }
-
             if (!this.postElementWidth) {
                 this.postElementWidth = window.innerWidth;
             }
-
         }
     }
 </script>

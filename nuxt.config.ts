@@ -4,24 +4,30 @@ const result = require('dotenv').config({
     path: dotEnvSrc,
 });
 
-const processEnvVars = {
+const environmentVariables = {
     LOGGING: undefined,
     SENTRY_DSN: undefined,
     ENVIRONMENT: undefined,
     API_URL: undefined,
+    CONTENT_PROXY_URL: undefined,
     TERMS_OF_USE_MD_URL: undefined,
     PRIVACY_POLICY_MD_URL: undefined,
     COMMUNITY_GUIDELINES_MD_URL: undefined,
 };
 
-Object.keys(processEnvVars).forEach((envVar) => {
-    if (process.env[envVar]) processEnvVars[envVar] = process.env[envVar];
+Object.keys(environmentVariables).forEach((envVar) => {
+    if (process.env[envVar]) environmentVariables[envVar] = process.env[envVar];
 });
 
 const frontendEnvVars = {
     ...result.parsed,
-    ...processEnvVars,
+    ...environmentVariables,
 };
+
+Object.keys(environmentVariables).forEach((environmentVariable) => {
+    if (!frontendEnvVars[environmentVariable])
+        throw new Error(`Environment variable ${environmentVariable} is not present. Exiting.`)
+});
 
 
 export default {
@@ -149,6 +155,7 @@ export default {
     },
     proxy: {
         '/local/': {target: 'https://api.openbook.social', pathRewrite: {'^/local/': ''}},
+        '/contentproxy': {target: 'https://contentproxy.okuna.io', pathRewrite: {'^/contentproxy': ''}},
         '/www/': {target: 'https://www.okuna.io', pathRewrite: {'^/www/': ''}},
     },
     styleResources: {
