@@ -9,7 +9,7 @@
                     <div class="column has-margin-bottom-5">
                         <div class="media has-overflow-hidden is-flex align-items-center">
                             <div class="media-left has-margin-right-10" v-if="faviconUrl">
-                                <figure class="image is-16x16">
+                                <figure class="image is-16x16 is-semi-rounded">
                                     <img :src="faviconUrl" :alt="preview.domainUrl"/>
                                 </figure>
                             </div>
