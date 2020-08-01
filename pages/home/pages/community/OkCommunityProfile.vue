@@ -88,7 +88,7 @@
         created() {
             this.$observables.loggedInUser.subscribe(this.onLoggedInUser);
             this.logger = this.loggingService.getLogger({
-                name: "OkUserProfilePage"
+                name: "OkCommunityPage"
             });
         }
 

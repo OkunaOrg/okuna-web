@@ -32,7 +32,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Vue } from "nuxt-property-decorator"
+    import { Component, Vue, Watch } from "nuxt-property-decorator"
     import { Route } from "vue-router";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
@@ -46,7 +46,9 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import OkHashtagPostsStream from "~/components/posts-stream/OkHashtagPostsStream.vue";
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
-    import OkHashtagBanner from '~/components/tiles/OkHashtagBanner.vue';
+    import OkHashtagBanner from "~/components/tiles/OkHashtagBanner.vue";
+    import { ILoggingService } from "~/services/logging/ILoggingService";
+    import { IOkLogger } from "~/services/logging/types";
 
     @Component({
         name: "OkHashtagPage",
@@ -77,9 +79,22 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
 
+        private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
+
+        private logger: IOkLogger;
 
         created() {
             this.$observables.loggedInUser.subscribe(this.onLoggedInUser);
+            this.logger = this.loggingService.getLogger({
+                name: "OkHashtagPage"
+            });
+        }
+
+        @Watch("$route.params.hashtagName")
+        onChildChanged(val: string, oldVal: string) {
+            this.logger.info("Hashtag name in route changed, removing community.");
+            this.hashtag = null;
+            this.refreshHashtag();
         }
 
         get hashtagName() {
