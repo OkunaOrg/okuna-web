@@ -107,7 +107,6 @@
         }
 
         private async refreshUser() {
-            this.logger.info("Refreshing user");
             if (this.requestInProgress) return;
 
             this.requestInProgress = true;
