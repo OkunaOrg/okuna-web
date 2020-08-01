@@ -46,8 +46,8 @@ export class LinkPreviewService implements ILinkPreviewService {
 
             linkPreview = {
                 imageUrl: proxiedUrl,
-                imageData: result.data,
-                imageContentType: result.contentType,
+                imageData: result?.data,
+                imageContentType: result?.contentType,
                 domainUrl: hostname,
             };
         } else if (contentType.startsWith('text/')) {
@@ -141,8 +141,8 @@ export class LinkPreviewService implements ILinkPreviewService {
             // Fetch it 
             linkPreviewImagesToFetchPromises.push(this.getLinkPreviewImageData(linkPreview.imageUrl)
                 .then((result) => {
-                    linkPreview.imageData = result.data;
-                    linkPreview.imageContentType = result.contentType;
+                    linkPreview.imageData = result?.data;
+                    linkPreview.imageContentType = result?.contentType;
                 }));
         }
 
@@ -160,8 +160,8 @@ export class LinkPreviewService implements ILinkPreviewService {
             // Fetch it
             linkPreviewImagesToFetchPromises.push(this.getLinkPreviewImageData(linkPreview.faviconUrl)
                 .then((result) => {
-                    linkPreview.faviconData = result.data;
-                    linkPreview.faviconContentType = result.contentType;
+                    linkPreview.faviconData = result?.data;
+                    linkPreview.faviconContentType = result?.contentType;
                 }));
         }
 
@@ -195,7 +195,7 @@ export class LinkPreviewService implements ILinkPreviewService {
 
     }
 
-    private async getLinkPreviewImageData(imageUrl: string) {
+    private async getLinkPreviewImageData(imageUrl: string): Promise<{data: string, contentType: string} | undefined> {
         try {
             const response = await this.httpService.get(imageUrl, {
                 isApiRequest: false,
@@ -203,9 +203,12 @@ export class LinkPreviewService implements ILinkPreviewService {
                 responseType: 'arraybuffer',
             });
 
-            const contentType = response.headers['content-type'];
+            const contentType = (response.headers['content-type'] as string).toLowerCase();
 
-            if(contentType !== 'image/png' || contentType !== 'image/jpeg' || contentType !== 'image/gif') return;
+            console.log(contentType);
+
+
+            if(contentType !== 'image/png' && contentType !== 'image/jpeg' && contentType !== 'image/gif') return;
 
             const u8 = new Uint8Array(response.data);
             const b64encoded = btoa(String.fromCharCode.apply(null, u8));
