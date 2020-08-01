@@ -205,10 +205,10 @@ export class LinkPreviewService implements ILinkPreviewService {
 
             const contentType = (response.headers['content-type'] as string).toLowerCase();
 
-            console.log(contentType);
-
-
-            if(contentType !== 'image/png' && contentType !== 'image/jpeg' && contentType !== 'image/gif') return;
+            if(contentType !== 'image/png' && contentType !== 'image/jpeg' && contentType !== 'image/gif') {
+                console.info(`Link preview contentType was not valid: ${contentType}`);
+                return;
+            }
 
             const u8 = new Uint8Array(response.data);
             const b64encoded = btoa(String.fromCharCode.apply(null, u8));
@@ -220,7 +220,7 @@ export class LinkPreviewService implements ILinkPreviewService {
             };
         } catch (e) {
             // We swallow errors, we dont care if it fails
-            console.info(`Failed to retrieve image for link preview ${imageUrl}`);
+            console.info(`Failed to retrieve image for link preview ${imageUrl} with error ${e}`);
         }
 
     }
