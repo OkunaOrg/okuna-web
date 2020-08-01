@@ -2,24 +2,25 @@
     <div class="card ok-link-preview ok-has-background-primary-highlight has-overflow-hidden">
         <a :href="url" target="_blank">
             <ok-post-link-preview-cover
-                :cover-url="preview.imageUrl"
-                v-if="preview.imageUrl"
+                    :cover-url="imageUrl"
             ></ok-post-link-preview-cover>
             <div class="card-header">
                 <div class="columns is-gapless is-marginless has-padding-20 flex-direction-column website-info-rows">
                     <div class="column has-margin-bottom-5">
                         <div class="media has-overflow-hidden is-flex align-items-center">
-                            <div class="media-left has-margin-right-10" v-if="preview.faviconUrl">
+                            <div class="media-left has-margin-right-10" v-if="faviconUrl">
                                 <figure class="image is-16x16">
-                                    <img :src="preview.faviconUrl" :alt="preview.domainUrl" />
+                                    <img :src="faviconUrl" :alt="preview.domainUrl"/>
                                 </figure>
                             </div>
-                            <div class="media-content ok-has-text-primary-invert-80 website-address" v-if="preview.domainUrl">
+                            <div class="media-content ok-has-text-primary-invert-80 website-address"
+                                 v-if="preview.domainUrl">
                                 {{ preview.domainUrl }}
                             </div>
                         </div>
                     </div>
-                    <div class="column ok-has-text-primary-invert has-margin-bottom-5 has-text-weight-bold" v-if="preview.title">
+                    <div class="column ok-has-text-primary-invert has-margin-bottom-5 has-text-weight-bold"
+                         v-if="preview.title">
                         {{ title }}
                     </div>
                     <div class="column ok-has-text-primary-invert-80 website-description" v-if="preview.description">
@@ -51,10 +52,11 @@
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'nuxt-property-decorator';
-    import OkPostLinkPreviewCover from '~/components/post/components/post-link-preview/components/OkPostLinkPreviewCover.vue';
-    import truncate from '~/lib/truncate';
-    import { LinkPreview } from '~/components/post/components/post-link-preview/lib/GetLinkMetadata';
+    import { Component, Prop, Vue } from "nuxt-property-decorator";
+    import OkPostLinkPreviewCover
+        from "~/components/post/components/post-link-preview/components/OkPostLinkPreviewCover.vue";
+    import truncate from "~/lib/truncate";
+    import { LinkPreview } from "~/services/link-preview/LinkPreviewServiceTypes";
 
     @Component({
         name: "OkPostLinkPreview",
@@ -78,5 +80,14 @@
         get title() {
             return truncate(this.preview.title, 150);
         }
+
+        get imageUrl() {
+            if (this.preview.imageData) return "data:" + this.preview.imageContentType + ";base64," + this.preview.imageData;
+        }
+
+        get faviconUrl() {
+            if (this.preview.faviconData) return "data:" + this.preview.faviconContentType + ";base64," + this.preview.faviconData;
+        }
+
     }
 </script>

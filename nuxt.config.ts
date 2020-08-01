@@ -9,7 +9,7 @@ const processEnvVars = {
     SENTRY_DSN: undefined,
     ENVIRONMENT: undefined,
     API_URL: undefined,
-    CONTENTPROXY_URL: undefined,
+    CONTENT_PROXY_URL: undefined,
     TERMS_OF_USE_MD_URL: undefined,
     PRIVACY_POLICY_MD_URL: undefined,
     COMMUNITY_GUIDELINES_MD_URL: undefined,

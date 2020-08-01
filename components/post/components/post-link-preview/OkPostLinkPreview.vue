@@ -6,11 +6,15 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from 'nuxt-property-decorator';
-    import OkPostLinkPreviewCard from '~/components/post/components/post-link-preview/components/OkPostLinkPreviewCard.vue';
-    import OkPostLinkPreviewSkeleton from '~/components/skeletons/post/OkPostLinkPreviewSkeleton.vue';
-    import getLinkMetadata, { LinkPreview } from '~/components/post/components/post-link-preview/lib/GetLinkMetadata';
-    import truncate from '~/lib/truncate';
+    import { Component, Prop, Vue } from "nuxt-property-decorator";
+    import OkPostLinkPreviewCard
+        from "~/components/post/components/post-link-preview/components/OkPostLinkPreviewCard.vue";
+    import OkPostLinkPreviewSkeleton from "~/components/skeletons/post/OkPostLinkPreviewSkeleton.vue";
+    import truncate from "~/lib/truncate";
+    import { LinkPreview } from "~/services/link-preview/LinkPreviewServiceTypes";
+    import { ILinkPreviewService } from "~/services/link-preview/ILinkPreviewService";
+    import { TYPES } from "~/services/inversify-types";
+    import { okunaContainer } from "~/services/inversify";
 
     @Component({
         name: "OkPostLinkPreview",
@@ -24,8 +28,14 @@
 
         preview: LinkPreview | null = null;
 
-        async created () {
-            this.preview = await getLinkMetadata(this.url);
+        private linkPreviewService: ILinkPreviewService = okunaContainer.get<ILinkPreviewService>(TYPES.LinkPreviewService);
+
+        async created() {
+            this.preview = await this.linkPreviewService.getLinkPreview({
+                url: this.url
+            });
+
+
             if (!this.preview) {
                 this.preview = {
                     title: truncate(this.url, 60),
