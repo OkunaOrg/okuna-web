@@ -42,6 +42,4 @@ export interface HttpServiceRequestConfig {
     // translates into adding a header with
     // {'Accept': 'application/json; version=X'}
     apiVersion?: number;
-
-    responseType?: 'arraybuffer' | 'document' | 'json' | 'text' | 'stream' | 'blob';
 }

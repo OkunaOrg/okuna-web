@@ -70,11 +70,8 @@ export class HttpService implements IHttpService {
 
     private makeUrlWithRequestConfig(originalUrl: string, config?: HttpServiceRequestConfig): string {
         if (!config) return originalUrl;
-
         let finalUrl = config.isApiRequest ? `${this.environmentService!.apiUrl}/${originalUrl}` : originalUrl;
-
         if (config.urlTemplateParams) finalUrl = this.stringTemplateService!.parse(finalUrl, config.urlTemplateParams);
-
         if (config.queryParams) {
             let queryString = '?';
             const queryParamsKeys = Object.keys(config.queryParams);
@@ -114,10 +111,6 @@ export class HttpService implements IHttpService {
         let axiosConfig: AxiosRequestConfig = {
             headers: {}
         };
-
-        if (finalConfig.responseType) {
-            axiosConfig.responseType = finalConfig.responseType;
-        }
 
         if (finalConfig.appendLanguageHeader) {
             axiosConfig.headers['Accept-Language'] = this.localizationService!.getActiveLocale();
