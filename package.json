@@ -37,6 +37,7 @@
     "nuxt-property-decorator": "^2.5.1",
     "okuna": "^0.3.0",
     "p-cancelable": "^2.0.0",
+    "patch-package": "^6.2.2",
     "pino": "^5.17.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4",
@@ -70,7 +71,8 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nuxt-ts",
-    "build": "cross-env NODE_ENV=production nuxt-ts build"
+    "build": "cross-env NODE_ENV=production nuxt-ts build",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
