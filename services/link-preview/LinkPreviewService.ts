@@ -3,7 +3,6 @@ import { inject, injectable } from '~/node_modules/inversify';
 import { ILinkPreviewService } from '~/services/link-preview/ILinkPreviewService';
 import { GetLinkPreviewParams, LinkPreview } from '~/services/link-preview/LinkPreviewServiceTypes';
 import { TYPES } from '~/services/inversify-types';
-import { IUserService } from '~/services/user/IUserService';
 import { IEnvironmentService } from '~/services/environment/IEnvironmentService';
 import { IHttpService } from '~/services/http/IHttpService';
 import { IUtilsService } from '~/services/utils/IUtilsService';
