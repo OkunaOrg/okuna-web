@@ -21,8 +21,6 @@ export interface IUtilsService {
 
     isUrl(str: string): boolean;
 
-    normalizeUrl(params: NormalizeUrlParams): string;
-
 }
 
 export interface QueryParams {
@@ -33,11 +31,4 @@ export interface HandledError {
     humanFriendlyMessage: string;
     isUnhandled: boolean;
     error: any;
-}
-
-export interface NormalizeUrlParams {
-    url: string;
-    // The url where we found the url we are normalizing.
-    // Its important because if the url is /something then should be https://rootUrl.com/something
-    rootUrl?: string;
 }

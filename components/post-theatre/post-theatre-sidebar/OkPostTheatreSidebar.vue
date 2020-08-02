@@ -4,11 +4,6 @@
             <div class="column ok-post-comments-container" :id="postCommentsContainerId">
                 <div class="has-padding-20 ok-has-border-bottom-primary-highlight">
                     <ok-post-header :post="post"></ok-post-header>
-                    <ok-post-link-preview
-                        class="has-margin-bottom-20"
-                        v-if="postTextFirstLink && postTextFirstLink.length"
-                        :url="postTextFirstLink"
-                    ></ok-post-link-preview>
                     <ok-post-text :post="post"></ok-post-text>
                     <ok-post-reactions :post="post"></ok-post-reactions>
                     <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
@@ -44,7 +39,6 @@
     import OkPostHeader from "~/components/post/components/post-header/OkPostHeader.vue";
     import OkPostText from "~/components/post/components/OkPostText.vue";
     import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
-    import OkPostLinkPreview from "~/components/post/components/post-link-preview/OkPostLinkPreview.vue";
     import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
     import OkPostComments
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue";
@@ -59,23 +53,17 @@
         OnCommentedPostParams,
         ReplyToCommentParams, ReplyToReplyParams
     } from "~/components/post-theatre/post-theatre-sidebar/lib/PostTheatreEventParams";
-    import getFirstLink from "~/components/post/components/post-link-preview/lib/GetFirstLink";
 
     @Component({
         name: "OkPostTheatreSidebar",
         components: {
             OkPostMedia,
-            OkPostCommenter,
-            OkPostComments,
-            OkPostReactions,
-            OkPostActions,
-            OkPostLinkPreview,
-            OkPostText,
-            OkPostHeader
+            OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader
         },
     })
     export default class OkPostTheatreSidebar extends Vue {
         @Prop(Object) readonly post: IPost;
+
 
         $refs!: {
             postCommentsComponent: OkPostComments,
@@ -102,8 +90,5 @@
             this.$refs.postCommenter.setReplyToReplyParams(params);
         }
 
-        get postTextFirstLink(): string | null {
-            return getFirstLink(this.post);
-        }
     }
 </script>

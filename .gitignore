@@ -15,4 +15,3 @@ dist
 /.env
 /.prod.env
 /.dev.env
-/.idea/compiler.xml

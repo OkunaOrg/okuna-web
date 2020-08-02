@@ -7,8 +7,6 @@ export interface IEnvironmentService {
 
     apiUrl: string;
 
-    contentProxyUrl: string;
-
     loggingIsEnabled: boolean;
 
     environment: Environment;
