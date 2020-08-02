@@ -17,6 +17,7 @@
     "buefy": "^0.8.20",
     "bulma": "^0.8.0",
     "bulma-helpers": "^0.3.10",
+    "cheerio": "^1.0.0-rc.3",
     "color": "^3.1.2",
     "crypto-hash": "^1.2.2",
     "dotenv": "^8.2.0",
@@ -74,6 +75,7 @@
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
     "@nuxtjs/style-resources": "^1.0.0",
+    "@types/cheerio": "^0.22.21",
     "@types/pino": "^5.17.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",

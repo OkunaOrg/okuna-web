@@ -9,6 +9,8 @@ import { IHttpService } from '~/services/http/IHttpService';
 import { IUtilsService } from '~/services/utils/IUtilsService';
 import { LruCache } from '~/lib/caches/LruCache';
 
+import * as cheerio from 'cheerio';
+
 @injectable()
 export class LinkPreviewService implements ILinkPreviewService {
 
@@ -75,20 +77,19 @@ export class LinkPreviewService implements ILinkPreviewService {
     private async getLinkPreviewFromResponseData({url, htmlContent}: {url: string, htmlContent: string}): Promise<LinkPreview> {
         const linkPreview: LinkPreview = {};
 
-        const parser = new DOMParser();
-        const dom = parser.parseFromString(htmlContent, 'text/html');
+        const $ = cheerio.load(htmlContent);
 
         const parsedURL = new URL(url);
 
         linkPreview.domainUrl = parsedURL.hostname;
         linkPreview.faviconUrl = this.getFaviconFromDocument({
-            dom,
+            dom: $,
         });
 
-        const openGraphMetaTags = dom.head.querySelectorAll('[property*="og:"');
-        openGraphMetaTags.forEach(tag => {
-            const type: string = tag.attributes['property']?.value.split('og:').pop();
-            const value: string = tag.attributes['content']?.value;
+        const openGraphMetaTags = $('[property*="og:"]');
+        openGraphMetaTags.each((_, el) => {
+            const type: string = $(el).attr('property')?.split('og:').pop();
+            const value: string = $(el).attr('content');
 
             switch (type.toLowerCase()) {
                 case 'title':
@@ -108,9 +109,9 @@ export class LinkPreviewService implements ILinkPreviewService {
 
         if (!linkPreview.title) {
             // fallback
-            const titleElement = dom.head.querySelector('title');
-            if (titleElement && titleElement.innerText.length) {
-                linkPreview.title = titleElement.innerText;
+            const titleElement = $('title');
+            if (titleElement && titleElement.text().length) {
+                linkPreview.title = titleElement.text();
             } else {
                 // show the domain as final fallback
                 linkPreview.title = linkPreview.domainUrl;
@@ -119,20 +120,19 @@ export class LinkPreviewService implements ILinkPreviewService {
 
         if (!linkPreview.imageUrl) {
             // fallback
-            const images = dom.querySelectorAll('img');
+            const images = $('img');
             if (images && images.length) {
-                for (const image in images) {
-                    const imageElement = images[image];
-                    const imageSrc: string = imageElement?.attributes?.['src']?.value;
+                images.each((_, image) => {
+                    const imageSrc: string = $(image).attr('src');
 
                     if (!imageSrc) {
-                        continue;
+                        return;
                     }
 
                     if (imageSrc.endsWith('jpg') || imageSrc.endsWith('gif') || imageSrc.endsWith('png')) {
                         linkPreview.imageUrl = imageSrc;
                     }
-                }
+                });
             }
         }
 
@@ -148,7 +148,7 @@ export class LinkPreviewService implements ILinkPreviewService {
             // Proxy it
             linkPreview.imageUrl = this.makeProxiedUrl(linkPreview.imageUrl);
 
-            // Fetch it 
+            // Fetch it
             linkPreviewImagesToFetchPromises.push(this.getLinkPreviewImageData(linkPreview.imageUrl)
                 .then((result) => {
                     linkPreview.imageData = result?.data;
@@ -180,13 +180,13 @@ export class LinkPreviewService implements ILinkPreviewService {
         return linkPreview;
     }
 
-    private getFaviconFromDocument({dom}: {dom: Document}): (string | null) {
-        const shortcutIconElement = dom.querySelector('link[rel*="shortcut icon"]');
-        let faviconUrl = shortcutIconElement?.attributes['href']?.value;
+    private getFaviconFromDocument({dom}: {dom: CheerioStatic}): (string | null) {
+        const shortcutIconElement = dom('link[rel*="shortcut icon"]');
+        let faviconUrl = shortcutIconElement?.attr('href');
 
         if (!faviconUrl) {
-            const faviconElement = dom.querySelector('link[rel*="icon"]');
-            faviconUrl = faviconElement?.attributes['href']?.value;
+            const faviconElement = dom('link[rel*="icon"]');
+            faviconUrl = faviconElement?.attr('href');
         }
 
         if (faviconUrl) {
