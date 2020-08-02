@@ -25,8 +25,13 @@ const frontendEnvVars = {
 };
 
 Object.keys(environmentVariables).forEach((environmentVariable) => {
-    if (!frontendEnvVars[environmentVariable])
-        throw new Error(`Environment variable ${environmentVariable} is not present. Exiting.`)
+    if (!frontendEnvVars[environmentVariable]) {
+        if (process.env.NODE_ENV === 'production') {
+            throw new Error(`Environment variable ${environmentVariable} is not present. Exiting.`)
+        } else {
+            console.log(`Environment variable ${environmentVariable} is not present.`);
+        }
+    }
 });
 
 
