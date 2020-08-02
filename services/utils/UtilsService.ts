@@ -169,7 +169,7 @@ export class UtilsService implements IUtilsService {
     };
 
     isUrl(str: string): boolean {
-        const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        const regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
         return regexp.test(str);
     }
 
@@ -178,7 +178,7 @@ export class UtilsService implements IUtilsService {
 
         let normalizedUrl;
 
-        if (url.startsWith('http') || url.startsWith('http')) {
+        if (url.startsWith('http') || url.startsWith('https')) {
             // No need to normalize
             normalizedUrl = url;
         } else if (url.startsWith('//')) {
@@ -198,4 +198,3 @@ export class UtilsService implements IUtilsService {
         return normalizedUrl
     }
 }
-

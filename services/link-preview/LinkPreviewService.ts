@@ -11,14 +11,22 @@ import { LruCache } from '~/lib/caches/LruCache';
 
 import * as cheerio from 'cheerio';
 
+function startsWithOneOf(input: string, possibleValues: string[]): boolean {
+    for (const value of possibleValues) {
+        if (input.startsWith(value)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 @injectable()
 export class LinkPreviewService implements ILinkPreviewService {
 
     private cache: LruCache<string, LinkPreview> = new LruCache(100);
 
-
-    constructor(@inject(TYPES.UserService) private userService?: IUserService,
-                @inject(TYPES.HttpService) private httpService?: IHttpService,
+    constructor(@inject(TYPES.HttpService) private httpService?: IHttpService,
                 @inject(TYPES.UtilsService) private utilsService?: IUtilsService,
                 @inject(TYPES.EnvironmentService) private environmentService?: IEnvironmentService,
     ) {
@@ -129,7 +137,8 @@ export class LinkPreviewService implements ILinkPreviewService {
                         return;
                     }
 
-                    if (imageSrc.endsWith('jpg') || imageSrc.endsWith('gif') || imageSrc.endsWith('png')) {
+                    const extension = imageSrc.split('.').pop();
+                    if (startsWithOneOf(extension.toLowerCase(), [ 'jpg', 'jpeg', 'gif', 'png', 'svg' ])) {
                         linkPreview.imageUrl = imageSrc;
                     }
                 });
@@ -215,7 +224,7 @@ export class LinkPreviewService implements ILinkPreviewService {
 
             const contentType = (response.headers['content-type'] as string).toLowerCase();
 
-            if(contentType !== 'image/png' && contentType !== 'image/jpeg' && contentType !== 'image/gif') {
+            if (!['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'].includes(contentType)) {
                 console.info(`Link preview contentType was not valid: ${contentType}`);
                 return;
             }

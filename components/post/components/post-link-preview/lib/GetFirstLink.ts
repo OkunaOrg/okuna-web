@@ -4,7 +4,14 @@ import UrlMatcher from '~/lib/matchers/UrlMatcher';
 function isSafeURL(url: string): boolean {
     try {
         const parsedURL = new URL(url);
-        const forbiddenURLs = ['localhost', '127.0.0.1', '0.0.0.0'];
+        const forbiddenURLs = [
+            'localhost',
+            '127.0.0.1',
+            '0.0.0.0',
+            '::1',
+            '0000:0000:0000:0000:0000:0000:0000:0001',
+            '::/128'
+        ];
         return !forbiddenURLs.includes(parsedURL.hostname);
     } catch {
         // Normally this catch block should never be reached by the app
