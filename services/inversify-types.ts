@@ -17,6 +17,7 @@ const TYPES = {
     LocalizationService: Symbol.for('LocalizationService'),
     StringTemplateService: Symbol.for('StringTemplateService'),
     StorageService: Symbol.for('StorageService'),
+    LinkPreviewService: Symbol.for('LinkPreviewService'),
     UtilsService: Symbol.for('UtilsService'),
     LoggingService: Symbol.for('LoggingService'),
     ThemeService: Symbol.for('ThemeService'),

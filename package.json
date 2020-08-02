@@ -17,6 +17,7 @@
     "buefy": "^0.8.20",
     "bulma": "^0.8.0",
     "bulma-helpers": "^0.3.10",
+    "cheerio": "^1.0.0-rc.3",
     "color": "^3.1.2",
     "crypto-hash": "^1.2.2",
     "dotenv": "^8.2.0",
@@ -36,6 +37,7 @@
     "nuxt-property-decorator": "^2.5.1",
     "okuna": "^0.3.0",
     "p-cancelable": "^2.0.0",
+    "patch-package": "^6.2.2",
     "pino": "^5.17.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.5.4",
@@ -69,11 +71,13 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nuxt-ts",
-    "build": "cross-env NODE_ENV=production nuxt-ts build"
+    "build": "cross-env NODE_ENV=production nuxt-ts build",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",
     "@nuxtjs/style-resources": "^1.0.0",
+    "@types/cheerio": "^0.22.21",
     "@types/pino": "^5.17.0",
     "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
