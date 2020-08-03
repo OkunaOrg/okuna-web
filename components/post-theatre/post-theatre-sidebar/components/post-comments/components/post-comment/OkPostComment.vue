@@ -5,15 +5,19 @@
                 class="ok-post-comment has-padding-top-10  has-padding-left-20 has-padding-right-20">
             <div class="media">
                 <div class="media-left">
-                    <ok-user-avatar
-                            :user="postComment.commenter"
-                            :avatar-size="avatarSize">
-                    </ok-user-avatar>
+                    <nuxt-link :to="postCommenterProfileUrl">
+                        <ok-user-avatar
+                                :user="postComment.commenter"
+                                :avatar-size="avatarSize">
+                        </ok-user-avatar>
+                    </nuxt-link>
                 </div>
                 <div class="media-content">
                     <p class="title is-7 ok-has-text-primary-invert-60">
-                        <span>{{postComment.commenter.profile.name}}</span>
-                        <span class="has-text-weight-medium">@{{postComment.commenter.username}}</span>
+                        <nuxt-link :to="postCommenterProfileUrl">
+                            <span>{{postComment.commenter.profile.name}}</span>
+                            <span class="has-text-weight-medium">@{{postComment.commenter.username}}</span>
+                        </nuxt-link>
                         <span class="has-text-weight-medium">·</span>
                         <span class="has-text-weight-medium">
                         {{ postComment.created | moment("from", "now") }}
@@ -181,6 +185,10 @@
 
         get haslinkedPostCommentReply() {
             return !!this.linkedPostCommentReplyId;
+        }
+
+        get postCommenterProfileUrl(){
+            return '/' + this.postComment.commenter.username;
         }
 
         async translateCommentText() {
