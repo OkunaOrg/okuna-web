@@ -14,6 +14,8 @@ import { ICircle } from '~/models/connections/circle/ICircle';
 export interface IModalService {
 
     // Methods for clients
+    ensureHasNoActiveModal();
+
     openPostModal(params: PostModalParams): Promise<void>;
 
     openPostReactionsModal(params: PostReactionsModalParams): Promise<void>;

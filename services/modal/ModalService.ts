@@ -172,9 +172,10 @@ export class ModalService implements IModalService {
         this.activeModalResolver = undefined;
     }
 
-    private ensureHasNoActiveModal() {
+    ensureHasNoActiveModal() {
         if (this.activeModalPromise) {
             this.notifyModalClosed();
+            this.resetState();
         }
     }
 
