@@ -94,7 +94,9 @@
         onChildChanged(val: string, oldVal: string) {
             this.logger?.info("Username in route changed, removing user.");
             this.user = null;
-            this.refreshUser();
+            if(val){
+                this.refreshUser();
+            }
         }
 
         get userUsername() {
