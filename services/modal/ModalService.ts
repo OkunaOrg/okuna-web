@@ -1,11 +1,20 @@
 import { inject, injectable } from '~/node_modules/inversify';
 import {
-    CommunityActionsModalParams, ConnectionsCirclesPickerModalParams, HashtagActionsModalParams,
+    CommunityActionsModalParams,
+    ConnectionsCirclesPickerModalParams,
+    HashtagActionsModalParams,
     HttpListModalParams,
     IModalService,
-    ModalParams, PostActionsModalParams, PostCommentActionsModalParams, PostCommentReactionsModalParams,
+    ModalParams,
+    PostActionsModalParams,
+    PostCommentActionsModalParams,
+    PostCommentReactionsModalParams,
     PostModalParams,
-    PostReactionsModalParams, ReportObjectModalParams, UserActionsModalParams, ThemeModalParams
+    PostReactionsModalParams,
+    ReportObjectModalParams,
+    UserActionsModalParams,
+    ThemeModalParams,
+    CommunityStaffModalParams, CommunityRulesModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -119,6 +128,16 @@ export class ModalService implements IModalService {
         return this.openModal(ModalType.welcomeToOkunaWeb);
     }
 
+    async openCommunityRulesModal(params: CommunityRulesModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityRules, params);
+    }
+
+    async openCommunityStaffModal(params: CommunityStaffModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityStaff, params);
+    }
+
 
     async openTermsOfUseModal(): Promise<void> {
         this.ensureHasNoActiveModal();
@@ -175,7 +194,6 @@ export class ModalService implements IModalService {
     ensureHasNoActiveModal() {
         if (this.activeModalPromise) {
             this.notifyModalClosed();
-            this.resetState();
         }
     }
 

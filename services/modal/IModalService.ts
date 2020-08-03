@@ -50,6 +50,10 @@ export interface IModalService {
 
     openWelcomeToOkunaWebModal(): Promise<void>;
 
+    openCommunityRulesModal(params: CommunityRulesModalParams): Promise<void>;
+
+    openCommunityStaffModal(params: CommunityStaffModalParams): Promise<void>;
+
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
 
@@ -145,4 +149,12 @@ export interface ReportObjectModalParams {
 
 export interface ThemeModalParams {
     title: string;
+}
+
+export interface CommunityRulesModalParams {
+    community: ICommunity;
+}
+
+export interface CommunityStaffModalParams {
+    community: ICommunity;
 }

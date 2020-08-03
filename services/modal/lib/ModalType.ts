@@ -16,6 +16,8 @@ export class ModalType {
     static themes = new ModalType('Themes');
     static welcomeToOkunaWeb = new ModalType('WelcomeToOkunaWeb');
     static getTheApp = new ModalType('GetTheApp');
+    static communityRules = new ModalType('CommunityRules');
+    static communityStaff = new ModalType('CommunityStaff');
 
 
     static _values: ModalType[] = [
@@ -34,6 +36,8 @@ export class ModalType {
         ModalType.themes,
         ModalType.welcomeToOkunaWeb,
         ModalType.getTheApp,
+        ModalType.communityRules,
+        ModalType.communityStaff,
     ];
 
     static values() {

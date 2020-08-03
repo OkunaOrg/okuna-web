@@ -72,6 +72,12 @@
         <b-modal :active.sync="welcomeToOkunaWebModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-welcome-to-okuna-web-modal :params="activeModalParams"></ok-welcome-to-okuna-web-modal>
         </b-modal>
+        <b-modal :active.sync="communityRulesModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-community-rules-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-rules-modal>
+        </b-modal>
+        <b-modal :active.sync="communityStaffModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-community-staff-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-staff-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -112,10 +118,14 @@
     import OkThemesModal from "~/pages/home/components/modals/components/OkThemesModal.vue";
     import OkGetTheAppModal from "~/pages/home/components/modals/components/get-the-app/OkGetTheAppModal.vue";
     import OkWelcomeToOkunaWebModal from "~/pages/home/components/modals/components/OkWelcomeToOkunaWebModal.vue";
+    import OkCommunityStaffModal from "~/pages/home/components/modals/components/community-staff/OkCommunityStaffModal.vue";
+    import OkCommunityRulesModal from "~/pages/home/components/modals/components/OkCommunityRulesModal.vue";
 
     @Component({
         name: "OkModals",
         components: {
+            OkCommunityRulesModal,
+            OkCommunityStaffModal,
             OkWelcomeToOkunaWebModal,
             OkGetTheAppModal,
             OkCommunityGuidelinesModal,
@@ -158,6 +168,8 @@
         themesModalOpen: boolean = false;
         getTheAppModalOpen: boolean = false;
         welcomeToOkunaWebModalOpen: boolean = false;
+        communityStaffModalOpen: boolean = false;
+        communityRulesModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -174,9 +186,7 @@
 
         @Watch("$route")
         onChildChanged(to: Route, from: Route) {
-            if(to.name !== from.name){
-                this.modalService.ensureHasNoActiveModal();
-            }
+            this.modalService.ensureHasNoActiveModal();
         }
 
         onModalClosed() {
@@ -204,7 +214,9 @@
             this.privacyPolicyModalOpened = activeModalValue === ModalType.privacyPolicy;
             this.themesModalOpen = activeModalValue === ModalType.themes;
             this.getTheAppModalOpen = activeModalValue === ModalType.getTheApp;
-            this.welcomeToOkunaWebModalOpen = activeModalValue === ModalType.welcomeToOkunaWeb
+            this.welcomeToOkunaWebModalOpen = activeModalValue === ModalType.welcomeToOkunaWeb;
+            this.communityStaffModalOpen = activeModalValue === ModalType.communityStaff;
+            this.communityRulesModalOpen = activeModalValue === ModalType.communityRules;
         }
     }
 </script>
