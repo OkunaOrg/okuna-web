@@ -1,4 +1,5 @@
 <template>
+
     <section id="home-timeline-posts" class="is-flex flex-column align-items-center" v-if="loggedInUser">
         <ok-posts-stream
                 :posts-display-context="postDisplayContext"

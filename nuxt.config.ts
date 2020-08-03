@@ -100,7 +100,7 @@ export default {
     ],
     router: {
         middleware: ['post-redirect'],
-        //mode: 'hash'
+        //mode: 'hash',
     },
     i18n: {
         baseUrl: 'https://okuna.io',
