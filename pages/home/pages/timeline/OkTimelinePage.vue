@@ -11,7 +11,7 @@
 
 
 <script lang="ts">
-    import { Component, Vue } from "nuxt-property-decorator"
+    import { Component, Vue, Watch } from "nuxt-property-decorator"
     import { Route } from "vue-router";
     import { IUserService } from "~/services/user/IUserService";
     import { TYPES } from "~/services/inversify-types";
@@ -24,13 +24,13 @@
     import OkPostsStream from "~/components/posts-stream/OkPostsStream.vue";
 
     @Component({
-        name: 'OkTimelinePage',
+        name: "OkTimelinePage",
         components: {OkPostsStream, OkPost},
         subscriptions: function () {
             return {
-                loggedInUser: this['userService'].loggedInUser
+                loggedInUser: this["userService"].loggedInUser
             }
-        }
+        },
     })
     export default class OkTimelinePage extends Vue {
         static infiniteScrollChunkPostsCount = 10;
@@ -39,9 +39,28 @@
             loggedInUser: BehaviorSubject<IUser | undefined>
         };
 
+        $route!: Route;
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         postDisplayContext = PostDisplayContext.timelinePosts;
+
+        scrollPosition = 0;
+
+
+        @Watch("$route")
+        onChildChanged(to: Route, from: Route) {
+            if (from.name === "timeline") {
+                const scrollTop = document.querySelector("html").scrollTop;
+                this.scrollPosition = scrollTop;
+            } else if (to.name === "timeline") {
+                setTimeout(() => {
+                    if (this.scrollPosition) {
+                        document.querySelector("html").scrollTop = this.scrollPosition;
+                    }
+                }, 100)
+            }
+        }
 
         postsRefresher(): Promise<IPost[]> {
             return this.userService.getTimelinePosts({

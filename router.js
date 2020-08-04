@@ -19,6 +19,13 @@ Vue.use(Router);
 export function createRouter() {
     return new Router({
         mode: 'history',
+        scrollBehavior(to, from, savedPosition) {
+            if (to.name === 'timeline' || to.name === 'now') {
+                return false;
+            }
+
+            return {x: 0, y: savedPosition || 0}
+        },
         routes: [
             {
                 path: '/',
@@ -28,7 +35,7 @@ export function createRouter() {
                     {
                         name: 'timeline',
                         path: '',
-                        component: OkTimelinePage
+                        component: OkTimelinePage,
                     },
                     {
                         path: 'm',
@@ -48,6 +55,7 @@ export function createRouter() {
                         component: OkCommunityProfile,
                     },
                     {
+                        name: 'now',
                         path: 'now',
                         component: OkNowPage
                     },
@@ -61,6 +69,7 @@ export function createRouter() {
                         component: OkPostPage,
                     },
                     {
+                        name: 'user',
                         path: ':userUsername',
                         component: OkUserPage,
                     },

@@ -244,6 +244,8 @@ export default {
             "next": "Next",
             "previous": "Previous",
             "guidelines": "Guidelines",
+            "administrators": "Administrators",
+            "moderators": "Moderators",
         },
         "models": {
             "post": "post",
@@ -260,6 +262,8 @@ export default {
             "type_here": "Type here...",
             "about_us": "About us",
             "hooray": "Hooray!",
+            "community_rules": "Community rules",
+            "community_staff": "Community staff",
             "account_created": "Your account has been created.",
             "legal_confirmation": "Legal confirmation",
             "legal_confirmation_description": "By registering in Okuna, I certify that I'm older than 16 years old and have read the Community Guidelines, Privacy Policy and Terms of Use and agree to all of the items included.",

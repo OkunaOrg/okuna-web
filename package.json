@@ -56,7 +56,6 @@
     "vue-progressive-image": "^3.2.0",
     "vue-router-multiguard": "^1.0.3",
     "vue-rx": "^6.2.0",
-    "vue-scroll-behavior": "^0.2.0",
     "vue-scrollto": "^2.17.1",
     "vue-sticky-directive": "0.0.10",
     "vue-text-highlight": "^2.0.10",

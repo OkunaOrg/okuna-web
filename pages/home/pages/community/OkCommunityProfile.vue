@@ -96,7 +96,9 @@
         onChildChanged(val: string, oldVal: string) {
             this.logger?.info("Community name in route changed, removing community.");
             this.community = null;
-            this.refreshCommunity();
+            if(val){
+                this.refreshCommunity();
+            }
         }
 
         get communityName() {
