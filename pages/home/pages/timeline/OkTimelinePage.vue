@@ -60,7 +60,6 @@
                     }
                 }, 100)
             }
-
         }
 
         postsRefresher(): Promise<IPost[]> {

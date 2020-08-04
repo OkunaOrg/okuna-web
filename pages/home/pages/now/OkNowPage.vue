@@ -24,7 +24,7 @@
             </div>
         </ok-mobile-header>
         <div class="ok-now-page-content">
-            <div class="ok-now-page-content-scroll-container">
+            <div class="ok-now-page-content-scroll-container" id="ok-now-page-scroll-container">
                 <keep-alive>
                     <ok-search class="ok-now-page-content-search ok-has-background-primary"
                                :initial-search-query="searchQuery"
@@ -183,6 +183,23 @@
         searchQuery = "";
         searchIsOpen = false;
 
+        scrollPosition = 0;
+
+
+        @Watch("$route")
+        onRouteChanged(to: Route, from: Route) {
+            if (from.name === "now") {
+                const scrollTop = document.querySelector("#ok-now-page-scroll-container").scrollTop;
+                this.scrollPosition = scrollTop;
+            } else if (to.name === "now") {
+                setTimeout(() => {
+                    if (this.scrollPosition) {
+                        document.querySelector("#ok-now-page-scroll-container").scrollTop = this.scrollPosition;
+                    }
+                }, 100);
+            }
+        }
+
         onTabChange(idx) {
             if (idx === 1) {
                 this.shouldTopTabRender = true;
@@ -190,10 +207,10 @@
         }
 
         @Watch("searchQuery")
-        onChildChanged(val: string, oldVal: string) {
+        onSearchQueryChanged(val: string, oldVal: string) {
             if (!this.$refs.okSearch) {
                 // Has to be created
-                this.$nextTick(() => this.onChildChanged(val, oldVal));
+                this.$nextTick(() => this.onSearchQueryChanged(val, oldVal));
             } else {
                 if (val) {
                     this.searchIsOpen = true;

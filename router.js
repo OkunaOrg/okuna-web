@@ -20,7 +20,7 @@ export function createRouter() {
     return new Router({
         mode: 'history',
         scrollBehavior(to, from, savedPosition) {
-            if(to.name === 'timeline'){
+            if (to.name === 'timeline' || to.name === 'now') {
                 return false;
             }
 
@@ -55,6 +55,7 @@ export function createRouter() {
                         component: OkCommunityProfile,
                     },
                     {
+                        name: 'now',
                         path: 'now',
                         component: OkNowPage
                     },
