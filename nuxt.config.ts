@@ -88,7 +88,6 @@ export default {
         '~/plugins/vue-infinite-loading',
         '~/plugins/vue-scroll-to',
         '~/plugins/vue-sticky',
-        '~/plugins/scroll-behavior',
         '~/plugins/vue-moment',
         '~/plugins/vue-popper',
         '~/plugins/vue-progressive-image',
