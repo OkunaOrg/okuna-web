@@ -33,6 +33,10 @@ export class EnvironmentService implements IEnvironmentService {
         return process.env.SENTRY_DSN as string;
     }
 
+    get hcaptchaSiteKey(): string {
+        return process.env.HCAPTCHA_SITE_KEY as string;
+    }
+
     get termsOfUseMdUrl(): string {
         return process.env.TERMS_OF_USE_MD_URL as string;
     }

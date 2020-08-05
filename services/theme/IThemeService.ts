@@ -8,6 +8,8 @@ export interface IThemeService {
 
     isActiveTheme(theme: ITheme): boolean;
 
+    activeThemeIsDark(): boolean;
+
     getCuratedThemes(): ITheme[];
 
     setActiveTheme(theme: ITheme): Promise<void>;

@@ -13,6 +13,8 @@ export interface IEnvironmentService {
 
     sentryDsn: string;
 
+    hcaptchaSiteKey: string;
+
     termsOfUseMdUrl: string;
 
     privacyPolicyMdUrl: string;

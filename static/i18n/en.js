@@ -182,6 +182,9 @@ export default {
                 "notFound": "👀 Not found",
                 "unhandled": "😭 Unhandled error"
             },
+            "captcha":{
+              "required": "You must pass the captcha"
+            },
             "password": {
                 "required": "Password is required",
                 "min_length": "Password has to be longer than 10 characters",
@@ -276,6 +279,7 @@ export default {
             "community_guidelines": "Community guidelines",
             "dont_have_an_account": "Dont have an account?",
             "already_have_an_account": "Already have an account?",
+            "remembered_your_password": "Remembered your password?",
             "paste_your_invite_code": "Paste your invite link or code",
             "dont_have_one": "Don't have one?",
             "request_one": "Request one",
@@ -337,10 +341,15 @@ export default {
             "we_have_made_tos_simple": "We have made them a simple as our jurisdiction allows us to do so.",
             "hang_in_there": "Hang in there!",
             "were_creating_your_account": "We're creating your account",
+            "were_changing_your_password": "We're changing your password",
             "oh_no": "Oh no",
             "we_couldnt_create_your_account": "We couldn't create your account.",
+            "we_couldnt_change_your_password": "We couldn't change your password.",
             "we_have_recorded_the_error": " We have recorded what went wrong and will fix it as soon as possible.",
             "awww_yeah": "Aww yeah!",
+            "youve_got_mail": "You've got mail",
+            "we_have_sent_password_reset_to_mail": "We have sent you a password reset link to your email.",
+            "your_password_was_changed": "Your password was changed",
             "your_account_is_ready": "Your account is ready.",
             "its_better_on_the_app": "It's better on the app",
             "okuna_web_is_wip": "Okuna for the web is a work-in-progress.",

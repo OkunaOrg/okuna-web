@@ -19,6 +19,7 @@ export interface RegistrationApiParams {
 
 export interface RequestResetPasswordApiParams {
     email: string;
+    captchaToken: string;
 }
 
 export interface ResetPasswordApiParams {
