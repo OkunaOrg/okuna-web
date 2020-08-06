@@ -12,7 +12,7 @@
                     </div>
                     <div class="column is-absolute-expanded-mobile">
                         <div class="columns is-marginless is-mobile is-paddingless has-height-100-percent">
-                            <div class="column is-flex align-items-center justify-center">
+                            <div class="column is-flex align-items-center justify-center" id="home-button">
                                 <nuxt-link to="/" class="has-cursor-pointer is-flex">
                                     <ok-home-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-home-icon>
                                 </nuxt-link>

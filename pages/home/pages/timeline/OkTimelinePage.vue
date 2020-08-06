@@ -47,19 +47,46 @@
 
         scrollPosition = 0;
 
+        html: HTMLElement;
+        homeButton: HTMLElement;
+
+        mounted() {
+            this.html = document.querySelector("html");
+
+            this.homeButton = document.querySelector("#home-button");
+
+            this.homeButton.addEventListener("click", this.onWantsToScrollToTop);
+        }
+
+
+        destroyed() {
+            this.homeButton.removeEventListener('click', this.onWantsToScrollToTop);
+        }
 
         @Watch("$route")
         onChildChanged(to: Route, from: Route) {
             if (from.name === "timeline") {
-                const scrollTop = document.querySelector("html").scrollTop;
+                const scrollTop = this.html.scrollTop;
                 this.scrollPosition = scrollTop;
             } else if (to.name === "timeline") {
                 setTimeout(() => {
                     if (this.scrollPosition) {
-                        document.querySelector("html").scrollTop = this.scrollPosition;
+                        this.html.scrollTop = this.scrollPosition;
                     }
                 }, 100)
             }
+        }
+
+
+        onWantsToScrollToTop() {
+            const currentScrollTop = this.html.scrollTop;
+            if (currentScrollTop === 0) {
+                // Refresh
+            } else {
+                // Scroll to top
+                this.$scrollTo(this.html, 300, {});
+            }
+
         }
 
         postsRefresher(): Promise<IPost[]> {
