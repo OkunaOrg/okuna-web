@@ -25,21 +25,6 @@
                     </p>
                 </div>
             </div>
-            <div class="field">
-                <vue-hcaptcha
-                        v-if="activeTheme"
-                        :sitekey="hcaptchaSiteKey"
-                        class="has-padding-top-10"
-                        :theme="hcaptchaTheme"
-                        @expired="onHCaptchaExpired"
-                        @error="onHCaptchaError"
-                        @verify="onHCaptchaVerified"></vue-hcaptcha>
-                <div v-if="!hcaptchaToken && formWasSubmitted" class="has-padding-top-5">
-                    <p class="help is-danger">
-                        {{$t('global.errors.captcha.required')}}
-                    </p>
-                </div>
-            </div>
             <ok-buttons-navigation :onNext="onSubmit" class="has-padding-top-20"/>
         </form>
         <div v-else>
@@ -72,7 +57,6 @@
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IUtilsService } from "~/services/utils/IUtilsService";
-    import VueHcaptcha from "@hcaptcha/vue-hcaptcha";
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import { IThemeService } from "~/services/theme/IThemeService";
     import { BehaviorSubject } from "~/node_modules/rxjs";
@@ -80,7 +64,7 @@
 
     @Component({
         name: "OkRequestPasswordResetForm",
-        components: {OkButtonsNavigation, VueHcaptcha},
+        components: {OkButtonsNavigation},
         subscriptions: function () {
             return {
                 activeTheme: this["themeService"].activeTheme,
@@ -132,14 +116,6 @@
             }
         }
 
-        get hcaptchaSiteKey() {
-            return this.environmentService.hcaptchaSiteKey;
-        }
-
-        get hcaptchaTheme() {
-            return this.themeService.activeThemeIsDark() ? "dark" : "light";
-        }
-
         async onSubmit() {
             if (this.submitInProgress) return;
             this.submitInProgress = true;
@@ -147,24 +123,11 @@
             const formIsValid = await this._validateAll();
 
             this.formWasSubmitted = true;
-            if (formIsValid && this.hcaptchaToken) {
+            if (formIsValid) {
                 await this.onSubmitWithValidForm();
             }
 
             this.submitInProgress = false;
-        }
-
-
-        onHCaptchaExpired() {
-            this.hcaptchaToken = "";
-        }
-
-        onHCaptchaError() {
-            this.hcaptchaToken = "";
-        }
-
-        onHCaptchaVerified(token: string) {
-            this.hcaptchaToken = token;
         }
 
         async onSubmitWithValidForm() {
