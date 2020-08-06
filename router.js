@@ -99,6 +99,10 @@ export function createRouter() {
                     }
                 ]
             },
+            {
+                path: '/api/auth/password/verify',
+                redirect: '/a/reset-password'
+            }
         ]
     })
 }
