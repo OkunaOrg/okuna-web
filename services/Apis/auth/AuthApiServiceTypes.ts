@@ -25,6 +25,7 @@ export interface RequestResetPasswordApiParams {
 export interface ResetPasswordApiParams {
     resetToken: string;
     newPassword: string;
+    captchaToken: string;
 }
 
 export interface RegistrationResponse {
