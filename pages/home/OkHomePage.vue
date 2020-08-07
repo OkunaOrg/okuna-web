@@ -30,6 +30,8 @@
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { IUser } from "~/models/auth/user/IUser";
     import { sha256 } from "crypto-hash";
+    import { AxiosError } from '~/node_modules/axios';
+    import { INavigationService } from '~/services/navigation/INavigationService';
 
     @Component({
         components: {
@@ -53,6 +55,7 @@
         private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
         private storageService: IStorageService = okunaContainer.get<IStorageService>(TYPES.StorageService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+        private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
 
         private logger: IOkLogger;
         private storage: IOkStorage<boolean>;
@@ -78,6 +81,18 @@
                 const user = await this.userService.attemptToBootstrapLoggedInUser();
                 this.logger.info("Bootstrapped user", user);
             } catch (e) {
+                if (e.response) {
+                    // Http response outside the 2xx range
+                    e = e as AxiosError;
+
+                    if(e.response.status === 401){
+                        // Not authorized, log out.
+                        await this.userService.logout();
+                        await this.navigationService.navigateToLogin();
+                        return;
+                    }
+                }
+
                 this.utilsService.handleErrorWithToast(e);
             }
         }
