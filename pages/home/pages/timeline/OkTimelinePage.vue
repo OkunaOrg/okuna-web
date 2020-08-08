@@ -1,6 +1,7 @@
 <template>
     <section id="home-timeline-posts" class="is-flex flex-column align-items-center" v-if="loggedInUser">
         <ok-posts-stream
+                ref="postsStream"
                 :posts-display-context="postDisplayContext"
                 :refresher="postsRefresher"
                 :on-scroll-loader="postsOnScrollLoader"
@@ -37,6 +38,10 @@
 
         $observables!: {
             loggedInUser: BehaviorSubject<IUser | undefined>
+        };
+
+        $refs: {
+            postsStream: OkPostsStream
         };
 
         $route!: Route;
@@ -82,6 +87,7 @@
             const currentScrollTop = this.html.scrollTop;
             if (currentScrollTop === 0) {
                 // Refresh
+                this.$refs.postsStream.refresh();
             } else {
                 // Scroll to top
                 this.$scrollTo(this.html, 300, {});
