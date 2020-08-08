@@ -1,9 +1,10 @@
 <template>
     <section class="is-flex flex-column align-items-center">
         <ok-posts-stream
-            :refresher="postsRefresher"
-            :on-scroll-loader="postsOnScrollLoader"
-            :post-container-class="postContainerClass"
+                ref="postsStream"
+                :refresher="postsRefresher"
+                :on-scroll-loader="postsOnScrollLoader"
+                :post-container-class="postContainerClass"
         ></ok-posts-stream>
     </section>
 </template>
@@ -19,7 +20,7 @@
 
     @Component({
         name: "OkTrendingPostsStream",
-        components: { OkPostsStream }
+        components: {OkPostsStream}
     })
     export default class OkTrendingPostsStream extends Vue {
         static infiniteScrollChunkPostsCount = 10;
@@ -27,8 +28,12 @@
         @Prop({
             type: String,
             required: false,
-            default: ''
+            default: ""
         }) readonly postContainerClass: string;
+
+        $refs: {
+            postsStream: OkPostsStream
+        };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private trendingPosts: ITrendingPost[] = [];
@@ -55,6 +60,10 @@
             this.trendingPosts.push(...newTrendingPosts);
 
             return newTrendingPosts.map(trendingPost => trendingPost.post);
+        }
+
+        refresh() {
+            this.$refs.postsStream.refresh();
         }
     }
 </script>

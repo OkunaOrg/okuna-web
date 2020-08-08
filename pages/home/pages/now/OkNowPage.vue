@@ -31,8 +31,9 @@
                                v-if="searchQuery"
                                ref="okSearch">
                     </ok-search>
-                    <b-tabs v-else position="is-centered" @change="onTabChange" class="ok-now-page-content-tabs"
-                            type="is-toggle-rounded">
+                    <b-tabs v-else position="is-centered" @change="onTabChange" class="ok-now-page-content-tabs" v-model="activeTab"
+                            type="is-toggle-rounded"
+                    ref="tabs">
                         <b-tab-item>
                             <template slot="header">
                                 <div class="is-flex align-items-center ok-now-page-tab-header">
@@ -41,6 +42,7 @@
                                 </div>
                             </template>
                             <ok-trending-posts-stream
+                                    ref=trendingPostsStream
                                     post-container-class="has-padding-30-tablet"
                             ></ok-trending-posts-stream>
                         </b-tab-item>
@@ -52,6 +54,7 @@
                                 </div>
                             </template>
                             <ok-top-posts-stream
+                                    ref="topPostsStream"
                                     post-container-class="has-padding-30-tablet"
                                     v-if="shouldTopTabRender"
                             ></ok-top-posts-stream>
@@ -136,7 +139,6 @@
 
 <script lang="ts">
     import { Component, Vue, Watch } from "nuxt-property-decorator"
-    import { Route } from "vue-router";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { BehaviorSubject } from "rxjs";
@@ -148,9 +150,10 @@
     import { EnvironmentResolution } from "~/services/environment/lib/EnvironmentResolution";
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import OkSearch from "~/components/search/OkSearch.vue";
+    import OkPostsStream from "~/components/posts-stream/OkPostsStream.vue";
 
     @Component({
-        name: "OkHomeNowPage",
+        name: "OkNowNowPage",
         components: {OkSearch, OkMobileHeader, OkTrendingPostsStream, OkTopPostsStream},
         subscriptions: function () {
             return {
@@ -160,7 +163,7 @@
         }
     })
     export default class OkExplorePage extends Vue {
-        $route!: Route;
+        $route!: any;
 
         $observables!: {
             environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>,
@@ -169,7 +172,11 @@
 
         $refs!: {
             okSearch: OkSearch,
+            topPostsStream: OkPostsStream,
+            trendingPostsStream: OkPostsStream,
+            tabs: any,
         };
+
 
         EnvironmentResolution = EnvironmentResolution;
 
@@ -184,17 +191,46 @@
         searchIsOpen = false;
 
         scrollPosition = 0;
+        activeTab = 0;
+
+        private scrollContainer: HTMLElement = null;
+        private nowButton: HTMLElement = null;
+
+        mounted() {
+            this.$nextTick(()=>{
+                const nowButton = this.getNowButton();
+                nowButton.addEventListener("click", this.onWantsToScrollToTop);
+            });
+        }
+
+
+        destroyed() {
+            this.getNowButton().removeEventListener("click", this.onWantsToScrollToTop);
+        }
+
+        onWantsToScrollToTop() {
+            const currentScrollTop = this.getScrollContainer().scrollTop;
+
+            if (currentScrollTop === 0) {
+                // Refresh
+                this.getActivePostsStream().refresh();
+            } else {
+                // Scroll to top
+                this.$scrollTo(this.$refs.tabs.$el, 300, {
+                    container: this.getScrollContainer()
+                });
+            }
+        }
 
 
         @Watch("$route")
-        onRouteChanged(to: Route, from: Route) {
+        onRouteChanged(to: any, from: any) {
             if (from.name === "now") {
-                const scrollTop = document.querySelector("#ok-now-page-scroll-container").scrollTop;
-                this.scrollPosition = scrollTop;
+                this.scrollPosition = this.getScrollContainer().scrollTop;
             } else if (to.name === "now") {
                 setTimeout(() => {
                     if (this.scrollPosition) {
-                        document.querySelector("#ok-now-page-scroll-container").scrollTop = this.scrollPosition;
+                        this.getScrollContainer().scrollTop = this.scrollPosition;
                     }
                 }, 100);
             }
@@ -219,6 +255,22 @@
                     this.$refs.okSearch.clearSearch();
                 }
             }
+        }
+        
+        getScrollContainer(){
+            if(this.scrollContainer) return this.scrollContainer;
+
+            return this.scrollContainer = document.querySelector("#ok-now-page-scroll-container");
+        }
+
+        getNowButton(){
+            if(this.nowButton) return this.nowButton;
+
+            return this.nowButton = document.querySelector("#now-button");
+        }
+
+        getActivePostsStream(){
+            return this.activeTab === 0 ? this.$refs.trendingPostsStream : this.$refs.topPostsStream;
         }
     }
 </script>

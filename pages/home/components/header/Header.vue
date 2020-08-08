@@ -17,7 +17,7 @@
                                     <ok-home-icon class="ok-svg-icon-primary-invert is-icon-2x"></ok-home-icon>
                                 </nuxt-link>
                             </div>
-                            <div class="column is-flex align-items-center justify-center">
+                            <div class="column is-flex align-items-center justify-center" id="now-button">
                                 <nuxt-link to="/now" class="has-cursor-pointer is-flex">
                                     <ok-search-icon class="ok-svg-icon-primary-invert is-icon-2x" v-if="environmentResolution === EnvironmentResolution.mobile"></ok-search-icon>
                                     <ok-now-icon v-else class="ok-svg-icon-primary-invert is-icon-2x"></ok-now-icon>
@@ -29,7 +29,7 @@
                                             class="ok-svg-icon-primary-invert is-icon-2x"></ok-communities-icon>
                                 </nuxt-link>
                             </div>
-                            <div class="column is-flex align-items-center is-hidden-desktop is-hidden-tablet justify-center">
+                            <div class="column is-flex align-items-center is-hidden-desktop is-hidden-tablet justify-center" id="notifications-button">
                                 <nuxt-link to="/n" class="has-cursor-pointer is-flex">
                                     <ok-notifications-icon
                                             class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
