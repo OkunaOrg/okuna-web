@@ -42,7 +42,8 @@ export class AuthApiService implements IAuthApiService {
 
     requestResetPassword(data: RequestResetPasswordApiParams): Promise<AxiosResponse<void>> {
         return this.httpService.post<void>(AuthApiService.REQUEST_RESET_PASSWORD_PATH, {
-            email: data.email
+            email: data.email,
+            captchaToken: data.captchaToken
         }, {
             isApiRequest: true,
         })

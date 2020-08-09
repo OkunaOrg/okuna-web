@@ -31,7 +31,7 @@
             </p>
         </div>
         <div class="field">
-            <nuxt-link :to="localePath('reset-password')" class="ok-has-text-primary-invert-60">
+            <nuxt-link :to="'/a/request-password-reset'" class="ok-has-text-primary-invert-60">
                 {{$t('global.snippets.forgot_password')}}
             </nuxt-link>
         </div>

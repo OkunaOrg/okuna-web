@@ -233,6 +233,11 @@ export class ThemeService implements IThemeService {
         return this.activeTheme.value.id === theme.id;
     }
 
+    activeThemeIsDark(): boolean {
+        if (!this.activeTheme.value) return false;
+        return this.activeTheme.value.primaryColor.isDark();
+    }
+
     setRandomTheme(): Promise<void> {
         let randomTheme = this.getRandomTheme();
         while (this.activeTheme.value == randomTheme) {
@@ -300,6 +305,8 @@ export class ThemeService implements IThemeService {
                 throw Error('Not implemented');
         }
     }
+
+
 
     private async bootstrapWithStoredActiveThemeId(): Promise<ITheme> {
         const storedActiveThemeId = await this.getStoredActiveThemeId();

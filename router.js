@@ -11,6 +11,8 @@ import OkUserPage from "./pages/home/pages/user/OkUserProfilePage";
 import OkCommunitiesPage from "./pages/home/pages/communities/OkCommunitiesPage";
 import OkAuthPage from "./pages/auth/OkAuthPage";
 import OkLoginPage from "./pages/auth/pages/OkLoginPage";
+import OkResetPasswordPage from "./pages/auth/pages/OkResetPasswordPage";
+import OkRequestPasswordResetPage from "./pages/auth/pages/OkRequestPasswordResetPage";
 import OkRegisterPage from "./pages/auth/pages/register-page/OkRegisterPage";
 import OkCommunityProfile from "./pages/home/pages/community/OkCommunityProfile";
 
@@ -84,11 +86,23 @@ export function createRouter() {
                         component: OkLoginPage
                     },
                     {
+                        path: 'reset-password',
+                        component: OkResetPasswordPage
+                    },
+                    {
+                        path: 'request-password-reset',
+                        component: OkRequestPasswordResetPage
+                    },
+                    {
                         path: 'register',
                         component: OkRegisterPage
                     }
                 ]
             },
+            {
+                path: '/api/auth/password/verify',
+                redirect: '/a/reset-password'
+            }
         ]
     })
 }
