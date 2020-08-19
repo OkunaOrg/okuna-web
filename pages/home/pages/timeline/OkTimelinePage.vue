@@ -24,6 +24,7 @@
     import { IUser } from "~/models/auth/user/IUser";
     import OkPostsStream from "~/components/posts-stream/OkPostsStream.vue";
 
+
     @Component({
         name: "OkTimelinePage",
         components: {OkPostsStream, OkPost},
@@ -52,47 +53,56 @@
 
         scrollPosition = 0;
 
-        html: HTMLElement;
-        homeButton: HTMLElement;
+        private html: HTMLElement;
+        private homeButton: HTMLElement;
+
+        private scrollToTopEventRemover;
+
 
         mounted() {
+            if (this.scrollToTopEventRemover) this.scrollToTopEventRemover();
             this.html = document.querySelector("html");
-
             this.homeButton = document.querySelector("#home-button");
-
             this.homeButton.addEventListener("click", this.onWantsToScrollToTop);
+            this.scrollToTopEventRemover = () => this.homeButton.removeEventListener("click", this.onWantsToScrollToTop);
         }
 
 
         destroyed() {
-            this.homeButton.removeEventListener('click', this.onWantsToScrollToTop);
+            if (this.scrollToTopEventRemover) this.scrollToTopEventRemover();
         }
+
 
         @Watch("$route")
         onChildChanged(to: Route, from: Route) {
-            if (from.name === "timeline") {
-                const scrollTop = this.html.scrollTop;
-                this.scrollPosition = scrollTop;
-            } else if (to.name === "timeline") {
-                setTimeout(() => {
-                    if (this.scrollPosition) {
-                        this.html.scrollTop = this.scrollPosition;
-                    }
-                }, 100)
+            if (this.html) {
+                if (from.name === "timeline") {
+                    const scrollTop = this.html.scrollTop;
+                    this.scrollPosition = scrollTop;
+                } else if (to.name === "timeline") {
+                    setTimeout(() => {
+                        if (this.scrollPosition) {
+                            this.html.scrollTop = this.scrollPosition;
+                        }
+                    }, 100)
+                }
             }
         }
 
 
         onWantsToScrollToTop() {
-            const currentScrollTop = this.html.scrollTop;
-            if (currentScrollTop === 0) {
-                // Refresh
-                this.$refs.postsStream.refresh();
-            } else {
-                // Scroll to top
-                this.$scrollTo(this.html, 300, {});
+            if (this.$route.name === "timeline") {
+                if (this.html) {
+                    const currentScrollTop = this.html.scrollTop;
+                    if (currentScrollTop === 0) {
+                        // Refresh
+                        this.$refs.postsStream.refresh();
+                    } else {
+                        // Scroll to top
+                        this.$scrollTo(this.html, 300, {});
+                    }
+                }
             }
-
         }
 
         postsRefresher(): Promise<IPost[]> {

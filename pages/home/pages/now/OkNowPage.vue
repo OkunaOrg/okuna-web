@@ -31,9 +31,10 @@
                                v-if="searchQuery"
                                ref="okSearch">
                     </ok-search>
-                    <b-tabs v-else position="is-centered" @change="onTabChange" class="ok-now-page-content-tabs" v-model="activeTab"
+                    <b-tabs v-else position="is-centered" @change="onTabChange" class="ok-now-page-content-tabs"
+                            v-model="activeTab"
                             type="is-toggle-rounded"
-                    ref="tabs">
+                            ref="tabs">
                         <b-tab-item>
                             <template slot="header">
                                 <div class="is-flex align-items-center ok-now-page-tab-header">
@@ -195,30 +196,34 @@
 
         private scrollContainer: HTMLElement = null;
         private nowButton: HTMLElement = null;
+        private scrollToTopEventRemover;
+
 
         mounted() {
-            this.$nextTick(()=>{
-                const nowButton = this.getNowButton();
-                nowButton.addEventListener("click", this.onWantsToScrollToTop);
-            });
+            if (this.scrollToTopEventRemover) this.scrollToTopEventRemover();
+            const nowButton = this.getNowButton();
+            nowButton.addEventListener("click", this.onWantsToScrollToTop);
+            this.scrollToTopEventRemover = () => nowButton.removeEventListener("click", this.onWantsToScrollToTop);
         }
 
 
         destroyed() {
-            this.getNowButton().removeEventListener("click", this.onWantsToScrollToTop);
+            if (this.scrollToTopEventRemover) this.scrollToTopEventRemover();
         }
 
         onWantsToScrollToTop() {
-            const currentScrollTop = this.getScrollContainer().scrollTop;
+            if (this.$route.name === "now") {
+                const currentScrollTop = this.getScrollContainer().scrollTop;
 
-            if (currentScrollTop === 0) {
-                // Refresh
-                this.getActivePostsStream().refresh();
-            } else {
-                // Scroll to top
-                this.$scrollTo(this.$refs.tabs.$el, 300, {
-                    container: this.getScrollContainer()
-                });
+                if (currentScrollTop === 0) {
+                    // Refresh
+                    this.getActivePostsStream().refresh();
+                } else {
+                    // Scroll to top
+                    this.$scrollTo(this.$refs.tabs.$el, 300, {
+                        container: this.getScrollContainer()
+                    });
+                }
             }
         }
 
@@ -256,20 +261,20 @@
                 }
             }
         }
-        
-        getScrollContainer(){
-            if(this.scrollContainer) return this.scrollContainer;
+
+        getScrollContainer() {
+            if (this.scrollContainer) return this.scrollContainer;
 
             return this.scrollContainer = document.querySelector("#ok-now-page-scroll-container");
         }
 
-        getNowButton(){
-            if(this.nowButton) return this.nowButton;
+        getNowButton() {
+            if (this.nowButton) return this.nowButton;
 
             return this.nowButton = document.querySelector("#now-button");
         }
 
-        getActivePostsStream(){
+        getActivePostsStream() {
             return this.activeTab === 0 ? this.$refs.trendingPostsStream : this.$refs.topPostsStream;
         }
     }
