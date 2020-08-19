@@ -1,7 +1,7 @@
 <template>
     <button
             :disabled="requestInProgress"
-            @click="onWantsToToggleFollow"
+            @click="onClicked"
             class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
         {{ buttonText }}
     </button>

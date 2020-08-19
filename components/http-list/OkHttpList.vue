@@ -17,8 +17,13 @@
                 {{ $t('global.snippets.no_results_for_query', {query: searchQuery})}}
             </div>
         </div>
-        <div v-else-if="refresher" class="ok-http-list-infinite-loading"
+        <div v-else-if="refresher" class="ok-http-list-infinite-loading is-relative"
              :class="{[`${itemsContainerClass}`]: items.length}">
+            <transition name="fade">
+                <div v-if="refreshInProgress" class="has-padding-bottom-30 has-padding-left-30 has-padding-right-30">
+                    <ok-loading-indicator style="position: relative;"></ok-loading-indicator>
+                </div>
+            </transition>
             <div v-for="item in items" :key="listKey + '-' + item.id" :class="itemClass">
                 <slot name="default" :item="item"></slot>
             </div>
@@ -150,6 +155,7 @@
         searchItems: T[] = [];
         searchQuery = "";
         searchInProgress = false;
+        refreshInProgress = false;
 
         items: T[] = [];
 
@@ -162,6 +168,7 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private onScrollLoaderOperation?: CancelableOperation<T[]>;
         private refreshOperation?: CancelableOperation<T[]>;
+        private bootstrapOperation?: CancelableOperation<T[]>;
         private searchRequestOperation?: CancelableOperation<any>;
 
 
@@ -170,6 +177,7 @@
         }
 
         destroyed() {
+            this.bootstrapOperation?.cancel();
             this.refreshOperation?.cancel();
             this.searchRequestOperation?.cancel();
             this.onScrollLoaderOperation?.cancel();
@@ -191,8 +199,8 @@
                     }
                 } else {
                     // Initial refresh
-                    this.refreshOperation = CancelableOperation.fromPromise(this.refresher());
-                    items = await this.refreshOperation.value;
+                    this.bootstrapOperation = CancelableOperation.fromPromise(this.refresher());
+                    items = await this.bootstrapOperation.value;
                 }
 
                 if (items && items.length > 0) {
@@ -233,10 +241,28 @@
             }
         }
 
-        refresh() {
-            this.items = [];
-            this.reachedLimit = false;
-            this.$refs.infiniteLoading.stateChanger.reset();
+        // For clients to use with $refs.okHttpList.refresh()
+        async refresh() {
+            if(this.items){
+                if (this.refreshInProgress) return;
+
+                this.refreshInProgress = true;
+
+                try {
+                    this.refreshOperation = CancelableOperation.fromPromise(this.refresher());
+
+                    this.items = await this.refreshOperation.value;
+                    this.reachedLimit = false;
+                } catch (error) {
+                    this.utilsService.handleErrorWithToast(error);
+                } finally {
+                    this.refreshInProgress = false;
+                    delete this.refreshOperation;
+                }
+            }else{
+                this.reachedLimit = false;
+                this.$refs.infiniteLoading.stateChanger.reset();
+            }
         }
 
         async searchWithQuery(query: string) {

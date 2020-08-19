@@ -84,6 +84,7 @@ import postUserMentionNotificationFactory from '../notifications/post-user-menti
 import userNewPostNotificationFactory from '~/models/notifications/user-new-post-notification/factory';
 import { ModerationCategorySeverity } from '~/models/moderation/moderation_category/lib/ModerationCategorySeverity';
 import { UserVisibility } from '~/models/auth/user/lib/UserVisibility';
+import communityInviteNotificationFactory from '~/models/notifications/community-invite-notification/factory';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;
@@ -425,7 +426,7 @@ export const notificationContentObjectDeserializer = (instance: INotification, r
     let contentObject;
     switch (instance.type) {
         case NotificationType.communityInvite:
-            contentObject = communityInviteFactory.make(rawData);
+            contentObject = communityInviteNotificationFactory.make(rawData);
             break;
         case NotificationType.communityNewPost:
             contentObject = communityNewPostNotificationFactory.make(rawData);
