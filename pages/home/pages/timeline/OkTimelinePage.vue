@@ -56,6 +56,7 @@
 
         private html: HTMLElement;
         private homeButton: HTMLElement;
+        private okunaLogo: HTMLElement;
 
         private scrollToTopEventRemover;
 
@@ -64,8 +65,13 @@
             if (this.scrollToTopEventRemover) this.scrollToTopEventRemover();
             this.html = document.querySelector("html");
             this.homeButton = document.querySelector("#home-button");
+            this.okunaLogo = document.querySelector("#okuna-logo");
             this.homeButton.addEventListener("click", this.onWantsToScrollToTop);
-            this.scrollToTopEventRemover = () => this.homeButton.removeEventListener("click", this.onWantsToScrollToTop);
+            this.okunaLogo.addEventListener("click", this.onWantsToScrollToTop);
+            this.scrollToTopEventRemover = () => {
+                this.homeButton.removeEventListener("click", this.onWantsToScrollToTop);
+                this.okunaLogo.removeEventListener("click", this.onWantsToScrollToTop);
+            };
         }
 
 

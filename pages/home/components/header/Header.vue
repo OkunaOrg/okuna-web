@@ -5,7 +5,7 @@
             <div class="container is-relative">
                 <div class="columns has-width-100-percent is-gapless is-marginless is-mobile has-height-100-percent">
                     <div class="column is-flex align-items-center is-narrow-mobile is-hidden-mobile">
-                        <ok-logo class="has-padding-left-20 has-padding-right-20"></ok-logo>
+                        <ok-logo class="has-padding-left-20 has-padding-right-20" id="okuna-logo"></ok-logo>
                     </div>
                     <div class="column is-flex align-items-center is-hidden-tablet-only is-hidden-mobile">
                         <ok-header-search-bar></ok-header-search-bar>
