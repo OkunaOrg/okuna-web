@@ -83,7 +83,7 @@
         private logger: IOkLogger;
 
 
-        created() {
+        mounted() {
             this.$observables.loggedInUser.subscribe(this.onLoggedInUser);
             this.logger = this.loggingService.getLogger({
                 name: "OkUserProfilePage"
@@ -100,7 +100,7 @@
             this.user = null;
             this.refreshUserOperation?.cancel();
             if(val){
-                //this.refreshUser();
+                this.refreshUser();
             }
         }
 
