@@ -2,10 +2,11 @@
     <section id="home-timeline-posts" class="is-flex flex-column align-items-center" v-if="loggedInUser">
         <ok-posts-stream
                 ref="postsStream"
+                class="has-padding-top-30-tablet"
                 :posts-display-context="postDisplayContext"
                 :refresher="postsRefresher"
                 :on-scroll-loader="postsOnScrollLoader"
-                post-container-class="has-padding-30-tablet"
+                post-container-class="has-padding-bottom-30-tablet has-padding-right-30-tablet has-padding-left-30-tablet"
         ></ok-posts-stream>
     </section>
 </template>

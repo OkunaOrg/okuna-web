@@ -72,12 +72,10 @@
             okHttpList: OkHttpList<IPost>
         };
 
-        posts: IPost[] = [];
 
         // Public API methods
 
         refresh() {
-            this.posts = [];
             this.$refs.okHttpList.refresh();
         }
 

@@ -451,15 +451,16 @@
             this.logger.info(`Scrolling to element with id ${id}`);
 
             this.$nextTick(() => {
-                var options = {
+                const options = {
                     container: `#${this.containerId}`,
                     offset: -100,
                     duration: 0
                 };
 
-                var element = document.getElementById(id);
-
-                this.$scrollTo(element, 500, options);
+                const element = document.getElementById(id);
+                if(element){
+                    this.$scrollTo(element, 500, options);
+                }
             });
 
         }

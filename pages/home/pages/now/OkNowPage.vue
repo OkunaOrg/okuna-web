@@ -43,8 +43,9 @@
                                 </div>
                             </template>
                             <ok-trending-posts-stream
+                                    class="has-padding-top-30-tablet"
                                     ref=trendingPostsStream
-                                    post-container-class="has-padding-30-tablet"
+                                    post-container-class="has-padding-bottom-30-tablet has-padding-right-30-tablet has-padding-left-30-tablet"
                             ></ok-trending-posts-stream>
                         </b-tab-item>
                         <b-tab-item>
@@ -55,8 +56,9 @@
                                 </div>
                             </template>
                             <ok-top-posts-stream
+                                    class="has-padding-top-30-tablet"
                                     ref="topPostsStream"
-                                    post-container-class="has-padding-30-tablet"
+                                    post-container-class="has-padding-bottom-30-tablet has-padding-right-30-tablet has-padding-left-30-tablet"
                                     v-if="shouldTopTabRender"
                             ></ok-top-posts-stream>
                         </b-tab-item>

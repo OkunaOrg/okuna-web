@@ -1,5 +1,5 @@
 <template>
-    <div v-if="environmentResolution">
+    <div v-if="environmentResolution && postUuid" >
         <ok-desktop-post-page
                 :post-uuid="postUuid"
                 v-if="environmentResolution === EnvironmentResolution.desktop"></ok-desktop-post-page>
