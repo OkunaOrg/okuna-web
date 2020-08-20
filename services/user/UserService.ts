@@ -271,7 +271,11 @@ export class UserService implements IUserService {
             // This cache stays for as long as the user session is active
             storeInSessionCache: true
         });
-        this.setLoggedInUser(user);
+
+        if(!this.loggedInUser.value || this.loggedInUser.value.username !== user.username){
+            this.setLoggedInUser(user);
+        }
+
         return user;
     }
 
