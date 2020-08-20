@@ -20,7 +20,7 @@
         <div v-else-if="refresher" class="ok-http-list-infinite-loading is-relative"
              :class="{[`${itemsContainerClass}`]: items.length}">
             <transition name="fade">
-                <div v-if="refreshInProgress" class="has-padding-bottom-30 has-padding-left-30 has-padding-right-30">
+                <div v-if="refreshInProgress" class="has-padding-30">
                     <ok-loading-indicator style="position: relative;"></ok-loading-indicator>
                 </div>
             </transition>
@@ -33,6 +33,10 @@
 
                 <template v-if="listType === 'post' && !items.length" slot="spinner">
                     <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
+                </template>
+
+                <template v-if="listType === 'notification' && !items.length" slot="spinner">
+                    <ok-notification-skeleton :class="itemClass"></ok-notification-skeleton>
                 </template>
 
                 <template v-else-if="listType === 'community' && !items.length" slot="spinner">
@@ -90,10 +94,12 @@
     import OkPostSkeleton from "~/components/skeletons/post/OkPostSkeleton.vue";
     import OkCommunityCardSkeleton from "~/components/skeletons/cards/community-card/OkCommunityCardSkeleton.vue";
     import OkCommunityTileSkeleton from "~/components/skeletons/tiles/OkCommunityTileSkeleton.vue";
+    import OkNotificationSkeleton from '~/components/skeletons/notification/OkNotificationSkeleton.vue';
 
     @Component({
         name: "OkHttpList",
         components: {
+            OkNotificationSkeleton,
             OkLoadingIndicator,
             OkPostSkeleton,
             OkCommunityCardSkeleton,

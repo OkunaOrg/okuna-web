@@ -4,31 +4,35 @@
             <b-tab-item>
                 <template slot="header">
                     <div
-                        class="ok-notification-tab has-padding-10 ok-has-text-primary-invert"
-                        :class="{ 'ok-has-border-bottom-accent': currentTabIndex === 0 }"
+                            class="ok-notification-tab has-padding-10 ok-has-text-primary-invert"
+                            :class="{ 'ok-has-border-bottom-accent': currentTabIndex === 0 }"
+                            @click="onGeneralNotificationsClicked"
                     >
                         {{ $t('components.notifications.general_tab_label') }}
                     </div>
                 </template>
 
                 <ok-user-notifications-stream
-                    :notificationTypes="generalNotificationTypes"
-                    v-if="shouldGeneralTabRender"
+                        :notificationTypes="generalNotificationTypes"
+                        v-if="shouldGeneralTabRender"
+                        ref="generalUserNotificationsStream"
                 ></ok-user-notifications-stream>
             </b-tab-item>
             <b-tab-item>
                 <template slot="header">
                     <div
-                        class="ok-notification-tab has-padding-10 ok-has-text-primary-invert"
-                        :class="{ 'ok-has-border-bottom-accent': currentTabIndex === 1 }"
+                            class="ok-notification-tab has-padding-10 ok-has-text-primary-invert"
+                            :class="{ 'ok-has-border-bottom-accent': currentTabIndex === 1 }"
+                            @click="onRequestNotificationsClicked"
                     >
                         {{ $t('components.notifications.requests_tab_label') }}
                     </div>
                 </template>
 
                 <ok-user-notifications-stream
-                    :notificationTypes="requestsNotificationTypes"
-                    v-if="shouldRequestsTabRender"
+                        :notificationTypes="requestsNotificationTypes"
+                        v-if="shouldRequestsTabRender"
+                        ref="requestUserNotificationsStream"
                 ></ok-user-notifications-stream>
             </b-tab-item>
         </b-tabs>
@@ -55,6 +59,11 @@
         hasForcefullyReRendered = false;
         currentTabIndex = 0;
 
+        $refs!: {
+            generalUserNotificationsStream: OkUserNotificationsStream,
+            requestUserNotificationsStream: OkUserNotificationsStream,
+        };
+
         onTabChange(idx) {
             if (idx === 1) {
                 this.shouldRequestsTabRender = true;
@@ -73,6 +82,20 @@
                 });
             }
         }
+
+        onGeneralNotificationsClicked() {
+            if(this.currentTabIndex === 0){
+                // Already in current tab
+                this.$refs.generalUserNotificationsStream.refresh();
+            }
+        }
+
+        onRequestNotificationsClicked() {
+            if(this.currentTabIndex === 1){
+                this.$refs.requestUserNotificationsStream.refresh();
+            }
+        }
+
     }
 </script>
 
