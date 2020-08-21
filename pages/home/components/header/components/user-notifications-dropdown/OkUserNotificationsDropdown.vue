@@ -136,9 +136,9 @@
                     this.logger.info("Starting polling user");
                     this.startPollingLastNotification();
                 }
-            } else if(user === null){
+            } else if (user === null) {
                 this.stopPollingLastNotification();
-                this.logger.info('Clearing notifications data');
+                this.logger.info("Clearing notifications data");
                 this.clearLastNotificationId();
                 this.clearHasNewNotification();
             }
@@ -184,7 +184,8 @@
             if (storedLastNotificationId) {
                 if (lastNotification.id > storedLastNotificationId) {
                     // Its a newer notification
-                    await this.setHasNewNotification(true);
+                    if (!this.dropdownIsOpen) await this.setHasNewNotification(true);
+                    await this.refreshNotifications();
                 }
             } else if (this.$observables.loggedInUser.value.unreadNotificationsCount) {
                 await this.setHasNewNotification(true);
@@ -197,7 +198,7 @@
             this.$refs.okUserNotifications.forceReRender();
         }
 
-        private onHasNewNotification() {
+        private refreshNotifications() {
             this.$refs.okUserNotifications.refreshStreams();
         }
 
@@ -207,7 +208,6 @@
         }
 
         async setHasNewNotification(hasNewNotification: boolean) {
-            if (hasNewNotification) this.onHasNewNotification();
             await this.storage.set(OkUserNotificationsDropdown.hasNewNotificationStorageKey, hasNewNotification);
             this.notifyHasNewNotificationChange(hasNewNotification);
         }
