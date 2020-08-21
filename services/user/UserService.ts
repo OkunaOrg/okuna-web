@@ -245,6 +245,7 @@ export class UserService implements IUserService {
     async logout() {
         await this.httpService!.clearAuthToken();
         await this.userPreferencesService.clear();
+        await this.loggedInUser.next(null);
         await this.tokenStorage.remove(UserService.AUTH_TOKEN_STORAGE_KEY);
     }
 

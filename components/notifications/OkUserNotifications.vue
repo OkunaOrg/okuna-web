@@ -49,7 +49,7 @@
         components: {OkUserNotificationsStream}
     })
     export default class OkUserNotifications extends Vue {
-        private readonly requestsNotificationTypes: NotificationType[] = [ NotificationType.connectionRequest ];
+        private readonly requestsNotificationTypes: NotificationType[] = [NotificationType.connectionRequest];
         private readonly generalNotificationTypes: NotificationType[] = NotificationType
             .values()
             .filter(t => !this.requestsNotificationTypes.includes(t));
@@ -84,16 +84,21 @@
         }
 
         onGeneralNotificationsClicked() {
-            if(this.currentTabIndex === 0){
+            if (this.currentTabIndex === 0) {
                 // Already in current tab
                 this.$refs.generalUserNotificationsStream.refresh();
             }
         }
 
         onRequestNotificationsClicked() {
-            if(this.currentTabIndex === 1){
+            if (this.currentTabIndex === 1) {
                 this.$refs.requestUserNotificationsStream.refresh();
             }
+        }
+
+        refreshStreams() {
+            this.$refs.generalUserNotificationsStream?.refresh();
+            this.$refs.requestUserNotificationsStream?.refresh();
         }
 
     }

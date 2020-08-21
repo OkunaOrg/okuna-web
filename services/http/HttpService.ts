@@ -129,6 +129,8 @@ export class HttpService implements IHttpService {
             axiosConfig.headers['Accept'] = `application/json; version=${finalConfig.apiVersion}`;
         }
 
+        axiosConfig['progress'] = finalConfig.progress;
+
         return axiosConfig;
     }
 

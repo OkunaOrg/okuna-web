@@ -55,7 +55,8 @@ export class NotificationsApiService implements INotificationsApiService {
             {
                 appendAuthorizationToken: true,
                 isApiRequest: true,
-                queryParams: queryParams
+                queryParams: queryParams,
+                progress: false
             });
     }
 
