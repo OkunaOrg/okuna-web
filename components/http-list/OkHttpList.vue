@@ -94,7 +94,7 @@
     import OkPostSkeleton from "~/components/skeletons/post/OkPostSkeleton.vue";
     import OkCommunityCardSkeleton from "~/components/skeletons/cards/community-card/OkCommunityCardSkeleton.vue";
     import OkCommunityTileSkeleton from "~/components/skeletons/tiles/OkCommunityTileSkeleton.vue";
-    import OkNotificationSkeleton from '~/components/skeletons/notification/OkNotificationSkeleton.vue';
+    import OkNotificationSkeleton from "~/components/skeletons/notification/OkNotificationSkeleton.vue";
 
     @Component({
         name: "OkHttpList",
@@ -112,6 +112,11 @@
             type: Function,
             required: false
         }) readonly refresher: OkHttpListRefresher<T>;
+
+        @Prop({
+            type: Function,
+            required: false
+        }) readonly onProgrammaticRefresh: () => Promise<void>;
 
         @Prop({
             type: Function,
@@ -174,6 +179,7 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private onScrollLoaderOperation?: CancelableOperation<T[]>;
         private refreshOperation?: CancelableOperation<T[]>;
+        private onProgrammaticRefreshOperation?: CancelableOperation<void>;
         private bootstrapOperation?: CancelableOperation<T[]>;
         private searchRequestOperation?: CancelableOperation<any>;
 
@@ -185,6 +191,7 @@
         destroyed() {
             this.bootstrapOperation?.cancel();
             this.refreshOperation?.cancel();
+            this.onProgrammaticRefreshOperation?.cancel();
             this.searchRequestOperation?.cancel();
             this.onScrollLoaderOperation?.cancel();
         }
@@ -249,12 +256,16 @@
 
         // For clients to use with $refs.okHttpList.refresh()
         async refresh() {
-            if(this.items){
+            if (this.items) {
                 if (this.refreshInProgress) return;
 
-                this.refreshInProgress = true;
-
+                this.setRefreshInProgress(true);
                 try {
+                    if (this.onProgrammaticRefresh) {
+                        this.onProgrammaticRefreshOperation = CancelableOperation.fromPromise(this.onProgrammaticRefresh());
+                        await this.onProgrammaticRefreshOperation.value;
+                    }
+
                     this.refreshOperation = CancelableOperation.fromPromise(this.refresher());
 
                     this.items = await this.refreshOperation.value;
@@ -264,11 +275,16 @@
                 } finally {
                     this.refreshInProgress = false;
                     delete this.refreshOperation;
+                    delete this.onProgrammaticRefreshOperation;
                 }
-            }else{
+            } else {
                 this.reachedLimit = false;
                 this.$refs.infiniteLoading.stateChanger.reset();
             }
+        }
+
+        setRefreshInProgress(refreshInProgress: boolean) {
+            this.refreshInProgress = refreshInProgress;
         }
 
         async searchWithQuery(query: string) {

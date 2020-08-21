@@ -2,7 +2,10 @@
     <section class="notifications-list" v-if="loggedInUser">
         <div class="notifications-stream">
             <ok-http-list
-                    :refresher="notificationsRefresher" :on-scroll-loader="notificationsOnScrollLoader" ref="okHttpList"
+                    :refresher="notificationsRefresher"
+                    :on-programmatic-refresh="notificationsReader"
+                    :on-scroll-loader="notificationsOnScrollLoader"
+                    ref="okHttpList"
                     list-type="notification">
                 <ok-user-notification
                         slot-scope="props"
@@ -16,14 +19,10 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator";
-    import { Subscription } from "rxjs";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
-    import InfiniteLoading from "vue-infinite-loading";
-
     import { IUser } from "~/models/auth/user/IUser";
     import { IUserService } from "~/services/user/IUserService";
-
     import { INotification } from "~/models/notifications/notification/INotification";
     import { NotificationType } from "~/models/notifications/notification/lib/NotificationType";
     import OkUserNotification from "~/components/notifications/components/notification/OkUserNotification.vue";
@@ -77,6 +76,12 @@
 
         refresh() {
             return this.$refs.okHttpList.refresh();
+        }
+
+        notificationsReader(){
+            return this.userService.readNotifications({
+                types: this.notificationTypes
+            });
         }
 
     }

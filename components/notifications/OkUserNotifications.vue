@@ -39,10 +39,42 @@
     </section>
 </template>
 
+<style lang="scss">
+    .notifications-container {
+        .tab-content {
+            padding: 0 !important;
+        }
+
+        .tabs {
+            li {
+                a {
+                    display: block;
+                    text-align: center;
+                    margin-bottom: 0;
+
+                    &:hover {
+                        text-decoration: none !important;
+                    }
+
+                    .ok-notification-tab {
+                        border-bottom: 2px solid transparent;
+                        border-bottom-width: 2px !important;
+                    }
+                }
+            }
+        }
+    }
+</style>
+
 <script lang="ts">
     import { Component, Vue } from "nuxt-property-decorator";
     import { NotificationType } from "~/models/notifications/notification/lib/NotificationType";
     import OkUserNotificationsStream from "~/components/notifications/components/OkUserNotificationsStream.vue";
+    import { CancelableOperation } from '~/lib/CancelableOperation';
+    import { IUserService } from '~/services/user/IUserService';
+    import { TYPES } from '~/services/inversify-types';
+    import { IUtilsService } from '~/services/utils/IUtilsService';
+    import { okunaContainer } from '~/services/inversify';
 
     @Component({
         name: "OkUserNotifications",
@@ -103,30 +135,3 @@
 
     }
 </script>
-
-<style lang="scss">
-    .notifications-container {
-        .tab-content {
-            padding: 0 !important;
-        }
-
-        .tabs {
-            li {
-                a {
-                    display: block;
-                    text-align: center;
-                    margin-bottom: 0;
-
-                    &:hover {
-                        text-decoration: none !important;
-                    }
-
-                    .ok-notification-tab {
-                        border-bottom: 2px solid transparent;
-                        border-bottom-width: 2px !important;
-                    }
-                }
-            }
-        }
-    }
-</style>
