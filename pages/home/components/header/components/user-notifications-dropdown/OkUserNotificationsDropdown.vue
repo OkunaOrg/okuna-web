@@ -8,7 +8,7 @@
         <div class="is-relative">
             <ok-notifications-icon
                     class="ok-svg-icon-primary-invert is-icon-2x user-notifications-dropdown-icon"></ok-notifications-icon>
-            <i v-if="hasNewNotificationSubscription"
+            <i v-if="hasNewNotification"
                class="user-notifications-dropdown-icon-bell ok-has-background-accent-gradient"></i>
         </div>
         <div slot="popover" class="ok-has-background-primary has-border-radius-10 ok-has-border-primary-highlight">
@@ -41,18 +41,15 @@
 <script lang="ts">
     import { Component, Vue, Watch } from "nuxt-property-decorator"
     import { TYPES } from "~/services/inversify-types";
-    import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { IUser } from "~/models/auth/user/IUser";
-    import { BehaviorSubject } from "rxjs";
+    import { BehaviorSubject, Subscription } from "rxjs";
     import OkUserNotifications from "~/components/notifications/OkUserNotifications.vue";
     import { Route } from "vue-router";
     import { IOkLogger } from "~/services/logging/types";
+    import { IUserService } from "~/services/user/IUserService";
+    import { INotificationsService } from "~/services/notifications/INotificationsService";
     import { ILoggingService } from "~/services/logging/ILoggingService";
-    import { CancelableOperation } from "~/lib/CancelableOperation";
-    import { IStorageService } from "~/services/storage/IStorageService";
-    import { IOkStorage } from "~/services/storage/lib/okuna-storage/IOkStorage";
-    import { INotification } from "~/models/notifications/notification/INotification";
 
     @Component({
         name: "OkUserNotificationsDropdown",
@@ -60,28 +57,19 @@
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser,
-                hasNewNotificationSubscription: this["hasNewNotification"],
             };
         }
     })
     export default class OkUserNotificationsDropdown extends Vue {
 
-        static readonly hasNewNotificationStorageKey = "hasNewNotification";
-        static readonly lastNotificationIdStorageKey = "lastNotificationId";
-        static readonly pollingLastNotificationTimeoutInMs = 2000;
-
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private loggingService: ILoggingService = okunaContainer.get<ILoggingService>(TYPES.LoggingService);
-        private storageService: IStorageService = okunaContainer.get<IStorageService>(TYPES.StorageService);
-        private refreshUserOperation?: CancelableOperation<INotification[]>;
-        private nextUserRefreshTimeout: any;
+        private notificationsService: INotificationsService = okunaContainer.get<INotificationsService>(TYPES.NotificationsService);
 
 
-        private hasNewNotification: BehaviorSubject<boolean | undefined> = new BehaviorSubject(false);
-        private lastNotificationId: BehaviorSubject<number | undefined> = new BehaviorSubject(undefined);
-
-        dropdownIsOpen = false;
         $route!: Route;
+        dropdownIsOpen = false;
+        hasNewNotification = false;
 
         $observables!: {
             loggedInUser?: BehaviorSubject<IUser>
@@ -92,27 +80,29 @@
         };
 
         private logger: IOkLogger;
-        private storage: IOkStorage<any>;
+        private newNotificationSubscription: Subscription;
 
-
-        mounted() {
+        created() {
+            this.newNotificationSubscription = this.notificationsService.hasNewNotification.subscribe(this.onHasNewNotification);
             this.logger = this.loggingService.getLogger({
                 name: "OkUserNotificationsDropdown"
             });
-            this.storage = this.storageService.getLocalForageStorage("OkUserNotificationsDropdown");
-            this.bootstrap();
-        }
-
-        async bootstrap() {
-            await this.bootstrapHasNewNotification();
-            await this.bootstrapLastNotificationId();
-            this.userService.loggedInUser.subscribe(this.onLoggedInUser);
         }
 
         destroyed() {
-            this.stopPollingLastNotification();
+            this.newNotificationSubscription.unsubscribe();
         }
 
+        private onHasNewNotification(hasNewNotification: boolean | undefined) {
+            if (typeof hasNewNotification === "undefined") return;
+            // Only show the new notification icon when dropdown is closed
+            if(hasNewNotification){
+                if (!this.dropdownIsOpen) this.hasNewNotification = true;
+                this.refreshNotifications();
+            } else{
+                this.hasNewNotification = false;
+            }
+        }
 
         @Watch("$route")
         onRouteChange(to, from) {
@@ -125,73 +115,8 @@
         onDropdownIsOpenChange(val, oldVal) {
             if (val) {
                 // Dropdown was opened
-                this.setHasNewNotification(false);
+                this.notificationsService.setNoLongerHasNewNotification();
             }
-        }
-
-
-        private async onLoggedInUser(user: IUser | null | undefined) {
-            if (user) {
-                if (!this.nextUserRefreshTimeout) {
-                    this.logger.info("Starting polling user");
-                    this.startPollingLastNotification();
-                }
-            } else if (user === null) {
-                this.stopPollingLastNotification();
-                this.logger.info("Clearing notifications data");
-                this.clearLastNotificationId();
-                this.clearHasNewNotification();
-            }
-        }
-
-        startPollingLastNotification() {
-            return this.pollLastNotification();
-        }
-
-        stopPollingLastNotification() {
-            this.refreshUserOperation?.cancel();
-            if (this.nextUserRefreshTimeout) {
-                clearTimeout(this.nextUserRefreshTimeout);
-                this.nextUserRefreshTimeout = undefined;
-            }
-        }
-
-        async pollLastNotification() {
-            this.nextUserRefreshTimeout = setTimeout(async () => {
-                const lastNotification = await this.getLastNotification();
-                if (lastNotification) await this.onLastNotification(lastNotification);
-                this.pollLastNotification();
-            }, OkUserNotificationsDropdown.pollingLastNotificationTimeoutInMs);
-        }
-
-        async getLastNotification() {
-            try {
-                this.refreshUserOperation = CancelableOperation.fromPromise(this.userService.getNotifications({
-                    types: [],
-                    count: 1
-                }));
-                const notifications = await this.refreshUserOperation.value;
-                if (notifications.length) return notifications[0];
-            } catch (error) {
-                this.logger.error("Failed to get last notification");
-            }
-        }
-
-        async onLastNotification(lastNotification: INotification) {
-            const lastNotificationId = lastNotification.id;
-            const storedLastNotificationId = await this.getLastNotificationId();
-
-            if (storedLastNotificationId) {
-                if (lastNotification.id > storedLastNotificationId) {
-                    // Its a newer notification
-                    if (!this.dropdownIsOpen) await this.setHasNewNotification(true);
-                    await this.refreshNotifications();
-                }
-            } else if (this.$observables.loggedInUser.value.unreadNotificationsCount) {
-                await this.setHasNewNotification(true);
-            }
-
-            await this.setLastNotificationId(lastNotificationId);
         }
 
         handleStreamReRender() {
@@ -202,55 +127,11 @@
             this.logger.info(`Refreshing notifications`);
 
             // Do it as non programmatic so that we dont trigger side effects of programmatic refresh
-            this.$refs.okUserNotifications.refreshStreams({
+            this.$refs?.okUserNotifications?.refreshStreams({
                 isProgrammaticRefresh: false
             });
         }
 
-        private async bootstrapHasNewNotification() {
-            const hasNewNotification = await this.getHasNewNotification();
-            this.notifyHasNewNotificationChange(hasNewNotification);
-        }
-
-        async setHasNewNotification(hasNewNotification: boolean) {
-            this.logger.info(`Setting has new notification: ${hasNewNotification}`);
-            await this.storage.set(OkUserNotificationsDropdown.hasNewNotificationStorageKey, hasNewNotification);
-            this.notifyHasNewNotificationChange(hasNewNotification);
-        }
-
-        async getHasNewNotification() {
-            return await this.storage.get(OkUserNotificationsDropdown.hasNewNotificationStorageKey);
-        }
-
-        clearHasNewNotification() {
-            return this.storage.remove(OkUserNotificationsDropdown.hasNewNotificationStorageKey);
-        }
-
-        private notifyHasNewNotificationChange(hasNewNotification: boolean) {
-            this.hasNewNotification.next(hasNewNotification);
-        }
-
-        private async bootstrapLastNotificationId() {
-            const lastNotificationId = await this.getLastNotificationId();
-            this.notifyLastNotificationIdChange(lastNotificationId);
-        }
-
-        async setLastNotificationId(lastNotificationId: number) {
-            await this.storage.set(OkUserNotificationsDropdown.lastNotificationIdStorageKey, lastNotificationId);
-            this.notifyLastNotificationIdChange(lastNotificationId);
-        }
-
-        clearLastNotificationId() {
-            return this.storage.remove(OkUserNotificationsDropdown.lastNotificationIdStorageKey);
-        }
-
-        async getLastNotificationId() {
-            return await this.storage.get(OkUserNotificationsDropdown.lastNotificationIdStorageKey);
-        }
-
-        private notifyLastNotificationIdChange(lastNotificationId: number) {
-            this.lastNotificationId.next(lastNotificationId);
-        }
 
     }
 </script>
