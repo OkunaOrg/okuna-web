@@ -77,12 +77,6 @@
 </script>
 
 <style lang="scss">
-    .ok-themes-modal {
-        max-width: 360px;
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-
     .ok-themes-wrapper {
         cursor: pointer;
         width: 100px;

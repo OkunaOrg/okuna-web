@@ -46,6 +46,11 @@ export interface IModalService {
 
     openThemesModal(params: ThemeModalParams): Promise<void>;
 
+    openSettingsModal(params?: SettingsModalParams): Promise<void>;
+
+    openApplicationSettingsModal(params?: ApplicationSettingsModalParams): Promise<void>;
+
+
     openGetTheAppModal(): Promise<void>;
 
     openWelcomeToOkunaWebModal(): Promise<void>;
@@ -76,7 +81,8 @@ export type ModalParams =
     | PostCommentActionsModalParams
     | HashtagActionsModalParams
     | ConnectionsCirclesPickerModalParams
-    | ThemeModalParams;
+    | ThemeModalParams
+    | SettingsModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -87,6 +93,13 @@ export interface HttpListModalParams<T> {
 export interface PostModalParams {
     post: IPost;
 }
+
+export interface SettingsModalParams {
+}
+
+export interface ApplicationSettingsModalParams {
+}
+
 
 export interface ConnectionsCirclesPickerModalParams {
     title: string;

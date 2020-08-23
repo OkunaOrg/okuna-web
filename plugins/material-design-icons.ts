@@ -14,6 +14,7 @@ import Star from 'vue-material-design-icons/Star.vue';
 import ChartBubble from 'vue-material-design-icons/ChartBubble.vue';
 import AccountSupervisor from 'vue-material-design-icons/AccountSupervisor.vue';
 import Account from 'vue-material-design-icons/Account.vue';
+import AccountCircle from 'vue-material-design-icons/AccountCircle.vue';
 import Link from 'vue-material-design-icons/Link.vue';
 import HelpCircle from 'vue-material-design-icons/HelpCircle.vue';
 import GoogleCirclesCommunities from 'vue-material-design-icons/GoogleCirclesCommunities.vue';
@@ -45,12 +46,17 @@ import CloseIcon from 'vue-material-design-icons/Close.vue';
 import AccountMultiplePlus from 'vue-material-design-icons/AccountMultiplePlus.vue';
 import OpenInNew from 'vue-material-design-icons/OpenInNew.vue';
 import Cellphone from 'vue-material-design-icons/Cellphone.vue';
+import BugIcon from 'vue-material-design-icons/Bug.vue';
 
 // Full list https://materialdesignicons.com/
 
 import Vue from 'vue';
 
 Vue.component('ok-menu-icon', MenuIcon);
+
+Vue.component('ok-developer-icon', BugIcon);
+
+Vue.component('ok-account-icon', AccountCircle);
 
 Vue.component('ok-notifications-icon', Bell);
 
