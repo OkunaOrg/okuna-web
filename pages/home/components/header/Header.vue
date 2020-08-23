@@ -31,8 +31,7 @@
                             </div>
                             <div class="column is-flex align-items-center is-hidden-desktop is-hidden-tablet justify-center" id="notifications-button">
                                 <nuxt-link to="/n" class="has-cursor-pointer is-flex">
-                                    <ok-notifications-icon
-                                            class="ok-svg-icon-primary-invert is-icon-2x"></ok-notifications-icon>
+                                    <ok-mobile-notifications-icon/>
                                 </nuxt-link>
                             </div>
                             <div class="column is-flex align-items-center is-hidden-mobile justify-center">
@@ -77,10 +76,13 @@
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
+    import OkMobileNotificationsIcon from '~/pages/home/components/header/components/OkMobileNotificationsIcon.vue';
 
     @Component({
         name: "OkHeader",
-        components: {OkLogo, OkUserMenuDropdown, OkUserNotificationsDropdown, OkHeaderSearchBar},
+        components: {
+            OkMobileNotificationsIcon,
+            OkLogo, OkUserMenuDropdown, OkUserNotificationsDropdown, OkHeaderSearchBar},
         subscriptions: function () {
             return {
                 environmentResolution: this["environmentService"].environmentResolution
