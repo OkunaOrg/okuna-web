@@ -70,11 +70,12 @@
     import { Component, Vue } from "nuxt-property-decorator";
     import { NotificationType } from "~/models/notifications/notification/lib/NotificationType";
     import OkUserNotificationsStream from "~/components/notifications/components/OkUserNotificationsStream.vue";
-    import { CancelableOperation } from '~/lib/CancelableOperation';
-    import { IUserService } from '~/services/user/IUserService';
-    import { TYPES } from '~/services/inversify-types';
-    import { IUtilsService } from '~/services/utils/IUtilsService';
-    import { okunaContainer } from '~/services/inversify';
+    import { CancelableOperation } from "~/lib/CancelableOperation";
+    import { IUserService } from "~/services/user/IUserService";
+    import { TYPES } from "~/services/inversify-types";
+    import { IUtilsService } from "~/services/utils/IUtilsService";
+    import { okunaContainer } from "~/services/inversify";
+    import { OkHttpListRefreshParams } from '~/components/http-list/lib/OkHttpListParams';
 
     @Component({
         name: "OkUserNotifications",
@@ -128,9 +129,9 @@
             }
         }
 
-        refreshStreams() {
-            this.$refs.generalUserNotificationsStream?.refresh();
-            this.$refs.requestUserNotificationsStream?.refresh();
+        refreshStreams(params: OkHttpListRefreshParams) {
+            this.$refs.generalUserNotificationsStream?.refresh(params);
+            this.$refs.requestUserNotificationsStream?.refresh(params);
         }
 
     }

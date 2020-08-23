@@ -28,6 +28,7 @@
     import OkUserNotification from "~/components/notifications/components/notification/OkUserNotification.vue";
     import { BehaviorSubject } from "rxjs";
     import OkHttpList from "~/components/http-list/OkHttpList.vue";
+    import { OkHttpListRefreshParams } from "~/components/http-list/lib/OkHttpListParams";
 
     @Component({
         name: "OkUserNotificationsStream",
@@ -74,11 +75,11 @@
             });
         }
 
-        refresh() {
-            return this.$refs.okHttpList.refresh();
+        refresh(params?: OkHttpListRefreshParams) {
+            return this.$refs.okHttpList.refresh(params);
         }
 
-        notificationsReader(){
+        notificationsReader() {
             return this.userService.readNotifications({
                 types: this.notificationTypes
             });

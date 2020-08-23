@@ -87,7 +87,7 @@
     import InfiniteLoading from "vue-infinite-loading";
     import {
         OkHttpListOnScrollLoader,
-        OkHttpListRefresher, OkHttpListSearcher,
+        OkHttpListRefresher, OkHttpListRefreshParams, OkHttpListSearcher,
     } from "~/components/http-list/lib/OkHttpListParams";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
@@ -255,13 +255,13 @@
         }
 
         // For clients to use with $refs.okHttpList.refresh()
-        async refresh() {
+        async refresh(config: OkHttpListRefreshParams = {isProgrammaticRefresh: true}) {
             if (this.items) {
                 if (this.refreshInProgress) return;
 
                 this.setRefreshInProgress(true);
                 try {
-                    if (this.onProgrammaticRefresh) {
+                    if (this.onProgrammaticRefresh && config.isProgrammaticRefresh) {
                         this.onProgrammaticRefreshOperation = CancelableOperation.fromPromise(this.onProgrammaticRefresh());
                         await this.onProgrammaticRefreshOperation.value;
                     }

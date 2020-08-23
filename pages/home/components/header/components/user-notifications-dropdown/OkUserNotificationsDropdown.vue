@@ -199,7 +199,12 @@
         }
 
         private refreshNotifications() {
-            this.$refs.okUserNotifications.refreshStreams();
+            this.logger.info(`Refreshing notifications`);
+
+            // Do it as non programmatic so that we dont trigger side effects of programmatic refresh
+            this.$refs.okUserNotifications.refreshStreams({
+                isProgrammaticRefresh: false
+            });
         }
 
         private async bootstrapHasNewNotification() {
@@ -208,6 +213,7 @@
         }
 
         async setHasNewNotification(hasNewNotification: boolean) {
+            this.logger.info(`Setting has new notification: ${hasNewNotification}`);
             await this.storage.set(OkUserNotificationsDropdown.hasNewNotificationStorageKey, hasNewNotification);
             this.notifyHasNewNotificationChange(hasNewNotification);
         }
