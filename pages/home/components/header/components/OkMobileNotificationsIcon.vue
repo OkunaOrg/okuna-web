@@ -18,6 +18,8 @@
         height: 10px;
         width: 10px;
         border-radius: 500px;
+        top: 0;
+        right: -10px;
     }
 </style>
 
