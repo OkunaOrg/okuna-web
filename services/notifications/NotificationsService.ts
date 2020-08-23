@@ -10,6 +10,8 @@ import { IUser } from '~/models/auth/user/IUser';
 import { INotification } from '~/models/notifications/notification/INotification';
 import { CancelableOperation } from '~/lib/CancelableOperation';
 import { IUserService } from '~/services/user/IUserService';
+import { Howl } from 'howler';
+import { IUserPreferencesService } from '~/services/user-preferences/IUserPreferencesService';
 
 @injectable()
 export class NotificationsService implements INotificationsService {
@@ -27,9 +29,11 @@ export class NotificationsService implements INotificationsService {
     private storage: IOkStorage<any>;
     private refreshUserOperation?: CancelableOperation<INotification[]>;
     private nextUserRefreshTimeout: any;
+    private notificationHowl: Howl;
 
     constructor(
         @inject(TYPES.StorageService)  storageService?: IStorageService,
+        @inject(TYPES.UserPreferencesService) private userPreferencesService?: IUserPreferencesService,
         @inject(TYPES.LoggingService)  loggingService?: ILoggingService,
         @inject(TYPES.UserService) private userService?: IUserService,
     ) {
@@ -39,14 +43,38 @@ export class NotificationsService implements INotificationsService {
         });
     }
 
+
     async bootstrap() {
         await this.bootstrapHasNewNotification();
         await this.bootstrapLastNotificationId();
+        this.bootstrapNotificationSound();
         this.userService.loggedInUser.subscribe(this.onLoggedInUserChange.bind(this));
     }
 
     setNoLongerHasNewNotification() {
         return this.setHasNewNotification(false);
+    }
+
+    private bootstrapNotificationSound() {
+        const mp3Sound = '/sounds/juntos.mp3';
+        const oggSound = '/sounds/juntos.ogg';
+        const m4rSound = '/sounds/juntos.m4r';
+
+        this.notificationHowl = new Howl({
+            volume: 0.2,
+            src: [
+                mp3Sound,
+                oggSound,
+                m4rSound
+            ]
+        });
+    }
+
+    private playNotificationSound() {
+        if (this.userPreferencesService.notificationsSoundIsEnabled.value) {
+            this.logger.info('Playing notification sound');
+            this.notificationHowl.play();
+        }
     }
 
     private async onLoggedInUserChange(user: IUser | null | undefined) {
@@ -63,11 +91,11 @@ export class NotificationsService implements INotificationsService {
         }
     }
 
-    startPollingLastNotification() {
+    private startPollingLastNotification() {
         return this.pollLastNotification();
     }
 
-    stopPollingLastNotification() {
+    private stopPollingLastNotification() {
         this.refreshUserOperation.cancel();
         if (this.nextUserRefreshTimeout) {
             clearTimeout(this.nextUserRefreshTimeout);
@@ -76,7 +104,7 @@ export class NotificationsService implements INotificationsService {
     }
 
 
-    async pollLastNotification() {
+    private async pollLastNotification() {
         this.nextUserRefreshTimeout = setTimeout(async () => {
             const lastNotification = await this.getLastNotification();
             if (lastNotification) await this.onLastNotification(lastNotification);
@@ -84,7 +112,7 @@ export class NotificationsService implements INotificationsService {
         }, NotificationsService.pollingLastNotificationTimeoutInMs);
     }
 
-    async getLastNotification() {
+    private async getLastNotification() {
         try {
             this.refreshUserOperation = CancelableOperation.fromPromise(this.userService.getNotifications({
                 types: [],
@@ -97,13 +125,16 @@ export class NotificationsService implements INotificationsService {
         }
     }
 
-    async onLastNotification(lastNotification: INotification) {
+    private async onLastNotification(lastNotification: INotification) {
         const lastNotificationId = lastNotification.id;
         const storedLastNotificationId = await this.getLastNotificationId();
 
         if (storedLastNotificationId) {
             if (lastNotification.id > storedLastNotificationId) {
                 // Its a newer notification
+                if(!this.hasNewNotification.value){
+                    this.playNotificationSound();
+                }
                 await this.setHasNewNotification(true);
             }
         } else if (this.userService.loggedInUser.value.unreadNotificationsCount) {
@@ -129,7 +160,7 @@ export class NotificationsService implements INotificationsService {
         return await this.storage.get(NotificationsService.hasNewNotificationStorageKey);
     }
 
-    clearHasNewNotification() {
+    private clearHasNewNotification() {
         return this.storage.remove(NotificationsService.hasNewNotificationStorageKey);
     }
 
@@ -147,7 +178,7 @@ export class NotificationsService implements INotificationsService {
         this.notifyLastNotificationIdChange(lastNotificationId);
     }
 
-    clearLastNotificationId() {
+    private clearLastNotificationId() {
         return this.storage.remove(NotificationsService.lastNotificationIdStorageKey);
     }
 
