@@ -12,7 +12,7 @@
                 :avatar-size="avatarSize.medium"
             ></ok-user-avatar>
         </div>
-        <div class="notification-body media-content ok-has-text-primary-invert">
+        <div class="notification-body media-content ok-has-text-primary-invert has-overflow-hidden">
             <strong class="notification-body-name" v-if="!community">{{ initiator.profile.name }}</strong>
             <span class="notification-body-username" v-if="!community">@{{ initiator.username }}</span>
             <span class="notification-text has-preserved-whitespace">{{ notificationBody }}</span>

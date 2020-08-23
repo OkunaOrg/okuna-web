@@ -5,15 +5,24 @@ import { TYPES } from '~/services/inversify-types';
 import { IWindowService } from '~/services/window/IWindowService';
 import { BehaviorSubject } from '~/node_modules/rxjs';
 import { EnvironmentResolution } from '~/services/environment/lib/EnvironmentResolution';
+import Bowser from '~/node_modules/bowser';
+import BrowserDetails = Bowser.Parser.BrowserDetails;
 
 @injectable()
 export class EnvironmentService implements IEnvironmentService {
 
     environmentResolution: BehaviorSubject<EnvironmentResolution | undefined> = new BehaviorSubject(undefined);
+    browserDetails: BehaviorSubject<BrowserDetails | undefined> = new BehaviorSubject(undefined);
 
     constructor(@inject(TYPES.WindowService) private windowService?: IWindowService) {
         this.recalculateEnvironmentResolution(windowService.getWidth());
         this.windowService.onWidthChange(this.recalculateEnvironmentResolution.bind(this));
+        this.bootstrapBrowser();
+    }
+
+    bootstrapBrowser() {
+        const browser = Bowser.getParser(window.navigator.userAgent);
+        this.browserDetails.next(browser.getBrowser());
     }
 
     get apiUrl() {

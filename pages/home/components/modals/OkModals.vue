@@ -78,6 +78,12 @@
         <b-modal :active.sync="communityStaffModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-community-staff-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-staff-modal>
         </b-modal>
+        <b-modal :active.sync="settingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-settings-modal :params="activeModalParams"></ok-settings-modal>
+        </b-modal>
+        <b-modal :active.sync="applicationSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-application-settings-modal :params="activeModalParams"></ok-application-settings-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -118,12 +124,17 @@
     import OkThemesModal from "~/pages/home/components/modals/components/OkThemesModal.vue";
     import OkGetTheAppModal from "~/pages/home/components/modals/components/get-the-app/OkGetTheAppModal.vue";
     import OkWelcomeToOkunaWebModal from "~/pages/home/components/modals/components/OkWelcomeToOkunaWebModal.vue";
-    import OkCommunityStaffModal from "~/pages/home/components/modals/components/community-staff/OkCommunityStaffModal.vue";
+    import OkCommunityStaffModal
+        from "~/pages/home/components/modals/components/community-staff/OkCommunityStaffModal.vue";
     import OkCommunityRulesModal from "~/pages/home/components/modals/components/OkCommunityRulesModal.vue";
+    import OkSettingsModal from "~/pages/home/components/modals/components/OkSettingsModal.vue";
+    import OkApplicationSettingsModal from '~/pages/home/components/modals/components/OkApplicationSettingsModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkApplicationSettingsModal,
+            OkSettingsModal,
             OkCommunityRulesModal,
             OkCommunityStaffModal,
             OkWelcomeToOkunaWebModal,
@@ -170,6 +181,8 @@
         welcomeToOkunaWebModalOpen: boolean = false;
         communityStaffModalOpen: boolean = false;
         communityRulesModalOpen: boolean = false;
+        settingsModalOpen: boolean = false;
+        applicationSettingsModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -217,6 +230,8 @@
             this.welcomeToOkunaWebModalOpen = activeModalValue === ModalType.welcomeToOkunaWeb;
             this.communityStaffModalOpen = activeModalValue === ModalType.communityStaff;
             this.communityRulesModalOpen = activeModalValue === ModalType.communityRules;
+            this.settingsModalOpen = activeModalValue === ModalType.settings;
+            this.applicationSettingsModalOpen = activeModalValue === ModalType.applicationSettings;
         }
     }
 </script>

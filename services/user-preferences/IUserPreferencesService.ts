@@ -10,6 +10,10 @@ export interface IUserPreferencesService {
 
     linkPreviewsAreEnabled: BehaviorSubject<boolean | undefined>;
 
+    notificationsSoundIsEnabled: BehaviorSubject<boolean | undefined>;
+
+    setNotificationsSoundIsEnabled(notificationsSoundIsEnabled: boolean): Promise<void>;
+
     setLinkPreviewsSetting(linkPreviewsSetting: LinkPreviewsSetting): Promise<void>;
 
     getLinkPreviewsSettingLocalizationMap(): WeakMap<LinkPreviewsSetting, string>;

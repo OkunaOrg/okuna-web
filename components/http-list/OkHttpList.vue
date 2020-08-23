@@ -20,7 +20,7 @@
         <div v-else-if="refresher" class="ok-http-list-infinite-loading is-relative"
              :class="{[`${itemsContainerClass}`]: items.length}">
             <transition name="fade">
-                <div v-if="refreshInProgress" class="has-padding-bottom-30 has-padding-left-30 has-padding-right-30">
+                <div v-if="refreshInProgress" class="has-padding-30">
                     <ok-loading-indicator style="position: relative;"></ok-loading-indicator>
                 </div>
             </transition>
@@ -33,6 +33,10 @@
 
                 <template v-if="listType === 'post' && !items.length" slot="spinner">
                     <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
+                </template>
+
+                <template v-if="listType === 'notification' && !items.length" slot="spinner">
+                    <ok-notification-skeleton :class="itemClass"></ok-notification-skeleton>
                 </template>
 
                 <template v-else-if="listType === 'community' && !items.length" slot="spinner">
@@ -83,17 +87,19 @@
     import InfiniteLoading from "vue-infinite-loading";
     import {
         OkHttpListOnScrollLoader,
-        OkHttpListRefresher, OkHttpListSearcher,
+        OkHttpListRefresher, OkHttpListRefreshParams, OkHttpListSearcher,
     } from "~/components/http-list/lib/OkHttpListParams";
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import OkLoadingIndicator from "~/components/utils/OkLoadingIndicator.vue";
     import OkPostSkeleton from "~/components/skeletons/post/OkPostSkeleton.vue";
     import OkCommunityCardSkeleton from "~/components/skeletons/cards/community-card/OkCommunityCardSkeleton.vue";
     import OkCommunityTileSkeleton from "~/components/skeletons/tiles/OkCommunityTileSkeleton.vue";
+    import OkNotificationSkeleton from "~/components/skeletons/notification/OkNotificationSkeleton.vue";
 
     @Component({
         name: "OkHttpList",
         components: {
+            OkNotificationSkeleton,
             OkLoadingIndicator,
             OkPostSkeleton,
             OkCommunityCardSkeleton,
@@ -106,6 +112,11 @@
             type: Function,
             required: false
         }) readonly refresher: OkHttpListRefresher<T>;
+
+        @Prop({
+            type: Function,
+            required: false
+        }) readonly onProgrammaticRefresh: () => Promise<void>;
 
         @Prop({
             type: Function,
@@ -168,6 +179,7 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private onScrollLoaderOperation?: CancelableOperation<T[]>;
         private refreshOperation?: CancelableOperation<T[]>;
+        private onProgrammaticRefreshOperation?: CancelableOperation<void>;
         private bootstrapOperation?: CancelableOperation<T[]>;
         private searchRequestOperation?: CancelableOperation<any>;
 
@@ -179,6 +191,7 @@
         destroyed() {
             this.bootstrapOperation?.cancel();
             this.refreshOperation?.cancel();
+            this.onProgrammaticRefreshOperation?.cancel();
             this.searchRequestOperation?.cancel();
             this.onScrollLoaderOperation?.cancel();
         }
@@ -242,13 +255,17 @@
         }
 
         // For clients to use with $refs.okHttpList.refresh()
-        async refresh() {
-            if(this.items){
+        async refresh(config: OkHttpListRefreshParams = {isProgrammaticRefresh: true}) {
+            if (this.items) {
                 if (this.refreshInProgress) return;
 
-                this.refreshInProgress = true;
-
+                this.setRefreshInProgress(true);
                 try {
+                    if (this.onProgrammaticRefresh && config.isProgrammaticRefresh) {
+                        this.onProgrammaticRefreshOperation = CancelableOperation.fromPromise(this.onProgrammaticRefresh());
+                        await this.onProgrammaticRefreshOperation.value;
+                    }
+
                     this.refreshOperation = CancelableOperation.fromPromise(this.refresher());
 
                     this.items = await this.refreshOperation.value;
@@ -258,11 +275,16 @@
                 } finally {
                     this.refreshInProgress = false;
                     delete this.refreshOperation;
+                    delete this.onProgrammaticRefreshOperation;
                 }
-            }else{
+            } else {
                 this.reachedLimit = false;
                 this.$refs.infiniteLoading.stateChanger.reset();
             }
+        }
+
+        setRefreshInProgress(refreshInProgress: boolean) {
+            this.refreshInProgress = refreshInProgress;
         }
 
         async searchWithQuery(query: string) {

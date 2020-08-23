@@ -363,6 +363,11 @@ export default {
             "welcome_to_okuna_get_the_app": "If you want to experience the whole of Okuna right now, get the app!",
             "welcome_to_okuna_thanks": "Thanks for being part of Okuna! We hope you have a fun, friendly and joyful experience.",
             "welcome_to_okuna_signature": "- ❤️ Okuna Team",
+            "account_settings": "Account settings",
+            "application_settings": "Application settings",
+            "developer_settings": "Developer settings",
+            "about": "About",
+            "notifications_sound": "Notifications sound",
         },
     },
 }

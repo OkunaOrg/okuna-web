@@ -2,7 +2,8 @@
     <nav class="menu has-padding-20">
         <ul class="menu-list">
             <li class="has-padding-bottom-5">
-                <button class="button is-success is-rounded is-fullwidth has-background-rainbow has-text-weight-bold justify-center align-items-center" @click="onWantsToGetTheApp">
+                <button class="button is-success is-rounded is-fullwidth has-background-rainbow has-text-weight-bold justify-center align-items-center"
+                        @click="onWantsToGetTheApp">
                     <ok-cellphone-icon
                             class="is-white ok-user-menu-get-app-icon"></ok-cellphone-icon>
                     <span class="has-padding-left-10">{{$t('global.snippets.get_the_app')}}</span>
@@ -115,8 +116,9 @@
         </p>
         <ul class="menu-list">
             <li>
-                <nuxt-link :to="'/'"
-                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <a href="javascript://"
+                   @click="onWantsToOpenSettings"
+                   class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-settings-icon
                                          class="ok-svg-icon-primary-invert"></ok-settings-icon>
@@ -124,13 +126,13 @@
                     <span class="ok-has-text-primary-invert">
                                 {{$t('components.user_dropdown.settings')}}
                             </span>
-                </nuxt-link>
+                </a>
             </li>
             <li>
                 <a
-                    href="javascript://"
-                    class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover"
-                    @click="onThemesClick"
+                        href="javascript://"
+                        class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover"
+                        @click="onThemesClick"
                 >
                             <span class="icon has-padding-right-10">
                                  <ok-customize-icon
@@ -142,7 +144,8 @@
                 </a>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-help-icon
                                          class="ok-svg-icon-primary-invert"></ok-help-icon>
@@ -153,7 +156,8 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'" class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <nuxt-link :to="'/'"
+                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-link-icon
                                          class="ok-svg-icon-primary-invert"></ok-link-icon>
@@ -183,7 +187,7 @@
 </template>
 
 <style lang="scss">
-    .ok-user-menu-get-app-icon{
+    .ok-user-menu-get-app-icon {
         position: relative;
         top: -2px;
     }
@@ -246,15 +250,20 @@
         }
 
         async onThemesClick() {
-            this.$emit('leaveMenu');
+            this.$emit("leaveMenu");
             await this.modalService.openThemesModal({
-                title: this.$t('components.user_dropdown.themes').toString()
+                title: this.$t("components.user_dropdown.themes").toString()
             });
         }
 
-        async onWantsToGetTheApp(){
-            this.$emit('leaveMenu');
+        async onWantsToGetTheApp() {
+            this.$emit("leaveMenu");
             await this.modalService.openGetTheAppModal();
+        }
+
+        async onWantsToOpenSettings() {
+            this.$emit("leaveMenu");
+            await this.modalService.openSettingsModal();
         }
     }
 </script>

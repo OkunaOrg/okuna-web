@@ -44,6 +44,7 @@ export function createRouter() {
                         component: OkMenuPage
                     },
                     {
+                        name: 'notifications',
                         path: 'n',
                         component: OkNotificationsPage
                     },

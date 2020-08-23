@@ -245,6 +245,7 @@ export class UserService implements IUserService {
     async logout() {
         await this.httpService!.clearAuthToken();
         await this.userPreferencesService.clear();
+        await this.loggedInUser.next(null);
         await this.tokenStorage.remove(UserService.AUTH_TOKEN_STORAGE_KEY);
     }
 
@@ -271,7 +272,11 @@ export class UserService implements IUserService {
             // This cache stays for as long as the user session is active
             storeInSessionCache: true
         });
-        this.setLoggedInUser(user);
+
+        if(!this.loggedInUser.value || this.loggedInUser.value.username !== user.username){
+            this.setLoggedInUser(user);
+        }
+
         return user;
     }
 

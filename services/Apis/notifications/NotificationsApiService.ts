@@ -26,15 +26,15 @@ export class NotificationsApiService implements INotificationsApiService {
     }
 
     readNotifications(params: ReadNotificationsApiParams): Promise<AxiosResponse<void>> {
-        let queryParams = {};
+        const bodyFormData = new FormData();
 
-        if (params.maxId) queryParams['max_id'] = params.maxId;
+        if (params.maxId) bodyFormData.set('max_id', params.maxId.toString());
 
-        if (params.types) queryParams['types'] = params.types.map((type) => type.code);
+        if (params.types) bodyFormData.set('types', params.types.map((type) => type.code).join(','));
 
-        return this.httpService.get(NotificationsApiService.NOTIFICATIONS_READ_PATH,
+        return this.httpService.post(NotificationsApiService.NOTIFICATIONS_READ_PATH,
+            bodyFormData,
             {
-                queryParams: queryParams,
                 appendAuthorizationToken: true,
                 isApiRequest: true
             });
@@ -55,7 +55,8 @@ export class NotificationsApiService implements INotificationsApiService {
             {
                 appendAuthorizationToken: true,
                 isApiRequest: true,
-                queryParams: queryParams
+                queryParams: queryParams,
+                progress: false
             });
     }
 

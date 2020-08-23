@@ -1,36 +1,38 @@
 <template>
     <section class="notifications-list" v-if="loggedInUser">
         <div class="notifications-stream">
-            <div v-for="notification in notifications" :key="notification.id">
+            <ok-http-list
+                    :refresher="notificationsRefresher"
+                    :on-programmatic-refresh="notificationsReader"
+                    :on-scroll-loader="notificationsOnScrollLoader"
+                    ref="okHttpList"
+                    list-type="notification">
                 <ok-user-notification
-                    :notification="notification"
-                    :currentUser="loggedInUser"
+                        slot-scope="props"
+                        :notification="props.item"
+                        :currentUser="loggedInUser"
                 ></ok-user-notification>
-            </div>
+            </ok-http-list>
         </div>
-
-        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </section>
 </template>
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator";
-    import { Subscription } from "rxjs";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
-    import InfiniteLoading from 'vue-infinite-loading';
-
     import { IUser } from "~/models/auth/user/IUser";
-    import { IUserService } from '~/services/user/IUserService';
-
+    import { IUserService } from "~/services/user/IUserService";
     import { INotification } from "~/models/notifications/notification/INotification";
     import { NotificationType } from "~/models/notifications/notification/lib/NotificationType";
     import OkUserNotification from "~/components/notifications/components/notification/OkUserNotification.vue";
     import { BehaviorSubject } from "rxjs";
+    import OkHttpList from "~/components/http-list/OkHttpList.vue";
+    import { OkHttpListRefreshParams } from "~/components/http-list/lib/OkHttpListParams";
 
     @Component({
         name: "OkUserNotificationsStream",
-        components: {OkUserNotification},
+        components: {OkHttpList, OkUserNotification},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
@@ -38,35 +40,50 @@
         }
     })
     export default class OkUserNotificationsStream extends Vue {
+
+        static infiniteScrollChunkNotificationsCount = 10;
+
         @Prop(Array) readonly notificationTypes: NotificationType[];
 
         $observables!: {
             loggedInUser?: BehaviorSubject<IUser | undefined>
         };
 
+        $refs!: {
+            okHttpList: OkHttpList<INotification>
+        };
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         notifications: INotification[] = [];
 
-        infiniteHandler($state) {
-            let lastNotificationId;
-            const lastNotification = this.notifications[this.notifications.length - 1];
-            if (lastNotification) {
-                lastNotificationId = lastNotification.id;
-            }
-
-            this.userService.getNotifications({
-                maxId: lastNotificationId,
-                count: 10,
+        async notificationsRefresher(): Promise<INotification[]> {
+            return this.userService.getNotifications({
+                count: OkUserNotificationsStream.infiniteScrollChunkNotificationsCount,
                 types: this.notificationTypes
-            }).then(userNotifications => {
-                if (userNotifications.length) {
-                    this.notifications.push(...userNotifications);
-                    $state.loaded();
-                } else {
-                    $state.complete();
-                }
             });
         }
+
+        async notificationsOnScrollLoader(notifications: INotification[]): Promise<INotification[]> {
+            const lastNotification = notifications[notifications.length - 1];
+            const lastNotificationId = lastNotification.id;
+
+            return this.userService.getNotifications({
+                count: OkUserNotificationsStream.infiniteScrollChunkNotificationsCount,
+                types: this.notificationTypes,
+                maxId: lastNotificationId
+            });
+        }
+
+        refresh(params?: OkHttpListRefreshParams) {
+            return this.$refs.okHttpList.refresh(params);
+        }
+
+        notificationsReader() {
+            return this.userService.readNotifications({
+                types: this.notificationTypes
+            });
+        }
+
     }
 </script>

@@ -118,6 +118,16 @@ export class ModalService implements IModalService {
         return this.openModal(ModalType.themes, params);
     }
 
+    async openSettingsModal(params: ThemeModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.settings, params);
+    }
+
+    async openApplicationSettingsModal(params: ThemeModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.applicationSettings, params);
+    }
+
     async openGetTheAppModal(): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.getTheApp);

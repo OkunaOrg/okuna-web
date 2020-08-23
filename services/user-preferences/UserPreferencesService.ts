@@ -19,6 +19,7 @@ export class UserPreferencesService implements IUserPreferencesService {
     static readonly linkPreviewsSettingStorageKey = 'linkPreviewsSetting';
     static readonly videosSoundSettingStorageKey = 'videoSoundSetting';
     static readonly hashtagsDisplaySettingStorageKey = 'hashtagsSetting';
+    static readonly notificationsSoundIsEnabledSettingStorageKey = 'notificationsSoundIsEnabledSetting';
 
     hashtagDisplaySetting: BehaviorSubject<HashtagDisplaySetting | undefined> = new BehaviorSubject(undefined);
 
@@ -33,7 +34,9 @@ export class UserPreferencesService implements IUserPreferencesService {
 
     postCommentsSortSetting: BehaviorSubject<PostCommentsSortSetting | undefined> = new BehaviorSubject(undefined);
 
-    private storage: IOkStorage<string>;
+    notificationsSoundIsEnabled: BehaviorSubject<boolean | undefined> = new BehaviorSubject(undefined);
+
+    private storage: IOkStorage<any>;
 
     constructor(
         @inject(TYPES.StorageService)  storageService?: IStorageService,
@@ -46,6 +49,7 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.bootstrapVideosAutoPlaySetting();
         this.bootstrapVideosSoundSetting();
         this.bootstrapLinkPreviewsSetting();
+        this.bootstrapNotificationsSoundIsEnabled();
     }
 
     async setHashtagDisplaySetting(hashtagDisplaySetting: HashtagDisplaySetting): Promise<void> {
@@ -206,6 +210,11 @@ export class UserPreferencesService implements IUserPreferencesService {
         return localizationMap;
     }
 
+    async setNotificationsSoundIsEnabled(notificationsSoundIsEnabled: boolean): Promise<void> {
+        await this.storage.set(UserPreferencesService.notificationsSoundIsEnabledSettingStorageKey, notificationsSoundIsEnabled);
+        this.notifyNotificationsSoundIsEnabledChange(notificationsSoundIsEnabled);
+    }
+
     private async bootstrapLinkPreviewsSetting() {
         const serializedValue = await this.storage.get(
             UserPreferencesService.linkPreviewsSettingStorageKey,
@@ -219,6 +228,18 @@ export class UserPreferencesService implements IUserPreferencesService {
         this.linkPreviewsSetting.next(linkPreviewsSetting);
         const linkPreviewsIsEnabled = linkPreviewsSetting === LinkPreviewsSetting.always;
         this.linkPreviewsAreEnabled.next(linkPreviewsIsEnabled);
+    }
+
+    private async bootstrapNotificationsSoundIsEnabled() {
+        const serializedValue = await this.storage.get(
+            UserPreferencesService.notificationsSoundIsEnabledSettingStorageKey,
+            true
+        );
+        this.notifyNotificationsSoundIsEnabledChange(serializedValue);
+    }
+
+    private notifyNotificationsSoundIsEnabledChange(notificationsSoundIsEnabled: boolean) {
+        this.notificationsSoundIsEnabled.next(notificationsSoundIsEnabled);
     }
 
     clear(): Promise<void> {
