@@ -18,7 +18,7 @@ import AccountCircle from 'vue-material-design-icons/AccountCircle.vue';
 import Link from 'vue-material-design-icons/Link.vue';
 import HelpCircle from 'vue-material-design-icons/HelpCircle.vue';
 import GoogleCirclesCommunities from 'vue-material-design-icons/GoogleCirclesCommunities.vue';
-import LibraryBooks from 'vue-material-design-icons/LibraryBooks.vue';
+import LibraryBooks from 'vue-material-design-icons/FormatListBulletedType.vue';
 import WalletGiftcard from 'vue-material-design-icons/WalletGiftcard.vue';
 import FormatPaint from 'vue-material-design-icons/FormatPaint.vue';
 import ExitToApp from 'vue-material-design-icons/ExitToApp.vue';
