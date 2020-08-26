@@ -19,6 +19,7 @@
                 </div>
             </div>
         </div>
+        <ok-new-post-action :community="community"/>
     </div>
 </template>
 
@@ -52,10 +53,12 @@
         from "~/pages/home/pages/community/components/desktop-community-profile/components/desktop-community-profile-sidebar/OkDesktopCommunityProfileSidebar.vue";
     import OkDesktopCommunityProfileTimeline
         from "~/pages/home/pages/community/components/desktop-community-profile/components/desktop-community-profile-timeline/OkDesktopCommunityProfileTimeline.vue";
+    import OkNewPostAction from '~/components/new-post-action/OkNewPostAction.vue';
 
     @Component({
         name: "OkDesktopCommunityProfile",
         components: {
+            OkNewPostAction,
             OkDesktopCommunityProfileTimeline,
             OkDesktopCommunityProfileSidebar,
             OkDesktopCommunityProfileHeader,

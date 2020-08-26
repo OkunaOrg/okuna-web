@@ -262,6 +262,7 @@ export default {
             "get_started_with_communities": "Get started by joining the following communities.",
             "forgot_password": "Forgot password?",
             "get_the_app": "Get the app",
+            "create_post": "Create post",
             "type_here": "Type here...",
             "about_us": "About us",
             "hooray": "Hooray!",
