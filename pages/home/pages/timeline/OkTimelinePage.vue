@@ -8,8 +8,35 @@
                 :on-scroll-loader="postsOnScrollLoader"
                 post-container-class="has-padding-bottom-30-tablet has-padding-right-30-tablet has-padding-left-30-tablet"
         ></ok-posts-stream>
+        <div class="ok-new-post-action">
+            <div class="has-padding-20">
+                <button class="button is-rounded is-fullwidth ok-has-background-accent-gradient has-text-weight-bold justify-center align-items-center ok-new-post-action__button">
+                    <ok-plus-icon
+                            class="is-icon-2n5x"></ok-plus-icon>
+                    <span class="has-padding-left-10 is-hidden">{{$t('global.snippets.create_post')}}</span>
+                </button>
+            </div>
+        </div>
     </section>
 </template>
+
+<style lang="scss">
+    .ok-new-post-action{
+        position: fixed;
+        bottom: 68px;
+        right: 0;
+
+        @include for-size(tablet-portrait-up) {
+            bottom: 0;
+        }
+
+        &__button{
+            height: 4rem !important;
+            color: white !important;
+            width: 4rem !important;
+        }
+    }
+</style>
 
 
 <script lang="ts">
