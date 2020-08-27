@@ -1,6 +1,16 @@
 <template>
     <header class="ok-mobile-header is-flex" :class="cssClasses" :style="headerStyle">
-        <slot></slot>
+        <div class="media has-width-100-percent align-items-center">
+            <div class="media-left" v-if="hasLeadingSlot">
+                <slot name="leading"></slot>
+            </div>
+            <div class="media-content has-text-centered">
+                <slot></slot>
+            </div>
+            <div class="media-right" v-if="hasTrailingSlot">
+                <slot name="trailing"></slot>
+            </div>
+        </div>
     </header>
 </template>
 
@@ -78,6 +88,13 @@
         }
 
 
+        get hasLeadingSlot () {
+            return !!this.$slots['leading'];
+        }
+
+        get hasTrailingSlot () {
+            return !!this.$slots['trailing'];
+        }
     }
 </script>
 

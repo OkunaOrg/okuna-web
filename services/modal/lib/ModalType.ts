@@ -20,6 +20,7 @@ export class ModalType {
     static getTheApp = new ModalType('GetTheApp');
     static communityRules = new ModalType('CommunityRules');
     static communityStaff = new ModalType('CommunityStaff');
+    static createPost = new ModalType('createPost');
 
 
     static _values: ModalType[] = [
@@ -40,6 +41,9 @@ export class ModalType {
         ModalType.getTheApp,
         ModalType.communityRules,
         ModalType.communityStaff,
+        ModalType.settings,
+        ModalType.applicationSettings,
+        ModalType.createPost,
     ];
 
     static values() {
