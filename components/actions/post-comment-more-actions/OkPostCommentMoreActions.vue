@@ -2,6 +2,7 @@
     <div class="ok-has-background-primary is-semi-rounded">
         <div
                 class="box ok-has-background-primary-highlight is-paddingless">
+            <ok-copy-post-comment-link-tile :post="post" :post-comment="postComment"></ok-copy-post-comment-link-tile>
             <ok-delete-post-comment-tile :post="post" :post-comment="postComment" @onPostCommentDeleted="onPostCommentDeleted" v-if="canDeletePostComment"></ok-delete-post-comment-tile>
             <ok-report-post-comment-tile :post="post" :post-comment="postComment" :on-post-comment-reported="onPostCommentReported"></ok-report-post-comment-tile>
         </div>
@@ -18,12 +19,14 @@
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
     import { IPostComment } from '~/models/posts/post-comment/IPostComment';
+    import OkCopyPostCommentLinkTile from '~/components/tiles/action/OkCopyPostCommentLinkTile.vue';
     import OkDeletePostCommentTile from '~/components/tiles/action/OkDeletePostCommentTile.vue';
     import OkReportPostCommentTile from '~/components/tiles/action/OkReportPostCommentTile.vue';
 
     @Component({
         name: "OkPostCommentMoreActions",
         components: {
+            OkCopyPostCommentLinkTile,
             OkReportPostCommentTile,
             OkDeletePostCommentTile
         },

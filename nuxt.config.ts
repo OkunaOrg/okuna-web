@@ -96,6 +96,7 @@ export default {
         '~/plugins/vue-tooltip',
         '~/plugins/vue-rx',
         '~/plugins/vue-not-visible',
+        '~/plugins/v-clipboard'
     ],
     router: {
         middleware: ['post-redirect'],

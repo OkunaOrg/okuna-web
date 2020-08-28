@@ -2,6 +2,7 @@
     <div class="ok-has-background-primary is-semi-rounded">
         <div
                 class="box ok-has-background-primary-highlight is-paddingless">
+            <ok-copy-post-link-tile :post="post"></ok-copy-post-link-tile>
             <ok-edit-post-tile :post="post" @onPostEdited="onPostEdited" v-if="canEditPost"></ok-edit-post-tile>
             <ok-close-post-tile :post="post" @onPostClosedChange="onPostClosedChange"
                                 v-if="canCloseOrOpenPost"></ok-close-post-tile>
@@ -24,6 +25,7 @@
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import { okunaContainer } from "~/services/inversify";
+    import OkCopyPostLinkTile from "~/components/tiles/action/OkCopyPostLinkTile.vue";
     import OkReportPostTile from "~/components/tiles/action/OkReportPostTile.vue";
     import OkDeletePostTile from "~/components/tiles/action/OkDeletePostTile.vue";
     import OkEditPostTile from "~/components/tiles/action/OkEditPostTile.vue";
@@ -34,7 +36,12 @@
         name: "OkPostMoreActions",
         components: {
             OkEnablePostCommentsTile,
-            OkClosePostTile, OkEditPostTile, OkDeletePostTile, OkReportPostTile, OkTile
+            OkCopyPostLinkTile,
+            OkClosePostTile,
+            OkEditPostTile,
+            OkDeletePostTile,
+            OkReportPostTile,
+            OkTile
         },
         subscriptions: function () {
             return {
