@@ -14,7 +14,7 @@
                     <div class="column" v-if="post.commentsCount && post.commentsCount > 0">
                         <ok-post-comment-counts :post="post"></ok-post-comment-counts>
                     </div>
-                    <div class="column">
+                    <div class="column" v-if="post.isClosed || !post.commentsEnabled">
                         <div v-if="post.isClosed" class="is-flex align-items-flex-end justify-end">
                             <ok-private-community-icon class="ok-svg-icon-primary-invert-80"></ok-private-community-icon>
                             <span class="ok-has-text-primary-invert-80 is-size-6 has-padding-left-5">
