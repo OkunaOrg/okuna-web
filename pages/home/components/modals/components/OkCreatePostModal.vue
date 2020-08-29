@@ -1,7 +1,7 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <div class="ok-create-post-modal">
-            <ok-post-creator/>
+            <ok-post-studio :params="params"/>
         </div>
     </div>
 </template>
@@ -27,14 +27,11 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { CreatePostModalParams, PostActionsModalParams } from "~/services/modal/IModalService";
-    import { IPost } from "~/models/posts/post/IPost";
-    import OkPlayStoreButton from "~/components/buttons/play-store-button/OkPlayStoreButton.vue";
-    import OkAppStoreButton from "~/components/buttons/app-store-button/OkAppStoreButton.vue";
-    import OkPostCreator from '~/components/post-creator/OkPostCreator.vue';
+    import OkPostStudio from '~/components/post-studio/OkPostStudio.vue';
 
     @Component({
         name: "OkCreatePostModal",
-        components: {OkPostCreator},
+        components: {OkPostStudio},
     })
     export default class OkCreatePostModal extends Vue {
         @Prop({

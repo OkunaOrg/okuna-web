@@ -216,9 +216,15 @@ export default {
                 "required": "You must provide a name",
                 "max_length": "Your name can't be longer than {max} characters",
                 "min_length": "Your name can't be shorter than {min} characters"
-            }
+            },
+            "media": {
+                "max_size": "Media can't be larger than {limit}",
+                "unsupported_type": "This media type is not supported"
+            },
         },
         "keywords": {
+            "media": "Media",
+            "remove": "Remove",
             "retry": "Retry",
             "email": "E-mail",
             "follow": "Follow",
@@ -369,6 +375,8 @@ export default {
             "developer_settings": "Developer settings",
             "about": "About",
             "notifications_sound": "Notifications sound",
+            "whats_going_on": "What's going on?",
+            "sharing_post_to": "Sharing post to",
         },
     },
 }

@@ -10,7 +10,7 @@ import { IUser } from '~/models/auth/user/IUser';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICircle } from '~/models/connections/circle/ICircle';
-import { OkNewPostData, OkPostCreatorParams } from '~/components/post-creator/lib/OkPostCreatorTypes';
+import { OkNewPostData, OkPostCreatorParams } from '~/components/post-studio/lib/OkPostCreatorTypes';
 
 export interface IModalService {
 

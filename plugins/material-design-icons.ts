@@ -5,6 +5,7 @@ import Home from 'vue-material-design-icons/Home.vue';
 import CommentOutline from 'vue-material-design-icons/CommentOutline.vue';
 import EmoticonExcitedOutline from 'vue-material-design-icons/EmoticonExcitedOutline.vue';
 import Plus from 'vue-material-design-icons/Plus.vue';
+import PlayCircle from 'vue-material-design-icons/PlayCircle.vue';
 import Minus from 'vue-material-design-icons/Minus.vue';
 import Delete from 'vue-material-design-icons/Delete.vue';
 import Gavel from 'vue-material-design-icons/Gavel.vue';
@@ -30,6 +31,7 @@ import DotsVertical from 'vue-material-design-icons/DotsVertical.vue';
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 import Send from 'vue-material-design-icons/Send.vue';
 import Close from 'vue-material-design-icons/Close.vue';
+import CloseCircle from 'vue-material-design-icons/CloseCircle.vue';
 import MenuDown from 'vue-material-design-icons/MenuDown.vue';
 import PlusCircleOutline from 'vue-material-design-icons/PlusCircleOutline.vue';
 import FaceProfile from 'vue-material-design-icons/FaceProfile.vue';
@@ -122,6 +124,8 @@ Vue.component('ok-send-icon', Send);
 
 Vue.component('ok-close-icon', Close);
 
+Vue.component('ok-close-circle-icon', CloseCircle);
+
 Vue.component('ok-menu-down-icon', MenuDown);
 
 Vue.component('ok-plus-circle-outline-icon', PlusCircleOutline);
@@ -153,3 +157,5 @@ Vue.component('ok-connect-icon', AccountMultiplePlus);
 Vue.component('ok-open-in-new-icon', OpenInNew);
 
 Vue.component('ok-cellphone-icon', Cellphone);
+
+Vue.component('ok-play-circle', PlayCircle);

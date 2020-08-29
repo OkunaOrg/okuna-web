@@ -1,5 +1,7 @@
 <template>
-    <span :class="charactersCountCssClass" class="is-size-6"> {{ characterCount }} / {{ maxCharacters }}</span>
+    <span :class="charactersCountCssClass" class="is-size-6">
+        {{remainingCharacters}}
+    </span>
 </template>
 
 <style lang="scss" scoped>
@@ -25,6 +27,10 @@
 
         get charactersCountCssClass() {
             return this.exceededMaxCharacters ? "ok-has-text-error" : "ok-has-text-primary-invert-60"
+        }
+
+        get remainingCharacters(){
+            return this.maxCharacters - this.characterCount;
         }
     }
 </script>

@@ -7,7 +7,7 @@
                             </span>
             </ok-mobile-header>
             <div class="is-flex-1">
-                <ok-post-creator-content/>
+                <ok-post-studio-content-step :params="params"/>
             </div>
         </section>
     </div>
@@ -28,15 +28,15 @@
     import { okunaContainer } from "~/services/inversify";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUser } from "~/models/auth/user/IUser";
-    import { OkPostCreatorParams, OkPostCreatorStep } from "~/components/post-creator/lib/OkPostCreatorTypes";
+    import { OkPostCreatorParams, OkPostCreatorStep } from "~/components/post-studio/lib/OkPostCreatorTypes";
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
-    import OkPostCreatorContent from '~/components/post-creator/components/OkPostCreatorContent.vue';
+    import OkPostStudioContentStep from '~/components/post-studio/components/content-step/OkPostStudioContentStep.vue';
 
     @Component({
-        name: "OkPostCreator",
-        components: {OkPostCreatorContent, OkMobileHeader},
+        name: "OkPostStudio",
+        components: {OkPostStudioContentStep, OkMobileHeader},
     })
-    export default class OkPostCreator extends Vue {
+    export default class OkPostStudio extends Vue {
         @Prop({
             type: Object,
             required: true

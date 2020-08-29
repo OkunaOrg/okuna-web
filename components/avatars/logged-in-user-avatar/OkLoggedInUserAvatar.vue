@@ -30,11 +30,6 @@
         }
     })
     export default class OkLoggedInUserAvatar extends Vue {
-        @Prop({
-            type: Object,
-            required: true
-        }) readonly user: IUser;
-
         @Prop(Number) readonly avatarSize: OkAvatarSize;
         @Prop(Number) readonly avatarBorderRadius: OkAvatarBorderRadius;
 

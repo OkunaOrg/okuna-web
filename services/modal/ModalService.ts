@@ -23,7 +23,7 @@ import { IHistoryService } from '~/services/history/IHistoryService';
 import { ILoggingService } from '~/services/logging/ILoggingService';
 import { IOkLogger } from '~/services/logging/types';
 import { ModalType } from '~/services/modal/lib/ModalType';
-import { OkNewPostData } from '~/components/post-creator/lib/OkPostCreatorTypes';
+import { OkNewPostData } from '~/components/post-studio/lib/OkPostCreatorTypes';
 
 @injectable()
 export class ModalService implements IModalService {
