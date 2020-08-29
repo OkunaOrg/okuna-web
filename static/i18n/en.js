@@ -223,6 +223,7 @@ export default {
             },
         },
         "keywords": {
+            "share": "Share",
             "media": "Media",
             "remove": "Remove",
             "retry": "Retry",

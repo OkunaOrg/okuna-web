@@ -1,15 +1,15 @@
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICircle } from '~/models/connections/circle/ICircle';
+import { IPost } from '~/models/posts/post/IPost';
+import { OkFile } from '~/services/media/IMediaService';
 
 
-export interface OkPostCreatorParams {
+export interface OkPostStudioParams {
     community?: ICommunity;
-    text?: string;
-    image?: File;
-    video?: File;
+    post?: IPost;
 }
 
-export enum OkPostCreatorStep{
+export enum OkPostStudioSteps{
     content,
     // The place where they pick whether to post to circles or communities
     destination,
@@ -20,12 +20,12 @@ export enum OkPostCreatorStep{
 }
 
 
-export interface OkNewPostData {
-    text: string;
-    image?: File;
-    video?: File;
+export interface OkPostStudioData {
+    text?: string;
+    media?: OkFile[]
     community?: ICommunity;
     circles?: ICircle[];
+    post?: IPost;
 }
 
 

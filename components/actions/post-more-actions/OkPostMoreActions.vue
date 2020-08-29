@@ -2,7 +2,7 @@
     <div class="ok-has-background-primary is-semi-rounded">
         <div
                 class="box ok-has-background-primary-highlight is-paddingless">
-            <ok-edit-post-tile :post="post" @onPostEdited="onPostEdited" v-if="canEditPost"></ok-edit-post-tile>
+            <ok-edit-post-tile :post="post" v-if="canEditPost"></ok-edit-post-tile>
             <ok-close-post-tile :post="post" @onPostClosedChange="onPostClosedChange"
                                 v-if="canCloseOrOpenPost"></ok-close-post-tile>
             <ok-enable-post-comments-tile :post="post" @onPostCommentsEnabledChange="onPostCommentsEnabledChange"

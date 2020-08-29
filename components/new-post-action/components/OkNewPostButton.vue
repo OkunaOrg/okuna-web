@@ -58,7 +58,7 @@
         };
 
         async onButtonClicked(){
-            const post = await this.modalService.openCreatePostModal({
+            const post = await this.modalService.openPostStudioModal({
                 community: this.community,
             });
         }

@@ -32,7 +32,7 @@ import {
     DisablePostCommentsApiParams,
     EnablePostCommentsApiParams,
     TranslatePostApiParams,
-    TranslatePostCommentApiParams
+    TranslatePostCommentApiParams, EditPostApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
@@ -187,6 +187,14 @@ export class PostsApiService implements IPostsApiService {
         const path = this.makePostPath(params.postUuid);
 
         return this.httpService.delete(path, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    editPost(params: EditPostApiParams): Promise<AxiosResponse<PostData>> {
+        const body = {'text': params.text};
+
+        const path = this.makeEditPostPath(params.postUuid);
+
+        return this.httpService.patch(path, body, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 
@@ -469,6 +477,11 @@ export class PostsApiService implements IPostsApiService {
     private makeCommentPostPath(postUuid: string) {
         return this.stringTemplateService
             .parse(PostsApiService.COMMENT_POST_PATH, {'postUuid': postUuid});
+    }
+
+    private makeEditPostPath(postUuid: string) {
+        return this.stringTemplateService.parse(PostsApiService.EDIT_POST_PATH,
+            {'postUuid': postUuid});
     }
 
     private makeEditCommentPostPath(postUuid: string, postCommentId: number) {

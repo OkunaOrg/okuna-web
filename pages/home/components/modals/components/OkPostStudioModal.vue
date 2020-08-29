@@ -1,13 +1,13 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <div class="ok-create-post-modal">
+        <div class="ok-post-studio-modal">
             <ok-post-studio :params="params"/>
         </div>
     </div>
 </template>
 
 <style lang="scss">
-    .ok-create-post-modal {
+    .ok-post-studio-modal {
         //max-width: 390px;
         width: 100%;
         position: relative;
@@ -26,14 +26,14 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import { CreatePostModalParams, PostActionsModalParams } from "~/services/modal/IModalService";
+    import { PostStudioModalParams } from "~/services/modal/IModalService";
     import OkPostStudio from '~/components/post-studio/OkPostStudio.vue';
 
     @Component({
-        name: "OkCreatePostModal",
+        name: "OkPostStudioModal",
         components: {OkPostStudio},
     })
-    export default class OkCreatePostModal extends Vue {
+    export default class OkPostStudioModal extends Vue {
         @Prop({
             type: Function,
             required: false
@@ -42,7 +42,7 @@
         @Prop({
             type: Object,
             required: true
-        }) readonly params: CreatePostModalParams;
+        }) readonly params: PostStudioModalParams;
 
 
     }

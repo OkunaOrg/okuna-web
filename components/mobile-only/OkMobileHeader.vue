@@ -1,13 +1,13 @@
 <template>
     <header class="ok-mobile-header is-flex" :class="cssClasses" :style="headerStyle">
         <div class="media has-width-100-percent align-items-center">
-            <div class="media-left" v-if="hasLeadingSlot">
+            <div class="ok-mobile-header--left" v-if="hasLeadingSlot">
                 <slot name="leading"></slot>
             </div>
             <div class="media-content has-text-centered">
                 <slot></slot>
             </div>
-            <div class="media-right" v-if="hasTrailingSlot">
+            <div class="ok-mobile-header--right" v-if="hasTrailingSlot">
                 <slot name="trailing"></slot>
             </div>
         </div>
@@ -19,9 +19,25 @@
     .ok-mobile-header {
         min-height: 45px;
         width: 100%;
+        position: relative;
 
         & > *{
             z-index: 1;
+        }
+
+        &--right{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+
+        &--left{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
         }
     }
 </style>

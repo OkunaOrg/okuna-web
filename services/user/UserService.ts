@@ -88,7 +88,7 @@ import {
     ApproveFollowRequestFromUserParams,
     CancelRequestToFollowUserParams,
     RequestToFollowUserParams,
-    TranslatePostCommentParams
+    TranslatePostCommentParams, EditPostParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -273,7 +273,7 @@ export class UserService implements IUserService {
             storeInSessionCache: true
         });
 
-        if(!this.loggedInUser.value || this.loggedInUser.value.username !== user.username){
+        if (!this.loggedInUser.value || this.loggedInUser.value.username !== user.username) {
             this.setLoggedInUser(user);
         }
 
@@ -571,6 +571,15 @@ export class UserService implements IUserService {
         }
 
         return postComment;
+    }
+
+    async editPost(params: EditPostParams): Promise<IPost> {
+        const response: AxiosResponse<PostData> = await this.postsApiService.editPost({
+            postUuid: params.post.uuid,
+            text: params.text
+        });
+
+        return postFactory.make(response.data);
     }
 
     async deletePost(params: DeletePostParams): Promise<void> {

@@ -213,6 +213,11 @@ export interface CommentPostParams {
     text: string;
 }
 
+export interface EditPostParams {
+    post: IPost;
+    text: string;
+}
+
 export interface EditPostCommentParams {
     postComment: IPostComment;
     post: IPost;

@@ -14,7 +14,7 @@ import {
     ReportObjectModalParams,
     UserActionsModalParams,
     ThemeModalParams,
-    CommunityStaffModalParams, CommunityRulesModalParams, CreatePostModalParams
+    CommunityStaffModalParams, CommunityRulesModalParams, PostStudioModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -23,7 +23,7 @@ import { IHistoryService } from '~/services/history/IHistoryService';
 import { ILoggingService } from '~/services/logging/ILoggingService';
 import { IOkLogger } from '~/services/logging/types';
 import { ModalType } from '~/services/modal/lib/ModalType';
-import { OkNewPostData } from '~/components/post-studio/lib/OkPostCreatorTypes';
+import { OkPostStudioData } from '~/components/post-studio/lib/OkPostCreatorTypes';
 
 @injectable()
 export class ModalService implements IModalService {
@@ -134,9 +134,9 @@ export class ModalService implements IModalService {
         return this.openModal(ModalType.getTheApp);
     }
 
-    openCreatePostModal(params: CreatePostModalParams): Promise<OkNewPostData | undefined> {
+    openPostStudioModal(params: PostStudioModalParams): Promise<OkPostStudioData | undefined> {
         this.ensureHasNoActiveModal();
-        return this.openModal(ModalType.createPost, params);
+        return this.openModal(ModalType.postStudio, params);
     }
 
     async openWelcomeToOkunaWebModal(): Promise<void> {

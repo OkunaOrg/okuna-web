@@ -67,6 +67,11 @@ export interface DeletePostApiParams {
     postUuid: string;
 }
 
+export interface EditPostApiParams {
+    postUuid: string;
+    text: string;
+}
+
 export interface GetPostApiParams {
     postUuid: string;
 }

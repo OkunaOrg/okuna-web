@@ -1,20 +1,20 @@
 <template>
     <div class="ok-has-background-primary is-semi-rounded ok-has-text-primary-invert ok-post-creator">
-        <section v-if="activeStep===OkPostCreatorStep.content" class="has-height-100-percent is-flex flex-direction-column">
-            <ok-mobile-header>
-                <span class="ok-has-text-primary-invert has-text-weight-bold">
-                                Create post
-                            </span>
-            </ok-mobile-header>
+        <section v-if="activeStep===OkPostStudioSteps.content"
+                 class="has-height-100-percent is-flex flex-direction-column">
             <div class="is-flex-1">
-                <ok-post-studio-content-step :params="params"/>
+                <ok-post-studio-content-step
+                        :params="params"
+                        @onWantsToGoToNextStep="onWantsToGoToNextStep"
+                        @onSavedPost="onSavedPost"
+                />
             </div>
         </section>
     </div>
 </template>
 
 <style lang="scss" scoped>
-    .ok-post-creator{
+    .ok-post-creator {
         height: 100%;
     }
 </style>
@@ -28,9 +28,13 @@
     import { okunaContainer } from "~/services/inversify";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IUser } from "~/models/auth/user/IUser";
-    import { OkPostCreatorParams, OkPostCreatorStep } from "~/components/post-studio/lib/OkPostCreatorTypes";
+    import {
+        OkPostStudioData,
+        OkPostStudioParams,
+        OkPostStudioSteps
+    } from "~/components/post-studio/lib/OkPostCreatorTypes";
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
-    import OkPostStudioContentStep from '~/components/post-studio/components/content-step/OkPostStudioContentStep.vue';
+    import OkPostStudioContentStep from "~/components/post-studio/components/content-step/OkPostStudioContentStep.vue";
 
     @Component({
         name: "OkPostStudio",
@@ -40,51 +44,29 @@
         @Prop({
             type: Object,
             required: true
-        }) readonly params: OkPostCreatorParams;
+        }) readonly params: OkPostStudioParams;
 
-        private refreshPostOperation?: CancelableOperation<IPost>;
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
 
-        activeStep = OkPostCreatorStep.content;
-        OkPostCreatorStep = OkPostCreatorStep;
+        activeStep = OkPostStudioSteps.content;
+
+        OkPostStudioSteps = OkPostStudioSteps;
 
         mounted() {
 
         }
 
-        onLoggedInUser(loggedInUser: IUser) {
+        onSavedPost(post: IPost) {
+            this.$emit('onSavedPost', post);
+        }
+
+        onWantsToGoToNextStep(data: OkPostStudioData) {
 
         }
 
-        destroyed() {
-            if (this.refreshPostOperation) this.refreshPostOperation.cancel();
-        }
 
-        get sidebarClass() {
-            return this.latestPost.mediaThumbnail ? "ok-post-theatre-sidebar-container--media" : "ok-post-theatre-sidebar-container--text";
-        }
-
-
-        private async refreshPost() {
-            if (this.requestInProgress) return;
-
-            this.requestInProgress = true;
-
-            try {
-                this.refreshPostOperation = CancelableOperation.fromPromise(this.userService.getPost({
-                    postUuid: this.postUuid
-                }));
-
-                this.latestPost = await this.refreshPostOperation.value;
-            } catch (error) {
-                this.utilsService.handleErrorWithToast(error);
-            } finally {
-                this.refreshPostOperation = null;
-                this.requestInProgress = false;
-            }
-        }
 
 
     }

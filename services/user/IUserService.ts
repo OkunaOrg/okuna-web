@@ -56,7 +56,7 @@ import {
     TranslatePostParams,
     TranslatePostCommentParams,
     UnblockUserParams,
-    UnfollowUserParams, UpdateConnectionWithUserParaUserParams
+    UnfollowUserParams, UpdateConnectionWithUserParaUserParams, EditPostParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -198,6 +198,8 @@ export interface IUserService {
 
     commentPost(params: CommentPostParams): Promise<IPostComment>;
 
+    editPost(params: EditPostParams): Promise<IPost>;
+    
     editPostComment(params: EditPostCommentParams): Promise<IPostComment>;
 
     replyToPostComment(params: ReplyToPostCommentParams): Promise<IPostComment>;
