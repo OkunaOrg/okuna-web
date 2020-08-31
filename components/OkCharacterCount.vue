@@ -15,8 +15,8 @@
     })
     export default class OkCharacterCount extends Vue {
 
-        @Prop(Number) readonly maxCharacters: string;
-        @Prop(Number) readonly characterCount: string;
+        @Prop(Number) readonly maxCharacters: number;
+        @Prop(Number) readonly characterCount: number;
 
         exceededMaxCharacters = false;
 
@@ -25,11 +25,11 @@
             this.exceededMaxCharacters = this.characterCount > this.maxCharacters;
         }
 
-        get charactersCountCssClass() {
+        get charactersCountCssClass() : string{
             return this.exceededMaxCharacters ? "ok-has-text-error" : "ok-has-text-primary-invert-60"
         }
 
-        get remainingCharacters(){
+        get remainingCharacters() : number{
             return this.maxCharacters - this.characterCount;
         }
     }

@@ -143,6 +143,11 @@
             required: true
         }) readonly params: OkPostStudioParams;
 
+        @Prop({
+            type: Object,
+            required: true
+        }) readonly data: OkPostStudioData;
+
         textInputFocused = false;
 
         OkAvatarSize = OkAvatarSize;
@@ -161,7 +166,10 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         mounted() {
-            if (this.params.post) {
+            if (this.data) {
+                if (this.data.text) this.text = this.data.text;
+                if (this.data.media && this.data.media.length) this.mediaFile = this.data.media[0];
+            } else if (this.params.post) {
                 this.text = this.params.post.text;
             }
         }

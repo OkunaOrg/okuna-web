@@ -223,6 +223,9 @@ export default {
             },
         },
         "keywords": {
+            "people": "People",
+            "back": "Back",
+            "world": "World",
             "share": "Share",
             "media": "Media",
             "remove": "Remove",
@@ -266,6 +269,13 @@ export default {
             "fallback": "item"
         },
         "snippets": {
+            "a_community": "A community",
+            "my_circles": "My circles",
+            "share_to_circles_description": "Share the post to one of multiple of your circles.",
+            "share_to_community_description": "Share the post to a community you're part of.",
+            "share_to": "Share to",
+            "share_to_circles": "Share to circles",
+            "share_to_community": "Share to community",
             "get_started_with_communities": "Get started by joining the following communities.",
             "forgot_password": "Forgot password?",
             "get_the_app": "Get the app",

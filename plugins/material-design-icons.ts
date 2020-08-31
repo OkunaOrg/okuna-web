@@ -40,6 +40,7 @@ import BabyIcon from 'vue-material-design-icons/BabyFaceOutline.vue';
 import AdultIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
 import EditIcon from 'vue-material-design-icons/Pencil.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
 import StaffIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
 import RulesIcon from 'vue-material-design-icons/Book.vue';
 import CancelIcon from 'vue-material-design-icons/Cancel.vue';
@@ -141,6 +142,8 @@ Vue.component('ok-adult-icon', AdultIcon);
 Vue.component('ok-edit-icon', EditIcon);
 
 Vue.component('ok-chevron-right-icon', ChevronRight);
+
+Vue.component('ok-chevron-left-icon', ChevronLeft);
 
 Vue.component('ok-rules-icon', RulesIcon);
 
