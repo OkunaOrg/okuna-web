@@ -88,7 +88,7 @@ import {
     ApproveFollowRequestFromUserParams,
     CancelRequestToFollowUserParams,
     RequestToFollowUserParams,
-    TranslatePostCommentParams, EditPostParams
+    TranslatePostCommentParams, EditPostParams, SearchJoinedCommunitiesParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -511,6 +511,14 @@ export class UserService implements IUserService {
 
     async getJoinedCommunities(params?: GetJoinedCommunitiesParams): Promise<ICommunity[]> {
         const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getJoinedCommunities(params);
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
+    async searchJoinedCommunities(params: SearchJoinedCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.searchJoinedCommunities({
+            query: params.query,
+        });
 
         return communityFactory.makeMultiple(response.data);
     }

@@ -90,6 +90,11 @@ export interface GetJoinedCommunitiesParams {
 }
 
 
+export interface SearchJoinedCommunitiesParams {
+    query?: string;
+}
+
+
 export interface SearchCommunitiesParams {
     query: string;
     excludedFromProfilePosts?: boolean;

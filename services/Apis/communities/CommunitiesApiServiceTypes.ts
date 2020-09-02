@@ -13,6 +13,10 @@ export interface GetJoinedCommunitiesApiParams {
     offset?: number;
 }
 
+export interface SearchJoinedCommunitiesApiParams {
+    query?: string;
+}
+
 export interface GetAdministratedCommunitiesApiParams {
     offset?: number;
 }

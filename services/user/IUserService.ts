@@ -56,7 +56,7 @@ import {
     TranslatePostParams,
     TranslatePostCommentParams,
     UnblockUserParams,
-    UnfollowUserParams, UpdateConnectionWithUserParaUserParams, EditPostParams
+    UnfollowUserParams, UpdateConnectionWithUserParaUserParams, EditPostParams, SearchJoinedCommunitiesParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -149,6 +149,8 @@ export interface IUserService {
     getModeratedCommunities(params?: GetModeratedCommunitiesParams): Promise<ICommunity[]>;
 
     getJoinedCommunities(params?: GetJoinedCommunitiesParams): Promise<ICommunity[]>;
+
+    searchJoinedCommunities(params?: SearchJoinedCommunitiesParams): Promise<ICommunity[]>;
 
     searchCommunities(params: SearchCommunitiesParams): Promise<ICommunity[]>;
 

@@ -21,7 +21,7 @@ import {
     GetFavoriteCommunitiesApiParams,
     GetModeratedCommunitiesApiParams,
     GetJoinedCommunitiesApiParams,
-    GetAdministratedCommunitiesApiParams, GetSuggestedCommunitiesApiParams
+    GetAdministratedCommunitiesApiParams, GetSuggestedCommunitiesApiParams, SearchJoinedCommunitiesApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
@@ -181,6 +181,17 @@ export class CommunitiesApiService implements ICommunitiesApiService {
         if (params.offset) queryParams['offset'] = params.offset;
 
         return this.httpService.get(CommunitiesApiService.GET_JOINED_COMMUNITIES_PATH,
+            {
+                queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    searchJoinedCommunities(params: SearchJoinedCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>> {
+        let queryParams = {'query': params.query};
+
+        return this.httpService.get(CommunitiesApiService.SEARCH_JOINED_COMMUNITIES_PATH,
             {
                 queryParams: queryParams,
                 appendAuthorizationToken: true,

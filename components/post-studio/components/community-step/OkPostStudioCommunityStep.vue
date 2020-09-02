@@ -23,6 +23,7 @@
         <div class="is-paddingless is-marginless is-flex-1 is-relative">
             <div class="ok-has-absolute-y-overflow has-padding-10">
                 <ok-http-list
+                        :searcher="searcher"
                         :refresher="communitiesRefresher"
                         :onScrollLoader="communitiesOnScrollLoader"
                         :show-no-more="false"
@@ -111,6 +112,12 @@
         async communitiesOnScrollLoader(communities: ICommunity[]): Promise<ICommunity[]> {
             return this.userService.getJoinedCommunities({
                 offset: communities.length
+            });
+        }
+
+        async searcher(query: string) {
+            return this.userService.searchJoinedCommunities({
+                query
             });
         }
 
