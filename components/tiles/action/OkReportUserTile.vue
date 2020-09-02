@@ -36,7 +36,7 @@
 
         @Prop({
             type: Object,
-            required: false
+            required: true
         }) readonly user: IUser;
 
 

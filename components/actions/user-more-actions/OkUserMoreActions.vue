@@ -1,6 +1,6 @@
 <template>
     <div class="ok-has-background-primary is-semi-rounded">
-        <div
+        <div v-if="user"
                 class="box ok-has-background-primary-highlight is-paddingless">
             <ok-user-connection-tiles :user="user"
                                       @onDisconnectedFromUser="onDisconnectedFromUser"
@@ -42,7 +42,7 @@
 
         @Prop({
             type: Object,
-            required: false
+            required: true
         }) readonly user: IUser;
 
         @Prop({

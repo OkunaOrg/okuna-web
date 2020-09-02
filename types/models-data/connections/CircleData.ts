@@ -5,6 +5,6 @@ export interface CircleData extends ModelData {
     name: string,
     color: string,
     users_count: number,
-    creator: UserData,
-    users: UserData[],
+    creator?: UserData,
+    users?: UserData[],
 }

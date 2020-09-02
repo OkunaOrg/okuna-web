@@ -74,10 +74,6 @@
 
         private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
 
-        created() {
-            console.log("HEYA");
-        }
-
 
     }
 </script>

@@ -224,6 +224,7 @@ export default {
         },
         "keywords": {
             "people": "People",
+            "person": "Person",
             "back": "Back",
             "world": "World",
             "share": "Share",

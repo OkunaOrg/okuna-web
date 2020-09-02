@@ -22,7 +22,7 @@ export class UtilsService implements IUtilsService {
         {divider: 1e18, suffix: 'e'},
         {divider: 1e15, suffix: 'p'},
         {divider: 1e12, suffix: 't'},
-        {divider: 1e9, suffix: 'g'},
+        {divider: 1e9, suffix: 'b'},
         {divider: 1e6, suffix: 'm'},
         {divider: 1e3, suffix: 'k'}
     ];
