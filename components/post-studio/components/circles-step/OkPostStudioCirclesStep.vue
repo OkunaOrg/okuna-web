@@ -107,7 +107,6 @@
         get postStudioData() {
             return {
                 ...this.data,
-                circles: this.selectedCircles,
             };
         }
 

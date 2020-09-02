@@ -37,6 +37,16 @@ import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
                 />
             </div>
         </section>
+        <section v-if="activeStep===OkPostStudioSteps.communities"
+                 class="has-height-100-percent is-flex flex-direction-column">
+            <div class="is-flex-1">
+                <ok-post-studio-community-step
+                        @onWantsToGoToPreviousStep="onWantsToGoToPreviousStep"
+                        :data="data"
+                        @onWantsToGoToNextStep="onWantsToGoToNextStep"
+                />
+            </div>
+        </section>
     </div>
 </template>
 
@@ -63,10 +73,14 @@ import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
     import OkPostStudioDestinationStep
         from "~/components/post-studio/components/destination-step/OkPostStudioDestinationStep.vue";
     import OkPostStudioCirclesStep from "~/components/post-studio/components/circles-step/OkPostStudioCirclesStep.vue";
+    import OkPostStudioCommunityStep
+        from '~/components/post-studio/components/community-step/OkPostStudioCommunityStep.vue';
 
     @Component({
         name: "OkPostStudio",
-        components: {OkPostStudioCirclesStep, OkPostStudioDestinationStep, OkPostStudioContentStep, OkMobileHeader},
+        components: {
+            OkPostStudioCommunityStep,
+            OkPostStudioCirclesStep, OkPostStudioDestinationStep, OkPostStudioContentStep, OkMobileHeader},
     })
     export default class OkPostStudio extends Vue {
         @Prop({

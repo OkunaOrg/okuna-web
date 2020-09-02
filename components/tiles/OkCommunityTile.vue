@@ -1,5 +1,9 @@
 <template>
-    <article class="media has-background-covered has-border-radius-10 has-overflow-hidden is-flex align-items-center ok-has-black-overlay-80 has-padding-5" :style="{ backgroundImage: 'url(' + tileBackgroundImage + ')' }">
+    <article
+            @click="onCommunityTileClicked"
+            class="media has-background-covered has-border-radius-10 has-overflow-hidden is-flex align-items-center ok-has-black-overlay-80 has-padding-5"
+            :class="{'has-cursor-pointer': !!onClick}"
+            :style="{ backgroundImage: 'url(' + tileBackgroundImage + ')' }">
         <figure class="media-left">
             <ok-community-avatar :community="community" class="has-padding-left-10"></ok-community-avatar>
         </figure>
@@ -38,9 +42,18 @@
             required: true,
         }) readonly community: ICommunity;
 
+        @Prop({
+            type: Function,
+            required: false
+        }) readonly onClick: (community: ICommunity) => Promise<void> | void;
+
 
         get tileBackgroundImage() {
             return this.community.avatar;
+        }
+
+        onCommunityTileClicked() {
+            if (this.onClick) this.onClick(this.community);
         }
 
     }
