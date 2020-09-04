@@ -171,6 +171,6 @@ export default {
     generate: {
         routes: [
             '/'
-        ]
+        ],
     }
 }

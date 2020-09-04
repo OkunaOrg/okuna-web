@@ -21,11 +21,16 @@ import {
     GetFavoriteCommunitiesApiParams,
     GetModeratedCommunitiesApiParams,
     GetJoinedCommunitiesApiParams,
-    GetAdministratedCommunitiesApiParams, GetSuggestedCommunitiesApiParams, SearchJoinedCommunitiesApiParams
+    GetAdministratedCommunitiesApiParams,
+    GetSuggestedCommunitiesApiParams,
+    SearchJoinedCommunitiesApiParams,
+    CreateCommunityPostApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
+import { CreatePostApiParams } from '~/services/Apis/posts/PostsApiServiceTypes';
+import { PostData } from '~/types/models-data/posts/PostData';
 
 @injectable()
 export class CommunitiesApiService implements ICommunitiesApiService {
@@ -357,6 +362,24 @@ export class CommunitiesApiService implements ICommunitiesApiService {
 
         return this.httpService.post(path,
             body, {
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+
+    createCommunityPost(params: CreateCommunityPostApiParams): Promise<AxiosResponse<PostData>> {
+        const bodyFormData = new FormData();
+
+        if (params.text) bodyFormData.set('text', params.text);
+
+        if (params.isDraft) bodyFormData.set('is_draft', params.isDraft.toString());
+
+        const path = this.makeCreateCommunityPost(params.communityName);
+
+        return this.httpService.put(path,
+            bodyFormData,
+            {
                 appendAuthorizationToken: true,
                 isApiRequest: true
             });

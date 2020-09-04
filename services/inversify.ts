@@ -55,6 +55,8 @@ import { INotificationsService } from '~/services/notifications/INotificationsSe
 import { NotificationsService } from '~/services/notifications/NotificationsService';
 import { IMediaService } from '~/services/media/IMediaService';
 import { MediaService } from '~/services/media/MediaService';
+import { IPostUploaderService } from '~/services/post-uploader/IPostSubmitterService';
+import { PostUploaderService } from '~/services/post-uploader/PostSubmitterService';
 
 const okunaContainer = new Container();
 
@@ -76,6 +78,7 @@ okunaContainer.bind<IToastService>(TYPES.ToastService).to(ToastService).inSingle
 okunaContainer.bind<IModalService>(TYPES.ModalService).to(ModalService).inSingletonScope();
 okunaContainer.bind<IHistoryService>(TYPES.HistoryService).to(HistoryService).inSingletonScope();
 okunaContainer.bind<IUserService>(TYPES.UserService).to(UserService).inSingletonScope();
+okunaContainer.bind<IPostUploaderService>(TYPES.PostUploaderService).to(PostUploaderService).inSingletonScope();
 okunaContainer.bind<IMediaService>(TYPES.MediaService).to(MediaService).inSingletonScope();
 okunaContainer.bind<INotificationsService>(TYPES.NotificationsService).to(NotificationsService).inSingletonScope();
 okunaContainer.bind<IUtilsService>(TYPES.UtilsService).to(UtilsService).inSingletonScope();

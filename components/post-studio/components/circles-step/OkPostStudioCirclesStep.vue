@@ -84,16 +84,12 @@
         created() {
             this.worldCircle = circleFactory.make({
                 id: 1,
-                name: this.$t("global.keywords.world"),
+                name: this.$t("global.keywords.world") as string,
                 color: "#023ca7",
                 users_count: 7700000000
             });
 
-            if (this.data.circles) {
-                this.selectedCircles = this.data.circles.slice();
-            } else {
-                this.selectedCircles = [];
-            }
+            this.selectedCircles = [];
         }
 
         onWantsToGoToPreviousStep() {
@@ -106,6 +102,7 @@
 
         get postStudioData() {
             return {
+                circles: this.selectedCircles,
                 ...this.data,
             };
         }

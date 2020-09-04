@@ -82,13 +82,6 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
-
-        created() {
-            if (this.data.community) {
-                this.selectedCommunity = this.data.community;
-            }
-        }
-
         onWantsToGoToPreviousStep() {
             this.$emit("onWantsToGoToPreviousStep", this.postStudioData);
         }
@@ -99,6 +92,7 @@
 
         get postStudioData() {
             return {
+                community: this.selectedCommunity,
                 ...this.data,
             };
         }

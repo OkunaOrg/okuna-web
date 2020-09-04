@@ -1,8 +1,3 @@
-import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
-import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
-import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
-import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
-import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
 <template>
     <div class="ok-has-background-primary is-semi-rounded ok-has-text-primary-invert ok-post-creator">
         <section v-if="activeStep===OkPostStudioSteps.content"
@@ -74,13 +69,14 @@ import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
         from "~/components/post-studio/components/destination-step/OkPostStudioDestinationStep.vue";
     import OkPostStudioCirclesStep from "~/components/post-studio/components/circles-step/OkPostStudioCirclesStep.vue";
     import OkPostStudioCommunityStep
-        from '~/components/post-studio/components/community-step/OkPostStudioCommunityStep.vue';
+        from "~/components/post-studio/components/community-step/OkPostStudioCommunityStep.vue";
 
     @Component({
         name: "OkPostStudio",
         components: {
             OkPostStudioCommunityStep,
-            OkPostStudioCirclesStep, OkPostStudioDestinationStep, OkPostStudioContentStep, OkMobileHeader},
+            OkPostStudioCirclesStep, OkPostStudioDestinationStep, OkPostStudioContentStep, OkMobileHeader
+        },
     })
     export default class OkPostStudio extends Vue {
         @Prop({
@@ -114,9 +110,9 @@ import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
         onWantsToGoToNextStep(data: OkPostStudioData) {
             this.data = data;
 
-            if (data.community || data.circles) {
+            if (data.community || data.circles?.length) {
                 // Ready to share
-                console.log("Ready to share");
+                this.$emit("onWantsToSharePost", this.data);
             } else {
                 this.activeStep = OkPostStudioSteps.destination;
             }
@@ -138,12 +134,10 @@ import {OkPostStudioSteps} from "./lib/OkPostCreatorTypes";
         }
 
         onWantsToGoToCommunitiesStep() {
-            this.data.circles = [];
             this.activeStep = OkPostStudioSteps.communities;
         }
 
         onWantsToGoToCirclesStep() {
-            delete this.data.community;
             this.activeStep = OkPostStudioSteps.circles;
         }
 

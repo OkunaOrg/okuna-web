@@ -25,6 +25,7 @@ const TYPES = {
     WindowService: Symbol.for('WindowService'),
     NavigationService: Symbol.for('NavigationService'),
     UserPreferencesService: Symbol.for('UserPreferencesService'),
+    PostUploaderService: Symbol.for('PostUploaderService'),
     BootstrapService: Symbol.for('BootstrapService'),
 };
 

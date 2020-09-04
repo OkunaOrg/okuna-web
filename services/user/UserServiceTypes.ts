@@ -14,6 +14,7 @@ import { INotification } from '~/models/notifications/notification/INotification
 import { IUser } from '~/models/auth/user/IUser';
 import { ICategory } from '~/models/common/category/ICategory';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
+import { OkFile } from '~/services/media/IMediaService';
 
 // AUTH START
 
@@ -74,7 +75,6 @@ export interface GetTrendingCommunitiesParams {
 export interface GetFavoriteCommunitiesParams {
     offset?: number;
 }
-
 
 
 export interface GetAdministratedCommunitiesParams {
@@ -168,6 +168,13 @@ export interface LeaveCommunityParams {
     community: ICommunity;
 }
 
+
+export interface CreateCommunityPostParams {
+    community: ICommunity;
+    text?: string;
+    isDraft?: boolean;
+}
+
 // COMMUNITIES END
 
 // POSTS START
@@ -246,6 +253,26 @@ export interface DeletePostParams {
 
 export interface GetPostParams {
     postUuid: string;
+}
+
+export interface CreatePostParams {
+    text?: string;
+    circles?: ICircle[];
+    isDraft?: boolean;
+}
+
+
+export interface AddMediaToPostParams {
+    media: OkFile;
+    post: IPost;
+}
+
+export interface PublishPostParams {
+    post: IPost;
+}
+
+export interface GetPostStatusParams {
+    post: IPost;
 }
 
 export interface GetPostMediaParams {

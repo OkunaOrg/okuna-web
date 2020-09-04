@@ -1,7 +1,7 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <div class="ok-post-studio-modal">
-            <ok-post-studio :params="params"/>
+            <ok-post-studio :params="params" @onWantsToSharePost="onWantsToSharePost"/>
         </div>
     </div>
 </template>
@@ -27,7 +27,8 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { PostStudioModalParams } from "~/services/modal/IModalService";
-    import OkPostStudio from '~/components/post-studio/OkPostStudio.vue';
+    import OkPostStudio from "~/components/post-studio/OkPostStudio.vue";
+    import { OkPostStudioData } from "~/components/post-studio/lib/OkPostCreatorTypes";
 
     @Component({
         name: "OkPostStudioModal",
@@ -36,7 +37,7 @@
     export default class OkPostStudioModal extends Vue {
         @Prop({
             type: Function,
-            required: false
+            required: true
         }) readonly returnDataSetter: (data: any) => void;
 
         @Prop({
@@ -44,6 +45,9 @@
             required: true
         }) readonly params: PostStudioModalParams;
 
-
+        onWantsToSharePost(data: OkPostStudioData) {
+            this.$parent["close"]();
+            this.returnDataSetter(data);
+        }
     }
 </script>

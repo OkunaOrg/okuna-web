@@ -202,6 +202,10 @@ export class Post extends DataModel<Post> implements IPost {
         this.reactionsEmojiCounts = newEmojiCounts;
     }
 
+    setStatus(newStatus: PostStatus): void {
+        this.status = newStatus;
+    }
+
     clearReaction(): void {
         this.setReaction(null);
     }

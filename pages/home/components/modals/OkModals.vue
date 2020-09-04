@@ -85,7 +85,7 @@
             <ok-application-settings-modal :params="activeModalParams"></ok-application-settings-modal>
         </b-modal>
         <b-modal :active.sync="postStudioModalOpen" :trap-focus="true" @close="onModalClosed">
-            <ok-post-studio-modal :params="activeModalParams" v-if="activeModalParams"/>
+            <ok-post-studio-modal :params="activeModalParams" v-if="activeModalParams" :return-data-setter="setModalReturnData"/>
         </b-modal>
     </div>
 </template>
