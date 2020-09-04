@@ -54,13 +54,13 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
     import OkHttpList from "~/components/http-list/OkHttpList.vue";
-    import { ICommunity } from "~/models/connections/community/ICommunity";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
     import OkCheckbox from "~/components/input/OkCheckbox.vue";
     import { OkPostStudioData } from "~/components/post-studio/lib/OkPostCreatorTypes";
     import OkCommunityTile from "~/components/tiles/OkCommunityTile.vue";
+    import { ICommunity } from '~/models/communities/community/ICommunity';
 
     @Component({
         name: "OkPostStudioCommunityStep",

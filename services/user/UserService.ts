@@ -162,16 +162,8 @@ import { ICircle } from '~/models/connections/circle/ICircle';
 import circleFactory from '~/models/connections/circle/factory';
 import { IConnectionsApiService } from '~/services/Apis/connections/IConnectionsApiService';
 import { IUserPreferencesService } from '~/services/user-preferences/IUserPreferencesService';
-import {
-    AddMediaToPostApiParams,
-    CreatePostApiParams, GetPostStatusApiParams,
-    PublishPostApiParams
-} from '~/services/Apis/posts/PostsApiServiceTypes';
 import { PostStatus } from '~/models/posts/post/lib/PostStatus';
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 @injectable()
 export class UserService implements IUserService {
