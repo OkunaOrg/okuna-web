@@ -188,6 +188,7 @@
                 );
                 const postComment = await this.commentPostOperation.value;
                 this._onCommentedPost(postComment, this.postComment);
+                this.$v.$reset();
                 this.reset();
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
