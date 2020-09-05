@@ -45,6 +45,7 @@
     "rxjs": "^6.5.4",
     "twemoji": "^12.1.5",
     "uuid": "^7.0.3",
+    "v-clipboard": "^2.2.3",
     "v-debounce": "^0.1.2",
     "v-tooltip": "github:okunaorg/v-tooltip",
     "vue": "^2.6.12",
