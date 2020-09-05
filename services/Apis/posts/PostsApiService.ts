@@ -32,7 +32,12 @@ import {
     DisablePostCommentsApiParams,
     EnablePostCommentsApiParams,
     TranslatePostApiParams,
-    TranslatePostCommentApiParams
+    TranslatePostCommentApiParams,
+    EditPostApiParams,
+    CreatePostApiParams,
+    AddMediaToPostApiParams,
+    PublishPostApiParams,
+    GetPostStatusApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
@@ -189,6 +194,64 @@ export class PostsApiService implements IPostsApiService {
         return this.httpService.delete(path, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
+
+    editPost(params: EditPostApiParams): Promise<AxiosResponse<PostData>> {
+        const body = {'text': params.text};
+
+        const path = this.makeEditPostPath(params.postUuid);
+
+        return this.httpService.patch(path, body, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    createPost(params: CreatePostApiParams): Promise<AxiosResponse<PostData>> {
+
+        const bodyFormData = new FormData();
+
+        if (params.text) bodyFormData.set('text', params.text);
+
+        if (params.isDraft) bodyFormData.set('is_draft', params.isDraft.toString());
+
+        if (params.circleIds && params.circleIds.length) {
+            bodyFormData.set('circle_id', params.circleIds.join(','));
+        }
+
+        return this.httpService.put(PostsApiService.CREATE_POST_PATH,
+            bodyFormData,
+            {
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    addMediaToPost(params: AddMediaToPostApiParams): Promise<AxiosResponse<void>> {
+
+        const bodyFormData = new FormData();
+
+        if (params.media) bodyFormData.set('file', params.media.file);
+
+        const path = this.makeAddPostMediaPath(params.postUuid);
+
+
+        return this.httpService.put(path,
+            bodyFormData,
+            {
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    publishPost(params: PublishPostApiParams): Promise<AxiosResponse<void>> {
+        const path = this.makePublishPostPath(params.postUuid);
+
+        return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    getPostStatus(params: GetPostStatusApiParams): Promise<AxiosResponse<PostData>> {
+        const path = this.makeGetPostStatusPath(params.postUuid);
+
+        return this.httpService.get(path,
+            {appendAuthorizationToken: true, isApiRequest: true});
+    }
 
     getPostComments(params: GetPostCommentsApiParams): Promise<AxiosResponse<PostCommentData[]>> {
         let queryParams = {};
@@ -382,13 +445,13 @@ export class PostsApiService implements IPostsApiService {
     closePost(params: ClosePostApiParams): Promise<AxiosResponse<void>> {
         const path = this.makeClosePostPath(params.postUuid);
 
-        return this.httpService.post(path, null,{appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
     openPost(params: OpenPostApiParams): Promise<AxiosResponse<void>> {
         const path = this.makeOpenPostPath(params.postUuid);
 
-        return this.httpService.post(path, null,{appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
     disablePostComments(params: DisablePostCommentsApiParams): Promise<AxiosResponse<void>> {
@@ -469,6 +532,11 @@ export class PostsApiService implements IPostsApiService {
     private makeCommentPostPath(postUuid: string) {
         return this.stringTemplateService
             .parse(PostsApiService.COMMENT_POST_PATH, {'postUuid': postUuid});
+    }
+
+    private makeEditPostPath(postUuid: string) {
+        return this.stringTemplateService.parse(PostsApiService.EDIT_POST_PATH,
+            {'postUuid': postUuid});
     }
 
     private makeEditCommentPostPath(postUuid: string, postCommentId: number) {

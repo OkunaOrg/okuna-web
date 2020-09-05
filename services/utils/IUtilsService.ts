@@ -21,6 +21,8 @@ export interface IUtilsService {
 
     isUrl(str: string): boolean;
 
+    convertBytesToMbs(bytes: number) : number;
+
 }
 
 export interface QueryParams {

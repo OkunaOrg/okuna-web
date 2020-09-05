@@ -7,10 +7,16 @@
                 :refresher="postsRefresher"
                 :on-scroll-loader="postsOnScrollLoader"
                 post-container-class="has-padding-bottom-30-tablet has-padding-right-30-tablet has-padding-left-30-tablet"
-        ></ok-posts-stream>
+        >
+            <template v-slot:leading>
+                <div class="has-padding-bottom-30-tablet has-padding-right-30-tablet has-padding-left-30-tablet">
+                    <ok-timeline-post-uploads @onPostUploaded="onPostUploaded"/>
+                </div>
+            </template>
+        </ok-posts-stream>
+        <ok-new-post-action/>
     </section>
 </template>
-
 
 <script lang="ts">
     import { Component, Vue, Watch } from "nuxt-property-decorator"
@@ -24,11 +30,13 @@
     import { BehaviorSubject, Subscription } from "~/node_modules/rxjs";
     import { IUser } from "~/models/auth/user/IUser";
     import OkPostsStream from "~/components/posts-stream/OkPostsStream.vue";
+    import OkNewPostAction from '~/components/new-post-action/OkNewPostAction.vue';
+    import OkTimelinePostUploads from '~/pages/home/pages/timeline/components/OkTimelinePostUploads.vue';
 
 
     @Component({
         name: "OkTimelinePage",
-        components: {OkPostsStream, OkPost},
+        components: {OkTimelinePostUploads, OkNewPostAction, OkPostsStream, OkPost},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
@@ -94,6 +102,10 @@
                     }, 100)
                 }
             }
+        }
+
+        onPostUploaded(post: IPost){
+            this.$refs.postsStream.addPostToTop(post);
         }
 
 

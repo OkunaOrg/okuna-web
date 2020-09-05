@@ -1,5 +1,5 @@
 <template>
-    <ok-tile :disabled="true">
+    <ok-tile :onClick="onWantsToEditPost">
         <template v-slot:leading>
             <ok-edit-icon
                     class="ok-svg-icon-primary-invert"></ok-edit-icon>
@@ -44,17 +44,9 @@
 
 
         onWantsToEditPost() {
-            // NOT Implemented
-            // this.modalService.openEditPostModal({
-            //     post: this.post,
-            //     onPostEdited: (post: IPost) => {
-            //         this.toastService.show({
-            //             type: ToastType.success,
-            //             message: this.localizationService.localize("global.snippets.post_edited")
-            //         });
-            //         this.$emit("onPostEdited", post);
-            //     }
-            // });
+            this.modalService.openPostStudioModal({
+                post: this.post
+            });
         }
     }
 </script>

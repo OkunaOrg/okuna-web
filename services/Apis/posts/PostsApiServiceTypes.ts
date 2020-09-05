@@ -1,4 +1,5 @@
 import { PostCommentsSortSetting } from '~/services/user-preferences/libs/PostCommentsSortSetting';
+import { OkFile } from '~/services/media/IMediaService';
 
 export interface GetTopPostsApiParams {
     minId?: number;
@@ -65,6 +66,30 @@ export interface DeletePostCommentApiParams {
 
 export interface DeletePostApiParams {
     postUuid: string;
+}
+
+export interface CreatePostApiParams {
+    text?: string;
+    circleIds?: number[];
+    isDraft?: boolean;
+}
+
+export interface AddMediaToPostApiParams {
+    postUuid: string;
+    media: OkFile;
+}
+
+export interface PublishPostApiParams {
+    postUuid: string;
+}
+
+export interface GetPostStatusApiParams {
+    postUuid: string;
+}
+
+export interface EditPostApiParams {
+    postUuid: string;
+    text: string;
 }
 
 export interface GetPostApiParams {

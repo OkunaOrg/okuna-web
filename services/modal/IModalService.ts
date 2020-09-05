@@ -10,6 +10,7 @@ import { IUser } from '~/models/auth/user/IUser';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICircle } from '~/models/connections/circle/ICircle';
+import { OkPostStudioData, OkPostStudioParams } from '~/components/post-studio/lib/OkPostCreatorTypes';
 
 export interface IModalService {
 
@@ -50,6 +51,7 @@ export interface IModalService {
 
     openApplicationSettingsModal(params?: ApplicationSettingsModalParams): Promise<void>;
 
+    openPostStudioModal(params: PostStudioModalParams): Promise<OkPostStudioData | undefined>;
 
     openGetTheAppModal(): Promise<void>;
 
@@ -82,7 +84,8 @@ export type ModalParams =
     | HashtagActionsModalParams
     | ConnectionsCirclesPickerModalParams
     | ThemeModalParams
-    | SettingsModalParams;
+    | SettingsModalParams
+    | PostStudioModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -93,6 +96,10 @@ export interface HttpListModalParams<T> {
 export interface PostModalParams {
     post: IPost;
 }
+
+export interface PostStudioModalParams extends OkPostStudioParams {
+}
+
 
 export interface SettingsModalParams {
 }

@@ -12,21 +12,21 @@ export class PostMediaType {
     }
 
     static parse(val: string): PostMediaType | undefined {
-        let badgeKeyword;
+        let mediaKeyword;
 
         for (let i = 0; i < PostMediaType._values.length; i++) {
             const value = PostMediaType._values[i];
             if (val == value.code) {
-                badgeKeyword = value;
+                mediaKeyword = value;
                 break;
             }
         }
 
-        if (!badgeKeyword) {
-            console.error('Unsupported badge keyword');
+        if (!mediaKeyword) {
+            console.error('Unsupported media keyword');
         }
 
-        return badgeKeyword;
+        return mediaKeyword;
     }
 
     constructor(public code: string) {

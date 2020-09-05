@@ -37,9 +37,7 @@ export default {
         "report_object_modal": {
             "why": "Why are you reporting this {objectName}?",
         },
-        "post_actions": {
-
-        },
+        "post_actions": {},
 
         "translate": {
             "show_original": "Show original",
@@ -129,7 +127,7 @@ export default {
         },
     },
     "forms": {
-        "report_object":{
+        "report_object": {
             "provide_additional_details": "Can you provide additional details that might be relevant to the report?",
             "heres_what_happens_next": "Here's what will happen next:",
             "report_submitted_anon": "Your report will be submitted anonymously.",
@@ -182,8 +180,8 @@ export default {
                 "notFound": "👀 Not found",
                 "unhandled": "😭 Unhandled error"
             },
-            "captcha":{
-              "required": "You must pass the captcha"
+            "captcha": {
+                "required": "You must pass the captcha"
             },
             "password": {
                 "required": "Password is required",
@@ -216,9 +214,20 @@ export default {
                 "required": "You must provide a name",
                 "max_length": "Your name can't be longer than {max} characters",
                 "min_length": "Your name can't be shorter than {min} characters"
-            }
+            },
+            "media": {
+                "max_size": "Media can't be larger than {limit}",
+                "unsupported_type": "This media type is not supported"
+            },
         },
         "keywords": {
+            "people": "People",
+            "person": "Person",
+            "back": "Back",
+            "world": "World",
+            "share": "Share",
+            "media": "Media",
+            "remove": "Remove",
             "retry": "Retry",
             "email": "E-mail",
             "follow": "Follow",
@@ -249,6 +258,10 @@ export default {
             "guidelines": "Guidelines",
             "administrators": "Administrators",
             "moderators": "Moderators",
+            "cancelling": "Cancelling",
+            "cancelled": "Cancelled",
+            "waiting": "Waiting",
+            "published": "Published",
         },
         "models": {
             "post": "post",
@@ -259,9 +272,17 @@ export default {
             "fallback": "item"
         },
         "snippets": {
+            "a_community": "A community",
+            "my_circles": "My circles",
+            "share_to_circles_description": "Share the post to one of multiple of your circles.",
+            "share_to_community_description": "Share the post to a community you're part of.",
+            "share_to": "Share to",
+            "share_to_circles": "Share to circles",
+            "share_to_community": "Share to community",
             "get_started_with_communities": "Get started by joining the following communities.",
             "forgot_password": "Forgot password?",
             "get_the_app": "Get the app",
+            "create_post": "Create post",
             "type_here": "Type here...",
             "about_us": "About us",
             "hooray": "Hooray!",
@@ -298,6 +319,7 @@ export default {
             "report_post": "Report post",
             "close_post": "Close post",
             "open_post": "Open post",
+            "copy_post_link": "Copy link to post",
             "disable_post_comments": "Disable post comments",
             "enable_post_comments": "Enable post comments",
             "post_comments_disabled": "Post comments disabled",
@@ -330,6 +352,9 @@ export default {
             "post_comment_deleted": "Post comment deleted",
             "report_post_comment": "Report post comment",
             "post_comment_reported": "Post comment reported",
+            "copy_post_comment_link": "Copy link to comment",
+            "link_copied": "Copied!",
+            "link_copy_failed": "Failed to copy the link.",
             "valid_invite_token": "🎉 The token is valid!",
             "whats_your_name": "What's your name?",
             "whats_your_email": "What's your email?",
@@ -368,6 +393,14 @@ export default {
             "developer_settings": "Developer settings",
             "about": "About",
             "notifications_sound": "Notifications sound",
+            "whats_going_on": "What's going on?",
+            "sharing_post_to": "Sharing post to",
+            "creating_post": "Creating post",
+            "compressing_media": "Compressing media",
+            "uploading_media": "Uploading media",
+            "processing_media": "Processing media",
+            "publishing_post": "Publishing post",
+            "post_published": "Post published",
         },
     },
 }

@@ -23,7 +23,11 @@ import {
     ReportPostApiParams,
     ClosePostApiParams,
     OpenPostApiParams,
-    DisablePostCommentsApiParams, EnablePostCommentsApiParams, TranslatePostApiParams, TranslatePostCommentApiParams
+    DisablePostCommentsApiParams,
+    EnablePostCommentsApiParams,
+    TranslatePostApiParams,
+    TranslatePostCommentApiParams,
+    EditPostApiParams, CreatePostApiParams, AddMediaToPostApiParams, PublishPostApiParams, GetPostStatusApiParams
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -48,7 +52,17 @@ export interface IPostsApiService {
 
     getPost(params: GetPostApiParams): Promise<AxiosResponse<PostData>>;
 
+    createPost(params: CreatePostApiParams): Promise<AxiosResponse<PostData>>;
+
     deletePost(params: DeletePostApiParams): Promise<AxiosResponse<void>>;
+
+    editPost(params: EditPostApiParams): Promise<AxiosResponse<PostData>>;
+
+    addMediaToPost(params: AddMediaToPostApiParams): Promise<AxiosResponse<void>>;
+
+    publishPost(params: PublishPostApiParams): Promise<AxiosResponse<void>>;
+
+    getPostStatus(params: GetPostStatusApiParams): Promise<AxiosResponse<PostData>>;
 
     getPostComments(params: GetPostCommentsApiParams): Promise<AxiosResponse<PostCommentData[]>>;
 

@@ -3,15 +3,21 @@ import { IUser } from '~/models/auth/user/IUser';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
     ApproveFollowRequestFromUserParams,
-    BlockUserParams, CancelRequestToFollowUserParams,
+    BlockUserParams,
+    CancelRequestToFollowUserParams,
     ClosePostParams,
-    CommentPostParams, ConfirmConnectionWithUserParaUserParams, ConnectWithUserParams,
+    CommentPostParams,
+    ConfirmConnectionWithUserParaUserParams,
+    ConnectWithUserParams,
     DeleteNotificationParams,
     DeletePostCommentParams,
     DeletePostCommentReactionParams,
     DeletePostParams,
-    DeletePostReactionParams, DisablePostCommentsParams, DisconnectFromUserParams,
-    EditPostCommentParams, EnablePostCommentsParams,
+    DeletePostReactionParams,
+    DisablePostCommentsParams,
+    DisconnectFromUserParams,
+    EditPostCommentParams,
+    EnablePostCommentsParams,
     FollowUserParams,
     GetAdministratedCommunitiesParams,
     GetCommunityAdministratorsParams,
@@ -19,8 +25,12 @@ import {
     GetCommunityModeratorsParams,
     GetCommunityParams,
     GetCommunityPostsCountParams,
-    GetCommunityPostsParams, GetConnectionsCircleParams,
-    GetFavoriteCommunitiesParams, GetHashtagParams, GetHashtagPostsParams, GetJoinedCommunitiesParams,
+    GetCommunityPostsParams,
+    GetConnectionsCircleParams,
+    GetFavoriteCommunitiesParams,
+    GetHashtagParams,
+    GetHashtagPostsParams,
+    GetJoinedCommunitiesParams,
     GetModeratedCommunitiesParams,
     GetNotificationsParams,
     GetPostCommentReactionsEmojiApiCountParams,
@@ -38,15 +48,20 @@ import {
     GetUnreadNotificationsCountParams,
     GetUserParams,
     JoinCommunityParams,
-    LeaveCommunityParams, OpenPostParams,
+    LeaveCommunityParams,
+    OpenPostParams,
     ReactToPostCommentParams,
     ReactToPostParams,
     ReadNotificationParams,
-    ReadNotificationsParams, RejectFollowRequestFromUserParams,
+    ReadNotificationsParams,
+    RejectFollowRequestFromUserParams,
     ReplyToPostCommentParams,
-    ReportCommunityParams, ReportHashtagParams,
+    ReportCommunityParams,
+    ReportHashtagParams,
     ReportPostCommentParams,
-    ReportPostParams, ReportUserParams, RequestToFollowUserParams,
+    ReportPostParams,
+    ReportUserParams,
+    RequestToFollowUserParams,
     SearchCommunitiesParams,
     SearchCommunityAdministratorsParams,
     SearchCommunityMembersParams,
@@ -56,7 +71,11 @@ import {
     TranslatePostParams,
     TranslatePostCommentParams,
     UnblockUserParams,
-    UnfollowUserParams, UpdateConnectionWithUserParaUserParams
+    UnfollowUserParams,
+    UpdateConnectionWithUserParaUserParams,
+    EditPostParams,
+    SearchJoinedCommunitiesParams,
+    CreateCommunityPostParams, AddMediaToPostParams, PublishPostParams, GetPostStatusParams, CreatePostParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -85,6 +104,7 @@ import { IModerationCategory } from '~/models/moderation/moderation_category/IMo
 import { IConnection } from '~/models/connections/connection/IConnection';
 import { ICircle } from '~/models/connections/circle/ICircle';
 import { GetSuggestedCommunitiesApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
+import { PostStatus } from '~/models/posts/post/lib/PostStatus';
 
 
 export interface IUserService {
@@ -150,6 +170,8 @@ export interface IUserService {
 
     getJoinedCommunities(params?: GetJoinedCommunitiesParams): Promise<ICommunity[]>;
 
+    searchJoinedCommunities(params?: SearchJoinedCommunitiesParams): Promise<ICommunity[]>;
+
     searchCommunities(params: SearchCommunitiesParams): Promise<ICommunity[]>;
 
     getCommunity(params: GetCommunityParams): Promise<ICommunity>;
@@ -176,6 +198,9 @@ export interface IUserService {
 
     reportCommunity(params: ReportCommunityParams): Promise<void>;
 
+    createCommunityPost(params: CreateCommunityPostParams): Promise<IPost>;
+
+
     // COMMUNITIES END
 
     // POSTS START
@@ -197,6 +222,16 @@ export interface IUserService {
     getPostCommentReplies(params: GetPostCommentRepliesParams): Promise<IPostComment[]>;
 
     commentPost(params: CommentPostParams): Promise<IPostComment>;
+
+    editPost(params: EditPostParams): Promise<IPost>;
+
+    createPost(params: CreatePostParams): Promise<IPost>;
+
+    addMediaToPost(params: AddMediaToPostParams): Promise<void>;
+
+    publishPost(params: PublishPostParams): Promise<void>;
+
+    getPostStatus(params: GetPostStatusParams): Promise<PostStatus>;
 
     editPostComment(params: EditPostCommentParams): Promise<IPostComment>;
 

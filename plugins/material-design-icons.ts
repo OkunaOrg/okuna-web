@@ -5,6 +5,7 @@ import Home from 'vue-material-design-icons/Home.vue';
 import CommentOutline from 'vue-material-design-icons/CommentOutline.vue';
 import EmoticonExcitedOutline from 'vue-material-design-icons/EmoticonExcitedOutline.vue';
 import Plus from 'vue-material-design-icons/Plus.vue';
+import PlayCircle from 'vue-material-design-icons/PlayCircle.vue';
 import Minus from 'vue-material-design-icons/Minus.vue';
 import Delete from 'vue-material-design-icons/Delete.vue';
 import Gavel from 'vue-material-design-icons/Gavel.vue';
@@ -30,6 +31,7 @@ import DotsVertical from 'vue-material-design-icons/DotsVertical.vue';
 import DotsHorizontal from 'vue-material-design-icons/DotsHorizontal.vue';
 import Send from 'vue-material-design-icons/Send.vue';
 import Close from 'vue-material-design-icons/Close.vue';
+import CloseCircle from 'vue-material-design-icons/CloseCircle.vue';
 import MenuDown from 'vue-material-design-icons/MenuDown.vue';
 import PlusCircleOutline from 'vue-material-design-icons/PlusCircleOutline.vue';
 import FaceProfile from 'vue-material-design-icons/FaceProfile.vue';
@@ -38,6 +40,7 @@ import BabyIcon from 'vue-material-design-icons/BabyFaceOutline.vue';
 import AdultIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
 import EditIcon from 'vue-material-design-icons/Pencil.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
+import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
 import StaffIcon from 'vue-material-design-icons/EmoticonHappyOutline.vue';
 import RulesIcon from 'vue-material-design-icons/Book.vue';
 import CancelIcon from 'vue-material-design-icons/Cancel.vue';
@@ -47,10 +50,13 @@ import AccountMultiplePlus from 'vue-material-design-icons/AccountMultiplePlus.v
 import OpenInNew from 'vue-material-design-icons/OpenInNew.vue';
 import Cellphone from 'vue-material-design-icons/Cellphone.vue';
 import BugIcon from 'vue-material-design-icons/Bug.vue';
+import RefreshIcon from 'vue-material-design-icons/Refresh.vue';
 
 // Full list https://materialdesignicons.com/
 
 import Vue from 'vue';
+
+Vue.component('ok-refresh-icon', RefreshIcon);
 
 Vue.component('ok-menu-icon', MenuIcon);
 
@@ -122,6 +128,8 @@ Vue.component('ok-send-icon', Send);
 
 Vue.component('ok-close-icon', Close);
 
+Vue.component('ok-close-circle-icon', CloseCircle);
+
 Vue.component('ok-menu-down-icon', MenuDown);
 
 Vue.component('ok-plus-circle-outline-icon', PlusCircleOutline);
@@ -138,6 +146,8 @@ Vue.component('ok-edit-icon', EditIcon);
 
 Vue.component('ok-chevron-right-icon', ChevronRight);
 
+Vue.component('ok-chevron-left-icon', ChevronLeft);
+
 Vue.component('ok-rules-icon', RulesIcon);
 
 Vue.component('ok-staff-icon', StaffIcon);
@@ -153,3 +163,5 @@ Vue.component('ok-connect-icon', AccountMultiplePlus);
 Vue.component('ok-open-in-new-icon', OpenInNew);
 
 Vue.component('ok-cellphone-icon', Cellphone);
+
+Vue.component('ok-play-circle', PlayCircle);

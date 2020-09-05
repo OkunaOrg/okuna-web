@@ -94,6 +94,10 @@
                 case OkAvatarSize.medium:
                     sizeClass = "is-32x32";
                     break;
+                case OkAvatarSize.extraMedium:
+                    sizeClass = "is-64x64";
+                    textClass = "is-size-2";
+                    break;
                 case OkAvatarSize.small:
                     sizeClass = "is-24x24";
                     break;
@@ -102,6 +106,7 @@
                     textClass = "is-size-7";
                     break;
             }
+
 
             return [borderRadiusClass, sizeClass, textClass];
 

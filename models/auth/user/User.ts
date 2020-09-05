@@ -223,7 +223,7 @@ export class User extends DataModel<User> implements IUser {
     }
 
     canBlockOrUnblockUser(user: IUser): boolean {
-        return user.id !== this.id;
+        return user && user.id !== this.id;
     }
 
     canTranslatePost(post: IPost): boolean {

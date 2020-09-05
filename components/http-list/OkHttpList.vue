@@ -1,6 +1,24 @@
 <template>
     <div class="ok-http-list" :key="listKey" v-if="renderComponent">
-        <div v-if="searcher && showSearchBar">
+        <div v-if="searcher && showSearchBar" class="columns is-mobile is-marginless is-paddingless has-padding-bottom-20">
+            <div class="column is-narrow is-flex align-items-center justify-center is-paddingless has-padding-left-10">
+                <ok-search-icon class="ok-svg-icon-primary-invert is-icon-2x"/>
+            </div>
+            <div class="column is-paddingless has-padding-left-10">
+                <div class="field has-width-100-percent">
+                    <label :for="listKey + '-search'" class="label has-text-left ok-has-text-primary-invert-80 is-hidden">
+                        {{$t('global.keywords.search')}}
+                    </label>
+                    <div class="control has-icons-left ok-header-search-bar">
+                        <input type="text" placeholder="Search"
+                               class="input is-rounded is-normal ok-input has-text-centered"
+                               required
+                               :name="listKey + '-search'"
+                               v-model="searchQuery"
+                        >
+                    </div>
+                </div>
+            </div>
         </div>
         <div v-if="searchQuery">
             <div v-if="searchInProgress && ! (searchItems.length > 0)"
@@ -31,37 +49,38 @@
                     ref="infiniteLoading"
                     @infinite="infiniteHandler">
 
-                <template v-if="listType === 'post' && !items.length" slot="spinner">
-                    <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
-                </template>
+                    <template v-if="listType === 'post' && !items.length" slot="spinner">
+                        <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
+                    </template>
 
-                <template v-if="listType === 'notification' && !items.length" slot="spinner">
-                    <ok-notification-skeleton :class="itemClass"></ok-notification-skeleton>
-                </template>
+                    <template v-if="listType === 'notification' && !items.length" slot="spinner">
+                        <ok-notification-skeleton :class="itemClass"></ok-notification-skeleton>
+                    </template>
 
-                <template v-else-if="listType === 'community' && !items.length" slot="spinner">
-                    <ok-community-card-skeleton></ok-community-card-skeleton>
-                </template>
+                    <template v-else-if="listType === 'community' && !items.length" slot="spinner">
+                        <ok-community-card-skeleton></ok-community-card-skeleton>
+                    </template>
 
-                <template v-else-if="listType === 'community-mobile' && !items.length" slot="spinner">
-                    <ok-community-tile-skeleton></ok-community-tile-skeleton>
-                </template>
+                    <template v-else-if="listType === 'community-mobile' && !items.length" slot="spinner">
+                        <ok-community-tile-skeleton></ok-community-tile-skeleton>
+                    </template>
 
-                <template slot="no-more">
-                    <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
-                        {{ $t('global.snippets.all_loaded')}}
-                    </div>
-                </template>
-                <template slot="no-results">
-                    <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
-                        {{ $t('global.snippets.no_items_found')}}
-                    </div>
-                </template>
+                    <template slot="no-more">
+                        <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
+                            {{ $t('global.snippets.all_loaded')}}
+                        </div>
+                    </template>
+                    <template slot="no-results">
+                        <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
+                            {{ $t('global.snippets.no_items_found')}}
+                        </div>
+                    </template>
 
-            </infinite-loading>
-        </div>
-        <div v-else-if="searcher" class="has-padding-20 ok-has-text-primary-invert">
-            {{ $t('global.snippets.search_for_something')}}
+                </infinite-loading>
+            </div>
+            <div v-else-if="searcher" class="has-padding-20 ok-has-text-primary-invert">
+                {{ $t('global.snippets.search_for_something')}}
+            </div>
         </div>
     </div>
 </template>
@@ -80,7 +99,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
@@ -238,6 +257,11 @@
             this.$emit("onListItemClicked", item);
         }
 
+        @Watch("searchQuery")
+        onSearchQueryChanged(val: string, oldVal: string) {
+            this.searchWithQuery(val);
+        }
+
 
         // Public API methods
 
@@ -294,6 +318,8 @@
                 // Cancel
                 this.searchRequestOperation.cancel();
             }
+
+            if (!query) return;
 
             this.searchInProgress = true;
             this.searchQuery = query;

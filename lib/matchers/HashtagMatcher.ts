@@ -1,3 +1,3 @@
-const HashtagMatcher = RegExp('\\B#\w*[a-zA-Z]+\w*');
+const HashtagMatcher = /\B#\w*[a-zA-Z]+\w*/g;
 
 export default HashtagMatcher;

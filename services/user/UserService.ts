@@ -88,7 +88,12 @@ import {
     ApproveFollowRequestFromUserParams,
     CancelRequestToFollowUserParams,
     RequestToFollowUserParams,
-    TranslatePostCommentParams
+    TranslatePostCommentParams,
+    EditPostParams,
+    SearchJoinedCommunitiesParams,
+    CreatePostParams,
+    AddMediaToPostParams,
+    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -157,10 +162,8 @@ import { ICircle } from '~/models/connections/circle/ICircle';
 import circleFactory from '~/models/connections/circle/factory';
 import { IConnectionsApiService } from '~/services/Apis/connections/IConnectionsApiService';
 import { IUserPreferencesService } from '~/services/user-preferences/IUserPreferencesService';
+import { PostStatus } from '~/models/posts/post/lib/PostStatus';
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 @injectable()
 export class UserService implements IUserService {
@@ -273,7 +276,7 @@ export class UserService implements IUserService {
             storeInSessionCache: true
         });
 
-        if(!this.loggedInUser.value || this.loggedInUser.value.username !== user.username){
+        if (!this.loggedInUser.value || this.loggedInUser.value.username !== user.username) {
             this.setLoggedInUser(user);
         }
 
@@ -515,6 +518,14 @@ export class UserService implements IUserService {
         return communityFactory.makeMultiple(response.data);
     }
 
+    async searchJoinedCommunities(params: SearchJoinedCommunitiesParams): Promise<ICommunity[]> {
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.searchJoinedCommunities({
+            query: params.query,
+        });
+
+        return communityFactory.makeMultiple(response.data);
+    }
+
     async searchCommunities(params: SearchCommunitiesParams): Promise<ICommunity[]> {
         const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.searchCommunities({
             query: params.query,
@@ -552,7 +563,17 @@ export class UserService implements IUserService {
         return userFactory.makeMultiple(response.data);
     }
 
-    // COMMUNITIES START
+    async createCommunityPost(params: CreateCommunityPostParams): Promise<IPost> {
+        const response: AxiosResponse<PostData> = await this.communitiesApiService.createCommunityPost({
+            communityName: params.community.name,
+            text: params.text,
+            isDraft: params.isDraft
+        });
+
+        return postFactory.make(response.data);
+    }
+
+    // COMMUNITIES END
 
     // POSTS START
 
@@ -571,6 +592,15 @@ export class UserService implements IUserService {
         }
 
         return postComment;
+    }
+
+    async editPost(params: EditPostParams): Promise<IPost> {
+        const response: AxiosResponse<PostData> = await this.postsApiService.editPost({
+            postUuid: params.post.uuid,
+            text: params.text
+        });
+
+        return postFactory.make(response.data);
     }
 
     async deletePost(params: DeletePostParams): Promise<void> {
@@ -626,6 +656,43 @@ export class UserService implements IUserService {
 
         return postFactory.make(response.data);
     }
+
+
+    async createPost(params: CreatePostParams): Promise<IPost> {
+        const response: AxiosResponse<PostData> = await this.postsApiService.createPost({
+            text: params.text,
+            circleIds: params.circles && params.circles.length ? params.circles.map(circle => circle.id) : null,
+            isDraft: params.isDraft
+        });
+
+        return postFactory.make(response.data);
+    }
+
+    async addMediaToPost(params: AddMediaToPostParams): Promise<void> {
+        await this.postsApiService.addMediaToPost({
+            postUuid: params.post.uuid,
+            media: params.media
+        });
+    }
+
+    async publishPost(params: PublishPostParams): Promise<void> {
+        await this.postsApiService.publishPost({
+            postUuid: params.post.uuid
+        });
+    }
+
+    async getPostStatus(params: GetPostStatusParams): Promise<PostStatus> {
+        const response: AxiosResponse<PostData> = await this.postsApiService.getPostStatus({
+            postUuid: params.post.uuid,
+        });
+
+        const status = PostStatus.parse(response.data.status);
+
+        params.post.setStatus(status);
+
+        return status;
+    }
+
 
     async getPostCommentReactions(params: GetPostCommentReactionsParams): Promise<IPostCommentReaction[]> {
         const response: AxiosResponse<PostCommentReactionData[]> = await this.postsApiService.getPostCommentReactions({

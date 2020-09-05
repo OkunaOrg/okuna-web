@@ -5,25 +5,32 @@
             :refresher="postsRefresher"
             :on-scroll-loader="postsOnScrollLoader"
             :post-container-class="postContainerClass"
-    ></ok-posts-stream>
+            ref="postsStream"
+    >
+        <template v-slot:leading>
+            <ok-community-post-uploads @onPostUploaded="onPostUploaded" :community="community"/>
+        </template>
+    </ok-posts-stream>
 </template>
 
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
-    import OkPostsStream from "./OkPostsStream.vue";
+    import OkPostsStream from "../OkPostsStream.vue";
     import { BehaviorSubject } from "rxjs";
-    import { PostDisplayContext } from "../post/lib/PostDisplayContext";
-    import { okunaContainer } from "../../services/inversify";
-    import { TYPES } from "../../services/inversify-types";
-    import { IPost } from "../../models/posts/post/IPost";
     import { IUserService } from "~/services/user/IUserService";
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import { IUser } from "~/models/auth/user/IUser";
+    import OkCommunityPostUploads
+        from '~/components/posts-stream/community-posts/components/OkCommunityPostUploads.vue';
+    import { IPost } from '~/models/posts/post/IPost';
+    import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
+    import { okunaContainer } from '~/services/inversify';
+    import { TYPES } from '~/services/inversify-types';
 
     @Component({
         name: "OkCommunityPostsStream",
-        components: {OkPostsStream},
+        components: {OkCommunityPostUploads, OkPostsStream},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
@@ -52,6 +59,10 @@
             loggedInUser: BehaviorSubject<IUser | undefined>
         };
 
+        $refs: {
+            postsStream: OkPostsStream
+        };
+
         postsDisplayContext = PostDisplayContext.communityPosts;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
@@ -78,6 +89,10 @@
                 count: OkCommunityPostsStream.infiniteScrollChunkPostsCount,
                 appendAuthorizationTokenIfExists: true,
             })
+        }
+
+        onPostUploaded(post: IPost) {
+            this.$refs.postsStream.addPostToTop(post);
         }
 
         private onLoggedInUserChanged(loggedInUser: IUser) {

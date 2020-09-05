@@ -84,6 +84,9 @@
         <b-modal :active.sync="applicationSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-application-settings-modal :params="activeModalParams"></ok-application-settings-modal>
         </b-modal>
+        <b-modal :active.sync="postStudioModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-post-studio-modal :params="activeModalParams" v-if="activeModalParams" :return-data-setter="setModalReturnData"/>
+        </b-modal>
     </div>
 </template>
 
@@ -129,10 +132,12 @@
     import OkCommunityRulesModal from "~/pages/home/components/modals/components/OkCommunityRulesModal.vue";
     import OkSettingsModal from "~/pages/home/components/modals/components/OkSettingsModal.vue";
     import OkApplicationSettingsModal from '~/pages/home/components/modals/components/OkApplicationSettingsModal.vue';
+    import OkPostStudioModal from '~/pages/home/components/modals/components/OkPostStudioModal.vue';
 
     @Component({
         name: "OkModals",
         components: {
+            OkPostStudioModal,
             OkApplicationSettingsModal,
             OkSettingsModal,
             OkCommunityRulesModal,
@@ -183,6 +188,8 @@
         communityRulesModalOpen: boolean = false;
         settingsModalOpen: boolean = false;
         applicationSettingsModalOpen: boolean = false;
+        postStudioModalOpen: boolean = false;
+
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -211,6 +218,7 @@
         }
 
         private onActiveModalChanged(activeModalValue: ModalType) {
+            this.modalService.setActiveModalReturnData(null);
             this.postModalOpened = activeModalValue === ModalType.post;
             this.postReactionsModalOpened = activeModalValue === ModalType.postReactions;
             this.postCommentReactionsModalOpened = activeModalValue === ModalType.postCommentReactions;
@@ -232,6 +240,7 @@
             this.communityRulesModalOpen = activeModalValue === ModalType.communityRules;
             this.settingsModalOpen = activeModalValue === ModalType.settings;
             this.applicationSettingsModalOpen = activeModalValue === ModalType.applicationSettings;
+            this.postStudioModalOpen = activeModalValue === ModalType.postStudio;
         }
     }
 </script>

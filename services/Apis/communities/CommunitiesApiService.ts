@@ -21,11 +21,16 @@ import {
     GetFavoriteCommunitiesApiParams,
     GetModeratedCommunitiesApiParams,
     GetJoinedCommunitiesApiParams,
-    GetAdministratedCommunitiesApiParams, GetSuggestedCommunitiesApiParams
+    GetAdministratedCommunitiesApiParams,
+    GetSuggestedCommunitiesApiParams,
+    SearchJoinedCommunitiesApiParams,
+    CreateCommunityPostApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
+import { CreatePostApiParams } from '~/services/Apis/posts/PostsApiServiceTypes';
+import { PostData } from '~/types/models-data/posts/PostData';
 
 @injectable()
 export class CommunitiesApiService implements ICommunitiesApiService {
@@ -80,7 +85,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     static COUNT_COMMUNITY_POSTS_PATH =
         'api/communities/{communityName}/postComments/count/';
     static CREATE_COMMUNITY_POST_PATH =
-        'api/communities/{communityName}/postComments/';
+        'api/communities/{communityName}/posts/';
     static CLOSED_COMMUNITY_POSTS_PATH =
         'api/communities/{communityName}/postComments/closed/';
     static GET_COMMUNITY_MEMBERS_PATH =
@@ -181,6 +186,17 @@ export class CommunitiesApiService implements ICommunitiesApiService {
         if (params.offset) queryParams['offset'] = params.offset;
 
         return this.httpService.get(CommunitiesApiService.GET_JOINED_COMMUNITIES_PATH,
+            {
+                queryParams: queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+    searchJoinedCommunities(params: SearchJoinedCommunitiesApiParams): Promise<AxiosResponse<CommunityData[]>> {
+        let queryParams = {'query': params.query};
+
+        return this.httpService.get(CommunitiesApiService.SEARCH_JOINED_COMMUNITIES_PATH,
             {
                 queryParams: queryParams,
                 appendAuthorizationToken: true,
@@ -346,6 +362,24 @@ export class CommunitiesApiService implements ICommunitiesApiService {
 
         return this.httpService.post(path,
             body, {
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            });
+    }
+
+
+    createCommunityPost(params: CreateCommunityPostApiParams): Promise<AxiosResponse<PostData>> {
+        const bodyFormData = new FormData();
+
+        if (params.text) bodyFormData.set('text', params.text);
+
+        if (params.isDraft) bodyFormData.set('is_draft', params.isDraft.toString());
+
+        const path = this.makeCreateCommunityPost(params.communityName);
+
+        return this.httpService.put(path,
+            bodyFormData,
+            {
                 appendAuthorizationToken: true,
                 isApiRequest: true
             });

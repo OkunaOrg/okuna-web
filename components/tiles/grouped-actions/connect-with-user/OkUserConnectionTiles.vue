@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div v-if="user">
        <template
                v-if="user.isConnected &&
             !user.isFullyConnected &&

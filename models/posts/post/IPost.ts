@@ -42,6 +42,8 @@ export interface IPost extends IDataModel<IPost> {
     clearReaction(): void;
 
     setReaction(newReaction: IPostReaction): void;
+    
+    setStatus(status: PostStatus): void;
 
     isCreator(user: IUser): boolean;
 }

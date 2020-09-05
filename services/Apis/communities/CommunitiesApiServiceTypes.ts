@@ -13,6 +13,17 @@ export interface GetJoinedCommunitiesApiParams {
     offset?: number;
 }
 
+export interface SearchJoinedCommunitiesApiParams {
+    query?: string;
+}
+
+export interface CreateCommunityPostApiParams {
+    communityName: string;
+    text?: string;
+    isDraft?: boolean;
+}
+
+
 export interface GetAdministratedCommunitiesApiParams {
     offset?: number;
 }

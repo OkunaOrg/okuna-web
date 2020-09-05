@@ -201,6 +201,10 @@
   border-bottom: 1px solid var(--primary-highlight-color) !important;
 }
 
+.ok-has-border-primary-highlight {
+  border: 1px solid var(--primary-highlight-color) !important;
+}
+
 .ok-has-border-top-primary-invert-80 {
   border-top: 1px solid var(--primary-invert-color-80) !important;
 }
