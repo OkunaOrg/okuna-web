@@ -24,7 +24,7 @@
                         </button>
                     </template>
                     <template v-else>
-                        <button class="button is-rounded ok-has-background-primary-highlight has-text-weight-bold is-small"
+                        <button class="button is-rounded ok-has-background-primary-highlight has-text-weight-bold is-small ok-has-text-primary-invert"
                                 @click="onWantsToGoNext"
                                 :disabled="!isValidPostContent"
                         >
@@ -63,8 +63,7 @@
                                       required
                                       :placeholder="$t('global.snippets.whats_going_on')"
                                       v-model="text"
-                                      @focus="textInputFocused = true"
-                                      @blur="textInputFocused = false"
+                                      ref="textareaInput"
                               >
                         </textarea>
                             </ok-resizable-text-area>
@@ -148,6 +147,10 @@
             required: true
         }) readonly data: OkPostStudioData;
 
+        $refs: {
+            textareaInput: HTMLInputElement
+        };
+
         textInputFocused = false;
 
         OkAvatarSize = OkAvatarSize;
@@ -172,6 +175,7 @@
             } else if (this.params.post) {
                 this.text = this.params.post.text;
             }
+            this.$nextTick(() => this.$refs.textareaInput.focus());
         }
 
         onWantsToGoNext() {

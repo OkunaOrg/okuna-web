@@ -12,7 +12,7 @@ import { ToastType } from '~/services/toast/lib/ToastType';
 
 @injectable()
 export class MediaService implements IMediaService {
-    static readonly maxMediaSizeInMbs = 20;
+    static readonly maxMediaSizeInMbs = 15;
 
     static readonly videoMimes = [
         'video/mp4',
@@ -62,10 +62,12 @@ export class MediaService implements IMediaService {
         acceptedMimes: string[],
 
     }): Promise<OkFile | undefined> {
+
         return new Promise((resolve, reject) => {
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = params.acceptedMimes.join(',');
+
 
             input.onchange = (event: any) => {
                 const file = event.target.files[0];
@@ -75,7 +77,7 @@ export class MediaService implements IMediaService {
                 const fileSizeInMbs = this.utilsService.convertBytesToMbs(fileSizeInBytes); //
                 const fileType = file.type;
 
-                if (file.sizeInMbs > MediaService.maxMediaSizeInMbs) {
+                if (fileSizeInMbs > MediaService.maxMediaSizeInMbs) {
                     const errorMessage = this.localizationService.localize(
                         'global.errors.media.max_size',
                         {

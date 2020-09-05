@@ -50,10 +50,13 @@ import AccountMultiplePlus from 'vue-material-design-icons/AccountMultiplePlus.v
 import OpenInNew from 'vue-material-design-icons/OpenInNew.vue';
 import Cellphone from 'vue-material-design-icons/Cellphone.vue';
 import BugIcon from 'vue-material-design-icons/Bug.vue';
+import RefreshIcon from 'vue-material-design-icons/Refresh.vue';
 
 // Full list https://materialdesignicons.com/
 
 import Vue from 'vue';
+
+Vue.component('ok-refresh-icon', RefreshIcon);
 
 Vue.component('ok-menu-icon', MenuIcon);
 

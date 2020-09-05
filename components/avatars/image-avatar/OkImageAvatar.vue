@@ -2,6 +2,7 @@
     <div v-if="this.finalAvatarUrl">
         <figure :class="imgClass" v-if="imageFit === OkImageFit.auto">
             <img
+                    style="height: 100%; width: 100%"
                     :src="this.finalAvatarUrl" alt="avatar" :class="borderRadiusClass">
         </figure>
         <div :class="imgClass" v-else>

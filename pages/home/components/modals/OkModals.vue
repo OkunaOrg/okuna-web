@@ -218,6 +218,7 @@
         }
 
         private onActiveModalChanged(activeModalValue: ModalType) {
+            this.modalService.setActiveModalReturnData(null);
             this.postModalOpened = activeModalValue === ModalType.post;
             this.postReactionsModalOpened = activeModalValue === ModalType.postReactions;
             this.postCommentReactionsModalOpened = activeModalValue === ModalType.postCommentReactions;

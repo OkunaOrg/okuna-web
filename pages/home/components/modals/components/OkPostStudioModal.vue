@@ -46,8 +46,8 @@
         }) readonly params: PostStudioModalParams;
 
         onWantsToSharePost(data: OkPostStudioData) {
-            this.$parent["close"]();
             this.returnDataSetter(data);
+            this.$parent["close"]();
         }
     }
 </script>

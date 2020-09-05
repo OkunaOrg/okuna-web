@@ -85,7 +85,7 @@ export class CommunitiesApiService implements ICommunitiesApiService {
     static COUNT_COMMUNITY_POSTS_PATH =
         'api/communities/{communityName}/postComments/count/';
     static CREATE_COMMUNITY_POST_PATH =
-        'api/communities/{communityName}/postComments/';
+        'api/communities/{communityName}/posts/';
     static CLOSED_COMMUNITY_POSTS_PATH =
         'api/communities/{communityName}/postComments/closed/';
     static GET_COMMUNITY_MEMBERS_PATH =

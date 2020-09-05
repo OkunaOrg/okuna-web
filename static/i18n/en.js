@@ -37,9 +37,7 @@ export default {
         "report_object_modal": {
             "why": "Why are you reporting this {objectName}?",
         },
-        "post_actions": {
-
-        },
+        "post_actions": {},
 
         "translate": {
             "show_original": "Show original",
@@ -129,7 +127,7 @@ export default {
         },
     },
     "forms": {
-        "report_object":{
+        "report_object": {
             "provide_additional_details": "Can you provide additional details that might be relevant to the report?",
             "heres_what_happens_next": "Here's what will happen next:",
             "report_submitted_anon": "Your report will be submitted anonymously.",
@@ -182,8 +180,8 @@ export default {
                 "notFound": "👀 Not found",
                 "unhandled": "😭 Unhandled error"
             },
-            "captcha":{
-              "required": "You must pass the captcha"
+            "captcha": {
+                "required": "You must pass the captcha"
             },
             "password": {
                 "required": "Password is required",
@@ -260,6 +258,10 @@ export default {
             "guidelines": "Guidelines",
             "administrators": "Administrators",
             "moderators": "Moderators",
+            "cancelling": "Cancelling",
+            "cancelled": "Cancelled",
+            "waiting": "Waiting",
+            "published": "Published",
         },
         "models": {
             "post": "post",
@@ -389,6 +391,12 @@ export default {
             "notifications_sound": "Notifications sound",
             "whats_going_on": "What's going on?",
             "sharing_post_to": "Sharing post to",
+            "creating_post": "Creating post",
+            "compressing_media": "Compressing media",
+            "uploading_media": "Uploading media",
+            "processing_media": "Processing media",
+            "publishing_post": "Publishing post",
+            "post_published": "Post published",
         },
     },
 }

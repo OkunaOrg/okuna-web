@@ -3,6 +3,7 @@ import { IPost } from '~/models/posts/post/IPost';
 import { OkFile } from '~/services/media/IMediaService';
 import { PostStatus } from '~/models/posts/post/lib/PostStatus';
 import { CancelableOperation } from '~/lib/CancelableOperation';
+import { ICommunity } from '~/models/communities/community/ICommunity';
 
 export class OkPostUpload {
     static readonly postStatusPollingRateInMs = 1000;
@@ -30,8 +31,10 @@ export class OkPostUpload {
         private statusRetriever: OkPostStatusRetriever,
         private retriever: OkPostRetriever,
         private remover: OkPostRemover,
+        private logger: (message: string) => void,
+        private onStatusChange?: OkPostOnStatusChange,
     ) {
-        this.remainingMediaToUpload = this.data.media.slice();
+        this.remainingMediaToUpload = this.data.media ? this.data.media.slice() : [];
     }
 
 
@@ -73,7 +76,7 @@ export class OkPostUpload {
                 this.createPostOperation = CancelableOperation.fromPromise(
                     this.createPost()
                 );
-                await this.createPostOperation.value;
+                this.createdPost = await this.createPostOperation.value;
             }
 
             if (this.remainingMediaToUpload.length) {
@@ -101,7 +104,11 @@ export class OkPostUpload {
         }
     }
 
-    get thumbnailSrc() {
+    belongsToCommunity(community: ICommunity) {
+        return this.data.community && this.data.community.name === community.name;
+    }
+
+    get firstMediaSrc() {
         if (this.firstMedia) return URL.createObjectURL(this.firstMedia.file);
     }
 
@@ -166,7 +173,11 @@ export class OkPostUpload {
     }
 
     private setStatus(status: OkPostUploadStatus) {
+        this.log(
+            `Changing status from ${this.status} to ${status}`
+        );
         this.status = status;
+        if (this.onStatusChange) this.onStatusChange(status, this);
     }
 
     private cleanUp() {
@@ -176,6 +187,12 @@ export class OkPostUpload {
         if (this.publishOperation) this.publishOperation.cancel();
         if (this.retrieveStatusOperation) this.retrieveStatusOperation.cancel();
         if (this.retrievePostOperation) this.retrievePostOperation.cancel();
+    }
+
+    private log(message: string) {
+        this.logger(
+            `OkPostUpload-${this.id}: ${message}`
+        );
     }
 }
 
@@ -191,6 +208,7 @@ export type OkPostRetriever = (post: IPost) => Promise<IPost>;
 
 export type OkPostRemover = (post: IPost) => Promise<void>;
 
+export type OkPostOnStatusChange = (status: OkPostUploadStatus, postUpload: OkPostUpload) => void;
 
 export class OkPostUploadStatus {
     static idle = new OkPostUploadStatus('I');

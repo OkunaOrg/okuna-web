@@ -11,7 +11,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { ICommunity } from "~/models/communities/community/ICommunity";
-    import OkCommunityPostsStream from "~/components/posts-stream/OkCommunityPostsStream.vue";
+    import OkCommunityPostsStream from "~/components/posts-stream/community-posts/OkCommunityPostsStream.vue";
 
     @Component({
         name: "OkDesktopCommunityProfileTimeline",
