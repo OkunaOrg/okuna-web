@@ -110,7 +110,7 @@
                     token: inviteToken
                 }));
                 this.tokenValid = await this.requestOperation.value;
-                if (this.tokenValid) this._onTokenIsValid(this.inviteToken);
+                if (this.tokenValid) this._onTokenIsValid(inviteToken);
             } catch (error) {
                 const handledError = this.utilsService.handleErrorWithToast(error);
                 if (handledError.isUnhandled) throw handledError.error;

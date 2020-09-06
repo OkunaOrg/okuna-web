@@ -495,7 +495,7 @@ export class UserService implements IUserService {
     }
 
     async getSuggestedCommunities(params?: GetSuggestedCommunitiesApiParams): Promise<ICommunity[]> {
-        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getFavoriteCommunities(params);
+        const response: AxiosResponse<CommunityData[]> = await this.communitiesApiService.getSuggestedCommunities(params);
 
         return communityFactory.makeMultiple(response.data);
     }

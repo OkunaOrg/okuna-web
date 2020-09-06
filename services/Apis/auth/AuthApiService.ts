@@ -70,6 +70,7 @@ export class AuthApiService implements IAuthApiService {
     register(data: RegistrationApiParams): Promise<AxiosResponse<RegistrationResponse>> {
         const bodyFormData = new FormData();
         bodyFormData.set('email', data.email);
+        bodyFormData.set('name', data.name);
         bodyFormData.set('username', data.userUsername);
         bodyFormData.set('password', data.password);
         bodyFormData.set('token', data.inviteToken);
