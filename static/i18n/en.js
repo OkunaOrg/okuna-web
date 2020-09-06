@@ -262,6 +262,7 @@ export default {
             "cancelled": "Cancelled",
             "waiting": "Waiting",
             "published": "Published",
+            "circles": "circles",
         },
         "models": {
             "post": "post",
@@ -401,6 +402,8 @@ export default {
             "processing_media": "Processing media",
             "publishing_post": "Publishing post",
             "post_published": "Post published",
+            "you_shared_with": "You shared with",
+            "post_shared_privately_in": "Post shared privately in",
         },
     },
 }
