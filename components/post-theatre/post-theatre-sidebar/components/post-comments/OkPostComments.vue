@@ -46,7 +46,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import VueRouter, { Route } from "vue-router";
     import { IUserService } from "~/services/user/IUserService";
     import { TYPES } from "~/services/inversify-types";
@@ -137,6 +137,18 @@
             this.bootstrap();
         }
 
+        @Watch("$route.query.pcr")
+        onPostCommentReplyUrlParamChange(val: string, oldVal: string) {
+            this.state = OkPostCommentsState.Idle;
+            this.$nextTick(()=> this.bootstrap());
+        }
+
+        @Watch("$route.query.pc")
+        onPostCommentUrlParamChange(val: string, oldVal: string) {
+            this.state = OkPostCommentsState.Idle;
+            this.$nextTick(()=> this.bootstrap());
+        }
+
         bootstrap() {
             let routePostCommentReplyId;
             let routePostCommentId;
@@ -174,7 +186,7 @@
             this.$emit("onWantsToReplyToReply", params);
         }
 
-        onPostCommentDeleted(postComment: IPostComment, post: IPost){
+        onPostCommentDeleted(postComment: IPostComment, post: IPost) {
             const indexOfItem = this.postComments.indexOf(postComment);
             if (indexOfItem > -1) this.postComments.splice(indexOfItem, 1);
         }
@@ -392,21 +404,21 @@
                         case PostCommentsSortSetting.oldestFirst:
                             // Older will be on top, newer on bottom
                             if (newerPostCommentCount < OkPostComments.loadMoreItemsCount) {
-                                this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
+                                this.$refs.loadMore?.setBottomStatus(LoadMoreStatus.allLoaded);
                             }
 
                             if (olderPostCommentsCount < OkPostComments.loadMoreItemsCount) {
-                                this.$refs.loadMore.setTopStatus(LoadMoreStatus.allLoaded);
+                                this.$refs.loadMore?.setTopStatus(LoadMoreStatus.allLoaded);
                             }
                             break;
                         case PostCommentsSortSetting.newestFirst:
                             // Newer will be on top, older on bottom
                             if (olderPostCommentsCount < OkPostComments.loadMoreItemsCount) {
-                                this.$refs.loadMore.setBottomStatus(LoadMoreStatus.allLoaded);
+                                this.$refs.loadMore?.setBottomStatus(LoadMoreStatus.allLoaded);
                             }
 
                             if (newerPostCommentCount < OkPostComments.loadMoreItemsCount) {
-                                this.$refs.loadMore.setTopStatus(LoadMoreStatus.allLoaded);
+                                this.$refs.loadMore?.setTopStatus(LoadMoreStatus.allLoaded);
                             }
                             break;
                         default:
@@ -458,7 +470,7 @@
                 };
 
                 const element = document.getElementById(id);
-                if(element){
+                if (element) {
                     this.$scrollTo(element, 500, options);
                 }
             });
