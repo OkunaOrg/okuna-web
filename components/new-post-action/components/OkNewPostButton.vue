@@ -1,6 +1,6 @@
 <template>
     <button
-            class="button is-rounded is-fullwidth has-text-weight-bold justify-center align-items-center ok-new-post-button"
+            class="button is-rounded is-fullwidth has-text-weight-bold justify-center align-items-center ok-new-post-button is-paddingless"
             :style="buttonCssStyle"
             :class="buttonCssClass"
             @click="onButtonClicked"
