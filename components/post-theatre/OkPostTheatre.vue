@@ -48,7 +48,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
+    import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import { CancelableOperation } from "~/lib/CancelableOperation";
     import { IPost } from "~/models/posts/post/IPost";
     import { TYPES } from "~/services/inversify-types";
@@ -88,6 +88,14 @@
                 this.userService.loggedInUser.subscribe(this.onLoggedInUser);
             } else{
                 this.latestPost = this.post;
+            }
+        }
+
+        @Watch("postUuid")
+        onPostUuidChange(val: string, oldVal: string) {
+            this.latestPost = null;
+            if(val){
+                this.refreshPost();
             }
         }
 
