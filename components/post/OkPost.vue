@@ -2,7 +2,8 @@
     <article class="ok-post">
         <div class="card ok-has-background-primary has-no-borer-radius-mobile">
             <div class="card-content">
-                <ok-post-header :post="post" :post-display-context="postDisplayContext" @onPostDeleted="onPostDeleted" @onPostReported="onPostReported"></ok-post-header>
+                <ok-post-header :post="post" :post-display-context="postDisplayContext" @onPostDeleted="onPostDeleted"
+                                @onPostReported="onPostReported"></ok-post-header>
             </div>
             <div class="has-padding-bottom-20" v-if="post.mediaThumbnail">
                 <ok-post-media :post="post" :post-element-width="postElementWidth"
@@ -16,7 +17,8 @@
                     </div>
                     <div class="column" v-if="post.isClosed || !post.commentsEnabled">
                         <div v-if="post.isClosed" class="is-flex align-items-flex-end justify-end">
-                            <ok-private-community-icon class="ok-svg-icon-primary-invert-80"></ok-private-community-icon>
+                            <ok-private-community-icon
+                                    class="ok-svg-icon-primary-invert-80"></ok-private-community-icon>
                             <span class="ok-has-text-primary-invert-80 is-size-6 has-padding-left-5">
                                 {{ $t('global.snippets.post_closed') }}
                             </span>
@@ -32,6 +34,9 @@
             </div>
             <ok-post-reactions :post="post"
                                class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-reactions>
+            <ok-post-circles :post="post"
+                             v-if="(post.circles && post.circles.length) || (post.isEncircled)"
+                             class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-circles>
             <ok-post-actions :post="post"
                              class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20"></ok-post-actions>
         </div>
@@ -64,10 +69,13 @@
     import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
     import OkPostCommentCounts from "~/components/post/components/post-comments-count/OkPostCommentCounts.vue";
     import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
+    import OkPostCircles from '~/components/post/components/post-circles/OkPostCircles.vue';
 
     @Component({
         name: "OkPost",
-        components: {OkPostActions, OkPostCommentCounts, OkPostReactions, OkPostMedia, OkPostText, OkPostHeader},
+        components: {
+            OkPostCircles,
+            OkPostActions, OkPostCommentCounts, OkPostReactions, OkPostMedia, OkPostText, OkPostHeader},
     })
     export default class OkPost extends Vue {
 
@@ -94,12 +102,12 @@
             this.updatePostElementWidth();
         }
 
-        onPostDeleted(post: IPost){
-            this.$emit('onPostDeleted', post);
+        onPostDeleted(post: IPost) {
+            this.$emit("onPostDeleted", post);
         }
 
-        onPostReported(post: IPost){
-            this.$emit('onPostReported', post);
+        onPostReported(post: IPost) {
+            this.$emit("onPostReported", post);
         }
 
 

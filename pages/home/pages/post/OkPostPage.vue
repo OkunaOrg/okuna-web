@@ -16,7 +16,7 @@
 
 
 <script lang="ts">
-    import { Component, Vue } from "nuxt-property-decorator"
+    import { Component, Vue, Watch } from "nuxt-property-decorator"
     import { Route } from "vue-router";
     import { IEnvironmentService } from "~/services/environment/IEnvironmentService";
     import { TYPES } from "~/services/inversify-types";
