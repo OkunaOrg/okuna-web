@@ -211,15 +211,15 @@ export type OkPostRemover = (post: IPost) => Promise<void>;
 export type OkPostOnStatusChange = (status: OkPostUploadStatus, postUpload: OkPostUpload) => void;
 
 export class OkPostUploadStatus {
-    static idle = new OkPostUploadStatus('I');
-    static creatingPost = new OkPostUploadStatus('CP');
-    static addingPostMedia = new OkPostUploadStatus('APM');
-    static publishing = new OkPostUploadStatus('PB');
-    static processing = new OkPostUploadStatus('P');
-    static published = new OkPostUploadStatus('PU');
-    static error = new OkPostUploadStatus('F');
-    static cancelling = new OkPostUploadStatus('C');
-    static cancelled = new OkPostUploadStatus('CA');
+    static idle = new OkPostUploadStatus('Idle');
+    static creatingPost = new OkPostUploadStatus('CreatingPost');
+    static addingPostMedia = new OkPostUploadStatus('AddingPostMedia');
+    static publishing = new OkPostUploadStatus('Publishing');
+    static processing = new OkPostUploadStatus('Processing');
+    static published = new OkPostUploadStatus('Published');
+    static error = new OkPostUploadStatus('Error');
+    static cancelling = new OkPostUploadStatus('Cancelling');
+    static cancelled = new OkPostUploadStatus('Cancelled');
 
     static _values: OkPostUploadStatus[] = [
         OkPostUploadStatus.idle,
