@@ -1,7 +1,7 @@
 <template>
     <div v-if="uploads">
         <div class="ok-post-upload-card"
-             v-for="postUpload in uploads"
+             v-for="postUpload in displayedUploads"
              :key="postUpload.id">
             <ok-post-upload-card
                     @onPostUploadStatusChange="onPostUploadStatusChange"
@@ -25,6 +25,7 @@
     import { TYPES } from "~/services/inversify-types";
     import OkPostUploadCard from "~/components/cards/OkPostUploadCard.vue";
     import { OkPostUpload, OkPostUploadStatus } from "~/services/post-uploader/lib/OkPostUpload";
+    import { BehaviorSubject } from "~/node_modules/rxjs";
 
     @Component({
         name: "OkTimelinePostUploads",
@@ -37,6 +38,17 @@
     })
     export default class OkTimelinePostUploads extends Vue {
         private postUploaderService: IPostUploaderService = okunaContainer.get<IPostUploaderService>(TYPES.PostUploaderService);
+        OkPostUploadStatus = OkPostUploadStatus;
+
+        $observables!: {
+            uploads: BehaviorSubject<OkPostUpload[]>
+        };
+
+        private displayedUploads = [];
+
+        created() {
+            this.$observables.uploads.subscribe(this.onUploadsChange);
+        }
 
         onPostUploadStatusChange(status: OkPostUploadStatus, postUpload: OkPostUpload) {
             if (status === OkPostUploadStatus.published) {
@@ -45,7 +57,18 @@
 
             if ([OkPostUploadStatus.cancelled, OkPostUploadStatus.published].includes(status)) {
                 // Remove it from the list
-                this.postUploaderService.removePostUpload(postUpload);
+                this.removeDisplayedUpload(postUpload);
+            }
+        }
+
+        private onUploadsChange(uploads: OkPostUpload[]) {
+            this.displayedUploads = uploads.filter((upload) => upload.status !== OkPostUploadStatus.published);
+        }
+
+        private removeDisplayedUpload(postUpload: OkPostUpload) {
+            const index = this.displayedUploads.indexOf(postUpload);
+            if (index > -1) {
+                this.displayedUploads.splice(index, 1);
             }
         }
 

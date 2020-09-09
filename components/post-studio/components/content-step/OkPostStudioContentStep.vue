@@ -172,7 +172,9 @@
             if (this.data) {
                 if (this.data.text) this.text = this.data.text;
                 if (this.data.media && this.data.media.length) this.mediaFile = this.data.media[0];
-            } else if (this.params.post) {
+            }
+
+            if (this.params.post?.text && !this.data.text) {
                 this.text = this.params.post.text;
             }
             this.$nextTick(() => this.$refs.textareaInput.focus());
