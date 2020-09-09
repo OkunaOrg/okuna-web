@@ -53,7 +53,7 @@
             if (this.user.isFollowing) {
                 return OkFollowButtonType.unfollow;
             } else if (this.user.visibility != UserVisibility.private || this.user.isFollowing) {
-                return OkFollowButtonType.unfollow;
+                return OkFollowButtonType.follow;
             } else {
                 return this.user.isFollowRequested ? OkFollowButtonType.cancelRequestToFollow : OkFollowButtonType.requestToFollow;
             }
