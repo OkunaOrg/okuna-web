@@ -27,6 +27,7 @@
                         <input type="text" placeholder="Search"
                                class="input is-rounded is-normal ok-input has-text-centered"
                                required
+                               autocomplete="off"
                                id="search"
                                @focus="onFocus"
                                v-model="searchQuery"

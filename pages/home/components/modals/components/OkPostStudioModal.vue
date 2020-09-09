@@ -1,7 +1,7 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <div class="ok-post-studio-modal">
-            <ok-post-studio :params="params" @onWantsToSharePost="onWantsToSharePost"/>
+            <ok-post-studio :params="params" @onWantsToSharePost="onWantsToSharePost" @onSavedPost="onSavedPost"/>
         </div>
     </div>
 </template>
@@ -29,6 +29,7 @@
     import { PostStudioModalParams } from "~/services/modal/IModalService";
     import OkPostStudio from "~/components/post-studio/OkPostStudio.vue";
     import { OkPostStudioData } from "~/components/post-studio/lib/OkPostCreatorTypes";
+    import OkPost from '~/components/post/OkPost.vue';
 
     @Component({
         name: "OkPostStudioModal",
@@ -47,6 +48,11 @@
 
         onWantsToSharePost(data: OkPostStudioData) {
             this.returnDataSetter(data);
+            this.$parent["close"]();
+        }
+
+        onSavedPost(post: OkPost){
+            this.returnDataSetter(post);
             this.$parent["close"]();
         }
     }

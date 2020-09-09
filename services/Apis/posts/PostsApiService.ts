@@ -196,11 +196,13 @@ export class PostsApiService implements IPostsApiService {
 
 
     editPost(params: EditPostApiParams): Promise<AxiosResponse<PostData>> {
-        const body = {'text': params.text};
+        const bodyFormData = new FormData();
+        if (params.text) bodyFormData.set('text', params.text);
+
 
         const path = this.makeEditPostPath(params.postUuid);
 
-        return this.httpService.patch(path, body, {appendAuthorizationToken: true, isApiRequest: true});
+        return this.httpService.patch(path, bodyFormData, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
     createPost(params: CreatePostApiParams): Promise<AxiosResponse<PostData>> {
