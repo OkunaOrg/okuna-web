@@ -23,6 +23,8 @@ export interface IUtilsService {
 
     convertBytesToMbs(bytes: number) : number;
 
+    normalizeUrl(params: NormalizeUrlParams): string;
+
 }
 
 export interface QueryParams {
@@ -34,3 +36,11 @@ export interface HandledError {
     isUnhandled: boolean;
     error: any;
 }
+
+export interface NormalizeUrlParams {
+    url: string;
+    // The url where we found the url we are normalizing.
+    // Its important because if the url is /something then should be https://rootUrl.com/something
+    rootUrl?: string;
+}
+

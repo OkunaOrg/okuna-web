@@ -1,0 +1,26 @@
+diff --git a/node_modules/vue-text-highlight/dist/vue-text-highlight.esm.js b/node_modules/vue-text-highlight/dist/vue-text-highlight.esm.js
+index 58cbaae..4b1de05 100644
+--- a/node_modules/vue-text-highlight/dist/vue-text-highlight.esm.js
++++ b/node_modules/vue-text-highlight/dist/vue-text-highlight.esm.js
+@@ -1400,7 +1400,7 @@ var script = {
+     highlightStyle: classAndStyleTypes,
+     highlightClass: classAndStyleTypes,
+     highlightComponent: {
+-      type: [String, Object],
++      type: [String, Object, Function],
+       default: 'mark'
+     }
+   },
+diff --git a/node_modules/vue-text-highlight/dist/vue-text-highlight.umd.js b/node_modules/vue-text-highlight/dist/vue-text-highlight.umd.js
+index 31aaed2..8cc43e1 100644
+--- a/node_modules/vue-text-highlight/dist/vue-text-highlight.umd.js
++++ b/node_modules/vue-text-highlight/dist/vue-text-highlight.umd.js
+@@ -1406,7 +1406,7 @@
+       highlightStyle: classAndStyleTypes,
+       highlightClass: classAndStyleTypes,
+       highlightComponent: {
+-        type: [String, Object],
++        type: [String, Object, Function],
+         default: 'mark'
+       }
+     },

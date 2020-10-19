@@ -1,5 +1,5 @@
 import { AxiosError } from '~/node_modules/axios';
-import { HandledError, IUtilsService, QueryParams } from '~/services/utils/IUtilsService';
+import { HandledError, IUtilsService, NormalizeUrlParams, QueryParams } from '~/services/utils/IUtilsService';
 import { inject, injectable } from '~/node_modules/inversify';
 import { TYPES } from '~/services/inversify-types';
 import { IToastService } from '~/services/toast/IToastService';
@@ -169,11 +169,36 @@ export class UtilsService implements IUtilsService {
     };
 
     isUrl(str: string): boolean {
-        const regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+        const regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
         return regexp.test(str);
     }
 
     convertBytesToMbs(bytes: number): number {
         return (bytes / (1024 * 1024));
+    }
+
+
+    normalizeUrl({url, rootUrl}: NormalizeUrlParams) : string {
+
+        let normalizedUrl;
+
+        if (url.startsWith('http') || url.startsWith('https')) {
+            // No need to normalize
+            normalizedUrl = url;
+        } else if (url.startsWith('//')) {
+            // We use http because we dont know if the website will support HTTPs
+            normalizedUrl = `http:${url}`;
+        } else if (url.startsWith('/')) {
+            // Its a relative root url, so we build a url on the root host
+            const {host, protocol} = new URL(rootUrl);
+            normalizedUrl = `${protocol}//${host}${url}`;
+        } else{
+            // Its a relative url, so we build a url on the given rootUrl
+            normalizedUrl = rootUrl.endsWith('/')
+                ? `${rootUrl}${url}`
+                : `${rootUrl}/${url}`;
+        }
+
+        return normalizedUrl
     }
 }
