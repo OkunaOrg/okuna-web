@@ -85,6 +85,16 @@ import userNewPostNotificationFactory from '~/models/notifications/user-new-post
 import { ModerationCategorySeverity } from '~/models/moderation/moderation_category/lib/ModerationCategorySeverity';
 import { UserVisibility } from '~/models/auth/user/lib/UserVisibility';
 import communityInviteNotificationFactory from '~/models/notifications/community-invite-notification/factory';
+import { IPostLink } from '~/models/posts/post-link/IPostComment';
+import { PostLinkData } from '~/types/models-data/posts/PostLinkData';
+import postLinkFactory from '~/models/posts/post-link/factory';
+import { LinkPreviewImageData } from '~/types/models-data/link-previews/LinkPreviewImageData';
+import linkPreviewImageFactory from '~/models/link-previews/link-preview-image/factory';
+import { ILinkPreviewImage } from '~/models/link-previews/link-preview-image/ILinkPreviewImage';
+import { IDataModel } from '~/models/abstract/IDataModel';
+import { LinkPreviewDetailsData } from '~/types/models-data/link-previews/LinkPreviewData';
+import linkPreviewTwitterDetailsFactory from '~/models/link-previews/link-preview-twitter-details/factory';
+import linkPreviewYoutubeDetailsFactory from '~/models/link-previews/link-preview-youtube-details/factory';
 
 export const colorDeserializer = (instance, rawData: string) => {
     if (!rawData) return;
@@ -217,6 +227,42 @@ export const hashtagSerializer = (instance, attribute: IHashtag) => {
 export const hashtagsDeserializer = (instance, rawData: HashtagData[]) => {
     return rawData.map((rawDataItem) => hashtagDeserializer(instance, rawDataItem));
 };
+
+export const postLinkDeserializer = (instance, rawData: PostLinkData) => {
+    return postLinkFactory.make(rawData);
+};
+
+export const postLinkSerializer = (instance, attribute: IPostLink) => {
+    return attribute.serialize();
+};
+
+export const postLinksDeserializer = (instance, rawData: PostLinkData[]) => {
+    return rawData.map((rawDataItem) => postLinkDeserializer(instance, rawDataItem));
+};
+
+export const linkPreviewImageDeserializer = (instance, rawData: LinkPreviewImageData) => {
+    return linkPreviewImageFactory.make(rawData);
+};
+
+export const linkPreviewImageSerializer = (instance, attribute: ILinkPreviewImage) => {
+    return attribute.serialize();
+};
+
+export const linkPreviewDetailsDeserializer = (instance, rawData: LinkPreviewDetailsData) => {
+    switch (rawData.type) {
+        case 'twitter':
+            return linkPreviewTwitterDetailsFactory.make(rawData);
+        case 'youtube':
+            return linkPreviewYoutubeDetailsFactory.make(rawData);
+        default:
+            console.error('Unsupported link preview details', rawData);
+    }
+};
+
+export const linkPreviewDetailsSerializer = (instance, attribute: IDataModel<any>) => {
+    return attribute.serialize();
+};
+
 
 export const hashtagsSerializer = (instance, attribute: IHashtag[]) => {
     return JSON.stringify(attribute.map((attributeItem) => hashtagSerializer(instance, attributeItem)));
