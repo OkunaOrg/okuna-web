@@ -37,7 +37,7 @@ import {
     CreatePostApiParams,
     AddMediaToPostApiParams,
     PublishPostApiParams,
-    GetPostStatusApiParams
+    GetPostStatusApiParams, PreviewLinkApiParams, LinkIsPreviewableResponseData
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { UserData } from '~/types/models-data/auth/UserData';
 import { IStringTemplateService } from '~/services/string-template/IStringTemplateService';
@@ -49,6 +49,7 @@ import { PostCommentReactionData } from '~/types/models-data/posts/PostCommentRe
 import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
 import { TrendingPostData } from '~/types/models-data/posts/TrendingPostData';
 import { TopPostData } from '~/types/models-data/posts/TopPostData';
+import { LinkPreviewData } from '~/types/models-data/link-previews/LinkPreviewData';
 
 @injectable()
 export class PostsApiService implements IPostsApiService {
@@ -68,6 +69,8 @@ export class PostsApiService implements IPostsApiService {
     static EXCLUDED_PROFILE_POSTS_COMMUNITIES_SEARCH_PATH =
         'api/posts/profile/excluded-communities/search/';
     static GET_TRENDING_POSTS_PATH = 'api/posts/trending/new/';
+    static PREVIEW_LINK_PATH = 'api/posts/links/preview/';
+    static LINK_IS_PREVIEWABLE_PATH = 'api/posts/links/is-previewable/';
     static CREATE_POST_PATH = 'api/posts/';
     static POST_MEDIA_PATH = 'api/posts/{postUuid}/media/';
     static EDIT_POST_PATH = 'api/posts/{postUuid}/';
@@ -475,6 +478,20 @@ export class PostsApiService implements IPostsApiService {
     translatePostComment(params: TranslatePostCommentApiParams): Promise<AxiosResponse<Object>> {
         const path = this.makeTranslatePostCommentPath(params.postUuid, params.postCommentId);
         return this.httpService.post(path, null, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    previewLink(params: PreviewLinkApiParams): Promise<AxiosResponse<LinkPreviewData>> {
+        return this.httpService.post(PostsApiService.PREVIEW_LINK_PATH,
+            {
+                link: params.link
+            }, {appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    linkIsPreviewable(params: PreviewLinkApiParams): Promise<AxiosResponse<LinkIsPreviewableResponseData>> {
+        return this.httpService.post(PostsApiService.LINK_IS_PREVIEWABLE_PATH,
+            {
+                link: params.link
+            }, {appendAuthorizationToken: true, isApiRequest: true});
     }
 
 

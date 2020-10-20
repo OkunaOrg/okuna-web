@@ -27,7 +27,12 @@ import {
     EnablePostCommentsApiParams,
     TranslatePostApiParams,
     TranslatePostCommentApiParams,
-    EditPostApiParams, CreatePostApiParams, AddMediaToPostApiParams, PublishPostApiParams, GetPostStatusApiParams
+    EditPostApiParams,
+    CreatePostApiParams,
+    AddMediaToPostApiParams,
+    PublishPostApiParams,
+    GetPostStatusApiParams,
+    PreviewLinkApiParams, LinkIsPreviewableApiParams, LinkIsPreviewableResponseData
 } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -39,6 +44,7 @@ import { PostCommentReactionData } from '~/types/models-data/posts/PostCommentRe
 import { EmojiGroupData } from '~/types/models-data/common/EmojiGroupData';
 import { TopPostData } from '~/types/models-data/posts/TopPostData';
 import { TrendingPostData } from '~/types/models-data/posts/TrendingPostData';
+import { LinkPreviewData } from '~/types/models-data/link-previews/LinkPreviewData';
 
 
 export interface IPostsApiService {
@@ -109,4 +115,8 @@ export interface IPostsApiService {
     translatePost(params: TranslatePostApiParams): Promise<AxiosResponse<Object>>;
 
     translatePostComment(params: TranslatePostCommentApiParams): Promise<AxiosResponse<Object>>;
+
+    previewLink(params: PreviewLinkApiParams): Promise<AxiosResponse<LinkPreviewData>>;
+
+    linkIsPreviewable(params: LinkIsPreviewableApiParams): Promise<AxiosResponse<LinkIsPreviewableResponseData>>;
 }

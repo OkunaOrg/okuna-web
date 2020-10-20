@@ -31,18 +31,54 @@ export class LinkPreview extends DataModel<LinkPreview> implements ILinkPreview 
     details: ILinkPreviewTwitterDetails | ILinkPreviewYoutubeDetails;
 
     dataMaps: DataModelAttributeMap<ILinkPreview>[] = [
-        {dataKey: 'uuid', attributeKey: 'id',},
-        {dataKey: 'url', attributeKey: 'url',},
-        {dataKey: 'domain', attributeKey: 'domain'},
-        {dataKey: 'contentType', attributeKey: 'contentType'},
-        {dataKey: 'mimeType', attributeKey: 'mimeType'},
-        {dataKey: 'redirected', attributeKey: 'redirected'},
-        {dataKey: 'redirectionUrl', attributeKey: 'redirectionUrl'},
-        {dataKey: 'redirectionTrail', attributeKey: 'redirectionTrail'},
-        {dataKey: 'title', attributeKey: 'title'},
-        {dataKey: 'description', attributeKey: 'description'},
-        {dataKey: 'name', attributeKey: 'name'},
-        {dataKey: 'trackersDetected', attributeKey: 'trackersDetected'},
+        {
+            dataKey: 'uuid',
+            attributeKey: 'id',
+        },
+        {
+            dataKey: 'url',
+            attributeKey: 'url',
+        },
+        {
+            dataKey: 'domain',
+            attributeKey: 'domain'
+        },
+        {
+            dataKey: 'contentType',
+            attributeKey: 'contentType'
+        },
+        {
+            dataKey: 'mimeType',
+            attributeKey: 'mimeType'
+        },
+        {
+            dataKey: 'redirected',
+            attributeKey: 'redirected'
+        },
+        {
+            dataKey: 'redirectionUrl',
+            attributeKey: 'redirectionUrl'
+        },
+        {
+            dataKey: 'redirectionTrail',
+            attributeKey: 'redirectionTrail'
+        },
+        {
+            dataKey: 'title',
+            attributeKey: 'title'
+        },
+        {
+            dataKey: 'description',
+            attributeKey: 'description'
+        },
+        {
+            dataKey: 'name',
+            attributeKey: 'name'
+        },
+        {
+            dataKey: 'trackersDetected',
+            attributeKey: 'trackersDetected'
+        },
         {
             dataKey: 'icon',
             attributeKey: 'icon',

@@ -186,3 +186,15 @@ export interface TranslatePostCommentApiParams {
     postUuid: string;
     postCommentId: number;
 }
+
+export interface PreviewLinkApiParams {
+    link: string;
+}
+
+export interface LinkIsPreviewableApiParams {
+    link: string;
+}
+
+export interface LinkIsPreviewableResponseData {
+    is_previewable: boolean;
+}

@@ -75,7 +75,12 @@ import {
     UpdateConnectionWithUserParaUserParams,
     EditPostParams,
     SearchJoinedCommunitiesParams,
-    CreateCommunityPostParams, AddMediaToPostParams, PublishPostParams, GetPostStatusParams, CreatePostParams
+    CreateCommunityPostParams,
+    AddMediaToPostParams,
+    PublishPostParams,
+    GetPostStatusParams,
+    CreatePostParams,
+    PreviewLinkParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -105,6 +110,7 @@ import { IConnection } from '~/models/connections/connection/IConnection';
 import { ICircle } from '~/models/connections/circle/ICircle';
 import { GetSuggestedCommunitiesApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { PostStatus } from '~/models/posts/post/lib/PostStatus';
+import { ILinkPreview } from '~/models/link-previews/link-preview/ILinkPreview';
 
 
 export interface IUserService {
@@ -272,6 +278,10 @@ export interface IUserService {
     translatePost(params: TranslatePostParams): Promise<String>;
 
     translatePostComment(params: TranslatePostCommentParams): Promise<String>;
+
+    previewLink(params: PreviewLinkParams): Promise<ILinkPreview>;
+
+    linkIsPreviewable(params: PreviewLinkParams): Promise<boolean>;
 
     // POSTS END
 
