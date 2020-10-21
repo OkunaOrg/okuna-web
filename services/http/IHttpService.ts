@@ -44,4 +44,6 @@ export interface HttpServiceRequestConfig {
     apiVersion?: number;
     // Whether the progress bar is shown
     progress?: boolean;
+
+    responseType?: 'arraybuffer' | 'document' | 'json' | 'text' | 'stream' | 'blob';
 }

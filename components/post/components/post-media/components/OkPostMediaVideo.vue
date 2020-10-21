@@ -55,8 +55,6 @@
             const postVideoFormatSet = this.postVideo.formatSet;
             const postVideoMp4Format = postVideoFormatSet.find((formatSet) => formatSet.format === "mp4_sd");
 
-            console.log(this.postVideo.thumbnail);
-
             return {
                 muted: true,
                 language: "en",

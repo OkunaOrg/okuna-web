@@ -29,6 +29,10 @@ export class EnvironmentService implements IEnvironmentService {
         return process.env['API_URL'] as string;
     }
 
+    get contentProxyUrl() {
+        return process.env['CONTENT_PROXY_URL'] as string;
+    }
+
     get loggingIsEnabled(): boolean {
         return process.env.LOGGING === 'true'
     }

@@ -192,6 +192,10 @@ export interface GetTrendingPostsParams {
     count?: number;
 }
 
+export interface PreviewLinkParams {
+    link: string;
+}
+
 export interface GetTimelinePostsParams {
     minId?: number;
     maxId?: number;

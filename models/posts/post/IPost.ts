@@ -9,6 +9,7 @@ import { IPostMedia } from '~/models/posts/post-media/IPostMedia';
 import { IPostComment } from '~/models/posts/post-comment/IPostComment';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { ICommunity } from '~/models/communities/community/ICommunity';
+import { IPostLink } from '~/models/posts/post-link/IPostLink';
 
 
 export interface IPost extends IDataModel<IPost> {
@@ -32,6 +33,7 @@ export interface IPost extends IDataModel<IPost> {
     media?: IPostMedia[];
     comments?: IPostComment[];
     hashtags?: IHashtag[];
+    links?: IPostLink[];
     community?: ICommunity;
     isMuted?: boolean;
     isEncircled?: boolean;
@@ -42,7 +44,7 @@ export interface IPost extends IDataModel<IPost> {
     clearReaction(): void;
 
     setReaction(newReaction: IPostReaction): void;
-    
+
     setStatus(status: PostStatus): void;
 
     isCreator(user: IUser): boolean;

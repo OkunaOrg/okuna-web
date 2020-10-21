@@ -93,7 +93,7 @@ import {
     SearchJoinedCommunitiesParams,
     CreatePostParams,
     AddMediaToPostParams,
-    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams
+    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -163,6 +163,10 @@ import circleFactory from '~/models/connections/circle/factory';
 import { IConnectionsApiService } from '~/services/Apis/connections/IConnectionsApiService';
 import { IUserPreferencesService } from '~/services/user-preferences/IUserPreferencesService';
 import { PostStatus } from '~/models/posts/post/lib/PostStatus';
+import { LinkPreviewData } from '~/types/models-data/link-previews/LinkPreviewData';
+import linkPreviewFactory from '~/models/link-previews/link-preview/factory';
+import { LinkIsPreviewableResponseData } from '~/services/Apis/posts/PostsApiServiceTypes';
+import { ILinkPreview } from '~/models/link-previews/link-preview/ILinkPreview';
 
 
 @injectable()
@@ -790,6 +794,22 @@ export class UserService implements IUserService {
         });
 
         return trendingPostFactory.makeMultiple(response.data);
+    }
+
+    async previewLink(params: PreviewLinkParams): Promise<ILinkPreview> {
+        const response: AxiosResponse<LinkPreviewData> = await this.postsApiService.previewLink({
+            link: params.link
+        });
+
+        return linkPreviewFactory.make(response.data);
+    }
+
+    async linkIsPreviewable(params: PreviewLinkParams): Promise<boolean> {
+        const response: AxiosResponse<LinkIsPreviewableResponseData> = await this.postsApiService.linkIsPreviewable({
+            link: params.link
+        });
+
+        return response.data.is_previewable;
     }
 
     async reactToPost(params: ReactToPostParams): Promise<IPostReaction> {

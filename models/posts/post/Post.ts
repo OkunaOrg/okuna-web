@@ -14,16 +14,28 @@ import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import {
     circlesDeserializer,
-    circlesSerializer, communityDeserializer, communitySerializer,
+    circlesSerializer,
+    communityDeserializer,
+    communitySerializer,
     dateDeserializer,
-    dateSerializer, hashtagsDeserializer, hashtagsSerializer,
+    dateSerializer,
+    hashtagsDeserializer,
+    hashtagsSerializer,
     languageDeserializer,
-    languageSerializer, postCommentsDeserializer, postCommentsSerializer, postMediasDeserializer, postMediasSerializer,
+    languageSerializer,
+    postCommentsDeserializer,
+    postCommentsSerializer,
+    postLinkDeserializer, postLinksDeserializer, postLinkSerializer, postLinksSerializer,
+    postMediasDeserializer,
+    postMediasSerializer,
     postReactionDeserializer,
     postReactionSerializer,
-    postStatusDeserializer, postStatusSerializer,
+    postStatusDeserializer,
+    postStatusSerializer,
     reactionsEmojiCountsDeserializer,
-    reactionsEmojiCountsSerializer, userDeserializer, userSerializer
+    reactionsEmojiCountsSerializer,
+    userDeserializer,
+    userSerializer
 } from '~/models/common/serializers';
 import { reactionEmojiCountsUpdater } from '~/lib/reactionsEmojiCountsUpdater';
 import { IPostCommentReaction } from '~/models/posts/post-comment-reaction/IPostCommentReaction';
@@ -158,6 +170,12 @@ export class Post extends DataModel<Post> implements IPost {
             attributeKey: 'hashtags',
             deserializer: hashtagsDeserializer,
             serializer: hashtagsSerializer
+        },
+        {
+            dataKey: 'links',
+            attributeKey: 'links',
+            deserializer: postLinksDeserializer,
+            serializer: postLinksSerializer
         },
         {
             dataKey: 'community',

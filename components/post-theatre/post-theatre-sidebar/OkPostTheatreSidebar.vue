@@ -4,6 +4,7 @@
             <div class="column ok-post-comments-container" :id="postCommentsContainerId">
                 <div class="has-padding-20 ok-has-border-bottom-primary-highlight">
                     <ok-post-header :post="post"></ok-post-header>
+                    <ok-post-link-preview v-if="postHasLinkToPreview" :link="postFirstLink" class="has-margin-bottom-20"/>
                     <ok-post-text :post="post"></ok-post-text>
                     <ok-post-reactions :post="post"></ok-post-reactions>
                     <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>
@@ -39,12 +40,12 @@
     import OkPostHeader from "~/components/post/components/post-header/OkPostHeader.vue";
     import OkPostText from "~/components/post/components/OkPostText.vue";
     import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
+    import OkPostLinkPreview from "~/components/post/components/post-link-preview/OkPostLinkPreview.vue";
     import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
     import OkPostComments
         from "~/components/post-theatre/post-theatre-sidebar/components/post-comments/OkPostComments.vue";
     import OkPostCommenter
         from "~/components/post-theatre/post-theatre-sidebar/components/post-commenter/OkPostCommenter.vue";
-    import { IPostComment } from "~/models/posts/post-comment/IPostComment";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { okunaContainer } from "~/services/inversify";
     import { TYPES } from "~/services/inversify-types";
@@ -58,12 +59,17 @@
         name: "OkPostTheatreSidebar",
         components: {
             OkPostMedia,
-            OkPostCommenter, OkPostComments, OkPostReactions, OkPostActions, OkPostText, OkPostHeader
+            OkPostCommenter,
+            OkPostComments,
+            OkPostReactions,
+            OkPostActions,
+            OkPostLinkPreview,
+            OkPostText,
+            OkPostHeader
         },
     })
     export default class OkPostTheatreSidebar extends Vue {
         @Prop(Object) readonly post: IPost;
-
 
         $refs!: {
             postCommentsComponent: OkPostComments,
@@ -88,6 +94,14 @@
 
         onWantsToReplyToReply(params: ReplyToReplyParams) {
             this.$refs.postCommenter.setReplyToReplyParams(params);
+        }
+
+        get postFirstLink(){
+            return this.post.links[0];
+        }
+
+        get postHasLinkToPreview(){
+            return this.post.links && this.post.links.length && this.post.links[0].hasPreview;
         }
 
     }

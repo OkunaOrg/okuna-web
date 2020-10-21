@@ -1,5 +1,5 @@
 export interface ModelData {
-    id: number,
+    id?: number,
 
     [key: string]: any;
 }
