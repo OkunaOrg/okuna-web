@@ -1,6 +1,7 @@
 import { DataModel } from '~/models/abstract/DataModel';
 import { DataModelAttributeMap } from '~/models/abstract/IDataModel';
-import { IPostLink } from '~/models/posts/post-link/IPostComment';
+import { IPostLink } from '~/models/posts/post-link/IPostLink';
+import { ModelData } from '~/types/models-data/ModelData';
 
 
 export class PostLink extends DataModel<PostLink> implements IPostLink {
@@ -17,4 +18,8 @@ export class PostLink extends DataModel<PostLink> implements IPostLink {
             attributeKey: 'link'
         },
     ];
+    constructor(data: ModelData) {
+        super(data);
+        this.updateWithData(data);
+    }
 }

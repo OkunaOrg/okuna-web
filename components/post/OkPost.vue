@@ -9,8 +9,8 @@
                 <ok-post-media :post="post" :post-element-width="postElementWidth"
                                :post-display-context="postDisplayContext"></ok-post-media>
             </div>
-            <div class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20" v-if="postTextFirstLink && postTextFirstLink.length">
-                <ok-post-link-preview :url="postTextFirstLink"></ok-post-link-preview>
+            <div class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20" v-if="postHasLinkToPreview">
+                <ok-post-link-preview :link="postFirstLink.link"></ok-post-link-preview>
             </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
                 <ok-post-text v-if="post.text" :post="post"></ok-post-text>
@@ -71,7 +71,6 @@
     import OkPostReactions from "~/components/post/components/post-reactions/OkPostReactions.vue";
     import OkPostCommentCounts from "~/components/post/components/post-comments-count/OkPostCommentCounts.vue";
     import OkPostActions from "~/components/post/components/post-actions/OkPostActions.vue";
-    import getFirstLink from "~/components/post/components/post-link-preview/lib/GetFirstLink";
     import OkPostCircles from '~/components/post/components/post-circles/OkPostCircles.vue';
 
     @Component({
@@ -111,8 +110,12 @@
             this.$emit("onPostReported", post);
         }
 
-        get postTextFirstLink(): string | null {
-            return getFirstLink(this.post);
+        get postFirstLink(){
+            return this.post.links[0];
+        }
+
+        get postHasLinkToPreview(){
+            return this.post.links && this.post.links.length && this.post.links[0].hasPreview;
         }
 
         updatePostElementWidth() {

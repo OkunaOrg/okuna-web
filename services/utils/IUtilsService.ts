@@ -21,9 +21,11 @@ export interface IUtilsService {
 
     isUrl(str: string): boolean;
 
-    convertBytesToMbs(bytes: number) : number;
+    convertBytesToMbs(bytes: number): number;
 
     normalizeUrl(params: NormalizeUrlParams): string;
+
+    makeProxiedUrl(url: string): string;
 
 }
 

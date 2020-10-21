@@ -1,6 +1,6 @@
 <template>
     <div class="card ok-link-preview ok-has-background-primary-highlight has-overflow-hidden">
-        <a :href="url" target="_blank">
+        <a :href="preview.url" target="_blank" rel="nofollow noopener noreferrer">
             <ok-post-link-preview-cover
                     :cover-url="imageUrl"
             ></ok-post-link-preview-cover>
@@ -8,14 +8,14 @@
                 <div class="columns is-gapless is-marginless has-padding-20 flex-direction-column website-info-rows">
                     <div class="column has-margin-bottom-5">
                         <div class="media has-overflow-hidden is-flex align-items-center">
-                            <div class="media-left has-margin-right-10" v-if="faviconUrl">
+                            <div class="media-left has-margin-right-10" v-if="iconUrl">
                                 <figure class="image is-16x16 is-semi-rounded">
-                                    <img :src="faviconUrl" :alt="preview.domainUrl"/>
+                                    <img :src="iconUrl" :alt="preview.domain"/>
                                 </figure>
                             </div>
                             <div class="media-content ok-has-text-primary-invert-80 website-address"
-                                 v-if="preview.domainUrl">
-                                {{ preview.domainUrl }}
+                                 v-if="preview.domain">
+                                {{ preview.domain }}
                             </div>
                         </div>
                     </div>
@@ -56,7 +56,11 @@
     import OkPostLinkPreviewCover
         from "~/components/post/components/post-link-preview/components/OkPostLinkPreviewCover.vue";
     import truncate from "~/lib/truncate";
-    import { LinkPreview } from "~/services/link-preview/LinkPreviewServiceTypes";
+    import { ILinkPreview } from '~/models/link-previews/link-preview/ILinkPreview';
+    import { okunaContainer } from '~/services/inversify';
+    import { TYPES } from '~/services/inversify-types';
+    import { IHttpService } from '~/services/http/IHttpService';
+    import { IUtilsService } from '~/services/utils/IUtilsService';
 
     @Component({
         name: "OkPostLinkPreview",
@@ -66,12 +70,18 @@
         @Prop({
             type: Object,
             required: true
-        }) readonly preview: LinkPreview;
+        }) readonly preview: ILinkPreview;
 
-        @Prop({
-            type: String,
-            required: true
-        }) readonly url: string;
+        private httpService: IHttpService = okunaContainer.get<IHttpService>(TYPES.HttpService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+
+        imageUrl = '';
+        iconUrl = '';
+
+        created(){
+            this.refreshPreviewImage();
+            this.refreshPreviewIcon();
+        }
 
         get description() {
             return truncate(this.preview.description, 265);
@@ -81,13 +91,56 @@
             return truncate(this.preview.title, 150);
         }
 
-        get imageUrl() {
-            if (this.preview.imageData) return "data:" + this.preview.imageContentType + ";base64," + this.preview.imageData;
+        private async refreshPreviewImage(){
+            try{
+                const {data, contentType} = await this.getLinkPreviewImageData(this.preview.image.url);
+                this.imageUrl = "data:" + contentType + ";base64," + data;
+            } catch(e){}
         }
 
-        get faviconUrl() {
-            if (this.preview.faviconData) return "data:" + this.preview.faviconContentType + ";base64," + this.preview.faviconData;
+        private async refreshPreviewIcon(){
+            try{
+                const {data, contentType} = await this.getLinkPreviewImageData(this.preview.icon.url);
+                this.iconUrl = "data:" + contentType + ";base64," + data;
+            } catch(e){}
         }
+
+        private async getLinkPreviewImageData(imageUrl: string): Promise<{data: string, contentType: string} | undefined> {
+            
+            let proxiedImageUrl = this.utilsService.makeProxiedUrl(imageUrl);
+            
+            try {
+                const response = await this.httpService.get(proxiedImageUrl, {
+                    isApiRequest: false,
+                    appendAuthorizationToken: true,
+                    responseType: 'arraybuffer',
+                });
+
+                const contentType = (response.headers['content-type'] as string).toLowerCase();
+
+                if (!['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'].includes(contentType)) {
+                    console.info(`Link preview contentType was not valid: ${contentType}`);
+                    return;
+                }
+
+
+                const b64encoded = btoa(new Uint8Array(response.data).reduce(function (data, byte) {
+                    return data + String.fromCharCode(byte);
+                }, ''));
+
+                return {
+                    data: b64encoded,
+                    contentType: contentType,
+                };
+            } catch (e) {
+                // We swallow errors, we dont care if it fails
+                console.info(`Failed to retrieve image for link preview ${imageUrl} with error ${e}`);
+            }
+
+        }
+
+
+
 
     }
 </script>

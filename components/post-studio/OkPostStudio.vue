@@ -59,10 +59,9 @@
     import { okunaContainer } from "~/services/inversify";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import {
-        OkPostStudioData,
-        OkPostStudioParams,
+        OkPostStudioData, OkPostStudioParams,
         OkPostStudioSteps
-    } from "~/components/post-studio/lib/OkPostCreatorTypes";
+    } from '~/components/post-studio/lib/OkPostCreatorTypes';
     import OkMobileHeader from "~/components/mobile-only/OkMobileHeader.vue";
     import OkPostStudioContentStep from "~/components/post-studio/components/content-step/OkPostStudioContentStep.vue";
     import OkPostStudioDestinationStep

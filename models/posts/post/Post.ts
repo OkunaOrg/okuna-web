@@ -25,7 +25,7 @@ import {
     languageSerializer,
     postCommentsDeserializer,
     postCommentsSerializer,
-    postLinkDeserializer, postLinkSerializer,
+    postLinkDeserializer, postLinksDeserializer, postLinkSerializer, postLinksSerializer,
     postMediasDeserializer,
     postMediasSerializer,
     postReactionDeserializer,
@@ -174,8 +174,8 @@ export class Post extends DataModel<Post> implements IPost {
         {
             dataKey: 'links',
             attributeKey: 'links',
-            deserializer: postLinkDeserializer,
-            serializer: postLinkSerializer
+            deserializer: postLinksDeserializer,
+            serializer: postLinksSerializer
         },
         {
             dataKey: 'community',

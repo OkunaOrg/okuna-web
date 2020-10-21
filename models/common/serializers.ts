@@ -85,7 +85,7 @@ import userNewPostNotificationFactory from '~/models/notifications/user-new-post
 import { ModerationCategorySeverity } from '~/models/moderation/moderation_category/lib/ModerationCategorySeverity';
 import { UserVisibility } from '~/models/auth/user/lib/UserVisibility';
 import communityInviteNotificationFactory from '~/models/notifications/community-invite-notification/factory';
-import { IPostLink } from '~/models/posts/post-link/IPostComment';
+import { IPostLink } from '~/models/posts/post-link/IPostLink';
 import { PostLinkData } from '~/types/models-data/posts/PostLinkData';
 import postLinkFactory from '~/models/posts/post-link/factory';
 import { LinkPreviewImageData } from '~/types/models-data/link-previews/LinkPreviewImageData';
@@ -234,6 +234,11 @@ export const postLinkDeserializer = (instance, rawData: PostLinkData) => {
 
 export const postLinkSerializer = (instance, attribute: IPostLink) => {
     return attribute.serialize();
+};
+
+
+export const postLinksSerializer = (instance, attribute: IPostLink[]) => {
+    return JSON.stringify(attribute.map((attributeItem) => postLinkSerializer(instance, attributeItem)));
 };
 
 export const postLinksDeserializer = (instance, rawData: PostLinkData[]) => {

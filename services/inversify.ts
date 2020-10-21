@@ -57,8 +57,6 @@ import { IMediaService } from '~/services/media/IMediaService';
 import { MediaService } from '~/services/media/MediaService';
 import { IPostUploaderService } from '~/services/post-uploader/IPostSubmitterService';
 import { PostUploaderService } from '~/services/post-uploader/PostSubmitterService';
-import { ILinkPreviewService } from '~/services/link-preview/ILinkPreviewService';
-import { LinkPreviewService } from '~/services/link-preview/LinkPreviewService';
 
 const okunaContainer = new Container();
 
@@ -87,7 +85,6 @@ okunaContainer.bind<IUtilsService>(TYPES.UtilsService).to(UtilsService).inSingle
 okunaContainer.bind<IStorageService>(TYPES.StorageService).to(StorageService).inSingletonScope();
 okunaContainer.bind<IEnvironmentService>(TYPES.EnvironmentService).to(EnvironmentService).inSingletonScope();
 okunaContainer.bind<ILoggingService>(TYPES.LoggingService).to(LoggingService).inSingletonScope();
-okunaContainer.bind<ILinkPreviewService>(TYPES.LinkPreviewService).to(LinkPreviewService).inSingletonScope();
 okunaContainer.bind<IThemeService>(TYPES.ThemeService).to(ThemeService).inSingletonScope();
 okunaContainer.bind<IWindowService>(TYPES.WindowService).to(WindowService).inSingletonScope();
 okunaContainer.bind<IUserPreferencesService>(TYPES.UserPreferencesService).to(UserPreferencesService).inSingletonScope();

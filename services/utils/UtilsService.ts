@@ -11,11 +11,14 @@ import { PostComment } from '~/models/posts/post-comment/PostComment';
 import { Community } from '~/models/communities/community/Community';
 import { User } from '~/models/auth/user/User';
 import { Hashtag } from '~/models/common/hashtag/Hashtag';
+import { IEnvironmentService } from '~/services/environment/IEnvironmentService';
 
 @injectable()
 export class UtilsService implements IUtilsService {
     constructor(@inject(TYPES.ToastService) private toastService?: IToastService,
-                @inject(TYPES.LocalizationService) private localizationService?: ILocalizationService) {
+                @inject(TYPES.LocalizationService) private localizationService?: ILocalizationService,
+                @inject(TYPES.EnvironmentService) private environmentService?: IEnvironmentService,
+                ) {
     }
 
     private userFriendlyLargeNumberRanges = [
@@ -200,5 +203,12 @@ export class UtilsService implements IUtilsService {
         }
 
         return normalizedUrl
+    }
+
+    makeProxiedUrl(url: string): string {
+        if (!this.environmentService.contentProxyUrl)
+            throw new Error('No content proxy url for LinkPreviews. Wont preview');
+
+        return `${this.environmentService.contentProxyUrl}/?${url}`;
     }
 }
