@@ -50,7 +50,7 @@
                     <template v-else>
                         <div
                             v-if="!this.preview"
-                            class="columns is-gapless is-marginless has-padding-20 flex-direction-column has-width-100-percent">
+                            class="columns is-gapless is-marginless flex-direction-column has-width-100-percent">
                             <div class="column has-margin-bottom-5">
                                 <b-skeleton width="50%"></b-skeleton>
                             </div>
@@ -87,7 +87,7 @@
                             </div>
                             <div class="column" v-if="this.preview && this.preview.title">
                                 <p v-line-clamp:20="4">
-                                 <span v-if="this.preview.description"
+                                 <span v-if="this.preview.title"
                                        class="has-text-weight-bold is-size-6 ok-has-text-primary-invert">
                                     {{ this.preview.title }}
                                  </span>
@@ -135,6 +135,7 @@ import { ILinkPreview } from '~/models/link-previews/link-preview/ILinkPreview';
 import { IHttpService } from '~/services/http/IHttpService';
 import { IUtilsService } from '~/services/utils/IUtilsService';
 import OkCoveredImage from '~/components/images/OkCoveredImage.vue';
+import { CancelableOperation } from '~/lib/CancelableOperation';
 
 @Component({
     name: 'OkPostLinkPreview',
@@ -143,8 +144,13 @@ import OkCoveredImage from '~/components/images/OkCoveredImage.vue';
 export default class OkPostLinkPreview extends Vue {
     @Prop({
         type: String,
-        required: true
+        required: false
     }) readonly link: string;
+
+    @Prop({
+        type: Object,
+        required: false
+    }) readonly linkPreview: ILinkPreview;
 
     preview: ILinkPreview | null = null;
 
@@ -155,18 +161,34 @@ export default class OkPostLinkPreview extends Vue {
     private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
     private httpService: IHttpService = okunaContainer.get<IHttpService>(TYPES.HttpService);
     private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+    private refreshLinkOperation?: CancelableOperation<ILinkPreview>;
+    private refreshPreviewImageOperation?: CancelableOperation<any>;
+    private refreshPreviewIconOperation?: CancelableOperation<any>;
 
     async created() {
-        this.refreshLink();
+        if (this.linkPreview) {
+            this.preview = this.linkPreview;
+            this.onHasLinkPreview();
+        } else {
+            this.refreshLink();
+        }
+    }
+
+    destroyed() {
+        this.refreshLinkOperation?.cancel();
+        this.refreshPreviewImageOperation?.cancel();
+        this.refreshPreviewIconOperation?.cancel();
     }
 
     private async refreshLink() {
         this.failedToRefreshLink = false;
 
         try {
-            this.preview = await this.userService.previewLink({
+            this.refreshPreviewImageOperation = CancelableOperation.fromPromise(this.userService.previewLink({
                 link: this.link
-            });
+            }));
+
+            this.preview = await this.refreshPreviewImageOperation.value;
             this.onHasLinkPreview();
         } catch (e) {
             this.failedToRefreshLink = true;
@@ -184,12 +206,14 @@ export default class OkPostLinkPreview extends Vue {
     }
 
     private async refreshPreviewImage() {
-        const {data, contentType} = await this.getLinkPreviewImageData(this.preview.image.url);
+        this.refreshPreviewImageOperation = CancelableOperation.fromPromise(this.getLinkPreviewImageData(this.preview.image.url))
+        const {data, contentType} = await this.refreshPreviewImageOperation.value;
         this.imageUrl = 'data:' + contentType + ';base64,' + data;
     }
 
     private async refreshPreviewIcon() {
-        const {data, contentType} = await this.getLinkPreviewImageData(this.preview.icon.url);
+        this.refreshPreviewIconOperation = CancelableOperation.fromPromise(this.getLinkPreviewImageData(this.preview.icon.url))
+        const {data, contentType} = await this.refreshPreviewIconOperation.value;
         this.iconUrl = 'data:' + contentType + ';base64,' + data;
     }
 
@@ -207,7 +231,7 @@ export default class OkPostLinkPreview extends Vue {
 
             const contentType = (response.headers['content-type'] as string).toLowerCase();
 
-            if (!['image/png', 'image/jpeg', 'image/gif', 'image/svg+xml'].includes(contentType)) {
+            if (!['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/svg+xml'].includes(contentType)) {
                 console.info(`Link preview contentType was not valid: ${contentType}`);
                 return;
             }
