@@ -484,7 +484,7 @@ export class PostsApiService implements IPostsApiService {
         return this.httpService.post(PostsApiService.PREVIEW_LINK_PATH,
             {
                 link: params.link
-            }, {appendAuthorizationToken: true, isApiRequest: true});
+            }, {appendAuthorizationToken: true, isApiRequest: true, progress: false});
     }
 
     linkIsPreviewable(params: PreviewLinkApiParams): Promise<AxiosResponse<LinkIsPreviewableResponseData>> {

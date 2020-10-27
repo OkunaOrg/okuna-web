@@ -73,6 +73,14 @@
                         <ok-post-studio-media-preview :data="postStudioData"
                                                       @onWantsToRemoveFile="onWantsToRemoveFile"/>
                     </div>
+                    <div v-if="!mediaFile && linkToPreview">
+                        <template v-if="linkPreviewInProgress">
+                            <ok-loading-indicator/>
+                        </template>
+                        <template v-else-if="linkPreview">
+                            <ok-post-link-preview :link-preview="linkPreview"/>
+                        </template>
+                    </div>
                     <div v-if="community" class="has-padding-bottom-20">
                         <div class="ok-has-text-primary-invert-60 has-padding-bottom-10">
                             {{ $t('global.snippets.sharing_post_to') }}
@@ -106,7 +114,7 @@
 </style>
 
 <script lang="ts">
-    import { Component, Prop, Vue } from "nuxt-property-decorator"
+import { Component, Prop, Vue, Watch } from 'nuxt-property-decorator'
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { OkPostStudioData, OkPostStudioParams } from "~/components/post-studio/lib/OkPostCreatorTypes";
@@ -125,10 +133,16 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import OkPostStudioMediaPreview
         from "~/components/post-studio/components/content-step/components/OkPostStudioMediaPreview.vue";
+    import UrlMatcher from '~/lib/matchers/UrlMatcher';
+import { ILinkPreview } from '~/models/link-previews/link-preview/ILinkPreview';
+import OkLoadingIndicator from '~/components/utils/OkLoadingIndicator.vue';
+import OkPostLinkPreview from '~/components/post/components/post-link-preview/OkPostLinkPreview.vue';
 
     @Component({
         name: "OkPostStudioContentStep",
         components: {
+            OkPostLinkPreview,
+            OkLoadingIndicator,
             OkPostStudioMediaPreview,
             OkMobileHeader,
             OkCommunityTile, OkCharacterCount, OkResizableTextArea, OkLoggedInUserAvatar
@@ -160,6 +174,11 @@
         @Validate(postValidators)
         text = "";
 
+        linkToPreview = '';
+        linkPreviewInProgress = false;
+        linkPreview: ILinkPreview = null;
+
+
         mediaFile: OkFile | null = null;
 
         textMaxCharacters = postMaxLength;
@@ -167,6 +186,7 @@
         private mediaService: IMediaService = okunaContainer.get<IMediaService>(TYPES.MediaService);
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        private linkPreviewOperation?: CancelableOperation<ILinkPreview>;
 
         mounted() {
             if (this.data) {
@@ -180,8 +200,45 @@
             this.$nextTick(() => this.$refs.textareaInput.focus());
         }
 
+        destroyed(){
+            this.linkPreviewOperation?.cancel();
+        }
+
         onWantsToGoNext() {
             this.$emit("onWantsToGoToNextStep", this.postStudioData);
+        }
+
+
+        @Watch('text')
+        onTextChanged(val: string, oldVal: string) {
+            const link = this.text.split(' ').find((word: string)=> UrlMatcher.test(word));
+            if(link){
+                if(link !== this.linkToPreview){
+                    this.linkToPreview = link;
+                    this.previewLink();
+                }
+            }else if(this.linkToPreview){
+                this.linkToPreview = '';
+                this.linkPreview = null;
+            }
+        }
+
+        private async previewLink() {
+            this.linkPreviewOperation?.cancel();
+            this.linkPreviewInProgress = true;
+
+            try {
+                this.linkPreviewOperation = CancelableOperation.fromPromise(this.userService.previewLink({
+                    link: this.linkToPreview
+                }));
+
+                this.linkPreview = await this.linkPreviewOperation.value;
+            } catch(error){
+                this.linkToPreview = '';
+                this.linkPreview = null;
+            } finally{
+                this.linkPreviewInProgress = false;
+            }
         }
 
         get postStudioData() {

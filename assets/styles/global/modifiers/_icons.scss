@@ -42,3 +42,19 @@ $normalSize: 0.75em;
   position: relative;
   top: -2px;
 }
+
+.material-design-icon.is-icon-5x {
+    height: $normalSize * 5 !important;
+    width: $normalSize * 5 !important;
+}
+
+.material-design-icon.is-icon-5x > .material-design-icon__svg {
+    height: $normalSize * 5 !important;
+    width: $normalSize * 5 !important;
+}
+
+
+.is-icon-5x{
+    position: relative;
+    top: -2px;
+}

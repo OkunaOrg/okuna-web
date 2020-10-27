@@ -17,6 +17,7 @@ import AccountSupervisor from 'vue-material-design-icons/AccountSupervisor.vue';
 import Account from 'vue-material-design-icons/Account.vue';
 import AccountCircle from 'vue-material-design-icons/AccountCircle.vue';
 import Link from 'vue-material-design-icons/Link.vue';
+import LinkOff from 'vue-material-design-icons/LinkOff.vue';
 import HelpCircle from 'vue-material-design-icons/HelpCircle.vue';
 import GoogleCirclesCommunities from 'vue-material-design-icons/GoogleCirclesCommunities.vue';
 import LibraryBooks from 'vue-material-design-icons/FormatListBulletedType.vue';
@@ -97,6 +98,8 @@ Vue.component('ok-followers-icon', AccountSupervisor);
 Vue.component('ok-following-icon', Account);
 
 Vue.component('ok-link-icon', Link);
+
+Vue.component('ok-broken-link-icon', LinkOff);
 
 Vue.component('ok-help-icon', HelpCircle);
 
