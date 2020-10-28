@@ -4,7 +4,9 @@
             <div class="column ok-post-comments-container" :id="postCommentsContainerId">
                 <div class="has-padding-20 ok-has-border-bottom-primary-highlight">
                     <ok-post-header :post="post"></ok-post-header>
-                    <ok-post-link-preview v-if="postHasLinkToPreview" :link="postFirstLink" class="has-margin-bottom-20"/>
+                    <div v-if="postHasLinkToPreview" class="has-padding-bottom-20">
+                        <ok-post-link-preview :link="postFirstLink.link"/>
+                    </div>
                     <ok-post-text :post="post"></ok-post-text>
                     <ok-post-reactions :post="post"></ok-post-reactions>
                     <ok-post-actions :post="post" class="has-padding-top-20"></ok-post-actions>

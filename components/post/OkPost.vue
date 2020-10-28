@@ -10,7 +10,7 @@
                                :post-display-context="postDisplayContext"></ok-post-media>
             </div>
             <div class="has-padding-left-20 has-padding-right-20 has-padding-bottom-20" v-if="postHasLinkToPreview">
-                <ok-post-link-preview :link="postFirstLink.link"></ok-post-link-preview>
+                <ok-post-link-preview :link="postFirstLinkUrl"></ok-post-link-preview>
             </div>
             <div class="has-padding-bottom-10 has-padding-right-20 has-padding-left-20">
                 <ok-post-text v-if="post.text" :post="post"></ok-post-text>
@@ -110,8 +110,8 @@
             this.$emit("onPostReported", post);
         }
 
-        get postFirstLink(){
-            return this.post.links[0];
+        get postFirstLinkUrl(){
+            return this.post.links[0].link;
         }
 
         get postHasLinkToPreview(){
