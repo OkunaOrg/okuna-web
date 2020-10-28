@@ -50,7 +50,7 @@
                     <template v-else>
                         <div
                             v-if="!this.preview"
-                            class="columns is-gapless is-marginless flex-direction-column has-width-100-percent">
+                            class="columns is-gapless is-marginless flex-direction-column has-width-100-percent has-padding-20">
                             <div class="column has-margin-bottom-5">
                                 <b-skeleton width="50%"></b-skeleton>
                             </div>
@@ -165,7 +165,7 @@ export default class OkPostLinkPreview extends Vue {
     private refreshPreviewImageOperation?: CancelableOperation<any>;
     private refreshPreviewIconOperation?: CancelableOperation<any>;
 
-    async created() {
+    created() {
         if (this.linkPreview) {
             this.preview = this.linkPreview;
             this.onHasLinkPreview();
