@@ -24,9 +24,9 @@
              <span>
                     {{$t('global.snippets.dont_have_one')}}
              </span>
-            <nuxt-link :to="localePath('reset-password')" class="ok-has-text-primary-invert-60">
+            <a href="https://about.okuna.io/" rel="nofollow noopener noreferrer" target="_blank" class="ok-has-text-primary-invert-60">
                 {{$t('global.snippets.request_one')}}.
-            </nuxt-link>
+            </a>
         </div>
         <div class="is-flex-1 flex-direction-column-reverse">
             <div class="field has-padding-top-20">
