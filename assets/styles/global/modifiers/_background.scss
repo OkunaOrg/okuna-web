@@ -3,6 +3,10 @@
   background-size: 1800% 1800%;
   overflow: hidden;
   animation: rainbow 10s ease infinite;
+
+  &.coac {
+      background: linear-gradient(124deg, #00a7e7, #004687, #107ba0cc, #44b284, #00854d, #d2ffec);
+  }
 }
 
 
