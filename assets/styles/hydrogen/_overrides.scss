@@ -1,0 +1,29 @@
+body {
+    font-family: $family-primary;
+}
+
+.ok-post {
+    box-shadow: $box-shawdow-ocac;
+}
+
+.card {
+    border-radius: 9px;
+    box-shadow: $box-shawdow-ocac;
+}
+
+.button.is-rounded, .input.is-rounded {
+    border-radius: 4px;
+}
+
+.has-background-rainbow {
+    background: linear-gradient(124deg, #00a7e7, #004687, #107ba0cc, #44b284, #00854d);
+    background-size: 1800% 1800%;
+}
+
+.has-text-rounded {
+    font-family: $family-titles;
+}
+
+.navbar {
+    box-shadow: $box-shawdow-ocac;
+}
