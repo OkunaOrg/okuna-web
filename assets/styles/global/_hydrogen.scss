@@ -1,0 +1,14 @@
+$family-primary: 'Roboto', sans-serif;
+
+.card {
+    border-radius: 4px;
+}
+
+.button.is-rounded, .input.is-rounded {
+    border-radius: 4px;
+}
+
+.has-background-rainbow {
+    background: linear-gradient(124deg, #00a7e7, #004687, #107ba0cc, #44b284, #00854d);
+    background-size: 1800% 1800%;
+}
