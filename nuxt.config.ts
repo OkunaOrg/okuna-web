@@ -39,7 +39,7 @@ export default {
     mode: 'spa',
     env: frontendEnvVars,
     head: {
-        title: 'Okuna',
+        title: 'Hydrogen',
         meta: [
             {charset: 'utf-8'},
             {name: 'viewport', content: 'width=device-width, initial-scale=1.0'},
@@ -48,7 +48,7 @@ export default {
             {name: 'msapplication-TileColor', content: '#000000'},
             {
                 'property': 'og:title',
-                'content': `Okuna`,
+                'content': `Hydrogen`,
             },
             {
                 'property': 'og:description',

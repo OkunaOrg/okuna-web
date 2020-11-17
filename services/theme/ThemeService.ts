@@ -17,6 +17,22 @@ export class ThemeService implements IThemeService {
 
     static themes = [
         themeFactory.make({
+            id: 11,
+            name: 'Light COAC',
+            primary_color: '#ffffff',
+            primary_invert_color: '#000000',
+            accent_color: '#00A7E7',
+            accent_gradient: '#00a7e7,#107ba0cc',
+            success_color: '#44b284',
+            success_color_invert: '#ffffff',
+            error_color: '#f08482',
+            error_color_invert: '#ffffff',
+            warning_color: '#ffaf34',
+            warning_color_invert: '#ffffff',
+            info_color: '#004687',
+            info_color_invert: '#00a7e7',
+        }),
+        themeFactory.make({
             id: 1,
             name: 'White Gold',
             primary_color: '#ffffff',
@@ -112,7 +128,7 @@ export class ThemeService implements IThemeService {
             info_color: '#227cff',
             info_color_invert: '#ffffff',
         }),
-        themeFactory.make({
+        /* themeFactory.make({
             id: 7,
             name: 'Light rose',
             primary_color: '#ffffff',
@@ -207,7 +223,7 @@ export class ThemeService implements IThemeService {
             warning_color_invert: '#ffffff',
             info_color: '#227cff',
             info_color_invert: '#ffffff',
-        }),
+        }), */
     ];
 
     activeTheme: BehaviorSubject<ITheme | undefined> = new BehaviorSubject(undefined);

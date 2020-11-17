@@ -1,0 +1,54 @@
+
+/* Blogger-Sans */
+@font-face {
+    font-family: 'Blogger Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Blogger Sans'), local('Blogger-Sans'),
+    url('/fonts/Blogger-Sans.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Blogger-Sans-Medium */
+@font-face {
+    font-family: 'Blogger Sans Medium';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Blogger Sans Medium'), local('Blogger-Sans-Medium'),
+    url('/fonts/Blogger-Sans-Medium.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Blogger-Sans-Bold */
+@font-face {
+    font-family: 'Blogger Sans Bold';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Blogger Sans Bold'), local('Blogger-Sans-Bold'),
+    url('/fonts/Blogger-Sans-Bold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Gidole-Regular */
+@font-face {
+    font-family: 'Gidole';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Gidole Regular'), local('Gidole-Regular'),
+    url('/fonts/Gidole-Regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Roboto-Regular */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto Regular'), local('Roboto-Regular'),
+    url('/fonts/Roboto-Regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* Roboto-Bold */
+@font-face {
+    font-family: 'Roboto Bold';
+    font-style: normal;
+    font-weight: 600;
+    src: local('Roboto Bold'), local('Roboto-Bold'),
+    url('/fonts/Roboto-Bold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
