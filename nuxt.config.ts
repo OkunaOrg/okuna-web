@@ -77,7 +77,7 @@ export default {
         '@nuxtjs/router',
     ],
     modules: [
-        '@nuxtjs/sentry',
+        // '@nuxtjs/sentry',
         '@nuxtjs/axios',
         'localforage-nuxt',
         'nuxt-i18n',

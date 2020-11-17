@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+    - 13
+
+cache: npm
+
+# Tell travis not to clone with depth, this way we avoid the error: "shallow update not allowed" pushing to dokku server
+git:
+  depth: false
+
+install: npm install
+
+# Skip while tests are not available
+script: skip
+
+before_deploy:
+    - openssl aes-256-cbc -K $encrypted_5ddf9edceb6a_key -iv $encrypted_5ddf9edceb6a_iv -in .travis/dokku.key.enc -out .travis/dokku.key -d
+
+deploy:
+    # Deploy to dokku server
+    provider: script
+    # Remember to configure the env variables from .env.sample in the Dokku server using dokku config:set
+    script: bash .travis/deploy.sh
+    skip_cleanup: true
+    on:
+        branch: hydrogen

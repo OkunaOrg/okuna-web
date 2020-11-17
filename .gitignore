@@ -4,6 +4,10 @@ node_modules
 # logs
 npm-debug.log
 
+# Credentials
+.travis/*.key
+.travis/*.key.pub
+
 # Nuxt build
 .nuxt
 
