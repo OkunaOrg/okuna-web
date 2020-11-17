@@ -20,6 +20,8 @@ deploy:
     # Deploy to dokku server
     provider: script
     # Remember to configure the env variables from .env.sample in the Dokku server using dokku config:set
+    # Besides "dokku config:set NPM_CONFIG_PRODUCTION=false" is required to avoid dokku to prune devDependencies required for the start command (cross-env and nuxt-ts)
+    # See: https://devcenter.heroku.com/articles/nodejs-support#package-installation
     script: bash .travis/deploy.sh
     skip_cleanup: true
     on:

@@ -185,5 +185,9 @@ export default {
         routes: [
             '/'
         ],
-    }
+    },
+    server: {
+        port: process.env.PORT || 3000,
+        host: process.env.NODE_ENV === 'development' ? 'localhost' : '0.0.0.0',
+    },
 }

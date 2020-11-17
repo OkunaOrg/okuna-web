@@ -3,6 +3,9 @@
   "description": "The Okuna social network web version",
   "version": "2.10.0",
   "private": true,
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "@hcaptcha/vue-hcaptcha": "^0.2.2",
     "@nuxt/types": "^2.14.3",
@@ -76,7 +79,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nuxt-ts",
     "build": "cross-env NODE_ENV=production nuxt-ts build",
-    "start": "NODE_ENV=production nuxt-ts start",
+    "start": "cross-env NODE_ENV=production nuxt-ts start",
     "postinstall": "patch-package"
   },
   "devDependencies": {
