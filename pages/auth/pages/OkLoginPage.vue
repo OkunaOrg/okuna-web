@@ -1,5 +1,5 @@
 <template>
-    <div class="columns is-centered is-vcentered has-height-100-percent is-paddingless ok-has-background-primary-highlight has-background-emojis is-marginless">
+    <div class="columns is-centered is-vcentered has-height-100-percent is-paddingless ok-has-background-primary-highlight is-marginless">
         <div class="column is-narrow">
             <div class="card is-relative has-overflow-hidden ok-has-background-primary">
                 <div class="card-header ok-has-border-bottom-primary-highlight">

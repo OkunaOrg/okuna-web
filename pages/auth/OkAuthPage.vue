@@ -14,6 +14,7 @@
                             {{$t('pages.auth.usps.friends')}}
                             </span>
                         </div>
+                        <!-- 
                         <div class="has-padding-bottom-10">
                             <span v-twemoji class="icon">🙈️</span>
                             <span class="has-padding-left-5 ok-has-text-primary-invert-80">
@@ -31,7 +32,8 @@
                             <span class="has-padding-left-5 ok-has-text-primary-invert-80">
                             {{$t('pages.auth.usps.mental_health')}}
                             </span>
-                        </div>
+                        </div> 
+                        -->
                         <div class="has-padding-bottom-10">
                             <span v-twemoji class="icon">🌎</span>
                             <span class="has-padding-left-5 ok-has-text-primary-invert-80">

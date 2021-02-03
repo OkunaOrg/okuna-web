@@ -26,6 +26,7 @@
                             </span>
                 </nuxt-link>
             </li>
+            <!-- Hidden Circles
             <li>
                 <nuxt-link :to="'/'"
                            class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
@@ -38,6 +39,7 @@
                             </span>
                 </nuxt-link>
             </li>
+             -->
             <li>
                 <nuxt-link :to="'/'"
                            class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">

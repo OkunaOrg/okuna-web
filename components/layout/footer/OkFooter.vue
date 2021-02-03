@@ -4,7 +4,7 @@
              class="ok-has-border-top-primary-highlight has-padding-10">
             <div class="container">
                 <div class="columns has-text-rounded is-centered has-text-centered">
-                    <a href="https://about.okuna.io" rel="noreferrer nofollow" target="_blank" class="column footer-link footer-link--about-us ok-has-text-primary-invert-60">
+                    <a href="#" rel="noreferrer nofollow" class="column footer-link footer-link--about-us ok-has-text-primary-invert-60">
                         {{$t('global.snippets.about_us')}}
                     </a>
                     <div class="column footer-link footer-link--privacy-policy ok-has-text-primary-invert-60 has-cursor-pointer"
@@ -19,9 +19,6 @@
                          @click="onWantsToOpenCommunityGuidelines">
                         {{$t('global.keywords.guidelines')}}
                     </div>
-                    <a href="https://github.com/OkunaOrg" class="column footer-link footer-link--github ok-has-text-primary-invert-60" rel="noreferrer nofollow" target="_blank">
-                        Github
-                    </a>
                 </div>
             </div>
         </nav>

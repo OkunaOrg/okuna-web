@@ -18,7 +18,7 @@ export class ThemeService implements IThemeService {
     static themes = [
         themeFactory.make({
             id: 11,
-            name: 'Light COAC',
+            name: 'Light H2pro3',
             primary_color: '#ffffff',
             primary_invert_color: '#000000',
             accent_color: '#00A7E7',

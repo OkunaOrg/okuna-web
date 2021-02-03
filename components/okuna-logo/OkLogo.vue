@@ -1,6 +1,6 @@
 <template>
     <nuxt-link :to="localePath('index')" class="is-size-4 is-flex align-items-center has-no-hover-text-decoration">
-        <img :src="logoImage" class="ok-logo" alt="Okuna logo">
+        <img :src="logoImage" class="ok-logo" alt="H2pro3 logo">
         <div class="ok-logo--text has-text-logo is-size-5 ok-has-text-primary-invert is-hidden-mobile has-padding-left-10 is-flex align-items-center justify-center" :class="textClass" style="padding-top: 5px">
            <!--  {{$t('name')}} <span class="ok-has-text-primary-invert-60 is-size-6">&nbsp; | WIP</span> -->
         </div>
