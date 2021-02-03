@@ -14,8 +14,8 @@ install: npm install
 script: skip
 
 before_deploy:
-    - openssl aes-256-cbc -K $encrypted_5ddf9edceb6a_key -iv $encrypted_5ddf9edceb6a_iv -in .travis/dokku.key.enc -out .travis/dokku.key -d
-
+    - openssl aes-256-cbc -K $encrypted_5ddf9edceb6a_key -iv $encrypted_5ddf9edceb6a_iv -in .travis/dokku.pem.enc -out .travis/dokku.pem -d
+    - git config --local http.sslcert dokku.pem
 deploy:
     # Deploy to dokku server
     provider: script
