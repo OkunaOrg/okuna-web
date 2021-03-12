@@ -91,10 +91,15 @@
 </template>
 
 <style lang="scss">
+    .modal {
+        .modal-content {
+            width: auto !important;
+        }
+    }
+
     .ok-modal {
         .modal-content {
             height: 85%;
-            width: 85%;
             padding: 0 2rem;
         }
     }

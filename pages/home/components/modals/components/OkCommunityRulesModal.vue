@@ -1,8 +1,8 @@
 <template>
-    <div class="is-flex justify-center align-items-center">
-        <div class="ok-community-rules-modal">
-            <div class="ok-has-background-primary is-semi-rounded has-padding-20 ok-has-text-primary-invert">
-                <div class="content">
+    <div class="has-height-100-percent">
+        <div class="ok-community-rules-modal has-height-100-percent">
+            <div class="ok-has-background-primary is-semi-rounded has-padding-left-20 has-padding-top-20 has-padding-bottom-20 has-padding-right-10 ok-has-text-primary-invert has-height-100-percent">
+                <div class="ok-community-rules-container has-padding-right-10 content">
                     <h2>
                         <span>
                             {{$t('global.snippets.community_rules')}}
@@ -19,6 +19,13 @@
     .ok-community-rules-modal {
         max-width: 390px;
         width: 100%;
+
+        .ok-community-rules-container {
+            overflow: scroll;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 100%;
+        }
     }
 </style>
 
