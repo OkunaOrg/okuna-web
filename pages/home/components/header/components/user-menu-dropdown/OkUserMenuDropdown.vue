@@ -3,6 +3,7 @@
                placement="bottom-start"
                :open.sync="dropdownIsOpen"
                v-if="loggedInUser"
+               :popperOptions="popperOptions"
     >
         <!-- This will be the popover target (for the events and position) -->
         <button
@@ -21,12 +22,17 @@
         </button>
         <!-- This will be the content of the popover -->
         <div slot="popover" class="ok-has-background-primary has-border-radius-10 ok-has-border-primary-highlight">
-            <ok-user-menu @leaveMenu="handleLeaveMenu"></ok-user-menu>
+            <ok-user-menu class="ok-user-menu-container" @leaveMenu="handleLeaveMenu"></ok-user-menu>
         </div>
     </v-popover>
 </template>
 
-
+<style lang="scss" scoped>
+    .ok-user-menu-container {
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+</style>
 
 <script lang="ts">
     import { Component, Vue, Watch } from "nuxt-property-decorator"
@@ -63,9 +69,14 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
-        tooltipOptions = {
-            placement: 'bottom-end'
-        }
+        popperOptions = {
+            positionFixed: true,
+            modifiers: {
+                flip: {
+                    enabled: false
+                }
+            }
+        };
 
         @Watch('$route')
         onRouteChange(to, from){
