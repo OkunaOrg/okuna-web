@@ -15,7 +15,7 @@
     "@types/twemoji": "^12.1.0",
     "@types/vue-markdown": "^2.2.1",
     "@types/vuelidate": "^0.7.11",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bowser": "^2.10.0",
     "buefy": "^0.8.20",
     "bulma": "^0.8.0",
