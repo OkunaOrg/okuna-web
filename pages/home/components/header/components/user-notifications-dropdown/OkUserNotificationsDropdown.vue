@@ -4,6 +4,7 @@
                :open.sync="dropdownIsOpen"
                v-if="loggedInUser"
                @apply-show="handleStreamReRender"
+               :popperOptions="popperOptions"
     >
         <div class="is-relative">
             <ok-notifications-icon
@@ -35,6 +36,7 @@
     .user-notifications-dropdown {
         width: 400px;
         height: 530px;
+        max-height: 85vh;
         overflow-y: scroll;
         overscroll-behavior-y: none;
     }
@@ -94,6 +96,15 @@
         destroyed() {
             this.newNotificationSubscription.unsubscribe();
         }
+
+        popperOptions = {
+            positionFixed: true,
+            modifiers: {
+                flip: {
+                    enabled: false
+                }
+            }
+        };
 
         private onHasNewNotification(hasNewNotification: boolean | undefined) {
             if (typeof hasNewNotification === "undefined") return;
