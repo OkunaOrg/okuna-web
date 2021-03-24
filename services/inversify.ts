@@ -57,9 +57,10 @@ import { IMediaService } from '~/services/media/IMediaService';
 import { MediaService } from '~/services/media/MediaService';
 import { IPostUploaderService } from '~/services/post-uploader/IPostSubmitterService';
 import { PostUploaderService } from '~/services/post-uploader/PostSubmitterService';
+import { VideoPlaybackService } from '~/services/video-playback/VideoPlaybackService';
+import { IVideoPlaybackService } from '~/services/video-playback/IVideoPlaybackService';
 
 const okunaContainer = new Container();
-
 
 okunaContainer.bind<IAuthApiService>(TYPES.AuthApiService).to(AuthApiService).inSingletonScope();
 okunaContainer.bind<ICommunitiesApiService>(TYPES.CommunitiesApiService).to(CommunitiesApiService).inSingletonScope();
@@ -89,5 +90,6 @@ okunaContainer.bind<IThemeService>(TYPES.ThemeService).to(ThemeService).inSingle
 okunaContainer.bind<IWindowService>(TYPES.WindowService).to(WindowService).inSingletonScope();
 okunaContainer.bind<IUserPreferencesService>(TYPES.UserPreferencesService).to(UserPreferencesService).inSingletonScope();
 okunaContainer.bind<IBootstrapService>(TYPES.BootstrapService).to(BootstrapService).inSingletonScope();
+okunaContainer.bind<IVideoPlaybackService>(TYPES.VideoPlaybackService).to(VideoPlaybackService).inSingletonScope();
 
 export { okunaContainer };
