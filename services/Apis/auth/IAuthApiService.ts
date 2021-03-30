@@ -12,7 +12,7 @@ import {
     ResetPasswordApiParams,
     SearchUsersApiParams,
     UnblockUserApiParams,
-    IsInviteTokenValidApiParams, IsUsernameAvailableApiParams
+    IsInviteTokenValidApiParams, IsUsernameAvailableApiParams, UpdateUserApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 
 export interface IAuthApiService {
@@ -29,6 +29,8 @@ export interface IAuthApiService {
 
     getUser(params: GetUserApiParams): Promise<AxiosResponse<UserData>>;
 
+    updateUser(params: UpdateUserApiParams): Promise<AxiosResponse<UserData>>;
+
     searchUsers(params: SearchUsersApiParams): Promise<AxiosResponse<UserData[]>>;
 
     reportUser(params: ReportUserApiParams): Promise<AxiosResponse<void>>;
@@ -40,6 +42,6 @@ export interface IAuthApiService {
     isInviteTokenValid(data: IsInviteTokenValidApiParams): Promise<AxiosResponse<void>>;
 
     isEmailAvailable(data: IsEmailAvailableApiParams): Promise<AxiosResponse<void>>;
-    
+
     isUsernameAvailable(data: IsUsernameAvailableApiParams): Promise<AxiosResponse<void>>;
 }

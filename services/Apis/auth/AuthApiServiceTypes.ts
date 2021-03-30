@@ -1,3 +1,5 @@
+import { UserVisibility } from '~/models/auth/user/lib/UserVisibility';
+
 export interface LoginApiParams {
     username: string;
     password: string;
@@ -35,6 +37,19 @@ export interface RegistrationResponse {
 
 export interface GetUserApiParams {
     userUsername: string;
+}
+
+export interface UpdateUserApiParams {
+    avatar?: File | string;
+    cover?: File | string;
+    name?: string;
+    username?: string;
+    url?: string;
+    followersCountVisible?: boolean;
+    communityPostsVisible?: boolean;
+    bio?: string;
+    location?: string;
+    visibility?: UserVisibility;
 }
 
 export interface SearchUsersApiParams {

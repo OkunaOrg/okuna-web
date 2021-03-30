@@ -51,6 +51,12 @@ export interface IModalService {
 
     openApplicationSettingsModal(params?: ApplicationSettingsModalParams): Promise<void>;
 
+    openUserSettingsModal(params?: UserSettingsModalParams): Promise<void>
+
+    openUserProfileSettingsModal(params?: UserProfileSettingsModalParams): Promise<void>;
+
+    openUserVisibilitySettingsModal(params?: UserVisibilitySettingsParams): Promise<void>;
+
     openPostStudioModal(params: PostStudioModalParams): Promise<OkPostStudioData | undefined>;
 
     openGetTheAppModal(): Promise<void>;
@@ -107,6 +113,14 @@ export interface SettingsModalParams {
 export interface ApplicationSettingsModalParams {
 }
 
+export interface UserSettingsModalParams {
+}
+
+export interface UserProfileSettingsModalParams {
+}
+
+export interface UserVisibilitySettingsParams {
+}
 
 export interface ConnectionsCirclesPickerModalParams {
     title: string;

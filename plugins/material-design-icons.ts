@@ -52,6 +52,8 @@ import OpenInNew from 'vue-material-design-icons/OpenInNew.vue';
 import Cellphone from 'vue-material-design-icons/Cellphone.vue';
 import BugIcon from 'vue-material-design-icons/Bug.vue';
 import RefreshIcon from 'vue-material-design-icons/Refresh.vue';
+import BookmarkIcon from 'vue-material-design-icons/Bookmark.vue';
+import EmailIcon from 'vue-material-design-icons/Email.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -93,6 +95,8 @@ Vue.component('ok-settings-icon', Cog);
 
 Vue.component('ok-communities-icon', ChartBubble);
 
+Vue.component('ok-okuna-visibility-icon', AccountSupervisor);
+
 Vue.component('ok-followers-icon', AccountSupervisor);
 
 Vue.component('ok-following-icon', Account);
@@ -121,7 +125,11 @@ Vue.component('ok-now-icon', Earth);
 
 Vue.component('ok-public-community-icon', Earth);
 
+Vue.component('ok-public-visibility-icon', Earth);
+
 Vue.component('ok-private-community-icon', Lock);
+
+Vue.component('ok-private-visibility-icon', Lock);
 
 Vue.component('ok-more-vertical', DotsVertical);
 
@@ -139,6 +147,8 @@ Vue.component('ok-plus-circle-outline-icon', PlusCircleOutline);
 
 Vue.component('ok-profile-icon', FaceProfile);
 
+Vue.component('ok-bio-icon', BookmarkIcon);
+
 Vue.component('ok-location-icon', LocationIcon);
 
 Vue.component('ok-baby-icon', BabyIcon);
@@ -146,6 +156,8 @@ Vue.component('ok-baby-icon', BabyIcon);
 Vue.component('ok-adult-icon', AdultIcon);
 
 Vue.component('ok-edit-icon', EditIcon);
+
+Vue.component('ok-email-icon', EmailIcon);
 
 Vue.component('ok-chevron-right-icon', ChevronRight);
 
