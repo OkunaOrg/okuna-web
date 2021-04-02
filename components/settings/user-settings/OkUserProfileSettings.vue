@@ -2,6 +2,39 @@
     <div class="ok-has-background-primary is-semi-rounded">
         <div class="box ok-has-background-primary-highlight is-paddingless">
             <form @submit="handleFormSubmit">
+                <div class="ok-user-profile-images">
+                    <input class="is-hidden" type="file" ref="avatarInput" name="avatarInput" accept="image/*" @change="handleAvatarInputChange">
+                    <input class="is-hidden" type="file" ref="coverInput" name="coverInput" accept="image/*" @change="handleCoverInputChange">
+
+                    <div class="ok-user-cover-container">
+                        <ok-user-cover class="ok-user-cover" :user="loggedInUser"></ok-user-cover>
+
+                        <div class="actions">
+                            <button class="button" @click.prevent="changeCover">
+                                <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
+                            </button>
+
+                            <button class="button" @click.prevent="removeCover">
+                                <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="ok-user-avatar-container">
+                        <ok-user-avatar class="ok-user-avatar" :user="loggedInUser" :avatarSize="OkAvatarSize.large"></ok-user-avatar>
+
+                        <div class="actions">
+                            <button class="button" @click.prevent="changeAvatar">
+                                <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
+                            </button>
+
+                            <button class="button" @click.prevent="removeAvatar">
+                                <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <ok-tile alignmentClass="align-items-start">
                     <template v-slot:leading>
                         <ok-email-icon class="ok-svg-icon-primary-invert"></ok-email-icon>
@@ -124,12 +157,48 @@
         resize: none;
         height: 150px;
     }
+
+    .ok-user-cover-container {
+        height: 190px;
+        overflow: hidden;
+        position: relative;
+
+        .ok-user-cover {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .ok-user-avatar-container {
+        display: inline-block;
+        margin-left: 20px;
+        margin-top: -48px;
+        position: relative;
+    }
+
+    .ok-user-avatar-container, .ok-user-cover-container {
+        .actions {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+
+            .button {
+                padding: 5px;
+                height: auto;
+            }
+        }
+    }
 </style>
 
 <script lang="ts">
     import { Component, Vue } from 'nuxt-property-decorator';
 
     import OkTile from '~/components/tiles/OkTile.vue';
+    import OkUserCover from '~/components/covers/user-cover/OkUserCover.vue';
+    import OkUserAvatar from '~/components/avatars/user-avatar/OkUserAvatar.vue';
 
     import { BehaviorSubject } from 'rxjs';
     import { IUser } from '~/models/auth/user/IUser';
@@ -138,10 +207,14 @@
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
 
+    import { OkAvatarSize } from '~/components/avatars/lib/OkAvatarSize';
+
     @Component({
         name: 'OkUserProfileSettings',
         components: {
-            OkTile
+            OkTile,
+            OkUserCover,
+            OkUserAvatar
         },
         subscriptions: function () {
             return {
@@ -153,6 +226,13 @@
         $observables!: {
             loggedInUser: BehaviorSubject<IUser | undefined>
         };
+
+        $refs!: {
+            avatarInput: HTMLInputElement,
+            coverInput: HTMLInputElement
+        };
+
+        OkAvatarSize = OkAvatarSize;
 
         requestInProgress: boolean = false;
 
@@ -195,6 +275,52 @@
 
             this.requestInProgress = false;
             this.$emit('onSaveComplete');
+        }
+
+        changeAvatar() {
+            this.$refs.avatarInput.click();
+        }
+
+        changeCover() {
+            this.$refs.coverInput.click();
+        }
+
+        handleAvatarInputChange() {
+            this.modalService.openImageCropperModal({
+                file: this.$refs.avatarInput.files[0],
+                aspectRatio: 1,
+                fieldName: 'avatar'
+            });
+        }
+
+        handleCoverInputChange() {
+            this.modalService.openImageCropperModal({
+                file: this.$refs.coverInput.files[0],
+                aspectRatio: 16 / 9,
+                fieldName: 'cover'
+            });
+        }
+
+        async removeAvatar() {
+            if (!confirm('Are you sure you want to remove your avatar?')) {
+                // quite ugly but will do for now
+                return;
+            }
+
+            this.requestInProgress = true;
+            await this.userService.updateUser({ avatar: '' });
+            this.requestInProgress = false;
+        }
+
+        async removeCover() {
+            if (!confirm('Are you sure you want to remove your cover?')) {
+                // quite ugly but will do for now
+                return;
+            }
+
+            this.requestInProgress = true;
+            await this.userService.updateUser({ cover: '' });
+            this.requestInProgress = false;
         }
     }
 </script>

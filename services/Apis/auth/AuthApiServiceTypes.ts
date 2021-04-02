@@ -40,8 +40,8 @@ export interface GetUserApiParams {
 }
 
 export interface UpdateUserApiParams {
-    avatar?: File | string;
-    cover?: File | string;
+    avatar?: File | Blob | string;
+    cover?: File | Blob | string;
     name?: string;
     username?: string;
     url?: string;

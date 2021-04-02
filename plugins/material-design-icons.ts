@@ -54,6 +54,10 @@ import BugIcon from 'vue-material-design-icons/Bug.vue';
 import RefreshIcon from 'vue-material-design-icons/Refresh.vue';
 import BookmarkIcon from 'vue-material-design-icons/Bookmark.vue';
 import EmailIcon from 'vue-material-design-icons/Email.vue';
+import RotateLeftIcon from 'vue-material-design-icons/RotateLeft.vue';
+import RotateRightIcon from 'vue-material-design-icons/RotateRight.vue';
+import MagnifyPlusOutlineIcon from 'vue-material-design-icons/MagnifyPlusOutline.vue';
+import MagnifyMinusOutlineIcon from 'vue-material-design-icons/MagnifyMinusOutline.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -180,3 +184,11 @@ Vue.component('ok-open-in-new-icon', OpenInNew);
 Vue.component('ok-cellphone-icon', Cellphone);
 
 Vue.component('ok-play-circle', PlayCircle);
+
+Vue.component('ok-rotate-left-icon', RotateLeftIcon);
+
+Vue.component('ok-rotate-right-icon', RotateRightIcon);
+
+Vue.component('ok-zoom-in-icon', MagnifyPlusOutlineIcon);
+
+Vue.component('ok-zoom-out-icon', MagnifyMinusOutlineIcon);

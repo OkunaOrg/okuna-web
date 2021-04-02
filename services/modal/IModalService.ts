@@ -57,6 +57,8 @@ export interface IModalService {
 
     openUserVisibilitySettingsModal(params?: UserVisibilitySettingsParams): Promise<void>;
 
+    openImageCropperModal(params: ImageCropperModalParams): Promise<any>;
+
     openPostStudioModal(params: PostStudioModalParams): Promise<OkPostStudioData | undefined>;
 
     openGetTheAppModal(): Promise<void>;
@@ -117,6 +119,12 @@ export interface UserSettingsModalParams {
 }
 
 export interface UserProfileSettingsModalParams {
+}
+
+export interface ImageCropperModalParams {
+    file: File;
+    aspectRatio: number;
+    fieldName: 'avatar' | 'cover';
 }
 
 export interface UserVisibilitySettingsParams {

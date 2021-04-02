@@ -128,16 +128,18 @@ export class AuthApiService implements IAuthApiService {
             bodyFormData.set('avatar', params.avatar);
         }
 
-        if (params.avatar instanceof File) {
-            bodyFormData.set('avatar', params.avatar)
+        if (params.avatar instanceof File || params.avatar instanceof Blob) {
+            // hacky but I think it's guaranteed that the cropper will return a PNG blob
+            bodyFormData.set('avatar', params.avatar, 'avatar.png');
         }
 
         if (typeof params.cover === 'string' && params.cover.length === 0) {
             bodyFormData.set('cover', params.cover);
         }
 
-        if (params.cover instanceof File) {
-            bodyFormData.set('cover', params.cover);
+        if (params.cover instanceof File || params.cover instanceof Blob) {
+            // hacky but I think it's guaranteed that the cropper will return a PNG blob
+            bodyFormData.set('cover', params.cover, 'cover.png');
         }
 
         if (params.name) {
