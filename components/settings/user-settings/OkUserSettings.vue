@@ -8,10 +8,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Details
+                        {{ $t('manage_user.settings.details.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Change your username, name, url, location, avatar or cover photo.
+                        {{ $t('manage_user.settings.details.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -23,10 +23,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Followers count
+                        {{ $t('manage_user.settings.followers_count.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Display the number of people that follow you, on your profile.
+                        {{ $t('manage_user.settings.followers_count.description') }}
                     </div>
                 </template>
 
@@ -46,10 +46,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Community posts
+                        {{ $t('manage_user.settings.community_posts.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Display posts you share with public communities, on your profile.
+                        {{ $t('manage_user.settings.community_posts.description') }}
                     </div>
                 </template>
 
@@ -62,7 +62,9 @@
                 </template>
             </ok-tile>
 
-            <div class="is-size-6 has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 has-text-weight-bold">Visibility</div>
+            <div class="is-size-6 has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 has-text-weight-bold">
+                {{ $t('manage_user.visibility.title') }}
+            </div>
 
             <ok-tile v-if="loggedInUser" :onClick="openUserVisibilitySettings">
                 <template v-slot:leading>
@@ -74,28 +76,28 @@
                 <template v-slot:content>
                     <div v-if="userVisibility === UserVisibility.public">
                         <div class="ok-has-text-primary-invert">
-                            Public
+                            {{ $t('manage_user.visibility.public.name') }}
                         </div>
                         <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                            Everyone on the internet can see your profile.
+                            {{ $t('manage_user.visibility.public.description') }}
                         </div>
                     </div>
 
                     <div v-if="userVisibility === UserVisibility.okuna">
                         <div class="ok-has-text-primary-invert">
-                            Okuna
+                            {{ $t('manage_user.visibility.okuna.name') }}
                         </div>
                         <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                            Only members of Okuna can see your profile.
+                            {{ $t('manage_user.visibility.okuna.description') }}
                         </div>
                     </div>
 
                     <div v-if="userVisibility === UserVisibility.private">
                         <div class="ok-has-text-primary-invert">
-                            Private
+                            {{ $t('manage_user.visibility.private.name') }}
                         </div>
                         <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                            Only people you approve can see your profile.
+                            {{ $t('manage_user.visibility.private.description') }}
                         </div>
                     </div>
                 </template>

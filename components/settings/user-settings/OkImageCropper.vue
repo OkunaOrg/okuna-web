@@ -11,16 +11,16 @@
             </div>
 
             <div class="has-padding-10">
-                <button class="button" @click.prevent="rotate(-90)">
+                <button class="button" @click.prevent="rotate(-90)" :title="$t('global.keywords.rotate_90deg_left')">
                     <ok-rotate-left-icon class="ok-svg-icon-primary-invert"></ok-rotate-left-icon>
                 </button>
-                <button class="button" @click.prevent="rotate(90)">
+                <button class="button" @click.prevent="rotate(90)" :title="$t('global.keywords.rotate_90deg_right')">
                     <ok-rotate-right-icon class="ok-svg-icon-primary-invert"></ok-rotate-right-icon>
                 </button>
-                <button class="button" @click.prevent="zoom(0.15)">
+                <button class="button" @click.prevent="zoom(0.15)" :title="$t('global.keywords.zoom_in')">
                     <ok-zoom-in-icon class="ok-svg-icon-primary-invert"></ok-zoom-in-icon>
                 </button>
-                <button class="button" @click.prevent="zoom(-0.15)">
+                <button class="button" @click.prevent="zoom(-0.15)" :title="$t('global.keywords.zoom_out')">
                     <ok-zoom-out-icon class="ok-svg-icon-primary-invert"></ok-zoom-out-icon>
                 </button>
             </div>
@@ -30,13 +30,13 @@
                     class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold"
                     :disabled="requestInProgress"
                     @click="handleSaveClick"
-                >Save</button>
+                >{{ $t('global.keywords.save') }}</button>
 
                 <button
                     class="button is-rounded"
                     :disabled="requestInProgress"
                     @click="handleCancelClick"
-                >Cancel</button>
+                >{{ $t('global.keywords.cancel') }}</button>
             </div>
         </div>
     </div>

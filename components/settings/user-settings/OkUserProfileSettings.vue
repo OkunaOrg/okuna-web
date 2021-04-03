@@ -10,11 +10,11 @@
                         <ok-user-cover class="ok-user-cover" :user="loggedInUser"></ok-user-cover>
 
                         <div class="actions">
-                            <button class="button" @click.prevent="changeCover">
+                            <button class="button" @click.prevent="changeCover" :title="$t('manage_user.profile.change_cover')">
                                 <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
                             </button>
 
-                            <button class="button" @click.prevent="removeCover">
+                            <button class="button" @click.prevent="removeCover" :title="$t('manage_user.profile.remove_cover')">
                                 <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
                             </button>
                         </div>
@@ -24,11 +24,11 @@
                         <ok-user-avatar class="ok-user-avatar" :user="loggedInUser" :avatarSize="OkAvatarSize.large"></ok-user-avatar>
 
                         <div class="actions">
-                            <button class="button" @click.prevent="changeAvatar">
+                            <button class="button" @click.prevent="changeAvatar" :title="$t('manage_user.profile.change_avatar')">
                                 <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
                             </button>
 
-                            <button class="button" @click.prevent="removeAvatar">
+                            <button class="button" @click.prevent="removeAvatar" :title="$t('manage_user.profile.remove_avatar')">
                                 <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
                             </button>
                         </div>
@@ -43,11 +43,12 @@
                     <template v-slot:content>
                         <div class="field">
                             <label for="username" class="label has-text-left ok-has-text-primary-invert-80">
-                                Username
+                                {{ $t('manage_user.profile.username.label') }}
                             </label>
 
                             <div class="control">
-                                <input type="text" placeholder="e.g. johntravolta" class="input ok-input"
+                                <input type="text" :placeholder="$t('manage_user.profile.username.placeholder')"
+                                    class="input ok-input"
                                     required
                                     id="username" v-model="username">
                             </div>
@@ -63,11 +64,12 @@
                     <template v-slot:content>
                         <div class="field">
                             <label for="name" class="label has-text-left ok-has-text-primary-invert-80">
-                                Name
+                                {{ $t('manage_user.profile.name.label') }}
                             </label>
 
                             <div class="control">
-                                <input type="text" placeholder="e.g. John Travolta" class="input ok-input"
+                                <input type="text" :placeholder="$t('manage_user.profile.name.placeholder')"
+                                    class="input ok-input"
                                     required
                                     id="name" v-model="fullName">
                             </div>
@@ -82,8 +84,10 @@
 
                     <template v-slot:content>
                         <div class="field">
-                            <label for="url" class="label has-text-left ok-has-text-primary-invert-80">
-                                URL
+                            <label for="url" :placeholder="$t('manage_user.profile.url.placeholder')"
+                                class="label has-text-left ok-has-text-primary-invert-80"
+                            >
+                                {{ $t('manage_user.profile.url.label') }}
                             </label>
 
                             <div class="control">
@@ -105,8 +109,10 @@
 
                     <template v-slot:content>
                         <div class="field">
-                            <label for="location" class="label has-text-left ok-has-text-primary-invert-80">
-                                Location
+                            <label for="location" :placeholder="$t('manage_user.profile.location.placeholder')"
+                                class="label has-text-left ok-has-text-primary-invert-80"
+                            >
+                                {{ $t('manage_user.profile.location.label') }}
                             </label>
 
                             <div class="control">
@@ -128,8 +134,10 @@
 
                     <template v-slot:content>
                         <div class="field">
-                            <label for="bio" class="label has-text-left ok-has-text-primary-invert-80">
-                                Bio
+                            <label for="bio" :placeholder="$t('manage_user.profile.bio.placeholder')"
+                                class="label has-text-left ok-has-text-primary-invert-80"
+                            >
+                                {{ $t('manage_user.profile.bio.label') }}
                             </label>
 
                             <div class="control">
@@ -144,7 +152,7 @@
                         <button
                             class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold"
                             :disabled="requestInProgress"
-                        >Save</button>
+                        >{{ $t('global.keywords.save') }}</button>
                     </template>
                 </ok-tile>
             </form>
@@ -302,7 +310,7 @@
         }
 
         async removeAvatar() {
-            if (!confirm('Are you sure you want to remove your avatar?')) {
+            if (!confirm(this.$t('manage_user.profile.remove_avatar_confirmation').toString())) {
                 // quite ugly but will do for now
                 return;
             }
@@ -313,7 +321,7 @@
         }
 
         async removeCover() {
-            if (!confirm('Are you sure you want to remove your cover?')) {
+            if (!confirm(this.$t('manage_user.profile.remove_cover_confirmation').toString())) {
                 // quite ugly but will do for now
                 return;
             }

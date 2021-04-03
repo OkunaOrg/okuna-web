@@ -8,10 +8,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Public
+                        {{ $t('manage_user.visibility.public.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Everyone on the internet can see your profile.
+                        {{ $t('manage_user.visibility.public.description') }}
                     </div>
                 </template>
 
@@ -29,10 +29,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Okuna
+                        {{ $t('manage_user.visibility.okuna.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Only members of Okuna can see your profile.
+                        {{ $t('manage_user.visibility.okuna.description') }}
                     </div>
                 </template>
 
@@ -50,10 +50,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Private
+                        {{ $t('manage_user.visibility.private.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Only people you approve can see your profile.
+                        {{ $t('manage_user.visibility.private.description') }}
                     </div>
                 </template>
 
