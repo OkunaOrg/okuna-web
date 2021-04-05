@@ -115,8 +115,9 @@
     import { IUser } from '~/models/auth/user/IUser';
     import { TYPES } from '~/services/inversify-types';
     import { IUserService } from '~/services/user/IUserService';
-    import { okunaContainer } from '~/services/inversify';
     import { IModalService } from '~/services/modal/IModalService';
+    import { IUtilsService } from '~/services/utils/IUtilsService';
+    import { okunaContainer } from '~/services/inversify';
     import { UserVisibility } from '~/models/auth/user/lib/UserVisibility';
 
     @Component({
@@ -152,19 +153,38 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
-        toggleFollowersCountVisibility() {
+        async toggleFollowersCountVisibility() {
             this.followersCountVisible = !this.followersCountVisible;
-            this.userService.updateUser({
-                followersCountVisible: this.followersCountVisible
-            });
+
+            try {
+                await this.userService.updateUser({
+                    followersCountVisible: this.followersCountVisible
+                });
+            } catch (err) {
+                const handledError = this.utilsService.handleErrorWithToast(err);
+
+                if (handledError.isUnhandled) {
+                    throw handledError.error;
+                }
+            }
         }
 
-        toggleCommunityPostsVisibility() {
+        async toggleCommunityPostsVisibility() {
             this.communityPostsVisible = !this.communityPostsVisible;
-            this.userService.updateUser({
-                communityPostsVisible: this.communityPostsVisible
-            });
+
+            try {
+                await this.userService.updateUser({
+                    communityPostsVisible: this.communityPostsVisible
+                });
+            } catch (err) {
+                const handledError = this.utilsService.handleErrorWithToast(err);
+
+                if (handledError.isUnhandled) {
+                    throw handledError.error;
+                }
+            }
         }
 
         openUserProfileSettings() {

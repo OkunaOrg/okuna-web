@@ -212,6 +212,7 @@
     import { IUser } from '~/models/auth/user/IUser';
     import { IUserService } from '~/services/user/IUserService';
     import { IModalService } from '~/services/modal/IModalService';
+    import { IUtilsService } from '~/services/utils/IUtilsService';
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
 
@@ -252,6 +253,7 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         mounted() {
             if (this.userService.loggedInUser) {
@@ -273,16 +275,26 @@
 
             this.requestInProgress = true;
 
-            await this.userService.updateUser({
-                username: this.username,
-                name: this.fullName,
-                url: this.url,
-                location: this.location,
-                bio: this.bio
-            });
+            try {
+                await this.userService.updateUser({
+                    username: this.username,
+                    name: this.fullName,
+                    url: this.url,
+                    location: this.location,
+                    bio: this.bio
+                });
 
-            this.requestInProgress = false;
-            this.$emit('onSaveComplete');
+                this.requestInProgress = false;
+                this.$emit('onSaveComplete');
+            } catch (err) {
+                const handledError = this.utilsService.handleErrorWithToast(err);
+
+                if (handledError.isUnhandled) {
+                    throw handledError.error;
+                }
+
+                this.requestInProgress = false;
+            }
         }
 
         changeAvatar() {
@@ -316,8 +328,18 @@
             }
 
             this.requestInProgress = true;
-            await this.userService.updateUser({ avatar: '' });
-            this.requestInProgress = false;
+
+            try {
+                await this.userService.updateUser({ avatar: '' });
+            } catch (err) {
+                const handledError = this.utilsService.handleErrorWithToast(err);
+
+                if (handledError.isUnhandled) {
+                    throw handledError.error;
+                }
+            } finally {
+                this.requestInProgress = false;
+            }
         }
 
         async removeCover() {
@@ -327,8 +349,18 @@
             }
 
             this.requestInProgress = true;
-            await this.userService.updateUser({ cover: '' });
-            this.requestInProgress = false;
+
+            try {
+                await this.userService.updateUser({ cover: '' });
+            } catch (err) {
+                const handledError = this.utilsService.handleErrorWithToast(err);
+
+                if (handledError.isUnhandled) {
+                    throw handledError.error;
+                }
+            } finally {
+                this.requestInProgress = false;
+            }
         }
     }
 </script>

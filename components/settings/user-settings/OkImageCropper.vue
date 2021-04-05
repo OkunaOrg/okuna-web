@@ -55,6 +55,7 @@
 
     import { IModalService } from '~/services/modal/IModalService';
     import { IUserService } from '~/services/user/IUserService';
+    import { IUtilsService } from '~/services/utils/IUtilsService';
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
 
@@ -85,6 +86,7 @@
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private utilsSevice: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         $refs!: {
             cropper: VueCropper
@@ -117,12 +119,20 @@
 
             const canvas: HTMLCanvasElement = this.$refs.cropper.getCroppedCanvas();
             canvas.toBlob(async blob => {
-                await this.userService.updateUser({
-                    [this.fieldName]: blob
-                });
+                try {
+                    await this.userService.updateUser({
+                        [this.fieldName]: blob
+                    });
+                } catch (err) {
+                    const handledError = this.utilsSevice.handleErrorWithToast(err);
 
-                this.requestInProgress = false;
-                this.modalService.openUserProfileSettingsModal();
+                    if (handledError.isUnhandled) {
+                        throw handledError.error;
+                    }
+                } finally {
+                    this.requestInProgress = false;
+                    this.modalService.openUserProfileSettingsModal();
+                }
             });
         }
 

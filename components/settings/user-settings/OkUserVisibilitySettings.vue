@@ -79,6 +79,7 @@
     import { TYPES } from '~/services/inversify-types';
     import { IModalService } from '~/services/modal/IModalService';
     import { IUserService } from '~/services/user/IUserService';
+    import { IUtilsService } from '~/services/utils/IUtilsService';
 
     @Component({
         name: 'OkUserVisibilitySettings',
@@ -102,6 +103,7 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         mounted() {
             if (this.userService.loggedInUser) {
@@ -114,12 +116,20 @@
             this.visibility = visibility;
             this.saving = true;
 
-            await this.userService.updateUser({
-                visibility: this.visibility
-            });
+            try {
+                await this.userService.updateUser({
+                    visibility: this.visibility
+                });
+            } catch (err) {
+                const handledError = this.utilsService.handleErrorWithToast(err);
 
-            this.saving = false;
-            this.modalService.openUserSettingsModal();
+                if (handledError.isUnhandled) {
+                    throw handledError.error;
+                }
+            } finally {
+                this.saving = false;
+                this.modalService.openUserSettingsModal();
+            }
         }
     }
 </script>
