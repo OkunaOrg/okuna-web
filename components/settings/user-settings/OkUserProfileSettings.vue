@@ -52,6 +52,18 @@
                                     required
                                     id="username" v-model="username">
                             </div>
+
+                            <div v-if="$v.username.$invalid && formWasSubmitted" class="has-padding-top-5 has-text-left">
+                                <p class="help is-danger" v-if="!$v.username.required">
+                                    {{$t('global.errors.user_username.required')}}
+                                </p>
+                                <p class="help is-danger" v-if="!$v.username.maxLength">
+                                    {{usernameMaxLengthError}}
+                                </p>
+                                <p class="help is-danger" v-if="!$v.username.minLength">
+                                    {{usernameMinLengthError}}
+                                </p>
+                            </div>
                         </div>
                     </template>
                 </ok-tile>
@@ -72,6 +84,18 @@
                                     class="input ok-input"
                                     required
                                     id="name" v-model="fullName">
+                            </div>
+
+                            <div v-if="$v.fullName.$invalid && formWasSubmitted" class="has-padding-top-5 has-text-left">
+                                <p class="help is-danger" v-if="!$v.fullName.required">
+                                    {{$t('global.errors.user_name.required')}}
+                                </p>
+                                <p class="help is-danger" v-if="!$v.fullName.maxLength">
+                                    {{fullNameMaxLengthError}}
+                                </p>
+                                <p class="help is-danger" v-if="!$v.fullName.minLength">
+                                    {{fullNameMinLengthError}}
+                                </p>
                             </div>
                         </div>
                     </template>
@@ -203,6 +227,7 @@
 
 <script lang="ts">
     import { Component, Vue } from 'nuxt-property-decorator';
+    import { Validate } from 'vuelidate-property-decorators';
 
     import OkTile from '~/components/tiles/OkTile.vue';
     import OkUserCover from '~/components/covers/user-cover/OkUserCover.vue';
@@ -217,6 +242,9 @@
     import { TYPES } from '~/services/inversify-types';
 
     import { OkAvatarSize } from '~/components/avatars/lib/OkAvatarSize';
+
+    import { userUsernameMaxLength, userUsernameMinLength, usernameValidators } from '~/validators/username';
+    import { userNameMaxLength, userNameMinLength, userNameValidators } from '~/validators/user-name';
 
     @Component({
         name: 'OkUserProfileSettings',
@@ -243,10 +271,15 @@
 
         OkAvatarSize = OkAvatarSize;
 
+        formWasSubmitted: boolean = false;
         requestInProgress: boolean = false;
 
+        @Validate(usernameValidators)
         username: string = '';
+
+        @Validate(userNameValidators)
         fullName: string = '';
+
         url: string = '';
         location: string = '';
         bio: string = '';
@@ -273,6 +306,13 @@
                 return;
             }
 
+            this.formWasSubmitted = true;
+            const isValid = this._validateAll();
+
+            if (!isValid) {
+                return;
+            }
+
             this.requestInProgress = true;
 
             try {
@@ -285,6 +325,7 @@
                 });
 
                 this.requestInProgress = false;
+                this.formWasSubmitted = false;
                 this.$emit('onSaveComplete');
             } catch (err) {
                 const handledError = this.utilsService.handleErrorWithToast(err);
@@ -294,6 +335,7 @@
                 }
 
                 this.requestInProgress = false;
+                this.formWasSubmitted = false;
             }
         }
 
@@ -361,6 +403,35 @@
             } finally {
                 this.requestInProgress = false;
             }
+        }
+
+        get usernameMaxLengthError() {
+            return this.$t('global.errors.user_username.max_length', {
+                max: userUsernameMaxLength
+            });
+        }
+
+        get usernameMinLengthError() {
+            return this.$t('global.errors.user_username.min_length', {
+                min: userUsernameMinLength
+            });
+        }
+
+        get fullNameMaxLengthError() {
+            return this.$t('global.errors.user_name.max_length', {
+                max: userNameMaxLength
+            });
+        }
+
+        get fullNameMinLengthError() {
+            return this.$t('global.errors.user_name.min_length', {
+                min: userNameMinLength
+            });
+        }
+
+        _validateAll() {
+            this.$v.$touch();
+            return !this.$v.$invalid;
         }
     }
 </script>
