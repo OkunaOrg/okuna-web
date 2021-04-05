@@ -25,18 +25,22 @@
                 </button>
             </div>
 
-            <div class="has-padding-10">
-                <button
-                    class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold"
-                    :disabled="requestInProgress"
-                    @click="handleSaveClick"
-                >{{ $t('global.keywords.save') }}</button>
+            <div class="has-padding-10 columns">
+                <div class="column">
+                    <button
+                        class="button has-width-100-percent is-rounded"
+                        :disabled="requestInProgress"
+                        @click="handleCancelClick"
+                    >{{ $t('global.keywords.cancel') }}</button>
+                </div>
 
-                <button
-                    class="button is-rounded"
-                    :disabled="requestInProgress"
-                    @click="handleCancelClick"
-                >{{ $t('global.keywords.cancel') }}</button>
+                <div class="column">
+                    <button
+                        class="button has-width-100-percent is-rounded ok-has-background-accent has-text-white has-text-weight-bold"
+                        :disabled="requestInProgress"
+                        @click="handleSaveClick"
+                    >{{ $t('global.keywords.save') }}</button>
+                </div>
             </div>
         </div>
     </div>

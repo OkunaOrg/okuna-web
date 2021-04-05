@@ -10,11 +10,16 @@
                         <ok-user-cover class="ok-user-cover" :user="loggedInUser"></ok-user-cover>
 
                         <div class="actions">
-                            <button class="button" @click.prevent="changeCover" :title="$t('manage_user.profile.change_cover')">
+                            <button class="button is-rounded" @click.prevent="changeCover" :title="$t('manage_user.profile.change_cover')">
                                 <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
                             </button>
 
-                            <button class="button" @click.prevent="removeCover" :title="$t('manage_user.profile.remove_cover')">
+                            <button
+                                v-if="loggedInUser.profile.cover && loggedInUser.profile.cover.length"
+                                class="button is-rounded"
+                                @click.prevent="removeCover"
+                                :title="$t('manage_user.profile.remove_cover')"
+                            >
                                 <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
                             </button>
                         </div>
@@ -24,11 +29,16 @@
                         <ok-user-avatar class="ok-user-avatar" :user="loggedInUser" :avatarSize="OkAvatarSize.large"></ok-user-avatar>
 
                         <div class="actions">
-                            <button class="button" @click.prevent="changeAvatar" :title="$t('manage_user.profile.change_avatar')">
+                            <button class="button is-rounded" @click.prevent="changeAvatar" :title="$t('manage_user.profile.change_avatar')">
                                 <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
                             </button>
 
-                            <button class="button" @click.prevent="removeAvatar" :title="$t('manage_user.profile.remove_avatar')">
+                            <button
+                                v-if="loggedInUser.profile.avatar && loggedInUser.profile.avatar.length"
+                                class="button is-rounded"
+                                @click.prevent="removeAvatar"
+                                :title="$t('manage_user.profile.remove_avatar')"
+                            >
                                 <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
                             </button>
                         </div>
@@ -36,19 +46,16 @@
                 </div>
 
                 <ok-tile alignmentClass="align-items-start">
-                    <template v-slot:leading>
-                        <ok-email-icon class="ok-svg-icon-primary-invert"></ok-email-icon>
-                    </template>
-
                     <template v-slot:content>
                         <div class="field">
                             <label for="username" class="label has-text-left ok-has-text-primary-invert-80">
+                                <ok-email-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-email-icon>
                                 {{ $t('manage_user.profile.username.label') }}
                             </label>
 
                             <div class="control">
                                 <input type="text" :placeholder="$t('manage_user.profile.username.placeholder')"
-                                    class="input ok-input"
+                                    class="input ok-input is-rounded"
                                     required
                                     id="username" v-model="username">
                             </div>
@@ -69,19 +76,16 @@
                 </ok-tile>
 
                 <ok-tile alignmentClass="align-items-start">
-                    <template v-slot:leading>
-                        <ok-account-icon class="ok-svg-icon-primary-invert"></ok-account-icon>
-                    </template>
-
                     <template v-slot:content>
                         <div class="field">
                             <label for="name" class="label has-text-left ok-has-text-primary-invert-80">
+                                <ok-account-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-account-icon>
                                 {{ $t('manage_user.profile.name.label') }}
                             </label>
 
                             <div class="control">
                                 <input type="text" :placeholder="$t('manage_user.profile.name.placeholder')"
-                                    class="input ok-input"
+                                    class="input ok-input is-rounded"
                                     required
                                     id="name" v-model="fullName">
                             </div>
@@ -102,22 +106,19 @@
                 </ok-tile>
 
                 <ok-tile alignmentClass="align-items-start">
-                    <template v-slot:leading>
-                        <ok-link-icon class="ok-svg-icon-primary-invert"></ok-link-icon>
-                    </template>
-
                     <template v-slot:content>
                         <div class="field">
                             <label for="url" :placeholder="$t('manage_user.profile.url.placeholder')"
                                 class="label has-text-left ok-has-text-primary-invert-80"
                             >
+                                <ok-link-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-link-icon>
                                 {{ $t('manage_user.profile.url.label') }}
                             </label>
 
                             <div class="control">
                                 <input
                                     type="text"
-                                    class="input ok-input"
+                                    class="input ok-input is-rounded"
                                     id="url"
                                     v-model="url"
                                 >
@@ -127,22 +128,19 @@
                 </ok-tile>
 
                 <ok-tile alignmentClass="align-items-start">
-                    <template v-slot:leading>
-                        <ok-location-icon class="ok-svg-icon-primary-invert"></ok-location-icon>
-                    </template>
-
                     <template v-slot:content>
                         <div class="field">
                             <label for="location" :placeholder="$t('manage_user.profile.location.placeholder')"
                                 class="label has-text-left ok-has-text-primary-invert-80"
                             >
+                                <ok-location-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-location-icon>
                                 {{ $t('manage_user.profile.location.label') }}
                             </label>
 
                             <div class="control">
                                 <input
                                     type="text"
-                                    class="input ok-input"
+                                    class="input ok-input is-rounded"
                                     id="location"
                                     v-model="location"
                                 >
@@ -152,20 +150,17 @@
                 </ok-tile>
 
                 <ok-tile alignmentClass="align-items-start">
-                    <template v-slot:leading>
-                        <ok-bio-icon class="ok-svg-icon-primary-invert"></ok-bio-icon>
-                    </template>
-
                     <template v-slot:content>
                         <div class="field">
                             <label for="bio" :placeholder="$t('manage_user.profile.bio.placeholder')"
                                 class="label has-text-left ok-has-text-primary-invert-80"
                             >
+                                <ok-bio-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-bio-icon>
                                 {{ $t('manage_user.profile.bio.label') }}
                             </label>
 
                             <div class="control">
-                                <textarea class="input ok-input ok-bio-textarea" id="bio" v-model="bio"></textarea>
+                                <textarea class="input ok-input is-rounded ok-bio-textarea" id="bio" v-model="bio"></textarea>
                             </div>
                         </div>
                     </template>
@@ -173,10 +168,23 @@
 
                 <ok-tile>
                     <template v-slot:content>
-                        <button
-                            class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold"
-                            :disabled="requestInProgress"
-                        >{{ $t('global.keywords.save') }}</button>
+                        <div class="columns">
+                            <div class="column">
+                                <button
+                                    class="button is-rounded has-width-100-percent"
+                                    @click.prevent="handleCancelClick"
+                                >
+                                    {{ $t('global.keywords.cancel') }}
+                                </button>
+                            </div>
+
+                            <div class="column">
+                                <button
+                                    class="button is-rounded has-width-100-percent ok-has-background-accent has-text-white has-text-weight-bold"
+                                    :disabled="requestInProgress"
+                                >{{ $t('global.keywords.save') }}</button>
+                            </div>
+                        </div>
                     </template>
                 </ok-tile>
             </form>
@@ -188,6 +196,7 @@
     .ok-bio-textarea {
         resize: none;
         height: 150px;
+        border-radius: 1em !important;
     }
 
     .ok-user-cover-container {
@@ -218,7 +227,7 @@
             right: 5px;
 
             .button {
-                padding: 5px;
+                padding: 8px;
                 height: auto;
             }
         }
@@ -432,6 +441,10 @@
         _validateAll() {
             this.$v.$touch();
             return !this.$v.$invalid;
+        }
+
+        handleCancelClick() {
+            this.modalService.openUserSettingsModal();
         }
     }
 </script>
