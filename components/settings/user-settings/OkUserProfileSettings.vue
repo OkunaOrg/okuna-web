@@ -10,10 +10,6 @@
                         <ok-image-cover :cover-url="coverUrl" :cover-size="OkCoverSize.large" class="ok-user-cover"></ok-image-cover>
 
                         <div class="actions">
-                            <button class="button is-rounded" @click.prevent="changeCover" :title="$t('manage_user.profile.change_cover')">
-                                <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
-                            </button>
-
                             <button
                                 v-if="coverUrl && coverUrl.length"
                                 class="button is-rounded"
@@ -22,6 +18,15 @@
                             >
                                 <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
                             </button>
+
+                            <button
+                                v-else
+                                class="button is-rounded"
+                                @click.prevent="changeCover"
+                                :title="$t('manage_user.profile.change_cover')"
+                            >
+                                <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
+                            </button>
                         </div>
                     </div>
 
@@ -29,10 +34,6 @@
                         <ok-image-avatar :avatar-url="avatarUrl" :avatar-size="OkAvatarSize.large" class="ok-user-avatar"></ok-image-avatar>
 
                         <div class="actions">
-                            <button class="button is-rounded" @click.prevent="changeAvatar" :title="$t('manage_user.profile.change_avatar')">
-                                <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
-                            </button>
-
                             <button
                                 v-if="avatarUrl && avatarUrl.length"
                                 class="button is-rounded"
@@ -40,6 +41,15 @@
                                 :title="$t('manage_user.profile.remove_avatar')"
                             >
                                 <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
+                            </button>
+
+                            <button
+                                v-else
+                                class="button is-rounded"
+                                @click.prevent="changeAvatar"
+                                :title="$t('manage_user.profile.change_avatar')"
+                            >
+                                <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
                             </button>
                         </div>
                     </div>
@@ -223,8 +233,8 @@
     .ok-user-avatar-container, .ok-user-cover-container {
         .actions {
             position: absolute;
-            bottom: 5px;
-            right: 5px;
+            bottom: 10px;
+            right: 10px;
 
             .button {
                 padding: 8px;
