@@ -29,7 +29,6 @@
                 <div class="column">
                     <button
                         class="button has-width-100-percent is-rounded"
-                        :disabled="requestInProgress"
                         @click="handleCancelClick"
                     >{{ $t('global.keywords.cancel') }}</button>
                 </div>
@@ -37,7 +36,6 @@
                 <div class="column">
                     <button
                         class="button has-width-100-percent is-rounded ok-has-background-accent has-text-white has-text-weight-bold"
-                        :disabled="requestInProgress"
                         @click="handleSaveClick"
                     >{{ $t('global.keywords.save') }}</button>
                 </div>
@@ -57,7 +55,7 @@
     import VueCropper from 'vue-cropperjs';
     import 'cropperjs/dist/cropper.css';
 
-    import { IModalService } from '~/services/modal/IModalService';
+    import { IModalService, UserProfileImages } from '~/services/modal/IModalService';
     import { IUserService } from '~/services/user/IUserService';
     import { IUtilsService } from '~/services/utils/IUtilsService';
     import { okunaContainer } from '~/services/inversify';
@@ -85,8 +83,17 @@
             required: true
         }) readonly fieldName: 'avatar' | 'cover';
 
+        @Prop({
+            type: Object,
+            required: false
+        }) readonly images: UserProfileImages;
+
         image: string = '';
-        requestInProgress: boolean = false;
+
+        avatarUrl: string = '';
+        coverUrl: string = '';
+        avatarBlob?: Blob;
+        coverBlob?: Blob;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
@@ -115,28 +122,39 @@
         }
 
         handleCancelClick() {
-            this.modalService.openUserProfileSettingsModal();
+            this.modalService.openUserProfileSettingsModal({
+                images: {
+                    avatarUrl: this.avatarUrl,
+                    coverUrl: this.coverUrl,
+                    avatarBlob: this.avatarBlob,
+                    coverBlob: this.coverBlob
+                }
+            });
         }
 
         handleSaveClick() {
-            this.requestInProgress = true;
-
             const canvas: HTMLCanvasElement = this.$refs.cropper.getCroppedCanvas();
-            canvas.toBlob(async blob => {
-                try {
-                    await this.userService.updateUser({
-                        [this.fieldName]: blob
-                    });
-                } catch (err) {
-                    const handledError = this.utilsSevice.handleErrorWithToast(err);
+            const url: string = canvas.toDataURL();
 
-                    if (handledError.isUnhandled) {
-                        throw handledError.error;
-                    }
-                } finally {
-                    this.requestInProgress = false;
-                    this.modalService.openUserProfileSettingsModal();
+            canvas.toBlob(async blob => {
+                if (this.fieldName === 'avatar') {
+                    this.avatarUrl = url;
+                    this.avatarBlob = blob;
                 }
+
+                if (this.fieldName === 'cover') {
+                    this.coverUrl = url;
+                    this.coverBlob = blob;
+                }
+
+                this.modalService.openUserProfileSettingsModal({
+                    images: {
+                        avatarUrl: this.avatarUrl,
+                        coverUrl: this.coverUrl,
+                        avatarBlob: this.avatarBlob,
+                        coverBlob: this.coverBlob
+                    }
+                });
             });
         }
 
@@ -148,6 +166,11 @@
             });
 
             reader.readAsDataURL(this.file);
+
+            this.avatarUrl = this.images.avatarUrl;
+            this.coverUrl = this.images.coverUrl;
+            this.avatarBlob = this.images.avatarBlob;
+            this.coverBlob = this.images.coverBlob;
         }
     }
 </script>

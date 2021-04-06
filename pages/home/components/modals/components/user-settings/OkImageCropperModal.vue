@@ -6,6 +6,7 @@
             :file="params.file"
             :aspectRatio="params.aspectRatio"
             :fieldName="params.fieldName"
+            :images="params.images"
         />
     </div>
 </template>

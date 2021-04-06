@@ -118,13 +118,24 @@ export interface ApplicationSettingsModalParams {
 export interface UserSettingsModalParams {
 }
 
-export interface UserProfileSettingsModalParams {
+export interface UserProfileImages {
+    avatarUrl?: string;
+    coverUrl?: string;
+
+    avatarBlob?: Blob;
+    coverBlob?: Blob;
+}
+
+export interface UserProfileSettingsModalParams extends UserProfileImages {
+    images?: UserProfileImages;
 }
 
 export interface ImageCropperModalParams {
     file: File;
     aspectRatio: number;
     fieldName: 'avatar' | 'cover';
+
+    images?: UserProfileImages;
 }
 
 export interface UserVisibilitySettingsParams {

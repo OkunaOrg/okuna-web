@@ -7,7 +7,7 @@
                     <input class="is-hidden" type="file" ref="coverInput" name="coverInput" accept="image/*" @change="handleCoverInputChange">
 
                     <div class="ok-user-cover-container">
-                        <ok-user-cover class="ok-user-cover" :user="loggedInUser"></ok-user-cover>
+                        <ok-image-cover :cover-url="coverUrl" :cover-size="OkCoverSize.large" class="ok-user-cover"></ok-image-cover>
 
                         <div class="actions">
                             <button class="button is-rounded" @click.prevent="changeCover" :title="$t('manage_user.profile.change_cover')">
@@ -15,7 +15,7 @@
                             </button>
 
                             <button
-                                v-if="loggedInUser.profile.cover && loggedInUser.profile.cover.length"
+                                v-if="coverUrl && coverUrl.length"
                                 class="button is-rounded"
                                 @click.prevent="removeCover"
                                 :title="$t('manage_user.profile.remove_cover')"
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="ok-user-avatar-container">
-                        <ok-user-avatar class="ok-user-avatar" :user="loggedInUser" :avatarSize="OkAvatarSize.large"></ok-user-avatar>
+                        <ok-image-avatar :avatar-url="avatarUrl" :avatar-size="OkAvatarSize.large" class="ok-user-avatar"></ok-image-avatar>
 
                         <div class="actions">
                             <button class="button is-rounded" @click.prevent="changeAvatar" :title="$t('manage_user.profile.change_avatar')">
@@ -34,7 +34,7 @@
                             </button>
 
                             <button
-                                v-if="loggedInUser.profile.avatar && loggedInUser.profile.avatar.length"
+                                v-if="avatarUrl && avatarUrl.length"
                                 class="button is-rounded"
                                 @click.prevent="removeAvatar"
                                 :title="$t('manage_user.profile.remove_avatar')"
@@ -235,22 +235,24 @@
 </style>
 
 <script lang="ts">
-    import { Component, Vue } from 'nuxt-property-decorator';
+    import { Component, Prop, Vue } from 'nuxt-property-decorator';
     import { Validate } from 'vuelidate-property-decorators';
 
     import OkTile from '~/components/tiles/OkTile.vue';
-    import OkUserCover from '~/components/covers/user-cover/OkUserCover.vue';
-    import OkUserAvatar from '~/components/avatars/user-avatar/OkUserAvatar.vue';
+    import OkImageCover from '~/components/covers/image-cover/OkImageCover.vue';
+    import OkImageAvatar from '~/components/avatars/image-avatar/OkImageAvatar.vue';
 
     import { BehaviorSubject } from 'rxjs';
     import { IUser } from '~/models/auth/user/IUser';
     import { IUserService } from '~/services/user/IUserService';
-    import { IModalService } from '~/services/modal/IModalService';
+    import { UpdateUserParams } from '~/services/user/UserServiceTypes';
+    import { IModalService, UserProfileImages } from '~/services/modal/IModalService';
     import { IUtilsService } from '~/services/utils/IUtilsService';
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
 
     import { OkAvatarSize } from '~/components/avatars/lib/OkAvatarSize';
+    import { OkCoverSize } from '~/components/covers/lib/OkCoverSize';
 
     import { userUsernameMaxLength, userUsernameMinLength, usernameValidators } from '~/validators/username';
     import { userNameMaxLength, userNameMinLength, userNameValidators } from '~/validators/user-name';
@@ -259,8 +261,8 @@
         name: 'OkUserProfileSettings',
         components: {
             OkTile,
-            OkUserCover,
-            OkUserAvatar
+            OkImageCover,
+            OkImageAvatar
         },
         subscriptions: function () {
             return {
@@ -278,7 +280,13 @@
             coverInput: HTMLInputElement
         };
 
+        @Prop({
+            type: Object,
+            required: false
+        }) readonly images: UserProfileImages;
+
         OkAvatarSize = OkAvatarSize;
+        OkCoverSize = OkCoverSize;
 
         formWasSubmitted: boolean = false;
         requestInProgress: boolean = false;
@@ -293,18 +301,30 @@
         location: string = '';
         bio: string = '';
 
+        avatarUrl: string = '';
+        coverUrl: string = '';
+
+        avatarBlob?: Blob | null;
+        coverBlob?: Blob | null;
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         mounted() {
             if (this.userService.loggedInUser) {
-                const { profile: { name, url, location, bio }, username } = this.userService.loggedInUser.getValue();
+                const { profile: { name, url, location, bio, avatar, cover }, username } = this.userService.loggedInUser.getValue();
                 this.username = username;
                 this.fullName = name;
                 this.url = url;
                 this.location = location;
                 this.bio = bio;
+
+                this.avatarUrl = this.images?.avatarUrl || avatar;
+                this.coverUrl = this.images?.coverUrl || cover;
+
+                this.avatarBlob = this.images?.avatarBlob;
+                this.coverBlob = this.images?.coverBlob;
             }
         }
 
@@ -325,13 +345,31 @@
             this.requestInProgress = true;
 
             try {
-                await this.userService.updateUser({
+                const updatedUserProfile: UpdateUserParams = {
                     username: this.username,
                     name: this.fullName,
                     url: this.url,
                     location: this.location,
                     bio: this.bio
-                });
+                };
+
+                if (this.avatarUrl === '') {
+                    updatedUserProfile.avatar = this.avatarUrl;
+                }
+
+                if (this.avatarBlob?.size) {
+                    updatedUserProfile.avatar = this.avatarBlob;
+                }
+
+                if (this.coverUrl === '') {
+                    updatedUserProfile.cover = this.coverUrl;
+                }
+
+                if (this.coverBlob?.size) {
+                    updatedUserProfile.cover = this.coverBlob;
+                }
+
+                await this.userService.updateUser(updatedUserProfile);
 
                 this.requestInProgress = false;
                 this.formWasSubmitted = false;
@@ -360,7 +398,14 @@
             this.modalService.openImageCropperModal({
                 file: this.$refs.avatarInput.files[0],
                 aspectRatio: 1,
-                fieldName: 'avatar'
+                fieldName: 'avatar',
+
+                images: {
+                    avatarUrl: this.avatarUrl,
+                    coverUrl: this.coverUrl,
+                    avatarBlob: this.avatarBlob,
+                    coverBlob: this.coverBlob
+                }
             });
         }
 
@@ -368,50 +413,35 @@
             this.modalService.openImageCropperModal({
                 file: this.$refs.coverInput.files[0],
                 aspectRatio: 16 / 9,
-                fieldName: 'cover'
+                fieldName: 'cover',
+
+                images: {
+                    avatarUrl: this.avatarUrl,
+                    coverUrl: this.coverUrl,
+                    avatarBlob: this.avatarBlob,
+                    coverBlob: this.coverBlob
+                }
             });
         }
 
-        async removeAvatar() {
+        removeAvatar() {
             if (!confirm(this.$t('manage_user.profile.remove_avatar_confirmation').toString())) {
                 // quite ugly but will do for now
                 return;
             }
 
-            this.requestInProgress = true;
-
-            try {
-                await this.userService.updateUser({ avatar: '' });
-            } catch (err) {
-                const handledError = this.utilsService.handleErrorWithToast(err);
-
-                if (handledError.isUnhandled) {
-                    throw handledError.error;
-                }
-            } finally {
-                this.requestInProgress = false;
-            }
+            this.avatarUrl = '';
+            this.avatarBlob = null;
         }
 
-        async removeCover() {
+        removeCover() {
             if (!confirm(this.$t('manage_user.profile.remove_cover_confirmation').toString())) {
                 // quite ugly but will do for now
                 return;
             }
 
-            this.requestInProgress = true;
-
-            try {
-                await this.userService.updateUser({ cover: '' });
-            } catch (err) {
-                const handledError = this.utilsService.handleErrorWithToast(err);
-
-                if (handledError.isUnhandled) {
-                    throw handledError.error;
-                }
-            } finally {
-                this.requestInProgress = false;
-            }
+            this.coverUrl = '';
+            this.coverBlob = null;
         }
 
         get usernameMaxLengthError() {
