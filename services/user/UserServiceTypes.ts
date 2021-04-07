@@ -15,12 +15,15 @@ import { IUser } from '~/models/auth/user/IUser';
 import { ICategory } from '~/models/common/category/ICategory';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { OkFile } from '~/services/media/IMediaService';
+import { UpdateUserApiParams } from '../Apis/auth/AuthApiServiceTypes';
 
 // AUTH START
 
 export interface GetUserParams {
     userUsername: string;
 }
+
+export interface UpdateUserParams extends UpdateUserApiParams {};
 
 export interface ReportUserParams {
     user: IUser;
@@ -464,4 +467,3 @@ export interface ReportHashtagParams {
 
 
 // HASHTAGS END
-

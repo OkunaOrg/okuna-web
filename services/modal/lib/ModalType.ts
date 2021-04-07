@@ -16,6 +16,10 @@ export class ModalType {
     static themes = new ModalType('Themes');
     static settings = new ModalType('Settings');
     static applicationSettings = new ModalType('ApplicationSettings');
+    static userSettings = new ModalType('UserSettings');
+    static userProfileSettings = new ModalType('UserProfileSettings');
+    static userVisibilitySettings = new ModalType('UserVisibilitySettings');
+    static imageCropper = new ModalType('ImageCropper');
     static welcomeToOkunaWeb = new ModalType('WelcomeToOkunaWeb');
     static getTheApp = new ModalType('GetTheApp');
     static communityRules = new ModalType('CommunityRules');
@@ -43,6 +47,10 @@ export class ModalType {
         ModalType.communityStaff,
         ModalType.settings,
         ModalType.applicationSettings,
+        ModalType.userSettings,
+        ModalType.userProfileSettings,
+        ModalType.userVisibilitySettings,
+        ModalType.imageCropper,
         ModalType.postStudio,
     ];
 

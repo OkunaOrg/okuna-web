@@ -80,7 +80,8 @@ import {
     PublishPostParams,
     GetPostStatusParams,
     CreatePostParams,
-    PreviewLinkParams
+    PreviewLinkParams,
+    UpdateUserParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -151,6 +152,8 @@ export interface IUserService {
     isLoggedIn(): boolean;
 
     getUser(params: GetUserParams): Promise<IUser>;
+
+    updateUser(params: UpdateUserParams): Promise<IUser>;
 
     searchUsers(params: SearchUsersParams): Promise<IHashtag[]>;
 

@@ -93,7 +93,7 @@ import {
     SearchJoinedCommunitiesParams,
     CreatePostParams,
     AddMediaToPostParams,
-    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams
+    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -316,6 +316,11 @@ export class UserService implements IUserService {
             userUsername: params.userUsername
         });
 
+        return userFactory.make(response.data);
+    }
+
+    async updateUser(params: UpdateUserParams): Promise<IUser> {
+        const response: AxiosResponse<UserData> = await this.authApiService.updateUser(params);
         return userFactory.make(response.data);
     }
 

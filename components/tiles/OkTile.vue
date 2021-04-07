@@ -1,6 +1,6 @@
 <template>
     <article
-            class="media is-marginless has-overflow-hidden is-flex align-items-center has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 ok-tile"
+            class="media is-marginless has-overflow-hidden is-flex has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 ok-tile"
             :class="tileClass" :role="tileRole" @click="handleClick">
         <figure class="media-left" v-if="hasLeadingSlot">
             <slot name="leading"></slot>
@@ -42,6 +42,12 @@
             required: false
         }) readonly disabled: boolean;
 
+        @Prop({
+            type: String,
+            required: false,
+            default: 'align-items-center'
+        }) readonly alignmentClass: string;
+
         $slots: {};
 
 
@@ -72,7 +78,7 @@
 
 
         get tileClass() {
-            const cssClasses = [];
+            const cssClasses = [ this.alignmentClass ];
 
             if (this.requestInProgress) cssClasses.push("is-loading");
 
