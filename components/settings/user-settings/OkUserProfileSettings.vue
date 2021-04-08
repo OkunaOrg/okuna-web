@@ -12,7 +12,7 @@
                         <div class="actions">
                             <button
                                 v-if="coverUrl && coverUrl.length"
-                                class="button is-rounded"
+                                class="button is-rounded ok-has-background-primary-60 is-borderless"
                                 @click.prevent="removeCover"
                                 :title="$t('manage_user.profile.remove_cover')"
                             >
@@ -21,7 +21,7 @@
 
                             <button
                                 v-else
-                                class="button is-rounded"
+                                class="button is-rounded ok-has-background-primary-60 is-borderless"
                                 @click.prevent="changeCover"
                                 :title="$t('manage_user.profile.change_cover')"
                             >
@@ -36,7 +36,7 @@
                         <div class="actions">
                             <button
                                 v-if="avatarUrl && avatarUrl.length"
-                                class="button is-rounded"
+                                class="button is-rounded ok-has-background-primary-60 is-borderless"
                                 @click.prevent="removeAvatar"
                                 :title="$t('manage_user.profile.remove_avatar')"
                             >
@@ -45,7 +45,7 @@
 
                             <button
                                 v-else
-                                class="button is-rounded"
+                                class="button is-rounded ok-has-background-primary-60 is-borderless"
                                 @click.prevent="changeAvatar"
                                 :title="$t('manage_user.profile.change_avatar')"
                             >
@@ -181,7 +181,7 @@
                         <div class="columns">
                             <div class="column">
                                 <button
-                                    class="button is-rounded has-width-100-percent"
+                                    class="button is-rounded is-borderless has-width-100-percent ok-has-background-primary-highlight ok-has-text-primary-invert"
                                     @click.prevent="handleCancelClick"
                                 >
                                     {{ $t('global.keywords.cancel') }}
@@ -190,7 +190,7 @@
 
                             <div class="column">
                                 <button
-                                    class="button is-rounded has-width-100-percent ok-has-background-accent has-text-white has-text-weight-bold"
+                                    class="button is-rounded is-borderless has-width-100-percent ok-has-background-accent has-text-white has-text-weight-bold"
                                     :disabled="requestInProgress"
                                 >{{ $t('global.keywords.save') }}</button>
                             </div>
