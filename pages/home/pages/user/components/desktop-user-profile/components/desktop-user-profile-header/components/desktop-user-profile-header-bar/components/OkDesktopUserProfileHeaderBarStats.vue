@@ -8,7 +8,7 @@
                 {{ humanFriendlyPostsCount }}
             </div>
         </div>
-        <div class="column has-cursor-pointer" @click="openUserFollowingsModal">
+        <div class="column" :class="followersAndFollowingsExtraClasses" @click="openUserFollowingsModal">
             <div class="is-size-6 ok-has-text-primary-invert-80 is-flex align-center">
                 {{ $t('components.user_following_count.following')}}
             </div>
@@ -16,7 +16,7 @@
                 {{ humanFriendlyFollowingCount }}
             </div>
         </div>
-        <div class="column has-cursor-pointer" v-if="user.profile.followersCountVisible" @click="openUserFollowersModal">
+        <div class="column" :class="followersAndFollowingsExtraClasses" v-if="user.profile.followersCountVisible" @click="openUserFollowersModal">
             <div class="is-size-6 ok-has-text-primary-invert-80 is-flex align-center">
                 {{ $t('components.user_followers_count.followers')}}
             </div>
@@ -36,6 +36,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IUser } from "~/models/auth/user/IUser";
+    import { IUserService } from "~/services/user/IUserService";
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { IModalService } from "~/services/modal/IModalService";
     import { TYPES } from "~/services/inversify-types";
@@ -50,6 +51,7 @@
             required: true
         }) readonly user: IUser;
 
+        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -65,11 +67,27 @@
             return this.utilsService.makeHumanFriendlyLargeNumberDisplay(this.user.postsCount);
         }
 
+        get followersAndFollowingsExtraClasses() {
+            if (this.userService.loggedInUser.value.uuid !== this.user.uuid) {
+                return '';
+            }
+
+            return 'has-cursor-pointer';
+        }
+
         openUserFollowingsModal() {
+            if (this.userService.loggedInUser.value.uuid !== this.user.uuid) {
+                return;
+            }
+
             this.modalService.openUserFollowingsModal();
         }
 
         openUserFollowersModal() {
+            if (this.userService.loggedInUser.value.uuid !== this.user.uuid) {
+                return;
+            }
+
             this.modalService.openUserFollowersModal();
         }
     }
