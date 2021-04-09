@@ -14,7 +14,7 @@ import {
     ReportObjectModalParams,
     UserActionsModalParams,
     ThemeModalParams,
-    CommunityStaffModalParams, CommunityRulesModalParams, PostStudioModalParams, UserSettingsModalParams, UserProfileSettingsModalParams, ImageCropperModalParams
+    CommunityStaffModalParams, CommunityRulesModalParams, PostStudioModalParams, UserSettingsModalParams, UserProfileSettingsModalParams, ImageCropperModalParams, UserFollowingsModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -147,6 +147,11 @@ export class ModalService implements IModalService {
     async openImageCropperModal(params: ImageCropperModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.imageCropper, params);
+    }
+
+    async openUserFollowingsModal(params?: UserFollowingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.userFollowings, params);
     }
 
     async openGetTheAppModal(): Promise<void> {

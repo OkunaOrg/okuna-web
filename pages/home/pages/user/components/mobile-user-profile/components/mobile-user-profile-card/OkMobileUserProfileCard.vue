@@ -41,7 +41,7 @@
                     <div class="column is-narrow">
                         <ok-mobile-user-profile-posts-count :user="user"></ok-mobile-user-profile-posts-count>
                     </div>
-                    <div class="column is-narrow">
+                    <div class="column is-narrow" @click="openUserFollowingsModal">
                         <ok-mobile-user-profile-following-count :user="user"></ok-mobile-user-profile-following-count>
                     </div>
                 </div>
@@ -93,6 +93,10 @@
     import OkMobileUserProfileFollowingCount
         from '~/pages/home/pages/user/components/mobile-user-profile/components/mobile-user-profile-card/components/OkMobileUserProfileFollowingCount.vue';
 
+    import { IModalService } from "~/services/modal/IModalService";
+    import { okunaContainer } from "~/services/inversify";
+    import { TYPES } from "~/services/inversify-types";
+
 
     @Component({
         name: "OkMobileUserProfileCard",
@@ -113,9 +117,10 @@
 
         OkAvatarSize = OkAvatarSize;
 
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
+        openUserFollowingsModal() {
+            this.modalService.openUserFollowingsModal();
+        }
     }
 </script>
-
-
-

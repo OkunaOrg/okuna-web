@@ -38,7 +38,6 @@
     .ok-desktop-user-profile-header-avatar {
         position: absolute;
         left: $header-avatar-padding;
-        right: $header-avatar-padding;
         bottom: $header-avatar-padding;
     }
 
@@ -75,6 +74,3 @@
 
     }
 </script>
-
-
-

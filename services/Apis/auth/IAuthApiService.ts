@@ -1,5 +1,7 @@
 import { AxiosResponse } from '~/node_modules/axios';
+
 import { UserData } from '~/types/models-data/auth/UserData';
+
 import {
     BlockUserApiParams,
     GetUserApiParams, IsEmailAvailableApiParams,
@@ -12,7 +14,7 @@ import {
     ResetPasswordApiParams,
     SearchUsersApiParams,
     UnblockUserApiParams,
-    IsInviteTokenValidApiParams, IsUsernameAvailableApiParams, UpdateUserApiParams
+    IsInviteTokenValidApiParams, IsUsernameAvailableApiParams, UpdateUserApiParams, GetFollowingsApiParams, GetFollowersApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 
 export interface IAuthApiService {
@@ -44,4 +46,8 @@ export interface IAuthApiService {
     isEmailAvailable(data: IsEmailAvailableApiParams): Promise<AxiosResponse<void>>;
 
     isUsernameAvailable(data: IsUsernameAvailableApiParams): Promise<AxiosResponse<void>>;
+
+    getFollowers(data: GetFollowersApiParams): Promise<AxiosResponse<UserData[]>>;
+
+    getFollowings(data: GetFollowingsApiParams): Promise<AxiosResponse<UserData[]>>;
 }

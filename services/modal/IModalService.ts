@@ -59,6 +59,8 @@ export interface IModalService {
 
     openImageCropperModal(params: ImageCropperModalParams): Promise<any>;
 
+    openUserFollowingsModal(params?: UserFollowingsModalParams): Promise<any>;
+
     openPostStudioModal(params: PostStudioModalParams): Promise<OkPostStudioData | undefined>;
 
     openGetTheAppModal(): Promise<void>;
@@ -139,6 +141,9 @@ export interface ImageCropperModalParams {
 }
 
 export interface UserVisibilitySettingsParams {
+}
+
+export interface UserFollowingsModalParams {
 }
 
 export interface ConnectionsCirclesPickerModalParams {

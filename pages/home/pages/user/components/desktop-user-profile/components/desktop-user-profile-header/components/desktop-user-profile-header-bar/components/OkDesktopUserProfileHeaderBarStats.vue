@@ -8,7 +8,7 @@
                 {{ humanFriendlyPostsCount }}
             </div>
         </div>
-        <div class="column">
+        <div class="column has-cursor-pointer" @click="openUserFollowingsModal">
             <div class="is-size-6 ok-has-text-primary-invert-80 is-flex align-center">
                 {{ $t('components.user_following_count.following')}}
             </div>
@@ -37,6 +37,7 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { IUser } from "~/models/auth/user/IUser";
     import { IUtilsService } from "~/services/utils/IUtilsService";
+    import { IModalService } from "~/services/modal/IModalService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
 
@@ -49,26 +50,23 @@
             required: true
         }) readonly user: IUser;
 
-
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
-
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
         get humanFriendlyFollowersCount() {
             return this.utilsService.makeHumanFriendlyLargeNumberDisplay(this.user.followersCount);
         }
 
-
         get humanFriendlyFollowingCount() {
             return this.utilsService.makeHumanFriendlyLargeNumberDisplay(this.user.followingCount);
         }
-
 
         get humanFriendlyPostsCount() {
             return this.utilsService.makeHumanFriendlyLargeNumberDisplay(this.user.postsCount);
         }
 
+        openUserFollowingsModal() {
+            this.modalService.openUserFollowingsModal();
+        }
     }
 </script>
-
-
-

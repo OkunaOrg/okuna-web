@@ -82,3 +82,15 @@ export interface IsEmailAvailableApiParams {
 export interface IsUsernameAvailableApiParams {
     username: string
 }
+
+export interface GetFollowingsApiParams {
+    appendAuthorizationToken?: boolean;
+    maxId?: number;
+    count?: number;
+}
+
+export interface GetFollowersApiParams {
+    appendAuthorizationToken?: boolean;
+    maxId?: number;
+    count?: number;
+}
