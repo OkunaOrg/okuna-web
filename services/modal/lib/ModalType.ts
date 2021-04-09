@@ -21,6 +21,7 @@ export class ModalType {
     static userVisibilitySettings = new ModalType('UserVisibilitySettings');
     static imageCropper = new ModalType('ImageCropper');
     static userFollowings = new ModalType('UserFollowings');
+    static userFollowers = new ModalType('UserFollowers');
     static welcomeToOkunaWeb = new ModalType('WelcomeToOkunaWeb');
     static getTheApp = new ModalType('GetTheApp');
     static communityRules = new ModalType('CommunityRules');
@@ -53,6 +54,7 @@ export class ModalType {
         ModalType.userVisibilitySettings,
         ModalType.imageCropper,
         ModalType.userFollowings,
+        ModalType.userFollowers,
         ModalType.postStudio,
     ];
 

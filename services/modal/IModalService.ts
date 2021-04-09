@@ -61,6 +61,8 @@ export interface IModalService {
 
     openUserFollowingsModal(params?: UserFollowingsModalParams): Promise<any>;
 
+    openUserFollowersModal(params?: UserFollowersModalParams): Promise<any>;
+
     openPostStudioModal(params: PostStudioModalParams): Promise<OkPostStudioData | undefined>;
 
     openGetTheAppModal(): Promise<void>;
@@ -144,6 +146,9 @@ export interface UserVisibilitySettingsParams {
 }
 
 export interface UserFollowingsModalParams {
+}
+
+export interface UserFollowersModalParams {
 }
 
 export interface ConnectionsCirclesPickerModalParams {

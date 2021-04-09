@@ -99,6 +99,9 @@
         <b-modal :active.sync="userFollowingsModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-user-followings-modal :params="activeModalParams"></ok-user-followings-modal>
         </b-modal>
+        <b-modal :active.sync="userFollowersModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-user-followers-modal :params="activeModalParams"></ok-user-followers-modal>
+        </b-modal>
         <b-modal :active.sync="postStudioModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-post-studio-modal :params="activeModalParams" v-if="activeModalParams" :return-data-setter="setModalReturnData"/>
         </b-modal>
@@ -161,6 +164,7 @@
     import OkImageCropperModal from '~/pages/home/components/modals/components/user-settings/OkImageCropperModal.vue';
 
     import OkUserFollowingsModal from '~/pages/home/components/modals/components/OkUserFollowingsModal.vue';
+    import OkUserFollowersModal from '~/pages/home/components/modals/components/OkUserFollowersModal.vue';
 
     import OkPostStudioModal from '~/pages/home/components/modals/components/OkPostStudioModal.vue';
 
@@ -188,7 +192,8 @@
             OkPostActionsModal,
             OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal,
             OkThemesModal,
-            OkUserFollowingsModal
+            OkUserFollowingsModal,
+            OkUserFollowersModal
         },
         subscriptions: function () {
             return {
@@ -228,6 +233,7 @@
         userVisibilitySettingsModalOpen: boolean = false;
         imageCropperModalOpen: boolean = false;
         userFollowingsModalOpen: boolean = false;
+        userFollowersModalOpen: boolean = false;
         postStudioModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
@@ -284,6 +290,7 @@
             this.userVisibilitySettingsModalOpen = activeModalValue === ModalType.userVisibilitySettings;
             this.imageCropperModalOpen = activeModalValue === ModalType.imageCropper;
             this.userFollowingsModalOpen = activeModalValue === ModalType.userFollowings;
+            this.userFollowersModalOpen = activeModalValue === ModalType.userFollowers;
             this.postStudioModalOpen = activeModalValue === ModalType.postStudio;
         }
     }

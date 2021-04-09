@@ -1,11 +1,11 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <ok-user-followings class="ok-user-followings-modal" />
+        <ok-user-followers class="ok-user-followers-modal" />
     </div>
 </template>
 
 <style lang="scss" scoped>
-    .ok-user-followings-modal {
+    .ok-user-followers-modal {
         width: 460px;
 
         @media only screen and ( max-width: 460px ) {
@@ -16,13 +16,13 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';
-    import OkUserFollowings from '~/components/user-list/followings/OkUserFollowings.vue';
+    import OkUserFollowers from '~/components/user-list/followers/OkUserFollowers.vue';
 
     @Component({
-        name: 'OkUserFollowingsModal',
-        components: { OkUserFollowings }
+        name: 'OkUserFollowersModal',
+        components: { OkUserFollowers }
     })
-    export default class OkUserFollowingsModal extends Vue {
+    export default class OkUserFollowersModal extends Vue {
         @Prop({
             type: Function,
             required: false

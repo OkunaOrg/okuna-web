@@ -16,7 +16,7 @@
                 {{ humanFriendlyFollowingCount }}
             </div>
         </div>
-        <div class="column" v-if="user.profile.followersCountVisible">
+        <div class="column has-cursor-pointer" v-if="user.profile.followersCountVisible" @click="openUserFollowersModal">
             <div class="is-size-6 ok-has-text-primary-invert-80 is-flex align-center">
                 {{ $t('components.user_followers_count.followers')}}
             </div>
@@ -67,6 +67,10 @@
 
         openUserFollowingsModal() {
             this.modalService.openUserFollowingsModal();
+        }
+
+        openUserFollowersModal() {
+            this.modalService.openUserFollowersModal();
         }
     }
 </script>
