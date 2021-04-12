@@ -15,7 +15,7 @@
 
 <style lang="scss" scoped>
     .ok-user-followers-stream {
-        height: 450px;
+        height: calc(100vh - 240px);
         width: 100%;
         overflow-y: auto;
     }
