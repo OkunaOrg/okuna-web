@@ -3,6 +3,7 @@
         <ok-http-list
             :refresher="followingsRefresher"
             :on-scroll-loader="followingsOnScrollLoader"
+            :searcher="followingsSearcher"
             ref="okHttpList"
         >
             <ok-user-list-item
@@ -55,6 +56,12 @@
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
 
         followings: IUser[] = [];
+
+        async followingsSearcher(query: string): Promise<IUser[]> {
+            return this.userService.searchFollowings({
+                query
+            });
+        }
 
         async followingsRefresher(): Promise<IUser[]> {
             return this.userService.getFollowings({

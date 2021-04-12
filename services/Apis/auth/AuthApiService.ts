@@ -17,7 +17,9 @@ import {
     IsUsernameAvailableApiParams,
     UpdateUserApiParams,
     GetFollowingsApiParams,
-    GetFollowersApiParams
+    GetFollowersApiParams,
+    SearchFollowingsApiParams,
+    SearchFollowersApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -38,7 +40,9 @@ export class AuthApiService implements IAuthApiService {
     static BLOCK_USER_PATH = 'api/auth/users/{userUsername}/block/';
     static UNBLOCK_USER_PATH = 'api/auth/users/{userUsername}/unblock/';
     static GET_FOLLOWERS_PATH = 'api/auth/followers/';
+    static SEARCH_FOLLOWERS_PATH = 'api/auth/followers/search/';
     static GET_FOLLOWINGS_PATH = 'api/auth/followings/';
+    static SEARCH_FOLLOWINGS_PATH = 'api/auth/followings/search/';
     static CHECK_EMAIL_PATH = 'api/auth/email-check/';
     static CHECK_USERNAME_PATH = 'api/auth/username-check/';
     static UPDATE_AUTHENTICATED_USER_PATH = 'api/auth/user/';
@@ -237,6 +241,19 @@ export class AuthApiService implements IAuthApiService {
         });
     }
 
+    searchFollowings(params: SearchFollowingsApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            query: params.query,
+            ...(typeof params.count !== 'undefined' && { count: params.count })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.SEARCH_FOLLOWINGS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: true
+        });
+    }
+
     getFollowings(params: GetFollowingsApiParams): Promise<AxiosResponse<UserData[]>> {
         const queryParams = {
             ...(typeof params.count !== 'undefined' && { count: params.count }),
@@ -247,6 +264,19 @@ export class AuthApiService implements IAuthApiService {
             queryParams,
             isApiRequest: true,
             appendAuthorizationToken: params.appendAuthorizationToken ?? true
+        });
+    }
+
+    searchFollowers(params: SearchFollowersApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            query: params.query,
+            ...(typeof params.count !== 'undefined' && { count: params.count })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.SEARCH_FOLLOWERS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: true
         });
     }
 

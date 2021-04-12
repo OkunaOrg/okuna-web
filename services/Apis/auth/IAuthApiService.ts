@@ -14,7 +14,7 @@ import {
     ResetPasswordApiParams,
     SearchUsersApiParams,
     UnblockUserApiParams,
-    IsInviteTokenValidApiParams, IsUsernameAvailableApiParams, UpdateUserApiParams, GetFollowingsApiParams, GetFollowersApiParams
+    IsInviteTokenValidApiParams, IsUsernameAvailableApiParams, UpdateUserApiParams, GetFollowingsApiParams, GetFollowersApiParams, SearchFollowingsApiParams, SearchFollowersApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 
 export interface IAuthApiService {
@@ -47,7 +47,11 @@ export interface IAuthApiService {
 
     isUsernameAvailable(data: IsUsernameAvailableApiParams): Promise<AxiosResponse<void>>;
 
+    searchFollowers(data: SearchFollowersApiParams): Promise<AxiosResponse<UserData[]>>;
+
     getFollowers(data: GetFollowersApiParams): Promise<AxiosResponse<UserData[]>>;
+
+    searchFollowings(data: SearchFollowingsApiParams): Promise<AxiosResponse<UserData[]>>;
 
     getFollowings(data: GetFollowingsApiParams): Promise<AxiosResponse<UserData[]>>;
 }

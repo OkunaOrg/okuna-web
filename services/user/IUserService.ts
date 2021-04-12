@@ -83,7 +83,9 @@ import {
     PreviewLinkParams,
     UpdateUserParams,
     GetFollowersParams,
-    GetFollowingsParams
+    GetFollowingsParams,
+    SearchFollowersParams,
+    SearchFollowingsParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -165,7 +167,11 @@ export interface IUserService {
 
     unblockUser(params: UnblockUserParams): Promise<void>;
 
+    searchFollowers(params: SearchFollowersParams): Promise<IUser[]>;
+
     getFollowers(params: GetFollowersParams): Promise<IUser[]>;
+
+    searchFollowings(params: SearchFollowingsParams): Promise<IUser[]>;
 
     getFollowings(params: GetFollowingsParams): Promise<IUser[]>;
 

@@ -83,9 +83,19 @@ export interface IsUsernameAvailableApiParams {
     username: string
 }
 
+export interface SearchFollowingsApiParams {
+    query: string;
+    count?: number;
+}
+
 export interface GetFollowingsApiParams {
     appendAuthorizationToken?: boolean;
     maxId?: number;
+    count?: number;
+}
+
+export interface SearchFollowersApiParams {
+    query: string;
     count?: number;
 }
 
