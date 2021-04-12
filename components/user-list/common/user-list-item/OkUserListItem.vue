@@ -1,6 +1,6 @@
 <template>
     <article class="ok-user-list-item">
-        <ok-user-tile :user="user">
+        <ok-user-tile :user="user" clickable>
             <template v-slot:trailing>
                 <ok-follow-button :user="user" :buttonSize="OkFollowButtonSize.small"></ok-follow-button>
             </template>
