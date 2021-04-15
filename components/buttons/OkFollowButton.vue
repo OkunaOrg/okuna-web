@@ -2,7 +2,8 @@
     <button
             :disabled="requestInProgress"
             @click="onClicked"
-            class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
+            class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold"
+            :class="extraClasses">
         {{ buttonText }}
     </button>
 </template>
@@ -21,6 +22,7 @@
     import { IUtilsService } from "~/services/utils/IUtilsService";
     import { UserVisibility } from "~/models/auth/user/lib/UserVisibility";
     import { ILocalizationService } from "~/services/localization/ILocalizationService";
+    import { OkFollowButtonSize } from '~/components/buttons/lib/OkFollowButtonSize';
 
     enum OkFollowButtonType {
         follow,
@@ -39,6 +41,12 @@
             type: Object,
             required: true
         }) readonly user: IUser;
+
+        @Prop({
+            type: Number,
+            required: false,
+            default: OkFollowButtonSize.normal
+        }) readonly buttonSize: OkFollowButtonSize;
 
 
         requestInProgress = false;
@@ -69,6 +77,15 @@
                     return this.localizationService.localize("global.snippets.request_to_follow");
                 case OkFollowButtonType.cancelRequestToFollow:
                     return this.localizationService.localize("global.snippets.cancel_request_to_follow");
+            }
+        }
+
+        get extraClasses() {
+            switch (this.buttonSize) {
+                case OkFollowButtonSize.normal:
+                    return '';
+                case OkFollowButtonSize.small:
+                    return 'has-padding-10 is-size-7';
             }
         }
 

@@ -12,7 +12,14 @@ import {
     ResetPasswordApiParams,
     SearchUsersApiParams,
     UnblockUserApiParams,
-    IsInviteTokenValidApiParams, IsEmailAvailableApiParams, IsUsernameAvailableApiParams, UpdateUserApiParams
+    IsInviteTokenValidApiParams,
+    IsEmailAvailableApiParams,
+    IsUsernameAvailableApiParams,
+    UpdateUserApiParams,
+    GetFollowingsApiParams,
+    GetFollowersApiParams,
+    SearchFollowingsApiParams,
+    SearchFollowersApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -32,6 +39,10 @@ export class AuthApiService implements IAuthApiService {
     static REPORT_USER_PATH = 'api/auth/users/{userUsername}/report/';
     static BLOCK_USER_PATH = 'api/auth/users/{userUsername}/block/';
     static UNBLOCK_USER_PATH = 'api/auth/users/{userUsername}/unblock/';
+    static GET_FOLLOWERS_PATH = 'api/auth/followers/';
+    static SEARCH_FOLLOWERS_PATH = 'api/auth/followers/search/';
+    static GET_FOLLOWINGS_PATH = 'api/auth/followings/';
+    static SEARCH_FOLLOWINGS_PATH = 'api/auth/followings/search/';
     static CHECK_EMAIL_PATH = 'api/auth/email-check/';
     static CHECK_USERNAME_PATH = 'api/auth/username-check/';
     static UPDATE_AUTHENTICATED_USER_PATH = 'api/auth/user/';
@@ -230,4 +241,55 @@ export class AuthApiService implements IAuthApiService {
         });
     }
 
+    searchFollowings(params: SearchFollowingsApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            query: params.query,
+            ...(typeof params.count !== 'undefined' && { count: params.count })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.SEARCH_FOLLOWINGS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: true
+        });
+    }
+
+    getFollowings(params: GetFollowingsApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            ...(typeof params.count !== 'undefined' && { count: params.count }),
+            ...(typeof params.maxId !== 'undefined' && { max_id: params.maxId })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.GET_FOLLOWINGS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: params.appendAuthorizationToken ?? true
+        });
+    }
+
+    searchFollowers(params: SearchFollowersApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            query: params.query,
+            ...(typeof params.count !== 'undefined' && { count: params.count })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.SEARCH_FOLLOWERS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: true
+        });
+    }
+
+    getFollowers(params: GetFollowersApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            ...(typeof params.count !== 'undefined' && { count: params.count }),
+            ...(typeof params.maxId !== 'undefined' && { max_id: params.maxId })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.GET_FOLLOWERS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: params.appendAuthorizationToken ?? true
+        });
+    }
 }

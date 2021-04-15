@@ -11,16 +11,16 @@
             </div>
 
             <div class="has-padding-10">
-                <button class="button" @click.prevent="rotate(-90)" :title="$t('global.keywords.rotate_90deg_left')">
+                <button class="button ok-has-background-primary-highlight is-borderless" @click.prevent="rotate(-90)" :title="$t('global.keywords.rotate_90deg_left')">
                     <ok-rotate-left-icon class="ok-svg-icon-primary-invert"></ok-rotate-left-icon>
                 </button>
-                <button class="button" @click.prevent="rotate(90)" :title="$t('global.keywords.rotate_90deg_right')">
+                <button class="button ok-has-background-primary-highlight is-borderless" @click.prevent="rotate(90)" :title="$t('global.keywords.rotate_90deg_right')">
                     <ok-rotate-right-icon class="ok-svg-icon-primary-invert"></ok-rotate-right-icon>
                 </button>
-                <button class="button" @click.prevent="zoom(0.15)" :title="$t('global.keywords.zoom_in')">
+                <button class="button ok-has-background-primary-highlight is-borderless" @click.prevent="zoom(0.15)" :title="$t('global.keywords.zoom_in')">
                     <ok-zoom-in-icon class="ok-svg-icon-primary-invert"></ok-zoom-in-icon>
                 </button>
-                <button class="button" @click.prevent="zoom(-0.15)" :title="$t('global.keywords.zoom_out')">
+                <button class="button ok-has-background-primary-highlight is-borderless" @click.prevent="zoom(-0.15)" :title="$t('global.keywords.zoom_out')">
                     <ok-zoom-out-icon class="ok-svg-icon-primary-invert"></ok-zoom-out-icon>
                 </button>
             </div>
@@ -28,14 +28,14 @@
             <div class="has-padding-10 columns">
                 <div class="column">
                     <button
-                        class="button has-width-100-percent is-rounded"
+                        class="button has-width-100-percent is-rounded ok-has-background-primary-highlight ok-has-text-primary-invert is-borderless"
                         @click="handleCancelClick"
                     >{{ $t('global.keywords.cancel') }}</button>
                 </div>
 
                 <div class="column">
                     <button
-                        class="button has-width-100-percent is-rounded ok-has-background-accent has-text-white has-text-weight-bold"
+                        class="button has-width-100-percent is-rounded is-borderless ok-has-background-accent has-text-white has-text-weight-bold"
                         @click="handleSaveClick"
                     >{{ $t('global.keywords.save') }}</button>
                 </div>

@@ -15,7 +15,7 @@ import { IUser } from '~/models/auth/user/IUser';
 import { ICategory } from '~/models/common/category/ICategory';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { OkFile } from '~/services/media/IMediaService';
-import { UpdateUserApiParams } from '../Apis/auth/AuthApiServiceTypes';
+import { GetFollowersApiParams, GetFollowingsApiParams, SearchFollowersApiParams, SearchFollowingsApiParams, UpdateUserApiParams } from '../Apis/auth/AuthApiServiceTypes';
 
 // AUTH START
 
@@ -66,6 +66,14 @@ export interface GetConnectionsCircleParams {
 export interface SearchUsersParams {
     query: string;
 }
+
+export interface GetFollowersParams extends GetFollowersApiParams {}
+
+export interface SearchFollowersParams extends SearchFollowersApiParams {};
+
+export interface GetFollowingsParams extends GetFollowingsApiParams {}
+
+export interface SearchFollowingsParams extends SearchFollowingsApiParams {};
 
 // AUTH END
 

@@ -93,7 +93,7 @@ import {
     SearchJoinedCommunitiesParams,
     CreatePostParams,
     AddMediaToPostParams,
-    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams
+    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -353,6 +353,44 @@ export class UserService implements IUserService {
         await this.authApiService.unblockUser({
             userUsername: params.user.username,
         });
+    }
+
+    async searchFollowers(params: SearchFollowersParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.authApiService.searchFollowers({
+            query: params.query,
+            count: params.count
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async getFollowers(params: GetFollowersParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.authApiService.getFollowers({
+            maxId: params.maxId,
+            count: params.count,
+            appendAuthorizationToken: true
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async searchFollowings(params: SearchFollowingsParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.authApiService.searchFollowings({
+            query: params.query,
+            count: params.count
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async getFollowings(params: GetFollowingsParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.authApiService.getFollowings({
+            maxId: params.maxId,
+            count: params.count,
+            appendAuthorizationToken: true
+        });
+
+        return userFactory.makeMultiple(response.data);
     }
 
     async connectWithUser(params: ConnectWithUserParams): Promise<IConnection> {
