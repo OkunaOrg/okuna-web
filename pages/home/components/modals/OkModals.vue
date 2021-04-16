@@ -109,7 +109,7 @@
 </template>
 
 <style lang="scss">
-    .modal {
+    .modal:not(.ok-post-modal-with-media) {
         .modal-content {
             width: auto !important;
         }
@@ -121,7 +121,6 @@
             padding: 0 2rem;
         }
     }
-
 </style>
 
 
