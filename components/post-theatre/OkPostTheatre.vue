@@ -83,11 +83,17 @@
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
 
-        mounted() {
-            if(!this.post) {
+        async mounted() {
+            if (!this.post) {
                 this.userService.loggedInUser.subscribe(this.onLoggedInUser);
-            } else{
+            } else {
                 this.latestPost = this.post;
+
+                await this.$nextTick(() => {
+                    if (this.post.mediaThumbnail && this.$parent?.$parent?.$el?.classList?.contains('ok-modal')) {
+                        this.$parent.$parent.$el.classList.add('ok-post-modal-with-media');
+                    }
+                });
             }
         }
 
