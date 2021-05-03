@@ -73,6 +73,22 @@ export interface IModalService {
 
     openCommunityStaffModal(params: CommunityStaffModalParams): Promise<void>;
 
+    openCommunitySettingsModal(params: CommunitySettingsModalParams): Promise<void>;
+
+    openCommunityDetailsSettingsModal(params: CommunityDetailsSettingsModalParams): Promise<void>;
+
+    openCommunityAdministratorsSettingsModal(params: CommunityAdministratorsSettingsModalParams): Promise<void>;
+
+    openCommunityModeratorsSettingsModal(params: CommunityModeratorsSettingsModalParams): Promise<void>;
+
+    openCommunityBansSettingsModal(params: CommunityBansSettingsModalParams): Promise<void>;
+
+    openCommunityReportsModal(params: CommunityReportsModalParams): Promise<void>;
+
+    openCommunityClosedPostsModal(params: CommunityClosedPostsModalParams): Promise<void>;
+
+    openCommunityInviteModal(params: CommunityInviteModalParams): Promise<void>;
+
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
 
@@ -97,7 +113,23 @@ export type ModalParams =
     | ConnectionsCirclesPickerModalParams
     | ThemeModalParams
     | SettingsModalParams
-    | PostStudioModalParams;
+    | ApplicationSettingsModalParams
+    | UserSettingsModalParams
+    | UserProfileSettingsModalParams
+    | ImageCropperModalParams
+    | UserVisibilitySettingsParams
+    | UserFollowingsModalParams
+    | UserFollowersModalParams
+    | PostStudioModalParams
+    | CommunityRulesModalParams
+    | CommunityStaffModalParams
+    | CommunitySettingsModalParams
+    | CommunityDetailsSettingsModalParams
+    | CommunityAdministratorsSettingsModalParams
+    | CommunityModeratorsSettingsModalParams
+    | CommunityBansSettingsModalParams
+    | CommunityClosedPostsModalParams
+    | CommunityInviteModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -134,12 +166,21 @@ export interface UserProfileSettingsModalParams extends UserProfileImages {
     images?: UserProfileImages;
 }
 
+export interface CommunityImages {
+    avatarUrl?: string;
+    coverUrl?: string;
+
+    avatarBlob?: Blob;
+    coverBlob?: Blob;
+};
+
 export interface ImageCropperModalParams {
     file: File;
     aspectRatio: number;
     fieldName: 'avatar' | 'cover';
 
-    images?: UserProfileImages;
+    images?: UserProfileImages | CommunityImages;
+    community?: ICommunity;
 }
 
 export interface UserVisibilitySettingsParams {
@@ -220,4 +261,30 @@ export interface CommunityRulesModalParams {
 
 export interface CommunityStaffModalParams {
     community: ICommunity;
+}
+
+export interface CommunitySettingsModalParams {
+    community: ICommunity;
+}
+
+export interface CommunityDetailsSettingsModalParams extends CommunitySettingsModalParams {
+    images?: CommunityImages;
+}
+
+export interface CommunityAdministratorsSettingsModalParams extends CommunitySettingsModalParams {
+}
+
+export interface CommunityModeratorsSettingsModalParams extends CommunitySettingsModalParams {
+}
+
+export interface CommunityBansSettingsModalParams extends CommunitySettingsModalParams {
+}
+
+export interface CommunityReportsModalParams extends CommunitySettingsModalParams {
+}
+
+export interface CommunityClosedPostsModalParams extends CommunitySettingsModalParams {
+}
+
+export interface CommunityInviteModalParams extends CommunitySettingsModalParams {
 }

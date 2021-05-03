@@ -26,6 +26,14 @@ export class ModalType {
     static getTheApp = new ModalType('GetTheApp');
     static communityRules = new ModalType('CommunityRules');
     static communityStaff = new ModalType('CommunityStaff');
+    static communitySettings = new ModalType('CommunitySettings');
+    static communityDetailsSettings = new ModalType('CommunityDetailsSettings');
+    static communityAdministratorsSettings = new ModalType('CommunityAdministratorsSettings');
+    static communityModeratorsSettings = new ModalType('CommunityModeratorsSettings');
+    static communityBansSettings = new ModalType('CommunityBansSettings');
+    static communityReports = new ModalType('CommunityReports');
+    static communityClosedPosts = new ModalType('CommunityClosedPosts');
+    static communityInvite = new ModalType('CommunityInvite');
     static postStudio = new ModalType('createPost');
 
 
@@ -56,6 +64,14 @@ export class ModalType {
         ModalType.userFollowings,
         ModalType.userFollowers,
         ModalType.postStudio,
+        ModalType.communitySettings,
+        ModalType.communityDetailsSettings,
+        ModalType.communityAdministratorsSettings,
+        ModalType.communityModeratorsSettings,
+        ModalType.communityBansSettings,
+        ModalType.communityReports,
+        ModalType.communityClosedPosts,
+        ModalType.communityInvite,
     ];
 
     static values() {

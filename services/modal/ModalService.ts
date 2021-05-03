@@ -14,7 +14,22 @@ import {
     ReportObjectModalParams,
     UserActionsModalParams,
     ThemeModalParams,
-    CommunityStaffModalParams, CommunityRulesModalParams, PostStudioModalParams, UserSettingsModalParams, UserProfileSettingsModalParams, ImageCropperModalParams, UserFollowingsModalParams, UserFollowersModalParams
+    CommunityStaffModalParams,
+    CommunityRulesModalParams,
+    PostStudioModalParams,
+    UserSettingsModalParams,
+    UserProfileSettingsModalParams,
+    ImageCropperModalParams,
+    UserFollowingsModalParams,
+    UserFollowersModalParams,
+    CommunitySettingsModalParams,
+    CommunityDetailsSettingsModalParams,
+    CommunityAdministratorsSettingsModalParams,
+    CommunityModeratorsSettingsModalParams,
+    CommunityBansSettingsModalParams,
+    CommunityReportsModalParams,
+    CommunityClosedPostsModalParams,
+    CommunityInviteModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -200,6 +215,46 @@ export class ModalService implements IModalService {
     async openCommunityGuidelinesModal(): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.communityGuidelines);
+    }
+
+    async openCommunitySettingsModal(params: CommunitySettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communitySettings, params);
+    }
+
+    async openCommunityDetailsSettingsModal(params: CommunityDetailsSettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityDetailsSettings, params);
+    }
+
+    async openCommunityAdministratorsSettingsModal(params: CommunityAdministratorsSettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityAdministratorsSettings, params);
+    }
+
+    async openCommunityModeratorsSettingsModal(params: CommunityModeratorsSettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityModeratorsSettings, params);
+    }
+
+    async openCommunityBansSettingsModal(params: CommunityBansSettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityBansSettings, params);
+    }
+
+    async openCommunityReportsModal(params: CommunityReportsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityReports, params);
+    }
+
+    async openCommunityClosedPostsModal(params: CommunityClosedPostsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityClosedPosts, params);
+    }
+
+    async openCommunityInviteModal(params: CommunityInviteModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityInvite, params);
     }
 
     notifyModalClosed(): void {

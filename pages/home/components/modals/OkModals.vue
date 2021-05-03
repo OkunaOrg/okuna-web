@@ -105,6 +105,21 @@
         <b-modal :active.sync="postStudioModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-post-studio-modal :params="activeModalParams" v-if="activeModalParams" :return-data-setter="setModalReturnData"/>
         </b-modal>
+        <b-modal :active.sync="communitySettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-community-settings-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-settings-modal>
+        </b-modal>
+        <b-modal :active.sync="communityDetailsSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-community-details-settings-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-details-settings-modal>
+        </b-modal>
+        <b-modal :active.sync="communityAdministratorsSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-community-administrators-settings-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-administrators-settings-modal>
+        </b-modal>
+        <b-modal :active.sync="communityModeratorsSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-community-moderators-settings-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-moderators-settings-modal>
+        </b-modal>
+        <b-modal :active.sync="communityBansSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-community-banned-users-settings-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-banned-users-settings-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -167,6 +182,12 @@
 
     import OkPostStudioModal from '~/pages/home/components/modals/components/OkPostStudioModal.vue';
 
+    import OkCommunitySettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunitySettingsModal.vue';
+    import OkCommunityDetailsSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityDetailsSettingsModal.vue';
+    import OkCommunityAdministratorsSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityAdministratorsSettingsModal.vue';
+    import OkCommunityModeratorsSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityModeratorsSettingsModal.vue';
+    import OkCommunityBannedUsersSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityBannedUsersSettingsModal.vue';
+
     @Component({
         name: "OkModals",
         components: {
@@ -192,7 +213,12 @@
             OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal,
             OkThemesModal,
             OkUserFollowingsModal,
-            OkUserFollowersModal
+            OkUserFollowersModal,
+            OkCommunitySettingsModal,
+            OkCommunityDetailsSettingsModal,
+            OkCommunityAdministratorsSettingsModal,
+            OkCommunityModeratorsSettingsModal,
+            OkCommunityBannedUsersSettingsModal,
         },
         subscriptions: function () {
             return {
@@ -234,6 +260,11 @@
         userFollowingsModalOpen: boolean = false;
         userFollowersModalOpen: boolean = false;
         postStudioModalOpen: boolean = false;
+        communitySettingsModalOpen: boolean = false;
+        communityDetailsSettingsModalOpen: boolean = false;
+        communityAdministratorsSettingsModalOpen: boolean = false;
+        communityModeratorsSettingsModalOpen: boolean = false;
+        communityBansSettingsModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -291,6 +322,11 @@
             this.userFollowingsModalOpen = activeModalValue === ModalType.userFollowings;
             this.userFollowersModalOpen = activeModalValue === ModalType.userFollowers;
             this.postStudioModalOpen = activeModalValue === ModalType.postStudio;
+            this.communitySettingsModalOpen = activeModalValue === ModalType.communitySettings;
+            this.communityDetailsSettingsModalOpen = activeModalValue === ModalType.communityDetailsSettings;
+            this.communityAdministratorsSettingsModalOpen = activeModalValue === ModalType.communityAdministratorsSettings;
+            this.communityModeratorsSettingsModalOpen = activeModalValue === ModalType.communityModeratorsSettings;
+            this.communityBansSettingsModalOpen = activeModalValue === ModalType.communityBansSettings;
         }
     }
 </script>

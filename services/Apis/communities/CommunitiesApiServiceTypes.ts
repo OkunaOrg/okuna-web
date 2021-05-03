@@ -1,3 +1,6 @@
+import Color from "color";
+import { CommunityType } from "~/models/communities/community/lib/CommunityType";
+
 export interface GetTrendingCommunitiesApiParams {
     categoryName?: string;
 }
@@ -41,7 +44,7 @@ export interface SearchCommunitiesApiParams {
 export interface GetCommunityAdministratorsApiParams {
     communityName: string;
     count: number;
-    maxId: number;
+    maxId?: number;
 }
 
 export interface SearchCommunityAdministratorsApiParams {
@@ -49,11 +52,16 @@ export interface SearchCommunityAdministratorsApiParams {
     query: string;
 }
 
+export interface RemoveCommunityAdministratorApiParams {
+    communityName: string;
+    username: string;
+}
+
 
 export interface GetCommunityModeratorsApiParams {
     communityName: string;
     count: number;
-    maxId: number;
+    maxId?: number;
 }
 
 export interface SearchCommunityModeratorsApiParams {
@@ -61,10 +69,36 @@ export interface SearchCommunityModeratorsApiParams {
     query: string;
 }
 
+export interface RemoveCommunityModeratorApiParams {
+    communityName: string;
+    username: string;
+}
+
+export interface GetCommunityBannedUsersApiParams {
+    communityName: string;
+    count: number;
+    maxId?: number;
+}
+
+export interface SearchCommunityBannedUsersApiParams {
+    communityName: string;
+    query: string;
+}
+
+export interface BanCommunityUserApiParams {
+    communityName: string;
+    username: string;
+}
+
+export interface UnbanCommunityUserApiParams {
+    communityName: string;
+    username: string;
+}
+
 export interface GetCommunityMembersApiParams {
     communityName: string;
     count: number;
-    maxId: number;
+    maxId?: number;
     exclude: CommunityMembersExclusion[];
 }
 
@@ -143,4 +177,25 @@ export interface JoinCommunityApiParams {
 
 export interface LeaveCommunityApiParams {
     communityName: string;
+}
+
+export interface FavoriteCommunityApiParams {
+    communityName: string;
+}
+
+export interface UnfavoriteCommunityApiParams {
+    communityName: string;
+}
+
+export interface UpdateCommunityApiParams {
+    name?: string;
+    type?: CommunityType;
+    rules?: string;
+    title?: string;
+    categories?: string[];
+    userAdjective?: string;
+    usersAdjective?: string;
+    description?: string;
+    color?: Color;
+    invitesEnabled?: boolean;
 }

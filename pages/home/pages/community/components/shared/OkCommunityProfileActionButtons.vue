@@ -8,7 +8,10 @@
             <div class="column is-narrow">
                 <ok-join-community-button :community="community"></ok-join-community-button>
             </div>
-            <div class="column is-narrow is-flex justify-center align-items-center">
+            <div
+                class="column is-narrow is-flex justify-center align-items-center"
+                @click="handleMoreButtonClick"
+            >
                 <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
             </div>
         </div>
@@ -22,6 +25,7 @@
     import { BehaviorSubject } from "node_modules/rxjs";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
+    import { IModalService } from "~/services/modal/IModalService";
     import { okunaContainer } from "~/services/inversify";
     import OkJoinCommunityButton from "~/components/buttons/OkJoinCommunityButton.vue";
 
@@ -48,7 +52,7 @@
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
         created() {
             this.$observables.loggedInUser.subscribe(this.onLoggedInUserChanged);
@@ -62,9 +66,10 @@
             this.isLoggedInUser = loggedInUser.id === this.community.id;
         }
 
-
+        handleMoreButtonClick() {
+            this.modalService.openCommunitySettingsModal({
+                community: this.community
+            });
+        }
     }
 </script>
-
-
-

@@ -233,6 +233,52 @@ export default {
             }
         }
     },
+    "manage_community": {
+        "settings": {
+            "details": {
+                "name": "Details",
+                "description": "Change the title, name, avatar, cover photo and more."
+            },
+            "administrators": {
+                "name": "Administrators",
+                "description": "See, add and remove administrators."
+            },
+            "moderators": {
+                "name": "Moderators",
+                "description": "See, add and remove moderators."
+            },
+            "banned_users": {
+                "name": "Banned users",
+                "description": "See, add and remove banned users."
+            },
+            "moderation_reports": {
+                "name": "Moderation reports",
+                "description": "Review the community moderation reports."
+            },
+            "closed_posts": {
+                "name": "Closed posts",
+                "description": "See and manage closed posts."
+            },
+            "post_notifications": {
+                "enable": "Enable new post notifications",
+                "disable": "Disable new post notifications"
+            },
+            "invite": {
+                "name": "Invite people",
+                "description": "Invite your connections and followers to join the community."
+            },
+            "favorite": {
+                "name_favorite": "Favorite community",
+                "description_favorite": "Add the community to your favorites.",
+                "name_unfavorite": "Unfavorite community",
+                "description_unfavorite": "Remove the community from your favorites."
+            },
+            "delete": {
+                "name": "Delete community",
+                "description": "Delete the community, forever."
+            }
+        }
+    },
     "global": {
         "errors": {
             "generic": {
@@ -280,6 +326,29 @@ export default {
             "media": {
                 "max_size": "Media can't be larger than {limit}",
                 "unsupported_type": "This media type is not supported"
+            },
+            "community_name": {
+                "required": "Name cannot be empty",
+                "max_length": "Name can't be longer than {max} characters",
+                "min_length": "Name can't be shorter than {min} characters",
+                "taken": "This community name is already taken",
+            },
+            "community_title": {
+                "required": "Title cannot be empty",
+                "max_length": "Title can't be longer than {max} characters",
+                "min_length": "Title can't be shorter than {min} characters",
+            },
+            "community_description": {
+                "max_length": "Description can't be longer than {max} characters",
+            },
+            "community_rules": {
+                "max_length": "Rules can't be longer than {max} characters",
+            },
+            "community_user_adjective": {
+                "max_length": "User adjective can't be longer than {max} characters",
+            },
+            "community_users_adjective": {
+                "max_length": "Users adjective can't be longer than {max} characters",
             },
         },
         "keywords": {

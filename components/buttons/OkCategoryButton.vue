@@ -3,6 +3,7 @@
             :disabled="requestInProgress"
             class="button has-text-weight-bol is-small is-borderless is-semi-rounded"
             :style="buttonCssStyle"
+            @click="handleButtonClick"
     >
         {{ category.title.toLowerCase() }}
     </button>
@@ -37,6 +38,11 @@
             required: true
         }) readonly category: ICategory;
 
+        @Prop({
+            type: Boolean,
+            default: false
+        }) readonly faint: boolean;
+
 
         $observables!: {
             activeTheme: BehaviorSubject<ITheme | undefined>
@@ -56,7 +62,13 @@
             return {
                 "backgroundColor": themeColorIsCommunityColor ? activeTheme.primaryHighlightColor.hsl().string() : this.category.color.hex(),
                 "color": themeColorIsCommunityColor ? activeTheme.primaryInvertColor.hex() : this.category.colorInvert.hex(),
-            }
+                "opacity": this.faint ? 0.5 : undefined
+            };
+        }
+
+        handleButtonClick(e: Event) {
+            e.preventDefault();
+            this.$emit('categoryClick', this.category);
         }
 
 
