@@ -79,9 +79,15 @@ export interface IModalService {
 
     openCommunityAdministratorsSettingsModal(params: CommunityAdministratorsSettingsModalParams): Promise<void>;
 
+    openCommunityAddAdministratorModal(params: CommunityAddAdministratorModalParams): Promise<void>;
+
     openCommunityModeratorsSettingsModal(params: CommunityModeratorsSettingsModalParams): Promise<void>;
 
+    openCommunityAddModeratorModal(params: CommunityAddModeratorModalParams): Promise<void>;
+
     openCommunityBansSettingsModal(params: CommunityBansSettingsModalParams): Promise<void>;
+
+    openCommunityAddBannedUserModal(params: CommunityAddBannedUserModalParams): Promise<void>;
 
     openCommunityReportsModal(params: CommunityReportsModalParams): Promise<void>;
 
@@ -276,10 +282,19 @@ export interface CommunityDetailsSettingsModalParams extends CommunitySettingsMo
 export interface CommunityAdministratorsSettingsModalParams extends CommunitySettingsModalParams {
 }
 
+export interface CommunityAddAdministratorModalParams extends CommunitySettingsModalParams {
+}
+
 export interface CommunityModeratorsSettingsModalParams extends CommunitySettingsModalParams {
 }
 
+export interface CommunityAddModeratorModalParams extends CommunitySettingsModalParams {
+}
+
 export interface CommunityBansSettingsModalParams extends CommunitySettingsModalParams {
+}
+
+export interface CommunityAddBannedUserModalParams extends CommunitySettingsModalParams {
 }
 
 export interface CommunityReportsModalParams extends CommunitySettingsModalParams {

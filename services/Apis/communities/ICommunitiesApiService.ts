@@ -31,7 +31,9 @@ import {
     GetCommunityBannedUsersApiParams,
     SearchCommunityBannedUsersApiParams,
     BanCommunityUserApiParams,
-    UnbanCommunityUserApiParams
+    UnbanCommunityUserApiParams,
+    AddCommunityAdministratorApiParams,
+    AddCommunityModeratorApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -66,11 +68,15 @@ export interface ICommunitiesApiService {
 
     searchCommunityAdministrators(params: SearchCommunityAdministratorsApiParams): Promise<AxiosResponse<UserData[]>>;
 
+    addCommunityAdministrator(params: AddCommunityAdministratorApiParams): Promise<AxiosResponse<CommunityData>>;
+
     removeCommunityAdministrator(params: RemoveCommunityAdministratorApiParams): Promise<AxiosResponse<CommunityData>>;
 
     getCommunityModerators(params: GetCommunityModeratorsApiParams): Promise<AxiosResponse<UserData[]>>;
 
     searchCommunityModerators(params: SearchCommunityModeratorsApiParams): Promise<AxiosResponse<UserData[]>>;
+
+    addCommunityModerator(params: AddCommunityModeratorApiParams): Promise<AxiosResponse<CommunityData>>;
 
     removeCommunityModerator(params: RemoveCommunityModeratorApiParams): Promise<AxiosResponse<CommunityData>>;
 

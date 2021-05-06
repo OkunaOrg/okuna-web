@@ -52,6 +52,11 @@ export interface SearchCommunityAdministratorsApiParams {
     query: string;
 }
 
+export interface AddCommunityAdministratorApiParams {
+    communityName: string;
+    username: string;
+}
+
 export interface RemoveCommunityAdministratorApiParams {
     communityName: string;
     username: string;
@@ -67,6 +72,11 @@ export interface GetCommunityModeratorsApiParams {
 export interface SearchCommunityModeratorsApiParams {
     communityName: string;
     query: string;
+}
+
+export interface AddCommunityModeratorApiParams {
+    communityName: string;
+    username: string;
 }
 
 export interface RemoveCommunityModeratorApiParams {

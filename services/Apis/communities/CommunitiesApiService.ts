@@ -33,7 +33,9 @@ import {
     GetCommunityBannedUsersApiParams,
     SearchCommunityBannedUsersApiParams,
     BanCommunityUserApiParams,
-    UnbanCommunityUserApiParams
+    UnbanCommunityUserApiParams,
+    AddCommunityAdministratorApiParams,
+    AddCommunityModeratorApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
@@ -314,6 +316,17 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
     }
 
+    addCommunityAdministrator(params: AddCommunityAdministratorApiParams): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeAddCommunityAdministratorPath(params.communityName);
+
+        return this.httpService.put(path, {
+            username: params.username
+        }, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
     removeCommunityAdministrator(params: RemoveCommunityAdministratorApiParams): Promise<AxiosResponse<CommunityData>> {
         const path = this.makeRemoveCommunityAdministratorPath(params.communityName, params.username);
 
@@ -347,6 +360,17 @@ export class CommunitiesApiService implements ICommunitiesApiService {
 
         return this.httpService.get(path,
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
+    }
+
+    addCommunityModerator(params: AddCommunityModeratorApiParams): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeAddCommunityModeratorPath(params.communityName);
+
+        return this.httpService.put(path, {
+            username: params.username
+        }, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
     }
 
     removeCommunityModerator(params: RemoveCommunityModeratorApiParams): Promise<AxiosResponse<CommunityData>> {

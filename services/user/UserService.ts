@@ -93,7 +93,7 @@ import {
     SearchJoinedCommunitiesParams,
     CreatePostParams,
     AddMediaToPostParams,
-    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams, FavoriteCommunityParams, UnfavoriteCommunityParams, RemoveCommunityAdministratorParams, UpdateCommunityParams, UpdateCommunityAvatarParams, DeleteCommunityAvatarParams, UpdateCommunityCoverParams, DeleteCommunityCoverParams, RemoveCommunityModeratorParams, GetCommunityBannedUsersParams, SearchCommunityBannedUsersParams, BanCommunityUserParams, UnbanCommunityUserParams, DeleteCommunityParams
+    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams, FavoriteCommunityParams, UnfavoriteCommunityParams, RemoveCommunityAdministratorParams, UpdateCommunityParams, UpdateCommunityAvatarParams, DeleteCommunityAvatarParams, UpdateCommunityCoverParams, DeleteCommunityCoverParams, RemoveCommunityModeratorParams, GetCommunityBannedUsersParams, SearchCommunityBannedUsersParams, BanCommunityUserParams, UnbanCommunityUserParams, DeleteCommunityParams, AddCommunityAdministratorParams, AddCommunityModeratorParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -474,6 +474,15 @@ export class UserService implements IUserService {
         return userFactory.makeMultiple(response.data);
     }
 
+    async addCommunityAdministrator(params: AddCommunityAdministratorParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.addCommunityAdministrator({
+            communityName: params.community.name,
+            username: params.user.username
+        });
+
+        return communityFactory.make(response.data);
+    }
+
     async removeCommunityAdministrator(params: RemoveCommunityAdministratorParams): Promise<void> {
         await this.communitiesApiService.removeCommunityAdministrator({
             communityName: params.community.name,
@@ -500,6 +509,15 @@ export class UserService implements IUserService {
         });
 
         return userFactory.makeMultiple(response.data);
+    }
+
+    async addCommunityModerator(params: AddCommunityModeratorParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.addCommunityModerator({
+            communityName: params.community.name,
+            username: params.user.username
+        });
+
+        return communityFactory.make(response.data);
     }
 
     async removeCommunityModerator(params: RemoveCommunityModeratorParams): Promise<void> {

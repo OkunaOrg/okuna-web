@@ -1,9 +1,20 @@
 <template>
     <div class="ok-has-background-primary is-semi-rounded has-width-100-percent">
         <div class="box ok-has-background-primary-highlight">
-            <h2 class="is-size-5 has-padding-bottom-10 ok-has-text-primary-invert has-text-weight-bold">
-                Administrators
-            </h2>
+            <div class="columns align-items-center has-padding-bottom-10">
+                <div class="column">
+                    <h2 class="is-size-5 ok-has-text-primary-invert has-text-weight-bold">
+                        Administrators
+                    </h2>
+                </div>
+
+                <div class="column is-narrow">
+                    <button
+                        class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold has-padding-10 is-size-7"
+                        @click.prevent="openAddAdministratorModal"
+                    >Add</button>
+                </div>
+            </div>
 
             <ok-http-list
                 :refresher="administratorsRefresher"
@@ -35,6 +46,7 @@
     import { ICommunity } from '~/models/communities/community/ICommunity';
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
+    import { IModalService } from '~/services/modal/IModalService';
     import { IUserService } from '~/services/user/IUserService';
     import { IUtilsService } from '~/services/utils/IUtilsService';
 
@@ -66,6 +78,7 @@
         isRequestActive: boolean = false;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         async administratorsSearcher(query: string): Promise<IUser[]> {
@@ -111,6 +124,12 @@
                     throw handledError.error;
                 }
             }
+        }
+
+        openAddAdministratorModal() {
+            this.modalService.openCommunityAddAdministratorModal({
+                community: this.community
+            });
         }
     }
 </script>

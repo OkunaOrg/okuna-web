@@ -122,6 +122,11 @@ export interface SearchCommunityAdministratorsParams {
     query: string;
 }
 
+export interface AddCommunityAdministratorParams {
+    community: ICommunity;
+    user: IUser;
+}
+
 export interface RemoveCommunityAdministratorParams {
     community: ICommunity;
     user: IUser;
@@ -147,6 +152,11 @@ export interface SearchCommunityModeratorsParams {
     query: string;
 }
 
+export interface AddCommunityModeratorParams {
+    community: ICommunity;
+    user: IUser;
+}
+
 export interface RemoveCommunityModeratorParams {
     community: ICommunity;
     user: IUser;
@@ -155,7 +165,7 @@ export interface RemoveCommunityModeratorParams {
 export interface GetCommunityMembersParams {
     community: ICommunity;
     count: number;
-    maxId: number;
+    maxId?: number;
     exclude: CommunityMembersExclusion[];
 }
 

@@ -30,7 +30,10 @@ import {
     CommunityReportsModalParams,
     CommunityClosedPostsModalParams,
     CommunityInviteModalParams,
-    ConfirmationModalParams
+    ConfirmationModalParams,
+    CommunityAddAdministratorModalParams,
+    CommunityAddModeratorModalParams,
+    CommunityAddBannedUserModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -233,14 +236,29 @@ export class ModalService implements IModalService {
         return this.openModal(ModalType.communityAdministratorsSettings, params);
     }
 
+    async openCommunityAddAdministratorModal(params: CommunityAddAdministratorModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityAddAdministrator, params);
+    }
+
     async openCommunityModeratorsSettingsModal(params: CommunityModeratorsSettingsModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.communityModeratorsSettings, params);
     }
 
+    async openCommunityAddModeratorModal(params: CommunityAddModeratorModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityAddModerator, params);
+    }
+
     async openCommunityBansSettingsModal(params: CommunityBansSettingsModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.communityBansSettings, params);
+    }
+
+    async openCommunityAddBannedUserModal(params: CommunityAddBannedUserModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityAddBannedUser, params);
     }
 
     async openCommunityReportsModal(params: CommunityReportsModalParams): Promise<void> {
@@ -319,6 +337,4 @@ export class ModalService implements IModalService {
     private logModalFailed(reason) {
         this.logger.info('Modal failed', this.activeModal.value, 'with reason', reason);
     }
-
-
 }

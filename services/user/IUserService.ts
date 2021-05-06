@@ -99,7 +99,9 @@ import {
     SearchCommunityBannedUsersParams,
     BanCommunityUserParams,
     UnbanCommunityUserParams,
-    DeleteCommunityParams
+    DeleteCommunityParams,
+    AddCommunityAdministratorParams,
+    AddCommunityModeratorParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -221,11 +223,15 @@ export interface IUserService {
 
     searchCommunityAdministrators(params: SearchCommunityAdministratorsParams): Promise<IUser[]>;
 
+    addCommunityAdministrator(params: AddCommunityAdministratorParams): Promise<ICommunity>;
+
     removeCommunityAdministrator(params: RemoveCommunityAdministratorParams): Promise<void>;
 
     getCommunityModerators(params: GetCommunityModeratorsParams): Promise<IUser[]>;
 
     searchCommunityModerators(params: SearchCommunityModeratorsParams): Promise<IUser[]>;
+
+    addCommunityModerator(params: AddCommunityModeratorParams): Promise<ICommunity>;
 
     removeCommunityModerator(params: RemoveCommunityModeratorParams): Promise<void>;
 
