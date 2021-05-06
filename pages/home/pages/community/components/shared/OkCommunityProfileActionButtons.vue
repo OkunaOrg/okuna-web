@@ -1,6 +1,7 @@
 <template>
     <div>
-        <button v-if="isLoggedInUser"
+        <button v-if="canBanOrUnban"
+                @click.prevent="openCommunityMenu"
                 class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
             Manage
         </button>
@@ -9,8 +10,9 @@
                 <ok-join-community-button :community="community"></ok-join-community-button>
             </div>
             <div
-                class="column is-narrow is-flex justify-center align-items-center"
-                @click="handleMoreButtonClick"
+                class="column is-narrow is-flex justify-center align-items-center has-cursor-pointer"
+                role="button"
+                @click="openCommunityMenu"
             >
                 <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
             </div>
@@ -22,6 +24,7 @@
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import { ICommunity } from "~/models/communities/community/ICommunity";
+    import { IUser } from "~/models/auth/user/IUser";
     import { BehaviorSubject } from "node_modules/rxjs";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
@@ -44,11 +47,10 @@
             required: true
         }) readonly community: ICommunity;
 
-        isLoggedInUser = false;
-
+        canBanOrUnban = false;
 
         $observables!: {
-            loggedInUser: BehaviorSubject<ICommunity | undefined>
+            loggedInUser: BehaviorSubject<IUser | undefined>
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
@@ -62,11 +64,11 @@
             return this.community.colorInvert.hex();
         }
 
-        private onLoggedInUserChanged(loggedInUser: ICommunity) {
-            this.isLoggedInUser = loggedInUser.id === this.community.id;
+        private onLoggedInUserChanged(loggedInUser: IUser) {
+            this.canBanOrUnban = loggedInUser.canBanOrUnbanUsersInCommunity(this.community);
         }
 
-        handleMoreButtonClick() {
+        openCommunityMenu() {
             this.modalService.openCommunitySettingsModal({
                 community: this.community
             });
