@@ -36,6 +36,8 @@ export class ModalType {
     static communityInvite = new ModalType('CommunityInvite');
     static postStudio = new ModalType('createPost');
 
+    static confirmationModal = new ModalType('ConfirmationModal');
+
 
     static _values: ModalType[] = [
         ModalType.post,
@@ -72,6 +74,8 @@ export class ModalType {
         ModalType.communityReports,
         ModalType.communityClosedPosts,
         ModalType.communityInvite,
+
+        ModalType.confirmationModal,
     ];
 
     static values() {

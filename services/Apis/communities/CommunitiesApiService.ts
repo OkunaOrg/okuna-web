@@ -580,6 +580,14 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             });
     }
 
+    deleteCommunity(name: string): Promise<AxiosResponse<void>> {
+        const path = this.makeDeleteCommunityPath(name);
+        return this.httpService.delete(path, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
 
     private makeGetCommunityModeratedObjectsPath(communityName) {
         return this.stringTemplateService.parse(

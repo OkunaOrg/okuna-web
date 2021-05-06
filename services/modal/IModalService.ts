@@ -89,6 +89,8 @@ export interface IModalService {
 
     openCommunityInviteModal(params: CommunityInviteModalParams): Promise<void>;
 
+    openConfirmationModal(params: ConfirmationModalParams): Promise<void>;
+
     // Methods for OkModals component
     activeModal: BehaviorSubject<ModalType | undefined>
 
@@ -287,4 +289,16 @@ export interface CommunityClosedPostsModalParams extends CommunitySettingsModalP
 }
 
 export interface CommunityInviteModalParams extends CommunitySettingsModalParams {
+}
+
+
+export interface ConfirmationModalParams {
+    title?: string;
+    contents: string;
+    confirmationButtonText?: string;
+    cancelButtonText?: string;
+    showConfirmationButton?: boolean;
+    showCancelButton?: boolean;
+    confirmationCallback?(): any;
+    cancelCallback?(): any;
 }

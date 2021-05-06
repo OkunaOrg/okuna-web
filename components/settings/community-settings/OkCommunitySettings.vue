@@ -136,7 +136,7 @@
                 </template>
             </ok-tile>
 
-            <ok-tile v-if="isCreator" :disabled="true">
+            <ok-tile v-if="isCreator" :onClick="confirmCommunityDeletion">
                 <template v-slot:leading>
                     <ok-delete-community-icon class="ok-svg-icon-primary-invert"></ok-delete-community-icon>
                 </template>
@@ -166,7 +166,7 @@
                 </template>
             </ok-tile>
 
-            <ok-tile v-if="!isCreator" :disabled="true">
+            <ok-tile v-if="!isCreator && canBanOrUnban" :onClick="leaveCommunity">
                 <template v-slot:leading>
                     <ok-leave-community-icon class="ok-svg-icon-primary-invert"></ok-leave-community-icon>
                 </template>
@@ -194,6 +194,7 @@
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
     import { IModalService } from '~/services/modal/IModalService';
+    import { INavigationService } from '~/services/navigation/INavigationService';
     import { IUserService } from '~/services/user/IUserService';
     import { IUtilsService } from '~/services/utils/IUtilsService';
 
@@ -218,6 +219,7 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+        private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         isFavorite: boolean = false;
@@ -263,6 +265,44 @@
             });
         }
 
+        cancelCommunityDeletion() {
+            const community = this.community;
+
+            return () => {
+                this.modalService.openCommunitySettingsModal({
+                    community
+                });
+            };
+        }
+
+        deleteCommunity() {
+            const community = this.community;
+
+            return async () => {
+                try {
+                    await this.userService.deleteCommunity({ community });
+                    this.navigationService.navigateToHome();
+                } catch (err) {
+                    const handledError = this.utilsService.handleErrorWithToast(err);
+
+                    if (handledError.isUnhandled) {
+                        throw handledError.error;
+                    }
+                }
+            };
+        }
+
+        confirmCommunityDeletion() {
+            this.modalService.openConfirmationModal({
+                title: 'Are you sure you want to delete the community?',
+                contents: 'You won\'t see its posts in your timeline nor will be able to post to it anymore.',
+                confirmationButtonText: 'Yes',
+                cancelButtonText: 'No',
+                confirmationCallback: this.deleteCommunity(),
+                cancelCallback: this.cancelCommunityDeletion()
+            });
+        }
+
         async favoriteCommunity() {
             try {
                 await this.userService.favoriteCommunity({
@@ -291,6 +331,22 @@
 
                 if (handledError.isUnhandled) {
                     throw handledError.error
+                }
+            }
+        }
+
+        async leaveCommunity() {
+            try {
+                await this.userService.leaveCommunity({
+                    community: this.community
+                });
+
+                this.modalService.ensureHasNoActiveModal();
+            } catch (err) {
+                const handledError = this.utilsService.handleErrorWithToast(err);
+
+                if (handledError.isUnhandled) {
+                    throw handledError.error;
                 }
             }
         }

@@ -383,6 +383,7 @@ export default {
             "description": "description",
             "done": "Done",
             "save": "Save",
+            "ok": "OK",
             "cancel": "Cancel",
             "validate": "Validate",
             "next": "Next",

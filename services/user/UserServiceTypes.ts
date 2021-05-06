@@ -246,6 +246,10 @@ export interface CreateCommunityPostParams {
     isDraft?: boolean;
 }
 
+export interface DeleteCommunityParams {
+    community: ICommunity;
+}
+
 // COMMUNITIES END
 
 // POSTS START

@@ -105,4 +105,6 @@ export interface ICommunitiesApiService {
     deleteCommunityCover(name: string): Promise<AxiosResponse<CommunityData>>;
 
     createCommunityPost(params: CreateCommunityPostApiParams): Promise<AxiosResponse<PostData>>;
+
+    deleteCommunity(name: string): Promise<AxiosResponse<void>>;
 }

@@ -98,7 +98,8 @@ import {
     GetCommunityBannedUsersParams,
     SearchCommunityBannedUsersParams,
     BanCommunityUserParams,
-    UnbanCommunityUserParams
+    UnbanCommunityUserParams,
+    DeleteCommunityParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -260,6 +261,7 @@ export interface IUserService {
 
     createCommunityPost(params: CreateCommunityPostParams): Promise<IPost>;
 
+    deleteCommunity(params: DeleteCommunityParams): Promise<void>;
 
     // COMMUNITIES END
 

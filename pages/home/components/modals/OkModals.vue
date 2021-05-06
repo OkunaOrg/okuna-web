@@ -120,6 +120,9 @@
         <b-modal :active.sync="communityBansSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-community-banned-users-settings-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-banned-users-settings-modal>
         </b-modal>
+        <b-modal :active.sync="confirmationModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-confirmation-modal :params="activeModalParams" v-if="activeModalParams"></ok-confirmation-modal>
+        </b-modal>
     </div>
 </template>
 
@@ -188,6 +191,8 @@
     import OkCommunityModeratorsSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityModeratorsSettingsModal.vue';
     import OkCommunityBannedUsersSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityBannedUsersSettingsModal.vue';
 
+    import OkConfirmationModal from '~/pages/home/components/modals/components/OkConfirmationModal.vue';
+
     @Component({
         name: "OkModals",
         components: {
@@ -219,6 +224,7 @@
             OkCommunityAdministratorsSettingsModal,
             OkCommunityModeratorsSettingsModal,
             OkCommunityBannedUsersSettingsModal,
+            OkConfirmationModal,
         },
         subscriptions: function () {
             return {
@@ -265,6 +271,7 @@
         communityAdministratorsSettingsModalOpen: boolean = false;
         communityModeratorsSettingsModalOpen: boolean = false;
         communityBansSettingsModalOpen: boolean = false;
+        confirmationModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -327,6 +334,7 @@
             this.communityAdministratorsSettingsModalOpen = activeModalValue === ModalType.communityAdministratorsSettings;
             this.communityModeratorsSettingsModalOpen = activeModalValue === ModalType.communityModeratorsSettings;
             this.communityBansSettingsModalOpen = activeModalValue === ModalType.communityBansSettings;
+            this.confirmationModalOpen = activeModalValue === ModalType.confirmationModal;
         }
     }
 </script>
