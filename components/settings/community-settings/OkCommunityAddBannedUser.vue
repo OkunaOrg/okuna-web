@@ -4,7 +4,7 @@
             <div class="columns align-items-center has-padding-bottom-10">
                 <div class="column">
                     <h2 class="is-size-5 ok-has-text-primary-invert has-text-weight-bold">
-                        Ban user
+                        {{ $t('manage_community.bans.ban_user') }}
                     </h2>
                 </div>
 
@@ -12,7 +12,7 @@
                     <button
                         class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold has-padding-10 is-size-7"
                         @click.prevent="openBansSettings"
-                    >Cancel</button>
+                    >{{ $t('global.keywords.cancel') }}</button>
                 </div>
             </div>
 
@@ -28,7 +28,7 @@
                     :showActionButton="props.item.id !== loggedInUser.id"
                     :isButtonDisabled="isRequestActive"
                     @actionButtonClicked="confirmAddingBannedUser"
-                    actionButtonText="Add"
+                    :actionButtonText="$t('manage_community.bans.ban')"
                 />
             </ok-http-list>
         </div>
@@ -154,10 +154,10 @@
 
         confirmAddingBannedUser(user: IUser) {
             this.modalService.openConfirmationModal({
-                title: `Are you sure you want to ban @${user.username}?`,
-                contents: 'This will remove the user from the community and disallow them from joining again.',
-                confirmationButtonText: 'Yes',
-                cancelButtonText: 'No',
+                title: this.$t('manage_community.bans.ban_confirmation.title', { username: user.username }).toString(),
+                contents: this.$t('manage_community.bans.ban_confirmation.contents').toString(),
+                confirmationButtonText: this.$t('global.keywords.yes').toString(),
+                cancelButtonText: this.$t('global.keywords.no').toString(),
                 confirmationCallback: this.onWantsToBanUser(user),
                 cancelCallback: this.onWantsToCancelAddingBannedUser()
             });

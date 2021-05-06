@@ -8,10 +8,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Details
+                        {{ $t('manage_community.settings.details.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Change the title, name, avatar, cover photo and more
+                        {{ $t('manage_community.settings.details.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -23,10 +23,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Administrators
+                        {{ $t('manage_community.settings.administrators.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        See, add and remove administrators
+                        {{ $t('manage_community.settings.administrators.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -38,10 +38,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Moderators
+                        {{ $t('manage_community.settings.moderators.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        See, add and remove moderators
+                        {{ $t('manage_community.settings.moderators.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -53,10 +53,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Banned users
+                        {{ $t('manage_community.settings.banned_users.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        See, add and remove banned users
+                        {{ $t('manage_community.settings.banned_users.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -68,10 +68,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Moderation reports
+                        {{ $t('manage_community.settings.moderation_reports.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Review the community moderation reports
+                        {{ $t('manage_community.settings.moderation_reports.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -83,10 +83,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Closed posts
+                        {{ $t('manage_community.settings.closed_posts.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        See and manage closed posts
+                        {{ $t('manage_community.settings.closed_posts.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -98,10 +98,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Invite people
+                        {{ $t('manage_community.settings.invite.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Invite your connections and followers to join the community
+                        {{ $t('manage_community.settings.invite.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -113,10 +113,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Unfavorite community
+                        {{ $t('manage_community.settings.favorite.name_unfavorite') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Remove the community from your favorites
+                        {{ $t('manage_community.settings.favorite.description_unfavorite') }}
                     </div>
                 </template>
             </ok-tile>
@@ -128,10 +128,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Favorite community
+                        {{ $t('manage_community.settings.favorite.name_favorite') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Add the community to your favorites
+                        {{ $t('manage_community.settings.favorite.description_favorite') }}
                     </div>
                 </template>
             </ok-tile>
@@ -143,10 +143,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Delete community
+                        {{ $t('manage_community.settings.delete.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Delete the community, forever
+                        {{ $t('manage_community.settings.delete.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -158,10 +158,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Report community
+                        {{ $t('manage_community.settings.report.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Report this community
+                        {{ $t('manage_community.settings.report.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -173,10 +173,10 @@
 
                 <template v-slot:content>
                     <div class="ok-has-text-primary-invert">
-                        Leave community
+                        {{ $t('manage_community.settings.leave.name') }}
                     </div>
                     <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                        Leave the community
+                        {{ $t('manage_community.settings.leave.description') }}
                     </div>
                 </template>
             </ok-tile>
@@ -294,10 +294,10 @@
 
         confirmCommunityDeletion() {
             this.modalService.openConfirmationModal({
-                title: 'Are you sure you want to delete the community?',
-                contents: 'You won\'t see its posts in your timeline nor will be able to post to it anymore.',
-                confirmationButtonText: 'Yes',
-                cancelButtonText: 'No',
+                title: this.$t('manage_community.delete.delete_confirmation.title').toString(),
+                contents: this.$t('manage_community.delete.delete_confirmation.contents').toString(),
+                confirmationButtonText: this.$t('global.keywords.yes').toString(),
+                cancelButtonText: this.$t('global.keywords.no').toString(),
                 confirmationCallback: this.deleteCommunity(),
                 cancelCallback: this.cancelCommunityDeletion()
             });

@@ -60,7 +60,7 @@
     import { IUtilsService } from '~/services/utils/IUtilsService';
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
-import { ICommunity } from '~/models/communities/community/ICommunity';
+    import { ICommunity } from '~/models/communities/community/ICommunity';
 
     @Component({
         name: 'OkImageCropper',

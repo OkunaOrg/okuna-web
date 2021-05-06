@@ -14,7 +14,7 @@
                                 v-if="coverUrl && coverUrl.length"
                                 class="button is-rounded ok-has-background-primary-60 is-borderless"
                                 @click.prevent="removeCover"
-                                title="Remove cover"
+                                :title="$t('manage_community.details.remove_cover')"
                             >
                                 <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
                             </button>
@@ -23,7 +23,7 @@
                                 v-else
                                 class="button is-rounded ok-has-background-primary-60 is-borderless"
                                 @click.prevent="changeCover"
-                                title="Change cover"
+                                :title="$t('manage_community.details.remove_cover')"
                             >
                                 <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
                             </button>
@@ -49,7 +49,7 @@
                                 v-if="avatarUrl && avatarUrl.length"
                                 class="button is-rounded ok-has-background-primary-60 is-borderless"
                                 @click.prevent="removeAvatar"
-                                title="Remove avatar"
+                                :title="$t('manage_community.details.remove_avatar')"
                             >
                                 <ok-delete-icon class="ok-svg-icon-primary-invert"></ok-delete-icon>
                             </button>
@@ -58,7 +58,7 @@
                                 v-else
                                 class="button is-rounded ok-has-background-primary-60 is-borderless"
                                 @click.prevent="changeAvatar"
-                                title="Change avatar"
+                                :title="$t('manage_community.details.change_avatar')"
                             >
                                 <ok-edit-icon class="ok-svg-icon-primary-invert"></ok-edit-icon>
                             </button>
@@ -71,11 +71,12 @@
                         <div class="field">
                             <label for="communityTitle" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-communities-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-communities-icon>
-                                Title
+                                {{ $t('manage_community.details.title.label') }}
                             </label>
 
                             <div class="control">
-                                <input type="text" placeholder="e.g. Travel, Photography, Gaming"
+                                <input type="text"
+                                    :placeholder="$t('manage_community.details.title.placeholder')"
                                     class="input ok-input is-rounded"
                                     required
                                     id="communityTitle" v-model="communityTitle">
@@ -101,11 +102,12 @@
                         <div class="field">
                             <label for="communityName" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-community-title-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-title-icon>
-                                Name
+                                {{ $t('manage_community.details.name.label') }}
                             </label>
 
                             <div class="control">
-                                <input type="text" placeholder="e.g. travel, photography, gaming"
+                                <input type="text"
+                                    :placeholder="$t('manage_community.details.name.placeholder')"
                                     class="input ok-input is-rounded"
                                     required
                                     id="communityName" v-model="communityName">
@@ -133,7 +135,7 @@
 
                     <template v-slot:content>
                         <div class="ok-has-text-primary-invert">
-                            Color
+                            {{ $t('manage_community.details.color.label') }}
                         </div>
                     </template>
 
@@ -158,13 +160,18 @@
                         <div class="field">
                             <label for="communityType" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-community-type-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-type-icon>
-                                Type
+                                {{ $t('manage_community.details.type.label') }}
                             </label>
 
                             <div class="control">
                                 <select name="communityType" v-model="communityTypeString" class="input ok-input is-rounded" id="communityType">
-                                    <option :value="CommunityType.public.toString()">Public</option>
-                                    <option :value="CommunityType.private.toString()">Private</option>
+                                    <option :value="CommunityType.public.toString()">
+                                        {{ $t('manage_community.details.type.public') }}
+                                    </option>
+
+                                    <option :value="CommunityType.private.toString()">
+                                        {{ $t('manage_community.details.type.private') }}
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -178,11 +185,11 @@
 
                     <template v-slot:content>
                         <div class="ok-has-text-primary-invert">
-                            Member invites
+                            {{ $t('manage_community.details.invites_enabled.label') }}
                         </div>
 
                         <div class="subtitle is-7 ok-has-text-primary-invert-80">
-                            Members can invite other people to the community
+                            {{ $t('manage_community.details.invites_enabled.description') }}
                         </div>
                     </template>
 
@@ -198,7 +205,7 @@
                         <div class="field">
                             <label for="category" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-community-categories-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-categories-icon>
-                                Category
+                                {{ $t('manage_community.details.category.label') }}
                             </label>
 
                             <div class="control">
@@ -218,11 +225,12 @@
                         <div class="field">
                             <label for="description" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-community-description-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-description-icon>
-                                Description (optional)
+                                {{ $t('manage_community.details.description.label') }}
                             </label>
 
                             <div class="control">
-                                <textarea placeholder="What is your community about?"
+                                <textarea
+                                    :placeholder="$t('manage_community.details.description.placeholder')"
                                     class="input ok-input is-rounded ok-community-details-settings-textarea"
                                     id="description" v-model="description" />
                             </div>
@@ -241,11 +249,12 @@
                         <div class="field">
                             <label for="rules" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-rules-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-rules-icon>
-                                Rules (optional)
+                                {{ $t('manage_community.details.rules.label') }}
                             </label>
 
                             <div class="control">
-                                <textarea placeholder="Is there something you would like your users to know?"
+                                <textarea
+                                    :placeholder="$t('manage_community.details.rules.placeholder')"
                                     class="input ok-input is-rounded ok-community-details-settings-textarea"
                                     id="rules" v-model="rules" />
                             </div>
@@ -264,11 +273,12 @@
                         <div class="field">
                             <label for="userAdjective" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-community-user-adjective-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-user-adjective-icon>
-                                Member adjective (optional)
+                                {{ $t('manage_community.details.user_adjective.label') }}
                             </label>
 
                             <div class="control">
-                                <input type="text" placeholder="e.g. traveler, photographer, gamer"
+                                <input type="text"
+                                    :placeholder="$t('manage_community.details.user_adjective.placeholder')"
                                     class="input ok-input is-rounded"
                                     id="userAdjective" v-model="userAdjective">
                             </div>
@@ -287,11 +297,12 @@
                         <div class="field">
                             <label for="usersAdjective" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-community-users-adjective-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-users-adjective-icon>
-                                Members adjective (optional)
+                                {{ $t('manage_community.details.users_adjective.label') }}
                             </label>
 
                             <div class="control">
-                                <input type="text" placeholder="e.g. travelers, photographers, gamers"
+                                <input type="text"
+                                    :placeholder="$t('manage_community.details.users_adjective.placeholder')"
                                     class="input ok-input is-rounded"
                                     id="usersAdjective" v-model="usersAdjective">
                             </div>
@@ -699,7 +710,7 @@
         }
 
         removeAvatar() {
-            if (!confirm('are you sure you want to remove the avatar')) {
+            if (!confirm(this.$t('manage_community.details.remove_avatar_confirmation').toString())) {
                 return;
             }
 
@@ -708,7 +719,7 @@
         }
 
         removeCover() {
-            if (!confirm('are you sure you want to delete the cover')) {
+            if (!confirm(this.$t('manage_community.details.remove_cover_confirmation').toString())) {
                 return;
             }
 

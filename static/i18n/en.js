@@ -276,6 +276,110 @@ export default {
             "delete": {
                 "name": "Delete community",
                 "description": "Delete the community, forever."
+            },
+            "report": {
+                "name": "Report community",
+                "description": "Report this community"
+            },
+            "leave": {
+                "name": "Leave community",
+                "description": "Leave this community"
+            }
+        },
+
+        "administrators": {
+            "add": "Add",
+            "add_administrator": "Add administrator",
+            "remove": "Remove",
+            "add_confirmation": {
+                "title": "Are you sure you want to add @{username} as a community administrator?",
+                "contents": "This will allow the member to edit the community details, administrators, moderators, and banned users."
+            }
+        },
+
+        "moderators": {
+            "add": "Add",
+            "add_moderator": "Add moderator",
+            "remove": "Remove",
+            "add_confirmation": {
+                "title": "Are you sure you want to add @{username} as a community moderator?",
+                "contents": "This will allow the member to edit the community details, moderators, and banned users."
+            }
+        },
+
+        "bans": {
+            "ban": "Ban",
+            "unban": "Unban",
+            "ban_user": "Ban user",
+            "ban_confirmation": {
+                "title": "Are you sure you want to ban @{username}?",
+                "contents": "This will remove the user from the community and disallow them from joining again."
+            }
+        },
+
+        "delete": {
+            "delete_confirmation": {
+                "title": "Are you sure you want to delete the community?",
+                "contents": "You won't see its posts in your timeline nor will be able to post to it anymore."
+            }
+        },
+
+        "details": {
+            "change_cover": "Change Cover Photo",
+            "remove_cover": "Remove Cover Photo",
+            "change_avatar": "Change Avatar",
+            "remove_avatar": "Remove Avatar",
+
+            "remove_cover_confirmation": "Are you sure you want to remove the community's cover?",
+            "remove_avatar_confirmation": "Are you sure you want to remove the community's avatar?",
+
+            "title": {
+                "label": "Title",
+                "placeholder": "e.g. Travel, Photography, Gaming"
+            },
+
+            "name": {
+                "label": "Name",
+                "placeholder": "e.g. travel, photography, gaming"
+            },
+
+            "color": {
+                "label": "Color"
+            },
+
+            "type": {
+                "label": "Type",
+                "public": "Public",
+                "private": "Private"
+            },
+
+            "invites_enabled": {
+                "label": "Member invites",
+                "description": "Members can invite other people to the community"
+            },
+
+            "category": {
+                "label": "Categories"
+            },
+
+            "description": {
+                "label": "Description (optional)",
+                "placeholder": "What is your community about?"
+            },
+
+            "rules": {
+                "label": "Rules (optional)",
+                "placeholder": "Is there something you would like your users to know?"
+            },
+
+            "user_adjective": {
+                "label": "Member adjective (optional)",
+                "placeholder": "e.g. traveler, photographer, gamer"
+            },
+
+            "users_adjective": {
+                "label": "Members adjective (optional)",
+                "placeholder": "e.g. travelers, photographers, gamers"
             }
         }
     },
@@ -385,6 +489,8 @@ export default {
             "save": "Save",
             "ok": "OK",
             "cancel": "Cancel",
+            "yes": "Yes",
+            "no": "No",
             "validate": "Validate",
             "next": "Next",
             "previous": "Previous",

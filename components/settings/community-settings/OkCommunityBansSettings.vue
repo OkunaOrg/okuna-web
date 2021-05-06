@@ -4,7 +4,7 @@
             <div class="columns align-items-center has-padding-bottom-10">
                 <div class="column">
                     <h2 class="is-size-5 ok-has-text-primary-invert has-text-weight-bold">
-                        Banned users
+                        {{ $t('manage_community.settings.banned_users.name') }}
                     </h2>
                 </div>
 
@@ -12,7 +12,7 @@
                     <button
                         class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold has-padding-10 is-size-7"
                         @click.prevent="openAddBannedUserModal"
-                    >Add</button>
+                    >{{ $t('manage_community.bans.ban') }}</button>
                 </div>
             </div>
 
@@ -28,7 +28,7 @@
                     :showActionButton="props.item.id !== loggedInUser.id"
                     :isButtonDisabled="isRequestActive"
                     @actionButtonClicked="onWantsToUnbanUser"
-                    actionButtonText="Unban"
+                    :actionButtonText="$t('manage_community.bans.unban')"
                 />
             </ok-http-list>
         </div>

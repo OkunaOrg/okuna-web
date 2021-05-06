@@ -4,7 +4,7 @@
             <div class="columns align-items-center has-padding-bottom-10">
                 <div class="column">
                     <h2 class="is-size-5 ok-has-text-primary-invert has-text-weight-bold">
-                        Add moderator
+                        {{ $t('manage_community.moderators.add_moderator') }}
                     </h2>
                 </div>
 
@@ -12,7 +12,7 @@
                     <button
                         class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold has-padding-10 is-size-7"
                         @click.prevent="openModeratorsSettingsModal"
-                    >Cancel</button>
+                    >{{ $t('global.keywords.cancel') }}</button>
                 </div>
             </div>
 
@@ -28,7 +28,7 @@
                     :showActionButton="props.item.id !== loggedInUser.id"
                     :isButtonDisabled="isRequestActive"
                     @actionButtonClicked="confirmAddingModerator"
-                    actionButtonText="Add"
+                    :actionButtonText="$t('manage_community.moderators.add')"
                 />
             </ok-http-list>
         </div>
@@ -154,10 +154,10 @@
 
         confirmAddingModerator(user: IUser) {
             this.modalService.openConfirmationModal({
-                title: `Are you sure you want to add @${user.username} as a community moderator?`,
-                contents: 'This will allow the member to edit the community details, moderators, and banned users.',
-                confirmationButtonText: 'Yes',
-                cancelButtonText: 'No',
+                title: this.$t('manage_community.moderators.add_confirmation.title', { username: user.username }).toString(),
+                contents: this.$t('manage_community.moderators.add_confirmation.contents').toString(),
+                confirmationButtonText: this.$t('global.keywords.yes').toString(),
+                cancelButtonText: this.$t('global.keywords.no').toString(),
                 confirmationCallback: this.onWantsToAddModerator(user),
                 cancelCallback: this.onWantsToCancelAddingModerator()
             });
