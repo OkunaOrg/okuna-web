@@ -30,9 +30,6 @@
                 <div class="column is-narrow" v-if="community.visibility">
                     <ok-community-profile-visibility :community="community"></ok-community-profile-visibility>
                 </div>
-                <div class="column is-narrow" v-if="community.postsCount">
-                    <ok-mobile-community-profile-posts-count :community="community"></ok-mobile-community-profile-posts-count>
-                </div>
                 <div class="column is-narrow" v-if="community.membersCount">
                     <ok-mobile-community-profile-members-count :community="community"></ok-mobile-community-profile-members-count>
                 </div>
@@ -94,6 +91,3 @@
 
     }
 </script>
-
-
-

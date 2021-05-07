@@ -171,6 +171,68 @@ export default {
             "disabled": "Disabled"
         }
     },
+    "manage_user": {
+        "profile": {
+            "change_cover": "Change Cover Photo",
+            "remove_cover": "Remove Cover Photo",
+            "change_avatar": "Change Avatar",
+            "remove_avatar": "Remove Avatar",
+
+            "remove_cover_confirmation": "Are you sure you want to remove your cover?",
+            "remove_avatar_confirmation": "Are you sure you want to remove your avatar?",
+
+            "username": {
+                "label": "Username",
+                "placeholder": "e.g. johntravolta"
+            },
+            "name": {
+                "label": "Name",
+                "placeholder": "e.g. John Travolta"
+            },
+            "url": {
+                "label": "URL",
+                "placeholder": "URL"
+            },
+            "location": {
+                "label": "Location",
+                "placeholder": "e.g. United States"
+            },
+            "bio": {
+                "label": "Bio",
+                "placeholder": "Write a few words about yourself!"
+            }
+        },
+        "visibility": {
+            "title": "Visibility",
+
+            "public": {
+                "name": "Public",
+                "description": "Everyone on the internet can see your profile."
+            },
+            "okuna": {
+                "name": "Okuna",
+                "description": "Only members of Okuna can see your profile."
+            },
+            "private": {
+                "name": "Private",
+                "description": "Only people you approve can see your profile."
+            }
+        },
+        "settings": {
+            "details": {
+                "name": "Details",
+                "description": "Change your username, name, url, location, avatar or cover photo."
+            },
+            "followers_count": {
+                "name": "Followers count",
+                "description": "Display the number of people that follow you, on your profile."
+            },
+            "community_posts": {
+                "name": "Community posts",
+                "description": "Display posts you share with public communities, on your profile."
+            }
+        }
+    },
     "global": {
         "errors": {
             "generic": {
@@ -252,6 +314,7 @@ export default {
             "description": "description",
             "done": "Done",
             "save": "Save",
+            "cancel": "Cancel",
             "validate": "Validate",
             "next": "Next",
             "previous": "Previous",
@@ -263,6 +326,10 @@ export default {
             "waiting": "Waiting",
             "published": "Published",
             "circles": "circles",
+            "rotate_90deg_left": "Rotate 90° counter-clockwise",
+            "rotate_90deg_right": "Rotate 90° clockwise",
+            "zoom_in": "Zoom In",
+            "zoom_out": "Zoom Out"
         },
         "models": {
             "post": "post",

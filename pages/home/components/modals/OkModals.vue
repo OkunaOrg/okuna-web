@@ -84,6 +84,24 @@
         <b-modal :active.sync="applicationSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-application-settings-modal :params="activeModalParams"></ok-application-settings-modal>
         </b-modal>
+        <b-modal :active.sync="userSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-user-settings-modal :params="activeModalParams"></ok-user-settings-modal>
+        </b-modal>
+        <b-modal :active.sync="userProfileSettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-user-profile-settings-modal :params="activeModalParams"></ok-user-profile-settings-modal>
+        </b-modal>
+        <b-modal :active.sync="userVisibilitySettingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-user-visibility-settings-modal :params="activeModalParams"></ok-user-visibility-settings-modal>
+        </b-modal>
+        <b-modal :active.sync="imageCropperModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-image-cropper-modal :params="activeModalParams"></ok-image-cropper-modal>
+        </b-modal>
+        <b-modal :active.sync="userFollowingsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-user-followings-modal :params="activeModalParams"></ok-user-followings-modal>
+        </b-modal>
+        <b-modal :active.sync="userFollowersModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-user-followers-modal :params="activeModalParams"></ok-user-followers-modal>
+        </b-modal>
         <b-modal :active.sync="postStudioModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-post-studio-modal :params="activeModalParams" v-if="activeModalParams" :return-data-setter="setModalReturnData"/>
         </b-modal>
@@ -91,32 +109,38 @@
 </template>
 
 <style lang="scss">
-    .ok-modal {
+    .modal:not(.ok-post-modal-with-media) {
         .modal-content {
-            height: 85%;
-            width: 85%;
-            padding: 0 2rem;
+            width: auto !important;
         }
     }
 
+    .ok-modal {
+        .modal-content {
+            height: 85%;
+            padding: 0 2rem;
+        }
+    }
 </style>
 
 
 <script lang="ts">
     import { Component, Vue, Watch } from "nuxt-property-decorator"
-    import OkPostModal from "~/pages/home/components/modals/components/OkPostModal.vue";
+    import { Route } from "vue-router";
+
     import { IModalService, ModalParams } from "~/services/modal/IModalService";
     import { TYPES } from "~/services/inversify-types";
     import { okunaContainer } from "~/services/inversify";
     import { BehaviorSubject } from "~/node_modules/rxjs";
     import { ModalType } from "~/services/modal/lib/ModalType";
+
+    import OkPostModal from "~/pages/home/components/modals/components/OkPostModal.vue";
     import OkPostReactionsModal from "~/pages/home/components/modals/components/OkPostReactionsModal.vue";
     import OkPostCommentReactionsModal from "~/pages/home/components/modals/components/OkPostCommentReactionsModal.vue";
     import OkCommunitiesListModal from "~/pages/home/components/modals/components/OkCommunitiesListModal.vue";
     import OkPostActionsModal from "~/pages/home/components/modals/components/OkPostActionsModal.vue";
     import OkReportObjectModal from "~/pages/home/components/modals/components/OkReportObjectModal.vue";
     import OkUserActionsModal from "~/pages/home/components/modals/components/OkUserActionsModal.vue";
-    import { Route } from "vue-router";
 
     import OkConnectionsCirclesPickerModal
         from "~/pages/home/components/modals/components/OkConnectionsCirclesPickerModal.vue";
@@ -130,8 +154,17 @@
     import OkCommunityStaffModal
         from "~/pages/home/components/modals/components/community-staff/OkCommunityStaffModal.vue";
     import OkCommunityRulesModal from "~/pages/home/components/modals/components/OkCommunityRulesModal.vue";
+
     import OkSettingsModal from "~/pages/home/components/modals/components/OkSettingsModal.vue";
     import OkApplicationSettingsModal from '~/pages/home/components/modals/components/OkApplicationSettingsModal.vue';
+    import OkUserSettingsModal from '~/pages/home/components/modals/components/user-settings/OkUserSettingsModal.vue';
+    import OkUserProfileSettingsModal from '~/pages/home/components/modals/components/user-settings/OkUserProfileSettingsModal.vue';
+    import OkUserVisibilitySettingsModal from '~/pages/home/components/modals/components/user-settings/OkUserVisibilitySettingsModal.vue';
+    import OkImageCropperModal from '~/pages/home/components/modals/components/user-settings/OkImageCropperModal.vue';
+
+    import OkUserFollowingsModal from '~/pages/home/components/modals/components/OkUserFollowingsModal.vue';
+    import OkUserFollowersModal from '~/pages/home/components/modals/components/OkUserFollowersModal.vue';
+
     import OkPostStudioModal from '~/pages/home/components/modals/components/OkPostStudioModal.vue';
 
     @Component({
@@ -140,6 +173,10 @@
             OkPostStudioModal,
             OkApplicationSettingsModal,
             OkSettingsModal,
+            OkUserSettingsModal,
+            OkUserProfileSettingsModal,
+            OkUserVisibilitySettingsModal,
+            OkImageCropperModal,
             OkCommunityRulesModal,
             OkCommunityStaffModal,
             OkWelcomeToOkunaWebModal,
@@ -153,7 +190,9 @@
             OkReportObjectModal,
             OkPostActionsModal,
             OkCommunitiesListModal, OkPostCommentReactionsModal, OkPostReactionsModal, OkPostModal,
-            OkThemesModal
+            OkThemesModal,
+            OkUserFollowingsModal,
+            OkUserFollowersModal
         },
         subscriptions: function () {
             return {
@@ -188,8 +227,13 @@
         communityRulesModalOpen: boolean = false;
         settingsModalOpen: boolean = false;
         applicationSettingsModalOpen: boolean = false;
+        userSettingsModalOpen: boolean = false;
+        userProfileSettingsModalOpen: boolean = false;
+        userVisibilitySettingsModalOpen: boolean = false;
+        imageCropperModalOpen: boolean = false;
+        userFollowingsModalOpen: boolean = false;
+        userFollowersModalOpen: boolean = false;
         postStudioModalOpen: boolean = false;
-
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
@@ -240,6 +284,12 @@
             this.communityRulesModalOpen = activeModalValue === ModalType.communityRules;
             this.settingsModalOpen = activeModalValue === ModalType.settings;
             this.applicationSettingsModalOpen = activeModalValue === ModalType.applicationSettings;
+            this.userSettingsModalOpen = activeModalValue === ModalType.userSettings;
+            this.userProfileSettingsModalOpen = activeModalValue === ModalType.userProfileSettings;
+            this.userVisibilitySettingsModalOpen = activeModalValue === ModalType.userVisibilitySettings;
+            this.imageCropperModalOpen = activeModalValue === ModalType.imageCropper;
+            this.userFollowingsModalOpen = activeModalValue === ModalType.userFollowings;
+            this.userFollowersModalOpen = activeModalValue === ModalType.userFollowers;
             this.postStudioModalOpen = activeModalValue === ModalType.postStudio;
         }
     }

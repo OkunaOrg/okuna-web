@@ -22,6 +22,10 @@
     import { IPostMedia } from "~/models/posts/post-media/IPostMedia";
     import { IPostVideo } from "~/models/posts/post-video/IPostVideo";
 
+    import { okunaContainer } from '~/services/inversify';
+    import { TYPES } from '~/services/inversify-types';
+    import { IVideoPlaybackService } from '~/services/video-playback/IVideoPlaybackService';
+
     @Component({
         name: "OkPostMediaVideo",
 
@@ -39,7 +43,14 @@
 
         isLoading = true;
 
+        private videoPlaybackService: IVideoPlaybackService = okunaContainer.get<IVideoPlaybackService>(TYPES.VideoPlaybackService);
+
         mounted() {
+            this.videoPlaybackService.addPlayer(this.$refs.videoPlayer);
+        }
+
+        beforeDestroy() {
+            this.videoPlaybackService.removePlayer(this.$refs.videoPlayer);
         }
 
         get postVideo(): IPostVideo {
@@ -59,7 +70,6 @@
                 muted: true,
                 language: "en",
                 loop: true,
-                autoplay: true,
                 fill: true,
                 sources: [{
                     type: "video/mp4",

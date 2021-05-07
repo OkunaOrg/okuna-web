@@ -53,8 +53,9 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'"
-                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <a href="javascript://"
+                           @click="onFollowersClick"
+                           class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-followers-icon
                                          class="ok-svg-icon-primary-invert"></ok-followers-icon>
@@ -62,11 +63,12 @@
                     <span class="ok-has-text-primary-invert">
                                 {{$t('components.user_dropdown.followers')}}
                             </span>
-                </nuxt-link>
+                </a>
             </li>
             <li>
-                <nuxt-link :to="'/'"
-                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                <a href="javascript://"
+                           @click="onFollowingsClick"
+                           class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
                             <span class="icon has-padding-right-10">
                                  <ok-following-icon
                                          class="ok-svg-icon-primary-invert"></ok-following-icon>
@@ -74,7 +76,7 @@
                     <span class="ok-has-text-primary-invert">
                                 {{$t('components.user_dropdown.following')}}
                             </span>
-                </nuxt-link>
+                </a>
             </li>
             <li>
                 <nuxt-link :to="'/'"
@@ -256,6 +258,16 @@
             await this.modalService.openThemesModal({
                 title: this.$t("components.user_dropdown.themes").toString()
             });
+        }
+
+        async onFollowersClick() {
+            this.$emit("leaveMenu");
+            await this.modalService.openUserFollowersModal();
+        }
+
+        async onFollowingsClick() {
+            this.$emit("leaveMenu");
+            await this.modalService.openUserFollowingsModal();
         }
 
         async onWantsToGetTheApp() {

@@ -28,6 +28,7 @@ const TYPES = {
     UserPreferencesService: Symbol.for('UserPreferencesService'),
     PostUploaderService: Symbol.for('PostUploaderService'),
     BootstrapService: Symbol.for('BootstrapService'),
+    VideoPlaybackService: Symbol.for('VideoPlaybackService'),
 };
 
 export { TYPES };

@@ -12,7 +12,14 @@ import {
     ResetPasswordApiParams,
     SearchUsersApiParams,
     UnblockUserApiParams,
-    IsInviteTokenValidApiParams, IsEmailAvailableApiParams, IsUsernameAvailableApiParams
+    IsInviteTokenValidApiParams,
+    IsEmailAvailableApiParams,
+    IsUsernameAvailableApiParams,
+    UpdateUserApiParams,
+    GetFollowingsApiParams,
+    GetFollowersApiParams,
+    SearchFollowingsApiParams,
+    SearchFollowersApiParams
 } from '~/services/Apis/auth/AuthApiServiceTypes';
 import { IHttpService } from '~/services/http/IHttpService';
 import { inject, injectable } from '~/node_modules/inversify';
@@ -32,8 +39,13 @@ export class AuthApiService implements IAuthApiService {
     static REPORT_USER_PATH = 'api/auth/users/{userUsername}/report/';
     static BLOCK_USER_PATH = 'api/auth/users/{userUsername}/block/';
     static UNBLOCK_USER_PATH = 'api/auth/users/{userUsername}/unblock/';
+    static GET_FOLLOWERS_PATH = 'api/auth/followers/';
+    static SEARCH_FOLLOWERS_PATH = 'api/auth/followers/search/';
+    static GET_FOLLOWINGS_PATH = 'api/auth/followings/';
+    static SEARCH_FOLLOWINGS_PATH = 'api/auth/followings/search/';
     static CHECK_EMAIL_PATH = 'api/auth/email-check/';
     static CHECK_USERNAME_PATH = 'api/auth/username-check/';
+    static UPDATE_AUTHENTICATED_USER_PATH = 'api/auth/user/';
 
     constructor(@inject(TYPES.HttpService) private httpService: IHttpService,
                 @inject(TYPES.UtilsService) private utilsService: IUtilsService) {
@@ -120,6 +132,65 @@ export class AuthApiService implements IAuthApiService {
         });
     }
 
+    updateUser(params: UpdateUserApiParams): Promise<AxiosResponse<UserData>> {
+        const bodyFormData = new FormData();
+
+        if (typeof params.avatar === 'string' && params.avatar.length === 0) {
+            bodyFormData.set('avatar', params.avatar);
+        }
+
+        if (params.avatar instanceof File || params.avatar instanceof Blob) {
+            // hacky but I think it's guaranteed that the cropper will return a PNG blob
+            bodyFormData.set('avatar', params.avatar, 'avatar.png');
+        }
+
+        if (typeof params.cover === 'string' && params.cover.length === 0) {
+            bodyFormData.set('cover', params.cover);
+        }
+
+        if (params.cover instanceof File || params.cover instanceof Blob) {
+            // hacky but I think it's guaranteed that the cropper will return a PNG blob
+            bodyFormData.set('cover', params.cover, 'cover.png');
+        }
+
+        if (params.name) {
+            bodyFormData.set('name', params.name);
+        }
+
+        if (params.username) {
+            bodyFormData.set('username', params.username);
+        }
+
+        if (params.url) {
+            bodyFormData.set('url', params.url);
+        }
+
+        if (params.bio) {
+            bodyFormData.set('bio', params.bio);
+        }
+
+        if (params.visibility) {
+            bodyFormData.set('visibility', params.visibility.toString());
+        }
+
+        if (params.location) {
+            bodyFormData.set('location', params.location);
+        }
+
+        if (typeof params.followersCountVisible === 'boolean') {
+            bodyFormData.set('followers_count_visible', params.followersCountVisible.toString());
+        }
+
+        if (typeof params.communityPostsVisible === 'boolean') {
+            bodyFormData.set('community_posts_visible', params.communityPostsVisible.toString());
+        }
+
+        return this.httpService.patch(AuthApiService.UPDATE_AUTHENTICATED_USER_PATH, bodyFormData, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
     searchUsers(params: SearchUsersApiParams): Promise<AxiosResponse<UserData[]>> {
         return this.httpService.get<UserData[]>(`${AuthApiService.GET_USERS_PATH}`, {
             queryParams: {
@@ -170,4 +241,55 @@ export class AuthApiService implements IAuthApiService {
         });
     }
 
+    searchFollowings(params: SearchFollowingsApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            query: params.query,
+            ...(typeof params.count !== 'undefined' && { count: params.count })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.SEARCH_FOLLOWINGS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: true
+        });
+    }
+
+    getFollowings(params: GetFollowingsApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            ...(typeof params.count !== 'undefined' && { count: params.count }),
+            ...(typeof params.maxId !== 'undefined' && { max_id: params.maxId })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.GET_FOLLOWINGS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: params.appendAuthorizationToken ?? true
+        });
+    }
+
+    searchFollowers(params: SearchFollowersApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            query: params.query,
+            ...(typeof params.count !== 'undefined' && { count: params.count })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.SEARCH_FOLLOWERS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: true
+        });
+    }
+
+    getFollowers(params: GetFollowersApiParams): Promise<AxiosResponse<UserData[]>> {
+        const queryParams = {
+            ...(typeof params.count !== 'undefined' && { count: params.count }),
+            ...(typeof params.maxId !== 'undefined' && { max_id: params.maxId })
+        };
+
+        return this.httpService.get<UserData[]>(AuthApiService.GET_FOLLOWERS_PATH, {
+            queryParams,
+            isApiRequest: true,
+            appendAuthorizationToken: params.appendAuthorizationToken ?? true
+        });
+    }
 }

@@ -80,7 +80,12 @@ import {
     PublishPostParams,
     GetPostStatusParams,
     CreatePostParams,
-    PreviewLinkParams
+    PreviewLinkParams,
+    UpdateUserParams,
+    GetFollowersParams,
+    GetFollowingsParams,
+    SearchFollowersParams,
+    SearchFollowingsParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -152,6 +157,8 @@ export interface IUserService {
 
     getUser(params: GetUserParams): Promise<IUser>;
 
+    updateUser(params: UpdateUserParams): Promise<IUser>;
+
     searchUsers(params: SearchUsersParams): Promise<IHashtag[]>;
 
     reportUser(params: ReportUserParams): Promise<void>;
@@ -159,6 +166,14 @@ export interface IUserService {
     blockUser(params: BlockUserParams): Promise<void>;
 
     unblockUser(params: UnblockUserParams): Promise<void>;
+
+    searchFollowers(params: SearchFollowersParams): Promise<IUser[]>;
+
+    getFollowers(params: GetFollowersParams): Promise<IUser[]>;
+
+    searchFollowings(params: SearchFollowingsParams): Promise<IUser[]>;
+
+    getFollowings(params: GetFollowingsParams): Promise<IUser[]>;
 
     // AUTH ENDS
 

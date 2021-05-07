@@ -15,12 +15,15 @@ import { IUser } from '~/models/auth/user/IUser';
 import { ICategory } from '~/models/common/category/ICategory';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { OkFile } from '~/services/media/IMediaService';
+import { GetFollowersApiParams, GetFollowingsApiParams, SearchFollowersApiParams, SearchFollowingsApiParams, UpdateUserApiParams } from '../Apis/auth/AuthApiServiceTypes';
 
 // AUTH START
 
 export interface GetUserParams {
     userUsername: string;
 }
+
+export interface UpdateUserParams extends UpdateUserApiParams {};
 
 export interface ReportUserParams {
     user: IUser;
@@ -63,6 +66,14 @@ export interface GetConnectionsCircleParams {
 export interface SearchUsersParams {
     query: string;
 }
+
+export interface GetFollowersParams extends GetFollowersApiParams {}
+
+export interface SearchFollowersParams extends SearchFollowersApiParams {};
+
+export interface GetFollowingsParams extends GetFollowingsApiParams {}
+
+export interface SearchFollowingsParams extends SearchFollowingsApiParams {};
 
 // AUTH END
 
@@ -464,4 +475,3 @@ export interface ReportHashtagParams {
 
 
 // HASHTAGS END
-

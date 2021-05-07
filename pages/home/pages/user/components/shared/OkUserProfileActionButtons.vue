@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
+        <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold" @click="openUserSettings">
             Manage
         </button>
         <div v-else class="columns is-vcentered is-mobile">
@@ -21,6 +21,7 @@
     import { BehaviorSubject } from "node_modules/rxjs";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
+    import { IModalService } from "~/services/modal/IModalService";
     import { okunaContainer } from "~/services/inversify";
     import OkFollowButton from "~/components/buttons/OkFollowButton.vue";
     import OkMoreUserActionsButton from '~/components/buttons/more-buttons/OkMoreUserActionsButton.vue';
@@ -48,20 +49,18 @@
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
         created() {
             this.$observables.loggedInUser.subscribe(this.onLoggedInUserChanged);
         }
 
-
         private onLoggedInUserChanged(loggedInUser: IUser) {
             this.isLoggedInUser = loggedInUser.id === this.user.id;
         }
 
-
+        openUserSettings() {
+            this.modalService.openUserSettingsModal();
+        }
     }
 </script>
-
-
-

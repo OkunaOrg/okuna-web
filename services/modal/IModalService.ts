@@ -51,6 +51,18 @@ export interface IModalService {
 
     openApplicationSettingsModal(params?: ApplicationSettingsModalParams): Promise<void>;
 
+    openUserSettingsModal(params?: UserSettingsModalParams): Promise<void>
+
+    openUserProfileSettingsModal(params?: UserProfileSettingsModalParams): Promise<void>;
+
+    openUserVisibilitySettingsModal(params?: UserVisibilitySettingsParams): Promise<void>;
+
+    openImageCropperModal(params: ImageCropperModalParams): Promise<any>;
+
+    openUserFollowingsModal(params?: UserFollowingsModalParams): Promise<any>;
+
+    openUserFollowersModal(params?: UserFollowersModalParams): Promise<any>;
+
     openPostStudioModal(params: PostStudioModalParams): Promise<OkPostStudioData | undefined>;
 
     openGetTheAppModal(): Promise<void>;
@@ -107,6 +119,37 @@ export interface SettingsModalParams {
 export interface ApplicationSettingsModalParams {
 }
 
+export interface UserSettingsModalParams {
+}
+
+export interface UserProfileImages {
+    avatarUrl?: string;
+    coverUrl?: string;
+
+    avatarBlob?: Blob;
+    coverBlob?: Blob;
+}
+
+export interface UserProfileSettingsModalParams extends UserProfileImages {
+    images?: UserProfileImages;
+}
+
+export interface ImageCropperModalParams {
+    file: File;
+    aspectRatio: number;
+    fieldName: 'avatar' | 'cover';
+
+    images?: UserProfileImages;
+}
+
+export interface UserVisibilitySettingsParams {
+}
+
+export interface UserFollowingsModalParams {
+}
+
+export interface UserFollowersModalParams {
+}
 
 export interface ConnectionsCirclesPickerModalParams {
     title: string;
