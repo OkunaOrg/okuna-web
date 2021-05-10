@@ -14,7 +14,26 @@ import {
     ReportObjectModalParams,
     UserActionsModalParams,
     ThemeModalParams,
-    CommunityStaffModalParams, CommunityRulesModalParams, PostStudioModalParams, UserSettingsModalParams, UserProfileSettingsModalParams, ImageCropperModalParams, UserFollowingsModalParams, UserFollowersModalParams
+    CommunityStaffModalParams,
+    CommunityRulesModalParams,
+    PostStudioModalParams,
+    UserSettingsModalParams,
+    UserProfileSettingsModalParams,
+    ImageCropperModalParams,
+    UserFollowingsModalParams,
+    UserFollowersModalParams,
+    CommunitySettingsModalParams,
+    CommunityDetailsSettingsModalParams,
+    CommunityAdministratorsSettingsModalParams,
+    CommunityModeratorsSettingsModalParams,
+    CommunityBansSettingsModalParams,
+    CommunityReportsModalParams,
+    CommunityClosedPostsModalParams,
+    CommunityInviteModalParams,
+    ConfirmationModalParams,
+    CommunityAddAdministratorModalParams,
+    CommunityAddModeratorModalParams,
+    CommunityAddBannedUserModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -202,6 +221,66 @@ export class ModalService implements IModalService {
         return this.openModal(ModalType.communityGuidelines);
     }
 
+    async openCommunitySettingsModal(params: CommunitySettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communitySettings, params);
+    }
+
+    async openCommunityDetailsSettingsModal(params: CommunityDetailsSettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityDetailsSettings, params);
+    }
+
+    async openCommunityAdministratorsSettingsModal(params: CommunityAdministratorsSettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityAdministratorsSettings, params);
+    }
+
+    async openCommunityAddAdministratorModal(params: CommunityAddAdministratorModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityAddAdministrator, params);
+    }
+
+    async openCommunityModeratorsSettingsModal(params: CommunityModeratorsSettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityModeratorsSettings, params);
+    }
+
+    async openCommunityAddModeratorModal(params: CommunityAddModeratorModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityAddModerator, params);
+    }
+
+    async openCommunityBansSettingsModal(params: CommunityBansSettingsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityBansSettings, params);
+    }
+
+    async openCommunityAddBannedUserModal(params: CommunityAddBannedUserModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityAddBannedUser, params);
+    }
+
+    async openCommunityReportsModal(params: CommunityReportsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityReports, params);
+    }
+
+    async openCommunityClosedPostsModal(params: CommunityClosedPostsModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityClosedPosts, params);
+    }
+
+    async openCommunityInviteModal(params: CommunityInviteModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.communityInvite, params);
+    }
+
+    async openConfirmationModal(params: ConfirmationModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.confirmationModal, params);
+    }
+
     notifyModalClosed(): void {
         this.ensureHasActiveModal();
         this.logModalClosed();
@@ -258,6 +337,4 @@ export class ModalService implements IModalService {
     private logModalFailed(reason) {
         this.logger.info('Modal failed', this.activeModal.value, 'with reason', reason);
     }
-
-
 }

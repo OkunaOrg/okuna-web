@@ -26,7 +26,20 @@ export class ModalType {
     static getTheApp = new ModalType('GetTheApp');
     static communityRules = new ModalType('CommunityRules');
     static communityStaff = new ModalType('CommunityStaff');
+    static communitySettings = new ModalType('CommunitySettings');
+    static communityDetailsSettings = new ModalType('CommunityDetailsSettings');
+    static communityAdministratorsSettings = new ModalType('CommunityAdministratorsSettings');
+    static communityAddAdministrator = new ModalType('CommunityAddAdministrator');
+    static communityModeratorsSettings = new ModalType('CommunityModeratorsSettings');
+    static communityAddModerator = new ModalType('CommunityAddModerator');
+    static communityBansSettings = new ModalType('CommunityBansSettings');
+    static communityAddBannedUser = new ModalType('CommunityAddBannedUser');
+    static communityReports = new ModalType('CommunityReports');
+    static communityClosedPosts = new ModalType('CommunityClosedPosts');
+    static communityInvite = new ModalType('CommunityInvite');
     static postStudio = new ModalType('createPost');
+
+    static confirmationModal = new ModalType('ConfirmationModal');
 
 
     static _values: ModalType[] = [
@@ -56,6 +69,19 @@ export class ModalType {
         ModalType.userFollowings,
         ModalType.userFollowers,
         ModalType.postStudio,
+        ModalType.communitySettings,
+        ModalType.communityDetailsSettings,
+        ModalType.communityAdministratorsSettings,
+        ModalType.communityAddAdministrator,
+        ModalType.communityModeratorsSettings,
+        ModalType.communityAddModerator,
+        ModalType.communityBansSettings,
+        ModalType.communityAddBannedUser,
+        ModalType.communityReports,
+        ModalType.communityClosedPosts,
+        ModalType.communityInvite,
+
+        ModalType.confirmationModal,
     ];
 
     static values() {

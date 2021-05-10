@@ -63,6 +63,14 @@ export interface IUser extends IDataModel<IUser> {
 
     canTranslatePostComment(postComment: IPostComment, post: IPost): boolean;
 
+    canCloseOrOpenPostInCommunity(community: ICommunity): boolean;
+
+    canBanOrUnbanUsersInCommunity(community: ICommunity): boolean;
+
+    isCreatorOfCommunity(community: ICommunity): boolean;
+
+    canChangeDetailsOfCommunity(community: ICommunity): boolean;
+
     canManageCommunityAdministrators(community: ICommunity): boolean;
 
     canManageCommunityModerators(community: ICommunity): boolean;

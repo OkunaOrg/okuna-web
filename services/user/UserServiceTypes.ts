@@ -1,4 +1,4 @@
-import { CommunityMembersExclusion } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
+import { CommunityMembersExclusion, UpdateCommunityApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
 import { IList } from '~/models/lists/list/IList';
@@ -114,7 +114,7 @@ export interface SearchCommunitiesParams {
 export interface GetCommunityAdministratorsParams {
     community: ICommunity;
     count: number;
-    maxId: number;
+    maxId?: number;
 }
 
 export interface SearchCommunityAdministratorsParams {
@@ -122,11 +122,21 @@ export interface SearchCommunityAdministratorsParams {
     query: string;
 }
 
+export interface AddCommunityAdministratorParams {
+    community: ICommunity;
+    user: IUser;
+}
+
+export interface RemoveCommunityAdministratorParams {
+    community: ICommunity;
+    user: IUser;
+}
+
 
 export interface GetCommunityModeratorsParams {
     community: ICommunity;
     count: number;
-    maxId: number;
+    maxId?: number;
 }
 
 export interface GetCommunityPostsParams {
@@ -142,10 +152,20 @@ export interface SearchCommunityModeratorsParams {
     query: string;
 }
 
+export interface AddCommunityModeratorParams {
+    community: ICommunity;
+    user: IUser;
+}
+
+export interface RemoveCommunityModeratorParams {
+    community: ICommunity;
+    user: IUser;
+}
+
 export interface GetCommunityMembersParams {
     community: ICommunity;
     count: number;
-    maxId: number;
+    maxId?: number;
     exclude: CommunityMembersExclusion[];
 }
 
@@ -153,6 +173,27 @@ export interface SearchCommunityMembersParams {
     community: ICommunity;
     query: string;
     exclude: CommunityMembersExclusion[];
+}
+
+export interface GetCommunityBannedUsersParams {
+    community: ICommunity;
+    count: number;
+    maxId?: number;
+}
+
+export interface SearchCommunityBannedUsersParams {
+    community: ICommunity;
+    query: string;
+}
+
+export interface BanCommunityUserParams {
+    community: ICommunity;
+    user: IUser;
+}
+
+export interface UnbanCommunityUserParams {
+    community: ICommunity;
+    user: IUser;
 }
 
 export interface ReportCommunityParams {
@@ -179,11 +220,44 @@ export interface LeaveCommunityParams {
     community: ICommunity;
 }
 
+export interface FavoriteCommunityParams {
+    community: ICommunity;
+}
+
+export interface UnfavoriteCommunityParams {
+    community: ICommunity;
+}
+
+export interface UpdateCommunityParams extends UpdateCommunityApiParams {
+    community: ICommunity;
+}
+
+export interface UpdateCommunityAvatarParams {
+    community: ICommunity;
+    avatar: File | Blob;
+}
+
+export interface DeleteCommunityAvatarParams {
+    community: ICommunity;
+}
+
+export interface UpdateCommunityCoverParams {
+    community: ICommunity;
+    cover: File | Blob;
+}
+
+export interface DeleteCommunityCoverParams {
+    community: ICommunity;
+}
 
 export interface CreateCommunityPostParams {
     community: ICommunity;
     text?: string;
     isDraft?: boolean;
+}
+
+export interface DeleteCommunityParams {
+    community: ICommunity;
 }
 
 // COMMUNITIES END

@@ -60,6 +60,7 @@
     import { IUtilsService } from '~/services/utils/IUtilsService';
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
+    import { ICommunity } from '~/models/communities/community/ICommunity';
 
     @Component({
         name: 'OkImageCropper',
@@ -87,6 +88,11 @@
             type: Object,
             required: false
         }) readonly images: UserProfileImages;
+
+        @Prop({
+            type: Object,
+            required: false
+        }) readonly community: ICommunity;
 
         image: string = '';
 
@@ -122,14 +128,21 @@
         }
 
         handleCancelClick() {
-            this.modalService.openUserProfileSettingsModal({
-                images: {
-                    avatarUrl: this.avatarUrl,
-                    coverUrl: this.coverUrl,
-                    avatarBlob: this.avatarBlob,
-                    coverBlob: this.coverBlob
-                }
-            });
+            const images = {
+                avatarUrl: this.avatarUrl,
+                coverUrl: this.coverUrl,
+                avatarBlob: this.avatarBlob,
+                coverBlob: this.coverBlob
+            };
+
+            if (this.community) {
+                return this.modalService.openCommunityDetailsSettingsModal({
+                    community: this.community,
+                    images
+                });
+            }
+
+            this.modalService.openUserProfileSettingsModal({ images });
         }
 
         handleSaveClick() {
@@ -147,14 +160,21 @@
                     this.coverBlob = blob;
                 }
 
-                this.modalService.openUserProfileSettingsModal({
-                    images: {
-                        avatarUrl: this.avatarUrl,
-                        coverUrl: this.coverUrl,
-                        avatarBlob: this.avatarBlob,
-                        coverBlob: this.coverBlob
-                    }
-                });
+                const images = {
+                    avatarUrl: this.avatarUrl,
+                    coverUrl: this.coverUrl,
+                    avatarBlob: this.avatarBlob,
+                    coverBlob: this.coverBlob
+                };
+
+                if (this.community) {
+                    return this.modalService.openCommunityDetailsSettingsModal({
+                        community: this.community,
+                        images
+                    });
+                }
+
+                this.modalService.openUserProfileSettingsModal({ images });
             });
         }
 
