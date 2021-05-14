@@ -58,6 +58,13 @@ import RotateLeftIcon from 'vue-material-design-icons/RotateLeft.vue';
 import RotateRightIcon from 'vue-material-design-icons/RotateRight.vue';
 import MagnifyPlusOutlineIcon from 'vue-material-design-icons/MagnifyPlusOutline.vue';
 import MagnifyMinusOutlineIcon from 'vue-material-design-icons/MagnifyMinusOutline.vue';
+import Heart from 'vue-material-design-icons/Heart.vue';
+import MinusCircle from 'vue-material-design-icons/MinusCircle.vue';
+import BlockHelper from 'vue-material-design-icons/BlockHelper.vue';
+import DeleteForever from 'vue-material-design-icons/DeleteForever.vue';
+import TextShort from 'vue-material-design-icons/TextShort.vue';
+import Palette from 'vue-material-design-icons/Palette.vue';
+import Shape from 'vue-material-design-icons/Shape.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -92,6 +99,10 @@ Vue.component('ok-moderator-icon', Gavel);
 Vue.component('ok-moderator-icon', Gavel);
 
 Vue.component('ok-administrator-icon', Star);
+
+Vue.component('ok-blocked-icon', BlockHelper);
+
+Vue.component('ok-closed-posts-icon', Lock);
 
 Vue.component('ok-report-icon', Flag);
 
@@ -192,3 +203,29 @@ Vue.component('ok-rotate-right-icon', RotateRightIcon);
 Vue.component('ok-zoom-in-icon', MagnifyPlusOutlineIcon);
 
 Vue.component('ok-zoom-out-icon', MagnifyMinusOutlineIcon);
+
+Vue.component('ok-community-invite-icon', EmailIcon);
+
+Vue.component('ok-favorite-community-icon', Heart);
+
+Vue.component('ok-unfavorite-community-icon', MinusCircle);
+
+Vue.component('ok-delete-community-icon', DeleteForever);
+
+Vue.component('ok-leave-community-icon', ExitToApp);
+
+Vue.component('ok-community-title-icon', TextShort);
+
+Vue.component('ok-community-color-icon', Palette);
+
+Vue.component('ok-community-type-icon', Lock);
+
+Vue.component('ok-community-invites-enabled-icon', EmailIcon);
+
+Vue.component('ok-community-description-icon', BookmarkIcon);
+
+Vue.component('ok-community-categories-icon', Shape);
+
+Vue.component('ok-community-user-adjective-icon', Account);
+
+Vue.component('ok-community-users-adjective-icon', AccountSupervisor);

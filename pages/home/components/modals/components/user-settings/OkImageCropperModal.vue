@@ -7,6 +7,7 @@
             :aspectRatio="params.aspectRatio"
             :fieldName="params.fieldName"
             :images="params.images"
+            :community="params.community"
         />
     </div>
 </template>
@@ -23,7 +24,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';
-    import OkImageCropper from '~/components/settings/user-settings/OkImageCropper.vue';
+    import OkImageCropper from '~/components/settings/common/OkImageCropper.vue';
     import { ImageCropperModalParams } from '~/services/modal/IModalService';
 
     @Component({

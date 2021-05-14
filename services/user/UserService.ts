@@ -93,7 +93,7 @@ import {
     SearchJoinedCommunitiesParams,
     CreatePostParams,
     AddMediaToPostParams,
-    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams
+    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams, FavoriteCommunityParams, UnfavoriteCommunityParams, RemoveCommunityAdministratorParams, UpdateCommunityParams, UpdateCommunityAvatarParams, DeleteCommunityAvatarParams, UpdateCommunityCoverParams, DeleteCommunityCoverParams, RemoveCommunityModeratorParams, GetCommunityBannedUsersParams, SearchCommunityBannedUsersParams, BanCommunityUserParams, UnbanCommunityUserParams, DeleteCommunityParams, AddCommunityAdministratorParams, AddCommunityModeratorParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -474,6 +474,22 @@ export class UserService implements IUserService {
         return userFactory.makeMultiple(response.data);
     }
 
+    async addCommunityAdministrator(params: AddCommunityAdministratorParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.addCommunityAdministrator({
+            communityName: params.community.name,
+            username: params.user.username
+        });
+
+        return communityFactory.make(response.data);
+    }
+
+    async removeCommunityAdministrator(params: RemoveCommunityAdministratorParams): Promise<void> {
+        await this.communitiesApiService.removeCommunityAdministrator({
+            communityName: params.community.name,
+            username: params.user.username
+        });
+    }
+
     async getCommunityMembers(params: GetCommunityMembersParams): Promise<IUser[]> {
         const response: AxiosResponse<UserData[]> = await this.communitiesApiService.getCommunityMembers({
             communityName: params.community.name,
@@ -493,6 +509,55 @@ export class UserService implements IUserService {
         });
 
         return userFactory.makeMultiple(response.data);
+    }
+
+    async addCommunityModerator(params: AddCommunityModeratorParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.addCommunityModerator({
+            communityName: params.community.name,
+            username: params.user.username
+        });
+
+        return communityFactory.make(response.data);
+    }
+
+    async removeCommunityModerator(params: RemoveCommunityModeratorParams): Promise<void> {
+        await this.communitiesApiService.removeCommunityModerator({
+            communityName: params.community.name,
+            username: params.user.username
+        });
+    }
+
+    async getCommunityBannedUsers(params: GetCommunityBannedUsersParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.getCommunityBannedUsers({
+            communityName: params.community.name,
+            count: params.count,
+            maxId: params.maxId
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async searchCommunityBannedUsers(params: SearchCommunityBannedUsersParams): Promise<IUser[]> {
+        const response: AxiosResponse<UserData[]> = await this.communitiesApiService.searchCommunityBannedUsers({
+            communityName: params.community.name,
+            query: params.query
+        });
+
+        return userFactory.makeMultiple(response.data);
+    }
+
+    async banCommunityUser(params: BanCommunityUserParams): Promise<void> {
+        await this.communitiesApiService.banCommunityUser({
+            communityName: params.community.name,
+            username: params.user.username
+        });
+    }
+
+    async unbanCommunityUser(params: UnbanCommunityUserParams): Promise<void> {
+        await this.communitiesApiService.unbanCommunityUser({
+            communityName: params.community.name,
+            username: params.user.username
+        });
     }
 
     async getCommunityPostsCount(params: GetCommunityPostsCountParams): Promise<ICommunity> {
@@ -525,6 +590,55 @@ export class UserService implements IUserService {
             moderationCategoryId: params.moderationCategory.id,
             description: params.description
         });
+    }
+
+    async favoriteCommunity(params: FavoriteCommunityParams): Promise<void> {
+        await this.communitiesApiService.favoriteCommunity({
+            communityName: params.community.name
+        });
+    }
+
+    async unfavoriteCommunity(params: UnfavoriteCommunityParams): Promise<void> {
+        await this.communitiesApiService.unfavoriteCommunity({
+            communityName: params.community.name
+        });
+    }
+
+    async updateCommunity(params: UpdateCommunityParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.updateCommunity(params.community.name, {
+            name: params.name,
+            type: params.type,
+            rules: params.rules,
+            title: params.title,
+            categories: params.categories,
+            userAdjective: params.userAdjective,
+            usersAdjective: params.usersAdjective,
+            description: params.description,
+            color: params.color,
+            invitesEnabled: params.invitesEnabled
+        });
+
+        return communityFactory.make(response.data);
+    }
+
+    async updateCommunityAvatar(params: UpdateCommunityAvatarParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.updateCommunityAvatar(params.community.name, params.avatar);
+        return communityFactory.make(response.data);
+    }
+
+    async deleteCommunityAvatar(params: DeleteCommunityAvatarParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.deleteCommunityAvatar(params.community.name);
+        return communityFactory.make(response.data);
+    }
+
+    async updateCommunityCover(params: UpdateCommunityCoverParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.updateCommunityCover(params.community.name, params.cover);
+        return communityFactory.make(response.data);
+    }
+
+    async deleteCommunityCover(params: DeleteCommunityCoverParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.deleteCommunityCover(params.community.name);
+        return communityFactory.make(response.data);
     }
 
     async getTrendingCommunities(params: GetTrendingCommunitiesParams = {}): Promise<ICommunity[]> {
@@ -618,6 +732,10 @@ export class UserService implements IUserService {
         });
 
         return postFactory.make(response.data);
+    }
+
+    async deleteCommunity(params: DeleteCommunityParams): Promise<void> {
+        await this.communitiesApiService.deleteCommunity(params.community.name);
     }
 
     // COMMUNITIES END

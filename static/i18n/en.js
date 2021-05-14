@@ -233,6 +233,156 @@ export default {
             }
         }
     },
+    "manage_community": {
+        "settings": {
+            "details": {
+                "name": "Details",
+                "description": "Change the title, name, avatar, cover photo and more."
+            },
+            "administrators": {
+                "name": "Administrators",
+                "description": "See, add and remove administrators."
+            },
+            "moderators": {
+                "name": "Moderators",
+                "description": "See, add and remove moderators."
+            },
+            "banned_users": {
+                "name": "Banned users",
+                "description": "See, add and remove banned users."
+            },
+            "moderation_reports": {
+                "name": "Moderation reports",
+                "description": "Review the community moderation reports."
+            },
+            "closed_posts": {
+                "name": "Closed posts",
+                "description": "See and manage closed posts."
+            },
+            "post_notifications": {
+                "enable": "Enable new post notifications",
+                "disable": "Disable new post notifications"
+            },
+            "invite": {
+                "name": "Invite people",
+                "description": "Invite your connections and followers to join the community."
+            },
+            "favorite": {
+                "name_favorite": "Favorite community",
+                "description_favorite": "Add the community to your favorites.",
+                "name_unfavorite": "Unfavorite community",
+                "description_unfavorite": "Remove the community from your favorites."
+            },
+            "delete": {
+                "name": "Delete community",
+                "description": "Delete the community, forever."
+            },
+            "report": {
+                "name": "Report community",
+                "description": "Report this community"
+            },
+            "leave": {
+                "name": "Leave community",
+                "description": "Leave this community"
+            }
+        },
+
+        "administrators": {
+            "add": "Add",
+            "add_administrator": "Add administrator",
+            "remove": "Remove",
+            "add_confirmation": {
+                "title": "Are you sure you want to add @{username} as a community administrator?",
+                "contents": "This will allow the member to edit the community details, administrators, moderators, and banned users."
+            }
+        },
+
+        "moderators": {
+            "add": "Add",
+            "add_moderator": "Add moderator",
+            "remove": "Remove",
+            "add_confirmation": {
+                "title": "Are you sure you want to add @{username} as a community moderator?",
+                "contents": "This will allow the member to edit the community details, moderators, and banned users."
+            }
+        },
+
+        "bans": {
+            "ban": "Ban",
+            "unban": "Unban",
+            "ban_user": "Ban user",
+            "ban_confirmation": {
+                "title": "Are you sure you want to ban @{username}?",
+                "contents": "This will remove the user from the community and disallow them from joining again."
+            }
+        },
+
+        "delete": {
+            "delete_confirmation": {
+                "title": "Are you sure you want to delete the community?",
+                "contents": "You won't see its posts in your timeline nor will be able to post to it anymore."
+            }
+        },
+
+        "details": {
+            "change_cover": "Change Cover Photo",
+            "remove_cover": "Remove Cover Photo",
+            "change_avatar": "Change Avatar",
+            "remove_avatar": "Remove Avatar",
+
+            "remove_cover_confirmation": "Are you sure you want to remove the community's cover?",
+            "remove_avatar_confirmation": "Are you sure you want to remove the community's avatar?",
+
+            "title": {
+                "label": "Title",
+                "placeholder": "e.g. Travel, Photography, Gaming"
+            },
+
+            "name": {
+                "label": "Name",
+                "placeholder": "e.g. travel, photography, gaming"
+            },
+
+            "color": {
+                "label": "Color"
+            },
+
+            "type": {
+                "label": "Type",
+                "public": "Public",
+                "private": "Private"
+            },
+
+            "invites_enabled": {
+                "label": "Member invites",
+                "description": "Members can invite other people to the community"
+            },
+
+            "category": {
+                "label": "Categories"
+            },
+
+            "description": {
+                "label": "Description (optional)",
+                "placeholder": "What is your community about?"
+            },
+
+            "rules": {
+                "label": "Rules (optional)",
+                "placeholder": "Is there something you would like your users to know?"
+            },
+
+            "user_adjective": {
+                "label": "Member adjective (optional)",
+                "placeholder": "e.g. traveler, photographer, gamer"
+            },
+
+            "users_adjective": {
+                "label": "Members adjective (optional)",
+                "placeholder": "e.g. travelers, photographers, gamers"
+            }
+        }
+    },
     "global": {
         "errors": {
             "generic": {
@@ -281,6 +431,29 @@ export default {
                 "max_size": "Media can't be larger than {limit}",
                 "unsupported_type": "This media type is not supported"
             },
+            "community_name": {
+                "required": "Name cannot be empty",
+                "max_length": "Name can't be longer than {max} characters",
+                "min_length": "Name can't be shorter than {min} characters",
+                "taken": "This community name is already taken",
+            },
+            "community_title": {
+                "required": "Title cannot be empty",
+                "max_length": "Title can't be longer than {max} characters",
+                "min_length": "Title can't be shorter than {min} characters",
+            },
+            "community_description": {
+                "max_length": "Description can't be longer than {max} characters",
+            },
+            "community_rules": {
+                "max_length": "Rules can't be longer than {max} characters",
+            },
+            "community_user_adjective": {
+                "max_length": "User adjective can't be longer than {max} characters",
+            },
+            "community_users_adjective": {
+                "max_length": "Users adjective can't be longer than {max} characters",
+            },
         },
         "keywords": {
             "people": "People",
@@ -314,7 +487,10 @@ export default {
             "description": "description",
             "done": "Done",
             "save": "Save",
+            "ok": "OK",
             "cancel": "Cancel",
+            "yes": "Yes",
+            "no": "No",
             "validate": "Validate",
             "next": "Next",
             "previous": "Previous",

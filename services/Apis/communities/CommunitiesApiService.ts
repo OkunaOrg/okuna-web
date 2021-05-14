@@ -24,7 +24,18 @@ import {
     GetAdministratedCommunitiesApiParams,
     GetSuggestedCommunitiesApiParams,
     SearchJoinedCommunitiesApiParams,
-    CreateCommunityPostApiParams
+    CreateCommunityPostApiParams,
+    FavoriteCommunityApiParams,
+    UnfavoriteCommunityApiParams,
+    RemoveCommunityAdministratorApiParams,
+    UpdateCommunityApiParams,
+    RemoveCommunityModeratorApiParams,
+    GetCommunityBannedUsersApiParams,
+    SearchCommunityBannedUsersApiParams,
+    BanCommunityUserApiParams,
+    UnbanCommunityUserApiParams,
+    AddCommunityAdministratorApiParams,
+    AddCommunityModeratorApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
@@ -305,6 +316,26 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
     }
 
+    addCommunityAdministrator(params: AddCommunityAdministratorApiParams): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeAddCommunityAdministratorPath(params.communityName);
+
+        return this.httpService.put(path, {
+            username: params.username
+        }, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    removeCommunityAdministrator(params: RemoveCommunityAdministratorApiParams): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeRemoveCommunityAdministratorPath(params.communityName, params.username);
+
+        return this.httpService.delete(path, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
 
     getCommunityModerators(params: GetCommunityModeratorsApiParams): Promise<AxiosResponse<UserData[]>> {
         let queryParams = {};
@@ -330,6 +361,88 @@ export class CommunitiesApiService implements ICommunitiesApiService {
         return this.httpService.get(path,
             {queryParams: queryParams, appendAuthorizationToken: true, isApiRequest: true});
     }
+
+    addCommunityModerator(params: AddCommunityModeratorApiParams): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeAddCommunityModeratorPath(params.communityName);
+
+        return this.httpService.put(path, {
+            username: params.username
+        }, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    removeCommunityModerator(params: RemoveCommunityModeratorApiParams): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeRemoveCommunityModeratorPath(params.communityName, params.username);
+
+        return this.httpService.delete(path, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+
+    getCommunityBannedUsers(params: GetCommunityBannedUsersApiParams): Promise<AxiosResponse<UserData[]>> {
+        let queryParams = {};
+
+        if (params.count) queryParams['count'] = params.count;
+
+        if (params.maxId) queryParams['max_id'] = params.maxId;
+
+        const path = this.makeGetCommunityBannedUsersPath(params.communityName);
+
+        return this.httpService.get(path,
+            {
+                queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            }
+        );
+    }
+
+    searchCommunityBannedUsers(params: SearchCommunityBannedUsersApiParams): Promise<AxiosResponse<UserData[]>> {
+        let queryParams = {
+            query: params.query
+        };
+
+        const path = this.makeSearchCommunityBannedUsersPath(params.communityName);
+
+        return this.httpService.get(path,
+            {
+                queryParams,
+                appendAuthorizationToken: true,
+                isApiRequest: true
+            }
+        );
+    }
+
+    banCommunityUser(params: BanCommunityUserApiParams): Promise<AxiosResponse<void>> {
+        const payload = {
+            username: params.username
+        };
+
+        const path = this.makeBanCommunityUserPath(params.communityName);
+
+        return this.httpService.post(path, payload, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    unbanCommunityUser(params: UnbanCommunityUserApiParams): Promise<AxiosResponse<void>> {
+        const payload = {
+            username: params.username
+        };
+
+        const path = this.makeUnbanCommunityUserPath(params.communityName);
+
+        return this.httpService.post(path, payload, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
 
     getCommunityPostsCount(params: GetCommunityPostsCountApiParams): Promise<AxiosResponse<CommunityData>> {
         const url = this.makeGetPostsCountForCommunityWithNamePath(params.communityName);
@@ -367,6 +480,112 @@ export class CommunitiesApiService implements ICommunitiesApiService {
             });
     }
 
+    favoriteCommunity(params: FavoriteCommunityApiParams): Promise<AxiosResponse<void>> {
+        const path = this.makeFavoriteCommunityPath(params.communityName);
+        return this.httpService.put(path, {}, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    unfavoriteCommunity(params: UnfavoriteCommunityApiParams): Promise<AxiosResponse<void>> {
+        const path = this.makeFavoriteCommunityPath(params.communityName);
+        return this.httpService.delete(path, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    updateCommunity(name: string, params: UpdateCommunityApiParams): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeUpdateCommunityPath(name);
+
+        const bodyFormData = new FormData();
+
+        if (params.name && params.name !== name) {
+            bodyFormData.set('name', params.name);
+        }
+
+        if (params.type) {
+            bodyFormData.set('type', params.type.toString());
+        }
+
+        if (params.rules !== undefined) {
+            bodyFormData.set('rules', params.rules);
+        }
+
+        if (params.title !== undefined) {
+            bodyFormData.set('title', params.title);
+        }
+
+        if (params.userAdjective !== undefined) {
+            bodyFormData.set('user_adjective', params.userAdjective);
+        }
+
+        if (params.usersAdjective !== undefined) {
+            bodyFormData.set('users_adjective', params.usersAdjective);
+        }
+
+        if (params.color) {
+            bodyFormData.set('color', params.color.hex());
+        }
+
+        if (typeof params.invitesEnabled !== 'undefined') {
+            bodyFormData.set('invites_enabled', params.invitesEnabled ? '1': '0');
+        }
+
+        if (params.categories?.length) {
+            bodyFormData.set('categories', params.categories.join(','));
+        }
+
+        if (params.description !== undefined) {
+            bodyFormData.set('description', params.description);
+        }
+
+        return this.httpService.patch(path, bodyFormData, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    updateCommunityAvatar(name: string, avatar: File | Blob): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeCommunityAvatarPath(name);
+
+        const bodyFormData = new FormData();
+        bodyFormData.set('avatar', avatar, 'avatar.png');
+
+        return this.httpService.put(path, bodyFormData, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    deleteCommunityAvatar(name: string): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeCommunityAvatarPath(name);
+        return this.httpService.delete(path, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    updateCommunityCover(name: string, cover: File | Blob): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeCommunityCoverPath(name);
+
+        const bodyFormData = new FormData();
+        bodyFormData.set('cover', cover, 'cover.png');
+
+        return this.httpService.put(path, bodyFormData, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
+
+    deleteCommunityCover(name: string): Promise<AxiosResponse<CommunityData>> {
+        const path = this.makeCommunityCoverPath(name);
+        return this.httpService.delete(path, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
+    }
 
     createCommunityPost(params: CreateCommunityPostApiParams): Promise<AxiosResponse<PostData>> {
         const bodyFormData = new FormData();
@@ -383,6 +602,14 @@ export class CommunitiesApiService implements ICommunitiesApiService {
                 appendAuthorizationToken: true,
                 isApiRequest: true
             });
+    }
+
+    deleteCommunity(name: string): Promise<AxiosResponse<void>> {
+        const path = this.makeDeleteCommunityPath(name);
+        return this.httpService.delete(path, {
+            appendAuthorizationToken: true,
+            isApiRequest: true
+        });
     }
 
 
@@ -541,5 +768,4 @@ export class CommunitiesApiService implements ICommunitiesApiService {
         return this.stringTemplateService.parse(
             CommunitiesApiService.SEARCH_COMMUNITY_MODERATORS_PATH, {'communityName': communityName});
     }
-
 }

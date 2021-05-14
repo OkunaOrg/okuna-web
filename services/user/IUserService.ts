@@ -85,7 +85,23 @@ import {
     GetFollowersParams,
     GetFollowingsParams,
     SearchFollowersParams,
-    SearchFollowingsParams
+    SearchFollowingsParams,
+    FavoriteCommunityParams,
+    UnfavoriteCommunityParams,
+    RemoveCommunityAdministratorParams,
+    UpdateCommunityParams,
+    UpdateCommunityAvatarParams,
+    DeleteCommunityAvatarParams,
+    UpdateCommunityCoverParams,
+    DeleteCommunityCoverParams,
+    RemoveCommunityModeratorParams,
+    GetCommunityBannedUsersParams,
+    SearchCommunityBannedUsersParams,
+    BanCommunityUserParams,
+    UnbanCommunityUserParams,
+    DeleteCommunityParams,
+    AddCommunityAdministratorParams,
+    AddCommunityModeratorParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -207,9 +223,25 @@ export interface IUserService {
 
     searchCommunityAdministrators(params: SearchCommunityAdministratorsParams): Promise<IUser[]>;
 
+    addCommunityAdministrator(params: AddCommunityAdministratorParams): Promise<ICommunity>;
+
+    removeCommunityAdministrator(params: RemoveCommunityAdministratorParams): Promise<void>;
+
     getCommunityModerators(params: GetCommunityModeratorsParams): Promise<IUser[]>;
 
     searchCommunityModerators(params: SearchCommunityModeratorsParams): Promise<IUser[]>;
+
+    addCommunityModerator(params: AddCommunityModeratorParams): Promise<ICommunity>;
+
+    removeCommunityModerator(params: RemoveCommunityModeratorParams): Promise<void>;
+
+    getCommunityBannedUsers(params: GetCommunityBannedUsersParams): Promise<IUser[]>;
+
+    searchCommunityBannedUsers(params: SearchCommunityBannedUsersParams): Promise<IUser[]>;
+
+    banCommunityUser(params: BanCommunityUserParams): Promise<void>;
+
+    unbanCommunityUser(params: UnbanCommunityUserParams): Promise<void>;
 
     getCommunityPostsCount(params: GetCommunityPostsCountParams): Promise<ICommunity>;
 
@@ -219,8 +251,23 @@ export interface IUserService {
 
     reportCommunity(params: ReportCommunityParams): Promise<void>;
 
+    favoriteCommunity(params: FavoriteCommunityParams): Promise<void>;
+
+    unfavoriteCommunity(params: UnfavoriteCommunityParams): Promise<void>;
+
+    updateCommunity(params: UpdateCommunityParams): Promise<ICommunity>;
+
+    updateCommunityAvatar(params: UpdateCommunityAvatarParams): Promise<ICommunity>;
+
+    deleteCommunityAvatar(params: DeleteCommunityAvatarParams): Promise<ICommunity>;
+
+    updateCommunityCover(params: UpdateCommunityCoverParams): Promise<ICommunity>;
+
+    deleteCommunityCover(params: DeleteCommunityCoverParams): Promise<ICommunity>;
+
     createCommunityPost(params: CreateCommunityPostParams): Promise<IPost>;
 
+    deleteCommunity(params: DeleteCommunityParams): Promise<void>;
 
     // COMMUNITIES END
 

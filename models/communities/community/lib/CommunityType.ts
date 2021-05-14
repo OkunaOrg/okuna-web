@@ -1,5 +1,5 @@
 export class CommunityType {
-    static private = new CommunityType('TG');
+    static private = new CommunityType('T');
     static public = new CommunityType('P');
 
     static _values: CommunityType[] = [

@@ -241,12 +241,28 @@ export class User extends DataModel<User> implements IUser {
             postComment.language.code != this.language.code;
     }
 
+    canCloseOrOpenPostInCommunity(community: ICommunity): boolean {
+        return community.isAdministrator(this) || community.isModerator(this);
+    }
+
+    canBanOrUnbanUsersInCommunity(community: ICommunity): boolean {
+        return community.isAdministrator(this) || community.isModerator(this);
+    }
+
+    isCreatorOfCommunity(community: ICommunity): boolean {
+        return community.isCreator;
+    }
+
+    canChangeDetailsOfCommunity(community: ICommunity): boolean {
+        return community.isAdministrator(this);
+    }
+
     canManageCommunityAdministrators(community: ICommunity): boolean {
-        return community.canManageAdministrators(this.user);
+        return community.canManageAdministrators(this);
     }
 
     canManageCommunityModerators(community: ICommunity): boolean {
-        return community.canManageModerators(this.user);
+        return community.canManageModerators(this);
     }
 
     canEnableOrDisablePostComments(post: IPost): boolean {

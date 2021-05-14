@@ -88,8 +88,12 @@
             let textClass;
 
             switch (this.avatarSize) {
-                case OkAvatarSize.large:
+                case OkAvatarSize.extraLarge:
                     sizeClass = "is-128x128";
+                    break;
+                case OkAvatarSize.large:
+                    sizeClass = "is-96x96";
+                    textClass = "is-size-2"
                     break;
                 case OkAvatarSize.medium:
                     sizeClass = "is-32x32";
