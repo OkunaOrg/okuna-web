@@ -12,9 +12,9 @@
                 </div>
                 <div class="card-content has-text-centered is-flex-1"
                      :style="{padding: registerFormClass ? '0 !important' : null}">
-                    <ok-register-token-form @onTokenIsValid="onTokenIsValid"
-                                            v-if="!inviteToken"></ok-register-token-form>
-                    <ok-register-form :invite-token="inviteToken" v-else @onUserRegistered="onUserRegistered"
+                    <!-- <ok-register-token-form @onTokenIsValid="onTokenIsValid"
+                                            v-if="!inviteToken"></ok-register-token-form> -->
+                    <ok-register-form :invite-token="inviteToken" @onUserRegistered="onUserRegistered"
                                       :class="registerFormClass" class="has-background-covered"/>
                 </div>
                 <div class="card-footer ok-has-border-top-primary-highlight">
