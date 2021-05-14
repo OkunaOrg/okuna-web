@@ -655,7 +655,7 @@
                 return;
             }
 
-            const categoryIdx = this.categories.indexOf(category);
+            const categoryIdx = this.categories.findIndex(cat => cat.id === category.id);
             if (categoryIdx === -1) {
                 return;
             }
@@ -664,10 +664,6 @@
         }
 
         handleAddCategory(category: ICategory) {
-            if (this.categories.length === 3) {
-                return;
-            }
-
             this.categories.push(category);
         }
 
