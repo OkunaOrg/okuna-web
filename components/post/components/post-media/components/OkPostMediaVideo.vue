@@ -8,6 +8,7 @@
                       :options="videoPlayerOptions"
                       :style="{width: mediaWidth + 'px', height: mediaHeight + 'px', backgroundImage: `url('${postVideo.thumbnail}')`}"
                       @ready="onVideoIsReady"
+                      :id="`video-${postUuid}`"
                       :playsinline="true">
         </video-player>
     </figure>
@@ -40,6 +41,7 @@
 
         @Prop(Number) readonly mediaWidth: number;
         @Prop(Number) readonly mediaHeight: number;
+        @Prop(String) readonly postUuid: string;
 
         isLoading = true;
 

@@ -19,6 +19,7 @@
                     :is-responsive="videoIsResponsive"
                     :media-height="mediaContainerHeight"
                     :media-width="postElementWidth"
+                    :post-uuid="post.uuid"
                     v-else></ok-post-media-video>
 
             <ok-post-media-cropped-icon v-if="displayCroppedIcon"></ok-post-media-cropped-icon>

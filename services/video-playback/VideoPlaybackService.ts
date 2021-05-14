@@ -13,8 +13,12 @@ export class VideoPlaybackService {
     debouncedFocusHandler = debounce(this.onFocusHandler, 200).bind(this);
     debouncedBlurHandler = debounce(this.onBlurHandler, 200).bind(this);
 
-    private isVideoVisible(): boolean {
-        const { top, height } = this.players[this.currentPlayerIndex]?.$el?.getBoundingClientRect();
+    private isVideoVisible(idx?: number): boolean {
+        if (typeof idx !== 'number') {
+            idx = this.currentPlayerIndex;
+        }
+
+        const { top, height } = this.players[idx]?.$el?.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
 
         return top > 0 && top + height < viewportHeight;
@@ -93,6 +97,50 @@ export class VideoPlaybackService {
     onFocusHandler() {
         if (this.active) {
             this.players[this.currentPlayerIndex].player?.play();
+        }
+    }
+
+    stopWithPostUuid(uuid: string) {
+        for (let i = 0; i < this.players.length; i++) {
+            const ref = this.players[i];
+
+            if (!ref || !ref.$el) {
+                continue;
+            }
+
+            if (ref.$el.id !== `video-${uuid}`) {
+                continue;
+            }
+
+            if (!this.isVideoVisible(i) || !ref.player) {
+                continue;
+            }
+
+            ref.player.pause();
+            this.active = false;
+            return;
+        }
+    }
+
+    startWithPostUuid(uuid: string) {
+        for (let i = 0; i < this.players.length; i++) {
+            const ref = this.players[i];
+
+            if (!ref || !ref.$el) {
+                continue;
+            }
+
+            if (ref.$el.id !== `video-${uuid}`) {
+                continue;
+            }
+
+            if (!this.isVideoVisible(i) || !ref.player) {
+                continue;
+            }
+
+            ref.player.play();
+            this.active = true;
+            return;
         }
     }
 }
