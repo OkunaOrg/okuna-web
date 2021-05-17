@@ -65,6 +65,7 @@ import DeleteForever from 'vue-material-design-icons/DeleteForever.vue';
 import TextShort from 'vue-material-design-icons/TextShort.vue';
 import Palette from 'vue-material-design-icons/Palette.vue';
 import Shape from 'vue-material-design-icons/Shape.vue';
+import ArrowExpand from 'vue-material-design-icons/ArrowExpand.vue';
 
 // Full list https://materialdesignicons.com/
 
@@ -229,3 +230,5 @@ Vue.component('ok-community-categories-icon', Shape);
 Vue.component('ok-community-user-adjective-icon', Account);
 
 Vue.component('ok-community-users-adjective-icon', AccountSupervisor);
+
+Vue.component('ok-arrow-expand-icon', ArrowExpand);
