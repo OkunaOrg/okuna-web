@@ -2,8 +2,11 @@
     <div>
         <button v-if="canBanOrUnban"
                 @click.prevent="openCommunityMenu"
-                class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
+                class="button is-rounded ok-has-background-primary-highlight is-borderless has-text-white has-text-weight-bold">
             Manage
+        </button>
+        <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold" @click="onButtonClicked">
+            Post
         </button>
         <div v-else class="columns is-vcentered is-mobile">
             <div class="column is-narrow">
@@ -31,6 +34,8 @@
     import { IModalService } from "~/services/modal/IModalService";
     import { okunaContainer } from "~/services/inversify";
     import OkJoinCommunityButton from "~/components/buttons/OkJoinCommunityButton.vue";
+    import { IModalService } from "~/services/modal/IModalService";
+    import { IPostUploaderService } from "~/services/post-uploader/IPostSubmitterService";
 
     @Component({
         name: "OkCommunityProfileActionButtons",
@@ -55,6 +60,7 @@
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
+        private postUploaderService: IPostUploaderService = okunaContainer.get<IPostUploaderService>(TYPES.PostUploaderService);
 
         created() {
             this.$observables.loggedInUser.subscribe(this.onLoggedInUserChanged);
@@ -66,6 +72,17 @@
 
         private onLoggedInUserChanged(loggedInUser: IUser) {
             this.canBanOrUnban = loggedInUser.canBanOrUnbanUsersInCommunity(this.community);
+        }
+
+        async onButtonClicked() {
+            const postStudioData = await this.modalService.openPostStudioModal({
+                community: this.community,
+            });
+
+            if (postStudioData) {
+                const postUpload = this.postUploaderService.uploadPost(postStudioData);
+                postUpload.start();
+            }
         }
 
         openCommunityMenu() {

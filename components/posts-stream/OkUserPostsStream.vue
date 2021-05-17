@@ -4,7 +4,12 @@
             :refresher="postsRefresher"
             :on-scroll-loader="postsOnScrollLoader"
             :post-container-class="postContainerClass"
-    ></ok-posts-stream>
+            ref="postsStream"
+    >
+        <template v-slot:leading>
+            <ok-community-post-uploads @onPostUploaded="onPostUploaded" :user="user" />
+        </template>
+    </ok-posts-stream>
 </template>
 
 
@@ -18,10 +23,12 @@
     import { okunaContainer } from "../../services/inversify";
     import { TYPES } from "../../services/inversify-types";
     import { IPost } from "../../models/posts/post/IPost";
+    import OkCommunityPostUploads
+        from '~/components/posts-stream/community-posts/components/OkCommunityPostUploads.vue';
 
     @Component({
         name: "OkUserPostsStream",
-        components: {OkPostsStream},
+        components: {OkPostsStream, OkCommunityPostUploads},
         subscriptions: function () {
             return {
                 loggedInUser: this["userService"].loggedInUser
@@ -46,6 +53,10 @@
 
         $observables!: {
             loggedInUser: BehaviorSubject<IUser | undefined>
+        };
+
+        $refs: {
+            postsStream: OkPostsStream
         };
 
         postsDisplayContext = PostDisplayContext.foreignProfilePosts;
@@ -82,6 +93,10 @@
             } else {
                 this.postsDisplayContext = PostDisplayContext.foreignProfilePosts;
             }
+        }
+
+        onPostUploaded(post: IPost) {
+            this.$refs.postsStream.addPostToTop(post);
         }
     }
 </script>

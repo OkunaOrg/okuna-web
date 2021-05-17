@@ -21,6 +21,7 @@
     import { OkPostUpload, OkPostUploadStatus } from "~/services/post-uploader/lib/OkPostUpload";
     import { ICommunity } from "~/models/communities/community/ICommunity";
     import { BehaviorSubject } from "~/node_modules/rxjs";
+    import { IUser } from "~/models/auth/user/IUser";
 
     @Component({
         name: "OkCommunityPostUploads",
@@ -34,8 +35,13 @@
     export default class OkCommunityPostUploads extends Vue {
         @Prop({
             type: Object,
-            required: true
+            required: false
         }) readonly community: ICommunity;
+
+        @Prop({
+            type: Object,
+            required: false
+        }) readonly user: IUser;
 
         private postUploaderService: IPostUploaderService = okunaContainer.get<IPostUploaderService>(TYPES.PostUploaderService);
 
@@ -63,7 +69,11 @@
         }
 
         private onUploadsChange(uploads: OkPostUpload[]) {
-            this.displayedUploads = uploads.filter((upload) => upload.belongsToCommunity(this.community) && upload.status !== OkPostUploadStatus.published);
+            if (this.user) {
+                this.displayedUploads = uploads.filter((upload) => upload.status !== OkPostUploadStatus.published);
+            }else if(this.community){
+                this.displayedUploads = uploads.filter((upload) => upload.belongsToCommunity(this.community) && upload.status !== OkPostUploadStatus.published);
+            }
         }
 
         private removeDisplayedUpload(postUpload: OkPostUpload) {

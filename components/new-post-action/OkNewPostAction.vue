@@ -1,5 +1,5 @@
 <template>
-    <div class="ok-new-post-action" v-if="loggedInUser">
+    <div class="ok-new-post-action" v-if="isLoggedInUser">
         <div class="has-padding-20">
             <ok-new-post-button :community="community"/>
         </div>
@@ -45,11 +45,27 @@
             required: false
         }) readonly community: ICommunity;
 
+        @Prop({
+            type: Object,
+            required: false
+        }) readonly user: IUser;
+
+        isLoggedInUser = false;
+
         $observables!: {
             loggedInUser: BehaviorSubject<IUser | undefined>
         };
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+
+        created() {
+            this.$observables.loggedInUser.subscribe(this.onLoggedInUserChanged);
+        }
+
+        private onLoggedInUserChanged(loggedInUser: IUser) {
+            this.isLoggedInUser = loggedInUser.id === this.user?.id || loggedInUser.id === this.community?.id;
+        }
+        
 
 
         

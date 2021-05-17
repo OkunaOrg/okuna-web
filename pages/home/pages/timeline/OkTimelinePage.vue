@@ -14,7 +14,7 @@
                 </div>
             </template>
         </ok-posts-stream>
-        <ok-new-post-action/>
+        <ok-new-post-action :user="loggedInUser"/>
     </section>
 </template>
 
