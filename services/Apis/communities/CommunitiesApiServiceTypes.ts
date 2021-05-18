@@ -197,6 +197,21 @@ export interface UnfavoriteCommunityApiParams {
     communityName: string;
 }
 
+export interface CreateCommunityApiParams {
+    name: string;
+    title: string;
+    type: CommunityType;
+    categories: string[];
+    avatar?: File | Blob | string;
+    cover?: File | Blob | string;
+    description?: string;
+    rules?: string;
+    userAdjective?: string;
+    usersAdjective?: string;
+    color?: Color;
+    invitesEnabled?: boolean;
+}
+
 export interface UpdateCommunityApiParams {
     name?: string;
     type?: CommunityType;

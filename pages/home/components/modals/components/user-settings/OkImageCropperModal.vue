@@ -3,11 +3,13 @@
         <ok-image-cropper
             v-if="params"
             class="ok-image-cropper"
+            :type="params.type"
             :file="params.file"
             :aspectRatio="params.aspectRatio"
             :fieldName="params.fieldName"
             :images="params.images"
             :community="params.community"
+            :communityStub="params.communityStub"
         />
     </div>
 </template>
@@ -24,7 +26,7 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';
-    import OkImageCropper from '~/components/settings/common/OkImageCropper.vue';
+    import OkImageCropper from '~/components/image-cropper/OkImageCropper.vue';
     import { ImageCropperModalParams } from '~/services/modal/IModalService';
 
     @Component({
