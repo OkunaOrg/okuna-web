@@ -101,7 +101,8 @@ import {
     UnbanCommunityUserParams,
     DeleteCommunityParams,
     AddCommunityAdministratorParams,
-    AddCommunityModeratorParams
+    AddCommunityModeratorParams,
+    CreateCommunityParams
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -254,6 +255,8 @@ export interface IUserService {
     favoriteCommunity(params: FavoriteCommunityParams): Promise<void>;
 
     unfavoriteCommunity(params: UnfavoriteCommunityParams): Promise<void>;
+
+    createCommunity(params: CreateCommunityParams): Promise<ICommunity>;
 
     updateCommunity(params: UpdateCommunityParams): Promise<ICommunity>;
 

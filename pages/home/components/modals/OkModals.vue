@@ -105,6 +105,9 @@
         <b-modal :active.sync="postStudioModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-post-studio-modal :params="activeModalParams" v-if="activeModalParams" :return-data-setter="setModalReturnData"/>
         </b-modal>
+        <b-modal :active.sync="createCommunityModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-create-community-modal :params="activeModalParams" v-if="activeModalParams"></ok-create-community-modal>
+        </b-modal>
         <b-modal :active.sync="communitySettingsModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-community-settings-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-settings-modal>
         </b-modal>
@@ -194,6 +197,7 @@
 
     import OkPostStudioModal from '~/pages/home/components/modals/components/OkPostStudioModal.vue';
 
+    import OkCreateCommunityModal from '~/pages/home/components/modals/components/OkCreateCommunityModal.vue';
     import OkCommunitySettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunitySettingsModal.vue';
     import OkCommunityDetailsSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityDetailsSettingsModal.vue';
     import OkCommunityAdministratorsSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityAdministratorsSettingsModal.vue';
@@ -231,6 +235,7 @@
             OkThemesModal,
             OkUserFollowingsModal,
             OkUserFollowersModal,
+            OkCreateCommunityModal,
             OkCommunitySettingsModal,
             OkCommunityDetailsSettingsModal,
             OkCommunityAdministratorsSettingsModal,
@@ -281,6 +286,7 @@
         userFollowingsModalOpen: boolean = false;
         userFollowersModalOpen: boolean = false;
         postStudioModalOpen: boolean = false;
+        createCommunityModalOpen: boolean = false;
         communitySettingsModalOpen: boolean = false;
         communityDetailsSettingsModalOpen: boolean = false;
         communityAdministratorsSettingsModalOpen: boolean = false;
@@ -347,6 +353,7 @@
             this.userFollowingsModalOpen = activeModalValue === ModalType.userFollowings;
             this.userFollowersModalOpen = activeModalValue === ModalType.userFollowers;
             this.postStudioModalOpen = activeModalValue === ModalType.postStudio;
+            this.createCommunityModalOpen = activeModalValue === ModalType.createCommunity;
             this.communitySettingsModalOpen = activeModalValue === ModalType.communitySettings;
             this.communityDetailsSettingsModalOpen = activeModalValue === ModalType.communityDetailsSettings;
             this.communityAdministratorsSettingsModalOpen = activeModalValue === ModalType.communityAdministratorsSettings;

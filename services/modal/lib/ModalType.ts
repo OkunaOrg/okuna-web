@@ -24,6 +24,7 @@ export class ModalType {
     static userFollowers = new ModalType('UserFollowers');
     static welcomeToOkunaWeb = new ModalType('WelcomeToOkunaWeb');
     static getTheApp = new ModalType('GetTheApp');
+    static createCommunity = new ModalType('CreateCommunity');
     static communityRules = new ModalType('CommunityRules');
     static communityStaff = new ModalType('CommunityStaff');
     static communitySettings = new ModalType('CommunitySettings');
@@ -69,6 +70,7 @@ export class ModalType {
         ModalType.userFollowings,
         ModalType.userFollowers,
         ModalType.postStudio,
+        ModalType.createCommunity,
         ModalType.communitySettings,
         ModalType.communityDetailsSettings,
         ModalType.communityAdministratorsSettings,

@@ -93,7 +93,7 @@ import {
     SearchJoinedCommunitiesParams,
     CreatePostParams,
     AddMediaToPostParams,
-    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams, FavoriteCommunityParams, UnfavoriteCommunityParams, RemoveCommunityAdministratorParams, UpdateCommunityParams, UpdateCommunityAvatarParams, DeleteCommunityAvatarParams, UpdateCommunityCoverParams, DeleteCommunityCoverParams, RemoveCommunityModeratorParams, GetCommunityBannedUsersParams, SearchCommunityBannedUsersParams, BanCommunityUserParams, UnbanCommunityUserParams, DeleteCommunityParams, AddCommunityAdministratorParams, AddCommunityModeratorParams
+    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams, FavoriteCommunityParams, UnfavoriteCommunityParams, RemoveCommunityAdministratorParams, UpdateCommunityParams, UpdateCommunityAvatarParams, DeleteCommunityAvatarParams, UpdateCommunityCoverParams, DeleteCommunityCoverParams, RemoveCommunityModeratorParams, GetCommunityBannedUsersParams, SearchCommunityBannedUsersParams, BanCommunityUserParams, UnbanCommunityUserParams, DeleteCommunityParams, AddCommunityAdministratorParams, AddCommunityModeratorParams, CreateCommunityParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -602,6 +602,25 @@ export class UserService implements IUserService {
         await this.communitiesApiService.unfavoriteCommunity({
             communityName: params.community.name
         });
+    }
+
+    async createCommunity(params: CreateCommunityParams): Promise<ICommunity> {
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.createCommunity({
+            name: params.name,
+            title: params.title,
+            type: params.type,
+            categories: params.categories,
+            avatar: params.avatar,
+            cover: params.cover,
+            description: params.description,
+            rules: params.rules,
+            userAdjective: params.userAdjective,
+            usersAdjective: params.usersAdjective,
+            color: params.color,
+            invitesEnabled: params.invitesEnabled
+        });
+
+        return communityFactory.make(response.data);
     }
 
     async updateCommunity(params: UpdateCommunityParams): Promise<ICommunity> {

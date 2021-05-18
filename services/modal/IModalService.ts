@@ -11,6 +11,8 @@ import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICircle } from '~/models/connections/circle/ICircle';
 import { OkPostStudioData, OkPostStudioParams } from '~/components/post-studio/lib/OkPostCreatorTypes';
+import { OkImageCropperType } from '~/components/image-cropper/lib/OkImageCropperType';
+import { CreateCommunityParams } from '../user/UserServiceTypes';
 
 export interface IModalService {
 
@@ -68,6 +70,8 @@ export interface IModalService {
     openGetTheAppModal(): Promise<void>;
 
     openWelcomeToOkunaWebModal(): Promise<void>;
+
+    openCreateCommunityModal(params: CreateCommunityModalParams): Promise<void>;
 
     openCommunityRulesModal(params: CommunityRulesModalParams): Promise<void>;
 
@@ -183,12 +187,14 @@ export interface CommunityImages {
 };
 
 export interface ImageCropperModalParams {
+    type?: OkImageCropperType,
     file: File;
     aspectRatio: number;
     fieldName: 'avatar' | 'cover';
 
     images?: UserProfileImages | CommunityImages;
     community?: ICommunity;
+    communityStub?: CreateCommunityParams;
 }
 
 export interface UserVisibilitySettingsParams {
@@ -304,6 +310,11 @@ export interface CommunityClosedPostsModalParams extends CommunitySettingsModalP
 }
 
 export interface CommunityInviteModalParams extends CommunitySettingsModalParams {
+}
+
+export interface CreateCommunityModalParams {
+    images?: CommunityImages;
+    communityStub?: CreateCommunityParams;
 }
 
 

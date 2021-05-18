@@ -33,7 +33,8 @@ import {
     BanCommunityUserApiParams,
     UnbanCommunityUserApiParams,
     AddCommunityAdministratorApiParams,
-    AddCommunityModeratorApiParams
+    AddCommunityModeratorApiParams,
+    CreateCommunityApiParams
 } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { PostData } from '~/types/models-data/posts/PostData';
@@ -99,6 +100,8 @@ export interface ICommunitiesApiService {
     favoriteCommunity(params: FavoriteCommunityApiParams): Promise<AxiosResponse<void>>;
 
     unfavoriteCommunity(params: UnfavoriteCommunityApiParams): Promise<AxiosResponse<void>>;
+
+    createCommunity(params: CreateCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
 
     updateCommunity(name: string, params: UpdateCommunityApiParams): Promise<AxiosResponse<CommunityData>>;
 

@@ -1,4 +1,4 @@
-import { CommunityMembersExclusion, UpdateCommunityApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
+import { CommunityMembersExclusion, CreateCommunityApiParams, UpdateCommunityApiParams } from '~/services/Apis/communities/CommunitiesApiServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { IModerationCategory } from '~/models/moderation/moderation_category/IModerationCategory';
 import { IList } from '~/models/lists/list/IList';
@@ -211,6 +211,8 @@ export interface GetCommunityPostsCountParams {
     community: ICommunity;
 }
 
+export interface CreateCommunityParams extends CreateCommunityApiParams {
+}
 
 export interface JoinCommunityParams {
     community: ICommunity;

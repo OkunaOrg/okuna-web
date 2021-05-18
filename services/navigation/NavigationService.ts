@@ -1,6 +1,7 @@
 import { inject, injectable } from '~/node_modules/inversify';
 import {
     INavigationService,
+    NavigateToCommunityConfig,
     NavigateToPostConfig,
     NavigateToProfileConfig,
     NavigationConfig
@@ -48,6 +49,10 @@ export class NavigationService implements INavigationService {
 
     async navigateToProfile(config: NavigateToProfileConfig): Promise<void> {
         this.navigateToLocationWithConfig(`/${config.user.username}`);
+    }
+
+    async navigateToCommunity(config: NavigateToCommunityConfig): Promise<void> {
+        this.navigateToLocationWithConfig(`/c/${config.community.name}`);
     }
 
     private navigateToLocationWithConfig(location: string, config: NavigationConfig = {}) {
