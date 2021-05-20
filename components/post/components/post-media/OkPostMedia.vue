@@ -1,5 +1,9 @@
 <template>
-    <div class="ok-post-media is-background-contain" :style="{width: postElementWidth + 'px', height: mediaContainerHeight + 'px', backgroundImage: `url('${post.mediaThumbnail}')`}">
+    <div
+        class="ok-post-media"
+        :style="{width: postElementWidth + 'px', height: mediaContainerHeight + 'px', backgroundImage: `url('${post.mediaThumbnail}')`}"
+        @click="onWantsToExpandPost"
+    >
         <div v-if="postMedia.length > 0" class="ok-post-media-item-container">
             <ok-post-media-image
                     :post-media="firstMediaItem"
@@ -15,13 +19,26 @@
                     :is-responsive="videoIsResponsive"
                     :media-height="mediaContainerHeight"
                     :media-width="postElementWidth"
+                    :post-uuid="post.uuid"
                     v-else></ok-post-media-video>
+
+            <ok-post-media-cropped-icon v-if="displayCroppedIcon"></ok-post-media-cropped-icon>
         </div>
     </div>
 </template>
 
 <style lang="scss">
+    .ok-post-media {
+        max-height: 70vh;
+        overflow-y: hidden;
+        background-position-y: center;
+        background-size: 100%;
+        cursor: pointer;
 
+        .ok-post-media-item-container {
+            position: relative;
+        }
+    }
 </style>
 
 <script lang="ts">
@@ -32,14 +49,16 @@
     import { IPostMedia } from "~/models/posts/post-media/IPostMedia";
     import { TYPES } from "~/services/inversify-types";
     import { IUserService } from "~/services/user/IUserService";
+    import { IModalService } from "~/services/modal/IModalService";
     import { okunaContainer } from "~/services/inversify";
     import OkPostMediaVideo from "~/components/post/components/post-media/components/OkPostMediaVideo.vue";
     import { PostDisplayContext } from '~/components/post/lib/PostDisplayContext';
     import OkFittedImg from '~/components/images/OkContainedImage.vue';
+    import OkPostMediaCroppedIcon from '~/components/post/components/post-media/components/OkPostMediaCroppedIcon.vue';
 
     @Component({
         name: "OkPostMedia",
-        components: {OkFittedImg, OkPostMediaVideo, OkPostMediaImage},
+        components: {OkFittedImg, OkPostMediaVideo, OkPostMediaImage, OkPostMediaCroppedIcon},
     })
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;
@@ -55,11 +74,14 @@
         @Prop(Number) readonly postDisplayContext: PostDisplayContext;
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
 
         postMedia: IPostMedia[] = [];
+        displayCroppedIcon: boolean = false;
 
         mounted() {
             this.refreshPostMedia();
+            this.displayCroppedIcon = window.innerHeight * 0.7 < this.mediaContainerHeight;
         }
 
         refreshPostMedia() {
@@ -86,5 +108,10 @@
             return this.postMedia[0];
         }
 
+        onWantsToExpandPost() {
+            this.modalService.openPostModal({
+                post: this.post
+            });
+        }
     }
 </script>

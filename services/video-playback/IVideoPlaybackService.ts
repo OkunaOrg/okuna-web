@@ -5,4 +5,7 @@ export interface IVideoPlaybackService {
     onScrollHandler(): void;
     onBlurHandler(): void;
     onFocusHandler(): void;
+
+    stopWithPostUuid(uuid: string): void;
+    startWithPostUuid(uuid: string): void;
 }

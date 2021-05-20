@@ -1,9 +1,21 @@
 <template>
-    <figure class="image is-background-contain"
+    <figure class="image ok-post-media-image"
             :style="{backgroundImage: `url('${postImage.thumbnail}')`}">
         <img alt="Post Image" :src="postImage.image" :width="mediaWidth" :height="mediaHeight">
     </figure>
 </template>
+
+<style lang="scss" scoped>
+    .ok-post-media-image {
+        max-height: 70vh;
+        overflow-y: hidden;
+        background-position-y: center;
+        background-size: 100%;
+        display: flex;
+        align-items: center;
+        line-height: 0;
+    }
+</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
