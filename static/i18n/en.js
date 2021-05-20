@@ -253,7 +253,7 @@ export default {
             },
             "moderation_reports": {
                 "name": "Moderation reports",
-                "description": "Review the community moderation reports."
+                "description": "Review the group moderation reports."
             },
             "closed_posts": {
                 "name": "Closed posts",
@@ -265,25 +265,25 @@ export default {
             },
             "invite": {
                 "name": "Invite people",
-                "description": "Invite your connections and followers to join the community."
+                "description": "Invite your connections and followers to join the group."
             },
             "favorite": {
-                "name_favorite": "Favorite community",
-                "description_favorite": "Add the community to your favorites.",
-                "name_unfavorite": "Unfavorite community",
-                "description_unfavorite": "Remove the community from your favorites."
+                "name_favorite": "Favorite group",
+                "description_favorite": "Add the group to your favorites.",
+                "name_unfavorite": "Unfavorite group",
+                "description_unfavorite": "Remove the group from your favorites."
             },
             "delete": {
-                "name": "Delete community",
-                "description": "Delete the community, forever."
+                "name": "Delete group",
+                "description": "Delete the group, forever."
             },
             "report": {
-                "name": "Report community",
-                "description": "Report this community"
+                "name": "Report group",
+                "description": "Report this group"
             },
             "leave": {
-                "name": "Leave community",
-                "description": "Leave this community"
+                "name": "Leave group",
+                "description": "Leave this group"
             }
         },
 
@@ -292,8 +292,8 @@ export default {
             "add_administrator": "Add administrator",
             "remove": "Remove",
             "add_confirmation": {
-                "title": "Are you sure you want to add @{username} as a community administrator?",
-                "contents": "This will allow the member to edit the community details, administrators, moderators, and banned users."
+                "title": "Are you sure you want to add @{username} as a group administrator?",
+                "contents": "This will allow the member to edit the group details, administrators, moderators, and banned users."
             }
         },
 
@@ -302,8 +302,8 @@ export default {
             "add_moderator": "Add moderator",
             "remove": "Remove",
             "add_confirmation": {
-                "title": "Are you sure you want to add @{username} as a community moderator?",
-                "contents": "This will allow the member to edit the community details, moderators, and banned users."
+                "title": "Are you sure you want to add @{username} as a group moderator?",
+                "contents": "This will allow the member to edit the group details, moderators, and banned users."
             }
         },
 
@@ -313,13 +313,13 @@ export default {
             "ban_user": "Ban user",
             "ban_confirmation": {
                 "title": "Are you sure you want to ban @{username}?",
-                "contents": "This will remove the user from the community and disallow them from joining again."
+                "contents": "This will remove the user from the group and disallow them from joining again."
             }
         },
 
         "delete": {
             "delete_confirmation": {
-                "title": "Are you sure you want to delete the community?",
+                "title": "Are you sure you want to delete the group?",
                 "contents": "You won't see its posts in your timeline nor will be able to post to it anymore."
             }
         },
@@ -330,8 +330,8 @@ export default {
             "change_avatar": "Change Avatar",
             "remove_avatar": "Remove Avatar",
 
-            "remove_cover_confirmation": "Are you sure you want to remove the community's cover?",
-            "remove_avatar_confirmation": "Are you sure you want to remove the community's avatar?",
+            "remove_cover_confirmation": "Are you sure you want to remove the group's cover?",
+            "remove_avatar_confirmation": "Are you sure you want to remove the group's avatar?",
 
             "title": {
                 "label": "Title",
@@ -355,7 +355,7 @@ export default {
 
             "invites_enabled": {
                 "label": "Member invites",
-                "description": "Members can invite other people to the community"
+                "description": "Members can invite other people to the group"
             },
 
             "category": {
@@ -364,7 +364,7 @@ export default {
 
             "description": {
                 "label": "Description (optional)",
-                "placeholder": "What is your community about?"
+                "placeholder": "What is your group about?"
             },
 
             "rules": {
@@ -435,7 +435,7 @@ export default {
                 "required": "Name cannot be empty",
                 "max_length": "Name can't be longer than {max} characters",
                 "min_length": "Name can't be shorter than {min} characters",
-                "taken": "This community name is already taken",
+                "taken": "This group name is already taken",
             },
             "community_title": {
                 "required": "Title cannot be empty",
