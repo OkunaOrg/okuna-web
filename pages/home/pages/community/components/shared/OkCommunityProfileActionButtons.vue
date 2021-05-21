@@ -5,7 +5,7 @@
                 class="button is-rounded ok-has-background-primary-highlight is-borderless has-text-white has-text-weight-bold">
             Manage
         </button>
-        <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold" @click="onButtonClicked">
+        <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold" @click="openPostModal">
             Post
         </button>
         <div v-else class="columns is-vcentered is-mobile">
@@ -34,7 +34,6 @@
     import { IModalService } from "~/services/modal/IModalService";
     import { okunaContainer } from "~/services/inversify";
     import OkJoinCommunityButton from "~/components/buttons/OkJoinCommunityButton.vue";
-    import { IModalService } from "~/services/modal/IModalService";
     import { IPostUploaderService } from "~/services/post-uploader/IPostSubmitterService";
 
     @Component({
@@ -74,7 +73,7 @@
             this.canBanOrUnban = loggedInUser.canBanOrUnbanUsersInCommunity(this.community);
         }
 
-        async onButtonClicked() {
+        async openPostModal() {
             const postStudioData = await this.modalService.openPostStudioModal({
                 community: this.community,
             });
