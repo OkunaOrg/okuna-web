@@ -108,7 +108,13 @@
             return this.postMedia[0];
         }
 
-        onWantsToExpandPost() {
+        onWantsToExpandPost(e: Event) {
+            const element = e.target as HTMLElement;
+            if (element?.closest('.vjs-control-bar')) {
+                // User clicked on a videojs control item, don't show modal in this scenario.
+                return;
+            }
+
             this.modalService.openPostModal({
                 post: this.post
             });
