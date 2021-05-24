@@ -178,6 +178,68 @@
                     </template>
                 </ok-tile>
 
+                <ok-tile alignmentClass="align-items-start">
+                    <template v-slot:content>
+                        <div class="field">
+                            <label for="communityType" class="label has-text-left ok-has-text-primary-invert-80">
+                                <ok-communities-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-communities-icon>
+                                {{ $t('manage_community.details.community_type.label') }}
+                            </label>
+
+                            <div class="control">
+                                <select name="communityType" v-model="selectedCommunityType" class="input ok-input is-rounded" id="communityType">
+                                    <option :value="type" v-for="type in groupTypes" :key="type.id">
+                                        {{ $t(`forms.create_community.community_type.${type.key}`) }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </template>
+                </ok-tile>
+                
+                <template v-for="(input) in inputTypesConfiguration">
+                    <ok-tile alignmentClass="align-items-start" v-if="selectedCommunityType && selectedCommunityType.requiredInputs.includes(input.key)" :key="input.key">
+                        <template v-slot:content>
+                            <div class="field">
+                                <label :for="input.key" class="label has-text-left ok-has-text-primary-invert-80">
+                                    <ok-community-categories-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-categories-icon>
+                                    {{ $t(`forms.create_community.details.${input.key}.label`) }}
+                                </label>
+
+                                <div class="control">
+                                    <input 
+                                        type="text"
+                                        v-if="input.inputType === 'input'"
+                                        :placeholder="$t(`forms.create_community.details.${input.key}.label`)"
+                                        class="input ok-input is-rounded"
+                                        :id="input.key"
+                                        :value="$v[input.key].$model"
+                                        @input="changeModelValidation(input.key, $event.target.value)"
+                                    />
+                                    <textarea
+                                        v-if="input.inputType === 'textarea'"
+                                        :placeholder="$t(`forms.create_community.details.${input.key}.label`)"
+                                        class="input ok-input is-rounded ok-community-details-settings-textarea"
+                                        :id="input.key"
+                                        :value="$v[input.key].$model"
+                                        @input="changeModelValidation(input.key, $event.target.value)"
+                                    />
+                                </div>
+                                <div v-if="$v[input.key].$invalid && formWasSubmitted" class="has-padding-top-5 has-text-left">
+                                    <p class="help is-danger" v-if="!$v[input.key].maxLength">
+                                        {{
+                                            $t(`global.errors.community_${input.key}.max_length`, {
+                                                max: input.validationParameters.maxLength
+                                            })
+                                        }}
+                                    </p>
+                                </div>
+                            </div>
+                        </template>
+                    </ok-tile>
+                </template>
+
+                
                 <ok-tile v-if="communityTypeString === CommunityType.private.toString()">
                     <template v-slot:leading>
                         <ok-community-invites-enabled-icon class="ok-svg-icon-primary-invert"></ok-community-invites-enabled-icon>
@@ -404,13 +466,14 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';
-    import { Validate } from 'vuelidate-property-decorators';
+    import { Validate, Validations } from 'vuelidate-property-decorators';
 
     import { communityNameMaxLength, communityNameMinLength, communityNameValidators } from '~/validators/community-name';
     import { communityTitleMaxLength, communityTitleMinLength, communityTitleValidators } from '~/validators/community-title';
     import { communityDescriptionMaxLength, communityDescriptionValidators } from '~/validators/community-description';
     import { communityRulesMaxLength, communityRulesValidators } from '~/validators/community-rules';
     import { communityUserAdjectiveMaxLength, communityUserAdjectiveValidators } from '~/validators/community-user-adjective';
+    import { inputTypesConfiguration } from '~/components/forms/settings/CommunityInputTypesConfiguration'
 
     import OkTile from '~/components/tiles/OkTile.vue';
     import OkImageCover from '~/components/covers/image-cover/OkImageCover.vue';
@@ -440,7 +503,7 @@
             OkImageCover,
             OkImageAvatar,
             OkLetterAvatar,
-            OkCommunityCategoriesSelector
+            OkCommunityCategoriesSelector,
         },
         subscriptions: function () {
             return {
@@ -512,11 +575,45 @@
         categories: ICategory[] = [];
         invitesEnabled: boolean = false;
 
+        about_us: string = '';
+        website: string = '';
+        population: string = '';
+        area: string = '';
+        energy_demand: string = '';
+        industry: string = '';
+        employee: string = '';
+        location: string = '';
+        institution: string = '';
+        department: string = '';
+
         avatarUrl: string = '';
         coverUrl: string = '';
 
         avatarBlob?: Blob | null;
         coverBlob?: Blob | null;
+        
+        groupTypes: any[] = [
+            {id: 0, key: 'no_type', requiredInputs: [] },
+            {id: 1, key: 'city', requiredInputs: ['about_us', 'website', 'population', 'area', 'energy_demand'] },
+            {id: 2, key: 'company', requiredInputs: ['about_us', 'website', 'industry', 'employee', 'location']},
+            {id: 3, key: 'university', requiredInputs: ['about_us', 'website', 'institution', 'department']},
+            {id: 4, key: 'institution', requiredInputs: ['about_us', 'website']}
+        ];
+        selectedCommunityType: any[] = this.groupTypes[0];
+
+        @Validations()
+        groupTypesFieldsValidations() {
+            const validations = {};
+
+            this.inputTypesConfiguration.forEach(input => {
+                if (this.selectedCommunityType['requiredInputs'].includes(input.key)) {
+                    validations[input.key] = input.validations                   
+                }   
+            });
+
+            return validations;
+        }
+
 
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
@@ -587,6 +684,10 @@
             return Color.rgb(r, g, b).hex();
         }
 
+        get inputTypesConfiguration() {
+            return inputTypesConfiguration;
+        }
+
         get letterAvatarLetter(): string {
             return this.communityName?.charAt(0) || 'C';
         }
@@ -619,6 +720,11 @@
             }
 
             return communityDetails;
+        }
+
+        changeModelValidation(name: string, value: any){       
+            this.$v[name].$model = value
+            this.$v[name].$touch();      
         }
 
         async handleFormSubmit(e: Event) {
@@ -794,7 +900,7 @@
         }
 
         handleCancelClick() {
-            this.$emit('cancel')
+            this.$emit('cancel');
         }
     }
 </script>
