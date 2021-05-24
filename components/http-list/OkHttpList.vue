@@ -46,41 +46,40 @@
                 <slot name="default" :item="item"></slot>
             </div>
             <infinite-loading
-                    ref="infiniteLoading"
-                    @infinite="infiniteHandler">
+                ref="infiniteLoading"
+                @infinite="infiniteHandler">
 
-                    <template v-if="listType === 'post' && !items.length" slot="spinner">
-                        <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
-                    </template>
+                <template v-if="listType === 'post' && !items.length" slot="spinner">
+                    <ok-post-skeleton :class="itemClass"></ok-post-skeleton>
+                </template>
 
-                    <template v-if="listType === 'notification' && !items.length" slot="spinner">
-                        <ok-notification-skeleton :class="itemClass"></ok-notification-skeleton>
-                    </template>
+                <template v-if="listType === 'notification' && !items.length" slot="spinner">
+                    <ok-notification-skeleton :class="itemClass"></ok-notification-skeleton>
+                </template>
 
-                    <template v-else-if="listType === 'community' && !items.length" slot="spinner">
-                        <ok-community-card-skeleton></ok-community-card-skeleton>
-                    </template>
+                <template v-else-if="listType === 'community' && !items.length" slot="spinner">
+                    <ok-community-card-skeleton></ok-community-card-skeleton>
+                </template>
 
-                    <template v-else-if="listType === 'community-mobile' && !items.length" slot="spinner">
-                        <ok-community-tile-skeleton></ok-community-tile-skeleton>
-                    </template>
+                <template v-else-if="listType === 'community-mobile' && !items.length" slot="spinner">
+                    <ok-community-tile-skeleton></ok-community-tile-skeleton>
+                </template>
 
-                    <template slot="no-more">
-                        <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
-                            {{ $t('global.snippets.all_loaded')}}
-                        </div>
-                    </template>
-                    <template slot="no-results">
-                        <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
-                            {{ $t('global.snippets.no_items_found')}}
-                        </div>
-                    </template>
+                <template slot="no-more">
+                    <div :class="{'is-hidden': !showNoMore}" class="ok-has-text-primary-invert">
+                        {{ $t('global.snippets.all_loaded')}}
+                    </div>
+                </template>
+                <template slot="no-results">
+                    <div :class="{'is-hidden': !showNoResults || reachedLimit}" class="ok-has-text-primary-invert">
+                        {{ $t('global.snippets.no_items_found')}}
+                    </div>
+                </template>
 
-                </infinite-loading>
-            </div>
-            <div v-else-if="searcher" class="has-padding-20 ok-has-text-primary-invert">
-                {{ $t('global.snippets.search_for_something')}}
-            </div>
+            </infinite-loading>
+        </div>
+        <div v-else-if="searcher" class="has-padding-20 ok-has-text-primary-invert">
+            {{ $t('global.snippets.search_for_something')}}
         </div>
     </div>
 </template>
@@ -189,7 +188,7 @@
 
         items: T[] = [];
 
-        listKey: String;
+        listKey: String = '';
         renderComponent = true;
         reachedLimit = false;
 
@@ -205,6 +204,10 @@
 
         created() {
             this.listKey = `l-${this.utilsService.generateUuid()}`;
+        }
+        
+        async activated(){
+            this.refresh();     
         }
 
         destroyed() {
