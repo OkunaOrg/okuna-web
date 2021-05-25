@@ -188,6 +188,9 @@
 
                             <div class="control">
                                 <select name="communityType" v-model="selectedCommunityType" class="input ok-input is-rounded" id="communityType">
+                                    <option :value="null">
+                                        ---
+                                    </option>
                                     <option :value="type" v-for="type in groupTypes" :key="type.id">
                                         {{ $t(`forms.create_community.community_type.${type.key}`) }}
                                     </option>
@@ -580,7 +583,7 @@
         /* Group types */
         groupTypes = GROUP_TYPES;
         groupTypesFields = GROUP_TYPES_FIELDS;
-        selectedCommunityType: IGroupTypeConfig = this.groupTypes[0];
+        selectedCommunityType: IGroupTypeConfig = null;
         about_us: string;
         website: string;
         population: string;
@@ -603,12 +606,14 @@
         @Validations()
         groupTypesFieldsValidations() {
             const validations = {};
-
-            this.groupTypesFields.forEach(input => {
-                if (this.selectedCommunityType['fields'].includes(input.key)) {
-                    validations[input.key] = input.validations                   
-                }   
-            });
+            
+            if (this.selectedCommunityType) {
+                this.groupTypesFields.forEach(input => {
+                    if (this.selectedCommunityType['fields'].includes(input.key)) {
+                        validations[input.key] = input.validations                   
+                    }
+                });
+            }
 
             return validations;
         }

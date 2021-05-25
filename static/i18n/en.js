@@ -150,7 +150,6 @@ export default {
         },
         "create_community": {
             "community_type": {
-                "no_type": "No group type",
                 "city": "City",
                 "company": "Company",
                 "university": "University",

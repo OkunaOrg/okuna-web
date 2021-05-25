@@ -2,7 +2,7 @@ import { maxLength } from 'vuelidate/lib/validators';
 
 
 export interface IGroupTypeConfig {
-    key: string | null,
+    key: string,
     fields: Array<string>
 }
 
@@ -14,7 +14,6 @@ export interface IGroupTypeField {
 }
 
 export const GROUP_TYPES: IGroupTypeConfig[] = [
-    { key: null, fields: [] },
     { key: 'city', fields: ['about_us', 'website', 'population', 'area', 'energy_demand'] },
     { key: 'company', fields: ['about_us', 'website', 'industry', 'employee', 'location'] },
     { key: 'university', fields: ['about_us', 'website', 'institution', 'department'] },
