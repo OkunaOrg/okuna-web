@@ -605,20 +605,7 @@ export class UserService implements IUserService {
     }
 
     async createCommunity(params: CreateCommunityParams): Promise<ICommunity> {
-        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.createCommunity({
-            name: params.name,
-            title: params.title,
-            type: params.type,
-            categories: params.categories,
-            avatar: params.avatar,
-            cover: params.cover,
-            description: params.description,
-            rules: params.rules,
-            userAdjective: params.userAdjective,
-            usersAdjective: params.usersAdjective,
-            color: params.color,
-            invitesEnabled: params.invitesEnabled
-        });
+        const response: AxiosResponse<CommunityData> = await this.communitiesApiService.createCommunity(params);
 
         return communityFactory.make(response.data);
     }

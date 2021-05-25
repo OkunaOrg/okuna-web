@@ -41,6 +41,7 @@ import {
 import { AxiosResponse } from '~/node_modules/axios';
 import { CommunityData } from '~/types/models-data/communities/CommunityData';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
+import { GROUP_TYPES_FIELDS } from '~/config/groups';
 import { CreatePostApiParams } from '~/services/Apis/posts/PostsApiServiceTypes';
 import { PostData } from '~/types/models-data/posts/PostData';
 
@@ -530,6 +531,16 @@ export class CommunitiesApiService implements ICommunitiesApiService {
 
         if (typeof params.invitesEnabled !== 'undefined') {
             bodyFormData.set('invites_enabled', params.invitesEnabled ? '1' : '0');
+        }
+
+        if (params.group_type) {
+            bodyFormData.set('group_type', params.group_type);
+
+            for(const groupTypeField of GROUP_TYPES_FIELDS) {
+                if (params[groupTypeField.key]) {
+                    bodyFormData.set(groupTypeField.key, params[groupTypeField.key]);
+                }
+            }
         }
 
         return this.httpService.put(CommunitiesApiService.CREATE_COMMUNITY_PATH, bodyFormData, {

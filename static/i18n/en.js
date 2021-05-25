@@ -149,13 +149,6 @@ export default {
             "title_reply": "Reply to comment",
         },
         "create_community": {
-            "community_type": {
-                "no_type": "No group type",
-                "city": "City",
-                "company": "Company",
-                "university": "University",
-                "institution": "Institution"
-            },
             "details": {
                 "about_us": {
                     "label": "About us"
@@ -435,7 +428,10 @@ export default {
                 "tooManyRequests": "😥 Too many requests. Please wait a couple minutes until trying again",
                 "invalidRequest": '🤔 The request was invalid.',
                 "notFound": "👀 Not found",
-                "unhandled": "😭 Unhandled error"
+                "unhandled": "😭 Unhandled error",
+            },
+            "validations": {
+                "invalid_url": "The URL is invalid"
             },
             "captcha": {
                 "required": "You must pass the captcha"
@@ -578,6 +574,12 @@ export default {
             "rotate_90deg_right": "Rotate 90° clockwise",
             "zoom_in": "Zoom In",
             "zoom_out": "Zoom Out"
+        },
+        "group_types": {
+            "C": "City",
+            "Q": "Company",
+            "U": "University",
+            "I": "Institution"
         },
         "models": {
             "post": "post",
