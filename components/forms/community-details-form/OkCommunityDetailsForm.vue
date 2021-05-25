@@ -187,12 +187,12 @@
                             </label>
 
                             <div class="control">
-                                <select name="communityType" v-model="selectedCommunityType" class="input ok-input is-rounded" id="communityType">
+                                <select name="communityType" v-model="selectedGroupType" class="input ok-input is-rounded" id="communityType">
                                     <option :value="null">
                                         ---
                                     </option>
                                     <option :value="type" v-for="type in groupTypes" :key="type.id">
-                                        {{ $t(`forms.create_community.community_type.${type.key}`) }}
+                                        {{ $t(`global.group_types.${type.key}`) }}
                                     </option>
                                 </select>
                             </div>
@@ -202,7 +202,7 @@
                 
                 <template v-for="(input) in groupTypesFields">
                     <transition name="fade" :key="`${input.key}-transition`">
-                        <ok-tile alignmentClass="align-items-start" v-if="selectedCommunityType && selectedCommunityType.fields.includes(input.key)" :key="input.key">
+                        <ok-tile alignmentClass="align-items-start" v-if="selectedGroupType && selectedGroupType.fields.includes(input.key)" :key="input.key">
                             <template v-slot:content>
                                 <div class="field">
                                     <label :for="input.key" class="label has-text-left ok-has-text-primary-invert-80">
@@ -588,7 +588,7 @@
         /* Group types */
         groupTypes = GROUP_TYPES;
         groupTypesFields = GROUP_TYPES_FIELDS;
-        selectedCommunityType: IGroupTypeConfig = null;
+        selectedGroupType: IGroupTypeConfig = null;
         about_us: string = null;
         website: string = null;
         population: string = null;
@@ -598,7 +598,7 @@
         employee: string = null;
         location: string = null;
         institution: string = null;
-        department: string = null;
+        departments: string = null;
         /* End group types */
 
         avatarUrl: string = '';
@@ -611,9 +611,9 @@
         @Validations()
         groupTypesFieldsValidations() {
             const validations = {};
-            if (this.selectedCommunityType) {
+            if (this.selectedGroupType) {
                 this.groupTypesFields.forEach(input => {
-                    if (this.selectedCommunityType['fields'].includes(input.key)) {
+                    if (this.selectedGroupType['fields'].includes(input.key)) {
                         validations[input.key] = input.validations;             
                     }
                 });
@@ -718,6 +718,16 @@
                 color: Color(this.colorString),
                 invitesEnabled: this.invitesEnabled
             };
+
+            if (this.selectedGroupType) {
+                communityDetails.group_type = this.selectedGroupType.key;
+                
+                for(const groupTypeField of GROUP_TYPES_FIELDS) {
+                    if (this[groupTypeField.key]) {
+                        communityDetails[groupTypeField.key] = this[groupTypeField.key];
+                    }
+                }
+            }
 
             if (this.categories.length) { // probably a redundant check
                 communityDetails.categories = this.categories.map(c => c.name);
