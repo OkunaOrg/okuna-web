@@ -1,10 +1,30 @@
 import { maxLength } from 'vuelidate/lib/validators';
 
 
-export const inputTypesConfiguration = [
+export interface IGroupTypeConfig {
+    key: string | null,
+    fields: Array<string>
+}
+
+export interface IGroupTypeField {
+    key: string,
+    type: 'input-text' | 'textarea',
+    validations?: any,
+    validationParameters?: any 
+}
+
+export const GROUP_TYPES: IGroupTypeConfig[] = [
+    { key: null, fields: [] },
+    { key: 'city', fields: ['about_us', 'website', 'population', 'area', 'energy_demand'] },
+    { key: 'company', fields: ['about_us', 'website', 'industry', 'employee', 'location'] },
+    { key: 'university', fields: ['about_us', 'website', 'institution', 'department'] },
+    { key: 'institution', fields: ['about_us', 'website'] }
+]
+
+export const GROUP_TYPES_FIELDS: IGroupTypeField[] = [
     {
         key: 'about_us',
-        inputType: 'textarea',
+        type: 'textarea',
         validations: {
             maxLength : maxLength(500)
         },
@@ -14,7 +34,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'website',
-        inputType: 'input',
+        type: 'input-text',
         validations: {
             maxLength : maxLength(200)
         },
@@ -24,7 +44,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'population',
-        inputType: 'input',
+        type: 'input-text',
         validations: {
             maxLength : maxLength(100)
         },
@@ -34,7 +54,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'area',
-        inputType: 'input',
+        type: 'input-text',
         validations: {
             maxLength : maxLength(100)
         },
@@ -44,7 +64,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'energy_demand',
-        inputType: 'textarea',
+        type: 'textarea',
         validations: {
             maxLength : maxLength(500)
         },
@@ -54,7 +74,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'industry',
-        inputType: 'input',
+        type: 'input-text',
         validations: {
             maxLength : maxLength(100)
         },
@@ -64,7 +84,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'employee',
-        inputType: 'input',
+        type: 'input-text',
         validations: {
             maxLength : maxLength(100)
         },
@@ -74,7 +94,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'location',
-        inputType: 'input',
+        type: 'input-text',
         validations: {
             maxLength : maxLength(100)
         },
@@ -84,7 +104,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'institution',
-        inputType: 'input',
+        type: 'input-text',
         validations: {
             maxLength : maxLength(100)
         },
@@ -94,7 +114,7 @@ export const inputTypesConfiguration = [
     },
     {
         key: 'department',
-        inputType: 'textarea',
+        type: 'textarea',
         validations: {
             maxLength : maxLength(500)
         },

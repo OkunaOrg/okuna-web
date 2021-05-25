@@ -197,46 +197,48 @@
                     </template>
                 </ok-tile>
                 
-                <template v-for="(input) in inputTypesConfiguration">
-                    <ok-tile alignmentClass="align-items-start" v-if="selectedCommunityType && selectedCommunityType.requiredInputs.includes(input.key)" :key="input.key">
-                        <template v-slot:content>
-                            <div class="field">
-                                <label :for="input.key" class="label has-text-left ok-has-text-primary-invert-80">
-                                    <ok-community-categories-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-categories-icon>
-                                    {{ $t(`forms.create_community.details.${input.key}.label`) }}
-                                </label>
+                <template v-for="(input) in groupTypesFields">
+                    <transition name="fade" :key="`${input.key}-transition`">
+                        <ok-tile alignmentClass="align-items-start" v-if="selectedCommunityType && selectedCommunityType.fields.includes(input.key)" :key="input.key">
+                            <template v-slot:content>
+                                <div class="field">
+                                    <label :for="input.key" class="label has-text-left ok-has-text-primary-invert-80">
+                                        <ok-community-categories-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-categories-icon>
+                                        {{ $t(`forms.create_community.details.${input.key}.label`) }}
+                                    </label>
 
-                                <div class="control">
-                                    <input 
-                                        type="text"
-                                        v-if="input.inputType === 'input'"
-                                        :placeholder="$t(`forms.create_community.details.${input.key}.label`)"
-                                        class="input ok-input is-rounded"
-                                        :id="input.key"
-                                        :value="$v[input.key].$model"
-                                        @input="changeModelValidation(input.key, $event.target.value)"
-                                    />
-                                    <textarea
-                                        v-if="input.inputType === 'textarea'"
-                                        :placeholder="$t(`forms.create_community.details.${input.key}.label`)"
-                                        class="input ok-input is-rounded ok-community-details-settings-textarea"
-                                        :id="input.key"
-                                        :value="$v[input.key].$model"
-                                        @input="changeModelValidation(input.key, $event.target.value)"
-                                    />
+                                    <div class="control">
+                                        <input 
+                                            type="text"
+                                            v-if="input.type === 'input-text'"
+                                            :placeholder="$t(`forms.create_community.details.${input.key}.label`)"
+                                            class="input ok-input is-rounded"
+                                            :id="input.key"
+                                            :value="$v[input.key].$model"
+                                            @input="changeModelValidation(input.key, $event.target.value)"
+                                        />
+                                        <textarea
+                                            v-if="input.type === 'textarea'"
+                                            :placeholder="$t(`forms.create_community.details.${input.key}.label`)"
+                                            class="input ok-input is-rounded ok-community-details-settings-textarea"
+                                            :id="input.key"
+                                            :value="$v[input.key].$model"
+                                            @input="changeModelValidation(input.key, $event.target.value)"
+                                        />
+                                    </div>
+                                    <div v-if="$v[input.key].$invalid && formWasSubmitted" class="has-padding-top-5 has-text-left">
+                                        <p class="help is-danger" v-if="!$v[input.key].maxLength">
+                                            {{
+                                                $t(`global.errors.community_${input.key}.max_length`, {
+                                                    max: input.validationParameters.maxLength
+                                                })
+                                            }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div v-if="$v[input.key].$invalid && formWasSubmitted" class="has-padding-top-5 has-text-left">
-                                    <p class="help is-danger" v-if="!$v[input.key].maxLength">
-                                        {{
-                                            $t(`global.errors.community_${input.key}.max_length`, {
-                                                max: input.validationParameters.maxLength
-                                            })
-                                        }}
-                                    </p>
-                                </div>
-                            </div>
-                        </template>
-                    </ok-tile>
+                            </template>
+                        </ok-tile>
+                    </transition>
                 </template>
 
                 
@@ -473,7 +475,7 @@
     import { communityDescriptionMaxLength, communityDescriptionValidators } from '~/validators/community-description';
     import { communityRulesMaxLength, communityRulesValidators } from '~/validators/community-rules';
     import { communityUserAdjectiveMaxLength, communityUserAdjectiveValidators } from '~/validators/community-user-adjective';
-    import { inputTypesConfiguration } from '~/components/forms/settings/CommunityInputTypesConfiguration'
+    import { IGroupTypeConfig, GROUP_TYPES, GROUP_TYPES_FIELDS } from '~/config/groups';
 
     import OkTile from '~/components/tiles/OkTile.vue';
     import OkImageCover from '~/components/covers/image-cover/OkImageCover.vue';
@@ -575,16 +577,21 @@
         categories: ICategory[] = [];
         invitesEnabled: boolean = false;
 
-        about_us: string = '';
-        website: string = '';
-        population: string = '';
-        area: string = '';
-        energy_demand: string = '';
-        industry: string = '';
-        employee: string = '';
-        location: string = '';
-        institution: string = '';
-        department: string = '';
+        /* Group types */
+        groupTypes = GROUP_TYPES;
+        groupTypesFields = GROUP_TYPES_FIELDS;
+        selectedCommunityType: IGroupTypeConfig = this.groupTypes[0];
+        about_us: string;
+        website: string;
+        population: string;
+        area: string;
+        energy_demand: string;
+        industry: string;
+        employee: string;
+        location: string;
+        institution: string;
+        department: string;
+        /* End group types */
 
         avatarUrl: string = '';
         coverUrl: string = '';
@@ -592,21 +599,13 @@
         avatarBlob?: Blob | null;
         coverBlob?: Blob | null;
         
-        groupTypes: any[] = [
-            {id: 0, key: 'no_type', requiredInputs: [] },
-            {id: 1, key: 'city', requiredInputs: ['about_us', 'website', 'population', 'area', 'energy_demand'] },
-            {id: 2, key: 'company', requiredInputs: ['about_us', 'website', 'industry', 'employee', 'location']},
-            {id: 3, key: 'university', requiredInputs: ['about_us', 'website', 'institution', 'department']},
-            {id: 4, key: 'institution', requiredInputs: ['about_us', 'website']}
-        ];
-        selectedCommunityType: any[] = this.groupTypes[0];
 
         @Validations()
         groupTypesFieldsValidations() {
             const validations = {};
 
-            this.inputTypesConfiguration.forEach(input => {
-                if (this.selectedCommunityType['requiredInputs'].includes(input.key)) {
+            this.groupTypesFields.forEach(input => {
+                if (this.selectedCommunityType['fields'].includes(input.key)) {
                     validations[input.key] = input.validations                   
                 }   
             });
@@ -682,10 +681,6 @@
             const b = Math.floor(Math.random() * 0xFF);
 
             return Color.rgb(r, g, b).hex();
-        }
-
-        get inputTypesConfiguration() {
-            return inputTypesConfiguration;
         }
 
         get letterAvatarLetter(): string {
