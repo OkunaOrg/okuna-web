@@ -149,12 +149,6 @@ export default {
             "title_reply": "Reply to comment",
         },
         "create_community": {
-            "community_type": {
-                "city": "City",
-                "company": "Company",
-                "university": "University",
-                "institution": "Institution"
-            },
             "details": {
                 "about_us": {
                     "label": "About us"
@@ -580,6 +574,12 @@ export default {
             "rotate_90deg_right": "Rotate 90° clockwise",
             "zoom_in": "Zoom In",
             "zoom_out": "Zoom Out"
+        },
+        "group_types": {
+            "C": "City",
+            "Q": "Company",
+            "U": "University",
+            "I": "Institution"
         },
         "models": {
             "post": "post",
