@@ -1,16 +1,16 @@
 <template>
-    <div>
-        <button v-if="canBanOrUnban"
-                @click.prevent="openCommunityMenu"
-                class="button is-rounded ok-has-background-primary-highlight is-borderless has-text-white has-text-weight-bold">
-            Manage
-        </button>
-        <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold" @click="openPostModal">
+    <div class="columns column is-vcentered">
+        <button v-if="canCreatePost" class="button is-rounded has-text-weight-bold is-borderless" :style="buttonCssStyle" @click="openPostModal">
             Post
         </button>
-        <div v-else class="columns is-vcentered is-mobile">
+        <button v-if="canBanOrUnban"
+                @click.prevent="openCommunityMenu"
+                class="button is-rounded ok-has-background-primary-highlight ok-has-text-primary-invert is-borderless has-text-white has-text-weight-bold">
+            Manage
+        </button>
+        <div v-else class="columns column is-vcentered is-mobile">
             <div class="column is-narrow">
-                <ok-join-community-button :community="community"></ok-join-community-button>
+                <ok-join-community-button @toggleFinished="togglePostButton" :community="community"></ok-join-community-button>
             </div>
             <div
                 class="column is-narrow is-flex justify-center align-items-center has-cursor-pointer"
@@ -35,13 +35,16 @@
     import { okunaContainer } from "~/services/inversify";
     import OkJoinCommunityButton from "~/components/buttons/OkJoinCommunityButton.vue";
     import { IPostUploaderService } from "~/services/post-uploader/IPostSubmitterService";
+    import { ITheme } from "~/models/common/theme/ITheme";
+    import { IThemeService } from "~/services/theme/IThemeService";
 
     @Component({
         name: "OkCommunityProfileActionButtons",
         components: {OkJoinCommunityButton},
         subscriptions: function () {
             return {
-                loggedInUser: this["userService"].loggedInUser
+                loggedInUser: this["userService"].loggedInUser,
+                activeTheme: this["themeService"].activeTheme
             }
         }
     })
@@ -52,11 +55,14 @@
         }) readonly community: ICommunity;
 
         canBanOrUnban = false;
+        canCreatePost = false;
 
         $observables!: {
-            loggedInUser: BehaviorSubject<IUser | undefined>
+            loggedInUser: BehaviorSubject<IUser | undefined>,
+            activeTheme: BehaviorSubject<ITheme | undefined>
         };
 
+        private themeService: IThemeService = okunaContainer.get<IThemeService>(TYPES.ThemeService);
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
         private postUploaderService: IPostUploaderService = okunaContainer.get<IPostUploaderService>(TYPES.PostUploaderService);
@@ -69,8 +75,35 @@
             return this.community.colorInvert.hex();
         }
 
+        get buttonCssStyle() {
+            let style = {
+                color: "black",
+                'margin-right': "10px"
+            };
+
+            if (!this.community) return style;
+
+            const activeTheme = this.$observables.activeTheme.value;
+            const themeColorIsCommunityColor = this.community.color.hex() === activeTheme.primaryColor.hex();
+
+            style["background-image"] = "none";
+            style["backgroundColor"] = themeColorIsCommunityColor ? activeTheme.primaryHighlightColor.hsl().string() : this.community.color.hex();
+            style["color"] = themeColorIsCommunityColor ? activeTheme.primaryInvertColor.hex() : this.community.colorInvert.hex();
+
+            return style;
+        }
+
         private onLoggedInUserChanged(loggedInUser: IUser) {
             this.canBanOrUnban = loggedInUser.canBanOrUnbanUsersInCommunity(this.community);
+            this.canCreatePost = this.loadCanCreatePost();
+        }
+
+        private loadCanCreatePost(): boolean {
+            return this.community.isMember(this.$observables.loggedInUser.value);
+        }
+
+        togglePostButton() {
+            this.canCreatePost = this.loadCanCreatePost();
         }
 
         async openPostModal() {

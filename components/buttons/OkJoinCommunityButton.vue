@@ -133,6 +133,7 @@
 
         private refreshIsMemberOfCommunity() {
             this.isMemberOfCommunity = this.community.isMember(this.$observables.loggedInUser.value);
+            this.$emit('toggleFinished');
         }
 
     }
