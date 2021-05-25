@@ -1,4 +1,4 @@
-import { maxLength } from 'vuelidate/lib/validators';
+import { maxLength, url } from 'vuelidate/lib/validators';
 
 
 export interface IGroupTypeConfig {
@@ -8,7 +8,7 @@ export interface IGroupTypeConfig {
 
 export interface IGroupTypeField {
     key: string,
-    type: 'input-text' | 'textarea',
+    type: 'input-text' | 'input-url' | 'textarea',
     validations?: any,
     validationParameters?: any 
 }
@@ -25,100 +25,71 @@ export const GROUP_TYPES_FIELDS: IGroupTypeField[] = [
         key: 'about_us',
         type: 'textarea',
         validations: {
-            maxLength : maxLength(500)
-        },
-        validationParameters: {
-            maxLength: 500
+            maxLength: maxLength(500)
         }
     },
     {
         key: 'website',
         type: 'input-text',
         validations: {
-            maxLength : maxLength(200)
-        },
-        validationParameters: {
-            maxLength: 200
+            url,
+            maxLength: maxLength(200)
         }
     },
     {
         key: 'population',
         type: 'input-text',
         validations: {
-            maxLength : maxLength(100)
-        },
-        validationParameters: {
-            maxLength: 100
+            maxLength: maxLength(100)
         }
     },
     {
         key: 'area',
         type: 'input-text',
         validations: {
-            maxLength : maxLength(100)
-        },
-        validationParameters: {
-            maxLength: 100
+            maxLength: maxLength(100)
         }
     },
     {
         key: 'energy_demand',
-        type: 'textarea',
+        type: 'input-text',
         validations: {
-            maxLength : maxLength(500)
-        },
-        validationParameters: {
-            maxLength: 500
+            maxLength: maxLength(500)
         }
     },
     {
         key: 'industry',
         type: 'input-text',
         validations: {
-            maxLength : maxLength(100)
-        },
-        validationParameters: {
-            maxLength: 100
+            maxLength: maxLength(100)
         }
     },
     {
         key: 'employee',
         type: 'input-text',
         validations: {
-            maxLength : maxLength(100)
-        },
-        validationParameters: {
-            maxLength: 100
+            maxLength: maxLength(100)
         }
     },
     {
         key: 'location',
         type: 'input-text',
         validations: {
-            maxLength : maxLength(100)
-        },
-        validationParameters: {
-            maxLength: 100
+            maxLength: maxLength(100)
         }
     },
     {
         key: 'institution',
         type: 'input-text',
         validations: {
-            maxLength : maxLength(100)
-        },
-        validationParameters: {
-            maxLength: 100
+            maxLength: maxLength(100)
         }
     },
     {
         key: 'department',
         type: 'textarea',
         validations: {
-            maxLength : maxLength(500)
-        },
-        validationParameters: {
-            maxLength: 500
+            maxLength: maxLength(500)
         }
     },
 ];

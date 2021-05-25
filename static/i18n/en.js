@@ -434,7 +434,10 @@ export default {
                 "tooManyRequests": "😥 Too many requests. Please wait a couple minutes until trying again",
                 "invalidRequest": '🤔 The request was invalid.',
                 "notFound": "👀 Not found",
-                "unhandled": "😭 Unhandled error"
+                "unhandled": "😭 Unhandled error",
+            },
+            "validations": {
+                "invalid_url": "The URL is invalid"
             },
             "captcha": {
                 "required": "You must pass the captcha"

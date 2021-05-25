@@ -230,11 +230,16 @@
                                         />
                                     </div>
                                     <div v-if="$v[input.key].$invalid && formWasSubmitted" class="has-padding-top-5 has-text-left">
-                                        <p class="help is-danger" v-if="!$v[input.key].maxLength">
+                                        <p class="help is-danger" v-if="input.validations.maxLength && !$v[input.key].maxLength">
                                             {{
                                                 $t(`global.errors.community_${input.key}.max_length`, {
-                                                    max: input.validationParameters.maxLength
+                                                    max: $v[input.key].$params.maxLength.max
                                                 })
+                                            }}
+                                        </p>
+                                        <p class="help is-danger" v-if="input.validations.url && !$v[input.key].url">
+                                            {{
+                                                $t(`global.errors.validations.invalid_url`)
                                             }}
                                         </p>
                                     </div>
@@ -584,16 +589,16 @@
         groupTypes = GROUP_TYPES;
         groupTypesFields = GROUP_TYPES_FIELDS;
         selectedCommunityType: IGroupTypeConfig = null;
-        about_us: string;
-        website: string;
-        population: string;
-        area: string;
-        energy_demand: string;
-        industry: string;
-        employee: string;
-        location: string;
-        institution: string;
-        department: string;
+        about_us: string = null;
+        website: string = null;
+        population: string = null;
+        area: string = null;
+        energy_demand: string = null;
+        industry: string = null;
+        employee: string = null;
+        location: string = null;
+        institution: string = null;
+        department: string = null;
         /* End group types */
 
         avatarUrl: string = '';
@@ -606,11 +611,10 @@
         @Validations()
         groupTypesFieldsValidations() {
             const validations = {};
-            
             if (this.selectedCommunityType) {
                 this.groupTypesFields.forEach(input => {
                     if (this.selectedCommunityType['fields'].includes(input.key)) {
-                        validations[input.key] = input.validations                   
+                        validations[input.key] = input.validations;             
                     }
                 });
             }
