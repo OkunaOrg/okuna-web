@@ -776,7 +776,7 @@
         }
 
         handleRemoveCategory(category: ICategory) {
-            if (this.categories.length === 1) {
+            if (this.categories.length === 0) {
                 return;
             }
 
