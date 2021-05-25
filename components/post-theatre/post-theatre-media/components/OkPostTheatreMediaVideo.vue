@@ -59,7 +59,6 @@
                 language: "en",
                 loop: true,
                 autoplay: true,
-                fluid: true,
                 sources: [{
                     type: "video/mp4",
                     src: postVideoMp4Format.file
