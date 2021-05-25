@@ -14,10 +14,10 @@ export interface IGroupTypeField {
 }
 
 export const GROUP_TYPES: IGroupTypeConfig[] = [
-    { key: 'city', fields: ['about_us', 'website', 'population', 'area', 'energy_demand'] },
-    { key: 'company', fields: ['about_us', 'website', 'industry', 'employee', 'location'] },
-    { key: 'university', fields: ['about_us', 'website', 'institution', 'department'] },
-    { key: 'institution', fields: ['about_us', 'website'] }
+    { key: 'C', fields: ['about_us', 'website', 'population', 'area', 'energy_demand'] },
+    { key: 'Q', fields: ['about_us', 'website', 'industry', 'employee', 'location'] },
+    { key: 'U', fields: ['about_us', 'website', 'institution', 'department'] },
+    { key: 'I', fields: ['about_us', 'website'] }
 ]
 
 export const GROUP_TYPES_FIELDS: IGroupTypeField[] = [
@@ -25,7 +25,7 @@ export const GROUP_TYPES_FIELDS: IGroupTypeField[] = [
         key: 'about_us',
         type: 'textarea',
         validations: {
-            maxLength: maxLength(500)
+            maxLength: maxLength(2000)
         }
     },
     {
@@ -40,7 +40,7 @@ export const GROUP_TYPES_FIELDS: IGroupTypeField[] = [
         key: 'population',
         type: 'input-text',
         validations: {
-            maxLength: maxLength(100)
+            maxLength: maxLength(64)
         }
     },
     {
@@ -54,28 +54,28 @@ export const GROUP_TYPES_FIELDS: IGroupTypeField[] = [
         key: 'energy_demand',
         type: 'input-text',
         validations: {
-            maxLength: maxLength(500)
+            maxLength: maxLength(40)
         }
     },
     {
         key: 'industry',
         type: 'input-text',
         validations: {
-            maxLength: maxLength(100)
+            maxLength: maxLength(64)
         }
     },
     {
         key: 'employee',
         type: 'input-text',
         validations: {
-            maxLength: maxLength(100)
+            maxLength: maxLength(32)
         }
     },
     {
         key: 'location',
         type: 'input-text',
         validations: {
-            maxLength: maxLength(100)
+            maxLength: maxLength(64)
         }
     },
     {
@@ -89,7 +89,7 @@ export const GROUP_TYPES_FIELDS: IGroupTypeField[] = [
         key: 'department',
         type: 'textarea',
         validations: {
-            maxLength: maxLength(500)
+            maxLength: maxLength(2000)
         }
     },
 ];
