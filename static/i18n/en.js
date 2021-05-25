@@ -177,8 +177,8 @@ export default {
                 "institution": {
                     "label": "Institution"
                 },
-                "department": {
-                    "label": "Department"
+                "departments": {
+                    "label": "Departments"
                 },
             }
         },

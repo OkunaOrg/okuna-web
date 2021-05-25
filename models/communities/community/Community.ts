@@ -20,6 +20,7 @@ import {
 } from '~/models/common/serializers';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import Color from 'color';
+import { GROUP_TYPES_FIELDS } from '~/config/groups';
 
 export class Community extends DataModel<Community> implements ICommunity {
     creator?: IUser;
@@ -31,6 +32,19 @@ export class Community extends DataModel<Community> implements ICommunity {
     userAdjective?: string;
     usersAdjective?: string;
     description?: string;
+    /* Group types */
+    groupType?: string;
+    about_us?: string;
+    website?: string;
+    population?: string;
+    area?: string;
+    energy_demand?: string;
+    industry?: string;
+    employee?: string;
+    location?: string;
+    institution?: string;
+    departments?: string;
+    /* End group types */
     color?: Color;
     cover?: string;
     isInvited?: boolean;
@@ -163,7 +177,11 @@ export class Community extends DataModel<Community> implements ICommunity {
             deserializer: categoriesDeserializer,
             serializer: categoriesSerializer,
         },
-
+        {
+            dataKey: 'group_type',
+            attributeKey: 'groupType'
+        },
+        ...GROUP_TYPES_FIELDS.map(field => { return { dataKey: field.key, attributeKey: field.key } })
     ];
 
     constructor(data: ModelData) {

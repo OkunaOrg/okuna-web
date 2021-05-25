@@ -28,6 +28,14 @@
                 <ok-smart-text :text="community.description"></ok-smart-text>
             </div>
         </div>
+        <div v-for="field in filteredGroupTypesFields" :class="{'ok-has-border-bottom-primary-highlight': community[field.key]}" :key="field.key">
+            <p class="menu-label ok-has-text-primary-invert-80 has-padding-left-20 has-padding-right-20 has-padding-top-20 is-marginless">
+                {{ $t(`forms.create_community.details.${field.key}.label`) }}
+            </p>
+            <div class="content ok-has-text-primary-invert has-padding-top-10 has-padding-right-20 has-padding-left-20 has-padding-bottom-20">
+                <ok-smart-text :text="community[field.key]"></ok-smart-text>
+            </div>
+        </div>
         <div class="card-content ok-has-border-bottom-primary-highlight">
             <div class="columns is-mobile flex-direction-column is-variable is-3 is-marginless">
                 <div class="column">
@@ -57,6 +65,7 @@
         from '~/pages/home/pages/community/components/shared/OkCommunityProfileCategories.vue';
     import OkCommunityAvatar from '~/components/avatars/community-avatar/OkCommunityAvatar.vue';
     import OkJoinCommunityButton from '~/components/buttons/OkJoinCommunityButton.vue';
+    import { GROUP_TYPES, GROUP_TYPES_FIELDS } from '~/config/groups';
     import OkCommunityProfileActionButtons
         from '~/pages/home/pages/community/components/shared/OkCommunityProfileActionButtons.vue';
     import OkMobileCommunityProfileTitle
@@ -90,8 +99,20 @@
             type: Boolean,
             required: true
         }) readonly headerVisible: boolean;
+        
+        filteredGroupTypesFields = [];
 
-
+        created() {
+            if (this.community.groupType) {
+                console.log(this.community.groupType);
+                const groupTypeConfig = GROUP_TYPES.find(gT => gT.key === this.community.groupType);
+                if (groupTypeConfig) {
+                    this.filteredGroupTypesFields = GROUP_TYPES_FIELDS.filter(field => {
+                        return groupTypeConfig.fields.includes(field.key) && !!this.community[field.key];
+                    });
+                }
+            }
+        }
     }
 </script>
 

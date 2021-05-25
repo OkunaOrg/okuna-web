@@ -15,6 +15,19 @@ export interface ICommunity extends IDataModel<ICommunity> {
     userAdjective?: string;
     usersAdjective?: string;
     description?: string;
+    /* Group types */
+    groupType?: string,
+    about_us?: string,
+    website?: string,
+    population?: string,
+    area?: string,
+    energy_demand?: string,
+    industry?: string,
+    employee?: string,
+    location?: string,
+    institution?: string,
+    departments?: string,
+    /* End group types */
     color?: Color;
     cover?: string;
     isInvited?: boolean;

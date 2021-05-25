@@ -10,6 +10,19 @@ export interface CommunityData extends ModelData {
     rules?: string;
     avatar?: string;
     title?: string;
+    /* Group types */
+    group_type?: string,
+    about_us?: string,
+    website?: string,
+    population?: string,
+    area?: string,
+    energy_demand?: string,
+    industry?: string,
+    employee?: string,
+    location?: string,
+    institution?: string,
+    departments?: string,
+    /* End group types */
     user_adjective?: string;
     users_adjective?: string;
     description?: string;
