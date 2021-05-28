@@ -44,6 +44,7 @@ export interface ICommunity extends IDataModel<ICommunity> {
     pendingModeratedObjectsCount?: number;
     categories?: ICategory[];
     colorInvert?: Color;
+    closed: boolean;
 
     isMember(user: IUser): boolean;
 

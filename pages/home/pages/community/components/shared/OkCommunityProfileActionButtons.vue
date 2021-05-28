@@ -1,8 +1,10 @@
 <template>
     <div class="columns column is-vcentered">
-        <button v-if="canCreatePost" class="button is-rounded has-text-weight-bold is-borderless" :style="buttonCssStyle" @click="openPostModal">
-            Post
-        </button>
+        <b-tooltip :label="$t('manage_community.details.closed_community.description')" :active="!canCreatePost" type="is-dark">
+            <button v-if="isMember" class="button is-rounded has-text-weight-bold is-borderless" :disabled="!canCreatePost" :style="buttonCssStyle" @click="openPostModal">
+                Post
+            </button>
+        </b-tooltip>
         <button v-if="canBanOrUnban"
                 @click.prevent="openCommunityMenu"
                 class="button is-rounded ok-has-background-primary-highlight ok-has-text-primary-invert is-borderless has-text-white has-text-weight-bold">
@@ -55,6 +57,8 @@
         }) readonly community: ICommunity;
 
         canBanOrUnban = false;
+        isMember = false;
+        isAdministrator = false;
         canCreatePost = false;
 
         $observables!: {
@@ -95,15 +99,21 @@
 
         private onLoggedInUserChanged(loggedInUser: IUser) {
             this.canBanOrUnban = loggedInUser.canBanOrUnbanUsersInCommunity(this.community);
-            this.canCreatePost = this.loadCanCreatePost();
+            this.isMember = this.loadIsMember();
+            this.isAdministrator = this.loadIsAdministrator();
+            this.canCreatePost = this.community.closed ? this.isAdministrator : this.isMember;
         }
 
-        private loadCanCreatePost(): boolean {
+        private loadIsMember(): boolean {
             return this.community.isMember(this.$observables.loggedInUser.value);
         }
 
+        private loadIsAdministrator(): boolean {
+            return this.community.isAdministrator(this.$observables.loggedInUser.value);
+        }
+
         togglePostButton() {
-            this.canCreatePost = this.loadCanCreatePost();
+            this.isMember = this.loadIsMember();
         }
 
         async openPostModal() {

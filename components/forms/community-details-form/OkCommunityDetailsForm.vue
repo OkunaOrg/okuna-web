@@ -155,28 +155,29 @@
                     </template>
                 </ok-tile>
 
-                <ok-tile alignmentClass="align-items-start">
+                <ok-tile :onClick="handleCheck">
+                    <template v-slot:leading>
+                        <ok-community-type-icon class="ok-svg-icon-primary-invert"></ok-community-type-icon>
+                    </template>
+
                     <template v-slot:content>
+                        <label class="ok-has-text-primary-invert-80 label has-padding-top-10 is-marginless">
+                            {{ $t('manage_community.details.closed_community.label') }}
+                        </label>
+                        <div class="subtitle is-7 ok-has-text-primary-invert-80 has-padding-bottom-10">
+                            {{ $t('manage_community.details.closed_community.description') }}
+                        </div>
+                    </template>
+
+                    <template v-slot:trailing>
                         <div class="field">
-                            <label for="communityType" class="label has-text-left ok-has-text-primary-invert-80">
-                                <ok-community-type-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-community-type-icon>
-                                {{ $t('manage_community.details.type.label') }}
-                            </label>
-
-                            <div class="control">
-                                <select name="communityType" v-model="communityTypeString" class="input ok-input is-rounded" id="communityType">
-                                    <option :value="CommunityType.public.toString()">
-                                        {{ $t('manage_community.details.type.public') }}
-                                    </option>
-
-                                    <option :value="CommunityType.private.toString()">
-                                        {{ $t('manage_community.details.type.private') }}
-                                    </option>
-                                </select>
-                            </div>
+                            <b-switch style="pointer-events: none" :value="isClosedCommunity"
+                                    type="is-success">
+                            </b-switch>
                         </div>
                     </template>
                 </ok-tile>
+
 
                 <ok-tile alignmentClass="align-items-start">
                     <template v-slot:content>
@@ -606,6 +607,8 @@
 
         avatarBlob?: Blob | null;
         coverBlob?: Blob | null;
+
+        isClosedCommunity =  false;
         
 
         @Validations()
@@ -649,6 +652,7 @@
                             this.colorString = this.communityStub?.color.hex();
                             this.categories = this.communityStub.categories.map(name => this.allCategories.find(category => category.name === name));
                             this.invitesEnabled = this.communityStub.invitesEnabled;
+                            this.isClosedCommunity = this.communityStub.closed;
 
                             this.hasInitialDataLoaded = true;
                             return;
@@ -670,6 +674,7 @@
                         this.colorString = this.community.color.hex();
                         this.categories = this.community.categories.slice(0);
                         this.invitesEnabled = this.community.invitesEnabled;
+                        this.isClosedCommunity = this.community.closed;
 
                         if (this.community.avatar && !this.avatarBlob) {
                             this.avatarUrl = this.community.avatar;
@@ -716,7 +721,8 @@
                 usersAdjective: this.usersAdjective,
                 description: this.description,
                 color: Color(this.colorString),
-                invitesEnabled: this.invitesEnabled
+                invitesEnabled: this.invitesEnabled,
+                closed: this.isClosedCommunity
             };
 
             if (this.selectedGroupType) {
@@ -739,6 +745,10 @@
         changeModelValidation(name: string, value: any){       
             this.$v[name].$model = value
             this.$v[name].$touch();      
+        }
+
+        handleCheck() {
+            this.isClosedCommunity = !this.isClosedCommunity;
         }
 
         async handleFormSubmit(e: Event) {

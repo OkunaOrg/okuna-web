@@ -223,6 +223,7 @@ export interface CreateCommunityApiParams {
     usersAdjective?: string;
     color?: Color;
     invitesEnabled?: boolean;
+    closed: boolean;
 }
 
 export interface UpdateCommunityApiParams {
@@ -236,4 +237,5 @@ export interface UpdateCommunityApiParams {
     description?: string;
     color?: Color;
     invitesEnabled?: boolean;
+    closed: boolean;
 }

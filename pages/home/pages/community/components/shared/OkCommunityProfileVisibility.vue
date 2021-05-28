@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ok-public-community-icon class="ok-svg-icon-primary-invert-80" v-if="communityIsPublic"></ok-public-community-icon>
+        <ok-public-community-icon class="ok-svg-icon-primary-invert-80" v-if="!communityIsClosed"></ok-public-community-icon>
         <ok-private-community-icon class="ok-svg-icon-primary-invert-80" v-else></ok-private-community-icon>
         <span class="ok-has-text-primary-invert-80 is-size-6-touch">{{visibilityText}}</span>
     </div>
@@ -11,7 +11,6 @@
     import { Component, Prop, Vue } from "nuxt-property-decorator"
     import OkSmartText from "~/components/smart-text/OkSmartText.vue";
     import { ICommunity } from '~/models/communities/community/ICommunity';
-    import { CommunityType } from '~/models/communities/community/lib/CommunityType';
 
     @Component({
         name: "OkCommunityProfileVisibility",
@@ -24,15 +23,15 @@
             required: true
         }) readonly community: ICommunity;
 
-        get communityIsPublic() {
-            return this.community.type === CommunityType.public;
+        get communityIsClosed() {
+            return this.community.closed
         }
 
 
         get visibilityText() {
-            return this.communityIsPublic
-                ? this.$t("components.community_profile_visibility.public",) :
-                this.$t("components.community_profile_visibility.private", );
+            return this.communityIsClosed
+                ? this.$t("global.closed_comunity") :
+                this.$t("global.open_comunity");
         }
 
     }

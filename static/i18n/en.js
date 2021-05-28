@@ -391,6 +391,11 @@ export default {
                 "label": "Group type",
             },
 
+            "closed_community": {
+                "label": "Closed group",
+                "description": "Only administrators can publish on closed groups"
+            },
+
             "invites_enabled": {
                 "label": "Member invites",
                 "description": "Members can invite other people to the group"
@@ -722,5 +727,8 @@ export default {
             "you_shared_with": "You shared with",
             "post_shared_privately_in": "Post shared privately in",
         },
+        "closed_comunity": "Closed group",
+        "open_comunity": "Open group",
+
     },
 }

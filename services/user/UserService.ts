@@ -621,7 +621,8 @@ export class UserService implements IUserService {
             usersAdjective: params.usersAdjective,
             description: params.description,
             color: params.color,
-            invitesEnabled: params.invitesEnabled
+            invitesEnabled: params.invitesEnabled,
+            closed: params.closed
         });
 
         return communityFactory.make(response.data);
