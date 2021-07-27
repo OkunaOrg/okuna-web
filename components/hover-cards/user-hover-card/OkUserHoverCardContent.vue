@@ -13,7 +13,6 @@
                     <ok-image-avatar
                         :avatarUrl="user.profile.avatar"
                         :avatarSize="OkAvatarSize.extraMedium"
-                        class="ok-user-avatar"
                     ></ok-image-avatar>
                 </div>
                 <div class="column">
@@ -33,7 +32,7 @@
         </div>
         <div :class="{'ok-has-border-bottom-primary-highlight': user.profile.bio}">
             <div v-if="user.profile.bio" class="content ok-has-text-primary-invert has-padding-top-20 has-padding-right-20 has-padding-left-20 has-padding-bottom-20">
-                <ok-smart-text :text="user.profile.bio"></ok-smart-text>
+                <ok-smart-text :text="truncatedBio"></ok-smart-text>
             </div>
         </div>
         <div class="card-content">
@@ -74,7 +73,6 @@
     import { IUser } from '~/models/auth/user/IUser';
 
     import OkSmartText from '~/components/smart-text/OkSmartText.vue';
-    import OkUserAvatar from '~/components/avatars/user-avatar/OkUserAvatar.vue';
     import OkImageAvatar from '~/components/avatars/image-avatar/OkImageAvatar.vue';
     import OkImageCover from '~/components/covers/image-cover/OkImageCover.vue';
     import OkUserProfileName from '~/pages/home/pages/user/components/shared/OkUserProfileName.vue';
@@ -95,7 +93,6 @@
             OkUserProfileUsername,
             OkUserProfileName,
             OkSmartText,
-            OkUserAvatar,
             OkImageAvatar,
             OkImageCover
         }
@@ -106,6 +103,8 @@
             required: true
         }) readonly user: IUser;
 
+        static DESCRIPTION_TRUNCATE_LENGTH = 256;
+
         private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
 
         OkCoverSize = OkCoverSize;
@@ -113,6 +112,20 @@
 
         private humanFriendlyCount(x: number): string {
             return this.utilsService.makeHumanFriendlyLargeNumberDisplay(x);
+        }
+
+        get truncatedBio() {
+            const { bio } = this.user.profile;
+
+            if (!bio) {
+                return null;
+            }
+
+            if (bio.length < OkUserHoverCardContent.DESCRIPTION_TRUNCATE_LENGTH - 3) {
+                return bio;
+            }
+
+            return bio.slice(0, OkUserHoverCardContent.DESCRIPTION_TRUNCATE_LENGTH - 3) + '...';
         }
 
         get humanFriendlyFollowersCount() {

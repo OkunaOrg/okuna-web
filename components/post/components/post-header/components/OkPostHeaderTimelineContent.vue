@@ -11,13 +11,15 @@
         </div>
         <div class="media-content has-overflow-hidden">
             <div v-if="post.community">
-                <nuxt-link :to="postCommunityUrl" class="is-flex align-items-center has-padding-bottom-5">
-                    <ok-community-avatar :community="post.community"
-                                         :avatar-size="OkAvatarSize.extraSmall"></ok-community-avatar>
-                    <span class="title is-6 ok-has-text-primary-invert has-padding-left-5">
-                        c/{{post.community.name}}
-                    </span>
-                </nuxt-link>
+                <ok-community-hover-card :communityName="post.community.name">
+                    <nuxt-link :to="postCommunityUrl" class="is-flex align-items-center has-padding-bottom-5">
+                        <ok-community-avatar :community="post.community"
+                                            :avatar-size="OkAvatarSize.extraSmall"></ok-community-avatar>
+                        <span class="title is-6 ok-has-text-primary-invert has-padding-left-5">
+                            c/{{post.community.name}}
+                        </span>
+                    </nuxt-link>
+                </ok-community-hover-card>
                 <p class="subtitle is-7 ok-has-text-primary-invert-80">
                     <ok-user-hover-card :username="post.creator.username">
                         <nuxt-link :to="postCreatorUrl">
@@ -76,10 +78,11 @@
     import { OkAvatarSize } from "~/components/avatars/lib/OkAvatarSize";
     import OkCommunityAvatar from "~/components/avatars/community-avatar/OkCommunityAvatar.vue";
     import OkUserHoverCard from '~/components/hover-cards/user-hover-card/OkUserHoverCard.vue';
+    import OkCommunityHoverCard from '~/components/hover-cards/community-hover-card/OkCommunityHoverCard.vue';
 
     @Component({
         name: "OkPostHeaderTimelineContent",
-        components: {OkCommunityAvatar, OkUserAvatar, OkUserHoverCard},
+        components: {OkCommunityAvatar, OkUserAvatar, OkUserHoverCard, OkCommunityHoverCard},
     })
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;

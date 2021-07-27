@@ -1,11 +1,11 @@
 <template>
     <div>
-        <button v-if="canBanOrUnban"
+        <button v-if="canBanOrUnban && !isHoverCard"
                 @click.prevent="openCommunityMenu"
                 class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold">
             Manage
         </button>
-        <div v-else class="columns is-vcentered is-mobile">
+        <div v-else-if="!canBanOrUnban" class="columns is-vcentered is-mobile">
             <div class="column is-narrow">
                 <ok-join-community-button :community="community"></ok-join-community-button>
             </div>
@@ -13,6 +13,7 @@
                 class="column is-narrow is-flex justify-center align-items-center has-cursor-pointer"
                 role="button"
                 @click="openCommunityMenu"
+                v-if="!isHoverCard"
             >
                 <ok-more-vertical class="is-icon-2x ok-svg-icon-primary-invert"></ok-more-vertical>
             </div>
@@ -46,6 +47,12 @@
             type: Object,
             required: true
         }) readonly community: ICommunity;
+
+        @Prop({
+            type: Boolean,
+            required: false,
+            default: false
+        }) readonly isHoverCard: boolean;
 
         canBanOrUnban = false;
 
