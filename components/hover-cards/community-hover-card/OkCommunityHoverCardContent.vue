@@ -1,10 +1,12 @@
 <template>
     <div class="card ok-has-background-primary">
         <div class="ok-community-hover-card-cover-container" v-if="community.cover">
-            <ok-image-cover
-                :coverUrl="community.cover"
-                :coverSize="OkCoverSize.extraSmall"
-            ></ok-image-cover>
+            <nuxt-link :to="communityUrl">
+                <ok-image-cover
+                    :coverUrl="community.cover"
+                    :coverSize="OkCoverSize.extraSmall"
+                ></ok-image-cover>
+            </nuxt-link>
         </div>
 
         <div class="ok-community-hover-card-bar" :style="barCssStyle"></div>
@@ -12,20 +14,24 @@
         <div class="card-header ok-has-border-bottom-primary-highlight">
             <div class="columns align-items-center has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 has-width-100-percent is-marginless">
                 <div class="column is-narrow is-flex align-items-center">
-                    <ok-image-avatar
-                        :avatarUrl="community.avatar"
-                        :avatarSize="OkAvatarSize.extraMedium"
-                    ></ok-image-avatar>
+                    <nuxt-link :to="communityUrl">
+                        <ok-image-avatar
+                            :avatarUrl="community.avatar"
+                            :avatarSize="OkAvatarSize.extraMedium"
+                        ></ok-image-avatar>
+                    </nuxt-link>
                 </div>
                 <div class="column">
-                    <div class="columns is-gapless is-marginless flex-direction-column">
-                        <div class="column">
-                            <ok-mobile-community-profile-title :community="community"></ok-mobile-community-profile-title>
+                    <nuxt-link :to="communityUrl">
+                        <div class="columns is-gapless is-marginless flex-direction-column">
+                            <div class="column">
+                                <ok-mobile-community-profile-title :community="community"></ok-mobile-community-profile-title>
+                            </div>
+                            <div class="column">
+                                <ok-mobile-community-profile-name :community="community"></ok-mobile-community-profile-name>
+                            </div>
                         </div>
-                        <div class="column">
-                            <ok-mobile-community-profile-name :community="community"></ok-mobile-community-profile-name>
-                        </div>
-                    </div>
+                    </nuxt-link>
                 </div>
                 <div class="column is-narrow">
                     <ok-community-profile-action-buttons :community="community" :isHoverCard="true"></ok-community-profile-action-buttons>
@@ -160,6 +166,10 @@
             return {
                 'backgroundColor': themeColorIsCommunityColor ? activeTheme.primaryHighlightColor.hsl().string() : this.community.color.hex()
             };
+        }
+
+        get communityUrl() {
+            return `/c/${this.community.name}`;
         }
     }
 </script>

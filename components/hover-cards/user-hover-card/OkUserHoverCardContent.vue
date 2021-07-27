@@ -1,29 +1,35 @@
 <template>
     <div class="card ok-has-background-primary">
         <div class="ok-user-hover-card-cover-container" v-if="user.profile.cover">
-            <ok-image-cover
-                :coverUrl="user.profile.cover"
-                :coverSize="OkCoverSize.extraSmall"
-            ></ok-image-cover>
+            <nuxt-link :to="userProfileUrl">
+                <ok-image-cover
+                    :coverUrl="user.profile.cover"
+                    :coverSize="OkCoverSize.extraSmall"
+                ></ok-image-cover>
+            </nuxt-link>
         </div>
 
         <div class="card-header ok-has-border-bottom-primary-highlight">
             <div class="columns align-items-center has-padding-left-20 has-padding-right-20 has-padding-top-10 has-padding-bottom-10 has-width-100-percent is-marginless">
                 <div class="column is-narrow is-flex align-items-center">
-                    <ok-image-avatar
-                        :avatarUrl="user.profile.avatar"
-                        :avatarSize="OkAvatarSize.extraMedium"
-                    ></ok-image-avatar>
+                    <nuxt-link :to="userProfileUrl">
+                        <ok-image-avatar
+                            :avatarUrl="user.profile.avatar"
+                            :avatarSize="OkAvatarSize.extraMedium"
+                        ></ok-image-avatar>
+                    </nuxt-link>
                 </div>
                 <div class="column">
-                    <div class="columns is-gapless is-marginless flex-direction-column">
-                        <div class="column">
-                            <ok-user-profile-name :user="user"></ok-user-profile-name>
+                    <nuxt-link :to="userProfileUrl">
+                        <div class="columns is-gapless is-marginless flex-direction-column">
+                            <div class="column">
+                                <ok-user-profile-name :user="user"></ok-user-profile-name>
+                            </div>
+                            <div class="column">
+                                <ok-user-profile-username :user="user"></ok-user-profile-username>
+                            </div>
                         </div>
-                        <div class="column">
-                            <ok-user-profile-username :user="user"></ok-user-profile-username>
-                        </div>
-                    </div>
+                    </nuxt-link>
                 </div>
                 <div class="column is-narrow">
                     <ok-user-profile-action-buttons :user="user" :isProfileCard="true"></ok-user-profile-action-buttons>
@@ -138,6 +144,10 @@
 
         get humanFriendlyPostCount() {
             return this.humanFriendlyCount(this.user.postsCount);
+        }
+
+        get userProfileUrl() {
+            return `/${this.user.username}`;
         }
     }
 </script>
