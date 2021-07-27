@@ -6,6 +6,7 @@
             :delay="{ show: 500, hide: 250 }"
             :popperOptions="popperOptions"
             :style="{ display: 'inline-block' }"
+            v-if="environmentResolution === EnvironmentResolution.desktop"
         >
             <slot></slot>
 
@@ -17,6 +18,8 @@
                 <ok-post-skeleton v-else></ok-post-skeleton>
             </div>
         </v-popover>
+
+        <slot v-else></slot>
     </div>
 </template>
 
@@ -41,16 +44,33 @@
     import { okunaContainer } from '~/services/inversify';
     import { TYPES } from '~/services/inversify-types';
     import { IUserService } from '~/services/user/IUserService';
+    import { IEnvironmentService } from '~/services/environment/IEnvironmentService';
+
+    import { BehaviorSubject } from 'rxjs';
+    import { EnvironmentResolution } from '~/services/environment/lib/EnvironmentResolution';
 
     @Component({
         name: 'OkCommunityHoverCard',
-        components: { OkPostSkeleton, OkCommunityHoverCardContent }
+        components: { OkPostSkeleton, OkCommunityHoverCardContent },
+        subscriptions: function () {
+            return {
+                environmentResolution: this['environmentService'].environmentResolution
+            };
+        }
     })
     export default class OkCommunityHoverCard extends Vue {
         @Prop(String) private readonly communityName;
 
+        $observables: {
+            environmentResolution: BehaviorSubject<EnvironmentResolution | undefined>
+        };
+
         private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
+        private environmentService: IEnvironmentService = okunaContainer.get<IEnvironmentService>(TYPES.EnvironmentService);
+
         community: ICommunity | null = null;
+
+        EnvironmentResolution = EnvironmentResolution;
 
         mounted() {
             this.userService.getCommunity({
