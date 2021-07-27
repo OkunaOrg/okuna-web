@@ -192,7 +192,7 @@ export class UserService implements IUserService {
                 @inject(TYPES.StorageService)  storageService?: IStorageService,
                 @inject(TYPES.LoggingService)  loggingService?: ILoggingService
     ) {
-        this.tokenStorage = storageService!.getLocalForageStorage('userTokenStorage');
+        this.tokenStorage = storageService!.getStorage('userTokenStorage');
         this.logger = loggingService!.getLogger({
             name: 'UserService'
         });

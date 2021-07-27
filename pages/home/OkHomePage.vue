@@ -72,7 +72,7 @@
             this.logger = this.loggingService!.getLogger({
                 name: "OkHomePage"
             });
-            this.storage = this.storageService.getLocalForageStorage("okHomePage");
+            this.storage = this.storageService.getStorage("okHomePage");
             this.attemptToBootstrapLoggedInUser();
         }
 
@@ -110,6 +110,3 @@
         }
     }
 </script>
-
-
-

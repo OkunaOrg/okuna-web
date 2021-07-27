@@ -217,7 +217,7 @@ export class ThemeService implements IThemeService {
 
     constructor(@inject(TYPES.StorageService)  storageService?: IStorageService,
                 @inject(TYPES.LoggingService)  loggingService?: ILoggingService,) {
-        this.activeThemeStorage = storageService!.getLocalForageStorage('activeThemeStorage');
+        this.activeThemeStorage = storageService!.getStorage('activeThemeStorage');
         this.logger = loggingService!.getLogger({
             name: ' ThemeService'
         });

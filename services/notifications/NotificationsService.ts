@@ -37,7 +37,7 @@ export class NotificationsService implements INotificationsService {
         @inject(TYPES.LoggingService)  loggingService?: ILoggingService,
         @inject(TYPES.UserService) private userService?: IUserService,
     ) {
-        this.storage = storageService!.getLocalForageStorage('notificationsService');
+        this.storage = storageService!.getStorage('notificationsService');
         this.logger = loggingService.getLogger({
             name: 'NotificationsService'
         });

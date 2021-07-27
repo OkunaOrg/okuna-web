@@ -42,7 +42,7 @@ export class UserPreferencesService implements IUserPreferencesService {
         @inject(TYPES.StorageService)  storageService?: IStorageService,
         @inject(TYPES.LocalizationService) private localizationService?: ILocalizationService,
     ) {
-        this.storage = storageService!.getLocalForageStorage('userPreferencesService');
+        this.storage = storageService!.getStorage('userPreferencesService');
         // TODO Make a library out of this entire behavior of persisting Subjects
         this.bootstrapHashtagDisplaySetting();
         this.bootstrapPostCommentsSortSetting();

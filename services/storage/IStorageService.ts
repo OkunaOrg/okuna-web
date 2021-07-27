@@ -1,8 +1,9 @@
 import { IOkStorage } from '~/services/storage/lib/okuna-storage/IOkStorage';
 
-export interface IStorageService {
-    // @ts-ignore
-    setLocalForage(localForage: LocalForage): void;
+// @ts-ignore
+export type StorageContainer = LocalForage | Storage;
 
-    getLocalForageStorage<T>(namespace: string): IOkStorage<T>;
+export interface IStorageService {
+    setStorage(storage: StorageContainer): void;
+    getStorage<T>(namespace: string): IOkStorage<T>;
 }
