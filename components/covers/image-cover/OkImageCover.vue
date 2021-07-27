@@ -5,7 +5,13 @@
 </template>
 
 <style lang="scss">
+    .ok-image-cover-extra-small {
+        height: 115px;
 
+        @include for-size(desktop-up) {
+            height: 150px;
+        }
+    }
 
     .ok-image-cover-small {
         height: 140px;
@@ -13,7 +19,6 @@
         @include for-size(desktop-up) {
             height: 190px;
         }
-
     }
 
     .ok-image-cover-medium {
@@ -22,7 +27,6 @@
         @include for-size(desktop-up) {
             height: 240px;
         }
-
     }
 
     .ok-image-cover-large {
@@ -62,10 +66,12 @@
 
         get coverClass() {
             switch (this.coverSize) {
-                case OkCoverSize.medium:
-                    return "ok-image-cover-medium";
+                case OkCoverSize.extraSmall:
+                    return "ok-image-cover-extra-small";
                 case OkCoverSize.small:
                     return "ok-image-cover-small";
+                case OkCoverSize.medium:
+                    return "ok-image-cover-medium";
                 case OkCoverSize.large:
                     return "ok-image-cover-large";
 
