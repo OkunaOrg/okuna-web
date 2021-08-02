@@ -1,13 +1,13 @@
 <template>
     <div>
-        <button v-if="isLoggedInUser" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold" @click="openUserSettings">
+        <button v-if="isLoggedInUser && !isProfileCard" class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold" @click="openUserSettings">
             Manage
         </button>
-        <div v-else class="columns is-vcentered is-mobile">
+        <div v-else-if="!isLoggedInUser" class="columns is-vcentered is-mobile">
             <div class="column is-narrow">
                 <ok-follow-button :user="user"></ok-follow-button>
             </div>
-            <div class="column is-narrow is-flex justify-center align-items-center">
+            <div class="column is-narrow is-flex justify-center align-items-center" v-if="!isProfileCard">
                 <ok-more-user-actions-button :user="user"></ok-more-user-actions-button>
             </div>
         </div>
@@ -40,6 +40,12 @@
             type: Object,
             required: true
         }) readonly user: IUser;
+
+        @Prop({
+            type: Boolean,
+            required: false,
+            default: false
+        }) readonly isProfileCard: boolean;
 
         isLoggedInUser = false;
 
