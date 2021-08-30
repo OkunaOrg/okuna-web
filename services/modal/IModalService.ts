@@ -99,6 +99,8 @@ export interface IModalService {
 
     openCommunityInviteModal(params: CommunityInviteModalParams): Promise<void>;
 
+    openCirclesModal(params?: CirclesModalParams): Promise<void>;
+
     openConfirmationModal(params: ConfirmationModalParams): Promise<void>;
 
     // Methods for OkModals component
@@ -315,6 +317,10 @@ export interface CommunityInviteModalParams extends CommunitySettingsModalParams
 export interface CreateCommunityModalParams {
     images?: CommunityImages;
     communityStub?: CreateCommunityParams;
+}
+
+
+export interface CirclesModalParams {
 }
 
 

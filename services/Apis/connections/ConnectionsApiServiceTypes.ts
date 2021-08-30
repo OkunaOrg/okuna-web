@@ -1,3 +1,4 @@
+import Color from 'color';
 
 export interface ConnectWithUserApiParams {
     userUsername: string;
@@ -19,5 +20,25 @@ export interface UpdateConnectionWithUserApiParams {
 }
 
 export interface GetConnectionsCircleApiParams {
-    circleId: string;
+    circleId: number;
 }
+
+export interface CreateConnectionsCircleApiParams {
+    name: string;
+    color?: Color;
+};
+
+export interface UpdateConnectionsCircleApiParams {
+    circleId: number;
+    name?: string;
+    color?: Color;
+    usernames?: string[];
+};
+
+export interface DeleteConnectionsCircleApiParams {
+    circleId: number;
+};
+
+export interface CheckConnectionsCircleNameIsAvailableApiParams {
+    name: string;
+};

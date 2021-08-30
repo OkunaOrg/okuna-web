@@ -2,9 +2,12 @@ import { AxiosResponse } from '~/node_modules/axios';
 import { ConnectionData } from '~/types/models-data/connections/ConnectionData';
 import { CircleData } from '~/types/models-data/connections/CircleData';
 import {
+    CheckConnectionsCircleNameIsAvailableApiParams,
     ConfirmConnectionWithUserApiParams,
     ConnectWithUserApiParams,
-    DisconnectFromUserApiParams, GetConnectionsCircleApiParams, UpdateConnectionWithUserApiParams
+    CreateConnectionsCircleApiParams,
+    DeleteConnectionsCircleApiParams,
+    DisconnectFromUserApiParams, GetConnectionsCircleApiParams, UpdateConnectionsCircleApiParams, UpdateConnectionWithUserApiParams
 } from '~/services/Apis/connections/ConnectionsApiServiceTypes';
 
 export interface IConnectionsApiService {
@@ -20,4 +23,11 @@ export interface IConnectionsApiService {
 
     getConnectionsCircles(): Promise<AxiosResponse<CircleData[]>>;
 
+    createConnectionsCircle(params: CreateConnectionsCircleApiParams): Promise<AxiosResponse<CircleData>>;
+
+    updateConnectionsCircle(params: UpdateConnectionsCircleApiParams): Promise<AxiosResponse<CircleData>>;
+
+    deleteConnectionsCircle(params: DeleteConnectionsCircleApiParams): Promise<AxiosResponse<CircleData>>;
+
+    checkConnectionsCircleNameIsAvailable(params: CheckConnectionsCircleNameIsAvailableApiParams): Promise<AxiosResponse<any>>;
 }

@@ -38,6 +38,7 @@ export class ModalType {
     static communityReports = new ModalType('CommunityReports');
     static communityClosedPosts = new ModalType('CommunityClosedPosts');
     static communityInvite = new ModalType('CommunityInvite');
+    static circlesModal = new ModalType('CirclesModal');
     static postStudio = new ModalType('createPost');
 
     static confirmationModal = new ModalType('ConfirmationModal');
@@ -82,6 +83,7 @@ export class ModalType {
         ModalType.communityReports,
         ModalType.communityClosedPosts,
         ModalType.communityInvite,
+        ModalType.circlesModal,
 
         ModalType.confirmationModal,
     ];

@@ -132,6 +132,9 @@
         <b-modal :active.sync="communityAddBannedUserModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-community-add-banned-user-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-add-banned-user-modal>
         </b-modal>
+        <b-modal :active.sync="circlesModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-circles-modal :params="activeModalParams"></ok-circles-modal>
+        </b-modal>
         <b-modal :active.sync="confirmationModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-confirmation-modal :params="activeModalParams" v-if="activeModalParams"></ok-confirmation-modal>
         </b-modal>
@@ -207,6 +210,8 @@
     import OkCommunityBannedUsersSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityBannedUsersSettingsModal.vue';
     import OkCommunityAddBannedUserModal from '~/pages/home/components/modals/components/community-settings/OkCommunityAddBannedUserModal.vue';
 
+    import OkCirclesModal from '~/pages/home/components/modals/components/circles/OkCirclesModal.vue';
+
     import OkConfirmationModal from '~/pages/home/components/modals/components/OkConfirmationModal.vue';
 
     @Component({
@@ -244,6 +249,7 @@
             OkCommunityAddModeratorModal,
             OkCommunityBannedUsersSettingsModal,
             OkCommunityAddBannedUserModal,
+            OkCirclesModal,
             OkConfirmationModal,
         },
         subscriptions: function () {
@@ -295,6 +301,7 @@
         communityAddModeratorModalOpen: boolean = false;
         communityBansSettingsModalOpen: boolean = false;
         communityAddBannedUserModalOpen: boolean = false;
+        circlesModalOpen: boolean = false;
         confirmationModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
@@ -362,6 +369,7 @@
             this.communityAddModeratorModalOpen = activeModalValue === ModalType.communityAddModerator;
             this.communityBansSettingsModalOpen = activeModalValue === ModalType.communityBansSettings;
             this.communityAddBannedUserModalOpen = activeModalValue === ModalType.communityAddBannedUser;
+            this.circlesModalOpen = activeModalValue === ModalType.circlesModal;
             this.confirmationModalOpen = activeModalValue === ModalType.confirmationModal;
         }
     }

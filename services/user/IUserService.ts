@@ -102,7 +102,11 @@ import {
     DeleteCommunityParams,
     AddCommunityAdministratorParams,
     AddCommunityModeratorParams,
-    CreateCommunityParams
+    CreateCommunityParams,
+    CreateConnectionsCircleParams,
+    UpdateConnectionsCircleParams,
+    DeleteConnectionsCircleParams,
+    CheckConnectionsCircleNameIsAvailableParams,
 } from '~/services/user/UserServiceTypes';
 import { IPost } from '~/models/posts/post/IPost';
 import { ITopPost } from '~/models/posts/top-post/ITopPost';
@@ -418,6 +422,14 @@ export interface IUserService {
     getConnectionsCircle(params: GetConnectionsCircleParams): Promise<ICircle>;
 
     getConnectionsCircles(): Promise<ICircle[]>;
+
+    createConnectionsCircle(params: CreateConnectionsCircleParams): Promise<ICircle>;
+
+    updateConnectionsCircle(params: UpdateConnectionsCircleParams): Promise<ICircle>;
+
+    deleteConnectionsCircle(params: DeleteConnectionsCircleParams): Promise<ICircle>;
+
+    checkConnectionsCircleNameIsAvailable(params: CheckConnectionsCircleNameIsAvailableParams): Promise<boolean>;
 
     // CONNECTIONS END
 }

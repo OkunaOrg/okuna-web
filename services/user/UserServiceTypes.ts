@@ -16,6 +16,7 @@ import { ICategory } from '~/models/common/category/ICategory';
 import { IHashtag } from '~/models/common/hashtag/IHashtag';
 import { OkFile } from '~/services/media/IMediaService';
 import { GetFollowersApiParams, GetFollowingsApiParams, SearchFollowersApiParams, SearchFollowingsApiParams, UpdateUserApiParams } from '../Apis/auth/AuthApiServiceTypes';
+import { CheckConnectionsCircleNameIsAvailableApiParams, CreateConnectionsCircleApiParams, DeleteConnectionsCircleApiParams, UpdateConnectionsCircleApiParams } from '../Apis/connections/ConnectionsApiServiceTypes';
 
 // AUTH START
 
@@ -60,8 +61,16 @@ export interface UpdateConnectionWithUserParaUserParams {
 }
 
 export interface GetConnectionsCircleParams {
-    circleId: string;
+    circleId: number;
 }
+
+export interface CreateConnectionsCircleParams extends CreateConnectionsCircleApiParams {};
+
+export interface UpdateConnectionsCircleParams extends UpdateConnectionsCircleApiParams {};
+
+export interface DeleteConnectionsCircleParams extends DeleteConnectionsCircleApiParams {};
+
+export interface CheckConnectionsCircleNameIsAvailableParams extends CheckConnectionsCircleNameIsAvailableApiParams {};
 
 export interface SearchUsersParams {
     query: string;

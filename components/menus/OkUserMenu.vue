@@ -27,16 +27,17 @@
                 </nuxt-link>
             </li>
             <li>
-                <nuxt-link :to="'/'"
-                           class="is-disabled has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
-                            <span class="icon has-padding-right-10">
-                                 <ok-circles-icon
-                                         class="ok-svg-icon-primary-invert"></ok-circles-icon>
-                            </span>
+                <a href="javascript://"
+                    @click="onWantsToOpenCircles"
+                    class="has-no-hover-text-decoration ok-has-background-primary-highlight-hover">
+                        <span class="icon has-padding-right-10">
+                                <ok-circles-icon
+                                    class="ok-svg-icon-primary-invert"></ok-circles-icon>
+                        </span>
                     <span class="ok-has-text-primary-invert">
-                                {{$t('components.user_dropdown.circles')}}
-                            </span>
-                </nuxt-link>
+                        {{$t('components.user_dropdown.circles')}}
+                    </span>
+                </a>
             </li>
             <li>
                 <nuxt-link :to="'/'"
@@ -276,6 +277,11 @@
         async onWantsToOpenSettings() {
             this.$emit("leaveMenu");
             await this.modalService.openSettingsModal();
+        }
+
+        async onWantsToOpenCircles() {
+            this.$emit("leaveMenu");
+            await this.modalService.openCirclesModal();
         }
     }
 </script>
