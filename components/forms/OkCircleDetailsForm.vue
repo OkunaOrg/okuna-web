@@ -3,7 +3,7 @@
         <div class="box ok-has-background-primary-highlight is-paddingless">
             <div class="has-padding-20">
                 <h2 class="is-size-5 ok-has-text-primary-invert has-text-weight-bold">
-                    Create Circle
+                    {{ modalTitle }}
                 </h2>
             </div>
 
@@ -84,7 +84,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'nuxt-property-decorator';
+    import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
     import { Validate } from 'vuelidate-property-decorators';
     import { circleNameValidators } from '~/validators/circle-name';
@@ -94,37 +94,53 @@
 
     import Color from 'color';
 
-    import { IUserService } from '~/services/user/IUserService';
-    import { okunaContainer } from '~/services/inversify';
-    import { TYPES } from '~/services/inversify-types';
-    import { IModalService } from '~/services/modal/IModalService';
-    import { IUtilsService } from '~/services/utils/IUtilsService';
-
     import { CreateConnectionsCircleParams } from '~/services/user/UserServiceTypes';
+    import { ICircle } from '~/models/connections/circle/ICircle';
 
     @Component({
-        name: 'OkCreateCircleForm',
+        name: 'OkCircleDetailsForm',
         components: {
             OkTile,
             OkColorSelector
         }
     })
-    export default class OkCreateCircleForm extends Vue {
+    export default class OkCircleDetailsForm extends Vue {
         $refs!: {
             colorSelector: OkColorSelector
         };
 
+        @Prop({
+            type: Object,
+            required: true
+        }) readonly modalTitle: string;
+
+        @Prop({
+            type: Object,
+            required: false
+        }) readonly circle?: ICircle;
+
+        @Prop({
+            type: Boolean,
+            required: true
+        }) readonly requestInProgress: boolean;
+
         formWasSubmitted: boolean = false;
-        requestInProgress: boolean = false;
 
         @Validate(circleNameValidators)
         circleName: string = '';
 
         colorString: string = '';
 
-        private userService: IUserService = okunaContainer.get<IUserService>(TYPES.UserService);
-        private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
-        private utilsService: IUtilsService = okunaContainer.get<IUtilsService>(TYPES.UtilsService);
+        mounted() {
+            if (this.circle) {
+                this.circleName = this.circle.name;
+
+                if (this.circle.color) {
+                    this.colorString = this.circle.color.hex();
+                    this.$refs.colorSelector.set(this.colorString);
+                }
+            }
+        }
 
         handleColorChange(color: string) {
             this.colorString = color;
@@ -142,7 +158,7 @@
         }
 
         handleCancelClick(e: Event) {
-            this.modalService.openCirclesModal();
+            this.$emit('cancel');
         }
 
         async handleFormSubmit(e: Event) {
@@ -160,21 +176,9 @@
             }
 
             const connectionsCircleDetails = this.buildConnectionsCircleDetails();
+            this.$emit('submit', connectionsCircleDetails);
 
-            try {
-                this.requestInProgress = true;
-                await this.userService.createConnectionsCircle(connectionsCircleDetails);
-                this.modalService.openCirclesModal();
-            } catch (err) {
-                const handledError = this.utilsService.handleErrorWithToast(err);
-
-                if (handledError.isUnhandled) {
-                    throw handledError.error;
-                }
-            } finally {
-                this.formWasSubmitted = false;
-                this.requestInProgress = false;
-            }
+            this.formWasSubmitted = false;
         }
 
         _validateAll() {
