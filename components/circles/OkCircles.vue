@@ -4,7 +4,7 @@
             <div class="columns align-items-center has-padding-bottom-10">
                 <div class="column">
                     <h2 class="is-size-5 ok-has-text-primary-invert has-text-weight-bold">
-                        {{ $t('components.user_dropdown.circles') }}
+                        {{ $t('manage_circles.my_circles.title') }}
                     </h2>
                 </div>
 
@@ -12,7 +12,7 @@
                     <button
                         class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold has-padding-10 is-size-7"
                         @click.prevent="openCreateCircleModal"
-                    >Create</button>
+                    >{{ $t('manage_circles.my_circles.create') }}</button>
                 </div>
             </div>
 

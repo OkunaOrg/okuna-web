@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3 class="is-size-5 ok-has-text-primary-invert has-text-weight-bold">
-            Users
+            {{ $t('manage_circles.circle_details.users') }}
         </h3>
 
         <div v-if="users.length > 0">
@@ -16,7 +16,7 @@
                         >{{ actionButtonText }}</button>
 
                         <div v-else-if="!user.isFullyConnected">
-                            Pending
+                            {{ $t('manage_circles.circle_details.user_pending') }}
                         </div>
                     </template>
                 </ok-user-tile>
@@ -24,7 +24,7 @@
         </div>
 
         <div class="ok-has-text-primary-invert" v-else>
-            There are no users in this circle.
+            {{ $t('manage_circles.circle_details.no_users') }}
         </div>
     </div>
 </template>

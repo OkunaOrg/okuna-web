@@ -6,25 +6,25 @@
                     <button
                         class="button is-rounded ok-has-background-primary-highlight ok-has-text-primary-invert has-padding-10 is-size-7"
                         @click="handleCancelClick"
-                    >Back</button>
+                    >{{ $t('manage_circles.circle_details.back') }}</button>
                 </div>
 
                 <div class="column is-narrow" v-if="!isConnectionsCircle">
                     <button
                         class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold has-padding-10 is-size-7"
                         @click="handleEditClick"
-                    >Edit</button>
+                    >{{ $t('manage_circles.circle_details.edit') }}</button>
                 </div>
             </div>
 
             <div class="columns align-items-center">
                 <div class="column">
                     <h2 class="is-size-4 ok-has-text-primary-invert has-text-weight-bold">
-                        {{ isConnectionsCircle ? "Connections" : circle.name }}
+                        {{ circle.name }}
                     </h2>
 
                     <p class="ok-has-text-primary-invert" v-if="isConnectionsCircle">
-                        The circle all of your connections get added to.
+                        {{ $t('manage_circles.circle_details.connections_circle') }}
                     </p>
                 </div>
 
@@ -66,7 +66,8 @@
 
         @Prop({
             type: Boolean,
-            required: true
+            required: false,
+            default: false
         }) readonly isConnectionsCircle: boolean;
 
         circlePreviewSize = OkCirclePreviewSize.medium;

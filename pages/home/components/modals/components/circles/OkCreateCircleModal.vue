@@ -2,7 +2,7 @@
     <div class="is-flex justify-center align-items-center">
         <ok-circle-details-form
             class="ok-create-circle-modal"
-            modalTitle="Create Circle"
+            :modalTitle="$t('manage_circles.create_circle.title')"
             :requestInProgress="requestInProgress"
             @submit="handleSubmit"
             @cancel="handleCancelClick"

@@ -1,7 +1,7 @@
 <template>
     <ok-circle-details-form
         :circle="circle"
-        modalTitle="Edit Circle"
+        :modalTitle="$t('manage_circles.edit_circle.title')"
         :requestInProgress="requestInProgress"
         @submit="handleSubmit"
         @cancel="handleCancelClick"
@@ -11,7 +11,7 @@
                 :users="circle.users"
                 showActionButton
                 :isButtonDisabled="requestInProgress"
-                actionButtonText="Delete"
+                :actionButtonText="$t('manage_circles.edit_circle.user_delete')"
                 @actionButtonClicked="onWantsToRemoveUserFromCircle"
             ></ok-circle-users>
         </template>

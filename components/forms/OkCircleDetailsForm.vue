@@ -13,12 +13,12 @@
                         <div class="field">
                             <label for="circleName" class="label has-text-left ok-has-text-primary-invert-80">
                                 <ok-circle-name-icon class="ok-svg-icon-primary-invert has-margin-right-10"></ok-circle-name-icon>
-                                Name
+                                {{ $t('manage_circles.circle_details_form.name.label') }}
                             </label>
 
                             <div class="control">
                                 <input type="text"
-                                    placeholder="e.g. Friends, Family, Work"
+                                    :placeholder="$t('manage_circles.circle_details_form.name.placeholder')"
                                     class="input ok-input is-rounded"
                                     required
                                     id="circleName" v-model="circleName" />
@@ -26,11 +26,11 @@
 
                             <div v-if="$v.circleName.$invalid && formWasSubmitted" class="has-padding-top-5 has-text-left">
                                 <p class="help is-danger" v-if="!$v.circleName.required">
-                                    Name is required
+                                    {{ requiredError }}
                                 </p>
 
                                 <p class="help is-danger" v-if="!$v.circleName.maxLength">
-                                    Name cannot be more than 100 characters long
+                                    {{ maxLengthError }}
                                 </p>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
 
                     <template v-slot:content>
                         <div class="ok-has-text-primary-invert">
-                            Color
+                            {{ $t('manage_circles.circle_details_form.color.label') }}
                         </div>
                     </template>
 
@@ -91,7 +91,7 @@
     import { Component, Prop, Vue } from 'nuxt-property-decorator';
 
     import { Validate } from 'vuelidate-property-decorators';
-    import { circleNameValidators } from '~/validators/circle-name';
+    import { circleNameMaxLength, circleNameValidators } from '~/validators/circle-name';
 
     import OkTile from '~/components/tiles/OkTile.vue';
     import OkColorSelector from '~/components/input/OkColorSelector.vue';
@@ -192,6 +192,16 @@
         _validateAll() {
             this.$v.$touch();
             return !this.$v.$invalid;
+        }
+
+        get requiredError() {
+            return this.$t('global.errors.circle_name.required');
+        }
+
+        get maxLengthError() {
+            return this.$t('global.errors.circle_name.max_length', {
+                max: circleNameMaxLength
+            });
         }
     }
 </script>

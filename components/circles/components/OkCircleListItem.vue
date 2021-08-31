@@ -5,7 +5,7 @@
                 <button
                     class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold has-padding-10 is-size-7"
                     @click.prevent="onWantsToDeleteCircle"
-                >Delete</button>
+                >{{ $t('manage_circles.my_circles.delete') }}</button>
             </template>
         </ok-circle-tile>
     </article>
