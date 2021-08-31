@@ -103,6 +103,10 @@ export interface IModalService {
 
     openCreateCircleModal(params?: CreateCircleModalParams): Promise<void>;
 
+    openCircleDetailsModal(params: CircleDetailsModalParams): Promise<void>;
+
+    openEditCircleModal(params: EditCircleModalParams): Promise<void>;
+
     openConfirmationModal(params: ConfirmationModalParams): Promise<void>;
 
     // Methods for OkModals component
@@ -147,7 +151,9 @@ export type ModalParams =
     | CommunityClosedPostsModalParams
     | CommunityInviteModalParams
     | CirclesModalParams
-    | CreateCircleModalParams;
+    | CreateCircleModalParams
+    | CircleDetailsModalParams
+    | EditCircleModalParams;
 
 export interface HttpListModalParams<T> {
     refresher: OkHttpListRefresher<T>;
@@ -328,6 +334,15 @@ export interface CirclesModalParams {
 }
 
 export interface CreateCircleModalParams {
+}
+
+export interface CircleDetailsModalParams {
+    circle: ICircle;
+    isConnectionsCircle: boolean;
+}
+
+export interface EditCircleModalParams {
+    circle: ICircle;
 }
 
 

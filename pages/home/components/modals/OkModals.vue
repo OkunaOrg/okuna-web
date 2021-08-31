@@ -138,6 +138,9 @@
         <b-modal :active.sync="createCircleModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-create-circle-modal :params="activeModalParams"></ok-create-circle-modal>
         </b-modal>
+        <b-modal :active.sync="circleDetailsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-circle-details-modal :params="activeModalParams" v-if="activeModalParams"></ok-circle-details-modal>
+        </b-modal>
         <b-modal :active.sync="confirmationModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-confirmation-modal :params="activeModalParams" v-if="activeModalParams"></ok-confirmation-modal>
         </b-modal>
@@ -215,6 +218,7 @@
 
     import OkCirclesModal from '~/pages/home/components/modals/components/circles/OkCirclesModal.vue';
     import OkCreateCircleModal from '~/pages/home/components/modals/components/circles/OkCreateCircleModal.vue';
+    import OkCircleDetailsModal from '~/pages/home/components/modals/components/circles/OkCircleDetailsModal.vue';
 
     import OkConfirmationModal from '~/pages/home/components/modals/components/OkConfirmationModal.vue';
 
@@ -255,6 +259,7 @@
             OkCommunityAddBannedUserModal,
             OkCirclesModal,
             OkCreateCircleModal,
+            OkCircleDetailsModal,
             OkConfirmationModal,
         },
         subscriptions: function () {
@@ -308,6 +313,7 @@
         communityAddBannedUserModalOpen: boolean = false;
         circlesModalOpen: boolean = false;
         createCircleModalOpen: boolean = false;
+        circleDetailsModalOpen: boolean = false;
         confirmationModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
@@ -377,6 +383,7 @@
             this.communityAddBannedUserModalOpen = activeModalValue === ModalType.communityAddBannedUser;
             this.circlesModalOpen = activeModalValue === ModalType.circlesModal;
             this.createCircleModalOpen = activeModalValue === ModalType.createCircleModal;
+            this.circleDetailsModalOpen = activeModalValue === ModalType.circleDetailsModal;
             this.confirmationModalOpen = activeModalValue === ModalType.confirmationModal;
         }
     }

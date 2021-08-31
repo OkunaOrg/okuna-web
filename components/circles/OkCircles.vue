@@ -27,6 +27,7 @@
                     :circle="props.item"
                     :isConnectionsCircle="props.item === connectionsCircle"
                     :isButtonDisabled="isRequestActive"
+                    @circleClicked="handleCircleClick"
                     @deleteButtonClicked="confirmCircleDeletion"
                 />
             </ok-http-list>
@@ -93,6 +94,25 @@
 
         async circlesOnScrollLoader(circles: ICircle[]): Promise<ICircle[]> {
             return Promise.resolve(circles); // no-op
+        }
+
+        async handleCircleClick(targetCircle: ICircle, isConnectionsCircle: boolean) {
+            try {
+                this.isRequestActive = true;
+
+                const circle = await this.userService.getConnectionsCircle({ circleId: targetCircle.id });
+                this.modalService.openCircleDetailsModal({
+                    circle,
+                    isConnectionsCircle
+                });
+            } catch (err) {
+                this.isRequestActive = false;
+
+                const handledError = this.utilsService.handleErrorWithToast(err);
+                if (handledError.isUnhandled) {
+                    throw handledError.error;
+                }
+            }
         }
 
         onWantsToDeleteCircle(circle: ICircle) {
