@@ -140,18 +140,11 @@
                     </template>
 
                     <template v-slot:trailing>
-                        <div class="field">
-                            <div
-                                class="ok-color-preview"
-                                :style="{ background: colorString }"
-                            ></div>
-
-                            <input type="color"
-                                ref="colorInput"
-                                required
-                                class="ok-hidden-color-input"
-                                id="colorString" v-model="colorString">
-                        </div>
+                        <ok-color-selector
+                            ref="colorSelector"
+                            @change="handleColorChange"
+                            id="colorString"
+                        />
                     </template>
                 </ok-tile>
 
@@ -417,6 +410,7 @@
     import OkImageAvatar from '~/components/avatars/image-avatar/OkImageAvatar.vue';
     import OkLetterAvatar from '~/components/avatars/letter-avatar/OkLetterAvatar.vue';
     import OkCommunityCategoriesSelector from '~/components/forms/community-details-form/OkCommunityCategoriesSelector.vue';
+    import OkColorSelector from '~/components/input/OkColorSelector.vue';
 
     import { BehaviorSubject } from 'rxjs';
     import { IUser } from '~/models/auth/user/IUser';
@@ -440,7 +434,8 @@
             OkImageCover,
             OkImageAvatar,
             OkLetterAvatar,
-            OkCommunityCategoriesSelector
+            OkCommunityCategoriesSelector,
+            OkColorSelector
         },
         subscriptions: function () {
             return {
@@ -456,7 +451,7 @@
         $refs!: {
             avatarInput: HTMLInputElement,
             coverInput: HTMLInputElement,
-            colorInput: HTMLInputElement
+            colorSelector: OkColorSelector
         };
 
         @Prop({
@@ -542,6 +537,7 @@
                             this.usersAdjective = this.communityStub.usersAdjective;
                             this.description = this.communityStub.description;
                             this.colorString = this.communityStub?.color.hex();
+                            this.$refs.colorSelector.set(this.colorString);
                             this.categories = this.communityStub.categories.map(name => this.allCategories.find(category => category.name === name));
                             this.invitesEnabled = this.communityStub.invitesEnabled;
 
@@ -551,7 +547,6 @@
 
                         if (!this.community) {
                             this.hasInitialDataLoaded = true;
-                            this.colorString = this.generateRandomColor();
                             return;
                         }
 
@@ -563,6 +558,7 @@
                         this.usersAdjective = this.community.usersAdjective;
                         this.description = this.community.description;
                         this.colorString = this.community.color.hex();
+                        this.$refs.colorSelector.set(this.colorString);
                         this.categories = this.community.categories.slice(0);
                         this.invitesEnabled = this.community.invitesEnabled;
 
@@ -579,12 +575,8 @@
             }
         }
 
-        private generateRandomColor(): string {
-            const r = Math.floor(Math.random() * 0xFF);
-            const g = Math.floor(Math.random() * 0xFF);
-            const b = Math.floor(Math.random() * 0xFF);
-
-            return Color.rgb(r, g, b).hex();
+        handleColorChange(color: string) {
+            this.colorString = color;
         }
 
         get letterAvatarLetter(): string {
@@ -719,7 +711,7 @@
         }
 
         activateColorPicker() {
-            this.$refs.colorInput.click();
+            this.$refs.colorSelector.click();
         }
 
         removeAvatar() {

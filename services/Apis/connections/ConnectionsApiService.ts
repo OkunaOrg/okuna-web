@@ -108,7 +108,7 @@ export class ConnectionsApiService implements IConnectionsApiService {
             payload['color'] = color.hex();
         }
 
-        return this.httpService.post(ConnectionsApiService.CREATE_CIRCLE_PATH, payload, {
+        return this.httpService.put(ConnectionsApiService.CREATE_CIRCLE_PATH, payload, {
             appendAuthorizationToken: true,
             isApiRequest: true
         });

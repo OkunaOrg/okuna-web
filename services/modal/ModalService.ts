@@ -35,7 +35,8 @@ import {
     CommunityAddModeratorModalParams,
     CommunityAddBannedUserModalParams,
     CreateCommunityModalParams,
-    CirclesModalParams
+    CirclesModalParams,
+    CreateCircleModalParams
 } from '~/services/modal/IModalService';
 // From outside Vue instance
 import { BehaviorSubject } from '~/node_modules/rxjs';
@@ -286,6 +287,11 @@ export class ModalService implements IModalService {
     async openCirclesModal(params?: CirclesModalParams): Promise<void> {
         this.ensureHasNoActiveModal();
         return this.openModal(ModalType.circlesModal, params);
+    }
+
+    async openCreateCircleModal(params?: CreateCircleModalParams): Promise<void> {
+        this.ensureHasNoActiveModal();
+        return this.openModal(ModalType.createCircleModal, params);
     }
 
     async openConfirmationModal(params: ConfirmationModalParams): Promise<void> {

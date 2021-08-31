@@ -134,7 +134,7 @@
         }
 
         openCreateCircleModal() {
-            alert('Not implemented');
+            this.modalService.openCreateCircleModal();
         }
     }
 </script>
