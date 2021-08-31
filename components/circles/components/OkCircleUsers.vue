@@ -10,7 +10,7 @@
                     <template v-slot:trailing>
                         <button
                             v-if="showActionButton"
-                            @click="onActionButtonClicked"
+                            @click.prevent="() => onActionButtonClicked(user)"
                             :disabled="isButtonDisabled"
                             class="button is-rounded ok-has-background-accent has-text-white has-text-weight-bold has-padding-10 is-size-7"
                         >{{ actionButtonText }}</button>

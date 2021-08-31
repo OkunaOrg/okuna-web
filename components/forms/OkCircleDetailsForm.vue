@@ -79,6 +79,10 @@
                     </template>
                 </ok-tile>
             </form>
+
+            <div class="has-padding-20" v-if="hasTrailingSlot">
+                <slot name="trailing"></slot>
+            </div>
         </div>
     </div>
 </template>
@@ -110,7 +114,7 @@
         };
 
         @Prop({
-            type: Object,
+            type: String,
             required: true
         }) readonly modalTitle: string;
 
@@ -140,6 +144,10 @@
                     this.$refs.colorSelector.set(this.colorString);
                 }
             }
+        }
+
+        get hasTrailingSlot() {
+            return !!this.$slots.trailing;
         }
 
         handleColorChange(color: string) {
