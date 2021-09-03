@@ -383,6 +383,37 @@ export default {
             }
         }
     },
+    "manage_circles": {
+        "my_circles": {
+            "title": "My circles",
+            "create": "Create",
+            "delete": "Delete"
+        },
+        "circle_details_form": {
+            "name": {
+                "label": "Name",
+                "placeholder": "e.g. Friends, Family, Work"
+            },
+            "color": {
+                "label": "Color"
+            }
+        },
+        "create_circle": {
+            "title": "Create circle"
+        },
+        "circle_details": {
+            "back": "Back",
+            "edit": "Edit",
+            "users": "Users",
+            "no_users": "There are no users in this circle.",
+            "user_pending": "Pending",
+            "connections_circle": "The circle all of your connections get added to."
+        },
+        "edit_circle": {
+            "title": "Edit circle",
+            "user_delete": "Delete"
+        }
+    },
     "global": {
         "errors": {
             "generic": {
@@ -454,6 +485,10 @@ export default {
             "community_users_adjective": {
                 "max_length": "Users adjective can't be longer than {max} characters",
             },
+            "circle_name": {
+                "required": "The name of the circle cannot be empty",
+                "max_length": "The name can't be longer than {max} character"
+            }
         },
         "keywords": {
             "people": "People",

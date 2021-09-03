@@ -231,4 +231,8 @@ Vue.component('ok-community-user-adjective-icon', Account);
 
 Vue.component('ok-community-users-adjective-icon', AccountSupervisor);
 
+Vue.component('ok-circle-name-icon', TextShort);
+
+Vue.component('ok-circle-color-icon', Palette);
+
 Vue.component('ok-arrow-expand-icon', ArrowExpand);

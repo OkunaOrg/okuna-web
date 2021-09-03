@@ -93,7 +93,7 @@ import {
     SearchJoinedCommunitiesParams,
     CreatePostParams,
     AddMediaToPostParams,
-    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams, FavoriteCommunityParams, UnfavoriteCommunityParams, RemoveCommunityAdministratorParams, UpdateCommunityParams, UpdateCommunityAvatarParams, DeleteCommunityAvatarParams, UpdateCommunityCoverParams, DeleteCommunityCoverParams, RemoveCommunityModeratorParams, GetCommunityBannedUsersParams, SearchCommunityBannedUsersParams, BanCommunityUserParams, UnbanCommunityUserParams, DeleteCommunityParams, AddCommunityAdministratorParams, AddCommunityModeratorParams, CreateCommunityParams
+    PublishPostParams, GetPostStatusParams, CreateCommunityPostParams, PreviewLinkParams, UpdateUserParams, GetFollowersParams, GetFollowingsParams, SearchFollowersParams, SearchFollowingsParams, FavoriteCommunityParams, UnfavoriteCommunityParams, RemoveCommunityAdministratorParams, UpdateCommunityParams, UpdateCommunityAvatarParams, DeleteCommunityAvatarParams, UpdateCommunityCoverParams, DeleteCommunityCoverParams, RemoveCommunityModeratorParams, GetCommunityBannedUsersParams, SearchCommunityBannedUsersParams, BanCommunityUserParams, UnbanCommunityUserParams, DeleteCommunityParams, AddCommunityAdministratorParams, AddCommunityModeratorParams, CreateCommunityParams, CreateConnectionsCircleParams, UpdateConnectionsCircleParams, DeleteConnectionsCircleParams, CheckConnectionsCircleNameIsAvailableParams
 } from '~/services/user/UserServiceTypes';
 import { ICommunity } from '~/models/communities/community/ICommunity';
 import { ICommunitiesApiService } from '~/services/Apis/communities/ICommunitiesApiService';
@@ -437,6 +437,46 @@ export class UserService implements IUserService {
         const response: AxiosResponse<CircleData[]> = await this.connectionsApiService.getConnectionsCircles();
 
         return circleFactory.makeMultiple(response.data);
+    }
+
+    async createConnectionsCircle(params: CreateConnectionsCircleParams): Promise<ICircle> {
+        const response: AxiosResponse<CircleData> = await this.connectionsApiService.createConnectionsCircle({
+            name: params.name,
+            color: params.color
+        });
+
+        return circleFactory.make(response.data);
+    }
+
+    async updateConnectionsCircle(params: UpdateConnectionsCircleParams): Promise<ICircle> {
+        const response: AxiosResponse<CircleData> = await this.connectionsApiService.updateConnectionsCircle({
+            circleId: params.circleId,
+            name: params.name,
+            color: params.color
+        });
+
+        return circleFactory.make(response.data);
+    }
+
+    async deleteConnectionsCircle(params: DeleteConnectionsCircleParams): Promise<ICircle> {
+        const response: AxiosResponse<CircleData> = await this.connectionsApiService.deleteConnectionsCircle({
+            circleId: params.circleId
+        });
+
+        return circleFactory.make(response.data);
+    }
+
+    async checkConnectionsCircleNameIsAvailable(params: CheckConnectionsCircleNameIsAvailableParams): Promise<boolean> {
+        try {
+            await this.connectionsApiService.checkConnectionsCircleNameIsAvailable({
+                name: params.name
+            });
+
+            return true;
+        } catch (err) {
+            if (!err || (err.response && err.response.status === 400)) return false;
+            throw err;
+        }
     }
 
 

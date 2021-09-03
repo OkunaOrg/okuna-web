@@ -132,6 +132,18 @@
         <b-modal :active.sync="communityAddBannedUserModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-community-add-banned-user-modal :params="activeModalParams" v-if="activeModalParams"></ok-community-add-banned-user-modal>
         </b-modal>
+        <b-modal :active.sync="circlesModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-circles-modal :params="activeModalParams"></ok-circles-modal>
+        </b-modal>
+        <b-modal :active.sync="createCircleModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-create-circle-modal :params="activeModalParams"></ok-create-circle-modal>
+        </b-modal>
+        <b-modal :active.sync="circleDetailsModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-circle-details-modal :params="activeModalParams" v-if="activeModalParams"></ok-circle-details-modal>
+        </b-modal>
+        <b-modal :active.sync="editCircleModalOpen" :trap-focus="true" @close="onModalClosed">
+            <ok-edit-circle-modal :params="activeModalParams" v-if="activeModalParams"></ok-edit-circle-modal>
+        </b-modal>
         <b-modal :active.sync="confirmationModalOpen" :trap-focus="true" @close="onModalClosed">
             <ok-confirmation-modal :params="activeModalParams" v-if="activeModalParams"></ok-confirmation-modal>
         </b-modal>
@@ -207,6 +219,11 @@
     import OkCommunityBannedUsersSettingsModal from '~/pages/home/components/modals/components/community-settings/OkCommunityBannedUsersSettingsModal.vue';
     import OkCommunityAddBannedUserModal from '~/pages/home/components/modals/components/community-settings/OkCommunityAddBannedUserModal.vue';
 
+    import OkCirclesModal from '~/pages/home/components/modals/components/circles/OkCirclesModal.vue';
+    import OkCreateCircleModal from '~/pages/home/components/modals/components/circles/OkCreateCircleModal.vue';
+    import OkCircleDetailsModal from '~/pages/home/components/modals/components/circles/OkCircleDetailsModal.vue';
+    import OkEditCircleModal from '~/pages/home/components/modals/components/circles/OkEditCircleModal.vue';
+
     import OkConfirmationModal from '~/pages/home/components/modals/components/OkConfirmationModal.vue';
 
     @Component({
@@ -244,6 +261,10 @@
             OkCommunityAddModeratorModal,
             OkCommunityBannedUsersSettingsModal,
             OkCommunityAddBannedUserModal,
+            OkCirclesModal,
+            OkCreateCircleModal,
+            OkCircleDetailsModal,
+            OkEditCircleModal,
             OkConfirmationModal,
         },
         subscriptions: function () {
@@ -295,6 +316,10 @@
         communityAddModeratorModalOpen: boolean = false;
         communityBansSettingsModalOpen: boolean = false;
         communityAddBannedUserModalOpen: boolean = false;
+        circlesModalOpen: boolean = false;
+        createCircleModalOpen: boolean = false;
+        circleDetailsModalOpen: boolean = false;
+        editCircleModalOpen: boolean = false;
         confirmationModalOpen: boolean = false;
 
         private modalService: IModalService = okunaContainer.get<IModalService>(TYPES.ModalService);
@@ -362,6 +387,10 @@
             this.communityAddModeratorModalOpen = activeModalValue === ModalType.communityAddModerator;
             this.communityBansSettingsModalOpen = activeModalValue === ModalType.communityBansSettings;
             this.communityAddBannedUserModalOpen = activeModalValue === ModalType.communityAddBannedUser;
+            this.circlesModalOpen = activeModalValue === ModalType.circlesModal;
+            this.createCircleModalOpen = activeModalValue === ModalType.createCircleModal;
+            this.circleDetailsModalOpen = activeModalValue === ModalType.circleDetailsModal;
+            this.editCircleModalOpen = activeModalValue === ModalType.editCircleModal;
             this.confirmationModalOpen = activeModalValue === ModalType.confirmationModal;
         }
     }
