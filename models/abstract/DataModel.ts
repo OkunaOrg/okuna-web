@@ -34,6 +34,10 @@ export abstract class DataModel<T extends DataModel<T>> implements IDataModel<T>
             } else {
                 const valueAlreadyExists = !!this[dataMap.attributeKey];
                 if (valueAlreadyExists && typeof dataKeyValue === 'undefined') return;
+                if (valueAlreadyExists && dataKeyValue === null) {
+                    this[dataMap.attributeKey] = dataKeyValue;
+                    return;
+                }
 
                 if (typeof dataMap.defaultValue !== 'undefined') {
                     this[dataMap.attributeKey] = dataMap.defaultValue;
