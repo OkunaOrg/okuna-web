@@ -5,9 +5,20 @@
         </figure>
         <div class="media-content has-z-index-1" :class="mediaExtraClasses" @click="onTileClick">
             <div class="has-text-overflow-ellipsis">
-                <span class="ok-has-text-primary-invert has-text-weight-bold">
-                    {{user.username}}
-                </span>
+                <div class="is-flex align-center">
+                    <span class="ok-has-text-primary-invert has-text-weight-bold">
+                        {{user.username}}
+                    </span>
+
+                    <div v-if="user.profile.badges" class="is-flex align-center align-items-center">
+                        <ok-user-badge
+                            v-for="badge in user.profile.badges"
+                            :key="badge.keyword"
+                            :badge="badge"
+                            :size="OkUserBadgeSize.small"
+                        ></ok-user-badge>
+                    </div>
+                </div>
             </div>
             <div class="has-text-overflow-ellipsis">
                 <span class="ok-has-text-primary-invert-80">
@@ -24,6 +35,8 @@
 <script lang="ts">
     import { Component, Prop, Vue, Watch } from "nuxt-property-decorator"
     import OkUserAvatar from "../avatars/user-avatar/OkUserAvatar.vue";
+    import OkUserBadge from "~/components/user-badges/OkUserBadge.vue";
+    import { OkUserBadgeSize } from "~/components/user-badges/lib/OkUserBadgeSize";
     import { IUser } from '~/models/auth/user/IUser';
     import { INavigationService } from "~/services/navigation/INavigationService";
     import { okunaContainer } from "~/services/inversify";
@@ -31,7 +44,7 @@
 
     @Component({
         name: "OkUserTile",
-        components: {OkUserAvatar},
+        components: {OkUserAvatar, OkUserBadge},
     })
     export default class OkUserTile extends Vue {
         @Prop({
@@ -45,6 +58,8 @@
         }) readonly clickable: boolean;
 
         private navigationService: INavigationService = okunaContainer.get<INavigationService>(TYPES.NavigationService);
+
+        OkUserBadgeSize = OkUserBadgeSize;
 
         get mediaExtraClasses() {
             return this.clickable ? 'has-cursor-pointer' : '';

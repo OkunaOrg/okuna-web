@@ -236,3 +236,5 @@ Vue.component('ok-circle-name-icon', TextShort);
 Vue.component('ok-circle-color-icon', Palette);
 
 Vue.component('ok-arrow-expand-icon', ArrowExpand);
+
+Vue.component('ok-badge-icon', CheckIcon);
