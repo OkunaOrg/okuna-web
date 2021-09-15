@@ -39,7 +39,20 @@
             </div>
             <div v-else>
                 <ok-user-hover-card :username="post.creator.username">
-                    <p class="title is-6 ok-has-text-primary-invert">{{post.creator.profile.name}}</p>
+                    <div class="title is-6 ok-has-text-primary-invert">
+                        <div class="is-flex align-center">
+                            <div>{{post.creator.profile.name}}</div>
+
+                            <div v-if="post.creator.profile.badges" class="is-flex align-center align-items-center">
+                                <ok-user-badge
+                                    v-for="badge in post.creator.profile.badges"
+                                    :key="badge.keyword"
+                                    :badge="badge"
+                                    :size="OkUserBadgeSize.small"
+                                ></ok-user-badge>
+                            </div>
+                        </div>
+                    </div>
                         <p class="subtitle is-7 ok-has-text-primary-invert-80">
                                 <span class="has-text-weight-bold">
                                     @{{post.creator.username}}
@@ -69,15 +82,24 @@
     import OkCommunityAvatar from '~/components/avatars/community-avatar/OkCommunityAvatar.vue';
     import OkUserHoverCard from '~/components/hover-cards/user-hover-card/OkUserHoverCard.vue';
     import OkCommunityHoverCard from '~/components/hover-cards/community-hover-card/OkCommunityHoverCard.vue';
+    import OkUserBadge from '~/components/user-badges/OkUserBadge.vue';
+    import { OkUserBadgeSize } from '~/components/user-badges/lib/OkUserBadgeSize';
 
     @Component({
         name: "OkPostHeaderProfileContent",
-        components: {OkCommunityAvatar, OkUserAvatar, OkUserHoverCard, OkCommunityHoverCard},
+        components: {
+            OkCommunityAvatar,
+            OkUserAvatar,
+            OkUserHoverCard,
+            OkCommunityHoverCard,
+            OkUserBadge
+        },
     })
     export default class extends Vue {
         @Prop(Object) readonly post: IPost;
 
         OkAvatarSize = OkAvatarSize;
+        OkUserBadgeSize = OkUserBadgeSize;
 
         mounted() {
         }
