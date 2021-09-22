@@ -1,19 +1,12 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <ok-user-more-actions :user="params.user" class="ok-user-actions-modal"
+        <ok-user-more-actions :user="params.user" class="ok-actions-modal"
                               @onDisconnectedFromUser="onDisconnectedFromUser"
                               @onConnectionConfirmed="onConnectionConfirmed"
                               @onUserIsBlockedChange="onUserIsBlockedChange"
                               :on-user-reported="params.onUserReported"></ok-user-more-actions>
     </div>
 </template>
-
-<style lang="scss">
-    .ok-user-actions-modal {
-        max-width: 350px;
-        width: 100%;
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"

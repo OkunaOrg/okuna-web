@@ -1,18 +1,11 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <ok-post-comment-more-actions :post-comment="params.postComment" :post="params.post"
-                                      class="ok-post-comment-actions-modal"
+                                      class="ok-actions-modal"
                                       @onPostCommentDeleted="onPostCommentDeleted"
                                       :on-post-comment-reported="params.onPostCommentReported"></ok-post-comment-more-actions>
     </div>
 </template>
-
-<style lang="scss">
-    .ok-post-comment-actions-modal {
-        max-width: 350px;
-        width: 100%;
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"

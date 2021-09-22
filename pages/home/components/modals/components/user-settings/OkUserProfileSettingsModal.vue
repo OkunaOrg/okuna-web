@@ -1,22 +1,12 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <ok-user-profile-settings
-            class="ok-user-profile-settings-modal"
+            class="ok-wide-modal"
             :images="params && params.images"
             @onSaveComplete="onSaveComplete"
         />
     </div>
 </template>
-
-<style lang="scss" scoped>
-    .ok-user-profile-settings-modal {
-        width: 540px;
-
-        @media only screen and ( max-width: 540px ) {
-            width: auto;
-        }
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';

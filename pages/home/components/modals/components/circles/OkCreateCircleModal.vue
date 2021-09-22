@@ -1,7 +1,7 @@
 <template>
     <div class="is-flex justify-center align-items-center">
         <ok-circle-details-form
-            class="ok-create-circle-modal"
+            class="ok-generic-modal"
             :modalTitle="$t('manage_circles.create_circle.title')"
             :requestInProgress="requestInProgress"
             @submit="handleSubmit"
@@ -9,16 +9,6 @@
         />
     </div>
 </template>
-
-<style lang="scss" scoped>
-    .ok-create-circle-modal {
-        width: 460px;
-
-        @media only screen and ( max-width: 460px ) {
-            width: 95vw;
-        }
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';

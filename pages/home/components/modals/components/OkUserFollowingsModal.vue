@@ -1,18 +1,8 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <ok-user-followings class="ok-user-followings-modal" />
+        <ok-user-followings class="ok-generic-modal" />
     </div>
 </template>
-
-<style lang="scss" scoped>
-    .ok-user-followings-modal {
-        width: 460px;
-
-        @media only screen and ( max-width: 460px ) {
-            width: 95vw;
-        }
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';

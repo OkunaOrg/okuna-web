@@ -1,18 +1,8 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <ok-circles class="ok-circles-modal"></ok-circles>
+        <ok-circles class="ok-generic-modal"></ok-circles>
     </div>
 </template>
-
-<style lang="scss" scoped>
-    .ok-circles-modal {
-        width: 460px;
-
-        @media only screen and ( max-width: 460px ) {
-            width: 95vw;
-        }
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';
