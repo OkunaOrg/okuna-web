@@ -3,8 +3,38 @@
   min-height: 100vh;
   flex-direction: column;
 
-
   &-content {
     flex: 1;
   }
+}
+
+$ok-generic-modal-size: 460px;
+$ok-wide-modal-size: 540px;
+
+.ok-generic-modal {
+  width: $ok-generic-modal-size;
+
+  @media only screen and ( max-width: $ok-generic-modal-size ) {
+    width: 95vw;
+  }
+}
+
+.ok-wide-modal {
+  width: $ok-wide-modal-size;
+
+  @media only screen and ( max-width: $ok-wide-modal-size ) {
+    width: auto;
+  }
+}
+
+.ok-actions-modal {
+  min-width: 350px;
+  width: 100%;
+}
+
+.ok-legal-modal {
+  overflow-x: auto;
+  max-height: 700px;
+  max-width: 900px;
+  width: 100%;
 }

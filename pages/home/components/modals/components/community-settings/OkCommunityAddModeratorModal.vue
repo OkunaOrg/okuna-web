@@ -1,18 +1,8 @@
 <template>
     <div class="is-flex justify-center align-items-center">
-        <ok-community-add-moderator class="ok-community-add-moderator-modal" :community="params.community" />
+        <ok-community-add-moderator class="ok-generic-modal" :community="params.community" />
     </div>
 </template>
-
-<style lang="scss" scoped>
-    .ok-community-add-moderator-modal {
-        width: 460px;
-
-        @media only screen and ( max-width: 460px ) {
-            width: 95vw;
-        }
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';

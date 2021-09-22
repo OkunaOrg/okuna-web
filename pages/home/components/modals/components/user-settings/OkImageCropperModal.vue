@@ -1,5 +1,5 @@
 <template>
-    <div class="is-flex justify-center align-items-center ok-image-cropper-modal">
+    <div class="is-flex justify-center align-items-center ok-wide-modal">
         <ok-image-cropper
             v-if="params"
             class="ok-image-cropper"
@@ -13,16 +13,6 @@
         />
     </div>
 </template>
-
-<style lang="scss" scoped>
-    .ok-image-cropper-modal {
-        width: 540px;
-
-        @media only screen and ( max-width: 540px ) {
-            width: auto;
-        }
-    }
-</style>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'nuxt-property-decorator';

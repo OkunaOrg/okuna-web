@@ -2,7 +2,7 @@
     <div class="is-flex justify-center align-items-center has-height-100-percent has-padding-20">
         <div class="ok-has-background-primary is-semi-rounded is-relative has-height-100-percent">
             <div
-                    class="box ok-has-background-primary-highlight is-paddingless ok-community-guidelines-modal has-height-100-percent-mobile"
+                    class="box ok-has-background-primary-highlight is-paddingless ok-legal-modal has-height-100-percent-mobile"
                     ref="modalBoxContainer">
                 <template v-if="!communityGuidelinesMd">
                     <ok-loading-indicator></ok-loading-indicator>
@@ -12,16 +12,6 @@
         </div>
     </div>
 </template>
-
-<style lang="scss">
-    .ok-community-guidelines-modal {
-        overflow-x: auto;
-        max-height: 700px;
-        max-width: 900px;
-        width: 100%;
-    }
-</style>
-
 
 <script lang="ts">
     import { Component, Prop, Vue } from "nuxt-property-decorator"
